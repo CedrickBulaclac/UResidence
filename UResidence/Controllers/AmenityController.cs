@@ -14,13 +14,16 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(FormCollection fc)
+        public ActionResult Reserve(FormCollection fc)
         {
+            string Desc = fc["Description"];
+            int Capa = Convert.ToInt32(fc["Capacity"]);
+            string ano = fc["AmenityNo"];
             Amenity am = new Amenity()
             {
-                Description = fc["Description"],
-            Capacity = Convert.ToInt32(fc["Capacity"]),
-            AmenityNo = fc["AmenityNo"]
+                Description =Desc ,
+              Capacity = Capa,
+            AmenityNo = ano
         };
             UResidence.AmenityController.Insert(am);         
             return View();
