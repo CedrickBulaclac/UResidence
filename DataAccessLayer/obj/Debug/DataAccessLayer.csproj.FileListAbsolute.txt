@@ -3,3 +3,8 @@ C:\Users\Martin\Documents\GitHub\UResidence\UResidence\DataAccessLayer\bin\Debug
 C:\Users\Martin\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 C:\Users\Martin\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\Martin\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
