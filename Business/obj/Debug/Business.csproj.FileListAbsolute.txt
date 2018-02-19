@@ -1,0 +1,8 @@
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\bin\Debug\Business.dll
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\bin\Debug\Business.pdb
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\bin\Debug\DataAccessLayer.dll
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\bin\Debug\DataAccessLayer.pdb
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\obj\Debug\Business.dll
+C:\Users\Martin\Documents\GitHub\UResidence\UResidence\Business\obj\Debug\Business.pdb
