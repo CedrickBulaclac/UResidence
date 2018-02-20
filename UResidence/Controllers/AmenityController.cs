@@ -8,6 +8,7 @@ namespace UResidence.Controllers
 {
     public class AmenityController : Controller
     {
+        bool status;
         // GET: Amenity
         public ActionResult Reserve()
         {
@@ -25,7 +26,17 @@ namespace UResidence.Controllers
               Capacity = Capa,
             AmenityNo = ano
         };
-            UResidence.AmenityController.Insert(am);         
+           
+           status= UResidence.AmenityController.Insert(am); 
+           if(status==true)
+            {
+                ViewBag.Message = true;
+            }
+           else
+            {
+                ViewBag.Message = false;
+            }
+          
             return View();
         }
 
