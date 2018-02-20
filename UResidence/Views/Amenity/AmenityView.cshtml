@@ -1,53 +1,70 @@
 ﻿@model UResidence.Amenity
 
 @{
-    ViewBag.Title = "AmenityView";
+                /**/
+
+                ViewBag.Title = "AmenityView";
 }
 
 <h2>AmenityView</h2>
+@using (Html.BeginForm("AmenityView", "Amenity", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <h4>Amenity</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <table border="1" class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AmenityNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Capacity)
+                    </th>
+                </tr>
+                @{int ctr = 0;
+                foreach (Amenity a in ViewBag.amenity)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => a.AmenityNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => a.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => a.Capacity)
+                            </td>
+                            <td>
+                                <input id="btnEdit" type="submit" value="Edit" class="btn" />
+                                <input id="btnDelete" type="submit" value="Delete" class="btn"/>
+                            </td>
 
-<div>
-    <h4>Amenity</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <table border="1">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Capacity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AmenityNo)
-                </th>
-            </tr>
-           
-         @foreach (Amenity a in ViewBag.amenity)
-         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => a.Description)
-                </td>
-                <td>
-                @Html.DisplayFor(model => a.Capacity)
-                </td>
-                <td>
-                @Html.DisplayFor(model => a.AmenityNo)
-                </td>
-                <td>
-                    <input id="btnEdit" type="submit" value="Edit" />
-                    <input id="btnDelete" type="submit" value="Delete" />
-                </td>
+                        </tr>
+                        </tbody>
+                    ctr++;
+                }
+                    }
+            </table>
 
-            </tr>
-         }
-        </table>
-           
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <div class="btn-link">
+        @Html.ActionLink("Add", "Reserve")
+    </div>
+    <script src="jquery.min.js"></script>
+    <script>
+        $('.table tbody').on('click', '.btn', function () {
+            var currow = $(this).closest('tr');
+            var col1 = currow.find('td:eq(0)').text();
+            alert(col1);
+        })
+      
+    </script>
+}

@@ -49,6 +49,7 @@ namespace UResidence.Controllers
             ViewBag.amenity= amenityList;
             return View();
         }
+       
       
     }
 }
