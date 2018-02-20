@@ -14,6 +14,7 @@ namespace UResidence.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Reserve(FormCollection fc)
         {
@@ -25,7 +26,7 @@ namespace UResidence.Controllers
                 Description =Desc ,
               Capacity = Capa,
             AmenityNo = ano
-        };
+         };
            
            status= UResidence.AmenityController.Insert(am); 
            if(status==true)
