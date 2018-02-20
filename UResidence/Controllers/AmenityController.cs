@@ -43,7 +43,7 @@ namespace UResidence.Controllers
 
         public ActionResult AmenityView(Amenity am)
         {
-            Amenity am1=new Amenity();
+           
             List<Amenity> amenityList = default(List<Amenity>);
            amenityList= UResidence.AmenityController.GetAll();
             ViewBag.amenity= amenityList;
