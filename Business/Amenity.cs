@@ -27,5 +27,6 @@ namespace UResidence
             this.Capacity = 0;
             this.AmenityNo = string.Empty;
         }
+     
     }
 }

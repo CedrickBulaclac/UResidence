@@ -1,0 +1,53 @@
+﻿@model UResidence.Amenity
+
+@{
+    ViewBag.Title = "AmenityView";
+}
+
+<h2>AmenityView</h2>
+
+<div>
+    <h4>Amenity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <table border="1">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Capacity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AmenityNo)
+                </th>
+            </tr>
+           
+         @foreach (Amenity a in ViewBag.amenity)
+         {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => a.Description)
+                </td>
+                <td>
+                @Html.DisplayFor(model => a.Capacity)
+                </td>
+                <td>
+                @Html.DisplayFor(model => a.AmenityNo)
+                </td>
+                <td>
+                    <input id="btnEdit" type="submit" value="Edit" />
+                    <input id="btnDelete" type="submit" value="Delete" />
+                </td>
+
+            </tr>
+         }
+        </table>
+           
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
