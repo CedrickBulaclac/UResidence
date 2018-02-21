@@ -10,46 +10,52 @@
 @using (Html.BeginForm("AmenityView", "Amenity", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div>
+    <div class="container">
         <h4>Amenity</h4>
         <hr />
         <dl class="dl-horizontal">
-            <table border="1" class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AmenityNo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Capacity)
-                    </th>
-                </tr>
-                @{int ctr = 0;
-                foreach (Amenity a in ViewBag.amenity)
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AmenityNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Capacity)
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+       
+              
+                @foreach (Amenity a in ViewBag.amenity)
                 {
                     <tbody>
                         <tr>
-                            <td>
+                            <td >
                                 @Html.DisplayFor(model => a.AmenityNo)
                             </td>
-                            <td>
+                            <td >
                                 @Html.DisplayFor(model => a.Description)
                             </td>
                             <td>
                                 @Html.DisplayFor(model => a.Capacity)
                             </td>
                             <td>
-                                <input id="btnEdit" type="submit" value="Edit" class="btn" />
-                                <input id="btnDelete" type="submit" value="Delete" class="btn"/>
+                                <a class="btn" href="#"><i class="glyphicon glyphicon-edit"></i> EDIT</a>
+                               <a href="@Url.Action("AmenityView","Amenity",new {id =Convert.ToInt32(a.AmenityNo)})"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
                             </td>
 
                         </tr>
                         </tbody>
-                    ctr++;
+                
                 }
-                    }
+                    
             </table>
 
 

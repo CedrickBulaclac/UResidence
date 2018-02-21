@@ -41,7 +41,7 @@ namespace UResidence.Controllers
             return View();
         }
 
-        public ActionResult AmenityView(Amenity am)
+        public ActionResult AmenityView()
         {
            
             List<Amenity> amenityList = default(List<Amenity>);
@@ -49,7 +49,23 @@ namespace UResidence.Controllers
             ViewBag.amenity= amenityList;
             return View();
         }
-       
-      
+     [HttpGet]
+        public ActionResult AmenityView(int? id)
+        {
+            Amenity am = new Amenity()
+            {
+                AmenityNo = id.ToString()
+            };           
+           status= UResidence.AmenityController.Delete(am);
+           if(status==true)
+            {
+                List<Amenity> amenityList = default(List<Amenity>);
+                amenityList = UResidence.AmenityController.GetAll();
+                ViewBag.amenity = amenityList;
+                return View();
+            }
+            return View();
+        }
+
     }
 }
