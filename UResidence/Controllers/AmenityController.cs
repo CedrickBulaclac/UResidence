@@ -23,49 +23,66 @@ namespace UResidence.Controllers
             string ano = fc["AmenityNo"];
             Amenity am = new Amenity()
             {
-                Description =Desc ,
-              Capacity = Capa,
-            AmenityNo = ano
-         };
-           
-           status= UResidence.AmenityController.Insert(am); 
-           if(status==true)
+                Description = Desc,
+                Capacity = Capa,
+                AmenityNo = ano
+            };
+
+            status = UResidence.AmenityController.Insert(am);
+            if (status == true)
             {
                 ViewBag.Message = true;
             }
-           else
+            else
             {
                 ViewBag.Message = false;
             }
-          
+
             return View();
         }
 
         public ActionResult AmenityView()
         {
-           
+
             List<Amenity> amenityList = default(List<Amenity>);
-           amenityList= UResidence.AmenityController.GetAll();
-            ViewBag.amenity= amenityList;
-            return View();
-        }
-     [HttpGet]
-        public ActionResult AmenityView(int? id)
-        {
-            Amenity am = new Amenity()
-            {
-                AmenityNo = id.ToString()
-            };           
-           status= UResidence.AmenityController.Delete(am);
-           if(status==true)
-            {
-                List<Amenity> amenityList = default(List<Amenity>);
-                amenityList = UResidence.AmenityController.GetAll();
-                ViewBag.amenity = amenityList;
-                return View();
-            }
+            amenityList = UResidence.AmenityController.GetAll();
+            ViewBag.amenity = amenityList;
             return View();
         }
 
+        public ActionResult Delete(int? id)
+        {
+
+            Amenity am = new Amenity()
+            {
+                AmenityNo = id.ToString()
+            };
+            status = UResidence.AmenityController.Delete(am);
+            if (status == true)
+            {
+                AmenityView();               
+            }
+            ViewBag.DeleteStatus = status;
+            return View("AmenityView");
+
+        }
+      
+       
+        [HttpPost]
+        public ActionResult Update(FormCollection fc)
+        {
+            string Desc = fc["Description"];
+            int Capa = Convert.ToInt32(fc["Capacity"]);
+            string ano = fc["AmenityNo"];
+            Amenity am = new Amenity()
+            {
+                Description = Desc,
+                Capacity = Capa,
+                AmenityNo = ano
+            };
+            status = UResidence.AmenityController.Update(am);
+            ViewBag.UpdateMessage = status;
+            return View("AmenotyView");
+        }
     }
 }
