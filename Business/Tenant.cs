@@ -16,7 +16,7 @@ namespace UResidence
         public string Fname { get; set; }
         public string Mname { get; set; }
         public string Lname { get; set; }
-        public int Gender { get; set; }
+        public string Gender { get; set; } 
         public int Age { get; set; }
         public string TelNo { get; set; }
         public string CelNo { get; set; }
@@ -36,8 +36,7 @@ namespace UResidence
             this.Fname = string.Empty;
             this.Mname = string.Empty;
             this.Lname = string.Empty;
-
-            this.Gender = 0;
+            this.Gender = string.Empty;
             this.Age = 0;
             this.TelNo = string.Empty;
             this.CelNo = string.Empty;
@@ -60,8 +59,7 @@ namespace UResidence
             ret.Fname = reader.GetString(4);
             ret.Mname = reader.GetString(5);
             ret.Lname = reader.GetString(6);
-
-            ret.Gender = reader.GetInt32(7);
+            ret.Gender = reader.GetString(7);
             ret.Age = reader.GetInt32(8);
             ret.TelNo = reader.GetString(9);
             ret.CelNo = reader.GetString(10);

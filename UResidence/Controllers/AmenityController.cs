@@ -47,6 +47,7 @@ namespace UResidence.Controllers
             List<Amenity> amenityList = default(List<Amenity>);
             amenityList = UResidence.AmenityController.GetAll();
             ViewBag.amenity = amenityList;
+            
             return View();
         }
 
@@ -79,7 +80,7 @@ namespace UResidence.Controllers
                 List<Amenity> amenityList = default( List<Amenity>);
                 amenityList = UResidence.AmenityController.GetbyAmenityNo(id.ToString());            
                 ViewBag.updateList = amenityList;
-                return View();
+               
             }
             return View("AmenitView");
         }
