@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-    class Tenant : BaseProperty<Tenant>
+     public class Tenant : BaseProperty<Tenant>
     {
         public int Id { get; set; }
         public string UnitNo { get; set; }
