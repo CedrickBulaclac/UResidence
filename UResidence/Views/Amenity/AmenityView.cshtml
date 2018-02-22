@@ -1,175 +1,219 @@
 ﻿@model UResidence.Amenity
 
 @{
-    /**/
+	/**/
 
-    ViewBag.Title = "AmenityView";
+	ViewBag.Title = "AmenityView";
 }
 
-<h2>AmenityView</h2>
+<h2>Amenity</h2>
+<hr />
+<div class="btn btn-default glyphicon-pencil" >
+@Html.ActionLink("ADD", "Reserve")
+</div>
 @using (Html.BeginForm("AmenityView", "Amenity", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+	@Html.AntiForgeryToken()
+	<hr />
+	<div class="dl-horizontal">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>
+						@Html.DisplayNameFor(model => model.AmenityNo)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Description)
+					</th>
+					<th>
+						@Html.DisplayNameFor(model => model.Capacity)
+					</th>
+					<th>
+						Actions
+					</th>
+				</tr>
+			</thead>
 
-    <h4>Amenity</h4>
-    <hr />
-    <div class="dl-horizontal">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AmenityNo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Capacity)
-                    </th>
-                    <th>
-                        Actions
-                    </th>
-                </tr>
-            </thead>
+			@if (ViewBag.amenity != null)
+			{
+				foreach (Amenity a in ViewBag.amenity)
+				{
 
-            @if (ViewBag.amenity != null)
-            {
-                foreach (Amenity a in ViewBag.amenity)
-                {
+					<tbody>
+						<tr>
+							<td>
+								@Html.DisplayFor(model => a.AmenityNo)
+							</td>
+							<td>
+								@Html.DisplayFor(model => a.Description)
+							</td>
+							<td>
+								@Html.DisplayFor(model => a.Capacity)
+							</td>
+							<td>
+								<a class="btn btn-link" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.AmenityNo) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+								<a class="btn" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.AmenityNo) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+							</td>
 
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => a.AmenityNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => a.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => a.Capacity)
-                            </td>
-                            <td>
-                                <a class="btn btn-link" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.AmenityNo) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-                                <a class="btn" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.AmenityNo) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
-                            </td>
+						</tr>
+					</tbody>
+				}
+			}
 
-                        </tr>
-                    </tbody>
-                }
-            }
-
-        </table>
+		</table>
 
 
-    </div>
-
-    <div class="btn-link">
-        @Html.ActionLink("Add", "Reserve")
-    </div>
-    <div class="modal fade" id="AddModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add New Amenity</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="addForm" method="post" action="~/Views/Amenity/AmenityView.cshtml">
-                        <fieldset id="SubmitForm">
-                            <div class="form-group">
-                                @Html.TextBoxFor(model => model.AmenityNo, new { @id = "AmenityNo", @name = "AmenityNo", @class = "form-control", @placeholder = "Amenity No" })
-                            </div>
-                            <div class="form-group">
-                                @Html.TextBoxFor(model => model.Description, new { @id = "Description", @name = "Description", @class = "form-control", @placeholder = "Description", @required = "required" })
-                            </div>
-                            <div class="form-group">
-                                @Html.TextBoxFor(model => model.Capacity, new { @id = "Capacity", @name = "Capacity", @class = "form-control", @placeholder = "Capacity", @required = "required" })
-                            </div>
-                            <div class="form-group">
-                                <button id="btnSaved" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Save</button>
-                            </div>
-
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
+	</div>
 
 
-    </div>
-    <div id="aerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem deleting the Amenity
-    </div>
-    <div id="asuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully deleted the Amenity
-    </div>
-    if (ViewBag.DeleteStatus != null)
-    {
-        if (ViewBag.DeleteStatus == true)
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
+	<div class="modal fade" id="AddModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add New Amenity</h4>
+				</div>
+				<div class="modal-body">
+					<form id="addForm" method="post" action="~/Views/Amenity/AmenityView.cshtml">
+						<fieldset id="SubmitForm">
+							<div class="form-group">
+								@Html.TextBoxFor(model => model.AmenityNo, new { @id = "AmenityNo", @name = "AmenityNo", @class = "form-control", @placeholder = "Amenity No" })
+							</div>
+							<div class="form-group">
+								@Html.TextBoxFor(model => model.Description, new { @id = "Description", @name = "Description", @class = "form-control", @placeholder = "Description", @required = "required" })
+							</div>
+							<div class="form-group">
+								@Html.TextBoxFor(model => model.Capacity, new { @id = "Capacity", @name = "Capacity", @class = "form-control", @placeholder = "Capacity", @required = "required" })
+							</div>
+							<div class="form-group">
+								<button id="btnSaved" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Save</button>
+							</div>
 
-                    $('#asuccess').show('fade');
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
 
-                    setTimeout(function () {
-                        $('#asuccess').hide('fade');
-                    }, 2000);
+	</div>
+	<div id="auerror" class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong> There is a problem updating the Amenity
+	</div>
+	<div id="ausuccess" class="alert alert-success collapse">
+		<strong>Success!</strong> You have successfully updated the Amenity
+	</div>
 
+	<div id="aerror" class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong> There is a problem deleting the Amenity
+	</div>
+	<div id="asuccess" class="alert alert-success collapse">
+		<strong>Success!</strong> You have successfully deleted the Amenity
+	</div>
+	if (ViewBag.DeleteStatus != null)
+	{
+		if (ViewBag.DeleteStatus == true)
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
 
-                });
-            </script>
-        }
+					$('#asuccess').show('fade');
 
-        else
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-
-                    $('#aerror').show('fade');
-
-                    setTimeout(function () {
-                        $('#aerror').hide('fade');
-                    }, 2000);
-
-
-                });
-            </script>
-        }
-    }
-
-
-
-
-    <script src="jquery.min.js"></script>
-    <script>
-        $('.table tbody').on('click', '.btn', function () {
-            var currow = $(this).closest('tr');
-            var col1 = currow.find('td:eq(0)').text();
-            alert(col1);
-        })
-
-        $(document).rea(function () {
-            $("EditModal").dialog({
-                modal: true;
-            });
-        })
+					setTimeout(function () {
+						$('#asuccess').hide('fade');
+					}, 2000);
 
 
-        $("#btnEdit").click(function () {
+				});
+			</script>
+		}
 
-            $("#Edit").html("Edit Amenity");
-            $("#EditModal").modal();
-            $("#EditModal input[name=AmenityNo]").val("1");
-            $("#EditModal input[name=Description]").val("Basketball Court");
-            $("#EditModal input[name=Capacity]").val("50");
+		else
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
 
-        });
-    </script>
+					$('#aerror').show('fade');
+
+					setTimeout(function () {
+						$('#aerror').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+	}
+	if (ViewBag.UpdateMessage != null)
+	{
+		if (ViewBag.UpdateMessage == true)
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#ausuccess').show('fade');
+
+					setTimeout(function () {
+						$('#ausuccess').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+
+		else
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#auerror').show('fade');
+
+					setTimeout(function () {
+						$('#auerror').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+	}
+
+
+
+	<script src="jquery.min.js"></script>
+	<script>
+		$('.table tbody').on('click', '.btn', function () {
+			var currow = $(this).closest('tr');
+			var col1 = currow.find('td:eq(0)').text();
+			alert(col1);
+		})
+
+		$(document).rea(function () {
+			$("EditModal").dialog({
+				modal: true;
+			});
+		})
+
+
+		$("#btnEdit").click(function () {
+
+			$("#Edit").html("Edit Amenity");
+			$("#EditModal").modal();
+			$("#EditModal input[name=AmenityNo]").val("1");
+			$("#EditModal input[name=Description]").val("Basketball Court");
+			$("#EditModal input[name=Capacity]").val("50");
+
+		});
+	</script>
 
 } 

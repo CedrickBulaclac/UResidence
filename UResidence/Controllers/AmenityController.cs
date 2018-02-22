@@ -49,7 +49,8 @@ namespace UResidence.Controllers
             ViewBag.amenity = amenityList;
             return View();
         }
-      
+
+       
         public ActionResult Delete(int? id)
         {
 
@@ -83,7 +84,7 @@ namespace UResidence.Controllers
             return View("AmenitView");
         }
         [HttpPost]
-        public ActionResult Update(FormCollection fc)
+        public ActionResult AmenityEdit(FormCollection fc)
         {
             string Desc = fc["Description"];
             int Capa = Convert.ToInt32(fc["Capacity"]);
@@ -95,8 +96,12 @@ namespace UResidence.Controllers
                 AmenityNo = ano
             };
             status = UResidence.AmenityController.Update(am);
+            if(status==true)
+            {
+                AmenityView();
+            }
             ViewBag.UpdateMessage = status;
-            return View("AmenotyView");
+            return View("AmenityView");
         }
     }
 }
