@@ -193,6 +193,8 @@
     <Content Include="Views\Amenity\AmenityView.cshtml" />
     <Content Include="Views\Equipment\Registration.cshtml" />
     <Content Include="Views\Amenity\AmenityEdit.cshtml" />
+    <Content Include="Views\Equipment\EquipmentView.cshtml" />
+    <Content Include="Views\Equipment\EquipmentEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

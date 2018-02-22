@@ -31,7 +31,7 @@ namespace UResidence
             return ret;
         }
 
-        public static Equipment Get(int eno)
+        public static Equipment GetbyEquipmentNo(string eno)
         {
             const string GET_RECORD = @"SELECT Name,Stocks,Rate,EquipmentNo FROM [tbEquipment] order by EquipmentNo WHERE EquipmentNo = @EquipmentNo";
 
@@ -62,7 +62,7 @@ namespace UResidence
             const string GET_DELETE = @"delete [tbEquipment] WHERE EquipmentNo = @EquipmentNo";
 
             SqlCommand com = new SqlCommand(GET_DELETE);
-            com.Parameters.Add(new SqlParameter("@Id", eqp.EquipmentNo));
+            com.Parameters.Add(new SqlParameter("@EquipmentNo", eqp.EquipmentNo));
 
             return SqlManager.ExecuteNonQuery(com);
         }

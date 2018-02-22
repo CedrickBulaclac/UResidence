@@ -18,10 +18,10 @@ namespace UResidence
         public Equipment CreateObject(SqlDataReader reader)
         {
             Equipment ret = new Equipment();
-            ret.Name = reader.GetString(1);
-            ret.Stocks = reader.GetInt32(2);
-            ret.Rate = reader.GetInt32(3);
-            ret.EquipmentNo = reader.GetString(4);
+            ret.Name = reader.GetString(0);
+            ret.Stocks = reader.GetInt32(1);
+            ret.Rate = reader.GetInt32(2);
+            ret.EquipmentNo = reader.GetString(3);
             return ret;
         }
 

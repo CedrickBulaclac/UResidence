@@ -1,0 +1,223 @@
+﻿@model UResidence.Equipment
+
+@{
+	/**/
+
+	ViewBag.Title = "EquipmentView";
+}
+
+
+<div>
+	<h4>Equipment</h4>
+	<hr />
+	<div class="btn btn-default glyphicon-pencil">
+		@Html.ActionLink("ADD", "Registration")
+	</div>
+	@using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
+	{
+		@Html.AntiForgeryToken()
+		<hr />
+		<div class="dl-horizontal">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.EquipmentNo)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Stocks)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Rate)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							Actions
+						</th>
+					</tr>
+				</thead>
+
+				@if (ViewBag.equipment != null)
+				{
+					foreach (Equipment e in ViewBag.equipment)
+					{
+						<tbody>
+							<tr>
+								<td>
+									@Html.DisplayFor(model => e.EquipmentNo)
+
+								</td>
+								<td>
+									@Html.DisplayFor(model => e.Stocks)
+								</td>
+								<td>
+									@Html.DisplayFor(model => e.Rate)
+								</td>
+								<td>
+									@Html.DisplayFor(model => e.Name)
+								</td>
+								<td>
+									<a class="btn btn-link" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.EquipmentNo) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+									<a class="btn" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.EquipmentNo) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+
+								</td>
+							</tr>
+						</tbody>
+					}
+				}
+			</table>
+		</div>
+
+		<div class="modal fade" id="AddModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add New Equipment</h4>
+					</div>
+					<div class="modal-body">
+						<form id="addForm" method="post" action="~/Views/Equipment/EquipmentView.cshtml">
+							<fieldset id="SubmitForm">
+								<div class="form-group">
+									@Html.TextBoxFor(model => model.EquipmentNo, new { @eno = "EquipmentNo", @name = "EquipmentNo", @class = "form-control", @placeholder = "Amenity No" })
+								</div>
+								<div class="form-group">
+									@Html.TextBoxFor(model => model.Stocks, new { @eno = "Stocks", @name = "Stocks", @class = "form-control", @placeholder = "Description", @required = "required" })
+								</div>
+								<div class="form-group">
+									@Html.TextBoxFor(model => model.Rate, new { @eno = "Rate", @name = "Rate", @class = "form-control", @placeholder = "Capacity", @required = "required" })
+								</div>
+								<div class="form-group">
+									@Html.TextBoxFor(model => model.Name, new { @eno = "Name", @name = "Name", @class = "form-control", @placeholder = "Capacity", @required = "required" })
+								</div>
+								<div class="form-group">
+									<button id="btnSaved" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-saved"></i> Save</button>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div id="auerror" class="alert alert-danger collapse">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>Error!</strong> There is a problem updating the Equipment
+		</div>
+		<div id="ausuccess" class="alert alert-success collapse">
+			<strong>Success!</strong> You have successfully updated the Equipment
+		</div>
+
+		<div id="aerror" class="alert alert-danger collapse">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>Error!</strong> There is a problem deleting the Equipment
+		</div>
+		<div id="asuccess" class="alert alert-success collapse">
+			<strong>Success!</strong> You have successfully deleted the Equipment
+		</div>
+		if (ViewBag.DeleteStatus != null)
+		{
+			if (ViewBag.DeleteStatus == true)
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#asuccess').show('fade');
+
+						setTimeout(function () {
+							$('#asuccess').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+
+			else
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#aerror').show('fade');
+
+						setTimeout(function () {
+							$('#aerror').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+		}
+		if (ViewBag.UpdateMessage != null)
+		{
+			if (ViewBag.UpdateMessage == true)
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#ausuccess').show('fade');
+
+						setTimeout(function () {
+							$('#ausuccess').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+
+			else
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#auerror').show('fade');
+
+						setTimeout(function () {
+							$('#auerror').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+		}
+		<script src="jquery.min.js"></script>
+		<script>
+			$('.table tbody').on('click', '.btn', function () {
+				var currow = $(this).closest('tr');
+				var col1 = currow.find('td:eq(0)').text();
+				alert(col1);
+			})
+
+			$(document).rea(function () {
+				$("EditModal").dialog({
+					modal: true;
+				});
+			})
+
+
+			$("#btnEdit").click(function () {
+
+				$("#Edit").html("Edit Amenity");
+				$("#EditModal").modal();
+				$("#EditModal input[name=EquipmentNo]").val("1");
+				$("#EditModal input[name=Stocks]").val("50");
+				$("#EditModal input[name=Rate]").val("50");
+				$("#EditModal input[name=Name]").val("Chairs");
+			});
+		</script>
+
+	}

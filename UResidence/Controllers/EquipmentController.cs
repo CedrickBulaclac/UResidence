@@ -44,15 +44,69 @@ namespace UResidence.Controllers
             return View();
         }
 
-        /*public ActionResult AmenityView(Amenity am)
+        public ActionResult EquipmentView()
         {
-
-            List<Amenity> amenityList = default(List<Amenity>);
-            amenityList = UResidence.AmenityController.GetAll();
-            ViewBag.amenity = amenityList;
+            List<Equipment> equipmentList = default(List<Equipment>);
+            equipmentList = UResidence.EquipmentController.GetAll();
+            ViewBag.equipment = equipmentList;
             return View();
         }
-        */
+
+
+        public ActionResult Delete(int? eno)
+        {
+            Equipment eq = new Equipment
+            {
+                EquipmentNo = eno.ToString()
+            };
+            status = UResidence.EquipmentController.Delete(eq);
+            if(status == true)
+            {
+                EquipmentView();
+            }
+            ViewBag.DeleteStatus = true;
+            return View("EquipmentView");
+        }
+        
+        public ActionResult EquipmentEdit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult EquipmentEdit(int? eno)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Equipment> equipmentList = default(List<Equipment>);
+                equipmentList = UResidence.EquipmentController.GetAll();
+                ViewBag.equipment = equipmentList;
+                return View();
+            }
+            return View("EquipmentView");
+        }
+        [HttpPost]
+        public ActionResult EquipmentEdit(FormCollection fc)
+        {
+            string Name = fc["Name"];
+            int Stocks = Convert.ToInt32(fc["Stocks"]);
+            int Rate = Convert.ToInt32(fc["Rate"]);
+            string eno = fc["EquipmentNo"];
+            Equipment eq = new Equipment()
+            {
+                Name = Name,
+                Stocks = Stocks,
+                Rate = Rate,
+                EquipmentNo = eno
+            };
+            status = UResidence.EquipmentController.Update(eq);
+            if (status == true)
+            {
+                EquipmentView();
+            }
+            ViewBag.UpdateMessage = status;
+            return View("EquipmentView");
+        }
+
 
 
 
