@@ -188,7 +188,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Amenity\Reserve.cshtml" />
+    <Content Include="Views\Amenity\AmenityAdd.cshtml" />
     <Content Include="Views\Admin\Registration.cshtml" />
     <Content Include="Views\Amenity\AmenityView.cshtml" />
     <Content Include="Views\Equipment\Registration.cshtml" />

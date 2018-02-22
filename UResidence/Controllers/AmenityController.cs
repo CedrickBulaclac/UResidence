@@ -10,13 +10,13 @@ namespace UResidence.Controllers
     {
         bool status;
         // GET: Amenity
-        public ActionResult Reserve()
+        public ActionResult AmenityAdd()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Reserve(FormCollection fc)
+        public ActionResult AmenityAdd(FormCollection fc)
         {
             string Desc = fc["Description"];
             int Capa = Convert.ToInt32(fc["Capacity"]);

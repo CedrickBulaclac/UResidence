@@ -26,7 +26,7 @@ namespace UResidence.Controllers
              DateTime Bday =Convert.ToDateTime( fc["Bdate"]);
              string Cn = fc["CelNo"];
              string Tn = fc["TelNo"];
-             int Gen = Convert.ToInt32(fc["Gender"]);
+             char Gen = Convert.ToChar(fc["Gender"]);
              int Ag = Convert.ToInt32(fc["Age"]);
              string mail = fc["Email"];
 

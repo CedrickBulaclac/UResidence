@@ -16,7 +16,7 @@ namespace UResidence
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
         public string TelNo { get; set; }
-        public int Gender { get; set; }
+        public char Gender { get; set; }
         public int Age { get; set; }
         public string Email{ get; set; }
 
@@ -31,7 +31,7 @@ namespace UResidence
             ret.Bdate = reader.GetDateTime(5);
             ret.CelNo = reader.GetString(6);
             ret.TelNo = reader.GetString(7);
-            ret.Gender = reader.GetInt32(8);
+            ret.Gender = reader.GetChar(8);
             ret.Age = reader.GetInt32(9);
             ret.Email = reader.GetString(10);        
             return ret;
@@ -47,7 +47,7 @@ namespace UResidence
             this.Bdate = DateTime.Now;
             this.CelNo = string.Empty;
             this.TelNo = string.Empty;
-            this.Gender = 0;
+            this.Gender = 'm';
             this.Age = 0;
             this.Email = string.Empty;
         }
