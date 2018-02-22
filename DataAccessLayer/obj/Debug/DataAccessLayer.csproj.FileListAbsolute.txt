@@ -9,3 +9,4 @@ C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\
 C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
 C:\Users\Martin\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
