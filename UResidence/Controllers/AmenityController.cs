@@ -49,7 +49,7 @@ namespace UResidence.Controllers
             ViewBag.amenity = amenityList;
             return View();
         }
-
+      
         public ActionResult Delete(int? id)
         {
 
@@ -66,8 +66,22 @@ namespace UResidence.Controllers
             return View("AmenityView");
 
         }
-      
-       
+        public ActionResult AmenityEdit()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AmenityEdit(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Amenity> amenityList = default( List<Amenity>);
+                amenityList = UResidence.AmenityController.GetbyAmenityNo(id.ToString());            
+                ViewBag.updateList = amenityList;
+                return View();
+            }
+            return View("AmenitView");
+        }
         [HttpPost]
         public ActionResult Update(FormCollection fc)
         {

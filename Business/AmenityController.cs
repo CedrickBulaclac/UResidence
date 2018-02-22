@@ -30,16 +30,15 @@ namespace UResidence
 
             return ret;
         }
-
-        public static Amenity GetbyAmenityNo(string amp)
+        public static List<Amenity> GetbyAmenityNo(string amp)
         {
-            const string GET_RECORD = @"SELECT Description,Capacity,AmenityNo FROM [tbAmenity] order by AmenityNo WHERE AmenityNo = @AmenityNo";
-
-            Amenity ret = default(Amenity);
+            const string GET_RECORD = @"SELECT Description,Capacity,AmenityNo FROM [tbAmenity] WHERE AmenityNo = @AmenityNo";
+            List<Amenity> ret = default(List<Amenity>);
+           // Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@AmenityNo", amp));
-            ret = SqlManager.Select<Amenity>(com).First();
-
+            // ret = SqlManager.Select<Amenity>(com).First();
+            ret = SqlManager.Select<Amenity>(com);
             return ret;
         }
 
