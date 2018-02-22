@@ -44,17 +44,40 @@ namespace UResidence.Controllers
             return View();
         }
 
-        /*public ActionResult AmenityView(Amenity am)
+      public ActionResult EquipmentView()
         {
-
-            List<Amenity> amenityList = default(List<Amenity>);
-            amenityList = UResidence.AmenityController.GetAll();
-            ViewBag.amenity = amenityList;
+            List<Equipment> equipmentList = default(List<Equipment>);
+            equipmentList = UResidence.EquipmentController.GetAll();
+            ViewBag.equipment = equipmentList;
             return View();
         }
-        */
+
+        [HttpPost]
+        public ActionResult EquipmentView(int? eno)
+        {
+            Equipment eq = new Equipment
+            {
+                EquipmentNo = eno.ToString()
+            };
+
+            status = UResidence.EquipmentController.Delete(eq);
+                if (status == true)
+            {
+                List<Equipment> equipmentList = default(List<Equipment>);
+                equipmentList = UResidence.EquipmentController.GetAll();
+                ViewBag.equipment = equipmentList;
+            }
+            return View();
+        }
+
+
+        }
 
 
 
-    }
-}
+
+        }
+
+
+            
+

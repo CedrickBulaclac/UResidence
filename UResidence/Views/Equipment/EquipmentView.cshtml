@@ -1,0 +1,69 @@
+﻿@model UResidence.Equipment
+
+@{
+	ViewBag.Title = "EquipmentView";
+}
+
+<h2>EquipmentView</h2>
+@using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+<div class="container">
+	<h4>Equipment</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>@Html.DisplayNameFor(model => model.EquipmentNo)</th>
+
+					<th>@Html.DisplayNameFor(model => model.Name)</th>
+
+					<th>@Html.DisplayNameFor(model => model.Stocks)</th>
+
+					<th>@Html.DisplayNameFor(model => model.Rate)</th>
+
+
+
+					<th>Actions</th>
+				</tr>
+			</thead>
+
+
+			@foreach (Equipment e in ViewBag.equipment)
+			{
+			<tbody>
+				<tr>@Html.DisplayFor(model => model.EquipmentNo)</tr>
+
+				<tr>@Html.DisplayFor(model => model.Name)</tr>
+
+				<tr>@Html.DisplayFor(model => model.Stocks)</tr>
+
+				<tr>@Html.DisplayFor(model => model.Rate)</tr>
+
+
+
+				<tr>
+					<a class="btn" href="#"><i class="glyphicon glyphicon-edit"></i> EDIT</a>
+					<a href="@Url.Action("EquipmentVIew", "Equipment", new { eno = Convert.ToInt32(e.EquipmentNo) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+				</tr>
+			</tbody>
+
+			}
+		</table>
+
+	</dl>
+</div>
+<div class="btn-link">
+	@Html.ActionLink("Add", "Registration")
+</div>
+<script src="jquery.min.js"></script>
+<script>
+        $('.table tbody').on('click', '.btn', function () {
+            var currow = $(this).closest('tr');
+            var col1 = currow.find('td:eq(0)').text();
+            alert(col1);
+        })
+
+</script>
+}

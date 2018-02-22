@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -43,7 +43,6 @@ namespace UResidence.Controllers
 
         public ActionResult AmenityView()
         {
-           
             List<Amenity> amenityList = default(List<Amenity>);
            amenityList= UResidence.AmenityController.GetAll();
             ViewBag.amenity= amenityList;
