@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-    class TenantController
+    public class TenantController
     {
         public static List<Tenant> GetAll()
         {
@@ -18,18 +18,14 @@ namespace UResidence
             ret = SqlManager.Select<Tenant>(com);
             return ret;
         }
-
-    
-
-
-        public static Tenant GetIdTenant(int idTenant)
+        public static List<Tenant> GetIdTenant(int idTenant)
         {
-            const string GET_RECORD = @" Id,UnitNo,BldgNo,TenantNo,Fname,Mname,Lname,Gender,Age,TelNo,CelNo,Email,Citizenship,Status,LeaseStart,LeaseEnd FROM [tbTenant] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,TenantNo,Fname,Mname,Lname,Gender,Age,TelNo,CelNo,Email,Citizenship,Status,LeaseStart,LeaseEnd FROM [tbTenant] WHERE Id = @Id";
 
-            Tenant ret = default(Tenant);
+            List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", idTenant));
-            ret = SqlManager.Select<Tenant>(com).First();
+            ret = SqlManager.Select<Tenant>(com);
 
             return ret;
         }
@@ -75,7 +71,7 @@ namespace UResidence
         public static bool Insert(Tenant usr)
         {
 
-            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,TenantNo,Fname,Mname,Lname,Gender,Age,TelNo,CelNo,Email,Citizenship,Status,LeaseStart,LeaseEnd) values (@UnitNo,@BldgNo,@TenantNo,@Fname,@Mname,@Lname,@Gender,@Age,@TelNo,@CelNo,@Email,@Citizenship,@Status, getdate() , getdate())";
+            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,TenantNo,Fname,Mname,Lname,Gender,Age,TelNo,CelNo,Email,Citizenship,Status,LeaseStart,LeaseEnd) values (@UnitNo,@BldgNo,@TenantNo,@Fname,@Mname,@Lname,@Gender,@Age,@TelNo,@CelNo,@Email,@Citizenship,@Status, @LeaseStart, @LeaseEnd)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@UnitNo", usr.UnitNo));
@@ -90,9 +86,9 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
             com.Parameters.Add(new SqlParameter("@Citizenship", usr.Citizenship));
-            com.Parameters.Add(new SqlParameter("@Status", usr.CelNo));
-            com.Parameters.Add(new SqlParameter("@LeaseStart", usr.Email));
-            com.Parameters.Add(new SqlParameter("@LeaseEnd", usr.Citizenship));
+            com.Parameters.Add(new SqlParameter("@Status", usr.Status));
+            com.Parameters.Add(new SqlParameter("@LeaseStart", usr.LeaseStart));
+            com.Parameters.Add(new SqlParameter("@LeaseEnd", usr.LeaseEnd));
 
             return SqlManager.ExecuteNonQuery(com);
         }

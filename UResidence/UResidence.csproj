@@ -146,6 +146,7 @@
     <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,8 +194,14 @@
     <Content Include="Views\Amenity\AmenityView.cshtml" />
     <Content Include="Views\Equipment\Registration.cshtml" />
     <Content Include="Views\Amenity\AmenityEdit.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Equipment\EquipmentView.cshtml" />
     <Content Include="Views\Equipment\EquipmentEdit.cshtml" />
+=======
+    <Content Include="Views\Tenant\TenantAdd.cshtml" />
+    <Content Include="Views\Tenant\TenantView.cshtml" />
+    <Content Include="Views\Tenant\TenantEdit.cshtml" />
+>>>>>>> 4f459ed66a76acedf031706ef79c9a7cdbc51a81
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
