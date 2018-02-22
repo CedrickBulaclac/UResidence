@@ -62,5 +62,34 @@ namespace UResidence.Controllers
             return View();
         }
 
+
+        public ActionResult AdminView ()
+        {
+            List<Admin> adminlist = default(List<Admin>);
+            adminlist = UResidence.AdminController.GetAll();
+            ViewBag.admin = adminlist;
+            return View ();
+            
+        }
+        
+        [HttpGet]
+        public ActionResult AdminView (int? Adno)
+        {
+            Admin adm = new Admin
+            {
+                AdminNo = Adno.ToString()
+            };
+
+            status = UResidence.AdminController.Delete(adm);
+            if (status==true)
+            {
+                List<Admin> adminlist = default(List<Admin>);
+                adminlist = UResidence.AdminController.GetAll();
+                ViewBag.admin = adminlist;
+                
+
+            }
+            return View();
+        }
     }
 }

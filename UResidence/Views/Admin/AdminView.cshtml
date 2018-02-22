@@ -1,0 +1,75 @@
+﻿@model UResidence.Admin
+
+@{
+    ViewBag.Title = "AdminView";
+}
+
+<h2>AdminView</h2>
+
+@using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+        <h4>Admin</h4>
+        <div class="dl-horizontal">
+            <table class="table table-bordered">
+                <thead>
+
+                    <tr>
+
+                        <th>@Html.DisplayNameFor(model => model.AdminNo)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.Fname)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.Mname)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.Lname)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.Bdate)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.CelNo)</th>
+
+                        <th>@Html.DisplayNameFor(model => model.TelNo)</th>    
+
+                        <th>@Html.DisplayNameFor(model => model.Gender)</th> 
+
+                        <th>@Html.DisplayNameFor(model => model.Age)</th>
+
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+
+                        <th> Actions </th>
+                        </tr>
+                    </thead>
+
+
+
+                    @Html.DisplayFor(model => model.AdminNo)
+
+                    @Html.DisplayFor(model => model.Fname)
+
+                    @Html.DisplayFor(model => model.Mname)
+
+                    @Html.DisplayFor(model => model.Lname)
+
+                    @Html.DisplayFor(model => model.Bdate)
+
+                    @Html.DisplayFor(model => model.CelNo)
+
+                    @Html.DisplayFor(model => model.TelNo)
+
+                    @Html.DisplayFor(model => model.Gender)
+
+                    @Html.DisplayFor(model => model.Age)
+
+                    @Html.DisplayFor(model => model.Email)
+
+
+
+
+                </table>
+</div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
