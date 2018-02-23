@@ -10,6 +10,7 @@ namespace UResidence
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        //hala tuwang tuwa
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
