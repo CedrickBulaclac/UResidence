@@ -59,13 +59,14 @@ namespace UResidence.Controllers
             return View("AdminView");
        }
         [HttpGet]
-        public ActionResult AdminEdit(int? id)
+        public ActionResult AdminEdit(int id)
         {
             if (ModelState.IsValid)
             {
                 List<Admin> adminList = default(List<Admin>);
-                adminList = UResidence.AdminController.Get(id.ToString());
+                adminList = UResidence.AdminController.GetbyID(id);
                 ViewBag.updateList = adminList;
+                return View("AdminEdit");
 
             }
             return View();

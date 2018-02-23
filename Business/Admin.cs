@@ -53,6 +53,8 @@ namespace UResidence
             string mail = fc["Email"];
             if(!DateTime.TryParse(fc["Bdate"].Trim(),out Bday))
                 Bday = DateTime.Now;
+            if (!int.TryParse(fc["Age"].Trim(), out Age))
+                Age = 0;
 
             Admin ad = new Admin()
             {

@@ -49,8 +49,8 @@
                         <td>@Html.DisplayFor(model => a.Age)</td>
                         <td>@Html.DisplayFor(model => a.Email)</td>
                         <td>
-                            <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.AdminNo) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-                            <a class="btn btn-link" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.AdminNo) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+                            <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                            <a class="btn btn-link" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
                         </td>
                     </tr>
                 </tbody>
