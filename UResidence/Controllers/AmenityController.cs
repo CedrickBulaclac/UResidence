@@ -19,7 +19,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityAdd(FormCollection fc)
         {
-            NameValueCollection values = fc;
+            NameValueCollection values = (NameValueCollection)fc;
             Amenity amen = Amenity.CreateObject(values);
             if (amen.Validate() == true)
             {
@@ -84,7 +84,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityEdit(FormCollection fc)
         {
-            NameValueCollection values = fc;
+            NameValueCollection values =(NameValueCollection) fc;
             Amenity amen = Amenity.CreateObject(values);
             if (amen.Validate())
             {

@@ -20,7 +20,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(FormCollection fc)
         {
-            NameValueCollection values = new NameValueCollection();
+            NameValueCollection values = (NameValueCollection)fc;
             Equipment eq = Equipment.CreateObject(values);
             if (eq.Validate() == true)
             {

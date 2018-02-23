@@ -19,7 +19,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(FormCollection fc)
         {
-            NameValueCollection values = new NameValueCollection();
+            NameValueCollection values =(NameValueCollection)fc;
             Admin ad = Admin.CreateObject(values);
             if (ad.Validate() == true)
             {
@@ -34,9 +34,30 @@ namespace UResidence.Controllers
                     ViewBag.Message = false;
                 }
             }
-
             return View();
         }
+        public ActionResult AdminView()
+        {
+            List<Admin> adminList = default(List<Admin>);
+            adminList = UResidence.AdminController.GetAll();
+            ViewBag.amenity = adminList;
+            return View();
+        }
+        public ActionResult Delete(int? id)
+        {
 
+            Admin am = new Admin()
+            {
+                AdminNo = id.ToString()
+            };
+            status = UResidence.AdminController.Delete(am);
+            if (status == true)
+            {
+                AdminView();
+            }
+            ViewBag.DeleteStatus = status;
+            return View("AdminView");
+
+        }
     }
 }
