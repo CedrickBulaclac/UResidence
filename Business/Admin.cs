@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
 namespace UResidence
 {
     public class Admin : BaseProperty<Admin>
@@ -14,6 +15,7 @@ namespace UResidence
         public string Fname{ get; set; }
         public string Mname{ get; set; }
         public string Lname { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
         public string TelNo { get; set; }

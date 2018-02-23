@@ -10,6 +10,7 @@ namespace UResidence.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

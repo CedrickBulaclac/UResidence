@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-
+using System.ComponentModel.DataAnnotations;
 namespace UResidence
 {
      public class Tenant : BaseProperty<Tenant>
@@ -24,7 +24,9 @@ namespace UResidence
         public string Email { get; set; }
         public string Citizenship { get; set; }
         public string Status { get; set; }
+        [DataType(DataType.Date)]
         public DateTime LeaseStart { get; set; }
+        [DataType(DataType.Date)]
         public DateTime LeaseEnd { get; set; }
 
 
