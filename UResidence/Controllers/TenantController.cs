@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,35 +18,19 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantAdd(FormCollection fc)
         {
-            DateTime start = Convert.ToDateTime(fc["LeaseStart"]);
-            DateTime end = Convert.ToDateTime(fc["LeaseEnd"]);
-            string gender = fc["Gender"].ToString();
-            Tenant ten = new Tenant()
+            NameValueCollection values = (NameValueCollection)fc;
+            Tenant ten = Tenant.CreateObject(values);
+            if (ten.Validate())
             {
-                UnitNo = fc["UnitNo"],
-                BldgNo=fc["BldgNo"],
-               TenantNo=fc["TenantNo"],
-               Fname=fc["Fname"],
-               Mname=fc["Mname"],
-                Lname = fc["Lname"],
-                Gender =gender,
-                Age = Convert.ToInt32(fc["Age"]),
-                TelNo = fc["TelNo"],
-                CelNo = fc["CelNo"],
-                Email = fc["Email"],
-                Citizenship = fc["Citizenship"],
-                Status = fc["Status"],
-                LeaseStart =start ,
-                LeaseEnd = end
-            };
-            status = UResidence.TenantController.Insert(ten);
-            if(status==true)
-            {
-                ViewBag.AddMessage = status;
-            }
-           else
-            {
-                ViewBag.AddMessage = status;
+                status = UResidence.TenantController.Insert(ten);
+                if (status == true)
+                {
+                    ViewBag.AddMessage = status;
+                }
+                else
+                {
+                    ViewBag.AddMessage = status;
+                }
             }
             return View();
         }
@@ -54,8 +39,7 @@ namespace UResidence.Controllers
             List<Tenant> tenantList = default(List<Tenant>);
             tenantList=UResidence.TenantController.GetAll();
             ViewBag.tenant = tenantList;
-            return View();
-         
+            return View();      
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -94,38 +78,27 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantEdit(FormCollection fc)
         {
-            DateTime start = Convert.ToDateTime(fc["LeaseStart"]);
-            DateTime end = Convert.ToDateTime(fc["LeaseEnd"]);
-            string gender = fc["Gender"].ToString();
-            Tenant ten = new Tenant()
+            NameValueCollection values = (NameValueCollection)fc;
+            Tenant ten = Tenant.CreateObject(values);
+                if (ten.Validate())
             {
-                UnitNo = fc["UnitNo"],
-                BldgNo = fc["BldgNo"],
-                TenantNo = fc["TenantNo"],
-                Fname = fc["Fname"],
-                Mname = fc["Mname"],
-                Lname = fc["Lname"],
-                Gender = gender,
-                Age = Convert.ToInt32(fc["Age"]),
-                TelNo = fc["TelNo"],
-                CelNo = fc["CelNo"],
-                Email = fc["Email"],
-                Citizenship = fc["Citizenship"],
-                Status = fc["Status"],
-                LeaseStart = start,
-                LeaseEnd = end
-            };
-            status = UResidence.TenantController.Update(ten);
-            if(status==true)
-            {
-                TenantView();
-                ViewBag.UpdateMessage = status;
+                status = UResidence.TenantController.Update(ten);
+
+                if (status == true)
+                {
+                    TenantView();
+                    ViewBag.UpdateMessage = status;
+                }
+                else
+                {
+                    ViewBag.UpdateMessage = status;
+                }
+                return View("TenantView");
             }
             else
             {
-                ViewBag.UpdateMessage = status;
+                return View("TenantEdit");
             }
-            return View("TenantView");
         }
     }
 }

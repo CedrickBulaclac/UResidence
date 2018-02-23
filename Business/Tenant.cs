@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,62 @@ namespace UResidence
         public string Status { get; set; }
         public DateTime LeaseStart { get; set; }
         public DateTime LeaseEnd { get; set; }
-        
+
+
+        public bool Validate()
+        {
+            bool ret = true;
+
+            if (this.UnitNo.Trim() == string.Empty) ret = false;
+            if (this.BldgNo.Trim() == string.Empty) ret = false;
+            if (this.Lname.Trim() == string.Empty) ret = false;
+            if (this.Gender.Trim() == string.Empty) ret = false;
+            if (this.Email.Trim() == string.Empty) ret = false;
+            if (this.Citizenship.Trim() == string.Empty) ret = false;
+            if (this.LeaseStart == DateTime.Today) ret = false;
+            if (this.LeaseEnd == DateTime.Today) ret = false;
+
+            return ret;
+        }
+
+        public static Tenant CreateObject(NameValueCollection fc)
+        {
+            DateTime start = DateTime.Now; 
+            DateTime end = DateTime.Now;  
+            int age = 0;
+
+
+            if (!DateTime.TryParse(fc["LeaseStart"].Trim(), out start))
+                start = DateTime.Now;
+
+            if (!DateTime.TryParse(fc["LeaseEnd"].Trim(), out end))
+                end = DateTime.Now;
+
+            if (!Int32.TryParse(fc["Age"].Trim(), out age))
+                age = 0;
+
+            string gender = fc["Gender"].ToString();
+            Tenant ten = new Tenant()
+            {
+                UnitNo = fc["UnitNo"],
+                BldgNo = fc["BldgNo"],
+                TenantNo = fc["TenantNo"],
+                Fname = fc["Fname"],
+                Mname = fc["Mname"],
+                Lname = fc["Lname"],
+                Gender = gender,
+                Age = age,
+                TelNo = fc["TelNo"],
+                CelNo = fc["CelNo"],
+                Email = fc["Email"],
+                Citizenship = fc["Citizenship"],
+                Status = fc["Status"],
+                LeaseStart = start,
+                LeaseEnd = end
+            };
+
+            return ten;
+        }
 
         public void Reset()
         {

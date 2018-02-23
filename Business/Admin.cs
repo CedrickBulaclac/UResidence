@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,48 @@ namespace UResidence
             ret.Email = reader.GetString(10);        
             return ret;
         }
+        public static Admin CreateObject(NameValueCollection fc)
+        {
 
+            int Id =0;
+            string Adno = fc["AdminNo"];
+            string Fn = fc["Fname"];
+            string Mn = fc["Mname"];
+            string Ln = fc["Lname"];
+            DateTime Bday = DateTime.Now;
+            string Cn = fc["CelNo"];
+            string Tn = fc["TelNo"];
+            char Gen ='\0';
+            int Age = 0;
+            string mail = fc["Email"];
+            if(!DateTime.TryParse(fc["Bdate"].Trim(),out Bday))
+                Bday = DateTime.Now;
+            if (!Char.TryParse(fc["Gender"].Trim(), out Gen))
+                Gen = 'm';
+            Admin ad = new Admin()
+            {
+                Id = Id,
+                AdminNo = Adno,
+                Fname = Fn,
+                Mname = Mn,
+                Lname = Ln,
+                Bdate = Bday,
+                CelNo = Cn,
+                TelNo = Tn,
+                Gender =Gen,
+                Age = Age,
+                Email = mail
+
+            };
+            return ad;
+        }
+        public bool Validate()
+        {
+            bool ret = false;
+            if (this.AdminNo == string.Empty) ret = false;
+            if (this.Bdate ==DateTime.Now ) ret = false;
+            return false;
+        }
         public void Reset()
         {
             this.Id = 0;

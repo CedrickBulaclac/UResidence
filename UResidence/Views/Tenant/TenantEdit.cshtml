@@ -129,7 +129,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.LeaseStart, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @Value = t.LeaseStart } })
+                    @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @Value = t.LeaseStart, @Type = "calendar"} })
                     @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
                 </div>
             </div>

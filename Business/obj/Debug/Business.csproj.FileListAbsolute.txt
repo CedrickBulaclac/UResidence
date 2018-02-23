@@ -14,3 +14,11 @@ C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\Business\obj\Debug\Busines
 C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
 C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\Business\obj\Debug\Business.dll
 C:\Users\Cedrick Bulaclac\Documents\GitHub\UResidence\Business\obj\Debug\Business.pdb
+C:\Thesis\UResidence\Business\bin\Debug\Business.dll
+C:\Thesis\UResidence\Business\bin\Debug\Business.pdb
+C:\Thesis\UResidence\Business\bin\Debug\DataAccessLayer.dll
+C:\Thesis\UResidence\Business\bin\Debug\DataAccessLayer.pdb
+C:\Thesis\UResidence\Business\obj\Debug\Business.csprojResolveAssemblyReference.cache
+C:\Thesis\UResidence\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
+C:\Thesis\UResidence\Business\obj\Debug\Business.dll
+C:\Thesis\UResidence\Business\obj\Debug\Business.pdb

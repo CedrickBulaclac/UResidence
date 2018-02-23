@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,7 +21,28 @@ namespace UResidence
             ret.AmenityNo = reader.GetString(2);
             return ret;
         }
+        public bool Validate()
+        {
+            bool ret = false;
+            if (this.AmenityNo == string.Empty) ret = false;
+            if (this.Capacity >= 0) ret = true;
+            if (this.Description == string.Empty) ret = false;
+            return ret;
+        }
+        public static Amenity CreateObject(NameValueCollection fc)
+        {
+            int capacity = 0;
+            if (!int.TryParse(fc["Capacity"], out capacity))
+                capacity = 0;
+            Amenity ret = new Amenity()
+            {
+                Description=fc["Description"],
+                Capacity=capacity,
+                AmenityNo=fc["AmenityNo"]
 
+            };
+            return ret;
+        }
         public void Reset()
         {
             this.Description = string.Empty;

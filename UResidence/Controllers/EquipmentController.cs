@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,28 +20,20 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(FormCollection fc)
         {
-            string Name = fc["Name"];
-            int Stocks = Convert.ToInt32(fc["Stocks"]);
-            int Rate = Convert.ToInt32(fc["Rate"]);
-            string eno = fc["EquipmentNo"];
-            Equipment eq = new Equipment()
+            NameValueCollection values = new NameValueCollection();
+            Equipment eq = Equipment.CreateObject(values);
+            if (eq.Validate() == true)
             {
-                Name = Name,
-                Stocks = Stocks,
-                Rate = Rate,
-                 EquipmentNo = eno
-            };
-
-            status = UResidence.EquipmentController.Insert(eq);
-            if (status == true)
-            {
-                ViewBag.Message = true;
+                status = UResidence.EquipmentController.Insert(eq);
+                if (status == true)
+                {
+                    ViewBag.Message = true;
+                }
+                else
+                {
+                    ViewBag.Message = false;
+                }
             }
-            else
-            {
-                ViewBag.Message = false;
-            }
-
             return View();
         }
 
@@ -87,23 +80,17 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult EquipmentEdit(FormCollection fc)
         {
-            string Name = fc["Name"];
-            int Stocks = Convert.ToInt32(fc["Stocks"]);
-            int Rate = Convert.ToInt32(fc["Rate"]);
-            string eno = fc["EquipmentNo"];
-            Equipment eq = new Equipment()
+            NameValueCollection values = new NameValueCollection();
+            Equipment eq = Equipment.CreateObject(values);
+            if (eq.Validate() == true)
             {
-                Name = Name,
-                Stocks = Stocks,
-                Rate = Rate,
-                EquipmentNo = eno
-            };
-            status = UResidence.EquipmentController.Update(eq);
-            if (status == true)
-            {
-                EquipmentView();
+                status = UResidence.EquipmentController.Update(eq);
+                if (status == true)
+                {
+                    EquipmentView();
+                }
+                ViewBag.UpdateMessage = status;
             }
-            ViewBag.UpdateMessage = status;
             return View("EquipmentView");
         }
 

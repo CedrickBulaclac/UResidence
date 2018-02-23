@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,26 +19,21 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityAdd(FormCollection fc)
         {
-            string Desc = fc["Description"];
-            int Capa = Convert.ToInt32(fc["Capacity"]);
-            string ano = fc["AmenityNo"];
-            Amenity am = new Amenity()
+            NameValueCollection values = fc;
+            Amenity amen = Amenity.CreateObject(values);
+            if (amen.Validate() == true)
             {
-                Description = Desc,
-                Capacity = Capa,
-                AmenityNo = ano
-            };
-
-            status = UResidence.AmenityController.Insert(am);
-            if (status == true)
-            {
-                ViewBag.Message = true;
+                status = UResidence.AmenityController.Insert(amen);
+                if (status == true)
+                {
+                    ViewBag.Message = true;
+                }
+                else
+                {
+                    ViewBag.Message = false;
+                }
+               
             }
-            else
-            {
-                ViewBag.Message = false;
-            }
-
             return View();
         }
 
@@ -82,27 +78,25 @@ namespace UResidence.Controllers
                 ViewBag.updateList = amenityList;
                
             }
-            return View("AmenitView");
+            return View();
         }
+
         [HttpPost]
         public ActionResult AmenityEdit(FormCollection fc)
         {
-            string Desc = fc["Description"];
-            int Capa = Convert.ToInt32(fc["Capacity"]);
-            string ano = fc["AmenityNo"];
-            Amenity am = new Amenity()
+            NameValueCollection values = fc;
+            Amenity amen = Amenity.CreateObject(values);
+            if (amen.Validate())
             {
-                Description = Desc,
-                Capacity = Capa,
-                AmenityNo = ano
-            };
-            status = UResidence.AmenityController.Update(am);
-            if(status==true)
-            {
-                AmenityView();
+                status = UResidence.AmenityController.Update(amen);
+                if (status == true)
+                {
+                    AmenityView();
+                }
+                ViewBag.UpdateMessage = status;
+                return View("AmenityView");
             }
-            ViewBag.UpdateMessage = status;
-            return View("AmenityView");
+            return View();
         }
     }
 }

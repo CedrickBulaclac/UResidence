@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -24,8 +25,32 @@ namespace UResidence
             ret.EquipmentNo = reader.GetString(3);
             return ret;
         }
-
-        public void Reset()
+        public static Equipment CreateObject(NameValueCollection fc)
+        {
+            string Name = fc["Name"];
+            int Stocks = Convert.ToInt32(fc["Stocks"]);
+            int Rate = Convert.ToInt32(fc["Rate"]);
+            string eno = fc["EquipmentNo"];
+            Equipment eq = new Equipment()
+            {
+                Name = Name,
+                Stocks = Stocks,
+                Rate = Rate,
+                EquipmentNo = eno
+            };
+            return eq;
+        }
+        public bool Validate()
+        {
+            bool ret = false;
+            if (this.EquipmentNo == string.Empty) ret = false;
+            if (this.Name == string.Empty) ret = false;
+            if (this.Rate == 0) ret = false;
+            if (this.Stocks == 0) ret = false;
+            return ret;
+              
+        }
+            public void Reset()
         {
             this.Name = string.Empty;
             this.Stocks = 0;
