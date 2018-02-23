@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -22,9 +23,16 @@ namespace UResidence
         public string Email { get; set; }
         public string Citizenship { get; set; }
         public string Status { get; set; }
-        public int Gender { get; set; }
-        public int Age { get; set; }
+        public string Gender { get; set; }
+
+
+
+
        
+
+
+
+
         public Owner CreateObject(SqlDataReader reader)
         {
             Owner ret = new Owner();
@@ -41,10 +49,67 @@ namespace UResidence
             ret.Email = reader.GetString(10);
             ret.Citizenship = reader.GetString(11);
             ret.Status = reader.GetString(12);
-            ret.Gender = reader.GetInt32(13);
-            ret.Age = reader.GetInt32(14);
+            ret.Gender = reader.GetString(13);
             return ret;
         }
+
+
+        public bool Validate()
+        {
+            bool ret = true;
+
+            if (this.OwnerNo.Trim() == string.Empty) ret = false;
+            if (this.BldgNo.Trim() == string.Empty) ret = false;
+            if (this.UnitNo.Trim() == string.Empty) ret = false;
+            if (this.Fname.Trim() == string.Empty) ret = false;
+            if (this.Mname.Trim() == string.Empty) ret = false;
+            if (this.Lname.Trim() == string.Empty) ret = false;
+            if (this.Bdate == DateTime.Now) ret = false;
+            if (this.CelNo.Trim() == string.Empty) ret = false;
+            if (this.TelNo.Trim() == string.Empty) ret = false;
+            if (this.Email.Trim() == string.Empty) ret = false;
+            if (this.Citizenship.Trim() == string.Empty) ret = false;
+            if (this.Status == string.Empty) ret = false;
+            if (this.Gender.Trim () == string.Empty) ret = false;
+            return ret;
+        }
+
+
+
+        public static Owner CreateObject(NameValueCollection fc)
+        {
+            DateTime bdate = DateTime.Now;
+            //char gender = '\0';
+            string gender = (fc["Gender"].ToString());
+
+
+            if (!DateTime.TryParse(fc["Bdate"].Trim(), out bdate))
+                bdate = DateTime.Now;
+            //if (!char.TryParse(fc["Gender"].Trim(), out gender))
+              //  gender = '\0';
+
+
+
+            Owner ten = new Owner()
+            {
+                OwnerNo = fc["OwnerNo"],
+                BldgNo = fc["BldgNo"],
+                UnitNo = fc["UnitNo"],
+                Fname = fc["Fname"],
+                Mname = fc["Mname"],
+                Lname = fc["Lname"],
+                Bdate = bdate,
+                CelNo = fc["CelNo"],
+                TelNo = fc["TelNo"],
+                Email = fc["Email"],
+                Citizenship = fc["Citizenship"],
+                Status = fc["Status"],
+                Gender = gender
+            };
+
+            return ten;
+        }
+
 
         public void Reset()
         {
@@ -61,8 +126,7 @@ namespace UResidence
             this.Email = string.Empty;
             this.Citizenship = string.Empty;
             this.Status = string.Empty;
-            this.Gender = 0;
-            this.Age = 0;
+            this.Gender = string.Empty;
 
         }
     }
