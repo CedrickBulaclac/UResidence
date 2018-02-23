@@ -7,9 +7,10 @@
 }
 
 <h2>Amenity</h2>
-<hr />
-<div class="btn btn-default glyphicon-pencil" >
-@Html.ActionLink("ADD", "AmenityAdd")
+<div class="btn-link">
+
+    <a href="AmenityAdd"><input id="btnAdd" type="button" value="ADD NEW AMENITY" class="btn btn-success" /></a>
+
 </div>
 @using (Html.BeginForm("AmenityView", "Amenity", FormMethod.Post))
 {

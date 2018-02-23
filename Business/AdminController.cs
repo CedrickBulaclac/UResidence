@@ -19,14 +19,14 @@ namespace UResidence
             return ret;
         }
 
-        public static Admin Get(string AdminNo)
+        public static List<Admin> Get(string AdminNo)
         {
-            const string GET_RECORD = @"SELECT Id,AdminNo, Fname, Mname, Lname, Bdate, CelNo, TelNo, Gender, Age, Email FROM[tbAdmin] order by Id WHERE AdminNo = @AdminNo";
+            const string GET_RECORD = @"SELECT Id,AdminNo, Fname, Mname, Lname, Bdate, CelNo, TelNo, Gender, Age, Email FROM[tbAdmin] WHERE AdminNo = @AdminNo";
 
-            Admin ret = default(Admin);
+            List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@AdminNo", AdminNo));
-            ret = SqlManager.Select<Admin>(com).First();
+            ret = SqlManager.Select<Admin>(com);
 
             return ret;
         }

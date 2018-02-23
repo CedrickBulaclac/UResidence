@@ -94,7 +94,6 @@ namespace UResidence.Controllers
                     AmenityView();
                 }
                 ViewBag.UpdateMessage = status;
-                return View("AmenityView");
             }
             return View();
         }

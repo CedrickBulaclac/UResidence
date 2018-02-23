@@ -7,8 +7,10 @@
 <h2>TenantView</h2>
 
 <div>
-    <div class="btn btn-default glyphicon-pencil">
-        @Html.ActionLink("ADD", "TenantAdd")
+    <div class="btn-link">
+
+        <a href="TenantAdd"><input id="btnAdd" type="button" value="ADD NEW TENANT" class="btn btn-success" /></a>
+
     </div>
     <hr />
     @using (Html.BeginForm("TenantView", "Tenant", FormMethod.Post))

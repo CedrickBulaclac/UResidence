@@ -40,7 +40,7 @@ namespace UResidence.Controllers
         {
             List<Admin> adminList = default(List<Admin>);
             adminList = UResidence.AdminController.GetAll();
-            ViewBag.amenity = adminList;
+            ViewBag.admin = adminList;
             return View();
         }
         public ActionResult Delete(int? id)
@@ -57,7 +57,35 @@ namespace UResidence.Controllers
             }
             ViewBag.DeleteStatus = status;
             return View("AdminView");
+       }
+        [HttpGet]
+        public ActionResult AdminEdit(int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Admin> adminList = default(List<Admin>);
+                adminList = UResidence.AdminController.Get(id.ToString());
+                ViewBag.updateList = adminList;
 
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AdminEdit(FormCollection fc)
+        {
+            NameValueCollection values = (NameValueCollection)fc;
+            Admin ad = Admin.CreateObject(values);
+            if (ad.Validate())
+            {
+                status = UResidence.AdminController.Update(ad);
+                if (status == true)
+                {
+                    AdminView();
+                }
+                ViewBag.UpdateMessage = status;
+                
+            }
+            return View("AdminView");
         }
     }
 }

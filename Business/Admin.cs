@@ -17,7 +17,7 @@ namespace UResidence
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
         public string TelNo { get; set; }
-        public char Gender { get; set; }
+        public string Gender { get; set; }
         public int Age { get; set; }
         public string Email{ get; set; }
 
@@ -32,7 +32,7 @@ namespace UResidence
             ret.Bdate = reader.GetDateTime(5);
             ret.CelNo = reader.GetString(6);
             ret.TelNo = reader.GetString(7);
-            ret.Gender = reader.GetChar(8);
+            ret.Gender = reader.GetString(8);
             ret.Age = reader.GetInt32(9);
             ret.Email = reader.GetString(10);        
             return ret;
@@ -48,13 +48,12 @@ namespace UResidence
             DateTime Bday = DateTime.Now;
             string Cn = fc["CelNo"];
             string Tn = fc["TelNo"];
-            char Gen ='\0';
+            string Gen =fc["Gender"];
             int Age = 0;
             string mail = fc["Email"];
             if(!DateTime.TryParse(fc["Bdate"].Trim(),out Bday))
                 Bday = DateTime.Now;
-            if (!Char.TryParse(fc["Gender"].Trim(), out Gen))
-                Gen = 'm';
+
             Admin ad = new Admin()
             {
                 Id = Id,
@@ -74,10 +73,17 @@ namespace UResidence
         }
         public bool Validate()
         {
-            bool ret = false;
-            if (this.AdminNo == string.Empty) ret = false;
-            if (this.Bdate ==DateTime.Now ) ret = false;
-            return false;
+            bool ret = true;
+            if (this.AdminNo.Trim() == string.Empty)
+            {
+                ret = false;
+            }              
+            if (this.Bdate == DateTime.Now )
+            {
+                ret = false;
+            }
+                
+            return ret;
         }
         public void Reset()
         {
@@ -89,7 +95,7 @@ namespace UResidence
             this.Bdate = DateTime.Now;
             this.CelNo = string.Empty;
             this.TelNo = string.Empty;
-            this.Gender = 'm';
+            this.Gender = string.Empty;
             this.Age = 0;
             this.Email = string.Empty;
         }
