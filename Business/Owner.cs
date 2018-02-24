@@ -11,7 +11,6 @@ namespace UResidence
     public class Owner : BaseProperty<Owner>
     {
         public int Id { get; set; }
-        public string OwnerNo { get; set; }
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
         public string Fname { get; set; }
@@ -25,27 +24,51 @@ namespace UResidence
         public string Citizenship { get; set; }
         public string Status { get; set; }
         public string Gender { get; set; }
-        public int Age { get; set; }
-       
+
         public Owner CreateObject(SqlDataReader reader)
         {
             Owner ret = new Owner();
             ret.Id = reader.GetInt32(0);
-            ret.OwnerNo = reader.GetString(1);
-            ret.BldgNo = reader.GetString(2);
-            ret.UnitNo = reader.GetString(3);
-            ret.Fname = reader.GetString(4);
-            ret.Mname = reader.GetString(5);
-            ret.Lname = reader.GetString(6);
-            ret.Bdate = reader.GetDateTime(7);
-            ret.CelNo = reader.GetString(8);
-            ret.TelNo = reader.GetString(9);
-            ret.Email = reader.GetString(10);
-            ret.Citizenship = reader.GetString(11);
-            ret.Status = reader.GetString(12);
-            ret.Gender = reader.GetString(13);
-            ret.Age = reader.GetInt32(14);
+            ret.BldgNo = reader.GetString(1);
+            ret.UnitNo = reader.GetString(2);
+            ret.Fname = reader.GetString(3);
+            ret.Mname = reader.GetString(4);
+            ret.Lname = reader.GetString(5);
+            ret.Bdate = reader.GetDateTime(6);
+            ret.CelNo = reader.GetString(7);
+            ret.TelNo = reader.GetString(8);
+            ret.Email = reader.GetString(9);
+            ret.Citizenship = reader.GetString(10);
+            ret.Status = reader.GetString(11);
+            ret.Gender = reader.GetString(12);
             return ret;
+        }
+        public static Owner CreateObject(NameValueCollection fc)
+        {
+            DateTime bdate = DateTime.Now;
+            int id = 0;
+            if (!DateTime.TryParse(fc["Bdate"].Trim(), out bdate))
+                bdate = DateTime.Now;
+            if (!int.TryParse(fc["Id"].Trim(), out id))
+                id = 0;
+            Owner ret = new Owner()
+            {
+                    Id=id,
+                BldgNo = fc["BldgNo"],
+                UnitNo = fc["UnitNo"],
+                Fname = fc["Fname"],
+                Mname = fc["Mname"],
+                Lname = fc["Lname"],
+                Bdate = bdate,
+                CelNo = fc["CelNo"],
+                TelNo = fc["TelNo"],
+                Email = fc["Email"],
+                Citizenship = fc["Citizenship"],
+                Status = fc["Status"],
+                Gender = fc["Gender"]
+            };
+            return ret;
+
         }
         public bool Validate()
         {
@@ -58,13 +81,12 @@ namespace UResidence
             if (this.Email.Trim() == string.Empty) ret = false;
             if (this.Citizenship.Trim() == string.Empty) ret = false;
             if (this.Bdate == DateTime.Today) ret = false;
-           
+
             return ret;
         }
         public void Reset()
         {
             this.Id = 0;
-            this.OwnerNo = string.Empty;
             this.BldgNo = string.Empty;
             this.UnitNo = string.Empty;
             this.Fname = string.Empty;
@@ -77,7 +99,6 @@ namespace UResidence
             this.Citizenship = string.Empty;
             this.Status = string.Empty;
             this.Gender = string.Empty;
-            this.Age = 0;
 
         }
     }
