@@ -21,12 +21,30 @@ namespace UResidence
             ret.AmenityNo = reader.GetString(2);
             return ret;
         }
-        public bool Validate()
+        public bool Validate(out string[] errors)
         {
-            bool ret = false;
-            if (this.AmenityNo == string.Empty) ret = false;
-            if (this.Capacity >= 0) ret = true;
-            if (this.Description == string.Empty) ret = false;
+            bool ret = true;
+
+            List<string> err = new List<string>();
+
+            if (this.AmenityNo == string.Empty || this.AmenityNo is null)
+            {
+                err.Add("Amenity number is required!");
+                ret = false;
+            }
+            if (this.Capacity <= 0) 
+                {
+                    err.Add("Amenity Capacity must be at least 1");
+                    ret = false;
+                }
+            
+            if (this.Description == string.Empty || this.Description is null)
+            {
+                err.Add("Desription must not be empty.");
+                ret = false;
+            }
+
+            errors = err.ToArray();
             return ret;
         }
         public static Amenity CreateObject(NameValueCollection fc)

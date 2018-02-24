@@ -2,53 +2,46 @@
 
 @using (Html.BeginForm("AmenityEdit", "Amenity", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Amenity</h4>
+        <div class="btn-link">
+            <a href="@Url.Action("AmenityView","Amenity")"><input id="btnBack" type="button" value="BACK" class="btn btn-default" /></a>
+        </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-horizontal">
-	<h4>Amenity</h4>
-    <div class="btn-link">
-        <a href="@Url.Action("AmenityView","Amenity")"><input id="btnBack" type="button" value="BACK" class="btn btn-default" /></a>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AmenityNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AmenityNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AmenityNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
     </div>
-	<hr />
-	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-	@if (ViewBag.updateList != null)
-	{
-		foreach (Amenity a in ViewBag.updateList)
-		{
-			<div class="form-group">
-				@Html.LabelFor(model => model.AmenityNo, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.AmenityNo, new { htmlAttributes = new { @class = "form-control", @Value = a.AmenityNo,@readonly="readonly" } })
-					@Html.ValidationMessageFor(model => model.AmenityNo, "", new { @class = "text-danger" })
-				</div>
-			</div>
-			<div class="form-group">
-				@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @Value = a.Description } })
-					@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-				</div>
-			</div>
 
-			<div class="form-group">
-				@Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-				<div class="col-md-10">
-					@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @Value = a.Capacity } })
-					@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="Save" class="btn btn-default" />
-				</div>
-			</div>
-		}
-	}
-</div>
-   
     <div id="aerror" class="alert alert-danger collapse">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem Updating the Amenity
+        <strong>Error!</strong> @ViewBag.ErrorMessages;
     </div>
     <div id="asuccess" class="alert alert-success collapse">
         <strong>Success!</strong> You have successfully updated the Amenity
