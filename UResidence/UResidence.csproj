@@ -220,10 +220,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business\Business.csproj">
-      <Project>{507fd699-0c66-4b2a-a22e-cc53e11164ea}</Project>
-      <Name>Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{55a95247-ac42-429a-bda0-2518bb4744d5}</Project>
       <Name>DataAccessLayer</Name>
