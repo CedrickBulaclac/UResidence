@@ -15,19 +15,19 @@
 	@Html.AntiForgeryToken()
 <hr />
 <div class="dl-horizontal">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>
+                <th scope="row">
                     AmenityNo
                 </th>
-                <th>
+                <th scope="row">
                     Description
                 </th>
-                <th>
+                <th scope="row">
                     Capacity
                 </th>
-                <th>
+                <th scope="row">
                     Actions
                 </th>
             </tr>
@@ -36,7 +36,7 @@
 
             @foreach (Amenity a in Model)
             {
-                <tr>
+                <tr scope="row">
                     <td>
                         @Html.DisplayFor(model => a.AmenityName)
                     </td>

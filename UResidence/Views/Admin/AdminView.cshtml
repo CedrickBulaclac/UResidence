@@ -19,22 +19,22 @@
 
             <thead>
                 <tr>
-                    <th> Fname</th>
-                    <th>Mname</th>
-                    <th>Lname</th>
-                    <th>Bdate</th>
-                    <th>CelNo</th>
-                    <th>TelNo</th>
-                    <th>Gender</th>
-                    <th>Email</th>
-                    <th>Actions</th>
+                    <th scope="row"> Fname</th>
+                    <th scope="row">Mname</th>
+                    <th scope="row">Lname</th>
+                    <th scope="row">Bdate</th>
+                    <th scope="row">CelNo</th>
+                    <th scope="row">TelNo</th>
+                    <th scope="row">Gender</th>
+                    <th scope="row">Email</th>
+                    <th scope="row">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (Admin a in Model)
     {
 
-            <tr>
+            <tr scope="row">
 
                 <td>@Html.DisplayFor(model => a.Fname)</td>
                 <td>@Html.DisplayFor(model => a.Mname)</td>

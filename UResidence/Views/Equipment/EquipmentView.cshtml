@@ -19,44 +19,44 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>
-                           Stocks
+                        <th scope="row">
+                            Stocks
                         </th>
-                        <th>
-                           Rate
+                        <th scope="row">
+                            Rate
                         </th>
-                        <th>
-                           Name
+                        <th scope="row">
+                            Name
                         </th>
-                        <th>
+                        <th scope="row">
                             Actions
                         </th>
                     </tr>
                 </thead>
-
+                <tbody>
                     @foreach (Equipment e in Model)
-                    {
-                        <tbody>
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(model => e.Stocks)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => e.Rate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => e.Name)
-                                </td>
-                                <td>
-                                    <a class="btn btn-link" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-                                    <a class="btn" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+                      {
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    }
-               
-            </table>
+                <tr scope="row">
+                    <td>
+                        @Html.DisplayFor(model => e.Stocks)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => e.Rate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => e.Name)
+                    </td>
+                    <td>
+                        <a class="btn btn-link" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                        <a class="btn" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+
+                    </td>
+                </tr>
+
+                       }
+                </tbody>
+                </table>
         </div>
 
     
