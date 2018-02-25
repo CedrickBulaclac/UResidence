@@ -208,7 +208,6 @@
     <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
-    <Content Include="Views\AmenitySelection\Select.cshtml" />
     <Content Include="Views\UserReserveAmenity\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
