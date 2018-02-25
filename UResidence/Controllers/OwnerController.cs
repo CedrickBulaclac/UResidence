@@ -19,10 +19,17 @@ namespace UResidence.Controllers
         public ActionResult OwnerAdd(FormCollection fc)
         {
             NameValueCollection values = (NameValueCollection)fc;
+<<<<<<< HEAD
             Owner own = Owner.CreateObject(values);
             if (own.Validate())
             {
                 status = UResidence.OwnerController.Insert(own);
+=======
+            Owner ten = Owner.CreateObject(values);
+            if (ten.Validate())
+            {
+                status = UResidence.OwnerController.Insert(ten);
+>>>>>>> Gold
                 if (status == true)
                 {
                     ViewBag.AddMessage = status;
@@ -51,12 +58,20 @@ namespace UResidence.Controllers
             status = UResidence.OwnerController.Delete(ten);
             if (status == true)
             {
+<<<<<<< HEAD
                 ViewBag.DeleteStatus = status;
+=======
+                ViewBag.DeleteMessage = status;
+>>>>>>> Gold
                 OwnerView();
             }
             else
             {
+<<<<<<< HEAD
                 ViewBag.DeleteStatus = status;
+=======
+                ViewBag.DeleteMessage = status;
+>>>>>>> Gold
             }
             return View("OwnerView");
         }
