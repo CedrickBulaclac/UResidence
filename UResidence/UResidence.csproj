@@ -208,12 +208,12 @@
     <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
-    <Content Include="Views\AmenitySelection\AmenityView.cshtml" />
+    <Content Include="Views\AmenitySelection\Select.cshtml" />
+    <Content Include="Views\UserReserveAmenity\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\UserReserveAmenity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -9,7 +9,7 @@ namespace UResidence.Controllers
     public class UserReserveAmenityController : Controller
     {
         // GET: UserReserveAmenity
-        public ActionResult AmenityView()
+        public ActionResult Select()
         {
             return View();
         }
