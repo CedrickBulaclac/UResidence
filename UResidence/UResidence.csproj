@@ -149,6 +149,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
+    <Compile Include="Controllers\UserReserveAmenityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,10 +208,12 @@
     <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
+    <Content Include="Views\AmenitySelection\AmenityView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\UserReserveAmenity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
