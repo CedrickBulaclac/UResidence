@@ -18,39 +18,34 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(FormCollection fc)
+        public ActionResult Registration(Equipment eqp)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Equipment eq = Equipment.CreateObject(values);
-            if (eq.Validate() == true)
+            string[] err = new string[] { };
+            if (eqp.Validate(out err))
             {
-                status = UResidence.EquipmentController.Insert(eq);
-                if (status == true)
-                {
-                    ViewBag.Message = true;
-                }
-                else
-                {
-                    ViewBag.Message = false;
-                }
+                UResidence.EquipmentController.Insert(eqp);
+                ViewBag.Message = true;
+            }
+            else
+            {
+                ViewBag.ErrorMessage = FixMessages(err);
+                ViewBag.Message = false;
             }
             return View();
         }
 
         public ActionResult EquipmentView()
         {
-            List<Equipment> equipmentList = default(List<Equipment>);
-            equipmentList = UResidence.EquipmentController.GetAll();
-            ViewBag.equipment = equipmentList;
-            return View();
+            List<Equipment> equipmentList = UResidence.EquipmentController.GetAll();
+            return View(equipmentList);
         }
 
 
-        public ActionResult Delete(int? eno)
+        public ActionResult Delete(int eno)
         {
             Equipment eq = new Equipment
             {
-                EquipmentNo = eno.ToString()
+                Id = eno
             };
             status = UResidence.EquipmentController.Delete(eq);
             if(status == true)
@@ -66,35 +61,42 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult EquipmentEdit(int? eno)
+        public ActionResult EquipmentEdit(int id)
         {
             if (ModelState.IsValid)
             {
-                List<Equipment> equipmentList = default(List<Equipment>);
-                equipmentList = UResidence.EquipmentController.GetAll();
-                ViewBag.equipment = equipmentList;
-                return View();
+               
+                Equipment equipmentList = UResidence.EquipmentController.GetbyId(id);
+                return View(equipmentList);
             }
             return View("EquipmentView");
         }
         [HttpPost]
-        public ActionResult EquipmentEdit(FormCollection fc)
+        public ActionResult EquipmentEdit(Equipment eqp)
         {
-            NameValueCollection values = new NameValueCollection();
-            Equipment eq = Equipment.CreateObject(values);
-            if (eq.Validate() == true)
+            string[] err = new string[] { };
+            if (eqp.Validate(out err))
             {
-                status = UResidence.EquipmentController.Update(eq);
+                status = UResidence.EquipmentController.Update(eqp);
                 if (status == true)
                 {
-                    EquipmentView();
+                    return RedirectToAction("AdminView");
                 }
-                ViewBag.UpdateMessage = status;
             }
-            return View("EquipmentView");
+            else
+            {
+                ViewBag.ErrorMessages = FixMessages(err);
+            }
+            ViewBag.UpdateMessage = true;
+            return View(eqp);
         }
 
-
+        public string FixMessages(string[] err)
+        {
+            string errors = "Please check the following: <br/>";
+            foreach (string er in err) errors += (er + "<br/>");
+            return errors;
+        }
 
 
     }
