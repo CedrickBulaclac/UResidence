@@ -9,15 +9,14 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <a href="AmenityView" class="btn btn-default">Create</a>
+    <div class="form-horizontal">       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.AmenityNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AmenityName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AmenityNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AmenityNo, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -39,6 +38,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input id="btnSave" type="submit" value="Save" class="btn btn-default" />
+                <a href="AmenityView" class="btn btn-default">Cancel</a>
             </div>
         </div>
     </div>

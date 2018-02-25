@@ -17,42 +17,37 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(FormCollection fc)
+        public ActionResult Registration(Admin adm)
         {
-            NameValueCollection values =(NameValueCollection)fc;
-            Admin ad = Admin.CreateObject(values);
-            if (ad.Validate() == true)
+            string[] err = new string[] { };
+            if (adm.Validate(out err))
             {
-                status = UResidence.AdminController.Insert(ad);
-                if (status == true)
-                {
-                    ViewBag.Message = true;
-
-                }
-                else
-                {
-                    ViewBag.Message = false;
-                }
+                UResidence.AdminController.Insert(adm);          
+                    ViewBag.Message = true;       
+            }
+            else
+            {
+                ViewBag.ErrorMessage =FixMessages(err);
+                ViewBag.Message = false;
             }
             return View();
         }
         public ActionResult AdminView()
         {
-            List<Admin> adminList = default(List<Admin>);
-            adminList = UResidence.AdminController.GetAll();
-            ViewBag.admin = adminList;
-            return View();
+            List<Admin> adminList = UResidence.AdminController.GetAll();
+            return View(adminList);
         }
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
 
             Admin am = new Admin()
             {
-                AdminNo = id.ToString()
+                Id = id
             };
-            status = UResidence.AdminController.Delete(am);
+            status=UResidence.AdminController.Delete(am);
             if (status == true)
             {
+                     
                 AdminView();
             }
             ViewBag.DeleteStatus = status;
@@ -60,33 +55,34 @@ namespace UResidence.Controllers
        }
         [HttpGet]
         public ActionResult AdminEdit(int id)
-        {
-            if (ModelState.IsValid)
-            {
-                List<Admin> adminList = default(List<Admin>);
-                adminList = UResidence.AdminController.GetbyID(id);
-                ViewBag.updateList = adminList;
-                return View("AdminEdit");
-
-            }
-            return View();
+        {                   
+              Admin adm=UResidence.AdminController.GetbyID(id);                     
+            return View(adm);
         }
         [HttpPost]
-        public ActionResult AdminEdit(FormCollection fc)
+        public ActionResult AdminEdit(Admin adm)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Admin ad = Admin.CreateObject(values);
-            if (ad.Validate())
+            string[] err = new string[] { };
+            if (adm.Validate(out err))
             {
-                status = UResidence.AdminController.Update(ad);
+                status = UResidence.AdminController.Update(adm);
                 if (status == true)
-                {
-                    AdminView();
+                {                   
+                    return RedirectToAction("AdminView");
                 }
-                ViewBag.UpdateMessage = status;
-                
             }
-            return View("AdminView");
+            else
+            {
+                ViewBag.ErrorMessages = FixMessages(err);
+            }
+            ViewBag.UpdateMessage = true;
+            return View(adm);
+        }
+        public string FixMessages(string[] err)
+        {
+            string errors = "Please check the following: <br/>";
+            foreach (string er in err) errors += (er + "<br/>");
+            return errors;
         }
     }
 }

@@ -52,17 +52,17 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));
             com.Parameters.Add(new SqlParameter("@Stocks", eqp.Stocks));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));
-            com.Parameters.Add(new SqlParameter("@EquipmentNo", eqp.EquipmentNo));
+            com.Parameters.Add(new SqlParameter("@Id", eqp.Id));
 
             return SqlManager.ExecuteNonQuery(com);
         }
 
         public static bool Delete(Equipment eqp)
         {
-            const string GET_DELETE = @"delete [tbEquipment] WHERE EquipmentNo = @EquipmentNo";
+            const string GET_DELETE = @"delete [tbEquipment] WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_DELETE);
-            com.Parameters.Add(new SqlParameter("@EquipmentNo", eqp.EquipmentNo));
+            com.Parameters.Add(new SqlParameter("@Id", eqp.Id));
 
             return SqlManager.ExecuteNonQuery(com);
         }
@@ -77,13 +77,12 @@ namespace UResidence
         */
         public static bool Insert(Equipment eqp)
         {
-            const string GET_INSERT = @"insert [tbEquipment] (Name,Stocks,Rate,EquipmentNo) values (@Name, @Stocks, @Rate, @EquipmentNo)";
+            const string GET_INSERT = @"insert [tbEquipment] (Name,Stocks,Rate) values (@Name, @Stocks, @Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));
             com.Parameters.Add(new SqlParameter("@Stocks", eqp.Stocks));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));
-            com.Parameters.Add(new SqlParameter("@EquipmentNo", eqp.EquipmentNo));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

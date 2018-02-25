@@ -10,15 +10,18 @@ namespace UResidence
 {
     public class Amenity : BaseProperty<Amenity>
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }
-        public string AmenityNo { get; set; }
+        public string AmenityName { get; set; }
+
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
-            ret.Description = reader.GetString(0);
-            ret.Capacity = reader.GetInt32(1);
-            ret.AmenityNo = reader.GetString(2);
+            ret.Id = reader.GetInt32(0);
+            ret.Description = reader.GetString(1);
+            ret.Capacity = reader.GetInt32(2);
+            ret.AmenityName = reader.GetString(3);
             return ret;
         }
         public bool Validate(out string[] errors)
@@ -27,9 +30,9 @@ namespace UResidence
 
             List<string> err = new List<string>();
 
-            if (this.AmenityNo == string.Empty || this.AmenityNo is null)
+            if (this.AmenityName == string.Empty || this.AmenityName is null)
             {
-                err.Add("Amenity number is required!");
+                err.Add("Amenity name is required!");
                 ret = false;
             }
             if (this.Capacity <= 0) 
@@ -56,7 +59,7 @@ namespace UResidence
             {
                 Description=fc["Description"],
                 Capacity=capacity,
-                AmenityNo=fc["AmenityNo"]
+                AmenityName = fc["AmenityName"]
 
             };
             return ret;
@@ -65,7 +68,7 @@ namespace UResidence
         {
             this.Description = string.Empty;
             this.Capacity = 0;
-            this.AmenityNo = string.Empty;
+            this.AmenityName = string.Empty;
         }
      
     }

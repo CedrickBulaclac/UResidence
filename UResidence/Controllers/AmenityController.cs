@@ -39,12 +39,12 @@ namespace UResidence.Controllers
         }
 
        
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
 
             Amenity am = new Amenity()
             {
-                AmenityNo = id.ToString()
+                Id = id
             };
             status = UResidence.AmenityController.Delete(am);
             if (status == true)
@@ -63,7 +63,9 @@ namespace UResidence.Controllers
         public ActionResult AmenityEdit(int id)
         {
 
-                Amenity amn = UResidence.AmenityController.GetbyId(id);            
+            Amenity amn = default(Amenity);
+               amn= UResidence.AmenityController.GetbyId(id);
+      
             return View(amn);
         }
 
@@ -76,14 +78,16 @@ namespace UResidence.Controllers
                 status = UResidence.AmenityController.Update(amen);
                 if (status == true)
                 {
+                    ViewBag.UpdateMessage = status;
                     return RedirectToAction("AmenityView");
                 }
             }
             else
             {
-                ViewBag.UpdateMessage = false;
+               
                 ViewBag.ErrorMessages = FixMessages(err);
             }
+
             return View(amen);
         }
 

@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @"SELECT Description, Capacity, AmenityNo FROM[tbAmenity] order by AmenityNo";
+            const string GET_ALL = @"SELECT Id,Description, Capacity, AmenityName FROM[tbAmenity] order by Id";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -19,13 +19,13 @@ namespace UResidence
             return ret;
         }
 
-        public static Amenity GetbyDesc(string name)
+        public static Amenity GetbyAmenityName(string name)
         {
-            const string GET_RECORD = @"SELECT Description, Capacity, AmenityNo FROM[tbAmenity] order by AmenityNo WHERE Description = @Description";
+            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@Name", name));
+            com.Parameters.Add(new SqlParameter("@AmenityName", name));
             ret = SqlManager.Select<Amenity>(com).First();
 
             return ret;
@@ -33,7 +33,7 @@ namespace UResidence
 
         public static Amenity GetbyId(int id)
         {
-            const string GET_RECORD = @"SELECT Description,Capacity,AmenityNo FROM [tbAmenity] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName FROM [tbAmenity] WHERE Id = @Id";
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", id));
@@ -41,57 +41,37 @@ namespace UResidence
             return ret;
         }
 
-        public static List<Amenity> GetbyAmenityNo(string amp)
-        {
-            const string GET_RECORD = @"SELECT Description,Capacity,AmenityNo FROM [tbAmenity] WHERE AmenityNo = @AmenityNo";
-            List<Amenity> ret = default(List<Amenity>);
-           // Amenity ret = default(Amenity);
-            SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", amp));
-            // ret = SqlManager.Select<Amenity>(com).First();
-            ret = SqlManager.Select<Amenity>(com);
-            return ret;
-        }
-
-
         public static bool Update(Amenity amty)
         {
-            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityNo= @AmenityNo WHERE AmenityNo = @AmenityNo";
+            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
             com.Parameters.Add(new SqlParameter("@Capacity", amty.Capacity));
-            com.Parameters.Add(new SqlParameter("@AmenityNo", amty.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@AmenityName", amty.AmenityName));
+            com.Parameters.Add(new SqlParameter("@Id", amty.Id));
 
             return SqlManager.ExecuteNonQuery(com);
         }
 
         public static bool Delete(Amenity amty)
         {
-            const string GET_DELETE = @"delete [tbAmenity] WHERE AmenityNo = @AmenityNo";
+            const string GET_DELETE = @"delete [tbAmenity] WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_DELETE);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", amty.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@Id", amty.Id));
 
             return SqlManager.ExecuteNonQuery(com);
         }
-        /*
-        public static bool Modify(Equipment eqp)
-        {
-            if (eqp.EquipmentNo == 0)
-                return Insert(eqp);
-            else
-                return Update(eqp);
-        }
-        */
+      
         public static bool Insert(Amenity amty)
         {
-            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityNo) values (@Description, @Capacity, @AmenityNo)";
+            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName) values (@Description, @Capacity, @AmenityName)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
             com.Parameters.Add(new SqlParameter("@Capacity", amty.Capacity));
-            com.Parameters.Add(new SqlParameter("@AmenityNo", amty.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@AmenityName", amty.AmenityName));
             return SqlManager.ExecuteNonQuery(com);
         }
     }
