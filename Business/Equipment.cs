@@ -42,17 +42,32 @@ namespace UResidence
             };
             return eq;
         }
-        public bool Validate()
+        public bool Validate(out string[] errors)
         {
-            bool ret = false;
-            if (this.Id == 0) ret = false;
-            if (this.Name == string.Empty) ret = false;
-            if (this.Rate == 0) ret = false;
-            if (this.Stocks < 0) ret = false;
+            bool ret = true;
+
+            List<string> err = new List<string>();
+            if(this.Name==string.Empty)
+            {
+                err.Add("Equipment Name is required");
+                ret = false;
+            }
+            if (this.Stocks <= 0)
+            {
+                err.Add("Equipment Stocks must be at least 1");
+                ret = false;
+            }
+            if (this.Rate <= 0)
+            {
+                err.Add("Equipment Rate must be at least 1");
+                ret = false;
+            }
+
+           
+            errors = err.ToArray();
             return ret;
-              
         }
-            public void Reset()
+        public void Reset()
         {
             this.Name = string.Empty;
             this.Stocks = 0;

@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Equipment> GetAll()
         {
-            const string GET_ALL = @"SELECT Name,Stocks,Rate,EquipmentNo FROM [tbEquipment] order by EquipmentNo";
+            const string GET_ALL = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] order by Id";
 
 
             List<Equipment> ret = default(List<Equipment>);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static Equipment Get(string name)
         {
-            const string GET_RECORD = @"SELECT Name,Stocks,Rate,EquipmentNo FROM [tbEquipment] order by EquipmentNo WHERE Name = @Name";
+            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] order by EquipmentNo WHERE Name = @Name";
 
             Equipment ret = default(Equipment);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -31,13 +31,13 @@ namespace UResidence
             return ret;
         }
 
-        public static Equipment GetbyEquipmentNo(string eno)
+        public static Equipment GetbyId(int eno)
         {
-            const string GET_RECORD = @"SELECT Name,Stocks,Rate,EquipmentNo FROM [tbEquipment] order by EquipmentNo WHERE EquipmentNo = @EquipmentNo";
+            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] WHERE Id = @Id";
 
             Equipment ret = default(Equipment);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@EquipmentNo", eno));
+            com.Parameters.Add(new SqlParameter("@Id", eno));
             ret = SqlManager.Select<Equipment>(com).First();
 
             return ret;
@@ -46,7 +46,7 @@ namespace UResidence
 
         public static bool Update(Equipment eqp)
         {
-            const string GET_UPDATE = @"update [tbEquipment] set Name= @name, Stocks= @Stocks, Rate = @Rate, EquipmentNo = @EquipmentNo WHERE EquipmentNo = @EquipmentNo";
+            const string GET_UPDATE = @"update [tbEquipment] set Name= @name, Stocks= @Stocks, Rate = @Rate  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));
