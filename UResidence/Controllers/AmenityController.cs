@@ -17,43 +17,34 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult AmenityAdd(FormCollection fc)
+        public ActionResult AmenityAdd(Amenity amen)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Amenity amen = Amenity.CreateObject(values);
-            if (amen.Validate() == true)
+            string[] err = new string[] { };
+            if (amen.Validate(out err))
             {
-                status = UResidence.AmenityController.Insert(amen);
-                if (status == true)
-                {
-                    ViewBag.Message = true;
-                }
-                else
-                {
-                    ViewBag.Message = false;
-                }
-               
+                ViewBag.Message = UResidence.AmenityController.Insert(amen);
             }
-            return View();
+            else
+            {
+                ViewBag.Message = false;
+                ViewBag.ErrorMessages=FixMessages(err);
+            }
+            return View(amen);
         }
 
         public ActionResult AmenityView()
         {
-
-            List<Amenity> amenityList = default(List<Amenity>);
-            amenityList = UResidence.AmenityController.GetAll();
-            ViewBag.amenity = amenityList;
-            
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
 
        
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
 
             Amenity am = new Amenity()
             {
-                AmenityNo = id.ToString()
+                Id = id
             };
             status = UResidence.AmenityController.Delete(am);
             if (status == true)
@@ -69,33 +60,41 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult AmenityEdit(int? id)
+        public ActionResult AmenityEdit(int id)
         {
-            if (ModelState.IsValid)
-            {
-                List<Amenity> amenityList = default( List<Amenity>);
-                amenityList = UResidence.AmenityController.GetbyAmenityNo(id.ToString());            
-                ViewBag.updateList = amenityList;
-               
-            }
-            return View();
+
+            Amenity amn = default(Amenity);
+               amn= UResidence.AmenityController.GetbyId(id);     
+            return View(amn);
         }
 
         [HttpPost]
-        public ActionResult AmenityEdit(FormCollection fc)
+        public ActionResult AmenityEdit(Amenity amen)
         {
-            NameValueCollection values =(NameValueCollection) fc;
-            Amenity amen = Amenity.CreateObject(values);
-            if (amen.Validate())
+            string[] err = new string[]{ };
+            if (amen.Validate(out err))
             {
                 status = UResidence.AmenityController.Update(amen);
                 if (status == true)
                 {
-                    AmenityView();
+                    ViewBag.UpdateMessage = status;
+                    return RedirectToAction("AmenityView");
                 }
-                ViewBag.UpdateMessage = status;
             }
-            return View();
+            else
+            {
+               
+                ViewBag.ErrorMessages = FixMessages(err);
+            }
+
+            return View(amen);
+        }
+
+        public string FixMessages(string[] err)
+        {
+            string errors = "Please check the following: <br />";
+            foreach (string er in err) errors += (er + "<br />");
+            return errors;
         }
     }
 }

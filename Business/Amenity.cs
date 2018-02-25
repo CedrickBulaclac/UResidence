@@ -10,23 +10,44 @@ namespace UResidence
 {
     public class Amenity : BaseProperty<Amenity>
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }
-        public string AmenityNo { get; set; }
+        public string AmenityName { get; set; }
+
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
-            ret.Description = reader.GetString(0);
-            ret.Capacity = reader.GetInt32(1);
-            ret.AmenityNo = reader.GetString(2);
+            ret.Id = reader.GetInt32(0);
+            ret.Description = reader.GetString(1);
+            ret.Capacity = reader.GetInt32(2);
+            ret.AmenityName = reader.GetString(3);
             return ret;
         }
-        public bool Validate()
+        public bool Validate(out string[] errors)
         {
-            bool ret = false;
-            if (this.AmenityNo == string.Empty) ret = false;
-            if (this.Capacity >= 0) ret = true;
-            if (this.Description == string.Empty) ret = false;
+            bool ret = true;
+
+            List<string> err = new List<string>();
+
+            if (this.AmenityName == string.Empty || this.AmenityName is null)
+            {
+                err.Add("Amenity name is required!");
+                ret = false;
+            }
+            if (this.Capacity <= 0) 
+                {
+                    err.Add("Amenity Capacity must be at least 1");
+                    ret = false;
+                }
+            
+            if (this.Description == string.Empty || this.Description is null)
+            {
+                err.Add("Desription must not be empty.");
+                ret = false;
+            }
+
+            errors = err.ToArray();
             return ret;
         }
         public static Amenity CreateObject(NameValueCollection fc)
@@ -38,7 +59,7 @@ namespace UResidence
             {
                 Description=fc["Description"],
                 Capacity=capacity,
-                AmenityNo=fc["AmenityNo"]
+                AmenityName = fc["AmenityName"]
 
             };
             return ret;
@@ -47,7 +68,7 @@ namespace UResidence
         {
             this.Description = string.Empty;
             this.Capacity = 0;
-            this.AmenityNo = string.Empty;
+            this.AmenityName = string.Empty;
         }
      
     }

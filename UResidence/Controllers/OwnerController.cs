@@ -16,30 +16,28 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult OwnerAdd(FormCollection fc)
+        public ActionResult OwnerAdd(Owner owe)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Owner ten = Owner.CreateObject(values);
-            if (ten.Validate())
+            string[] err = new string[] { };
+            if (owe.Validate(out err))
             {
-                status = UResidence.OwnerController.Insert(ten);
-                if (status == true)
-                {
-                    ViewBag.AddMessage = status;
-                }
-                else
-                {
-                    ViewBag.AddMessage = status;
-                }
+                UResidence.OwnerController.Insert(owe);
+                status = true;
+                return RedirectToAction("OwnerView");
             }
+            else
+            {
+                ViewBag.ErrorMessage = FixMessages(err);
+               status = false;
+               
+            }
+            ViewBag.AddMessage = status;
             return View();
         }
         public ActionResult OwnerView()
         {
-            List<Owner> ownerList = default(List<Owner>);
-            ownerList = UResidence.OwnerController.GetAll();
-            ViewBag.owner = ownerList;
-            return View();
+            List<Owner> ownerList = UResidence.OwnerController.GetAll();
+            return View(ownerList);
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -51,12 +49,12 @@ namespace UResidence.Controllers
             status = UResidence.OwnerController.Delete(ten);
             if (status == true)
             {
-                ViewBag.DeleteMessage = status;
+                ViewBag.DeleteStatus = status;
                 OwnerView();
             }
             else
             {
-                ViewBag.DeleteMessage = status;
+                ViewBag.DeleteStatus = status;
             }
             return View("OwnerView");
         }
@@ -69,36 +67,35 @@ namespace UResidence.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Owner> ownerList = default(List<Owner>);
-                ownerList = UResidence.OwnerController.GetIdOwner(id);
-                ViewBag.ownerList = ownerList;
+                Owner ownerList = UResidence.OwnerController.GetIdOwner(id);
+                return View(ownerList);
             }
             return View("OwnerEdit");
         }
         [HttpPost]
-        public ActionResult OwnerEdit(FormCollection fc)
+        public ActionResult OwnerEdit(Owner owe)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Owner ten = Owner.CreateObject(values);
-            if (ten.Validate())
+            string[] err = new string[] { };
+            if (owe.Validate(out err))
             {
-                status = UResidence.OwnerController.Update(ten);
-
+                status = UResidence.OwnerController.Update(owe);
                 if (status == true)
                 {
-                    OwnerView();
-                    ViewBag.UpdateMessage = status;
+                    return RedirectToAction("OwnerView");
                 }
-                else
-                {
-                    ViewBag.UpdateMessage = status;
-                }
-                return View("OwnerView");
             }
             else
             {
-                return View("OwnerEdit");
+                ViewBag.ErrorMessages = FixMessages(err);
             }
+            ViewBag.UpdateMessage = true;
+            return View(owe);
+        }
+        public string FixMessages(string[] err)
+        {
+            string errors = "Please check the following: <br/>";
+            foreach (string er in err) errors += (er + "<br/>");
+            return errors;
         }
     }
 }

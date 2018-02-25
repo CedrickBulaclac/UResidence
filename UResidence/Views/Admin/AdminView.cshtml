@@ -1,4 +1,4 @@
-﻿@model UResidence.Admin
+﻿@model List<UResidence.Admin>
 
 @{
     ViewBag.Title = "AdminView";
@@ -15,48 +15,45 @@
 {
     @Html.AntiForgeryToken()
     <div class="dl-horizontal">
-        <table class="table-bordered table-striped">
+        <table class=" table table-bordered table-striped">
 
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.AdminNo)</th>
-                    <th> @Html.DisplayNameFor(model => model.Fname)</th>
-                    <th> @Html.DisplayNameFor(model => model.Mname)</th>
-                    <th> @Html.DisplayNameFor(model => model.Lname)</th>
-                    <th>@Html.DisplayNameFor(model => model.Bdate)</th>
-                    <th>@Html.DisplayNameFor(model => model.CelNo)</th>
-                    <th>@Html.DisplayNameFor(model => model.TelNo)</th>
-                    <th>@Html.DisplayNameFor(model => model.Gender)</th>
-                    <th>@Html.DisplayNameFor(model => model.Age)</th>
-                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th> Fname</th>
+                    <th>Mname</th>
+                    <th>Lname</th>
+                    <th>Bdate</th>
+                    <th>CelNo</th>
+                    <th>TelNo</th>
+                    <th>Gender</th>
+                    <th>Email</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            @if (ViewBag.admin != null)
-            {
-                foreach (Admin a in ViewBag.admin)
-                {
-                <tbody>
-                    <tr>
-                        <td>@Html.DisplayFor(model => a.AdminNo)</td>
-                        <td>@Html.DisplayFor(model => a.Fname)</td>
-                        <td>@Html.DisplayFor(model => a.Mname)</td>
-                        <td>@Html.DisplayFor(model => a.Lname)</td>
-                        <td>@Html.DisplayFor(model => a.Bdate)</td>
-                        <td>@Html.DisplayFor(model => a.CelNo)</td>
-                        <td>@Html.DisplayFor(model => a.TelNo)</td>
-                        <td>@Html.DisplayFor(model => a.Gender)</td>
-                        <td>@Html.DisplayFor(model => a.Age)</td>
-                        <td>@Html.DisplayFor(model => a.Email)</td>
-                        <td>
-                            <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-                            <a class="btn btn-link" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
-                        </td>
-                    </tr>
-                </tbody>
-                }
-            }
-        </table>
+            <tbody>
+                @foreach (Admin a in Model)
+    {
+
+            <tr>
+
+                <td>@Html.DisplayFor(model => a.Fname)</td>
+                <td>@Html.DisplayFor(model => a.Mname)</td>
+                <td>@Html.DisplayFor(model => a.Lname)</td>
+                <td>@Html.DisplayFor(model => a.Bdate)</td>
+                <td>@Html.DisplayFor(model => a.CelNo)</td>
+                <td>@Html.DisplayFor(model => a.TelNo)</td>
+                <td>@Html.DisplayFor(model => a.Gender)</td>
+                <td>@Html.DisplayFor(model => a.Email)</td>
+                <td>
+                    <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                    <a class="btn btn-link" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+                </td>
+            </tr>
+
+
+                   }
+            </tbody>
+            </table>
     </div>
 
     <div id="auerror" class="alert alert-danger collapse">

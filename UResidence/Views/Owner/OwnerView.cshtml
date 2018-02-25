@@ -1,0 +1,255 @@
+﻿@model List<UResidence.Owner>
+
+@{
+    ViewBag.Title = "OwnerView";
+}
+
+<h2>OwnerView</h2>
+<div class="btn-link">
+
+    <a href="@Url.Action("OwnerAdd","Owner")" class="btn btn-success">ADD NEW OWNER</a>
+
+</div>
+<hr />
+@using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table class="table table-bordered table-striped">
+        <tr>
+
+            <th scope="col">
+                BldgNo
+            </th>
+            <th scope="col">
+                UnitNo
+            </th>
+            <th scope="col">
+                Fname
+            </th>
+            <th scope="col">
+                Mname
+            </th>
+            <th scope="col">
+                Lname
+            </th>
+            <th scope="col">
+                Bdate
+            </th>
+            <th scope="col">
+                CelNo
+            </th>
+            <th scope="col">
+                TelNo
+            </th>
+            <th scope="col">
+                Email
+            </th>
+            <th scope="col">
+                Citizenship
+            </th>
+            <th scope="col">
+                Status
+            </th>
+            <th scope="col">
+                Gender
+            </th>
+
+            <th>Actions</th>
+        </tr>
+        @if (Model != null)
+        {
+            <tbody>
+                @foreach (Owner item in Model)
+                {
+                    <tr scope="row">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BldgNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Bdate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CelNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TelNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Citizenship)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CivilStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            <a class="btn btn-link" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                            <a class="btn btn-link" href="@Url.Action("Delete", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        }
+
+    </table>
+
+    <div id="auerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem updating the Owner
+    </div>
+    <div id="ausuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully updated the Owner
+    </div>
+
+    <div id="aerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem deleting the Owner
+    </div>
+    <div id="asuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully deleted the Owner
+    </div>
+    <div id="aaerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem submitting your form
+    </div>
+    <div id="aasuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully added a Owner
+    </div>
+    if (ViewBag.DeleteStatus != null)
+    {
+        if (ViewBag.DeleteStatus == true)
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('#asuccess').show('fade');
+
+                    setTimeout(function () {
+                        $('#asuccess').hide('fade');
+                    }, 20000);
+
+
+                });
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('#aerror').show('fade');
+
+                    setTimeout(function () {
+                        $('#aerror').hide('fade');
+                    }, 20000);
+
+
+                });
+            </script>
+        }
+    }
+    if (ViewBag.UpdateMessage != null)
+    {
+        if (ViewBag.UpdateMessage == true)
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('#ausuccess').show('fade');
+
+                    setTimeout(function () {
+                        $('#ausuccess').hide('fade');
+                    }, 20000);
+
+
+                });
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('#auerror').show('fade');
+
+                    setTimeout(function () {
+                        $('#auerror').hide('fade');
+                    }, 20000);
+
+
+                });
+            </script>
+        }
+    }
+
+    if (ViewBag.AddMessage != null)
+    {
+        if (ViewBag.AddMessage == true)
+        {
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#aasuccess').show('fade');
+
+                    setTimeout(function () {
+                        $('#aasuccess').hide('fade');
+                    }, 20000);
+
+                });
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#aaerror').show('fade');
+
+                    setTimeout(function () {
+                        $('#aaerror').hide('fade');
+                    }, 2000);
+
+
+                });
+            </script>
+
+        }
+
+    }
+
+}

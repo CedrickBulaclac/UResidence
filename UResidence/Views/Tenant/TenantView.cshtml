@@ -1,4 +1,4 @@
-﻿@model UResidence.Tenant
+﻿@model List<UResidence.Tenant>
 
 @{
     ViewBag.Title = "TenantView";
@@ -6,7 +6,6 @@
 
 <h2>TenantView</h2>
 
-<div>
     <div class="btn-link">
 
         <a href="TenantAdd"><input id="btnAdd" type="button" value="ADD NEW TENANT" class="btn btn-success" /></a>
@@ -17,57 +16,55 @@
     {
         @Html.AntiForgeryToken()
         <div class="dl-horizontal">
-            <table class="table-bordered">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.UnitNo)</th>
-                        <th>@Html.DisplayNameFor(model => model.BldgNo)</th>
-                        <th>@Html.DisplayNameFor(model => model.TenantNo)</th>
-                        <th>  @Html.DisplayNameFor(model => model.Fname)  </th>
-                        <th>  @Html.DisplayNameFor(model => model.Mname) </th>
-                        <th> @Html.DisplayNameFor(model => model.Lname) </th>
-                        <th> @Html.DisplayNameFor(model => model.Gender) </th>
-                        <th>@Html.DisplayNameFor(model => model.Age)  </th>
-                        <th> @Html.DisplayNameFor(model => model.TelNo)  </th>
-                        <th> @Html.DisplayNameFor(model => model.CelNo)  </th>
-                        <th> @Html.DisplayNameFor(model => model.Email)  </th>
-                        <th>@Html.DisplayNameFor(model => model.Citizenship)  </th>
-                        <th>@Html.DisplayNameFor(model => model.Status)  </th>
-                        <th> @Html.DisplayNameFor(model => model.LeaseStart)  </th>
-                        <th>  @Html.DisplayNameFor(model => model.LeaseEnd) </th>
-                        <th>Actions</th>
+                        <th scope="col">UnitNo</th>
+                        <th scope="row">BldgNo</th>
+                        <th scope="row">  Fname </th>
+                        <th scope="row">  Mname </th>
+                        <th scope="row"> Lname </th>
+                        <th scope="row"> Gender </th>
+                        <th scope="row">Bdate  </th>
+                        <th scope="row"> TelNo  </th>
+                        <th scope="row"> CelNo  </th>
+                        <th scope="row"> Email  </th>
+                        <th scope="row">Citizenship  </th>
+                        <th scope="row">Civil Status  </th>
+                        <th scope="row"> LeaseStart  </th>
+                        <th scope="row">  LeaseEnd </th>
+                        <th scope="row">Actions</th>
                     </tr>
                 </thead>
-
-
-                @if (ViewBag.tenant != null)
-                {
-                    foreach (Tenant ten in ViewBag.tenant)
+                @if (Model != null)
                     {
-                        <tbody>
-                            <tr>
-                                <td>@Html.DisplayFor(model => ten.UnitNo)</td>
-                                <td>@Html.DisplayFor(model => ten.BldgNo)  </td>
-                                <td>@Html.DisplayFor(model => ten.TenantNo)  </td>
-                                <td>@Html.DisplayFor(model => ten.Fname)  </td>
-                                <td>@Html.DisplayFor(model => ten.Mname)  </td>
-                                <td>@Html.DisplayFor(model => ten.Lname)</td>
-                                <td>@Html.DisplayFor(model => ten.Gender)  </td>
-                                <td>@Html.DisplayFor(model => ten.Age)  </td>
-                                <td>@Html.DisplayFor(model => ten.TelNo)  </td>
-                                <td>@Html.DisplayFor(model => ten.CelNo)  </td>
-                                <td>@Html.DisplayFor(model => ten.Email)  </td>
-                                <td>@Html.DisplayFor(model => ten.Citizenship)  </td>
-                                <td>@Html.DisplayFor(model => ten.Status)  </td>
-                                <td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
-                                <td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
-                                <td>
-                                    <a class="btn btn-link" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-                                    <a class="btn btn-link" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                <tbody>
+                    @foreach (Tenant ten in Model)
+                    {
+
+                    <tr scope="row">
+                        <td>@Html.DisplayFor(model => ten.UnitNo)</td>
+                        <td>@Html.DisplayFor(model => ten.BldgNo)  </td>
+                        <td>@Html.DisplayFor(model => ten.Fname)  </td>
+                        <td>@Html.DisplayFor(model => ten.Mname)  </td>
+                        <td>@Html.DisplayFor(model => ten.Lname)</td>
+                        <td>@Html.DisplayFor(model => ten.Gender)  </td>
+                        <td>@Html.DisplayFor(model => ten.Bdate)  </td>
+                        <td>@Html.DisplayFor(model => ten.TelNo)  </td>
+                        <td>@Html.DisplayFor(model => ten.CelNo)  </td>
+                        <td>@Html.DisplayFor(model => ten.Email)  </td>
+                        <td>@Html.DisplayFor(model => ten.Citizenship)  </td>
+                        <td>@Html.DisplayFor(model => ten.CivilStatus)  </td>
+                        <td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
+                        <td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
+                        <td>
+                            <a class="btn btn-link" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                            <a class="btn btn-link" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+                        </td>
+                    </tr>
+
                     }
+                </tbody>
                 }
 
             </table>

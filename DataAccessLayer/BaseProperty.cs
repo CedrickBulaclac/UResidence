@@ -9,6 +9,8 @@ namespace UResidence
     public interface BaseProperty<T>
     {
         T CreateObject(SqlDataReader reader);
+        //bool Validate(out string[] errors)
+
         void Reset();
     }
 }

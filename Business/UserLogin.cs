@@ -49,6 +49,6 @@ namespace UResidence
             ret.Locked = Convert.ToInt32(reader.GetValue(2));
             return ret;
         }
-
+      
     }
 }
