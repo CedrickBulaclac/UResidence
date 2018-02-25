@@ -15,33 +15,6 @@
 {
     @Html.AntiForgeryToken()
     <div class="dl-horizontal">
-<<<<<<< HEAD
-        <table class="table table-bordered table-striped ">
-
-            <thead>
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.AdminNo)</th>
-                    <th scope="col"> @Html.DisplayNameFor(model => model.Fname)</th>
-                    <th scope="col"> @Html.DisplayNameFor(model => model.Mname)</th>
-                    <th scope="col"> @Html.DisplayNameFor(model => model.Lname)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Bdate)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.CelNo)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.TelNo)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Gender)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Age)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Email)</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            @if (ViewBag.admin != null)
-             {
-            <tbody>
-                @foreach (Admin a in ViewBag.admin)
-                {
-
-            <tr scope="row">
-                <td>@Html.DisplayFor(model => a.AdminNo)</td>
-=======
         <table class=" table table-bordered table-striped">
 
             <thead>
@@ -62,7 +35,7 @@
     {
 
             <tr>
->>>>>>> Gold
+
                 <td>@Html.DisplayFor(model => a.Fname)</td>
                 <td>@Html.DisplayFor(model => a.Mname)</td>
                 <td>@Html.DisplayFor(model => a.Lname)</td>
@@ -70,10 +43,6 @@
                 <td>@Html.DisplayFor(model => a.CelNo)</td>
                 <td>@Html.DisplayFor(model => a.TelNo)</td>
                 <td>@Html.DisplayFor(model => a.Gender)</td>
-<<<<<<< HEAD
-                <td>@Html.DisplayFor(model => a.Age)</td>
-=======
->>>>>>> Gold
                 <td>@Html.DisplayFor(model => a.Email)</td>
                 <td>
                     <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
@@ -81,17 +50,10 @@
                 </td>
             </tr>
 
-<<<<<<< HEAD
+
                    }
             </tbody>
-            }
-
-        </table>
-=======
-}
-            </tbody>
             </table>
->>>>>>> Gold
     </div>
 
     <div id="auerror" class="alert alert-danger collapse">

@@ -64,8 +64,7 @@ namespace UResidence.Controllers
         {
 
             Amenity amn = default(Amenity);
-               amn= UResidence.AmenityController.GetbyId(id);
-      
+               amn= UResidence.AmenityController.GetbyId(id);     
             return View(amn);
         }
 

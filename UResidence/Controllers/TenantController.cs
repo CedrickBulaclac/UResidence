@@ -16,30 +16,24 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult TenantAdd(FormCollection fc)
+        public ActionResult TenantAdd(Tenant ten)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Tenant ten = Tenant.CreateObject(values);
-            if (ten.Validate())
+            string[] err = new string[] { };
+            if (ten.Validate(out err))
             {
-                status = UResidence.TenantController.Insert(ten);
-                if (status == true)
-                {
-                    ViewBag.AddMessage = status;
-                }
-                else
-                {
-                    ViewBag.AddMessage = status;
-                }
+                ViewBag.Message = UResidence.TenantController.Insert(ten);
             }
-            return View();
+            else
+            {
+                ViewBag.Message = false;
+                ViewBag.ErrorMessages = FixMessages(err);
+            }
+            return View(ten);
         }
         public ActionResult TenantView()
         {
-            List<Tenant> tenantList = default(List<Tenant>);
-            tenantList=UResidence.TenantController.GetAll();
-            ViewBag.tenant = tenantList;
-            return View();      
+            List<Tenant> tenantList = UResidence.TenantController.GetAll();
+            return View(tenantList);      
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -69,36 +63,36 @@ namespace UResidence.Controllers
         {
             if(ModelState.IsValid)
             {
-                List<Tenant> tenantList = default(List<Tenant>);
-                  tenantList = UResidence.TenantController.GetIdTenant(id);
-                ViewBag.TenantList = tenantList;
+                Tenant tenantList = UResidence.TenantController.GetIdTenant(id);
+                return View(tenantList);
             }
             return View("TenantEdit");
         }
         [HttpPost]
-        public ActionResult TenantEdit(FormCollection fc)
+        public ActionResult TenantEdit(Tenant ten)
         {
-            NameValueCollection values = (NameValueCollection)fc;
-            Tenant ten = Tenant.CreateObject(values);
-                if (ten.Validate())
+            string[] err = new string[] { };
+            if (ten.Validate(out err))
             {
                 status = UResidence.TenantController.Update(ten);
-
                 if (status == true)
                 {
-                    TenantView();
-                    ViewBag.UpdateMessage = status;
+                    return RedirectToAction("TenantView");
                 }
-                else
-                {
-                    ViewBag.UpdateMessage = status;
-                }
-                return View("TenantView");
             }
             else
             {
-                return View("TenantEdit");
+                ViewBag.ErrorMessages = FixMessages(err);
             }
+            ViewBag.UpdateMessage = true;
+            return View(ten);
+        }
+
+        public string FixMessages(string[] err)
+        {
+            string errors = "Please check the following: <br />";
+            foreach (string er in err) errors += (er + "<br />");
+            return errors;
         }
     }
 }

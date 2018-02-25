@@ -12,96 +12,83 @@ namespace UResidence
     {
         public int Id { get; set; }
         public string UnitNo { get; set; }
-        public string BldgNo { get; set; }
-        public string TenantNo { get; set; }
+        public string BldgNo { get; set; }  
         public string Fname { get; set; }
         public string Mname { get; set; }
         public string Lname { get; set; }
-        public string Gender { get; set; } 
-        public int Age { get; set; }
+        public string Gender { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Bdate { get; set; }
         public string TelNo { get; set; }
         public string CelNo { get; set; }
         public string Email { get; set; }
         public string Citizenship { get; set; }
-        public string Status { get; set; }
+        public string CivilStatus { get; set; }
         [DataType(DataType.Date)]
         public DateTime LeaseStart { get; set; }
         [DataType(DataType.Date)]
         public DateTime LeaseEnd { get; set; }
 
 
-        public bool Validate()
+        public bool Validate(out string[] errors)
         {
             bool ret = true;
-
-            if (this.UnitNo.Trim() == string.Empty) ret = false;
-            if (this.BldgNo.Trim() == string.Empty) ret = false;
-            if (this.Lname.Trim() == string.Empty) ret = false;
-            if (this.Gender.Trim() == string.Empty) ret = false;
-            if (this.Email.Trim() == string.Empty) ret = false;
-            if (this.Citizenship.Trim() == string.Empty) ret = false;
-            if (this.LeaseStart == DateTime.Today) ret = false;
-            if (this.LeaseEnd == DateTime.Today) ret = false;
-
+            List<string> err = new List<string>();
+            if (this.UnitNo.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Unit No is required");
+            }
+            if (this.BldgNo.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Building No is required");
+            }
+            if (this.Lname.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Last name is required");
+            }
+            if (this.Gender.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Gender is required");
+            }
+            if (this.Email.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Email is required");
+            }
+            if (this.Citizenship.Trim() == string.Empty)
+            {
+                ret = false;
+                err.Add("Tenant Citizenship is required");
+            }
+            if (this.Bdate == DateTime.Today)
+            {
+                ret = false;
+                err.Add("Tenant Birthday is required");
+            }
+            errors = err.ToArray();
             return ret;
         }
 
-        public static Tenant CreateObject(NameValueCollection fc)
-        {
-            DateTime start = DateTime.Now; 
-            DateTime end = DateTime.Now;  
-            int age = 0;
-
-
-            if (!DateTime.TryParse(fc["LeaseStart"].Trim(), out start))
-                start = DateTime.Now;
-
-            if (!DateTime.TryParse(fc["LeaseEnd"].Trim(), out end))
-                end = DateTime.Now;
-
-            if (!Int32.TryParse(fc["Age"].Trim(), out age))
-                age = 0;
-
-            string gender = fc["Gender"].ToString();
-            Tenant ten = new Tenant()
-            {
-                UnitNo = fc["UnitNo"],
-                BldgNo = fc["BldgNo"],
-                TenantNo = fc["TenantNo"],
-                Fname = fc["Fname"],
-                Mname = fc["Mname"],
-                Lname = fc["Lname"],
-                Gender = gender,
-                Age = age,
-                TelNo = fc["TelNo"],
-                CelNo = fc["CelNo"],
-                Email = fc["Email"],
-                Citizenship = fc["Citizenship"],
-                Status = fc["Status"],
-                LeaseStart = start,
-                LeaseEnd = end
-            };
-
-            return ten;
-        }
 
         public void Reset()
         {
             this.Id = 0;
             this.UnitNo = string.Empty;
             this.BldgNo = string.Empty;
-            this.TenantNo = string.Empty;
             this.Fname = string.Empty;
             this.Mname = string.Empty;
             this.Lname = string.Empty;
             this.Gender = string.Empty;
-            this.Age = 0;
+            this.Bdate = DateTime.Today;
             this.TelNo = string.Empty;
             this.CelNo = string.Empty;
             this.Email = string.Empty;
             this.Citizenship = string.Empty;
-
-            this.Status = string.Empty;
+            this.CivilStatus = string.Empty;
             this.LeaseStart = DateTime.Today;
             this.LeaseEnd = DateTime.Today;    
         }
@@ -113,19 +100,18 @@ namespace UResidence
             ret.Id = reader.GetInt32(0);
             ret.UnitNo = reader.GetString(1);
             ret.BldgNo = reader.GetString(2);
-            ret.TenantNo = reader.GetString(3);
-            ret.Fname = reader.GetString(4);
-            ret.Mname = reader.GetString(5);
-            ret.Lname = reader.GetString(6);
-            ret.Gender = reader.GetString(7);
-            ret.Age = reader.GetInt32(8);
-            ret.TelNo = reader.GetString(9);
-            ret.CelNo = reader.GetString(10);
-            ret.Email = reader.GetString(11);
-            ret.Citizenship = reader.GetString(12);
-            ret.Status = reader.GetString(13);
-            ret.LeaseStart = reader.GetDateTime(14);
-            ret.LeaseEnd = reader.GetDateTime(15);
+            ret.Fname = reader.GetString(3);
+            ret.Mname = reader.GetString(4);
+            ret.Lname = reader.GetString(5);
+            ret.Gender = reader.GetString(6);
+            ret.Bdate = reader.GetDateTime(7);
+            ret.TelNo = reader.GetString(8);
+            ret.CelNo = reader.GetString(9);
+            ret.Email = reader.GetString(10);
+            ret.Citizenship = reader.GetString(11);
+            ret.CivilStatus = reader.GetString(12);
+            ret.LeaseStart = reader.GetDateTime(13);
+            ret.LeaseEnd = reader.GetDateTime(14);
 
             return ret;
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UResidence.Owner>
+﻿@model List<UResidence.Owner>
 
 @{
     ViewBag.Title = "OwnerView";
@@ -18,48 +18,48 @@
         <tr>
 
             <th scope="col">
-                @Html.DisplayNameFor(model => model.BldgNo)
+                BldgNo
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.UnitNo)
+                UnitNo
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Fname)
+                Fname
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Mname)
+                Mname
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Lname)
+                Lname
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Bdate)
+                Bdate
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.CelNo)
+                CelNo
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.TelNo)
+                TelNo
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Citizenship)
+                Citizenship
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Status)
+                Status
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Gender)
+                Gender
             </th>
 
             <th>Actions</th>
         </tr>
-        @if (ViewBag.owner != null)
+        @if (Model != null)
         {
             <tbody>
-                @foreach (Owner item in ViewBag.owner)
+                @foreach (Owner item in Model)
                 {
                     <tr scope="row">
                         <td>
@@ -93,7 +93,7 @@
                             @Html.DisplayFor(modelItem => item.Citizenship)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Status)
+                            @Html.DisplayFor(modelItem => item.CivilStatus)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Gender)
@@ -125,6 +125,13 @@
     <div id="asuccess" class="alert alert-success collapse">
         <strong>Success!</strong> You have successfully deleted the Owner
     </div>
+    <div id="aaerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem submitting your form
+    </div>
+    <div id="aasuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully added a Owner
+    </div>
     if (ViewBag.DeleteStatus != null)
     {
         if (ViewBag.DeleteStatus == true)
@@ -132,16 +139,16 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
             </script>
             <script type="text/javascript">
-				$(document).ready(function () {
+                $(document).ready(function () {
 
-					$('#asuccess').show('fade');
+                    $('#asuccess').show('fade');
 
-					setTimeout(function () {
-						$('#asuccess').hide('fade');
-					}, 2000);
+                    setTimeout(function () {
+                        $('#asuccess').hide('fade');
+                    }, 20000);
 
 
-				});
+                });
             </script>
         }
 
@@ -150,16 +157,16 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
             </script>
             <script type="text/javascript">
-				$(document).ready(function () {
+                $(document).ready(function () {
 
-					$('#aerror').show('fade');
+                    $('#aerror').show('fade');
 
-					setTimeout(function () {
-						$('#aerror').hide('fade');
-					}, 2000);
+                    setTimeout(function () {
+                        $('#aerror').hide('fade');
+                    }, 20000);
 
 
-				});
+                });
             </script>
         }
     }
@@ -170,16 +177,16 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
             </script>
             <script type="text/javascript">
-				$(document).ready(function () {
+                $(document).ready(function () {
 
-					$('#ausuccess').show('fade');
+                    $('#ausuccess').show('fade');
 
-					setTimeout(function () {
-						$('#ausuccess').hide('fade');
-					}, 2000);
+                    setTimeout(function () {
+                        $('#ausuccess').hide('fade');
+                    }, 20000);
 
 
-				});
+                });
             </script>
         }
 
@@ -188,19 +195,61 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
             </script>
             <script type="text/javascript">
-				$(document).ready(function () {
+                $(document).ready(function () {
 
-					$('#auerror').show('fade');
+                    $('#auerror').show('fade');
 
-					setTimeout(function () {
-						$('#auerror').hide('fade');
-					}, 2000);
+                    setTimeout(function () {
+                        $('#auerror').hide('fade');
+                    }, 20000);
 
 
-				});
+                });
             </script>
         }
     }
 
+    if (ViewBag.AddMessage != null)
+    {
+        if (ViewBag.AddMessage == true)
+        {
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#aasuccess').show('fade');
+
+                    setTimeout(function () {
+                        $('#aasuccess').hide('fade');
+                    }, 20000);
+
+                });
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    $('#aaerror').show('fade');
+
+                    setTimeout(function () {
+                        $('#aaerror').hide('fade');
+                    }, 2000);
+
+
+                });
+            </script>
+
+        }
+
+    }
 
 }
