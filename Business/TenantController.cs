@@ -34,7 +34,7 @@ namespace UResidence
 
         public static bool Update(Tenant usr)
         {
-            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, TelNo = @TelNo, CelNo = @CelNo, Email = @Email , Citizenship = @Citizenship  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, TelNo = @TelNo, CelNo = @CelNo, Email = @Email , Citizenship = @Citizenship, Gender=@Gender  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Fname", usr.Fname));
@@ -45,6 +45,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
             com.Parameters.Add(new SqlParameter("@Citizenship", usr.Citizenship));
+            com.Parameters.Add(new SqlParameter("@Gender", usr.Gender));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
 
             return SqlManager.ExecuteNonQuery(com);

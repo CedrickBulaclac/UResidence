@@ -18,6 +18,7 @@ namespace UResidence
         public string Lname { get; set; }
         public string Gender { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}",ApplyFormatInEditMode =true)]
         public DateTime Bdate { get; set; }
         public string TelNo { get; set; }
         public string CelNo { get; set; }
@@ -25,8 +26,10 @@ namespace UResidence
         public string Citizenship { get; set; }
         public string CivilStatus { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LeaseStart { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LeaseEnd { get; set; }
 
 
@@ -49,7 +52,7 @@ namespace UResidence
                 ret = false;
                 err.Add("Tenant Last name is required");
             }
-            if (this.Gender.Trim() == string.Empty)
+            if (this.Gender.Trim() == string.Empty || this.Gender.Trim() == null)
             {
                 ret = false;
                 err.Add("Tenant Gender is required");

@@ -149,11 +149,11 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
-    <Compile Include="Controllers\UserReserveAmenityController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ReserveController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -208,7 +208,8 @@
     <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
-    <Content Include="Views\UserReserveAmenity\SelectAmenity.cshtml" />
+    <Content Include="Views\Reserve\SelectAmenity.cshtml" />
+    <Content Include="Views\Reserve\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,54 @@
+﻿@model List<UResidence.Amenity>
+
+@{
+    ViewBag.Title = "SelectAmenity";
+    Layout = "~/Views/Reserve/Layout.cshtml";
+}
+
+@using (Html.BeginForm("SelectAmenity", "Reservation", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h1>Reservation</h1>
+    <br />
+    <br />
+    <br />
+    <center>
+       
+        <div class="container">
+            <ul class="pagination">
+                <li class="disabled"><a href="#">«</a></li>
+                <li class="active"><a href="#"><i class="glyphicon glyphicon-ok"  style="font-size:60px;color:lawngreen;;"></i><span class="sr-only">(current)</span></a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+
+
+    </center>
+        <div class="dl-horizontal">
+            <table class="table" border="0">
+                <tbody>
+
+                    @foreach (Amenity a in Model)
+    {
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DisplayFor(model => a.AmenityName)
+                        <br />
+                        @Html.DisplayFor(model => a.Description)
+                        <br />
+                        @Html.DisplayFor(model => a.Capacity)
+                        <br />
+                    </div>
+
+                </div>
+}
+                </tbody>
+            </table>
+        </div>
+}
+

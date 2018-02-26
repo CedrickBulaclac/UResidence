@@ -25,8 +25,10 @@
                     <li>@Html.ActionLink("Admin", "AdminView", "Admin")</li>
                     <li>@Html.ActionLink("Tenant", "TenantView", "Tenant")</li>
                     <li>@Html.ActionLink("Owner", "OwnerView", "Owner")</li>
-                    <li>@Html.ActionLink("Log-Out", "Index", "Login")</li>
-
+                    <li>@Html.ActionLink("Reservation", "SelectAmenity", "Reservation")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out"></i>Log-Out</a></li>
                 </ul>
             </div>
         </div>

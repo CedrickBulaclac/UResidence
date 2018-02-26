@@ -17,6 +17,7 @@ namespace UResidence
         public string Mname { get; set; }
         public string Lname { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
         public string TelNo { get; set; }
