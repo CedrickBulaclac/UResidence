@@ -19,7 +19,6 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection fc)
         {
-            List<UserLogin> userList = default(List<UserLogin>);
             string chash;
             string hash= fc["Hash"];
             string username;
