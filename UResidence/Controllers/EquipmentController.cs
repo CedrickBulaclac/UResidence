@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.IO;
 namespace UResidence.Controllers
 {
     public class EquipmentController : Controller
@@ -18,18 +18,38 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(Equipment eqp)
+        public ActionResult Registration(Equipment eqp,HttpPostedFileBase image)
         {
             string[] err = new string[] { };
-            if (eqp.Validate(out err))
+            if (image != null)
             {
-                UResidence.EquipmentController.Insert(eqp);
-                ViewBag.Message = true;
-            }
-            else
-            {
-                ViewBag.ErrorMessage = FixMessages(err);
-                ViewBag.Message = false;
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
+                    string folderpath = "~/Content/EquipmentImages/" + imagefileName;
+                    image.SaveAs(folderPath);
+                    Equipment eqp1 = new Equipment()
+                    {
+                        Name = eqp.Name,
+                        Url = folderpath,
+                        Stocks = eqp.Stocks,
+                        Rate = eqp.Rate
+                    };
+
+                    if (eqp1.Validate(out err))
+                    {
+                        UResidence.EquipmentController.Insert(eqp1);
+                        ViewBag.Message = true;
+                        return View("Registration");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = FixMessages(err);
+                        ViewBag.Message = false;
+                        return View(eqp);
+                    }
+                }
             }
             return View();
         }
@@ -72,24 +92,47 @@ namespace UResidence.Controllers
             return View("EquipmentView");
         }
         [HttpPost]
-        public ActionResult EquipmentEdit(Equipment eqp)
+        public ActionResult EquipmentEdit(Equipment eqp, HttpPostedFileBase image)
         {
             string[] err = new string[] { };
-            if (eqp.Validate(out err))
+            if (image != null)
             {
-                status = UResidence.EquipmentController.Update(eqp);
-                if (status == true)
+                if (image.ContentLength > 0)
                 {
-                    ViewBag.UpdateMessage = status;
-                    return RedirectToAction("EquipmentView");
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
+                    string folderpath = "~/Content/EquipmentImages/" + imagefileName;
+                    image.SaveAs(folderPath);
+                    Equipment eqp1 = new Equipment()
+                    {
+                       Id=eqp.Id,
+                        Name = eqp.Name,
+                        Url = folderpath,
+                        Stocks = eqp.Stocks,
+                        Rate = eqp.Rate
+                    };
+                    if (eqp1.Validate(out err))
+                    {
+                        status = UResidence.EquipmentController.Update(eqp1);
+                        if (status == true)
+                        {
+                            ViewBag.UpdateMessage = status;
+                            EquipmentView();
+                            return View("EquipmentView");
+                        }
+                        else
+                        {
+                            ViewBag.UpdateMessage = status;
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessages = FixMessages(err);
                 }
             }
-            else
-            {
-                ViewBag.ErrorMessages = FixMessages(err);
-            }
-            ViewBag.UpdateMessage = true;
-            return View(eqp);
+         
+                return View(eqp);
         }
 
         public string FixMessages(string[] err)

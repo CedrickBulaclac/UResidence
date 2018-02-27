@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace UResidence.Controllers
 {
     public class LoginController : Controller
@@ -26,7 +27,7 @@ namespace UResidence.Controllers
             chash = Hash(hash);
             UserLogin user = new UserLogin();
             user = UResidence.UserController.Get(username, chash);
-            if (user != null)
+            if (user != default(UserLogin))
             {
                 if (user.Level == 0)
                 {
@@ -44,6 +45,8 @@ namespace UResidence.Controllers
             }
             else
             {
+              string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                Response.Write(script);
 
             }
             return View();

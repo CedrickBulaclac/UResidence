@@ -5,6 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+
+
 
 namespace UResidence
 {
@@ -14,6 +17,8 @@ namespace UResidence
         public string Description { get; set; }
         public int Capacity { get; set; }
         public string AmenityName { get; set; }
+        public string Url { get; set; }
+        public int Rate { get; set; }
 
         public Amenity CreateObject(SqlDataReader reader)
         {
@@ -22,6 +27,8 @@ namespace UResidence
             ret.Description = reader.GetString(1);
             ret.Capacity = reader.GetInt32(2);
             ret.AmenityName = reader.GetString(3);
+           ret.Url = reader.GetString(4);
+            ret.Rate = reader.GetInt32(5);
             return ret;
         }
         public bool Validate(out string[] errors)
@@ -46,30 +53,24 @@ namespace UResidence
                 err.Add("Desription must not be empty.");
                 ret = false;
             }
-
+            if(this.Rate<=0)
+            {
+                err.Add("Amenity rate must be at least 1");
+                ret = false;
+            }
+           
             errors = err.ToArray();
             return ret;
         }
-        public static Amenity CreateObject(NameValueCollection fc)
-        {
-            int capacity = 0;
-            if (!int.TryParse(fc["Capacity"], out capacity))
-                capacity = 0;
-            Amenity ret = new Amenity()
-            {
-                Description=fc["Description"],
-                Capacity=capacity,
-                AmenityName = fc["AmenityName"]
-
-            };
-            return ret;
-        }
+       
         public void Reset()
         {
             this.Description = string.Empty;
             this.Capacity = 0;
             this.AmenityName = string.Empty;
+            this.Url = string.Empty;
+            this.Rate = 0;
         }
-     
+       
     }
 }

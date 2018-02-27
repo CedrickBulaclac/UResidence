@@ -1,47 +1,63 @@
-﻿@model UResidence.Amenity
+﻿
+@model UResidence.Amenity
 
 @{
     ViewBag.Title = "AmenityAdd";
 }
 
 <h2>Amenity</h2>
-@using (Html.BeginForm("AmenityAdd", "Amenity", FormMethod.Post))
+@using (Html.BeginForm("AmenityAdd", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">       
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.AmenityName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input id="btnSave" type="submit" value="Save" class="btn btn-default" />
-                <a href="AmenityView" class="btn btn-default">Cancel</a>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AmenityName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required="required"} })
+            @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="image" name="image" />
+            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="btnSave" type="submit" value="Save" class="btn btn-default" />
+            <a href="AmenityView" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</div>
     <div id="aerror" class="alert alert-danger collapse">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>Error!</strong> @ViewBag.ErrorMessages;

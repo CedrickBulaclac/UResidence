@@ -16,7 +16,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
+    <script type="text/javascript">
+function Showalert() {
+alert('wrong Username or Password');
+}
+    </script>
 
     @using (Html.BeginForm("Index", "Login", FormMethod.Post))
     {

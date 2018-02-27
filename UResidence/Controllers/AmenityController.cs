@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 using UResidence;
 namespace UResidence.Controllers
 {
@@ -17,19 +18,47 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult AmenityAdd(Amenity amen)
+        public ActionResult AmenityAdd(Amenity amen,HttpPostedFileBase image)
         {
             string[] err = new string[] { };
-            if (amen.Validate(out err))
+            if (image != null)
             {
-                ViewBag.Message = UResidence.AmenityController.Insert(amen);
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath = "~/Content/AmenityImages/" + imagefileName;
+                    image.SaveAs(folderPath);
+                    Amenity a = new Amenity()
+                    {
+                        AmenityName = amen.AmenityName,
+                        Url = folderpath,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate
+                    };
+
+                    if (amen.Validate(out err))
+                    {
+
+                        ViewBag.Message = UResidence.AmenityController.Insert(a);
+                        return View();
+                    }
+                    else
+                    {
+                        ViewBag.Message = false;
+                        ViewBag.ErrorMessages = FixMessages(err);
+                        return View(amen);
+                    }
+                }
+
             }
+
             else
             {
-                ViewBag.Message = false;
-                ViewBag.ErrorMessages=FixMessages(err);
+                return View();
             }
-            return View(amen);
+            return View();
         }
 
         public ActionResult AmenityView()
@@ -70,24 +99,44 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public ActionResult AmenityEdit(Amenity amen)
+        public ActionResult AmenityEdit(Amenity amen,HttpPostedFileBase image)
         {
             string[] err = new string[]{ };
-            if (amen.Validate(out err))
+            if (image != null)
             {
-                status = UResidence.AmenityController.Update(amen);
-                if (status == true)
+                if (image.ContentLength > 0)
                 {
-                    ViewBag.UpdateMessage = status;
-                    return RedirectToAction("AmenityView");
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath = "~/Content/AmenityImages/" + imagefileName;
+                    image.SaveAs(folderPath);
+                    Amenity a = new Amenity()
+                    {
+                        Id=amen.Id,
+                        AmenityName = amen.AmenityName,
+                        Url = folderpath,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate
+                    };
+                    if (a.Validate(out err))
+                    {
+                        status = UResidence.AmenityController.Update(a);
+                        if (status == true)
+                        {
+                            ViewBag.UpdateMessage = status;
+                            AmenityView();
+                            return View("AmenityView");
+                        }
+                    }
+                    return View();
+                }
+                else
+                {
+
+                    ViewBag.ErrorMessages = FixMessages(err);
                 }
             }
-            else
-            {
-               
-                ViewBag.ErrorMessages = FixMessages(err);
-            }
-
             return View(amen);
         }
 
@@ -97,5 +146,6 @@ namespace UResidence.Controllers
             foreach (string er in err) errors += (er + "<br />");
             return errors;
         }
+        
     }
 }

@@ -29,7 +29,7 @@ namespace UResidence
             ret.Lname = reader.GetString(3);
             ret.Bdate = reader.GetDateTime(4);
             ret.CelNo = reader.GetString(5);
-            ret.Email = reader.GetString(8);        
+            ret.Email = reader.GetString(6);        
             return ret;
         }
        

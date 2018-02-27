@@ -23,15 +23,23 @@ namespace UResidence
 
         public static UserLogin Get(string uid,string uhash)
         {
-            const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
-
             UserLogin ret = default(UserLogin);
-            SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@Username", uid));
-            com.Parameters.Add(new SqlParameter("@Hash", uhash));
-            ret = SqlManager.Select<UserLogin>(com).First();
+            try
+            {
+                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
 
-            return ret;
+                
+                SqlCommand com = new SqlCommand(GET_RECORD);
+                com.Parameters.Add(new SqlParameter("@Username", uid));
+                com.Parameters.Add(new SqlParameter("@Hash", uhash));
+                ret = SqlManager.Select<UserLogin>(com).First();
+
+                return ret;
+            }
+            catch(InvalidOperationException ex )
+            {
+                return ret;
+            }
         }
 
         public static UserLogin Get(int id)

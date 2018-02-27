@@ -21,14 +21,29 @@ namespace UResidence.Controllers
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {
-                ViewBag.Message = UResidence.TenantController.Insert(ten);
+                status = UResidence.TenantController.Insert(ten);
+                
+                   
+                    if(status==true)
+                {
+                    ViewBag.Message = status;
+                    TenantView();
+                    return View("TenantView");
+                }
+                    else
+                {
+                    ViewBag.Message = status;
+                    return View(ten);
+                }
+               
             }
             else
             {
                 ViewBag.Message = false;
                 ViewBag.ErrorMessages = FixMessages(err);
+                return View(ten);
             }
-            return View(ten);
+           
         }
         public ActionResult TenantView()
         {
@@ -77,14 +92,22 @@ namespace UResidence.Controllers
                 status = UResidence.TenantController.Update(ten);
                 if (status == true)
                 {
-                    return RedirectToAction("TenantView");
+                    ViewBag.UpdateMessage = status;
+                    TenantView();
+                    return View("TenantView");
                 }
+                else
+                {
+                    ViewBag.UpdateMessage = status;
+                    return View();
+                }
+               
             }
             else
             {
                 ViewBag.ErrorMessages = FixMessages(err);
             }
-            ViewBag.UpdateMessage = true;
+           
             return View(ten);
         }
 

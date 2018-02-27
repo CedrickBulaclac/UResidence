@@ -81,7 +81,14 @@ namespace UResidence.Controllers
                 status = UResidence.OwnerController.Update(owe);
                 if (status == true)
                 {
-                    return RedirectToAction("OwnerView");
+                    ViewBag.UpdateMessage = status;
+                    OwnerView();
+                    return View("OwnerView");
+                }
+                else
+                {
+                    ViewBag.UpdateMessage = status;
+                    return View();
                 }
             }
             else

@@ -123,14 +123,18 @@
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                        <p>Choose Date</p>
+                        <p>Sheduled Amenities</p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                        <p>Choose Equipment</p>
+                        <p>Choose Date</p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+                        <p>Choose Equipment</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
                         <p>Summary</p>
                     </div>
                 </div>
@@ -139,42 +143,42 @@
 
     <form role="form" action="" method="post">
         <div class="row setup-content" id="step-1">
-            <div class="col-md-6">
+            <div class="row-md-6">
                 <h3>Choose Amenity</h3>
                 <div class="form-group">
 
                     <table>
 
                         @foreach (Amenity a in Model)
-            {
+    {
 
 
-                <tr>
-                    <td> <button class="btn btn-default nextBtn btn-lg pull-right" type="button">Picture</button></td>
-                </tr>
-                <tr>
-                    <td><u>@Html.EditorFor(model => a.AmenityName, new { htmlAttributes = new { @class = "form-control" ,@readonly="readonly" } })</u></td>
-                </tr>
-                <tr>
-                    <td><u>@Html.EditorFor(model => a.Description ,new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                </tr>
-                <tr>
-                    <td><u>@Html.EditorFor(model => a.Capacity ,new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                </tr>
+                    <tr>
+                        <td> <button class="btn btn-default nextBtn btn-lg pull-right" type="button">@Html.Image(a.Url)</button></td>
+                    </tr>
+                    <tr>
+                        <td><u>@Html.EditorFor(model => a.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                    </tr>
+                    <tr>
+                        <td><u>@Html.EditorFor(model => a.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                    </tr>
+                    <tr>
+                        <td><u>@Html.EditorFor(model => a.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                    </tr>
+                    <tr>
+                        <td><u>@Html.EditorFor(model => a.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                    </tr>
+                    <br />
+                    <br />
 }
                     </table>
-
-                        
-                </div>
-
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                </div>            
             </div>
-            </div>
-    
+        </div>
         <div class="row setup-content" id="step-2">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
-                    <h3> Choose Date</h3>
+                    <h3> Scheduled Amenities</h3>
 
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                 </div>
@@ -183,7 +187,8 @@
         <div class="row setup-content" id="step-3">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
-                    <h3> Choose Equipment</h3>
+                    <h3> Choose Date</h3>
+
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                 </div>
             </div>
@@ -191,8 +196,16 @@
         <div class="row setup-content" id="step-4">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
+                    <h3> Choose Equipment</h3>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-5">
+            <div class="col-xs-6 col-md-offset-3">
+                <div class="col-md-12">
                     <h3> Summary</h3>
-               
+
                     <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
                 </div>
             </div>

@@ -14,6 +14,7 @@
 
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -48,10 +49,12 @@
 
     <div class="row">
         <div class="col-md-4">
-          
-        </div>
-        <div class="col-md-4">
-           
+            <div class="form-group">
+                @Html.LabelFor(model => model.Bdate, "Birthdate")
+
+                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+            </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
@@ -61,10 +64,7 @@
                 @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 @Html.LabelFor(model => model.Email)
 
@@ -72,25 +72,7 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="col-md-3">
-
-          
-        </div>
-
-        <div class="col-md-3">
-           
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Bdate, "Birthdate")
-
-                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
-            </div>
-        </div>
     </div>
-
 
 
     <div class="row">

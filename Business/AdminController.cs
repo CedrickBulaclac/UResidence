@@ -21,7 +21,7 @@ namespace UResidence
 
         public static Admin GetbyID(int Id)
         {
-            const string GET_RECORD = @"SELECT Id,Fname, Mname, Lname, Bdate, CelNo,Email FROM[tbAdmin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email FROM[tbAdmin] WHERE Id = @Id";
 
            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);

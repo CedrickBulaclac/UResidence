@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Description, Capacity, AmenityName FROM[tbAmenity] order by Id";
+            const string GET_ALL = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate FROM[tbAmenity] order by Id";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static Amenity GetbyAmenityName(string name)
         {
-            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
+            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -33,7 +33,7 @@ namespace UResidence
 
         public static Amenity GetbyId(int id)
         {
-            const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName FROM [tbAmenity] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName,URL,Rate FROM [tbAmenity] WHERE Id = @Id";
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", id));
@@ -43,14 +43,15 @@ namespace UResidence
 
         public static bool Update(Amenity amty)
         {
-            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, URL=@Url, Rate=@Rate WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
             com.Parameters.Add(new SqlParameter("@Capacity", amty.Capacity));
             com.Parameters.Add(new SqlParameter("@AmenityName", amty.AmenityName));
             com.Parameters.Add(new SqlParameter("@Id", amty.Id));
-
+            com.Parameters.Add(new SqlParameter("@Url", amty.Url));
+            com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             return SqlManager.ExecuteNonQuery(com);
         }
 
@@ -66,12 +67,14 @@ namespace UResidence
       
         public static bool Insert(Amenity amty)
         {
-            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName) values (@Description, @Capacity, @AmenityName)";
+            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName,URL,Rate) values (@Description, @Capacity, @AmenityName,@Url,@Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
             com.Parameters.Add(new SqlParameter("@Capacity", amty.Capacity));
             com.Parameters.Add(new SqlParameter("@AmenityName", amty.AmenityName));
+            com.Parameters.Add(new SqlParameter("@Url", amty.Url));
+            com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             return SqlManager.ExecuteNonQuery(com);
         }
     }
