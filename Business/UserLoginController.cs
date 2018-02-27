@@ -21,15 +21,15 @@ namespace UResidence
             return ret;
         }
 
-        public static List<UserLogin> Get(string uid,string uhash)
+        public static UserLogin Get(string uid,string uhash)
         {
             const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
 
-            List<UserLogin> ret = default(List<UserLogin>);
+            UserLogin ret = default(UserLogin);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Username", uid));
             com.Parameters.Add(new SqlParameter("@Hash", uhash));
-            ret = SqlManager.Select<UserLogin>(com);
+            ret = SqlManager.Select<UserLogin>(com).First();
 
             return ret;
         }

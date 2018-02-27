@@ -68,6 +68,7 @@ namespace UResidence.Controllers
             return View(amn);
         }
 
+
         [HttpPost]
         public ActionResult AmenityEdit(Amenity amen)
         {

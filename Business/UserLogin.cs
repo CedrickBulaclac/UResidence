@@ -41,12 +41,13 @@ namespace UResidence
             ret.Id = reader.GetInt32(0);
             ret.Username = reader.GetString(1);
             ret.Hash = reader.GetString(2);
-            ret.CreatedBy = reader.GetString(4);
-            ret.ModifyBy = reader.GetString(5);
-            ret.DateCreated = reader.GetDateTime(6);
-            ret.ModifiedDate = reader.GetDateTime(7);
-            ret.Level = Convert.ToInt32(reader.GetValue(3));
-            ret.Locked = Convert.ToInt32(reader.GetValue(2));
+            ret.CreatedBy = reader.GetString(3);
+            ret.ModifyBy = reader.GetString(4);
+            ret.DateCreated = reader.GetDateTime(5);
+            ret.ModifiedDate = reader.GetDateTime(6);
+            ret.Level = Convert.ToInt32(reader.GetValue(7));
+            ret.Locked = Convert.ToInt32(reader.GetValue(8));
+            ret.LastLogin = reader.GetDateTime(9);
             return ret;
         }
       

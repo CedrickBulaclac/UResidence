@@ -20,11 +20,7 @@ namespace UResidence
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
-        public string TelNo { get; set; }
         public string Email { get; set; }
-        public string Citizenship { get; set; }
-        public string CivilStatus { get; set; }
-        public string Gender { get; set; }
 
 
         public Owner CreateObject(SqlDataReader reader)
@@ -38,11 +34,7 @@ namespace UResidence
             ret.Lname = reader.GetString(5);
             ret.Bdate = reader.GetDateTime(6);
             ret.CelNo = reader.GetString(7);
-            ret.TelNo = reader.GetString(8);
-            ret.Email = reader.GetString(9);
-            ret.Citizenship = reader.GetString(10);
-            ret.CivilStatus = reader.GetString(11);
-            ret.Gender = reader.GetString(12);
+            ret.Email = reader.GetString(8);
             return ret;
         }
 
@@ -65,20 +57,10 @@ namespace UResidence
                 ret = false;
                 err.Add("Owner Last name is required");
             }
-            if (this.Gender.Trim() == string.Empty)
-            {
-                ret = false;
-                err.Add("Owner Gender is required");
-            }
             if (this.Email.Trim() == string.Empty)
             {
                 ret = false;
                 err.Add("Owner Email is required");
-            }
-            if (this.Citizenship.Trim() == string.Empty)
-            {
-                ret = false;
-                err.Add("Owner Citizenship is required");
             }
             if (this.Bdate == DateTime.Today)
             {
@@ -99,11 +81,7 @@ namespace UResidence
             this.Lname = string.Empty;
             this.Bdate = DateTime.Now;
             this.CelNo = string.Empty;
-            this.TelNo = string.Empty;
             this.Email = string.Empty;
-            this.Citizenship = string.Empty;
-            this.CivilStatus = string.Empty;
-            this.Gender = string.Empty;
 
         }
     }

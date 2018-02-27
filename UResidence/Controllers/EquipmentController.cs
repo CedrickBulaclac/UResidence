@@ -61,12 +61,12 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult EquipmentEdit(int id)
+        public ActionResult EquipmentEdit(int eno)
         {
             if (ModelState.IsValid)
             {
-               
-                Equipment equipmentList = UResidence.EquipmentController.GetbyId(id);
+                Equipment equipmentList = default(Equipment);
+                equipmentList = UResidence.EquipmentController.GetbyId(eno);
                 return View(equipmentList);
             }
             return View("EquipmentView");
@@ -80,7 +80,8 @@ namespace UResidence.Controllers
                 status = UResidence.EquipmentController.Update(eqp);
                 if (status == true)
                 {
-                    return RedirectToAction("AdminView");
+                    ViewBag.UpdateMessage = status;
+                    return RedirectToAction("EquipmentView");
                 }
             }
             else

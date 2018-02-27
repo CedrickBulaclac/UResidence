@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Admin> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,TelNo,Gender,Email FROM[tbAdmin] order by Id";
+            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email FROM[tbAdmin] order by Id";
 
             List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static Admin GetbyID(int Id)
         {
-            const string GET_RECORD = @"SELECT Id,Fname, Mname, Lname, Bdate, CelNo, TelNo, Gender,Email FROM[tbAdmin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Fname, Mname, Lname, Bdate, CelNo,Email FROM[tbAdmin] WHERE Id = @Id";
 
            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -34,7 +34,7 @@ namespace UResidence
 
         public static bool Update(Admin adm)
         {
-            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Bdate=@Bdate, CelNo=@CelNo, TelNo=@TelNo, Gender=@Gender, Email=@Email  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Bdate=@Bdate, CelNo=@CelNo,Email=@Email  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Id", adm.Id));
@@ -43,8 +43,6 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
             com.Parameters.Add(new SqlParameter("@Bdate", adm.Bdate));
             com.Parameters.Add(new SqlParameter("@CelNo", adm.CelNo));
-            com.Parameters.Add(new SqlParameter("@TelNo", adm.TelNo));
-            com.Parameters.Add(new SqlParameter("@Gender", adm.Gender));
             com.Parameters.Add(new SqlParameter("@Email", adm.Email));
             return SqlManager.ExecuteNonQuery(com);
         }
@@ -60,7 +58,7 @@ namespace UResidence
         }
         public static bool Insert(Admin adm)
         {
-            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,TelNo,Gender,Email) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@TelNo,@Gender,@Email) ";
+            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
@@ -68,8 +66,6 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
             com.Parameters.Add(new SqlParameter("@Bdate", adm.Bdate));
             com.Parameters.Add(new SqlParameter("@CelNo", adm.CelNo));
-            com.Parameters.Add(new SqlParameter("@TelNo", adm.TelNo));
-            com.Parameters.Add(new SqlParameter("@Gender", adm.Gender));
             com.Parameters.Add(new SqlParameter("@Email", adm.Email));
             return SqlManager.ExecuteNonQuery(com);
         }

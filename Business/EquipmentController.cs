@@ -46,7 +46,7 @@ namespace UResidence
 
         public static bool Update(Equipment eqp)
         {
-            const string GET_UPDATE = @"update [tbEquipment] set Name= @name, Stocks= @Stocks, Rate = @Rate  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbEquipment] set Name=@Name, Stocks=@Stocks, Rate=@Rate  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));

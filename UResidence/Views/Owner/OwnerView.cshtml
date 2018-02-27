@@ -39,19 +39,7 @@
                 CelNo
             </th>
             <th scope="col">
-                TelNo
-            </th>
-            <th scope="col">
                 Email
-            </th>
-            <th scope="col">
-                Citizenship
-            </th>
-            <th scope="col">
-                Status
-            </th>
-            <th scope="col">
-                Gender
             </th>
 
             <th>Actions</th>
@@ -84,19 +72,7 @@
                             @Html.DisplayFor(modelItem => item.CelNo)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TelNo)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Citizenship)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CivilStatus)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Gender)
                         </td>
                         <td>
                             <a class="btn btn-link" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>

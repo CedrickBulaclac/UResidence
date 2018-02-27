@@ -12,7 +12,13 @@ namespace UResidence.Views.Reservation
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                 
             return View(amenityList);
         }
+        public ActionResult Home()
+        {
+            return View();
+        }
+        
     }
 }

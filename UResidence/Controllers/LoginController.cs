@@ -24,14 +24,27 @@ namespace UResidence.Controllers
             string username;
             username = fc["Username"];
             chash = Hash(hash);
-            userList = UResidence.UserController.Get(username,chash);
-            if(userList.Count==0)
+            UserLogin user = new UserLogin();
+            user = UResidence.UserController.Get(username, chash);
+            if (user != null)
             {
-                return RedirectToAction("Index","Home");            
+                if (user.Level == 0)
+                {
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (user.Level == 1)
+                {
+                    return RedirectToAction("Home", "Reserve");
+                }
+                else if (user.Level == 2)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
-                ViewBag.Message = "Welcome";
+
             }
             return View();
         }

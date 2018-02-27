@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Layout";
 }
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,17 +30,39 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><input type="text" class="form-group input-lg" placeholder="Error Messages"> </li>
+                        <li>>@Html.ActionLink("Reservation", "SelectAmenity", "Reserve") </li>
+                        <li>>@Html.ActionLink("Billing", "#", "#") </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><i class="glyphicon glyphicon-envelope" style="font-size:20px"></i></a></li>
+                        <li><a href=""><i class="glyphicon glyphicon-envelope" style="font-size:20px"></i></a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a></li>
                         <li><a href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a></li>
                     </ul>
+
                 </div>
             </nav>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is a small modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -52,4 +75,3 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-

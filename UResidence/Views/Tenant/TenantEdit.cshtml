@@ -48,22 +48,10 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="form-group">
-                <br />
-                <b>Gender</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.RadioButtonFor(model => model.Gender, "Male", new { @Value = "M"}) Male
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.RadioButtonFor(model => model.Gender, "Female", new { @Value = "F" }) Female
-
-            </div>
+          
         </div>
         <div class="col-md-4">
-            <div class="form-group">
-                @Html.LabelFor(model => model.TelNo, "Telephone No")
-
-                @Html.EditorFor(model => model.TelNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TelNo, "", new { @class = "text-danger" })
-            </div>
+           
         </div>
         <div class="col-md-4">
             <div class="form-group">
@@ -87,21 +75,11 @@
 
         <div class="col-md-3">
 
-            <div class="form-group">s
-                @Html.LabelFor(model => model.Citizenship)
-
-                @Html.EditorFor(model => model.Citizenship, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Citizenship, "", new { @class = "text-danger" })
-            </div>
+          
         </div>
 
         <div class="col-md-3">
-            <div class="form-group">
-                @Html.LabelFor(model => model.CivilStatus)
-
-                @Html.EditorFor(model => model.CivilStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CivilStatus, "", new { @class = "text-danger" })
-            </div>
+           
         </div>
         <div class="col-md-3">
             <div class="form-group">

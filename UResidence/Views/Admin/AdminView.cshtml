@@ -24,8 +24,6 @@
                     <th>Lname</th>
                     <th>Bdate</th>
                     <th>CelNo</th>
-                    <th>TelNo</th>
-                    <th>Gender</th>
                     <th>Email</th>
                     <th>Actions</th>
                 </tr>
@@ -41,8 +39,6 @@
                 <td>@Html.DisplayFor(model => a.Lname)</td>
                 <td>@Html.DisplayFor(model => a.Bdate)</td>
                 <td>@Html.DisplayFor(model => a.CelNo)</td>
-                <td>@Html.DisplayFor(model => a.TelNo)</td>
-                <td>@Html.DisplayFor(model => a.Gender)</td>
                 <td>@Html.DisplayFor(model => a.Email)</td>
                 <td>
                     <a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
