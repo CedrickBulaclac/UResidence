@@ -54,6 +54,8 @@
         line-height: 1.428571429;
         border-radius: 15px;
     }
+
+
 </style>
 @using (Html.BeginForm("SelectAmenity", "Reserve", FormMethod.Post))
 {
@@ -62,6 +64,7 @@
     <br />
     <br />
     <br />
+    
     <center>
         <div class="container">
             <div class="stepwizard">
@@ -72,7 +75,7 @@
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                        <p>Sheduled Amenities</p>
+                        <p>Schedule Amenities</p>
                     </div>
                     <div class="stepwizard-step">
                         <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
@@ -88,6 +91,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </center>
 
     <form role="form" action="" method="post">
@@ -99,43 +103,94 @@
                     <table>
 
                         @foreach (Amenity a in Model)
-    {
+                        {
+                            <tr>
+                                <td> <button class="btn btn-default nextBtn btn-lg pull-right" type="button">@Html.Image(a.Url)</button></td>
+                            </tr>
+                            <tr>
+                                <td><u>@Html.EditorFor(model => a.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                            </tr>
+                            <tr>
+                                <td><u>@Html.EditorFor(model => a.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                            </tr>
+                            <tr>
+                                <td><u>@Html.EditorFor(model => a.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                            </tr>
+                            <tr>
+                                <td><u>@Html.EditorFor(model => a.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u><br /></td>
+                            </tr>
 
-
-                    <tr>
-                        <td> <button class="btn btn-default nextBtn btn-lg pull-right" type="button">@Html.Image(a.Url)</button></td>
-                    </tr>
-                    <tr>
-                        <td><u>@Html.EditorFor(model => a.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                    </tr>
-                    <tr>
-                        <td><u>@Html.EditorFor(model => a.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                    </tr>
-                    <tr>
-                        <td><u>@Html.EditorFor(model => a.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                    </tr>
-                    <tr>
-                        <td><u>@Html.EditorFor(model => a.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                    </tr>
-                    <br />
-                    <br />
-}
+                        }
                     </table>
-                </div>            
+                </div>
             </div>
         </div>
         <div class="row setup-content" id="step-2">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
-                    <h3> Scheduled Amenities</h3>
-                   
-                                 
-                   
+                    <div id="calendar"></div>
 
 
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 
+                    @section scripts{
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
+                        <script>
+                            $(document).ready(function () {
+                                var events = [];
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/reserve/GetEvents",
+                                    success: function (data) {
+                                        $.each(data, function (i, v) {
+                                            events.push({
+                                                title: v.AmenityName,
+                                                start: moment(v.StartTime),
+                                                end: v.EndTIme != null ? moment(v.EndTIme) : null,
+                                                rate: v.Rate
+                                            });
+                                        })
+                                        GenerateCalendar(events);
+                                    },
+                                    error: function (error) {
+                                        alert('failed');
+                                    }
+                                })
 
+                                function GenerateCalendar(events) {
+                                    $('#calendar').fullCalendar('destroy');
+                                    $('#calendar').fullCalendar({
+                                        contentHeight: 400,
+                                        defaultDate: new Date(),
+                                        timeFormat: 'h(:mm):a',
+                                        header: {
+                                            left: 'prev,next today',
+                                            center: 'title',
+                                            right: 'month,basicWeek,basicDay,agenda'
+                                        },
+                                        eventLimit: true,
+                                        events: events,
+
+                                        eventClick: function (calEvent, jsEvent, view) {
+                                            $('#Modal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                                            var $description = $('<div/>');
+                                            $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                                            if (calEvent.end != null) {
+                                                $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                                            }
+                                            $description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
+                                            $('#Modal #pDetails').empty().html($description);
+                                            $('#Modal').modal();
+                                        }
+                                    })
+                                }
+                            })
+                        </script>
+
+                    }
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                 </div>
             </div>
@@ -216,4 +271,6 @@
             $('div.setup-panel div a.btn-primary').trigger('click');
         });
     </script>
+
+
 }

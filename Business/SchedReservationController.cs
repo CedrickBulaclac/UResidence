@@ -7,11 +7,11 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-    class SchedReservationController
+    public class SchedReservationController
     {
         public static List<SchedReservation> GetAll()
         {
-            const string GET_ALL = @"SELECT AmenityNo,StartTime,EndTIme,Rate FROM [tbSchedReservation] order by AmenityNo";
+            const string GET_ALL = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] order by AmenityId";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -19,14 +19,34 @@ namespace UResidence
             ret = SqlManager.Select<SchedReservation>(com);
             return ret;
         }
-
-        public static SchedReservation GetAmenityNo(string ano)
+        public static List<SchedReservation> GetAllA()
         {
-            const string GET_RECORD = @"SELECT AmenityNo,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityNo = @AmenityNo";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id";
+
+
+            List<SchedReservation> ret = default(List<SchedReservation>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<SchedReservation>(com);
+            return ret;
+        }
+        public static SchedReservation GetId(int id)
+        {
+            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE Id = @Id";
 
             SchedReservation ret = default(SchedReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", ano));
+            com.Parameters.Add(new SqlParameter("@Id", id));
+            ret = SqlManager.Select<SchedReservation>(com).First();
+
+            return ret;
+        }
+        public static SchedReservation GetAmenityNo(string ano)
+        {
+            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityId = @AmenityId";
+
+            SchedReservation ret = default(SchedReservation);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@AmenityId", ano));
             ret = SqlManager.Select<SchedReservation>(com).First();
 
             return ret;
@@ -37,10 +57,10 @@ namespace UResidence
 
         public static bool Update(SchedReservation usr)
         {
-            const string GET_UPDATE = @"update [tbSchedReservation] set AmenityNo= @AmenityNo, Rate = @Rate WHERE AmenityNo = @AmenityNo";
+            const string GET_UPDATE = @"update [tbSchedReservation] set AmenityId= @AmenityId, Rate = @Rate WHERE AmenityId = @AmenityId";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", usr.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));
 
             return SqlManager.ExecuteNonQuery(com);
@@ -48,10 +68,10 @@ namespace UResidence
 
         public static bool Delete(SchedReservation usr)
         {
-            const string GET_DELETE = @"delete [tbSChedReservation] WHERE AmenityNo = @AmenityNo";
+            const string GET_DELETE = @"delete [tbSChedReservation] WHERE AmenityId = @AmenityId";
 
             SqlCommand com = new SqlCommand(GET_DELETE);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", usr.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
 
             return SqlManager.ExecuteNonQuery(com);
         }
@@ -69,10 +89,10 @@ namespace UResidence
 
 
 
-            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityNo,StartTime, EndTIme, Rate) values (@AmenityNo ,getdate(), getdate(), @Rate  )";
+            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate) values (@AmenityId ,@StartTime,@EndTIme , @Rate  )";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-            com.Parameters.Add(new SqlParameter("@AmenityNo", usr.AmenityNo));
+            com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
             com.Parameters.Add(new SqlParameter("@StartTime", usr.StartTime));
             com.Parameters.Add(new SqlParameter("@EndTIme", usr.EndTIme));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));

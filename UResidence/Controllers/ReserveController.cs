@@ -15,6 +15,13 @@ namespace UResidence.Views.Reservation
                  
             return View(amenityList);
         }
+        public JsonResult GetEvents()
+        {
+            List<SchedReservation> reservationList = UResidence.SchedReservationController.GetAllA();
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         public ActionResult Home()
         {
             return View();
