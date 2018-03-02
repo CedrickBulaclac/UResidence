@@ -57,6 +57,7 @@
     <Compile Include="ReservationController.cs" />
     <Compile Include="Residence.cs" />
     <Compile Include="ResidenceController.cs" />
+    <Compile Include="SchedAmenity.cs" />
     <Compile Include="SchedReservation.cs" />
     <Compile Include="SchedReservationController.cs" />
     <Compile Include="Tenant.cs" />

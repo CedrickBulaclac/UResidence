@@ -12,8 +12,12 @@ namespace UResidence.Views.Reservation
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-                 
-            return View(amenityList);
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
+            List<object> model = new List<object>();
+            model.Add(amenityList.ToList());
+            model.Add(schedList.ToList());
+
+            return View(model);
         }
         public JsonResult GetEvents()
         {
@@ -26,6 +30,8 @@ namespace UResidence.Views.Reservation
         {
             return View();
         }
+
+
         
     }
 }

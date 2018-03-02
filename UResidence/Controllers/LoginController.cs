@@ -50,6 +50,10 @@ namespace UResidence.Controllers
             }
             return View();
         }
+        public ActionResult ForgotPassword()
+        {
+            return View(); 
+        }
         public string Hash(string p)
         {
             SHA1CryptoServiceProvider sh = new SHA1CryptoServiceProvider();

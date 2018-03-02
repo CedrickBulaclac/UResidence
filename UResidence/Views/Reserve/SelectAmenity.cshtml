@@ -1,6 +1,7 @@
-﻿@model List<UResidence.Amenity>
-
+﻿@model IEnumerable<object>
 @{
+    List<UResidence.Amenity> amenity = Model.ToList() [0] as  List<UResidence.Amenity>;
+    List<UResidence.SchedReservation> sched = Model.ToList()[1] as List<UResidence.SchedReservation>;
     ViewBag.Title = "SelectAmenity";
     Layout = "~/Views/Reserve/Layout.cshtml";
 }
@@ -54,8 +55,6 @@
         line-height: 1.428571429;
         border-radius: 15px;
     }
-
-
 </style>
 @using (Html.BeginForm("SelectAmenity", "Reserve", FormMethod.Post))
 {
@@ -64,7 +63,7 @@
     <br />
     <br />
     <br />
-    
+
     <center>
         <div class="container">
             <div class="stepwizard">
@@ -94,37 +93,38 @@
         </div>
     </center>
 
+
     <form role="form" action="" method="post">
         <div class="row setup-content" id="step-1">
             <div class="row-md-6">
                 <h3>Choose Amenity</h3>
                 <div class="form-group">
+                    <div class="form-group">
 
-                    <table>
+                        <table>
 
-                        @foreach (Amenity a in Model)
+                            @foreach (var amn in amenity)
                         {
                             <tr>
-                                <td> <button class="btn btn-default nextBtn btn-lg pull-right" type="button">@Html.Image(a.Url)</button></td>
+                                <td><button class="btn btn-default nextBtn btn-lg pull-right" type="button">@Html.Image(amn.Url)</button></td>
                             </tr>
                             <tr>
-                                <td><u>@Html.EditorFor(model => a.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                                <td><u>@Html.EditorFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
                             </tr>
                             <tr>
-                                <td><u>@Html.EditorFor(model => a.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                                <td><u>@Html.EditorFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
                             </tr>
-                            <tr>
-                                <td><u>@Html.EditorFor(model => a.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
-                            </tr>
-                            <tr>
-                                <td><u>@Html.EditorFor(model => a.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u><br /></td>
-                            </tr>
+                            <td><u>@Html.EditorFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</u></td>
+                            <tr></tr>
 
-                        }
-                    </table>
+                    }
+                        </table>
+                    </div>
                 </div>
+
             </div>
         </div>
+
         <div class="row setup-content" id="step-2">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
@@ -200,24 +200,48 @@
                 <div class="col-md-12">
                     <h3> Choose Date</h3>
 
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+
+                    <div class="form-group">
+
+                        <table>
+
+                            @foreach (var sr in sched)
+                        {
+                            <tr>
+                                <td><u>@Html.EditorFor(model => sr.StartTime, new { htmlAttributes = new { @class = "form-control" } })</u></td>
+                            </tr>
+                            <tr>
+                                <td><u>@Html.EditorFor(model => sr.EndTIme, new { htmlAttributes = new { @class = "form-control" } })</u></td>
+                            </tr>
+
+                    }
+                        </table>
+                    </div>
                 </div>
+
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>
         </div>
+
         <div class="row setup-content" id="step-4">
             <div class="col-xs-6 col-md-offset-3">
                 <div class="col-md-12">
                     <h3> Choose Equipment</h3>
+
+
+
+
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                 </div>
             </div>
-        </div>
-        <div class="row setup-content" id="step-5">
-            <div class="col-xs-6 col-md-offset-3">
-                <div class="col-md-12">
-                    <h3> Summary</h3>
 
-                    <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+            <div class="row setup-content" id="step-5">
+                <div class="col-xs-6 col-md-offset-3">
+                    <div class="col-md-12">
+                        <h3> Summary</h3>
+
+                        <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
