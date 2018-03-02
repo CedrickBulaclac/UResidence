@@ -213,6 +213,8 @@
     <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Home.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\CodeVerification.cshtml" />
+    <Content Include="Views\Login\NewPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
