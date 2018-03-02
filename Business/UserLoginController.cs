@@ -20,7 +20,17 @@ namespace UResidence
             ret = SqlManager.Select<UserLogin>(com);
             return ret;
         }
+        public static List<UserLogin> GetAll(string email)
+        {
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where Username=@email";
 
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@email", email));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
         public static UserLogin Get(string uid,string uhash)
         {
             UserLogin ret = default(UserLogin);
@@ -42,6 +52,7 @@ namespace UResidence
             }
         }
 
+
         public static UserLogin Get(int id)
         {
             const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Id = @Id";
@@ -57,10 +68,11 @@ namespace UResidence
 
         public static bool Update(UserLogin usr)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Username= @Username, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbLogin] set Username= @Username,Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Username", usr.Username));
+            com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
             com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
             com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
@@ -91,14 +103,15 @@ namespace UResidence
 
           
 
-            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifyBy, CreatedDate, LastModified) values (@Username, @Lockout, @CreatedBy, @ModifyBy, getdate(), getdate())";
+            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate())";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Username", usr.Username));
             com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
             com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
             com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
-            com.Parameters.Add(new SqlParameter("@ModifyBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@Level", usr.Level));
 
             return SqlManager.ExecuteNonQuery(com);
         }

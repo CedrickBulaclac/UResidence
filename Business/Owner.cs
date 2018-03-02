@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+
+
 namespace UResidence
 {
     public class Owner : BaseProperty<Owner>
@@ -19,8 +21,12 @@ namespace UResidence
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
+
+
+
         public string CelNo { get; set; }
         public string Email { get; set; }
+        public string Deleted { get; set; }
 
 
         public Owner CreateObject(SqlDataReader reader)
@@ -35,6 +41,7 @@ namespace UResidence
             ret.Bdate = reader.GetDateTime(6);
             ret.CelNo = reader.GetString(7);
             ret.Email = reader.GetString(8);
+            ret.Deleted = reader.GetString(9);
             return ret;
         }
 
@@ -82,7 +89,13 @@ namespace UResidence
             this.Bdate = DateTime.Now;
             this.CelNo = string.Empty;
             this.Email = string.Empty;
+            this.Deleted = string.Empty;
 
+        }
+
+        public static implicit operator Owner(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

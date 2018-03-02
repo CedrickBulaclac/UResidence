@@ -4,36 +4,76 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace UResidence.Controllers
 {
     public class OwnerController : Controller
     {
         bool status;
+         
+
         // GET: Owner
         public ActionResult OwnerAdd()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult OwnerAdd(Owner owe)
         {
-            string[] err = new string[] { };
-            if (owe.Validate(out err))
+            string hash;
+            string pass = owe.Bdate.ToShortDateString();
+            hash = Hash(pass);
+            List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+            UserLogin ul = new UserLogin
             {
-                UResidence.OwnerController.Insert(owe);
-                status = true;
-                return RedirectToAction("OwnerView");
+                Username = owe.Email,
+                Hash = hash,
+                CreatedBy="",
+                ModifyBy="",
+                DateCreated = DateTime.Now,
+                Level=1,
+                Locked=1,
+                LastLogin=DateTime.Now                
+            };
+
+            if (listUser.Count == 0)
+            {
+                string[] err = new string[] { };
+                if (owe.Validate(out err))
+                {
+                    UResidence.UserController.Insert(ul);
+                    UResidence.OwnerController.Insert(owe);
+                    status = true;
+                    return RedirectToAction("OwnerView");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = FixMessages(err);
+                    status = false;
+
+                }
+            
+                ViewBag.AddMessage = status;
             }
             else
             {
-                ViewBag.ErrorMessage = FixMessages(err);
-               status = false;
-               
+                Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
             }
-            ViewBag.AddMessage = status;
             return View();
         }
+
+        public static string Hash(string p)
+        {
+            SHA1CryptoServiceProvider sh = new SHA1CryptoServiceProvider();
+            UTF8Encoding utf8 = new UTF8Encoding();
+            string hash = BitConverter.ToString(sh.ComputeHash(utf8.GetBytes(p.ToString())));
+            return hash;
+        }
+
+
         public ActionResult OwnerView()
         {
             List<Owner> ownerList = UResidence.OwnerController.GetAll();

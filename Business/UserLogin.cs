@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-
+using System.ComponentModel.DataAnnotations;
 namespace UResidence
 {
+
     public class UserLogin : BaseProperty<UserLogin>
     {
         public int Id { get; set; }
@@ -33,7 +34,7 @@ namespace UResidence
             this.Level = 0;
             this.Hash = string.Empty;
         }
-
+        
         public UserLogin CreateObject(SqlDataReader reader)
         {
             UserLogin ret = new UserLogin();
@@ -52,4 +53,5 @@ namespace UResidence
         }
       
     }
+
 }
