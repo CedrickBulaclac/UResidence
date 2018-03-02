@@ -212,6 +212,7 @@
     <Content Include="Views\Reserve\SelectAmenity.cshtml" />
     <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Home.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

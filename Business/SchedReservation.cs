@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-     public class SchedReservation : BaseProperty<SchedReservation>
+    public class SchedReservation : BaseProperty<SchedReservation>
     {
         public int AmenityId { get; set; }
         public DateTime StartTime { get; set; }
@@ -15,7 +15,7 @@ namespace UResidence
         public int Rate { get; set; }
         public int Id { get; set; }
         public string AmenityName { get; set; }
-
+        public List<Amenity> amenityList{get; set;}
         public void Reset()
         {
             this.AmenityId = 0;
