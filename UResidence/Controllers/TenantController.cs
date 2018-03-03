@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UResidence;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace UResidence.Controllers
 {
     public class TenantController : Controller
@@ -15,12 +18,38 @@ namespace UResidence.Controllers
         {
             return View();
         }
+
+        public static string Hash(string p)
+        {
+            SHA1CryptoServiceProvider sh = new SHA1CryptoServiceProvider();
+            UTF8Encoding utf8 = new UTF8Encoding();
+            string hash = BitConverter.ToString(sh.ComputeHash(utf8.GetBytes(p.ToString())));
+            return hash;
+        }
+
         [HttpPost]
         public ActionResult TenantAdd(Tenant ten)
         {
+            string hash;
+            string pass = ten.Bdate.ToShortDateString();
+            hash = Hash(pass);
+            List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
+            UserLogin ul = new UserLogin
+            {
+                Username = ten.Email,
+                Hash = hash,
+                CreatedBy = "",
+                ModifyBy = "",
+                DateCreated = DateTime.Now,
+                Level = 2,
+                Locked = 1,
+                LastLogin = DateTime.Now
+            };
+
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {
+                UResidence.UserController.Insert(ul);
                 status = UResidence.TenantController.Insert(ten);
                 
                    

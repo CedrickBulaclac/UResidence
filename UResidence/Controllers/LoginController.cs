@@ -54,6 +54,30 @@ namespace UResidence.Controllers
         {
             return View(); 
         }
+        public ActionResult CodeVerification()
+        {
+            return View();
+        }
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            return View("CodeVerification");
+        }
+        [HttpPost]
+        public ActionResult CodeVerification(string email)
+        {
+            return View("NewPassword");
+        }
+        [HttpPost]
+        public ActionResult NewPassword(string nwpw)
+        {
+            return View("Index");
+        }
+
         public string Hash(string p)
         {
             SHA1CryptoServiceProvider sh = new SHA1CryptoServiceProvider();
