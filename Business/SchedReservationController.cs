@@ -86,9 +86,6 @@ namespace UResidence
 
         public static bool Insert(SchedReservation usr)
         {
-
-
-
             const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate) values (@AmenityId ,@StartTime,@EndTIme , @Rate  )";
 
             SqlCommand com = new SqlCommand(GET_INSERT);

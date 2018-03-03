@@ -50,7 +50,7 @@ namespace UResidence
             
             if (this.Description == string.Empty || this.Description is null)
             {
-                err.Add("Desription must not be empty.");
+                err.Add("Description must not be empty.");
                 ret = false;
             }
             if(this.Rate<=0)
