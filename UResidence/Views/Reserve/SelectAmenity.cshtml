@@ -189,8 +189,12 @@
                                             }
                                         })
                                     }
-                                })
+								})
+
+
+
                             </script>
+
 
                         }
                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
@@ -204,13 +208,15 @@
 
 
                         <div class="form-group">
-                            StartTime : <input type="date" class="form-group" id="sd" />
+                            StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" />
                             <input type="time" class="form-group" id="st" />
                             <br />
-                            EndTime :  <input type="text" class="form-group" id="ed" />
+                            EndTime :  <input type="date" onselect="Set()" class="form-group" id="ed" readonly />
                                            <input type="time" class="form-group" id="et" />
                             <br />
                             Rate : <input type="text" id="rate" class="form-group" />
+
+							<div id="divResult"></div>
                         </div>
                     </div>
 
@@ -300,25 +306,17 @@
                  rate1 = rate;
                         
         }
-        $("#sd").datepicker({
-            onSelect: function () {
-                Set();
-            }
-        });
 
-       function SUMMARY () {
-            alert('Hello');
-            document.getElementById("amname").value = id1;
-        }
+ 
        
         function Set() {
-            var a = $('#sd').val();
-            alert(a);
-            $('#ed').val() = $('#sd').val();
-            
+			var start = document.getElementById('sd');
+			document.getElementById('ed').value = start;
+			start.val();
+          
         }
-        function Compute() {
-            var start = $('#st').val();
+		function Compute() {
+			var start = document.getElementById('sd');
             var end = $('#et').val();
             var diff = new TimeRanges(end - start);
             $('#rate').val() = diff * rate1;
@@ -326,9 +324,14 @@
         function SetDefault(Text) {
             $("#ed").val() = Text;
         }
-        function SetAll() {
+  
 
-        }
+		$(document).ready(function () {
+			$('#sd').change(function () {
+				var selectedValue = $(this).val();
+				document.getElementById('ed').value = selectedValue;
+			});
+		});
         
     </script>
 
