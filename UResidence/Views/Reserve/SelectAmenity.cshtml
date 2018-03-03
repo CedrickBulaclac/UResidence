@@ -104,11 +104,11 @@
 
                                     @foreach (var amn in amenity)
         {
-                            <br />
                             <tr>
                                 <td>
                                     <button class="btn btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)</button>
                                 </td>
+
                                 <td>
                                     @Html.EditorFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
                                     @Html.EditorFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -306,27 +306,6 @@
                  rate1 = rate;
 
         }
-<<<<<<< HEAD
-
- 
-       
-        function Set() {
-			var start = document.getElementById('sd');
-			document.getElementById('ed').value = start;
-			start.val();
-          
-        }
-		function Compute() {
-			var start = document.getElementById('sd');
-            var end = $('#et').val();
-            var diff = new TimeRanges(end - start);
-            $('#rate').val() = diff * rate1;
-        }
-        function SetDefault(Text) {
-            $("#ed").val() = Text;
-        }
-  
-
 		$(document).ready(function () {
 			$('#sd').change(function () {
 				var selectedValue = $(this).val();
@@ -334,7 +313,6 @@
 			});
 		});
         
-=======
 
 
        function SUMMARY () {
@@ -343,9 +321,7 @@
            document.getElementById('ida').value = id1;
         }
 
-      
 
->>>>>>> 0f5e201b485e0ddbd5f891bfa529c8b5aed6c554
     </script>
 
 
