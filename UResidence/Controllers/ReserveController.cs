@@ -19,6 +19,27 @@ namespace UResidence.Views.Reservation
 
             return View(model);
         }
+        [HttpPost]
+        public ActionResult SelectAmenity(FormCollection fc)
+        {
+            int aid = Convert.ToInt32(fc["ida"]);
+
+            SchedReservation a = new SchedReservation
+            {
+                AmenityId =aid
+
+               
+            };
+
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
+            List<object> model = new List<object>();
+            model.Add(amenityList.ToList());
+            model.Add(schedList.ToList());
+
+
+            return View(model);
+        }
         public JsonResult GetEvents()
         {
             List<SchedReservation> reservationList = UResidence.SchedReservationController.GetAllA();

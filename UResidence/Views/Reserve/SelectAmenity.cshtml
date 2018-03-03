@@ -94,7 +94,6 @@
     </center>
 
 
-    <form role="form" action="" method="post">
             <div class="row setup-content" id="step-1">
                 <div class="row-md-6">
                     <h3 class="text-center">Choose Amenity</h3>
@@ -108,7 +107,7 @@
                             <br />
                             <tr>
                                 <td>
-                                    <button class="btn btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate')">@Html.Image(amn.Url)</button>
+                                    <button class="btn btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)</button>
                                 </td>
                                 <td>
                                     @Html.EditorFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
@@ -224,25 +223,25 @@
                         <h3> Choose Equipment</h3>
 
 
-
-
-                        <button class="btn btn-primary nextBtn btn-lg pull-right" id="gotoSum" name="gotoSum" type="button">Next</button>
+                        <button class="btn btn-primary nextBtn btn-lg pull-right" id="gotoSum" name="gotoSum" onclick="SUMMARY()" type="button">Next</button>
                     </div>
                 </div>
             </div>
-
-                <div class="row setup-content" onload="SUMMARY()" id="step-5">
+            <form name="summ" onload="SUMMARY()">
+                <div class="row setup-content" id="step-5">
                     <div class="col-xs-6 col-md-offset-3">
                         <div class="col-md-12">
                             <h3> Summary</h3>
-                            <label class="label-info">Amenity Name:</label>
-                            <label class="label-default" id="amname" name="amnname"></label>
+                            <input type="hidden" id="ida" name="ida" />
+                            <br />
+                            <label class="label-primary">Amenity Name :</label>
+                            @Html.TextBox("amname")
                             <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
                         </div>
                     </div>
                 </div>
-
     </form>
+
 
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -251,7 +250,7 @@
     <script type="text/javascript">
         var id1;
         var rate1;
-
+        var aname;
         $(document).ready(function () {
             var navListItems = $('div.setup-panel div a'),
                 allWells = $('.setup-content'),
@@ -294,42 +293,23 @@
 
             $('div.setup-panel div a.btn-primary').trigger('click');
         });
-         
-             function GetId(id,rate) {
+
+        function GetId(name, rate, id) {
+            aname = name;
                  id1 = id;
                  rate1 = rate;
-                        
+
         }
-        $("#sd").datepicker({
-            onSelect: function () {
-                Set();
-            }
-        });
+
 
        function SUMMARY () {
-            alert('Hello');
-            document.getElementById("amname").value = id1;
+         
+           document.getElementById('amname').value = aname;
+           document.getElementById('ida').value = id1;
         }
-       
-        function Set() {
-            var a = $('#sd').val();
-            alert(a);
-            $('#ed').val() = $('#sd').val();
-            
-        }
-        function Compute() {
-            var start = $('#st').val();
-            var end = $('#et').val();
-            var diff = new TimeRanges(end - start);
-            $('#rate').val() = diff * rate1;
-        }
-        function SetDefault(Text) {
-            $("#ed").val() = Text;
-        }
-        function SetAll() {
 
-        }
-        
+      
+
     </script>
 
 
