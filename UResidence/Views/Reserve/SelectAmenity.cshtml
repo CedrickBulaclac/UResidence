@@ -55,6 +55,32 @@
         line-height: 1.428571429;
         border-radius: 15px;
     }
+
+
+	div {
+		margin-bottom: 10px;
+		position: relative;
+	}
+
+	input[type="number"] {
+		width: 100px;
+	}
+
+	input + span {
+		padding-right: 30px;
+	}
+
+	input:invalid + span:after {
+		position: absolute;
+		content: '✖';
+		padding-left: 5px;
+	}
+
+	input:valid + span:after {
+		position: absolute;
+		content: '✓';
+		padding-left: 5px;
+	}
 </style>
 @using (Html.BeginForm("SelectAmenity", "Reserve", FormMethod.Post))
 {
@@ -206,20 +232,26 @@
                         <h3> Choose Date</h3>
 
 
-                        <div class="form-group">
-                            StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" />
-                            <input type="time" class="form-group" id="st" />
-                            <br />
-                            EndTime :  <input type="date" onselect="Set()" class="form-group" id="ed" readonly />
-                                           <input type="time" class="form-group" id="et" />
-                            <br />
-                            Rate : <input type="text" id="rate" class="form-group" />
+						<div class="form-group">
+							StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" required="required"/>
+
+							<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" required="required"/>
+							<span class="validity"></span>
+
+							<br />
+							EndTime :  <input type="date" class="form-group" id="ed" readonly="readonly"/>
+
+							<input type="time" class="form-group" min="09:00" max="21:00" id="et" required="required"/>
+							<span class="validity"></span>
+
+							<br />
+							Rate : <input type="text" id="rate" class="form-group" disabled="disabled"/>
 
 							<div id="divResult"></div>
-                        </div>
+						</div>
                     </div>
 
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnNext" name="btnNext" type="button">Next</button>
+                    <button class="btn btn-primary nextBtn btn-lg pull-right" id="btnNext" name="btnNext" type="button" onclick="">Next</button>
                 </div>
             </div>
 
@@ -240,8 +272,10 @@
                             <h3> Summary</h3>
                             <input type="hidden" id="ida" name="ida" />
                             <br />
-                            <label class="label-primary">Amenity Name :</label>
-                            @Html.TextBox("amname")
+                            
+							Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled"/>
+							<br />
+							Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled"/>
                             <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
                         </div>
                     </div>
@@ -253,10 +287,16 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        var id1;
+	<script type="text/javascript">
+		var id1;
+		var rateA;
         var rate1;
-        var aname;
+		var aname;
+		var startTime;
+		var endTime;
+		var selectedValue;
+		var startT;
+		var endT;
         $(document).ready(function () {
             var navListItems = $('div.setup-panel div a'),
                 allWells = $('.setup-content'),
@@ -299,6 +339,14 @@
 
             $('div.setup-panel div a.btn-primary').trigger('click');
         });
+		function ValidateDate() {
+			var x = $('#sd').val();
+			var y = $('#et').val();
+			var z = $('#st').val();
+			if (x == " " && y == " " && z == " ") {
+				alert("Please fill up all required fields");
+			}
+		}
 
         function GetId(name, rate, id) {
             aname = name;
@@ -308,21 +356,77 @@
         }
 		$(document).ready(function () {
 			$('#sd').change(function () {
-				var selectedValue = $(this).val();
+				selectedValue = $(this).val();
 				document.getElementById('ed').value = selectedValue;
 			});
 		});
-        
+
+		$(document).ready(function () {
+			$('#st').change(function myFunction() {
+				startTime = $(this).val();
+				 startT = parseInt(startTime.split(':')[0], 10);
+				if (startT < 8 && startT > 21) {
+					alert("Start Time is invalid 8:00 AM - 8:00 PM only");
+					document.getElementById('st').value = startTime + ":PM";
+					document.getElementById('rate').value = 0;
+				}
+				if (endTime != null)
+				{
+					var hourDiff =
+						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+					rateA = rate1 * hourDiff
+					document.getElementById('rate').value = rateA;
+				}
+			});
+		});
+
+		$(document).ready(function () {
+			$('#et').change(function myFunction() {
+				endTime = $(this).val();
+
+				var endT = parseInt(endTime.split(':')[0], 10);
+				
+					
+				if (endT >= 9 && endT <= 21) {
+					if ((startT >= 8 && startT <= 18) && (endT >= 9 && endT <= 18))
+					{
+						var hourDiff =
+							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = rate1 * hourDiff
+						document.getElementById('rate').value = rateA;
+
+					}
+					else 
+					{
+						alert(startTime + " " + endTime);
+						var hourDiff =
+							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = ((rate1 *2) * hourDiff)
+						document.getElementById('rate').value = rateA;
+
+					}
+				}
+				else {
+					alert("End Time is invalid 9:00 AM - 9:00 PM only");
+					document.getElementById('et').value = "PM";
+					document.getElementById('rate').value =0;
+				}
+
+				
+				});
+		});
 
 
        function SUMMARY () {
-         
+
            document.getElementById('amname').value = aname;
-           document.getElementById('ida').value = id1;
+		   document.getElementById('ida').value = id1;
+		   document.getElementById('stime').value = selectedValue + " " + startTime; 
+		   document.getElementById('etime').value = selectedValue + " " + endTime; 
         }
 
 
-    </script>
+	</script>
 
 
 }
