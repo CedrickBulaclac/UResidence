@@ -34,7 +34,7 @@ namespace UResidence
         public static bool Update(Owner own)
         {
 
-            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname, Lname= @Lname, CelNo=@CelNo,Email=@Email,BldgNo=@BldgNo,UnitNo=@UnitNo,Deleted=@Deleted  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname, Lname= @Lname, CelNo=@CelNo,Email=@Email,BldgNo=@BldgNo,UnitNo=@UnitNo  WHERE Id = @Id";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Fname", own.Fname));
             com.Parameters.Add(new SqlParameter("@Mname", own.Mname));
@@ -45,7 +45,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Id", own.Id));
             com.Parameters.Add(new SqlParameter("@BldgNo", own.BldgNo));
             com.Parameters.Add(new SqlParameter("@UnitNo", own.UnitNo));
-            com.Parameters.Add(new SqlParameter("@Deleted", own.Deleted));
+
             return SqlManager.ExecuteNonQuery(com);
         }
 
@@ -73,6 +73,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@CelNo", own.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", own.Email));
             com.Parameters.Add(new SqlParameter("@Deleted", own.Deleted));
+
             return SqlManager.ExecuteNonQuery(com);
         }
     }

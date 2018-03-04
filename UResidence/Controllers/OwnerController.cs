@@ -39,13 +39,27 @@ namespace UResidence.Controllers
                 LastLogin=DateTime.Now                
             };
 
+            Owner ow = new Owner() {
+                
+            BldgNo=owe.BldgNo,
+            UnitNo= owe.UnitNo,
+            Fname= owe.Fname,
+            Mname=owe.Mname,
+            Lname=owe.Lname,
+            Bdate=owe.Bdate,
+            CelNo=owe.CelNo,
+            Email=owe.Email,
+            Deleted="0"
+
+            };
+
             if (listUser.Count == 0)
             {
                 string[] err = new string[] { };
                 if (owe.Validate(out err))
                 {
                     UResidence.UserController.Insert(ul);
-                    UResidence.OwnerController.Insert(owe);
+                    UResidence.OwnerController.Insert(ow);
                     status = true;
                     return RedirectToAction("OwnerView");
                 }

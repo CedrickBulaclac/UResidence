@@ -26,7 +26,7 @@ namespace UResidence
 
         public string CelNo { get; set; }
         public string Email { get; set; }
-        public string Deleted { get; set; }
+        public string Deleted { get; set; } 
 
 
         public Owner CreateObject(SqlDataReader reader)
