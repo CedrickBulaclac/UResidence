@@ -21,7 +21,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Fname, "First Name")
 
-                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" ,@required="required"} })
+                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
 
             </div>
@@ -31,7 +31,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Mname, "Middle Name")
 
-                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control",@required = "required" } })
+                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -99,11 +99,20 @@
         <div class="col-md-2">
 
         </div>
+
+    </div>
+    <a id="Link">Show Other Fields</a>
+    <div id="Other" hidden>
+
+        Sample : <input type="text" id="sample" />
+        Telephone :  <input type="tel" id="tel" />
+
     </div>
 
-   
+
 
     <div class="row">
+        <a id="uLink" hidden>Hide Other Fields</a>
         <div class="col-md-12 text-center">
             <input type="submit" value="Save" class="btn btn-default" />
             <input type="reset" value="Reset" class="btn btn-default" />
@@ -112,8 +121,23 @@
     </div>
 
 </div>
-  
+
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script type="text/javascript">
+
+                $("#Link").click(function () {
+                    $("#Other").show();
+                    $("#Link").hide();
+                    $("#uLink").show();
+    });
+    $("#uLink").click(function () {
+        $("#Other").hide();
+        $("#Link").show();
+        $("#uLink").hide();
+    });
+</script>
 
 
 
