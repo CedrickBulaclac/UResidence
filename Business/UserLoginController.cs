@@ -52,7 +52,6 @@ namespace UResidence
             }
         }
 
-
         public static UserLogin Get(int id)
         {
             const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Id = @Id";
@@ -64,8 +63,22 @@ namespace UResidence
 
             return ret;
         }
+        public static bool UpdateLog(int id)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set LastLogin=GETDATE() where Id=@Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", id));
 
-
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool Update(string email,string hash)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set Hash=@hash where Username=@email";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@email", email));
+            com.Parameters.Add(new SqlParameter("@hash", hash));
+            return SqlManager.ExecuteNonQuery(com);
+        }
         public static bool Update(UserLogin usr)
         {
             const string GET_UPDATE = @"update [tbLogin] set Username= @Username,Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";

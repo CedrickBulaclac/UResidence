@@ -3,7 +3,7 @@
 	ViewBag.Title = "CodeVerification";
 	Layout = "";
 }
-@using (Html.BeginForm("CodeVerification", "Login", FormMethod.Post))
+@using (Html.BeginForm("CodeVerification","Login",FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 	<head>
@@ -19,7 +19,7 @@
 			<table>
 				<tr><td><p>Enter the code that has been sent to your email</p></td></tr>
 				<tr><td><input type="text" placeholder="Enter a code" id="code" name="code" /></td></tr>
-				<tr><td><input type="submit" class="btn btn-default" value="Submit" /></td></tr>
+				<tr><td><input type="submit" class="btn btn-default"/></td></tr>
 			</table>
 		</div>
 	</div>
