@@ -125,23 +125,41 @@
                 <div class="row-md-6">
                     <h3 class="text-center">Choose Amenity</h3>
                     <div class="form-group">
-                        <div class="form-group text-center">
+                   
                             <div class="col-md-5 col-lg-offset-3">
                                 <table>
 
                                     @foreach (var amn in amenity)
-        {
-                            <tr>
-                                <td>
-                                    <button class="btn btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)</button>
-                                </td>
+    {
+                              
+                                    <tr>
+                                        <td ></td>
+                                        <td>
+                                            <button class="btn btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10"> @Html.LabelFor(model => amn.AmenityName, "Name")  </td>
+                                      
+                                        <td>
 
-                                <td>
-                                    @Html.EditorFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-                                    @Html.EditorFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                    @Html.EditorFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                </td>
-                            </tr>
+                                            @Html.EditorFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">@Html.LabelFor(model => amn.Description)</td>
+
+                                        <td>
+                                            @Html.EditorFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        </td>
+                                    </tr>
+                                <tr>
+                                    <td colspan="10">  @Html.LabelFor(model => amn.Rate)  </td>
+                                    <td>
+                                        @Html.EditorFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                                    </td>
+                                </tr>
 
 
 }
@@ -150,7 +168,7 @@
                         </div>
                     </div>
 
-                </div>
+    
             </div>
 
             <div class="row setup-content" id="step-2">
