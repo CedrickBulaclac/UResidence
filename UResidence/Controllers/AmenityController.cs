@@ -56,6 +56,8 @@ namespace UResidence.Controllers
 
             else
             {
+                string script = "<script type = 'text/javascript'>alert('No picture attached');</script>";
+                Response.Write(script);
                 return View();
             }
             return View();
