@@ -134,94 +134,66 @@
 
     *@
 
-     <div class="row setup-content" id="step-1">
-        
-            <h3 class="text-center">Choose Amenity</h3>
-            <div class="form-group">
+    <div class="row setup-content" id="step-1">
 
-                <div class="col-md-2 col-lg-offset-2">
+        <h3 class="text-center">Choose Amenity</h3>
+        <div class="form-group">
 
-
-                    @*<dl class=" dl-horizontal">*@
+            <div class="col-md-2 col-lg-offset-2">
 
 
-                    <table align="left">
-                        <tr>
-
-                            @foreach (var amn in amenity)
-                                    {
-
-                                       
+                <div class=" dl-horizontal">
 
 
-                    <td>
-                       <button class=btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)  </button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                   
-                    </td>
-
-
-}
-
-                        </tr>
-
-
-                        <tr>
+                <table>
+                    <tr>
                         @foreach (var amn in amenity)
-    {
-
-
-                    
-                        <td>
-                            @Html.LabelFor(model => amn.AmenityName, "Name")
-
-                        
-                        
-
-                            @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-                        
-
-                    
-                            <br />
-
-
-                    
-                        
-                            @Html.LabelFor(model => amn.Description)
-
-                        
-
-                        
-
-                            @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                        
-
-                   
-                            <br />
-
-                    
-                        
-
-                            @Html.LabelFor(model => amn.Rate)
-                        
-                  
-
-                        
-                            @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-
-                        </td>
-                    
+                        {
 
 
 
-}
-                        </tr>
-                    </table>
+                            <td>
+                                <button class="btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id')">@Html.Image(amn.Url)  </button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                            </td>
 
 
-                    </div>
-                </div>
+
+                        }
+                    </tr>
+
+
+
+                    <tr>
+                        @foreach (var amn in amenity)
+                        {
+
+
+                            <td>
+                                @Html.LabelFor(model => amn.AmenityName, "Name")
+                                @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Description)
+                                @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Rate)
+                                @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                            </td>
+
+
+
+
+                        }
+                    </tr>
+                </table>
+
+
             </div>
-         
+        </div>
+    </div>
+        </div>
+
 
 
 
@@ -310,15 +282,15 @@
 
 
                 <div class="form-group">
-                    StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" required="required" />
+                    StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" required/>
 
-                    <input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" required="required" />
+                    <input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" required />
                     <span class="validity"></span>
 
                     <br />
                     EndTime :  <input type="date" class="form-group" id="ed" readonly="readonly" />
 
-                    <input type="time" class="form-group" min="09:00" max="21:00" id="et" required="required" />
+                    <input type="time" class="form-group" min="09:00" max="21:00" id="et" required />
                     <span class="validity"></span>
 
                     <br />
@@ -337,16 +309,16 @@
             <div class="col-md-12">
                 <h3> Choose Equipment</h3>
 
-                <label class="form-control text-center">@equip[0].Name</label>
-                <label class="form-group">Quantity :</label> @Html.EditorFor(model => equip[0].Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = equip[0].Stocks, @value = 0, @id = "txtCQuantity" } })
-                <label class="form-group">Stocks :</label> @Html.EditorFor(model => equip[0].Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = equip[0].Stocks, disabled = "disabled" } })
-                <label class="form-group">Rate :</label> @Html.EditorFor(model => equip[0].Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = equip[0].Rate, @id = "txtCRate" } }) <label class="form-group"><strong>/pc</strong></label>
-                <br />
-                <label class="form-control text-center">@equip[1].Name</label>
-                <label class="form-group">Quantity :</label> @Html.EditorFor(model => equip[1].Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = equip[1].Stocks, @id = "txtTQuantity" } })
-                <label class="form-group">Stocks :</label> @Html.EditorFor(model => equip[1].Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = equip[1].Stocks, disabled = "disabled" } })
-                <label class="form-group">Rate :</label> @Html.EditorFor(model => equip[1].Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = equip[1].Rate, @id = "txtTRate" } }) <label class="form-group"><strong>/pc</strong></label>
-                <br />
+                @foreach (var eqp in equip)
+                 {
+
+            <label class="form-control text-center">@eqp.Name</label>
+            <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new {@class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtCQuantity", @required="required" } })
+            <label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group",  @value = eqp.Stocks, disabled = "disabled" } })
+            <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtCRate" } }) <label class="form-group"><strong>/pc</strong></label>
+            <br />
+
+                    }
                 <button class="btn btn-primary nextBtn btn-lg pull-right" id="gotoSum" name="gotoSum" onclick="SUMMARY()" type="button">Next</button>
             </div>
         </div>
