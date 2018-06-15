@@ -21,7 +21,7 @@ namespace UResidence
         }
         public static List<SchedReservation> GetAllA()
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,Theme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -31,7 +31,7 @@ namespace UResidence
         }
         public static SchedReservation GetId(int id)
         {
-            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate,Theme FROM [tbSchedReservation] WHERE Id = @Id";
 
             SchedReservation ret = default(SchedReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -62,6 +62,7 @@ namespace UResidence
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));
+            //com.Parameters.Add(new SqlParameter("@Theme", usr.Theme));
 
             return SqlManager.ExecuteNonQuery(com);
         }
@@ -86,15 +87,21 @@ namespace UResidence
 
         public static bool Insert(SchedReservation usr)
         {
-            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate) values (@AmenityId ,@StartTime,@EndTIme , @Rate  )";
+            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate,Theme) values (@AmenityId ,@StartTime,@EndTIme , @Rate,@Theme)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
             com.Parameters.Add(new SqlParameter("@StartTime", usr.StartTime));
             com.Parameters.Add(new SqlParameter("@EndTIme", usr.EndTIme));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));
+            com.Parameters.Add(new SqlParameter("@Theme", usr.Theme));
 
             return SqlManager.ExecuteNonQuery(com);
         }
+
+
+
+
+        }
     }
-}
+

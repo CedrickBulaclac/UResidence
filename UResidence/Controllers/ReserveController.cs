@@ -28,12 +28,15 @@ namespace UResidence.Views.Reservation
             DateTime startTime = Convert.ToDateTime(fc["sta"]);
             DateTime endTime = Convert.ToDateTime(fc["eta"]);
             int rate = Convert.ToInt32(fc["ap"]);
+            string theme = Convert.ToString(fc["thm"]);
             SchedReservation a = new SchedReservation
             {
                 AmenityId =aid,
                 StartTime=startTime,
                 EndTIme=endTime,
-                Rate= rate             
+                Rate= rate,
+                Theme=theme
+                
                
             };
             status = UResidence.SchedReservationController.Insert(a);

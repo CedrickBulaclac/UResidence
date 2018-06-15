@@ -15,7 +15,9 @@ namespace UResidence
         public int Rate { get; set; }
         public int Id { get; set; }
         public string AmenityName { get; set; }
+        public string Theme { get; set; }
         public List<Amenity> amenityList{get; set;}
+
         public void Reset()
         {
             this.AmenityId = 0;
@@ -23,10 +25,11 @@ namespace UResidence
             this.EndTIme = DateTime.Today;
             this.Rate = 0;
             this.Id = 0;
+            this.Theme = "Default";
         }
 
         public SchedReservation CreateObject(SqlDataReader reader)
-        {         
+        {
             if (reader.FieldCount == 5)
             {
                 SchedReservation ret = new SchedReservation();
@@ -35,10 +38,11 @@ namespace UResidence
                 ret.StartTime = reader.GetDateTime(2);
                 ret.EndTIme = reader.GetDateTime(3);
                 ret.Rate = reader.GetInt32(4);
-                
+
+
                 return ret;
             }
-            else 
+            else
             {
                 SchedReservation ret = new SchedReservation();
                 ret.Id = reader.GetInt32(0);
@@ -47,7 +51,8 @@ namespace UResidence
                 ret.Rate = reader.GetInt32(3);
                 ret.StartTime = reader.GetDateTime(4);
                 ret.EndTIme = reader.GetDateTime(5);
-                return ret;            
+                ret.Theme = reader.GetString(6);
+                return ret;
             }
         }
     }

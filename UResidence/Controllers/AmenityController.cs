@@ -35,7 +35,8 @@ namespace UResidence.Controllers
                         Url = folderpath,
                         Capacity = amen.Capacity,
                         Description = amen.Description,
-                        Rate = amen.Rate
+                        Rate = amen.Rate,
+                        Color = amen.Color
                     };
 
                     if (amen.Validate(out err))

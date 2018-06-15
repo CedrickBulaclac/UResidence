@@ -19,6 +19,7 @@ namespace UResidence
         public string AmenityName { get; set; }
         public string Url { get; set; }
         public int Rate { get; set; }
+        public string Color {get; set;}
 
         public Amenity CreateObject(SqlDataReader reader)
         {
@@ -29,6 +30,7 @@ namespace UResidence
             ret.AmenityName = reader.GetString(3);
            ret.Url = reader.GetString(4);
             ret.Rate = reader.GetInt32(5);
+            ret.Color = reader.GetString(6);
             return ret;
         }
         public bool Validate(out string[] errors)
@@ -70,6 +72,7 @@ namespace UResidence
             this.AmenityName = string.Empty;
             this.Url = string.Empty;
             this.Rate = 0;
+            this.Color = string.Empty;
         }
        
     }
