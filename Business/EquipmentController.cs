@@ -19,6 +19,20 @@ namespace UResidence
             return ret;
         }
 
+
+        public static List<Equipment> GetAll(string st,string et)
+        {
+            const string GET_ALL = @"  select a.Id,Name,Difference(Stocks,Quantity) as Stocks,Rate,URL from tbEquipment a inner join tbEquipReservation b on a.Id=EquipmentId where b.RefNo in (select RefNo from tbReservationForm c inner join tbSchedReservation d on c.SchedId=d.Id where d.EndTIme between @st and @et ) ";
+
+
+            List<Equipment> ret = default(List<Equipment>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@st", st));
+            com.Parameters.Add(new SqlParameter("@et", et));
+            ret = SqlManager.Select<Equipment>(com);
+            return ret;
+        }
+
         public static Equipment Get(string name)
         {
             const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate,URL FROM [tbEquipment] order by EquipmentNo WHERE Name = @Name";

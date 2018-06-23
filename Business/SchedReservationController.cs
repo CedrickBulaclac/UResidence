@@ -19,7 +19,54 @@ namespace UResidence
             ret = SqlManager.Select<SchedReservation>(com);
             return ret;
         }
+
+        public static List<SchedReservation> GetAll(string sd, string ed)
+        {
+            const string GET_ALL = @"  SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] where EndTime between @sd and @ed  order by AmenityId";
+
+
+            List<SchedReservation> ret = default(List<SchedReservation>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@sd", sd));
+            com.Parameters.Add(new SqlParameter("@ed", ed));
+            ret = SqlManager.Select<SchedReservation>(com);
+            return ret;
+        }
+
+
+        public static List<SchedReservation> GetAll(int id)
+        {
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,Theme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where AmenityId=@id";
+
+
+            List<SchedReservation> ret = default(List<SchedReservation>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@id", id));
+            ret = SqlManager.Select<SchedReservation>(com);
+            return ret;
+        }
+        public static List<SchedReservation> GetAllA(int id)
+        {
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,Theme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where a.AmenityId=@id";
+
+
+            List<SchedReservation> ret = default(List<SchedReservation>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@id", id));
+            ret = SqlManager.Select<SchedReservation>(com);
+            return ret;
+        }
         public static List<SchedReservation> GetAllA()
+        {
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,Theme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id";
+
+
+            List<SchedReservation> ret = default(List<SchedReservation>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<SchedReservation>(com);
+            return ret;
+        }
+        public static List<SchedReservation> GetAllM()
         {
             const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,Theme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id";
 

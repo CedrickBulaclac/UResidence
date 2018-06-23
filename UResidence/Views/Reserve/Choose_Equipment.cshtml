@@ -1,0 +1,50 @@
+﻿@model List<Equipment>
+@{
+	ViewBag.Title = "Choose_Equipment";
+	Layout = "~/Views/Reserve/Layout.cshtml";
+}
+@using (Html.BeginForm("Choose_Equipment", "Reserve", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+	<center>
+		<h2>Reserve Equipment</h2>
+	</center>
+
+		int ctr3 = 0;
+		foreach (var eqp in Model)
+		{
+			<label class="form-control text-center">@eqp.Name</label>
+			<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+			<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+			<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
+			<br />
+			ctr3++;
+		}
+
+		<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+		<button type="submit" class="btn btn-default" onclick="SET()" >NEXT</button>
+
+	}
+		
+	<script type="text/javascript">
+
+		var rate = [null];
+		var quantity = [null];
+		var total = [null];
+		var ttotal = 0;
+		var txtctr = parseInt($('#txtctr').val());
+
+		
+		function SET() {
+			for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+				quantity[pppp] = $('#txtQuantity' + pppp).val();
+				rate[pppp] = $('#txtRate' + pppp).val();
+				total[pppp] = quantity[pppp] * rate[pppp];
+				var ttotal = ttotal + total[pppp];
+				
+			}
+
+			$.post('/Reserve/Choose_Equipment', $.param({ data: quantity }, true));
+		}
+
+	</script>

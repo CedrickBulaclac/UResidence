@@ -1,0 +1,191 @@
+﻿
+@{
+	ViewBag.Title = "Choose_Date";
+	Layout = "~/Views/Reserve/Layout.cshtml";
+}
+@using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
+{
+		@Html.AntiForgeryToken()
+	<h2> Choose_Date </h2>
+
+
+
+
+<div class="form-group">
+StartTime : <input type = "date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+
+<input type = "time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
+
+
+<br />
+EndTime :  <input type = "date" class="form-group" id="ed" name="ed" readonly="readonly" />
+
+<input type = "time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+
+
+<br />
+Rate : <input type = "text" id="rate" class="form-group" disabled="disabled" />
+<input type = "hidden" id="stime" name="stime" />
+<input type = "hidden" id="etime" name="etime" />
+	<button type="submit" class="btn btn-default" onclick="Check()">Next</button>
+</div>
+}
+<script type="text/javascript">
+	var startTime;
+	var endTime;
+	var selectedValue;
+	var startT;
+	var endT;
+	var startDate;
+	var endDate;
+	var rate1=@ViewBag.Message;
+	var rateA;
+	var statuset="Valid";
+	var statusst="Valid";
+	function ValidateDate() {
+		var x = $('#sd').val();
+		var y = $('#et').val();
+		var z = $('#st').val();
+		if (x == " " && y == " " && z == " ") {
+			alert("Please fill up all required fields");
+		}
+	}
+	function toStandardTime(value) {
+		if (value !== null && value !== undefined) { //If value is passed in
+			if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { //If time is already in standard time then don't format.
+				return value;
+			}
+			else {
+				if (value.length == 8) { //If value is the expected length for military time then process to standard time.
+					var hour = value.substring(0, 2); //Extract hour
+					var minutes = value.substring(3, 5); //Extract minutes
+					var identifier = 'AM'; //Initialize AM PM identifier
+
+					if (hour == 12) { //If hour is 12 then should set AM PM identifier to PM
+						identifier = 'PM';
+					}
+					if (hour == 0) { //If hour is 0 then set to 12 for standard time 12 AM
+						hour = 12;
+					}
+					if (hour > 12) { //If hour is greater than 12 then convert to standard 12 hour format and set the AM PM identifier to PM
+						hour = hour - 12;
+						identifier = 'PM';
+					}
+					return hour + ':' + minutes + ' '; //Return the constructed standard time
+				}
+				else { //If value is not the expected length than just return the value as is
+					return value;
+				}
+			}
+		}
+	}
+	$(document).ready(
+		function () {
+			$('#sd').change(function () {
+				selectedValue = $(this).val();
+				document.getElementById('ed').value = selectedValue;
+				startDate = selectedValue;
+				endDate = selectedValue;
+
+			});
+
+		});
+
+	$(document).ready(function () {
+		$('#st').change(function myFunction() {
+			selectedValue = $('#st').val();
+
+			var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
+			var fmins = selectedValue.split(':')[1];
+			var f = selectedValue.split(' ')[2];
+			var final = fhours + ":" + fmins;
+			document.getElementById('et').value = final;
+
+			endTime = $('#et').val();
+
+			startTime = $(this).val();
+			startT = parseInt(startTime.split(':')[0], 10);
+			if (startT < 8 && startT > 21) {
+				alert("Start Time is invalid, 8:00 AM - 8:00 PM only");
+				document.getElementById('st').value = startTime + ":PM";
+				document.getElementById('rate').value = 0;
+		
+			}
+
+			if (endTime != null) {
+				var hourDiff =
+					parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+				rateA = rate1 * hourDiff
+				document.getElementById('rate').value = rateA;
+	
+			}
+
+
+
+
+		});
+	});
+	$(document).ready(function () {
+		$('#st').change(function myFunction() {
+		});
+		selectedValue = $(this).val();
+		document.getElementById('et').value = selectedValue;
+
+	});
+	$(document).ready(function () {
+		$('#et').change(function myFunction() {
+			endTime = $(this).val();
+
+			var endT = parseInt(endTime.split(':')[0], 10);
+
+
+			if (endT >= 9 && endT <= 21) {
+				if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21)) {
+					if (endT > startT) {
+						var hourDiff =
+							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = rate1 * hourDiff
+						document.getElementById('rate').value = rateA;
+						statuset = "Valid";
+				
+					}
+					else
+					{
+						statuset = "Invalid";
+					}
+				}
+				else {
+
+					var hourDiff =
+						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+					rateA = ((rate1 * 2) * hourDiff)
+					document.getElementById('rate').value = 0;
+					statuset = "Invalid";
+				
+				}
+			}
+			else {
+				alert("End Time is invalid 9:00 AM - 9:00 PM only");
+				document.getElementById('et').value = "PM";
+				document.getElementById('rate').value = 0;
+				statuset = "Invalid";
+			
+			}
+
+
+		});
+	});
+	function Check() {
+		if (statusst == 'Valid' && statuset == 'Valid') {
+			var stconcat = startDate + " " + startTime;
+			var etconcat = endDate + " " + endTime;
+			document.getElementById('stime').value = stconcat;
+			document.getElementById('etime').value = etconcat;
+		}
+		else {
+			alert('Invalid');
+		}
+	};
+
+
+</script>

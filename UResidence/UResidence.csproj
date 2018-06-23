@@ -142,8 +142,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountSettingController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AmenityController.cs" />
+    <Compile Include="Controllers\AmenityMaintenanceController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -215,6 +218,14 @@
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\CodeVerification.cshtml" />
     <Content Include="Views\Login\NewPassword.cshtml" />
+    <Content Include="Views\Calendar\CalendarView.cshtml" />
+    <Content Include="Views\AccountSetting\ViewAccountSetting.cshtml" />
+    <Content Include="Views\AmenityMaintenance\AmenityMaintenanceView.cshtml" />
+    <Content Include="Views\Reserve\Amenity.cshtml" />
+    <Content Include="Views\Reserve\Calendar.cshtml" />
+    <Content Include="Views\Reserve\Choose_Date.cshtml" />
+    <Content Include="Views\Reserve\Choose_Equipment.cshtml" />
+    <Content Include="Views\Reserve\Summary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

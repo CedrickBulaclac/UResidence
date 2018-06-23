@@ -10,7 +10,18 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] order by Id";
+            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Color!='Black' order by Id ";
+
+
+            List<Amenity> ret = default(List<Amenity>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<Amenity>(com);
+            return ret;
+        }
+        
+        public static List<Amenity> GetAllM()
+        {
+            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Color='Black' order by Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);

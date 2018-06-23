@@ -1,0 +1,78 @@
+﻿@model List<Amenity>
+
+@{
+	ViewBag.Title = "Amenity";
+	Layout = "~/Views/Reserve/Layout.cshtml";
+}
+<style>
+	.hidden {
+		display: none;
+	}
+</style>
+@using (Html.BeginForm("Amenity", "Reserve", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+	<center>
+		<h2>Amenity</h2>
+	</center>
+
+	<input type="hidden" name="ida" id="ida" />
+	<input type="hidden" name="ratea" id="ratea" />
+	<table>
+		<tr>
+			@{
+
+				int ctr = 0;
+				foreach (var amn in Model)
+				{
+					ctr++;
+					if (ctr <= 3)
+					{
+						<td>
+
+
+							<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate')" name="btnImg">@Html.Image(amn.Url)  </button>
+							<br />
+							@Html.LabelFor(model => amn.AmenityName, "Name")
+							@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+							<br />
+							@Html.LabelFor(model => amn.Description)
+							@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+							<br />
+							@Html.LabelFor(model => amn.Rate)
+							@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+						</td>
+					}
+					else
+					{
+						ctr = 0;
+					<tr>
+						<td>
+
+							<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate')" name="btnImg">@Html.Image(amn.Url)  </button>
+							<br />
+							@Html.LabelFor(model => amn.AmenityName, "Name")
+							@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+							<br />
+							@Html.LabelFor(model => amn.Description)
+							@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+							<br />
+							@Html.LabelFor(model => amn.Rate)
+							@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+						</td>
+					</tr>
+
+				}
+			}
+			}
+			</tr>
+		</table>
+
+
+	}
+<script type="text/javascript">
+	function GetId(id, rate) {
+		document.getElementById('ida').value = id;
+		document.getElementById('ratea').value = rate;
+	}
+</script>
