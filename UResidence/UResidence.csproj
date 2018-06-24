@@ -160,6 +160,13 @@
     <Compile Include="Controllers\ReserveController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="applogin\css\style.css" />
+    <Content Include="applogin\index.html" />
+    <Content Include="applogin\js\index.js" />
+    <Content Include="applogin\package\velocity.js" />
+    <Content Include="applogin\package\velocity.min.js" />
+    <Content Include="applogin\package\velocity.ui.js" />
+    <Content Include="applogin\package\velocity.ui.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -171,6 +178,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="applogin\package\LICENSE.md" />
+    <Content Include="applogin\package\package.json" />
+    <Content Include="applogin\package\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
