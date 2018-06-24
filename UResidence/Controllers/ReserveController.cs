@@ -9,7 +9,6 @@ namespace UResidence.Views.Reservation
     public class ReserveController : Controller
     {
         bool status;
-        int[] data;
         // GET: Reserve
         public ActionResult SelectAmenity()
         {
@@ -83,45 +82,33 @@ namespace UResidence.Views.Reservation
             string ed = (string)Session["ed"];
             List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd,ed);
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
-            return View(equip);
+            List<object> model = new List<object>();
+            model.Add(equipList.ToList());
+            model.Add(equip.ToList());
+            return View(model);
         }
-
         [HttpPost]
         public void Choose_Equipment(int[] data)
         {
-          
-                foreach (int i in data)
+            if (data != null)
+            {
+                foreach (var i in data)
                 {
-                    Response.Write("<script>alert(" +i+ ")</script>");
+                    Response.Write("<script>alert(" + i + ")</script>");
                 }
-         
-            List<Equipment> equip = UResidence.EquipmentController.GetAll();
+               
+
+                string sd = (string)Session["sd"];
+                string ed = (string)Session["ed"];
+                Response.Write("<script>alert(" + sd + ")</script>");
+                Summary();
+            }
+            else
+            {
+                Response.Write("<script>alert('Failed')</script>");
+                Choose_Equipment();
+            }
         }
-        
-        //[HttpPost]
-        //public ActionResult Choose_Equipment(FormCollection fc)
-        //{
-
-        //    int ctr = Convert.ToInt32(fc["txtctr"]);
-
-
-        //    string vvv = fc["txtQuantity"+0];
-
-        //        for (int i = 0; i <= ctr - 1; i++)
-        //    {
-        //        Response.Write("<script>alert(" + fc["txtQuantity"+ctr]+")</script>");
-        //    }
-
-        //    //foreach (var q in quan )
-        //    //{
-        //    //    Response.Write("<script>alert(" + q + ")</script>");
-        //    //}
-
-        //    string sd = (string)Session["sd"];
-        //    string ed = (string)Session["ed"];
-        //    List<Equipment> equip = UResidence.EquipmentController.GetAll();
-        //    return View(equip);
-        //}
 
         //[HttpPost]
         //public ActionResult SelectAmenity(FormCollection fc)
