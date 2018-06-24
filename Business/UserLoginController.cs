@@ -46,7 +46,7 @@ namespace UResidence
 
                 return ret;
             }
-            catch(InvalidOperationException ex )
+            catch(InvalidOperationException )
             {
                 return ret;
             }

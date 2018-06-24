@@ -8,8 +8,6 @@ namespace UResidence.Views.Reservation
 {
     public class ReserveController : Controller
     {
-        bool status;
-        // GET: Reserve
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -88,8 +86,10 @@ namespace UResidence.Views.Reservation
             return View(model);
         }
         [HttpPost]
-        public void Choose_Equipment(int[] data)
+        public ActionResult Choose_Equipment(int[] data)
         {
+            string sd = (string)Session["sd"];
+            string ed = (string)Session["ed"];
             if (data != null)
             {
                 foreach (var i in data)
@@ -98,16 +98,21 @@ namespace UResidence.Views.Reservation
                 }
                
 
-                string sd = (string)Session["sd"];
-                string ed = (string)Session["ed"];
+                
                 Response.Write("<script>alert(" + sd + ")</script>");
-                Summary();
+                return View("Summary");
             }
             else
             {
                 Response.Write("<script>alert('Failed')</script>");
-                Choose_Equipment();
+                List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
+                List<Equipment> equip = UResidence.EquipmentController.GetAll();
+                List<object> model = new List<object>();
+                model.Add(equipList.ToList());
+                model.Add(equip.ToList());
+                return View(model);
             }
+            
         }
 
         //[HttpPost]

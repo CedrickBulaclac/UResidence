@@ -13,9 +13,6 @@ namespace UResidence.Controllers
     {
         string i;
         string email1;
-        bool status;
-     
-        // GET: Login
         public ActionResult Index()
         {
             return View();
