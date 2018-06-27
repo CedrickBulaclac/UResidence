@@ -1,5 +1,7 @@
-﻿@model List<Equipment>
+﻿
+@model List<Equipment>
 @{
+
 	ViewBag.Title = "Summary";
 	Layout = "~/Views/Reserve/Layout.cshtml";
 }
@@ -10,34 +12,46 @@
 <input type="hidden" id="thm" name="thm" />
 <br />
 
-Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled" />
+Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
 <br />
-Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled" />
+Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
 
 <input type="hidden" id="sta" name="sta" />
 <input type="hidden" id="eta" name="eta" />
 <br />
 <div class="col-lg-4 col-lg-offset-7">
-	Price : <input type="text" class="form-group" id="aprice" name="aprice" disabled="disabled" />
+	Price : <input type="text" class="form-group" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
 	<input type="hidden" id="ap" name="ap" />
 </div>
 
 <br />
-							Equipment :
+Equipment :
 <br />
 
 @{
 	int ctr4 = 0;
+
+
+
+
 	foreach (var eqp in Model)
 	{
+		foreach (var quan in ViewBag.quan)
+		{
+			foreach (var rat in ViewBag.rat)
+			{
 		<label class="form-control text-center">@eqp.Name</label>
-		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = "", @disabled = "true" } })
-		<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = "" } })
+		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = quan, @disabled = "true" } })
+		<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = rat } })
 		<label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = "" } })
 		<br />
-		ctr4++;
+				ctr4++;
 
+			}
+
+		}
 	}
+
 	<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
 }
 
@@ -51,3 +65,7 @@ Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disa
 
 
 <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+
+
+
+

@@ -28,26 +28,30 @@ namespace UResidence.Views.Reservation
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
-            int aid = Convert.ToInt32(fc["ida"]);
+            int aid = Convert.ToInt32(fc["ida"]);  
             int arate = Convert.ToInt32(fc["ratea"]);
+            string aname = Convert.ToString(fc["namea"]);
             SchedReservation a = new SchedReservation
             {
                 AmenityId = aid
             };
             Session["ID"] = aid;
             Session["RATE"] = arate;
+            Session["NAME"] = aname;
+
             return RedirectToAction("Calendar", "Reserve");
 
         }
         public ActionResult Calendar()
         {
-            return View();
-        }
-        public ActionResult Summary()
-        {
 
             return View();
         }
+  
+       
+
+
+
         public ActionResult Choose_Date()
         {
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
@@ -60,6 +64,9 @@ namespace UResidence.Views.Reservation
             string ed = fc["etime"];
             Session["sd"] = sd;
             Session["ed"] = ed;
+            string drate = fc["tratee"];
+            Session["drate"] = drate;
+
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed);
             if(schedList.Count > 0)
             {
@@ -74,7 +81,9 @@ namespace UResidence.Views.Reservation
            
             return View();
         }
-        public ActionResult Choose_Equipment()
+
+
+        public  ActionResult Choose_Equipment()
         {
             string sd= (string) Session["sd"];
             string ed = (string)Session["ed"];
@@ -86,34 +95,59 @@ namespace UResidence.Views.Reservation
             return View(model);
         }
         [HttpPost]
-        public ActionResult Choose_Equipment(int[] data)
+        public void Choose_Equipment(int[] data,int[] datar)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
+
+         
             if (data != null)
             {
                 foreach (var i in data)
                 {
                     Response.Write("<script>alert(" + i + ")</script>");
                 }
-               
 
-                
-                Response.Write("<script>alert(" + sd + ")</script>");
-                return View("Summary");
+
+
+
+
+                int[] quantity = data;
+                Session["quantity"] = quantity;
+
+                int[] ratee = datar;
+                Session["ratee"] = ratee;
+
+                Summary();
+
             }
             else
             {
-                Response.Write("<script>alert('Failed')</script>");
-                List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
-                List<Equipment> equip = UResidence.EquipmentController.GetAll();
-                List<object> model = new List<object>();
-                model.Add(equipList.ToList());
-                model.Add(equip.ToList());
-                return View(model);
+                Choose_Equipment();
+              
             }
             
         }
+
+        public ActionResult Summary()
+        {
+            
+            List<Equipment> equip = UResidence.EquipmentController.GetAll();
+            string sd = (string)Session["sd"];
+            string ed = (string)Session["ed"];
+            ViewBag.start = sd;
+            ViewBag.end = ed;
+            ViewBag.ratea = Session["drate"];
+            ViewBag.amenname = Session["NAME"];
+            ViewBag.quan = Session["quantity"];
+            ViewBag.rat = Session["ratee"];
+
+
+
+            return View(equip);
+        }
+
+
 
         //[HttpPost]
         //public ActionResult SelectAmenity(FormCollection fc)
