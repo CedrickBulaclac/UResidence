@@ -6,17 +6,28 @@ html, body {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  background-image: url("../../Content/Log/loginbg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .container {
-  padding: 1px 0;
+  padding: 1px 0 5px 0 ;
   height: 100%;
   width: 100%;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/226578/campnou(optimized).jpg");
-  background-size: cover;
+  /*background-image: url("../../Content/Log/loginbg.jpg") ;
+
+  background-repeat:no-repeat;
+  background-position: center;
+  background-size: cover;*/
   color: #fff;
-  font-family: "Comfortaa", "Helvetica", sans-serif;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
+
+
 
 .login {
   max-width: 280px;
@@ -50,6 +61,7 @@ html, body {
   position: relative;
   height: 40px;
   /*background-color: pink;*/
+  text-decoration-color:darkgrey;
   border-bottom: 1px solid;
   margin-bottom: 10px;
 }
@@ -57,7 +69,8 @@ html, body {
 .password-row {
   position: relative;
   height: 40px;
- /* background-color: grey;*/
+  /*background-color:aliceblue;*/
+  text-decoration-color: antiquewhite;
   border-bottom: 1px solid;
 }
 
@@ -91,6 +104,7 @@ input {
   height: 30px;
   margin: 5px 0;
   background: transparent;
+  text-decoration-color: aliceblue;
   border: none;
 }
 
@@ -100,11 +114,11 @@ button:focus {
 }
 
 input::-webkit-input-placeholder {
-  color: rgba(255,255,255,.4);
+  color: oldlace;
 }
 
 input::-moz-placeholder {
-  color: rgba(255,255,255,.4);
+  color: oldlace;
 }
 
 .call-to-action {
@@ -113,6 +127,7 @@ input::-moz-placeholder {
   width: 100%;
   /*background-color: blue;*/
 }
+
 
 button {
   display: block;
@@ -171,3 +186,38 @@ p a:hover {
   }
 }
 
+
+.key-path {
+    margin: 25px 0;
+    height: 130px;
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    width: 100px;
+    height: 30px;
+    padding: 1px;
+    margin: 10px 20px 10px 20px;
+    font-weight: 300;
+    color: #fff;
+    
+    border: none;
+    
+   
+}
+
+
+
+    a:hover {
+
+        width: 100px;
+        height: 30px;
+        padding: 1px;
+        margin: 10px 20px 10px 20px;
+        font-weight: 300;
+        color: darkseagreen;
+        background-color: transparent;
+        text-decoration: underline;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif position;
+    }

@@ -169,6 +169,8 @@
     <Content Include="applogin\package\velocity.ui.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Log\loginbg.jpg" />
+    <Content Include="Content\Log\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
