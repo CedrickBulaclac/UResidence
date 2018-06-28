@@ -1,77 +1,78 @@
 ﻿
 @model List<Equipment>
 @{
-
     ViewBag.Title = "Summary";
     Layout = "~/Views/Reserve/Layout.cshtml";
 }
+@using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-<h2>Summary</h2>
+    <h2>Summary</h2>
+    <div class="container">
+        <input type="hidden" id="ida" name="ida" />
+        <input type="hidden" id="thm" name="thm" />
+        <br />
 
-<input type="hidden" id="ida" name="ida" />
-<input type="hidden" id="thm" name="thm" />
-<br />
+        Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
+        <br />
+        Schedule:<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
 
-Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
-<br />
-Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
+        <input type="hidden" id="sta" name="sta" />
+        <input type="hidden" id="eta" name="eta" />
+        <br />
+        <div class="col-lg-4 col-lg-offset-7">
+            Price : <input type="text" class="form-group" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
+            <input type="hidden" id="ap" name="ap" />
+        </div>
 
-<input type="hidden" id="sta" name="sta" />
-<input type="hidden" id="eta" name="eta" />
-<br />
-<div class="col-lg-4 col-lg-offset-7">
-	Price : <input type="text" class="form-group" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
-	<input type="hidden" id="ap" name="ap" />
-</div>
-
-<br />
-Equipment :
-<br />
-
-@{
-    int ctr4 = 0;
+        <br />
 
 
+        @{
+            int ctr4 = 0;
 
 
-    foreach (var eqp in Model)
-    {
 
 
-		<label class="form-control text-center">@eqp.Name</label>
-		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
-		<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
-		<label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
-		<br />
-        ctr4++;
-
-    }
-
-		}
-	<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
-
-<div class="col-lg-4 col-lg-offset-7">
-	Total Amount :<input type="text" class="form-group" id="total1" name="total1" disabled="disabled" />
-</div>
+            foreach (var eqp in Model)
+            {
 
 
-<button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                <label class="form-control text-center">@eqp.Name</label>
+                <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
+                <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
+                <label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
+                <br />
+                ctr4++;
+
+            }
+
+        }
+        <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+
+        <div class="col-lg-4 col-lg-offset-7">
+            Total Amount :<input type="text" class="form-group" id="total1" name="total1" disabled="disabled" />
+        </div>
 
 
-<script>
+        <button id="btnSubmit" name="btnSubmit" type="submit">Submit</button>
+        </div>
+
+    <script>
          var ctr = parseInt($('#txtctrr').val());
     var total = parseInt(@ViewBag.ratea);
     var totale=0;
     $(document).ready(function () {
-  
+
         for (var pppp = 0; pppp <= ctr - 1; pppp++) {
             var quantity = $('#quantity' + pppp).val();
             var rate = $('#rate' + pppp).val()
              totale = quantity * rate;
-            total = total + totale;   
+            total = total + totale;
         }
         document.getElementById('total1').value = total;
     });
-
-</script>
-
+   
+    </script>
+ }

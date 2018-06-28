@@ -8,6 +8,7 @@ namespace UResidence.Views.Reservation
 {
     public class ReserveController : Controller
     {
+        private bool status = false;
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -47,11 +48,6 @@ namespace UResidence.Views.Reservation
 
             return View();
         }
-  
-       
-
-
-
         public ActionResult Choose_Date()
         {
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
@@ -147,8 +143,31 @@ namespace UResidence.Views.Reservation
             return View(equip);
         }
 
+        [HttpPost]
+        public ActionResult Summary(FormCollection fc)
+        {
+            DateTime sd = (DateTime)Session["sd"];
+            DateTime ed = (DateTime)Session["ed"];
+            int rate = (int)Session["drate"];
+            SchedReservation a = new SchedReservation
+            {
+                StartTime = sd,
+                EndTIme = ed,
+                Rate = rate,
+            };
+            status = UResidence.SchedReservationController.Insert(a);
+            if(status==true)
+            {
+
+                Response.Write("<script>alert('Scheduled Successfully')</script>");
+            }
 
 
+
+
+            return RedirectToAction("Home","Reserve");
+
+        }
         //[HttpPost]
         //public ActionResult SelectAmenity(FormCollection fc)
         //{
