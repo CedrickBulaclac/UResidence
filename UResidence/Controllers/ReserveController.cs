@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+//awdawd
 namespace UResidence.Controllers
 {
     public class ReserveController : Controller
