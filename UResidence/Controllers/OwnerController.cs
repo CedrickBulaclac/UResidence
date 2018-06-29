@@ -119,9 +119,10 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult OwnerEdit(int id)
         {
+            string i = id.ToString();
             if (ModelState.IsValid)
             {
-                Owner ownerList = UResidence.OwnerController.GetIdOwner(id);
+                Owner ownerList = UResidence.OwnerController.GetIdOwner(i);
                 return View(ownerList);
             }
             return View("OwnerEdit");

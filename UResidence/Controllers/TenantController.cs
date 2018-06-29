@@ -105,9 +105,10 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult TenantEdit(int id)
         {
+            string i = id.ToString();
             if(ModelState.IsValid)
             {
-                Tenant tenantList = UResidence.TenantController.GetIdTenant(id);
+                Tenant tenantList = UResidence.TenantController.GetIdTenant(i);
                 return View(tenantList);
             }
             return View("TenantEdit");
