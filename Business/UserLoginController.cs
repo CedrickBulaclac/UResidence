@@ -12,7 +12,7 @@ namespace UResidence
 
         public static List<UserLogin> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] order by Id";
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] order by Id";
 
 
             List<UserLogin> ret = default(List<UserLogin>);
@@ -22,7 +22,7 @@ namespace UResidence
         }
         public static List<UserLogin> GetAll(string email)
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where Username=@email";
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where Username=@email";
 
 
             List<UserLogin> ret = default(List<UserLogin>);
@@ -36,7 +36,7 @@ namespace UResidence
             UserLogin ret = default(UserLogin);
             try
             {
-                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
+                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
 
                 
                 SqlCommand com = new SqlCommand(GET_RECORD);
@@ -54,7 +54,7 @@ namespace UResidence
 
         public static UserLogin Get(int id)
         {
-            const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] WHERE Id = @Id";
 
             UserLogin ret = default(UserLogin);
             SqlCommand com = new SqlCommand(GET_RECORD);

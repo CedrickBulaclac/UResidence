@@ -21,7 +21,18 @@ namespace UResidence
         }
 
 
-        
+
+        public static Residence GetAlll()
+        {
+            const string GET_ALL = @"select b.Id from tbResidence b inner join tbTenant a on TenantNo=a.Id where TenantNo =4  and Deleted=0 ";
+            Residence ret = default(Residence);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<Residence>(com).First();
+            return ret;
+        }
+
+
+
         public static Residence GetOwnerNo(string ono)
         {
             const string GET_RECORD = @"SELECT Id,OwnerNo,TenantNo FROM [tbResidence] WHERE OwnerNo = @OwnerNo";

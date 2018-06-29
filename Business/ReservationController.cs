@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Reservation> GetAll()
         {
-            const string GET_ALL = @"SELECT RefNo,OwnerNo,AcknowledgeBy,ReservedBy,Status FROM [tbReservationForm] order by RefNo";
+            const string GET_ALL = @"SELECT Id,ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId FROM [tbReservationForm] order by Id";
 
 
             List<Reservation> ret = default(List<Reservation>);
@@ -24,33 +24,15 @@ namespace UResidence
 
         public static Reservation GetStatus(string status)
         {
-            const string GET_RECORD = @"SELECT RefNo,OwnerNo,AcknowledgeBy,ReservedBy,Status FROM [tbReservationForm] WHERE status = @status";
+            const string GET_RECORD = @"SELECT Id,ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId FROM [tbReservationForm] WHERE status = @status order by Id";
 
             Reservation ret = default(Reservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@RefNo", status));
+            com.Parameters.Add(new SqlParameter("@status", status));
             ret = SqlManager.Select<Reservation>(com).First();
 
             return ret;
         }
-
-
-
-
-
-        public static Reservation GetRefNo(string rno)
-        {
-            const string GET_RECORD = @"SELECT RefNo,OwnerNo,AcknowledgeBy,ReservedBy,Status FROM [tbReservationForm] WHERE  RefNo = @RefNo";
-
-            Reservation ret = default(Reservation);
-            SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@RefNo", rno));
-            ret = SqlManager.Select<Reservation>(com).First();
-
-            return ret;
-        }
-
-
 
 
         public static bool Update(Reservation usr)
@@ -59,8 +41,6 @@ namespace UResidence
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Status", usr.Status));
-            com.Parameters.Add(new SqlParameter("@RefNo", usr.RefNo));
-
             return SqlManager.ExecuteNonQuery(com);
         }
 
@@ -76,14 +56,15 @@ namespace UResidence
 
         public static bool Insert(Reservation usr)
         {
-            const string GET_INSERT = @"insert [tbReservationForm] (RefNo, OwnerNo, AcknowledgeBy, ReservedBy, Status) values (@RefNo, @OwnerNo, @AcknowledgeBy, @ReservedBy, @Status)";
+            const string GET_INSERT = @"insert [tbReservationForm] (Id,ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId) values (@Id,@ResidentId,@AcknowledgeBy,@ReservedBy,@Status,@TypeResident,@SchedId)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-            com.Parameters.Add(new SqlParameter("@RefNo", usr.RefNo));
-            com.Parameters.Add(new SqlParameter("@OwnerNo", usr.OwnerNo));
+            com.Parameters.Add(new SqlParameter("@ResidentId", usr.Rid));
             com.Parameters.Add(new SqlParameter("@AcknowledgeBy", usr.AcknowledgeBy));
             com.Parameters.Add(new SqlParameter("@ReservedBy", usr.ReservedBy));
             com.Parameters.Add(new SqlParameter("@Status", usr.Status));
+            com.Parameters.Add(new SqlParameter("@TypeResident", usr.Tor));
+            com.Parameters.Add(new SqlParameter("@SchedId", usr.Sid));
 
             return SqlManager.ExecuteNonQuery(com);
         }

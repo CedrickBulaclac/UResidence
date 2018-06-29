@@ -856,10 +856,11 @@ pre code {
 .col-lg-10,
 .col-lg-11,
 .col-lg-12 {
-  position: relative;
+  position:center;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+  background-color: aquamarine;
 }
 
 .col-xs-1,
@@ -3255,8 +3256,7 @@ input[type="button"].btn-block {
 
 .dropdown-menu.pull-right {
   right: 0;
-  left: auto;
-}
+  left: auto
 
 .dropdown-menu .divider {
   height: 1px;

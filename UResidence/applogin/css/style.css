@@ -12,6 +12,13 @@ html, body {
   background-repeat: no-repeat;
 }
 
+/*body {
+	background-image: url("../../Content/Log/loginbg.jpg");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}*/
+
 .container {
   padding: 1px 0 5px 0 ;
   height: 100%;
@@ -135,6 +142,7 @@ button {
   height: 40px;
   padding: 0;
   margin: 10px 20px 10px;
+  
   font-weight: 700;
   color: #fff;
   background-color: #22c08a;
@@ -208,7 +216,6 @@ a {
 }
 
 
-
     a:hover {
 
         width: 100px;
@@ -221,3 +228,5 @@ a {
         text-decoration: underline;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif position;
     }
+
+

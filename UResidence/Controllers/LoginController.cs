@@ -32,16 +32,22 @@ namespace UResidence.Controllers
             {
                 if (user.Level == 0)
                 {
+                    Session["UID"] = user.AdminId;
+                    Session["TOR"] = "Admin";
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (user.Level == 1)
                 {
+                    Session["UID"] = user.OwnerId;
+                    Session["TOR"] = "Owner";
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Home", "Reserve");
                 }
                 else if (user.Level == 2)
                 {
+                    Session["UID"] = user.TenantId;
+                    Session["TOR"] = "Tenant";
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Index", "Home");
                 }

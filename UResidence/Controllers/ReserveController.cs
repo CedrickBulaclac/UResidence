@@ -32,13 +32,12 @@ namespace UResidence.Views.Reservation
             int aid = Convert.ToInt32(fc["ida"]);  
             int arate = Convert.ToInt32(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-            SchedReservation a = new SchedReservation
-            {
-                AmenityId = aid
-            };
+          
+         
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
+       
 
             return RedirectToAction("Calendar", "Reserve");
 
@@ -146,21 +145,53 @@ namespace UResidence.Views.Reservation
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
-            DateTime sd = (DateTime)Session["sd"];
-            DateTime ed = (DateTime)Session["ed"];
-            int rate = (int)Session["drate"];
+            string sd = (string)Session["sd"];
+            string ed = (string)Session["ed"];
+            string rate = (string)Session["drate"];
+            string uid = (string)Session["UID"];
+            string aid = (string)Session["ID"];
             SchedReservation a = new SchedReservation
             {
-                StartTime = sd,
-                EndTIme = ed,
-                Rate = rate,
+                AmenityId = Convert.ToInt32(aid),
+                StartTime = Convert.ToDateTime(sd),
+                EndTIme = Convert.ToDateTime(ed),
+                Rate = Convert.ToInt32(rate),
+                
             };
             status = UResidence.SchedReservationController.Insert(a);
-            if(status==true)
+            if (status==true)
             {
+                SchedReservation b = new SchedReservation();
+                b = UResidence.SchedReservationController.GetAmenityNo(aid,sd,ed);
+                int sid = b.Id;
+                Reservation r = new Reservation
+                {
+                   Sid = sid 
+                };
+                int[] mema = (Int32[])Session["quantity"];
+                foreach (int ii in mema)
+                { 
+                    if (ii != 0)
+                    {
+                        EquipReservation er = new EquipReservation
+                        {
+                         
 
-                Response.Write("<script>alert('Scheduled Successfully')</script>");
+                        };
+                    }
+                    else
+                    {
+
+                    }
+
+
+
+                    //Response.Write("<script>alert(" + ii + ")</script>");
+
+                }
+                Response.Write("<script>alert('CHILL KA LANG')</script>");
             }
+           
 
 
 
