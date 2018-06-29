@@ -8,23 +8,26 @@ namespace UResidence
 {
     public class EquipReservation : BaseProperty<EquipReservation>
     {
-       public string EquipNo { get; set; }
+       public int EquipNo { get; set; }
        public int Quantity  { get; set; }
-       public string RefNo { get; set; }
+       public int RefNo { get; set; }
+        public int Rate { get; set; }
         public EquipReservation CreateObject(SqlDataReader reader)
         {
             EquipReservation ret = new EquipReservation();
-            ret.EquipNo = reader.GetString(0);
+            ret.EquipNo = reader.GetInt32(0);
             ret.Quantity = reader.GetInt32(1);
-            ret.RefNo = reader.GetString(3);
+            ret.RefNo = reader.GetInt32(3);
+            ret.Rate = reader.GetInt32(4);
             return ret;
         }
 
         public void Reset()
         {
-            this.EquipNo = string.Empty;
+            this.EquipNo = 0;
             this.Quantity = 0;
-            this.RefNo = string.Empty;
+            this.RefNo = 0;
+            this.Rate = 0;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace UResidence
             ret = SqlManager.Select<Tenant>(com);
             return ret;
         }
-        public static Tenant GetIdTenant(int idTenant)
+        public static Tenant GetIdTenant(string idTenant)
         {
             const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd FROM [tbTenant] WHERE Id = @Id";
 

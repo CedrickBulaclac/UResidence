@@ -13,6 +13,7 @@
 @{int ctr3 = 0;
 	foreach (var eqp in equip)
 	{
+        <input type="hidden" id="eid"+ @ctr3.ToString() name="eid"+@ctr3.ToString() value="@eqp.Id"/>
 		<label class="form-control text-center">@eqp.Name</label>
 		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0} })
 		<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
@@ -26,7 +27,7 @@
 
 </center>
 <script type="text/javascript">
-
+    var id=[null]
 	var rate = [null];
 	var quantity = [null];
 	var total = [null];
@@ -36,18 +37,18 @@
 	
 
 	function SET() {
-		for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+        for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+            id[pppp] = $('#eid' + pppp).val();
 			quantity[pppp] = $('#txtQuantity' + pppp).val();
 			rate[pppp] = $('#txtRate' + pppp).val();
 			total[pppp] = quantity[pppp] * rate[pppp];
 			var ttotal = ttotal + total[pppp];
-
 		}
 
 	
 			
 			
-		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
+		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate, eid:id }, true));
 		
     }
 

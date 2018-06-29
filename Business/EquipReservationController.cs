@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<EquipReservation> GetAll()
         {
-            const string GET_ALL = @"SELECT EquipNo,Quantity,RefNo FROM[tbEquipReservation] order by EquipNo";
+            const string GET_ALL = @"SELECT EquipNo,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipNo";
 
 
             List<EquipReservation> ret = default(List<EquipReservation>);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static EquipReservation Get(string eno)
         {
-            const string GET_RECORD = @"SELECT EquipNo,Quantity,RefNo FROM[tbEquipReservation] order by EquipNo WHERE EquipNo = @EquipNo";
+            const string GET_RECORD = @"SELECT EquipNo,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipNo WHERE EquipNo = @EquipNo";
 
             EquipReservation ret = default(EquipReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -65,12 +65,13 @@ namespace UResidence
         */
         public static bool Insert(EquipReservation eqp)
         {
-            const string GET_INSERT = @"insert [tbEquipReservation] (EquipNo,Quantity,RefNo) values (@EquipNo, @Quantity, @RefNo)";
+            const string GET_INSERT = @"insert [tbEquipReservation] (EquipNo,Quantity,RefNo,Rate) values (@EquipNo, @Quantity, @RefNo,@Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@EquipNo", eqp.EquipNo));
             com.Parameters.Add(new SqlParameter("@Quantity", eqp.Quantity));
             com.Parameters.Add(new SqlParameter("@RefNo", eqp.RefNo));
+            com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

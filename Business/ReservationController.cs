@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-    class ReservationController
+    public class ReservationController
     {
         public static List<Reservation> GetAll()
         {
@@ -19,7 +19,17 @@ namespace UResidence
             ret = SqlManager.Select<Reservation>(com);
             return ret;
         }
+        public static Reservation GetId(int sid)
+        {
+            const string GET_RECORD = @"SELECT Id,ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId FROM [tbReservationForm] WHERE SchedId = @SchedId";
 
+            Reservation ret = default(Reservation);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@SchedId", sid));
+            ret = SqlManager.Select<Reservation>(com).First();
+
+            return ret;
+        }
 
 
         public static Reservation GetStatus(string status)

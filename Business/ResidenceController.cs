@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace UResidence
 {
-    class ResidenceController
+    public class ResidenceController
     {
         public static List<Residence> GetAll()
         {
@@ -44,7 +44,18 @@ namespace UResidence
 
             return ret;
         }
-       
+        public static Residence GetTenantNo(string Tno)
+        {
+            const string GET_RECORD = @"SELECT Id,OwnerNo,TenantNo FROM [tbResidence] WHERE TenantNo = @TenantNo";
+
+            Residence ret = default(Residence);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@TenantNo", Tno));
+            ret = SqlManager.Select<Residence>(com).First();
+
+            return ret;
+        }
+
 
         public static Residence Get(int id)
         {
