@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace UResidence.Views.Reservation
+namespace UResidence.Controllers
 {
     public class ReserveController : Controller
     {
@@ -20,7 +20,6 @@ namespace UResidence.Views.Reservation
             model.Add(equipList.ToList());
             return View(model);
         }
-
         public ActionResult Amenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -29,15 +28,15 @@ namespace UResidence.Views.Reservation
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
-            int aid = Convert.ToInt32(fc["ida"]);  
+            int aid = Convert.ToInt32(fc["ida"]);
             int arate = Convert.ToInt32(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-          
-         
+
+
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
-       
+
 
             return RedirectToAction("Calendar", "Reserve");
 
@@ -63,7 +62,7 @@ namespace UResidence.Views.Reservation
             Session["drate"] = drate;
 
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed);
-            if(schedList.Count > 0)
+            if (schedList.Count > 0)
             {
                 Response.Write("<script>alert('Your chosen date and time is not available')</script>");
                 ViewBag.Message = Convert.ToInt32(Session["RATE"]);
@@ -73,16 +72,14 @@ namespace UResidence.Views.Reservation
                 Response.Write("<script>alert('Successful')</script>");
                 return RedirectToAction("Choose_Equipment", "Reserve");
             }
-           
+
             return View();
         }
-
-
-        public  ActionResult Choose_Equipment()
+        public ActionResult Choose_Equipment()
         {
-            string sd= (string) Session["sd"];
+            string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
-            List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd,ed);
+            List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             List<object> model = new List<object>();
             model.Add(equipList.ToList());
@@ -90,23 +87,18 @@ namespace UResidence.Views.Reservation
             return View(model);
         }
         [HttpPost]
-        public void Choose_Equipment(int[] data,int[] datar,int[] eid)
+        public void Choose_Equipment(int[] data, int[] datar, int[] eid)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
-         
+
             if (data != null)
             {
                 foreach (var i in data)
                 {
                     Response.Write("<script>alert(" + i + ")</script>");
                 }
-
-
-
-
-
                 int[] quantity = data;
                 Session["quantity"] = quantity;
 
@@ -120,14 +112,13 @@ namespace UResidence.Views.Reservation
             else
             {
                 Choose_Equipment();
-              
-            }
-            
-        }
 
+            }
+
+        }
         public ActionResult Summary()
         {
-            
+
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -142,10 +133,13 @@ namespace UResidence.Views.Reservation
 
             return View(equip);
         }
-        public static string RemoveWhitespace(this string str)
+
+        public string RemoveWhitespace(string str)
         {
             return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
+
+
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
@@ -160,33 +154,33 @@ namespace UResidence.Views.Reservation
                 StartTime = Convert.ToDateTime(sd),
                 EndTIme = Convert.ToDateTime(ed),
                 Rate = Convert.ToInt32(rate),
-                
+
             };
             status = UResidence.SchedReservationController.Insert(a);
-            if (status==true)
+            if (status == true)
             {
                 SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid,sd,ed);
+                b = UResidence.SchedReservationController.GetAmenityNo(aid, sd, ed);
                 int sid = b.Id;
                 string tor = (string)Session["TOR"];
                 string UserId = (string)Session["UID"];
                 string fname;
                 string mname;
                 string lname;
-                string fullname="";
+                string fullname = "";
                 UResidence.Residence reside = new UResidence.Residence();
                 UResidence.Owner own = new UResidence.Owner();
                 UResidence.Tenant ten = new UResidence.Tenant();
-                if (tor=="Owner")
+                if (tor == "Owner")
                 {
                     own = UResidence.OwnerController.GetIdOwner(UserId);
                     reside = UResidence.ResidenceController.GetOwnerNo(UserId);
                     fname = RemoveWhitespace(own.Fname);
                     mname = RemoveWhitespace(own.Mname);
                     lname = RemoveWhitespace(own.Lname);
-                    fullname = fname +" "+ mname+" "+ lname;
+                    fullname = fname + " " + mname + " " + lname;
                 }
-                else if(tor=="Tenant")
+                else if (tor == "Tenant")
                 {
                     ten = UResidence.TenantController.GetIdTenant(UserId);
                     reside = UResidence.ResidenceController.GetTenantNo(UserId);
@@ -195,14 +189,14 @@ namespace UResidence.Views.Reservation
                     lname = RemoveWhitespace(ten.Lname);
                     fullname = fname + " " + mname + " " + lname;
                 }
-               UResidence.Reservation r=new UResidence.Reservation
-               {
-                    Rid=Convert.ToInt32(reside.Id),
+                UResidence.Reservation r = new UResidence.Reservation
+                {
+                    Rid = Convert.ToInt32(reside.Id),
                     Sid = sid,
                     Status = "Pending",
                     Tor = tor,
-                    AcknowledgeBy="",
-                    ReservedBy= fullname,
+                    AcknowledgeBy = "",
+                    ReservedBy = fullname,
                 };
                 status = UResidence.ReservationController.Insert(r);
                 if (status == true)
@@ -212,96 +206,70 @@ namespace UResidence.Views.Reservation
                     int refno = reserve.Id;
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
-                    int[] ratee=(Int32[])Session["ratee"];
-                    int ctr=0;
+                    int[] ratee = (Int32[])Session["ratee"];
+                    int ctr = 0;
                     foreach (int ii in equantity)
                     {
-                       
+
                         if (ii != 0)
                         {
                             EquipReservation er = new EquipReservation
                             {
-                               EquipNo=eid[ctr],
-                               Quantity=ii,
-                               RefNo= refno,
-                               Rate=ratee[ctr],
+                                EquipNo = eid[ctr],
+                                Quantity = ii,
+                                RefNo = refno,
+                                Rate = ratee[ctr],
                             };
                             status = UResidence.EquipReservationController.Insert(er);
-                        
+
                         }
-                      
+
                     }
-                    if(status==true)
+                    if (status == true)
                     {
                         Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
                     }
-                    
+
                 }
-                
+
             }
-            return RedirectToAction("Home","Reserve");
+            return RedirectToAction("Home", "Reserve");
 
         }
-        //[HttpPost]
-        //public ActionResult SelectAmenity(FormCollection fc)
-        //{
-        //    int aid = Convert.ToInt32(fc["ida"]);
-        //    DateTime startTime = Convert.ToDateTime(fc["sta"]);
-        //    DateTime endTime = Convert.ToDateTime(fc["eta"]);
-        //    int rate = Convert.ToInt32(fc["ap"]);
-        //    string theme = Convert.ToString(fc["thm"]);
-        //    SchedReservation a = new SchedReservation
-        //    {
-        //        AmenityId =aid,
-        //        StartTime=startTime,
-        //        EndTIme=endTime,
-        //        Rate= rate,
-        //        Theme=theme
 
 
-        //    };
-        //    status = UResidence.SchedReservationController.Insert(a);
-        //    if (status == true)
-        //    {
-        //        Response.Write("<script>alert('Scheduled Successfully')</script>");
-        //        List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-        //        List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
-        //        List<Equipment> equipList = UResidence.EquipmentController.GetAll();
-        //        List<object> model = new List<object>();
-        //        model.Add(amenityList.ToList());
-        //        model.Add(schedList.ToList());
-        //        model.Add(equipList.ToList());
-        //        return View(model);
-        //    }
-        //    else
-        //    {
-        //        Response.Write("<script>alert('Please try again!')</script>");
-        //        List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-        //        List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
-        //        List<Equipment> equipList = UResidence.EquipmentController.GetAll();
-        //        List<object> model = new List<object>();
-        //        model.Add(amenityList.ToList());
-        //        model.Add(schedList.ToList());
-        //        model.Add(equipList.ToList());
-        //        return View(model);
 
-        //    }
-        //}
         public JsonResult GetEvents()
         {
             int AID = Convert.ToInt32(Session["ID"]);
 
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllA(AID);
-                var events = schedList.ToList();
-                return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-           
+            var events = schedList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
         }
         public ActionResult Home()
         {
             return View();
         }
 
-
-        
     }
 }
+       
+
+      
+
+
+      
+      
+        
+      
+
+
+     
+    
+    
+      
+
+
+ 
