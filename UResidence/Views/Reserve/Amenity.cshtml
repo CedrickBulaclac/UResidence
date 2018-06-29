@@ -20,57 +20,57 @@
 	<input type="hidden" name="ratea" id="ratea" />
 	<input type="hidden" name="namea" id="namea" />
 
+    <center>
+        <table>
+            <tr>
+                @{
 
-	<table>
-		<tr>
-			@{
-
-				int ctr = 0;
-				foreach (var amn in Model)
-				{
-					ctr++;
-					if (ctr <= 3)
-					{
-						<td>
+                    int ctr = 0;
+                    foreach (var amn in Model)
+                    {
+                        ctr++;
+                        if (ctr <= 3)
+                        {
+                            <td>
 
 
-							<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)  </button>
-							<br />
-							@Html.LabelFor(model => amn.AmenityName, "Name")
-							@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-							<br />
-							@Html.LabelFor(model => amn.Description)
-							@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-							<br />
-							@Html.LabelFor(model => amn.Rate)
-							@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-						</td>
-					}
-					else
-					{
-						ctr = 0;
-					<tr>
-						<td>
+                                <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)  </button>
+                                <br />
+                                @Html.LabelFor(model => amn.AmenityName, "Name")
+                                @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Description)
+                                @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Rate)
+                                @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        }
+                        else
+                        {
+                            ctr = 0;
+                        <tr>
+                            <td>
 
-							<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate')" name="btnImg">@Html.Image(amn.Url)  </button>
-							<br />
-							@Html.LabelFor(model => amn.AmenityName, "Name")
-							@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-							<br />
-							@Html.LabelFor(model => amn.Description)
-							@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-							<br />
-							@Html.LabelFor(model => amn.Rate)
-							@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-						</td>
-					</tr>
+                                <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate')" name="btnImg">@Html.Image(amn.Url)  </button>
+                                <br />
+                                @Html.LabelFor(model => amn.AmenityName, "Name")
+                                @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Description)
+                                @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Rate)
+                                @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </td>
+                        </tr>
 
-				}
-			}
-			}
-			</tr>
-		</table>
-
+                    }
+                }
+                }
+                </tr>
+            </table>
+        </center>
 
 	}
 <script type="text/javascript">

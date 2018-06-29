@@ -27,9 +27,12 @@
         </div>
 
         <br />
-
+        <br />
 
         @{
+
+
+
             int ctr4 = 0;
 
 
@@ -38,25 +41,32 @@
             foreach (var eqp in Model)
             {
 
-
+                if (ViewBag.quan[ctr4] != 0)
+                {
                 <label class="form-control text-center">@eqp.Name</label>
                 <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
                 <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
                 <label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
                 <br />
-                ctr4++;
+                }
+              
+        
+                   ctr4++;
+
+                }
 
             }
-
-        }
         <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
 
         <div class="col-lg-4 col-lg-offset-7">
             Total Amount :<input type="text" class="form-group" id="total1" name="total1" disabled="disabled" />
         </div>
 
-
-        <button id="btnSubmit" name="btnSubmit" type="submit">Submit</button>
+        <br />
+        <center>
+            <button id="btnSubmit" name="btnSubmit" class="btn-success" type="submit">Submit</button>
+        </center>
+        
         </div>
 
     <script>
@@ -66,10 +76,16 @@
     $(document).ready(function () {
 
         for (var pppp = 0; pppp <= ctr - 1; pppp++) {
+           
             var quantity = $('#quantity' + pppp).val();
             var rate = $('#rate' + pppp).val()
-             totale = quantity * rate;
-            total = total + totale;
+            if (quantity != null) {
+                totale = quantity * rate;
+                total = total + totale;
+            }
+            
+               
+            
         }
         document.getElementById('total1').value = total;
     });

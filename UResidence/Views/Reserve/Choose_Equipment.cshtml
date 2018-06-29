@@ -8,7 +8,7 @@
 
 <center>
 	<h2>Reserve Equipment</h2>
-</center>
+
 
 @{int ctr3 = 0;
 	foreach (var eqp in equip)
@@ -24,7 +24,7 @@
 <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
 <a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="btn btn-default" onclick="SET()">NEXT</button></a>
 
-
+</center>
 <script type="text/javascript">
 
 	var rate = [null];
