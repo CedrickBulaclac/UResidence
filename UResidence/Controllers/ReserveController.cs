@@ -90,7 +90,7 @@ namespace UResidence.Views.Reservation
             return View(model);
         }
         [HttpPost]
-        public void Choose_Equipment(int[] data,int[] datar)
+        public void Choose_Equipment(int[] data,int[] datar,int[] eid)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -112,7 +112,8 @@ namespace UResidence.Views.Reservation
 
                 int[] ratee = datar;
                 Session["ratee"] = ratee;
-
+                int[] eqpid = eid;
+                Session["eqpid"] = eqpid;
                 Summary();
 
             }
@@ -141,7 +142,10 @@ namespace UResidence.Views.Reservation
 
             return View(equip);
         }
-
+        public static string RemoveWhitespace(this string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
@@ -164,38 +168,77 @@ namespace UResidence.Views.Reservation
                 SchedReservation b = new SchedReservation();
                 b = UResidence.SchedReservationController.GetAmenityNo(aid,sd,ed);
                 int sid = b.Id;
-                Reservation r = new Reservation
+                string tor = (string)Session["TOR"];
+                string UserId = (string)Session["UID"];
+                string fname;
+                string mname;
+                string lname;
+                string fullname="";
+                UResidence.Residence reside = new UResidence.Residence();
+                UResidence.Owner own = new UResidence.Owner();
+                UResidence.Tenant ten = new UResidence.Tenant();
+                if (tor=="Owner")
                 {
-                   Sid = sid 
-                };
-                int[] mema = (Int32[])Session["quantity"];
-                foreach (int ii in mema)
-                { 
-                    if (ii != 0)
-                    {
-                        EquipReservation er = new EquipReservation
-                        {
-                         
-
-                        };
-                    }
-                    else
-                    {
-
-                    }
-
-
-
-                    //Response.Write("<script>alert(" + ii + ")</script>");
-
+                    own = UResidence.OwnerController.GetIdOwner(UserId);
+                    reside = UResidence.ResidenceController.GetOwnerNo(UserId);
+                    fname = RemoveWhitespace(own.Fname);
+                    mname = RemoveWhitespace(own.Mname);
+                    lname = RemoveWhitespace(own.Lname);
+                    fullname = fname +" "+ mname+" "+ lname;
                 }
-                Response.Write("<script>alert('CHILL KA LANG')</script>");
+                else if(tor=="Tenant")
+                {
+                    ten = UResidence.TenantController.GetIdTenant(UserId);
+                    reside = UResidence.ResidenceController.GetTenantNo(UserId);
+                    fname = RemoveWhitespace(ten.Fname);
+                    mname = RemoveWhitespace(ten.Mname);
+                    lname = RemoveWhitespace(ten.Lname);
+                    fullname = fname + " " + mname + " " + lname;
+                }
+               UResidence.Reservation r=new UResidence.Reservation
+               {
+                    Rid=Convert.ToInt32(reside.Id),
+                    Sid = sid,
+                    Status = "Pending",
+                    Tor = tor,
+                    AcknowledgeBy="",
+                    ReservedBy= fullname,
+                };
+                status = UResidence.ReservationController.Insert(r);
+                if (status == true)
+                {
+                    UResidence.Reservation reserve = new UResidence.Reservation();
+                    reserve = UResidence.ReservationController.GetId(sid);
+                    int refno = reserve.Id;
+                    int[] equantity = (Int32[])Session["quantity"];
+                    int[] eid = (Int32[])Session["eqpid"];
+                    int[] ratee=(Int32[])Session["ratee"];
+                    int ctr=0;
+                    foreach (int ii in equantity)
+                    {
+                       
+                        if (ii != 0)
+                        {
+                            EquipReservation er = new EquipReservation
+                            {
+                               EquipNo=eid[ctr],
+                               Quantity=ii,
+                               RefNo= refno,
+                               Rate=ratee[ctr],
+                            };
+                            status = UResidence.EquipReservationController.Insert(er);
+                        
+                        }
+                      
+                    }
+                    if(status==true)
+                    {
+                        Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
+                    }
+                    
+                }
+                
             }
-           
-
-
-
-
             return RedirectToAction("Home","Reserve");
 
         }
