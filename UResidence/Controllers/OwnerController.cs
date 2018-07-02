@@ -9,10 +9,13 @@ using System.Text;
 
 namespace UResidence.Controllers
 {
+
     public class OwnerController : Controller
     {
         bool status;
-         
+     
+        
+        
 
         // GET: Owner
         public ActionResult OwnerAdd()
