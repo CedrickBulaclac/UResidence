@@ -1,0 +1,74 @@
+﻿@model IEnumerable<object>
+@{
+    List<Admin> admin = (Model.ToList()[0] as List<Admin>);
+    List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
+    ViewBag.Title = "ViewAccountSetting";
+
+}
+@using (Html.BeginForm("AdminAccountSetting", "AccountSetting", FormMethod.Post))
+{@Html.AntiForgeryToken()
+
+
+foreach (var a in admin)
+{
+    <input type="hidden" name="aid" id="aid" value="@a.Id" />
+    <div class="container">
+        <label class="form-control text-center">Basic Information</label>
+        <div class="col-lg-4">
+            <label>First Name:</label>
+            <br />
+            <input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
+        </div>
+        <div class="col-lg-4">
+            <label>Middle Name:</label>
+            <br />
+            <input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
+        </div>
+        <div class="col-lg-4">
+            <label>Last Name:</label>
+            <br />
+            <input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
+        </div>
+    </div>
+
+
+
+}
+foreach (var l in userlogin)
+{
+    <input type="hidden" name="ulid" id="ulid" value="@l.Id" />
+    <div class="container">
+        <label class="form-control text-center">Login</label>
+        <div class="col-lg-4">
+            <label>Username</label>
+            <br />
+            <input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+        </div>
+        <div class="col-lg-4">
+
+            <label>Current Password</label>
+            <br />
+            <input type="password" value="" id="cp" name="cp" class="form-control" />
+        </div>
+        <div class="col-lg-4">
+            <label>New Password</label>
+            <br />
+            <input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
+        </div>
+    </div>
+}
+<input type="submit" class="btn-default" value="Save Changes" />
+
+<script type="text/javascript">
+    function Check() {
+        var cp = document.getElementById('cp').value;
+        var np = document.getElementById('np').value;
+        if (cp != "") {
+            if (cp == np) {
+                alert("Current Password and New Password are the same");
+                document.getElementById('np').value = "";
+            }
+        }
+    }
+</script>
+}
