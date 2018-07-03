@@ -1,12 +1,14 @@
 ﻿@model IEnumerable<object>
 @{
+
     List<Owner> owner = (Model.ToList()[0] as List<Owner>);
     List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
     ViewBag.Title = "ViewAccountSetting";
 
 }
 @using (Html.BeginForm("OwnerAccountSetting", "AccountSetting", FormMethod.Post))
-{@Html.AntiForgeryToken()
+{
+    @Html.AntiForgeryToken()
 
 
 foreach (var a in owner)

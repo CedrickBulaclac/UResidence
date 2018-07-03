@@ -49,6 +49,19 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
+        public static bool TUpdate(Tenant ten)
+        {
+            const string GET_UPDATE = @"update [tbTenant] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", ten.Id));
+            com.Parameters.Add(new SqlParameter("@Fname", ten.Fname));
+            com.Parameters.Add(new SqlParameter("@Mname", ten.Mname));
+            com.Parameters.Add(new SqlParameter("@Lname", ten.Lname));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
 
         public static bool Delete(Tenant usr)
         {

@@ -86,6 +86,7 @@ namespace UResidence.Controllers
             public ActionResult OwnerAccountSetting()
         {
             string RType = (string)Session["TOR"];
+            ViewBag.Type = RType;
             int Oid = (int)Session["UID"];
             string i = Oid.ToString();
             List<Owner> a = new List<Owner>();
@@ -167,6 +168,62 @@ namespace UResidence.Controllers
             model.Add(ul.ToList());
             return View();
         }
+        [HttpPost]
+        public ActionResult TenantAccountSetting(FormCollection fc)
+        {
+            int lid = (int)Session["LID"];
+            bool status = false;
+            int Aid = (int)Session["UID"];
+            string pass = (string)Session["pass"];
+            string cp = fc["cp"];
+            string Fname = fc["fname"];
+            string Mname = fc["mname"];
+            string Lname = fc["lname"];
+            string np = fc["np"];
+            string npass = Hash(np);
+            string username = fc["username"];
+            string tor = (string)Session["TOR"];
+            int locked = 0;
+            if (pass == cp)
+            {
+                Tenant a = new Tenant
+                {
+                    Id = Aid,
+                    Fname = Fname,
+                    Mname = Mname,
+                    Lname = Lname,
+
+                };
+                status = UResidence.TenantController.TUpdate(a);
+                if (status == true)
+                {
+                    UserLogin ul = new UserLogin
+                    {
+                        Id = lid,
+                        Username = username,
+                        Hash = npass,
+                        ModifyBy = tor,
+                        Locked = locked,
+                    };
+                    status = UResidence.UserController.Update(ul);
+                    if (status == true)
+                    {
+
+                        return RedirectToAction("Home", "Reserve");
+                    }
+
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Current Password is incorrect')</script>");
+
+            }
+            return TenantAccountSetting();
+        }
+
+
+
         private string Hash(string p)
         {
             string hash = "";
