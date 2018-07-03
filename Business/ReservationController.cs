@@ -66,7 +66,7 @@ namespace UResidence
 
         public static bool Insert(Reservation usr)
         {
-            const string GET_INSERT = @"insert [tbReservationForm] (Id,ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId) values (@Id,@ResidentId,@AcknowledgeBy,@ReservedBy,@Status,@TypeResident,@SchedId)";
+            const string GET_INSERT = @"insert [tbReservationForm] (ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId) values (@ResidentId,@AcknowledgeBy,@ReservedBy,@Status,@TypeResident,@SchedId)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@ResidentId", usr.Rid));

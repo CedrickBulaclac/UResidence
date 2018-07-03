@@ -146,11 +146,11 @@ namespace UResidence.Controllers
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
             string rate = (string)Session["drate"];
-            string uid = (string)Session["UID"];
-            string aid = (string)Session["ID"];
+            int uid = (int)Session["UID"];
+            int aid = (int)Session["ID"];
             SchedReservation a = new SchedReservation
             {
-                AmenityId = Convert.ToInt32(aid),
+                AmenityId = aid,
                 StartTime = Convert.ToDateTime(sd),
                 EndTIme = Convert.ToDateTime(ed),
                 Rate = Convert.ToInt32(rate),
@@ -160,10 +160,10 @@ namespace UResidence.Controllers
             if (status == true)
             {
                 SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid, sd, ed);
+                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed);
                 int sid = b.Id;
                 string tor = (string)Session["TOR"];
-                string UserId = (string)Session["UID"];
+                int UserId = (int)Session["UID"];
                 string fname;
                 string mname;
                 string lname;
@@ -173,8 +173,8 @@ namespace UResidence.Controllers
                 UResidence.Tenant ten = new UResidence.Tenant();
                 if (tor == "Owner")
                 {
-                    own = UResidence.OwnerController.GetIdOwner(UserId);
-                    reside = UResidence.ResidenceController.GetOwnerNo(UserId);
+                    own = UResidence.OwnerController.GetIdOwner(UserId.ToString());
+                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());
                     fname = RemoveWhitespace(own.Fname);
                     mname = RemoveWhitespace(own.Mname);
                     lname = RemoveWhitespace(own.Lname);
@@ -182,8 +182,8 @@ namespace UResidence.Controllers
                 }
                 else if (tor == "Tenant")
                 {
-                    ten = UResidence.TenantController.GetIdTenant(UserId);
-                    reside = UResidence.ResidenceController.GetTenantNo(UserId);
+                    ten = UResidence.TenantController.GetIdTenant(UserId.ToString());
+                    reside = UResidence.ResidenceController.GetTenantNo(UserId.ToString());
                     fname = RemoveWhitespace(ten.Fname);
                     mname = RemoveWhitespace(ten.Mname);
                     lname = RemoveWhitespace(ten.Lname);

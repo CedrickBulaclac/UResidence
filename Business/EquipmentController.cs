@@ -22,7 +22,7 @@ namespace UResidence
 
         public static List<Equipment> GetAll(string st,string et)
         {
-            const string GET_ALL = @"  select a.Id,Name,Difference(Stocks,Quantity) as Stocks,Rate,URL from tbEquipment a inner join tbEquipReservation b on a.Id=EquipmentId where b.RefNo in (select RefNo from tbReservationForm c inner join tbSchedReservation d on c.SchedId=d.Id where d.EndTIme between @st and @et ) ";
+            const string GET_ALL = @"  select a.Id,Name,Difference(Stocks,Quantity) as Stocks,a.Rate,URL from tbEquipment a inner join tbEquipReservation b on a.Id=EquipmentId where b.RefNo in (select RefNo from tbReservationForm c inner join tbSchedReservation d on c.SchedId=d.Id where d.EndTIme between @st and @et ) ";
 
 
             List<Equipment> ret = default(List<Equipment>);

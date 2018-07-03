@@ -10,15 +10,15 @@ namespace UResidence
     public class Residence : BaseProperty<Residence>
     {
         public int Id { get; set; }
-        public string OwnerNo { get; set; }
-        public string TenantNo { get; set; }
+        public int OwnerNo { get; set; }
+        public int TenantNo { get; set; }
 
 
         public void Reset()
         {
             this.Id = 0;
-            this.OwnerNo = string.Empty;
-            this.TenantNo = string.Empty;        
+            this.OwnerNo = 0;
+            this.TenantNo = 0;        
         }
 
         public Residence CreateObject(SqlDataReader reader)
@@ -26,8 +26,8 @@ namespace UResidence
             Residence ret = new Residence();
 
             ret.Id = reader.GetInt32(0);
-            ret.OwnerNo = reader.GetString(1);
-            ret.TenantNo = reader.GetString(2);     
+            ret.OwnerNo = reader.GetInt32(1);
+            ret.TenantNo = reader.GetInt32(2);     
             return ret;
         }
     }
