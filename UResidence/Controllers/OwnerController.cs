@@ -15,7 +15,7 @@ namespace UResidence.Controllers
         bool status;
      
         
-        
+        //cedpogi
 
         // GET: Owner
         public ActionResult OwnerAdd()
