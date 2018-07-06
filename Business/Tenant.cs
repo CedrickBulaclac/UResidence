@@ -27,7 +27,7 @@ namespace UResidence
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LeaseEnd { get; set; }
-
+        public string Deleted { get; set; }
 
         public bool Validate(out string[] errors)
         {
@@ -75,7 +75,9 @@ namespace UResidence
             this.CelNo = string.Empty;
             this.Email = string.Empty;
             this.LeaseStart = DateTime.Today;
-            this.LeaseEnd = DateTime.Today;    
+            this.LeaseEnd = DateTime.Today;
+            this.Deleted = string.Empty;
+         
         }
 
         public Tenant CreateObject(SqlDataReader reader)
@@ -93,6 +95,7 @@ namespace UResidence
             ret.Email = reader.GetString(8);
             ret.LeaseStart = reader.GetDateTime(9);
             ret.LeaseEnd = reader.GetDateTime(10);
+            ret.Deleted = reader.GetString(11);
 
             return ret;
         }

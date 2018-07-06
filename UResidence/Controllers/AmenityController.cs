@@ -43,7 +43,10 @@ namespace UResidence.Controllers
                     {
 
                         ViewBag.Message = UResidence.AmenityController.Insert(a);
-                        return View();
+                        status = true;
+                        ViewBag.AddMessage = status;
+                        AmenityView();
+                        return View("AmenityView");
                     }
                     else
                     {

@@ -44,19 +44,64 @@ namespace UResidence.Controllers
                 LastLogin = DateTime.Now
             };
 
-            string[] err = new string[] { };
-            if (adm.Validate(out err))
+
+            Admin ad = new Admin()
             {
-                UResidence.UserController.Insert(ul);
-                UResidence.AdminController.Insert(adm);          
-                    ViewBag.Message = true;       
-            }
-            else
+                Fname = adm.Fname,
+                Mname = adm.Mname,
+                Lname = adm.Lname,
+                Bdate = adm.Bdate,
+                CelNo = adm.CelNo,
+                Email = adm.Email,
+                Deleted= "0"
+            };
+
+
+
+            if (listUser.Count == 0)
             {
-                ViewBag.ErrorMessage =FixMessages(err);
-                ViewBag.Message = false;
+                string[] err = new string[] { };
+                if (adm.Validate(out err))
+                {
+                    UResidence.AdminController.Insert(ad);
+
+                    Admin admi = new Admin();
+                    admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
+                    int adminid = admi.Id;
+
+                    UserLogin ull = new UserLogin
+                    {
+                        AdminId = adminid,
+                        Username = adm.Email,
+                        Hash = hash,
+                        CreatedBy = "",
+                        ModifyBy = "",
+                        DateCreated = DateTime.Now,
+                        Level = 0,
+                        Locked = 1,
+                        LastLogin = DateTime.Now
+                    };
+
+
+                    UResidence.UserController.InsertAdminId(ull);
+
+                    status = true;
+                    ViewBag.AddMessage = status;
+                    AdminView();
+                    return View("AdminView");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = FixMessages(err);
+                    status = false;
+
+                }
+
+                ViewBag.AddMessage = status;
+
             }
-            return View();
+                return View();
+            
         }
         public ActionResult AdminView()
         {
@@ -65,12 +110,13 @@ namespace UResidence.Controllers
         }
         public ActionResult Delete(int id)
         {
-
+            string delete = "1";
             Admin am = new Admin()
             {
-                Id = id
+                Id = id,
+                Deleted=delete
             };
-            status=UResidence.AdminController.Delete(am);
+            status=UResidence.AdminController.UpdateDelete(am);
             if (status == true)
             {
                      
@@ -79,12 +125,22 @@ namespace UResidence.Controllers
             ViewBag.DeleteStatus = status;
             return View("AdminView");
        }
+        public ActionResult AdminEdit()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult AdminEdit(int id)
         {                   
-              Admin adm=UResidence.AdminController.GetbyID(id);                     
-            return View(adm);
+            string i = id.ToString();
+            if (ModelState.IsValid)
+            {
+                Admin adm = UResidence.AdminController.GetbyIDEdit(i);
+                return View(adm);
+            }
+            return View("AdminEdit");
         }
+    
         [HttpPost]
         public ActionResult AdminEdit(Admin adm)
         {
@@ -93,8 +149,15 @@ namespace UResidence.Controllers
             {
                 status = UResidence.AdminController.Update(adm);
                 if (status == true)
-                {                   
-                    return RedirectToAction("AdminView");
+                {
+                    ViewBag.UpdateMessage = status;
+                    AdminView();
+                    return View("AdminView");
+                }
+                else
+                {
+                    ViewBag.UpdateMessage = status;
+                    return View();
                 }
             }
             else
@@ -102,8 +165,9 @@ namespace UResidence.Controllers
                 ViewBag.ErrorMessages = FixMessages(err);
             }
             ViewBag.UpdateMessage = true;
-            return View(adm);
+            return View();
         }
+
         public string FixMessages(string[] err)
         {
             string errors = "Please check the following: <br/>";
