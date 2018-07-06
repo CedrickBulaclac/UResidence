@@ -6,7 +6,8 @@
 
 }
 @using (Html.BeginForm("AdminAccountSetting", "AccountSetting", FormMethod.Post))
-{@Html.AntiForgeryToken()
+{
+    @Html.AntiForgeryToken()
 
 
 foreach (var a in admin)
@@ -31,11 +32,11 @@ foreach (var a in admin)
         </div>
     </div>
 
+        //tdh
 
-
-}
-foreach (var l in userlogin)
-{
+    }
+    foreach (var l in userlogin)
+    {
     <input type="hidden" name="ulid" id="ulid" value="@l.Id" />
     <div class="container">
         <label class="form-control text-center">Login</label>
