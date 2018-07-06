@@ -17,6 +17,7 @@ namespace UResidence
             ret = SqlManager.Select<Owner>(com);
             return ret;
         }
+<<<<<<< HEAD
 
         public static Owner GetEmailOwner(string email)
         {
@@ -33,6 +34,19 @@ namespace UResidence
 
 
 
+=======
+        public static List<Owner> GetById(string idOwner)
+        {
+            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM[tbOwner] where Id=@Id";
+
+            List<Owner> ret = default(List<Owner>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Id", idOwner));
+            ret = SqlManager.Select<Owner>(com);
+            
+            return ret;
+        }
+>>>>>>> 23ca7d36a09bbfd9d277b5a70acda10c69910d2e
 
         public static Owner GetIdOwner(string idOwner)
         {
@@ -63,7 +77,11 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
+        public static bool OUpdate(Owner own)
+        {
+            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
 
+<<<<<<< HEAD
 
         public static bool UpdateDelete(Owner own)
         {
@@ -78,6 +96,15 @@ namespace UResidence
 
 
 
+=======
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", own.Id));
+            com.Parameters.Add(new SqlParameter("@Fname", own.Fname));
+            com.Parameters.Add(new SqlParameter("@Mname", own.Mname));
+            com.Parameters.Add(new SqlParameter("@Lname", own.Lname));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+>>>>>>> 23ca7d36a09bbfd9d277b5a70acda10c69910d2e
         public static bool Delete(Owner own)
         {
 

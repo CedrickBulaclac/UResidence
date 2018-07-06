@@ -31,6 +31,39 @@ namespace UResidence
             ret = SqlManager.Select<UserLogin>(com);
             return ret;
         }
+        public static List<UserLogin> AGetAll(int id)
+        {
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where AdminId=@Rid";
+
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Rid", id));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
+        public static List<UserLogin> OGetAll(int id)
+        {
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where OwnerId=@Rid";
+
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Rid", id));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
+        public static List<UserLogin> TGetAll(int id)
+        {
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where TenantId=@Rid";
+
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Rid", id));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
         public static UserLogin Get(string uid,string uhash)
         {
             UserLogin ret = default(UserLogin);
@@ -73,7 +106,7 @@ namespace UResidence
         }
         public static bool Update(string email,string hash)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Hash=@hash where Username=@email";
+            const string GET_UPDATE = @"update [tbLogin] set Username=@email, Hash=@hash where Username=@email";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@email", email));
             com.Parameters.Add(new SqlParameter("@hash", hash));

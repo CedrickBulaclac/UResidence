@@ -25,6 +25,7 @@ namespace UResidence.Controllers
             string hash= fc["Hash"];
             string username;
             username = fc["Username"];
+            Session["pass"]=hash;
             chash = Hash(hash);
             UserLogin user = new UserLogin();
             user = UResidence.UserController.Get(username, chash);
@@ -32,22 +33,43 @@ namespace UResidence.Controllers
             {
                 if (user.Level == 0)
                 {
+                    Session["LID"] = user.Id;
                     Session["UID"] = user.AdminId;
                     Session["TOR"] = "Admin";
+                    Admin a = new Admin();
+                    a = UResidence.AdminController.GetbyID(user.AdminId);
+                    string Fname = RemoveWhitespace(a.Fname);
+                    string Mname = RemoveWhitespace(a.Mname);
+                    string Lname = RemoveWhitespace(a.Lname);
+                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (user.Level == 1)
                 {
+                    Session["LID"] = user.Id;
                     Session["UID"] = user.OwnerId;
                     Session["TOR"] = "Owner";
+                    Owner a = new Owner();
+                    a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
+                    string Fname = RemoveWhitespace(a.Fname);
+                    string Mname = RemoveWhitespace(a.Mname);
+                    string Lname = RemoveWhitespace(a.Lname);
+                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Home", "Reserve");
                 }
                 else if (user.Level == 2)
                 {
+                    Session["LID"] = user.Id;
                     Session["UID"] = user.TenantId;
                     Session["TOR"] = "Tenant";
+                    Tenant a = new Tenant();
+                    a = UResidence.TenantController.GetIdTenant(user.TenantId.ToString());
+                    string Fname = RemoveWhitespace(a.Fname);
+                    string Mname = RemoveWhitespace(a.Mname);
+                    string Lname = RemoveWhitespace(a.Lname);
+                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
@@ -59,6 +81,10 @@ namespace UResidence.Controllers
 
             }
             return View();
+        }
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
         public ActionResult ForgotPassword()
         {
@@ -129,7 +155,7 @@ namespace UResidence.Controllers
             return hash;
         }
 
-        public void SendEmail()
+        private void SendEmail()
         {
                 var fromAddress = new MailAddress("uresidence04@gmail.com", "URESIDENCE");
                 var toAddress = new MailAddress(email1, "To Name");

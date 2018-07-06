@@ -18,7 +18,16 @@ namespace UResidence
             ret = SqlManager.Select<Admin>(com);
             return ret;
         }
+        public static List<Admin> Get(int id)
+        {
+            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email FROM[tbAdmin] where Id=@Rid";
 
+            List<Admin> ret = default(List<Admin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Rid", id));
+            ret = SqlManager.Select<Admin>(com);
+            return ret;
+        }
         public static Admin GetbyID(int Id)
         {
             const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] WHERE Id = @Id";
@@ -71,7 +80,11 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Email", adm.Email));
             return SqlManager.ExecuteNonQuery(com);
         }
+        public static bool AUpdate(Admin adm)
+        {
+            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
 
+<<<<<<< HEAD
         public static bool UpdateDelete(Admin adm)
         {
             const string GET_UPDATE = @"update [tbAdmin] set Deleted=@Deleted  WHERE Id = @Id";
@@ -85,6 +98,15 @@ namespace UResidence
 
 
 
+=======
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", adm.Id));
+            com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
+            com.Parameters.Add(new SqlParameter("@Mname", adm.Mname));
+            com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+>>>>>>> 23ca7d36a09bbfd9d277b5a70acda10c69910d2e
         public static bool Delete(Admin adm)
         {
             const string GET_DELETE = @"delete [tbAdmin] WHERE Id = @Id";
