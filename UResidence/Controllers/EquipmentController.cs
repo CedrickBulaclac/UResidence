@@ -40,8 +40,10 @@ namespace UResidence.Controllers
                     if (eqp1.Validate(out err))
                     {
                         UResidence.EquipmentController.Insert(eqp1);
-                        ViewBag.Message = true;
-                        return View("Registration");
+                        status = true;
+                        ViewBag.AddMessage = status;
+                        EquipmentView();
+                        return View("EquipmentView");
                     }
                     else
                     {

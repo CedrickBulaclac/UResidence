@@ -13,9 +13,7 @@ namespace UResidence.Controllers
     public class OwnerController : Controller
     {
         bool status;
-     
-        
-        //cedpogi
+
 
         // GET: Owner
         public ActionResult OwnerAdd()
@@ -23,9 +21,11 @@ namespace UResidence.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult OwnerAdd(Owner owe)
         {
+           
             string hash;
             string pass = owe.Bdate.ToShortDateString();
             hash = Hash(pass);
@@ -34,25 +34,27 @@ namespace UResidence.Controllers
             {
                 Username = owe.Email,
                 Hash = hash,
-                CreatedBy="",
-                ModifyBy="",
+                CreatedBy = "",
+                ModifyBy = "",
                 DateCreated = DateTime.Now,
-                Level=1,
-                Locked=1,
-                LastLogin=DateTime.Now                
+                Level = 1,
+                Locked = 1,
+                LastLogin = DateTime.Now
             };
 
-            Owner ow = new Owner() {
-                
-            BldgNo=owe.BldgNo,
-            UnitNo= owe.UnitNo,
-            Fname= owe.Fname,
-            Mname=owe.Mname,
-            Lname=owe.Lname,
-            Bdate=owe.Bdate,
-            CelNo=owe.CelNo,
-            Email=owe.Email,
-            Deleted="0"
+
+            Owner ow = new Owner()
+            {
+
+                BldgNo = owe.BldgNo,
+                UnitNo = owe.UnitNo,
+                Fname = owe.Fname,
+                Mname = owe.Mname,
+                Lname = owe.Lname,
+                Bdate = owe.Bdate,
+                CelNo = owe.CelNo,
+                Email = owe.Email,
+                Deleted = "0"
 
             };
 
@@ -61,10 +63,33 @@ namespace UResidence.Controllers
                 string[] err = new string[] { };
                 if (owe.Validate(out err))
                 {
-                    UResidence.UserController.Insert(ul);
+            
                     UResidence.OwnerController.Insert(ow);
+
+                    Owner b = new Owner();
+                    b = UResidence.OwnerController.GetEmailOwner(owe.Email.ToString());
+                    int ownerid = b.Id;
+
+                    UserLogin ull = new UserLogin
+                    {
+                        OwnerId=ownerid,
+                        Username = owe.Email,
+                        Hash = hash,
+                        CreatedBy = "",
+                        ModifyBy = "",
+                        DateCreated = DateTime.Now,
+                        Level = 1,
+                        Locked = 1,
+                        LastLogin = DateTime.Now
+                    };
+
+
+                    UResidence.UserController.InsertOwnerId(ull);
+
                     status = true;
-                    return RedirectToAction("OwnerView");
+                    ViewBag.AddMessage = status;
+                    OwnerView();
+                    return View("OwnerView");
                 }
                 else
                 {
@@ -99,11 +124,13 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            string delete = "1";
             Owner ten = new Owner()
             {
-                Id = id
+                Id = id,
+                Deleted=delete
             };
-            status = UResidence.OwnerController.Delete(ten);
+            status = UResidence.OwnerController.UpdateDelete(ten);
             if (status == true)
             {
                 ViewBag.DeleteStatus = status;
@@ -156,6 +183,7 @@ namespace UResidence.Controllers
             ViewBag.UpdateMessage = true;
             return View(owe);
         }
+
         public string FixMessages(string[] err)
         {
             string errors = "Please check the following: <br/>";

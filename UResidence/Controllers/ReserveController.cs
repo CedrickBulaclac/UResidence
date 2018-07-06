@@ -192,7 +192,7 @@ namespace UResidence.Controllers
                 UResidence.Reservation r = new UResidence.Reservation
                 {
                     Rid = Convert.ToInt32(reside.Id),
-                    Sid = sid,
+                    Sid = sid, 
                     Status = "Pending",
                     Tor = tor,
                     AcknowledgeBy = "",

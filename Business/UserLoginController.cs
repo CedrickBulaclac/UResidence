@@ -161,5 +161,62 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
+
+
+
+        public static bool InsertOwnerId(UserLogin usr)
+        {
+
+
+
+            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,OwnerId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @OwnerId)";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Username", usr.Username));
+            com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
+            com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
+            com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
+            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@Level", usr.Level));
+            com.Parameters.Add(new SqlParameter("@OwnerId", usr.OwnerId));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
+        public static bool InsertTenantId(UserLogin usr)
+        {
+            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,TenantId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @TenantId)";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Username", usr.Username));
+            com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
+            com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
+            com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
+            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@Level", usr.Level));
+            com.Parameters.Add(new SqlParameter("@TenantId", usr.TenantId));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
+        public static bool InsertAdminId(UserLogin usr)
+        {
+            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,AdminId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @AdminId)";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Username", usr.Username));
+            com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
+            com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
+            com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
+            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@Level", usr.Level));
+            com.Parameters.Add(new SqlParameter("@AdminId", usr.AdminId));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
     }
 }

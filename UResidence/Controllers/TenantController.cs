@@ -46,33 +46,72 @@ namespace UResidence.Controllers
                 LastLogin = DateTime.Now
             };
 
+
+
+            Tenant tenn = new Tenant()
+            {
+
+                BldgNo = ten.BldgNo,
+                UnitNo = ten.UnitNo,
+                Fname = ten.Fname,
+                Mname = ten.Mname,
+                Lname = ten.Lname,
+                Bdate = ten.Bdate,
+                CelNo = ten.CelNo,
+                Email = ten.Email,
+                LeaseStart = ten.LeaseStart,
+                LeaseEnd = ten.LeaseEnd,
+                Deleted = "0"
+
+            };
+
+
+
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {
-                UResidence.UserController.Insert(ul);
-                status = UResidence.TenantController.Insert(ten);
-                
-                   
-                    if(status==true)
+
+             
+
+                status = UResidence.TenantController.Insert(tenn);
+
+
+                Tenant b = new Tenant();
+                b = UResidence.TenantController.GetIdTenant(ten.Email.ToString());
+                int tenandID = b.Id;
+
+                UserLogin ull = new UserLogin
                 {
-                    ViewBag.Message = status;
-                    TenantView();
-                    return View("TenantView");
-                }
-                    else
-                {
-                    ViewBag.Message = status;
-                    return View(ten);
-                }
-               
+                    TenantId = tenandID,
+                    Username = ten.Email,
+                    Hash = hash,
+                    CreatedBy = "",
+                    ModifyBy = "",
+                    DateCreated = DateTime.Now,
+                    Level = 2,
+                    Locked = 1,
+                    LastLogin = DateTime.Now
+                    
+                };
+
+                UResidence.UserController.InsertTenantId(ull);
+
+
+          
+                status = true;
+                ViewBag.AddMessage = status;
+                TenantView();
+                return View("TenantView");
             }
             else
             {
-                ViewBag.Message = false;
-                ViewBag.ErrorMessages = FixMessages(err);
-                return View(ten);
+                ViewBag.ErrorMessage = FixMessages(err);
+                status = false;
+
             }
-           
+
+            ViewBag.AddMessage = status;
+            return View();
         }
         public ActionResult TenantView()
         {
@@ -82,11 +121,14 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            string delete = "1";
             Tenant ten = new Tenant()
             {
-                Id = id
+                Id = id,
+                Deleted=delete
+                
             };
-            status=UResidence.TenantController.Delete(ten);
+            status=UResidence.TenantController.UpdateDelete(ten);
             if(status==true)
             {
                 ViewBag.DeleteMessage = status;
@@ -108,7 +150,7 @@ namespace UResidence.Controllers
             string i = id.ToString();
             if(ModelState.IsValid)
             {
-                Tenant tenantList = UResidence.TenantController.GetIdTenant(i);
+                Tenant tenantList = UResidence.TenantController.GetId(i);
                 return View(tenantList);
             }
             return View("TenantEdit");

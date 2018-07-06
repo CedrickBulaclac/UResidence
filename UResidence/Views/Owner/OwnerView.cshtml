@@ -15,42 +15,47 @@
 {
     @Html.AntiForgeryToken()
     <table class="table table-bordered table-striped">
-        <tr>
+		<tr>
+			<th scope="col">
+				Id
+			</th>
+			<th scope="col">
+				BldgNo
+			</th>
+			<th scope="col">
+				UnitNo
+			</th>
+			<th scope="col">
+				Fname
+			</th>
+			<th scope="col">
+				Mname
+			</th>
+			<th scope="col">
+				Lname
+			</th>
+			<th scope="col">
+				Bdate
+			</th>
+			<th scope="col">
+				CelNo
+			</th>
+			<th scope="col">
+				Email
+			</th>
 
-            <th scope="col">
-                BldgNo
-            </th>
-            <th scope="col">
-                UnitNo
-            </th>
-            <th scope="col">
-                Fname
-            </th>
-            <th scope="col">
-                Mname
-            </th>
-            <th scope="col">
-                Lname
-            </th>
-            <th scope="col">
-                Bdate
-            </th>
-            <th scope="col">
-                CelNo
-            </th>
-            <th scope="col">
-                Email
-            </th>
-
-            <th>Actions</th>
-        </tr>
+			<th>Actions</th>
+		</tr>
         @if (Model != null)
         {
             <tbody>
                 @foreach (Owner item in Model)
                 {
                     <tr scope="row">
-                        <td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Id)
+						</td>
+						<td>
                             @Html.DisplayFor(modelItem => item.BldgNo)
                         </td>
                         <td>

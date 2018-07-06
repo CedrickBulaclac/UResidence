@@ -19,6 +19,7 @@ namespace UResidence
         public DateTime Bdate { get; set; }
         public string CelNo { get; set; }
         public string Email{ get; set; }
+        public string Deleted { get; set; }
 
         public Admin CreateObject(SqlDataReader reader)
         {
@@ -29,7 +30,8 @@ namespace UResidence
             ret.Lname = reader.GetString(3);
             ret.Bdate = reader.GetDateTime(4);
             ret.CelNo = reader.GetString(5);
-            ret.Email = reader.GetString(6);        
+            ret.Email = reader.GetString(6);
+            ret.Deleted = reader.GetString(7);
             return ret;
         }
        
@@ -55,6 +57,7 @@ namespace UResidence
             this.Bdate = DateTime.Now;
             this.CelNo = string.Empty;
             this.Email = string.Empty;
+            this.Deleted = string.Empty;
         }
     }
 
