@@ -33,18 +33,21 @@ namespace UResidence
         {
             Owner ret = new Owner();
             ret.Id = reader.GetInt32(0);
-            ret.BldgNo = reader.GetString(1);
-            ret.UnitNo = reader.GetString(2);
-            ret.Fname = reader.GetString(3);
-            ret.Mname = reader.GetString(4);
-            ret.Lname = reader.GetString(5);
+            ret.BldgNo = RemoveWhitespace(reader.GetString(1));
+            ret.UnitNo = RemoveWhitespace(reader.GetString(2));
+            ret.Fname = RemoveWhitespace(reader.GetString(3));
+            ret.Mname = RemoveWhitespace(reader.GetString(4));
+            ret.Lname = RemoveWhitespace(reader.GetString(5));
             ret.Bdate = reader.GetDateTime(6);
-            ret.CelNo = reader.GetString(7);
-            ret.Email = reader.GetString(8);
-            ret.Deleted = reader.GetString(9);
+            ret.CelNo = RemoveWhitespace(reader.GetString(7));
+            ret.Email = RemoveWhitespace(reader.GetString(8));
+            ret.Deleted = RemoveWhitespace(reader.GetString(9));
             return ret;
         }
-
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
         public bool Validate(out string[] errors)
         {
             bool ret = true;

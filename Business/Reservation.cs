@@ -28,16 +28,19 @@ namespace UResidence
             this.Tor = string.Empty;
             this.Sid = 0;
         }
-
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
         public Reservation CreateObject(SqlDataReader reader)
         {
             Reservation ret = new Reservation();
             ret.Id = reader.GetInt32(0);
             ret.Rid = reader.GetInt32(1);
-            ret.AcknowledgeBy = reader.GetString(2);
-            ret.ReservedBy = reader.GetString(3);
-            ret.Status = reader.GetString(4);
-            ret.Tor = reader.GetString(5);
+            ret.AcknowledgeBy = RemoveWhitespace(reader.GetString(2));
+            ret.ReservedBy = RemoveWhitespace(reader.GetString(3));
+            ret.Status = RemoveWhitespace(reader.GetString(4));
+            ret.Tor = RemoveWhitespace(reader.GetString(5));
             ret.Sid = reader.GetInt32(6);
 
             return ret;

@@ -22,11 +22,15 @@ namespace UResidence
             Equipment ret = new Equipment();
 
             ret.Id = reader.GetInt32(0);
-            ret.Name = reader.GetString(1);
+            ret.Name = RemoveWhitespace(reader.GetString(1));
             ret.Stocks = reader.GetInt32(2);
             ret.Rate = reader.GetInt32(3);
-            ret.Url = reader.GetString(4);
+            ret.Url = RemoveWhitespace(reader.GetString(4));
             return ret;
+        }
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
         public bool Validate(out string[] errors)
         {

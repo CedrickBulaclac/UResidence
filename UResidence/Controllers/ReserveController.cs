@@ -77,6 +77,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Equipment()
         {
+            int[] eqpid;
+            List<int> qid = new List<int>();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
             List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
@@ -84,10 +86,16 @@ namespace UResidence.Controllers
             List<object> model = new List<object>();
             model.Add(equipList.ToList());
             model.Add(equip.ToList());
+           foreach(Equipment eqp in equip)
+            {
+                qid.Add(eqp.Id);
+            }
+            eqpid = qid.ToArray();
+            Session["eqpid"] = eqpid;
             return View(model);
         }
         [HttpPost]
-        public void Choose_Equipment(int[] data, int[] datar, int[] eid)
+        public void Choose_Equipment(int[] data, int[] datar)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -95,17 +103,13 @@ namespace UResidence.Controllers
 
             if (data != null)
             {
-                foreach (var i in data)
-                {
-                    Response.Write("<script>alert(" + i + ")</script>");
-                }
-                int[] quantity = data;
+               
+                    int[] quantity = data;  
                 Session["quantity"] = quantity;
 
                 int[] ratee = datar;
                 Session["ratee"] = ratee;
-                int[] eqpid = eid;
-                Session["eqpid"] = eqpid;
+               
                 Summary();
 
             }
@@ -192,7 +196,7 @@ namespace UResidence.Controllers
                 UResidence.Reservation r = new UResidence.Reservation
                 {
                     Rid = Convert.ToInt32(reside.Id),
-                    Sid = sid, 
+                    Sid = sid,
                     Status = "Pending",
                     Tor = tor,
                     AcknowledgeBy = "",
@@ -207,27 +211,42 @@ namespace UResidence.Controllers
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
                     int[] ratee = (Int32[])Session["ratee"];
-                    int ctr = 0;
-                    foreach (int ii in equantity)
+                    
+                    for(int i=0;i<=equantity.Count()-1;i++)
                     {
 
-                        if (ii != 0)
+                        if (Convert.ToInt32(equantity[i]) != 0)
                         {
                             EquipReservation er = new EquipReservation
                             {
-                                EquipNo = eid[ctr],
-                                Quantity = ii,
+                               
+                                 EquipId= Convert.ToInt32(eid[i]),
+                                Quantity = Convert.ToInt32(equantity[i]),
                                 RefNo = refno,
-                                Rate = ratee[ctr],
-                            };
-                            status = UResidence.EquipReservationController.Insert(er);
+                                Rate = ratee[i],
 
+                            };
+
+                            status = UResidence.EquipReservationController.Insert(er);
                         }
 
                     }
+                
                     if (status == true)
                     {
-                        Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
+                        Receipt rp = new Receipt
+                        {
+                            RefNo= refno,
+                            Downpayment=0,
+                            Charge=0,
+                            Fullpayment=0,
+                        };
+                        status = UResidence.ReceiptController.Insert(rp);
+                        if(status==true)
+                        {
+                            Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
+
+                        }
                     }
 
                 }

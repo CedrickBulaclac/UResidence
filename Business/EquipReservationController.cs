@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<EquipReservation> GetAll()
         {
-            const string GET_ALL = @"SELECT EquipNo,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipNo";
+            const string GET_ALL = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipId";
 
 
             List<EquipReservation> ret = default(List<EquipReservation>);
@@ -21,11 +21,11 @@ namespace UResidence
 
         public static EquipReservation Get(string eno)
         {
-            const string GET_RECORD = @"SELECT EquipNo,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipNo WHERE EquipNo = @EquipNo";
+            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipId WHERE EquipNo = @EquipNo";
 
             EquipReservation ret = default(EquipReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@EquipNo", eno));
+            com.Parameters.Add(new SqlParameter("@EquipId", eno));
             ret = SqlManager.Select<EquipReservation>(com).First();
 
             return ret;
@@ -35,10 +35,10 @@ namespace UResidence
 
         public static bool Update(EquipReservation eqp)
         {
-            const string GET_UPDATE = @"update [tbEquipReservation] set EquipNo= @EquipNo, Quantity= @Quantity, RefNo= @RefNo WHERE EquipNo = @EquipNo";
+            const string GET_UPDATE = @"update [tbEquipReservation] set EquipmentId= @EquipId, Quantity= @Quantity, RefNo= @RefNo WHERE EquipNo = @EquipNo";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
-            com.Parameters.Add(new SqlParameter("@EquipNo", eqp.EquipNo));
+            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipId));
             com.Parameters.Add(new SqlParameter("@Quantity", eqp.Quantity));
             com.Parameters.Add(new SqlParameter("@RefNo", eqp.RefNo));
 
@@ -65,10 +65,10 @@ namespace UResidence
         */
         public static bool Insert(EquipReservation eqp)
         {
-            const string GET_INSERT = @"insert [tbEquipReservation] (EquipNo,Quantity,RefNo,Rate) values (@EquipNo, @Quantity, @RefNo,@Rate)";
+            const string GET_INSERT = @"insert [tbEquipReservation] (EquipmentId,Quantity,RefNo,Rate) values (@EquipId, @Quantity, @RefNo,@Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-            com.Parameters.Add(new SqlParameter("@EquipNo", eqp.EquipNo));
+            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipId));
             com.Parameters.Add(new SqlParameter("@Quantity", eqp.Quantity));
             com.Parameters.Add(new SqlParameter("@RefNo", eqp.RefNo));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));

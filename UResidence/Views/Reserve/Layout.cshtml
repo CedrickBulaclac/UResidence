@@ -1,56 +1,89 @@
 ﻿
 @{
-	ViewBag.Title = "Layout";
 	Layout = "";
+
 }
 
+
+
+
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Palmdale Heights</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-  
-  
+    <style>
+        .navbar {
+            background: #1ed88b;
+            padding: 0.5em 2em;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-	<div class="navbar navbar-fixed-top navbar-dark">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-				<span class="nav navbar-brand"><img src="~/Content/Logo/logo.png" width="150px" height="40px" /></span>
-			</div>
-		
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li>@Html.ActionLink("Reservation", "Amenity", "Reserve") </li>
-						<li>@Html.ActionLink("Billing", "#", "#") </li>
-					</ul>
+	<div class="navbar"> 		</div>
+	@*<div class="navbar-collapse collapse" style="background-color:#333">
 
-					<ul class="nav navbar-nav navbar-right">
+		</div>*@
+
+	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+		<button class="w3-bar-item w3-button w3-large"
+				onclick="w3_close()">
+			Close &times;
+		</button>
 
 
-						<li><a href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a></li>
-						<li><a class="dropdown-item" href="@Url.Action("OwnerAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a></li>
-						<li> <a class="dropdown-item" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a></li>
-					</ul>
-
-				</div>
-			
-		</div>
+		<a href="~/Reserve/Amenity" class="w3-bar-item w3-button">Reservation</a>
+		<a href="#" class="w3-bar-item w3-button">Billing</a>
 	</div>
 
 
+	<div id="main">
 
+        <div class="w3-teal" style="height:7.3%;">
+
+            <button id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button> <img src="~/Content/Log/logo.png" width="140" height="40" />
+            <a class="w3-bar-item w3-button w3-right" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>
+            <a class="w3-bar-item w3-button w3-right" href="@Url.Action("OwnerAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
+            <a class="w3-bar-item w3-button w3-right" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
+
+        </div>
+
+	</div>
 	<div class="container body-content">
 		@RenderBody()
 		<hr />
 		<footer>
-			<p>&copy; @DateTime.Now.Year - Palmdale Heights Condominium</p>
+			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 		</footer>
 	</div>
-
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
+	<script>
+		function w3_open() {
+			document.getElementById("main").style.marginLeft = "25%";
+			document.getElementById("mySidebar").style.width = "25%";
+			document.getElementById("mySidebar").style.display = "block";
+			document.getElementById("openNav").style.display = 'none';
+		}
+		function w3_close() {
+			document.getElementById("main").style.marginLeft = "0%";
+			document.getElementById("mySidebar").style.display = "none";
+			document.getElementById("openNav").style.display = "inline-block";
+		}
+	</script>
+
+
 </body>
+</html>

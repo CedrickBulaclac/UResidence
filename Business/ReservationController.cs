@@ -47,10 +47,11 @@ namespace UResidence
 
         public static bool Update(Reservation usr)
         {
-            const string GET_UPDATE = @"update [tbReservationForm] set  Status = @Status WHERE RefNo = @RefNo";
+            const string GET_UPDATE = @"update [tbReservationForm] set  Status = @Status WHERE Id = @RefNo";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Status", usr.Status));
+            com.Parameters.Add(new SqlParameter("@RefNo", usr.Id));
             return SqlManager.ExecuteNonQuery(com);
         }
 

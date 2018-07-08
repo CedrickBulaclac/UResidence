@@ -25,16 +25,19 @@ namespace UResidence
         {
             Admin ret = new Admin();
             ret.Id = reader.GetInt32(0);
-            ret.Fname = reader.GetString(1);
-            ret.Mname = reader.GetString(2);
-            ret.Lname = reader.GetString(3);
+            ret.Fname = RemoveWhitespace(reader.GetString(1));
+            ret.Mname = RemoveWhitespace(reader.GetString(2));
+            ret.Lname = RemoveWhitespace(reader.GetString(3));
             ret.Bdate = reader.GetDateTime(4);
-            ret.CelNo = reader.GetString(5);
-            ret.Email = reader.GetString(6);
-            ret.Deleted = reader.GetString(7);
+            ret.CelNo = RemoveWhitespace(reader.GetString(5));
+            ret.Email = RemoveWhitespace(reader.GetString(6));
+            ret.Deleted = RemoveWhitespace(reader.GetString(7));
             return ret;
         }
-       
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
         public bool Validate(out string[] errors)
         {
             bool ret = true;

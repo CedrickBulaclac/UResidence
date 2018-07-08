@@ -34,7 +34,10 @@ namespace UResidence
             this.Description = string.Empty;
             this.Url = string.Empty;
         }
-
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
 
         public SchedAmenity CreateObject(SqlDataReader reader)
         {
@@ -54,7 +57,7 @@ namespace UResidence
                 SchedAmenity ret = new SchedAmenity();
                 ret.Id = reader.GetInt32(0);
                 ret.AmenityId = reader.GetInt32(1);
-                ret.AmenityName = reader.GetString(2);
+                ret.AmenityName = RemoveWhitespace(reader.GetString(2));
                 ret.Rate = reader.GetInt32(3);
                 ret.StartTime = reader.GetDateTime(4);
                 ret.EndTIme = reader.GetDateTime(5);

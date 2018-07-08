@@ -13,7 +13,7 @@
 @{int ctr3 = 0;
 	foreach (var eqp in equip)
 	{
-        <input type="hidden" id="eid"+ @ctr3.ToString() name="eid"+@ctr3.ToString() value="@eqp.Id"/>
+        <input type="text" id="eid"+ @ctr3.ToString() name="eid"+@ctr3.ToString() value="@eqp.Id"/>
 		<label class="form-control text-center">@eqp.Name</label>
 		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0} })
 		<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
@@ -48,7 +48,7 @@
 	
 			
 			
-		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate, eid:id }, true));
+		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
 		
     }
 

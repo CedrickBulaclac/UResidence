@@ -27,7 +27,10 @@ namespace UResidence
             this.Id = 0;
             this.Theme = "Default";
         }
-
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
         public SchedReservation CreateObject(SqlDataReader reader)
         {
             if (reader.FieldCount == 5)
@@ -47,11 +50,11 @@ namespace UResidence
                 SchedReservation ret = new SchedReservation();
                 ret.Id = reader.GetInt32(0);
                 ret.AmenityId = reader.GetInt32(1);
-                ret.AmenityName = reader.GetString(2);
+                ret.AmenityName = RemoveWhitespace(reader.GetString(2));
                 ret.Rate = reader.GetInt32(3);
                 ret.StartTime = reader.GetDateTime(4);
                 ret.EndTIme = reader.GetDateTime(5);
-                ret.Theme = reader.GetString(6);
+                ret.Theme = RemoveWhitespace(reader.GetString(6));
                 return ret;
             }
         }

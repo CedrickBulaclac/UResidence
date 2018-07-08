@@ -25,13 +25,17 @@ namespace UResidence
         {
             Amenity ret = new Amenity();
             ret.Id = reader.GetInt32(0);
-            ret.Description = reader.GetString(1);
+            ret.Description = RemoveWhitespace(reader.GetString(1));
             ret.Capacity = reader.GetInt32(2);
-            ret.AmenityName = reader.GetString(3);
-           ret.Url = reader.GetString(4);
+            ret.AmenityName = RemoveWhitespace(reader.GetString(3));
+           ret.Url = RemoveWhitespace(reader.GetString(4));
             ret.Rate = reader.GetInt32(5);
-            ret.Color = reader.GetString(6);
+            ret.Color = RemoveWhitespace(reader.GetString(6));
             return ret;
+        }
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
         public bool Validate(out string[] errors)
         {

@@ -61,7 +61,10 @@ namespace UResidence
             errors = err.ToArray();
             return ret;
         }
-
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
 
         public void Reset()
         {
@@ -85,17 +88,17 @@ namespace UResidence
             Tenant ret = new Tenant();
 
             ret.Id = reader.GetInt32(0);
-            ret.UnitNo = reader.GetString(1);
-            ret.BldgNo = reader.GetString(2);
-            ret.Fname = reader.GetString(3);
-            ret.Mname = reader.GetString(4);
-            ret.Lname = reader.GetString(5);
+            ret.UnitNo = RemoveWhitespace(reader.GetString(1));
+            ret.BldgNo = RemoveWhitespace(reader.GetString(2));
+            ret.Fname = RemoveWhitespace(reader.GetString(3));
+            ret.Mname = RemoveWhitespace(reader.GetString(4));
+            ret.Lname = RemoveWhitespace(reader.GetString(5));
             ret.Bdate = reader.GetDateTime(6);
-            ret.CelNo = reader.GetString(7);
+            ret.CelNo = RemoveWhitespace(reader.GetString(7));
             ret.Email = reader.GetString(8);
             ret.LeaseStart = reader.GetDateTime(9);
             ret.LeaseEnd = reader.GetDateTime(10);
-            ret.Deleted = reader.GetString(11);
+            ret.Deleted = RemoveWhitespace(reader.GetString(11));
 
             return ret;
         }

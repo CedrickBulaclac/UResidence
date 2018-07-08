@@ -1,129 +1,166 @@
 ﻿
-@{
-	ViewBag.Title = "CalendarView";
-}
+@using (Html.BeginForm("CalendarView", "Calendar", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-<h2>CalendarView</h2>
-<style>
-	legend0 {
-		color: red;
-	}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        legend0 {
+            color: red;
+        }
 
-	legend1 {
-		color: yellow;
-	}
+        legend1 {
+            color: yellow;
+        }
 
-	legend2 {
-		color: violet;
-	}
+        legend2 {
+            color: violet;
+        }
 
-	legend3 {
-		color: black;
-	}
-</style>
+        legend3 {
+            color: black;
+        }
+    </style>
+</head>
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="rid" id="rid" />
+                    <input type="hidden" name="rfid" id="rfid" />
+                    <p id="pDetails"></p>
+                    <b>Status: </b><select id="mySelect" name="mySelect">
+                        <option value="Pending">Pending</option>
+                        <option value="Reserved">Reserved</option>
+                        <option value="Canceled">Canceled</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <br /><br />
+                    <b>DownPayment: </b><input type="number" name="dp" id="dp" min="0" />
+                    <br /><br />
+                    <b>FullPayment: </b><input type="number" name="fp" id="fp" min="0" />
+                    <br /><br />
+                    <b>Charge: </b><input type="number" name="cg" id="cg" min="0" />
+                </div>
 
-
-<div id="calendar"></div>
-
-
-<div id="Modal" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"><span id="eventTitle"></span></h4>
-			</div>
-			<div class="modal-body">
-				@*<button id="btnDelete" class="btn btn-default btn-sm pull-right">
-						<span class="glyphicon glyphicon-remove"></span> Remove
-					</button>
-					<button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-						<span class="glyphicon glyphicon-pencil"></span> Edit
-					</button>*@
-				<p id="pDetails"></p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btnSave" name="btnSave">Save Changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-
+<div id="calendar"></div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 
 @section scripts{
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
-
-	<script>
-		$(document).ready(function () {
-			var events = [];
-			$.ajax({
-				type: "GET",
-				url: "/calendar/GetEvents",
-				success: function (data) {
-					$.each(data, function (i, v) {
-						events.push({
-							title: v.AmenityName,
-							start: moment(v.StartTime),
-							end: v.EndTIme != null ? moment(v.EndTIme) : null,
-							rate: v.Rate,
-							color: v.Theme
-						});
-					})
-					GenerateCalendar(events);
-				},
-				error: function (error) {
-					alert('failed');
-				}
-			})
-
-			function GenerateCalendar(events) {
-				$('#calendar').fullCalendar('destroy');
-				$('#calendar').fullCalendar({
-					contentHeight: 400,
-					defaultDate: new Date(),
-					timeFormat: 'h(:mm):a',
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,basicWeek,basicDay,agenda'
-					},
-					eventLimit: true,
-					eventColor: '#378006',
-					events: events,
-
-					eventClick: function (calEvent, jsEvent, view) {
-						$('#Modal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-						var $description = $('<div/>');
-						$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
-						if (calEvent.end != null) {
-							$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
-						}
-						$description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
-						$('#Modal #pDetails').empty().html($description);
-						$('#Modal').modal();
-
-					}
-				})
-			}
-		})
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            var d = '';
+            var selectedEvent = null;
+            RefreshCalendar();
+            function RefreshCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/calendar/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                title: v.AName,
+                                reserved: v.ReservedBy,
+                                start: moment(v.StartTime),
+                                end: v.EndTime != null ? moment(v.EndTime) : null,
+                                rate: v.Rate,
+                                status: v.Status,
+                                color: v.Color,
+                                dp: v.Downpayment,
+                                fp: v.Fullpayment,
+                                cg: v.Charge,
+                                bn: v.BldgNo,
+                                un: v.UnitNo,
+                                r: v.RId,
+                                rf: v.RFId
+                            });
+                        })
+                        GenerateCalendar(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
 
-	</script>
+            }
+
+
+            function GenerateCalendar(events) {
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm):a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+                        $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                        $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));            
+                        document.getElementById('mySelect').value = calEvent.status;    
+                        document.getElementById('dp').value = calEvent.dp;
+                        document.getElementById('rid').value = calEvent.r;
+                        document.getElementById('rfid').value = calEvent.rf;
+                        document.getElementById('fp').value = calEvent.fp;
+                        document.getElementById('cg').value = calEvent.cg;
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+
+                    }
+                })
+            }
+            $('#btnSave').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+
+                    SaveEvent(data);
+                }
+            })
+
+        })
+
+
+
+    </script>
 
 
 }
-<legend0><b><u> Basketball Court</u></b></legend0> &nbsp;
-<legend1><b><u>Swimming Pool</u></b></legend1>  &nbsp;
-<legend2><b><u>Gazebo</u></b></legend2> &nbsp;	
-<legend3><b><u>Maintenance</u></b></legend3>
+}

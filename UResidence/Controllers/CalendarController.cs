@@ -11,73 +11,57 @@ namespace UResidence.Controllers
 
         public JsonResult GetEvents()
         {
-            List<SchedReservation> reservationList = UResidence.SchedReservationController.GetAllA();
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-
-        //[HttpPost]
-        //public JsonResult SaveEvent(SchedReservation e)
-        //{
-        //    var status = false;
-        //    List<SchedReservation> reservationList = UResidence.SchedReservationController.GetAllA();
-        //    {
-        //        if (e.AmenityId > 0)
-        //        {
-        //            //UPDATE EVENT
-        //            var v = reservationList.Where(a => a.AmenityId == e.AmenityId).FirstOrDefault();
-        //            if (v != null)
-        //            {
-        //                v.Id = e.Id;
-        //                v.AmenityId = e.AmenityId;
-        //                v.StartTime = e.StartTime;
-        //                v.EndTIme = e.EndTIme;
-        //                v.Rate = e.Rate;
-        //                v.Theme = e.Theme;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            reservationList.Add(e);
-        //        }
-        //     SchedReservationController.SaveChanges(e);
-        //        status = true;
-        //    }
-        //    return new JsonResult { Data = new { status = status } };
-        //}
-
-
-
-
-        //[HttpPost]
-        //public JsonResult DeleteEvent(int amenityId)
-        //{
-        //    var status = false;
-        //    List<SchedReservation> reservationList = UResidence.SchedReservationController.GetAllA();
-        //    {
-               
-        //        var v = reservationList.Where(a => a.AmenityId == amenityId).FirstOrDefault();
-        //        if (v != null)
-        //        {
-        //            reservationList.Remove(v);
-        //            SchedReservationController.SaveChanges(v);
-        //            status = true;
-        //        }
-
-        //    }
-        //    return new JsonResult { Data = new { status = status } };
-        //}
-
-
-
-
-
-
         // GET: Calendar
         public ActionResult CalendarView()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult CalendarView(FormCollection fc, string mySelect,int dp)
+        {
+            int rid = Convert.ToInt32(fc["rid"]);
+            int rfid = Convert.ToInt32(fc["rfid"]);
+            int down = dp;
+            int fp = Convert.ToInt32(fc["fp"]);
+            int cg = Convert.ToInt32(fc["cg"]);
+            string status = mySelect;
+
+            bool stats = false;
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            {
+                
+                if (rid > 0)
+                {
+                    //UPDATE EVENT
+                    var v = reservationList.Where(a => a.RId ==rid).FirstOrDefault();
+
+
+                    Receipt r = new Receipt
+                    {
+                        ORNo = rid,
+                        Downpayment = dp,
+                        Fullpayment = fp,
+                        Charge = cg,
+                    };
+                    stats=UResidence.ReceiptController.Update(r);
+                    if (stats == true)
+                    {
+                        Reservation rv = new Reservation
+                        {
+                            Status =status,
+                            Id = rfid,
+                        };
+                        stats = UResidence.ReservationController.Update(rv);
+                    }
+                }
+                return CalendarView();
+            }
+        }
+
     }
 }

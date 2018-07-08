@@ -51,10 +51,12 @@
     <Compile Include="EquipReservationController.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="OwnerController.cs" />
-    <Compile Include="Reciept.cs" />
-    <Compile Include="RecieptController.cs" />
+    <Compile Include="Receipt.cs" />
+    <Compile Include="ReceiptController.cs" />
     <Compile Include="Reservation.cs" />
     <Compile Include="ReservationController.cs" />
+    <Compile Include="ReservationProcess.cs" />
+    <Compile Include="ReservationProcessController.cs" />
     <Compile Include="Residence.cs" />
     <Compile Include="ResidenceController.cs" />
     <Compile Include="SchedAmenity.cs" />
