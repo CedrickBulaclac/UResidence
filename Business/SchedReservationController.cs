@@ -20,15 +20,16 @@ namespace UResidence
             return ret;
         }
 
-        public static List<SchedReservation> GetAll(string sd, string ed)
+        public static List<SchedReservation> GetAll(string sd, string ed,int aid)
         {
-            const string GET_ALL = @"  SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] where EndTime between @sd and @ed  order by AmenityId";
+            const string GET_ALL = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] where EndTime between @sd and @ed and AmenityId=@id";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@sd", sd));
             com.Parameters.Add(new SqlParameter("@ed", ed));
+            com.Parameters.Add(new SqlParameter("@id", aid));
             ret = SqlManager.Select<SchedReservation>(com);
             return ret;
         }

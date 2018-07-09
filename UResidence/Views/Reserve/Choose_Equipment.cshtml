@@ -7,23 +7,39 @@
 }
 
 <center>
-	<h2>Reserve Equipment</h2>
+    <h2>Reserve Equipment</h2>
 
 
-@{int ctr3 = 0;
-	foreach (var eqp in equip)
-	{
-        <input type="text" id="eid"+ @ctr3.ToString() name="eid"+@ctr3.ToString() value="@eqp.Id"/>
-		<label class="form-control text-center">@eqp.Name</label>
-		<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0} })
-		<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
-		<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
-		<br />
-		ctr3++;
-	}
-}
-<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-<a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="btn btn-default" onclick="SET()">NEXT</button></a>
+    @{int ctr3 = 0;
+        if (equip1.Count > 0)
+        {
+            foreach (var eqp in equip1)
+            {
+                <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+                <label class="form-control text-center">@eqp.Name</label>
+                <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+                <label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+                <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
+                <br />
+                ctr3++;
+            }
+        }
+        else if (equip.Count > 0)
+        {
+            foreach (var eqp in equip)
+            {
+                <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+                <label class="form-control text-center">@eqp.Name</label>
+                <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+                <label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+                <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
+                <br />
+                ctr3++;
+            }
+        }
+    }
+    <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+    <a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="btn btn-default" onclick="SET()">NEXT</button></a>
 
 </center>
 <script type="text/javascript">
@@ -44,10 +60,6 @@
 			total[pppp] = quantity[pppp] * rate[pppp];
 			var ttotal = ttotal + total[pppp];
 		}
-
-	
-			
-			
 		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
 		
     }
