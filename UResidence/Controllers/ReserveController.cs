@@ -60,8 +60,9 @@ namespace UResidence.Controllers
             Session["ed"] = ed;
             string drate = fc["tratee"];
             Session["drate"] = drate;
+            int aid = Convert.ToInt32(Session["ID"]);
 
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed);
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed,aid);
             if (schedList.Count > 0)
             {
                 Response.Write("<script>alert('Your chosen date and time is not available')</script>");
@@ -81,7 +82,7 @@ namespace UResidence.Controllers
             List<int> qid = new List<int>();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
-            List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
+            List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd,ed);
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             List<object> model = new List<object>();
             model.Add(equipList.ToList());

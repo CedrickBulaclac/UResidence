@@ -37,7 +37,7 @@
 
 
 
-
+            
             foreach (var eqp in Model)
             {
 
@@ -49,11 +49,15 @@
                 <label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
                 <br />
                 }
-              
-        
-                   ctr4++;
+                else if(ViewBag.quan[ctr4] is null)
+                {
 
                 }
+
+
+                ctr4++;
+
+            }
 
             }
         <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
