@@ -11,27 +11,27 @@
 
 
 <center>
-    <h2> Choose Date </h2>
-    <div class="form-group">
-        StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+	<h2> Choose Date </h2>
+	<div class="form-group">
+		StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
 
-        <input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
-
-
-        <br />
-        EndTime :  <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
-
-        <input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+		<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
 
 
-        <br />
-        Rate : <input type="text" id="rate" class="form-group" disabled="disabled" />
-        <input type="hidden" id="stime" name="stime" />
-        <input type="hidden" id="etime" name="etime" />
-        <input type="hidden" id="tratee" name="tratee" />
-        <br />
-        <button type="submit" class="btn btn-default" onclick="Check()">Next</button>
-    </div>
+		<br />
+		EndTime :  <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
+
+		<input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+
+
+		<br />
+		Rate : <input type="text" id="rate" class="form-group" disabled="disabled" />
+		<input type="hidden" id="stime" name="stime" />
+		<input type="hidden" id="etime" name="etime" />
+		<input type="hidden" id="tratee" name="tratee" />
+		<br />
+		<button type="submit" class="btn btn-default" onclick="Check()">Next</button>
+	</div>
 </center>
 }
 <script type="text/javascript">
@@ -90,7 +90,14 @@
 				document.getElementById('ed').value = selectedValue;
 				startDate = selectedValue;
 				endDate = selectedValue;
-
+				var q = new Date();
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;	
+				if (startDate < MyDateString)
+				{
+					alert("the input is earlier than today");
+					document.getElementById('sd').value = null;
+					document.getElementById('ed').value = null;
+				}
 			});
 
 		});
