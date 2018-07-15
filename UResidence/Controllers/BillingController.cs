@@ -11,7 +11,18 @@ namespace UResidence.Controllers
         // GET: Billing
         public ActionResult BillingView()
         {
-            return View();
+            Billing model = default(Billing);
+            int id = Convert.ToInt32(Session["UID"]);
+            string tor = (Session["TOR"]).ToString();
+            if (tor == "Owner")
+            {
+                model = UResidence.BillingController.GetOwner(id);
+            }
+            else if(tor=="Tenant")
+            {
+                model = UResidence.BillingController.GetTenant(id);
+            }
+            return View(model);
         }
     }
 }
