@@ -46,14 +46,14 @@ namespace UResidence
             ret = SqlManager.Select<SchedReservation>(com);
             return ret;
         }
-        public static List<SchedReservation> GetAllA(int id)
+        public static List<SchedReservation> GetAllA(string name)
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where a.AmenityId=@id";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color from [tbSchedReservation] a full join [tbAmenity] b on a.AmenityId=b.Id where AmenityName=@name and a.Id is not null";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_ALL);
-            com.Parameters.Add(new SqlParameter("@id", id));
+            com.Parameters.Add(new SqlParameter("@name",name));
             ret = SqlManager.Select<SchedReservation>(com);
             return ret;
         }

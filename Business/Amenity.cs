@@ -27,7 +27,7 @@ namespace UResidence
             ret.Id = reader.GetInt32(0);
             ret.Description = RemoveWhitespace(reader.GetString(1));
             ret.Capacity = reader.GetInt32(2);
-            ret.AmenityName = RemoveWhitespace(reader.GetString(3));
+            ret.AmenityName = reader.GetString(3);
            ret.Url = RemoveWhitespace(reader.GetString(4));
             ret.Rate = reader.GetInt32(5);
             ret.Color = RemoveWhitespace(reader.GetString(6));
