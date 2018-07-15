@@ -4,12 +4,11 @@
 	/**/
 
 	ViewBag.Title = "AmenityView";
+
 }
 
 <h2>Amenity</h2>
-<div class="btn-link">
-	<a href="@Url.Action("AmenityAdd","Amenity")"><input id="btnAdd" type="button" value="ADD NEW AMENITY" class="btn btn-success" /></a>
-</div>
+
 @using (Html.BeginForm("AmenityView", "Amenity", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
@@ -64,6 +63,13 @@
 			</tbody>
 		</table>
 	</div>
+
+
+	<div class="btn-link">
+		<a href="@Url.Action("AmenityAdd","Amenity")"><input id="btnAdd" type="button" value="ADD NEW AMENITY" class="btn btn-success" /></a>
+	</div>
+
+
 	<div id="auerror" class="alert alert-danger collapse">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>Error!</strong> There is a problem updating the Amenity

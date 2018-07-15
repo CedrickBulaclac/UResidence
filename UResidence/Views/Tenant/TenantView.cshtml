@@ -6,11 +6,7 @@
 
 <h2>List of Tenant</h2>
 
-<div class="btn-link">
 
-	<a href="@Url.Action("TenantAdd","Tenant")"><input id="btnAdd" type="button" value="ADD NEW TENANT" class="btn btn-success" /></a>
-
-</div>
 <hr />
 @using (Html.BeginForm("TenantView", "Tenant", FormMethod.Post))
 {
@@ -61,7 +57,11 @@
 
 		</table>
 	</div>
+	<div class="btn-link">
 
+		<a href="@Url.Action("TenantAdd","Tenant")"><input id="btnAdd" type="button" value="ADD NEW TENANT" class="btn btn-success" /></a>
+
+	</div>
 	<div id="auerror" class="alert alert-danger collapse">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>Error!</strong> There is a problem updating a Tenant
