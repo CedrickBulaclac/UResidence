@@ -4,11 +4,7 @@
 	ViewBag.Title = "EquipmentView";
 }
 <h2>Equipment</h2>
-<div class="btn-link">
 
-	<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" class="btn btn-success" /></a>
-
-</div>
 
 @using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
 {
@@ -57,6 +53,12 @@
 
 		</table>
 	</div>
+
+	<div class="btn-link">
+
+	<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" class="btn btn-success" /></a>
+
+</div>
 
 
 	<div id="auerror" class="alert alert-danger collapse">

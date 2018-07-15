@@ -6,34 +6,110 @@
 @using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
+
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style>
+			.button {
+				padding: 15px 25px;
+				font-size: 15px;
+				text-align: center;
+				cursor: pointer;
+				outline: none;
+				color: #fff;
+				background-color: #09442c;
+				border: none;
+				border-radius: 5px;
+			}
+
+
+
+				.button:hover {
+					background-color: #0e6742;
+				}
+		</style>
+
+
+
+
+	</head>
+
+
+
+
+
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<div class=" container ">
 	
 
+			<center>
+
+				<div class="jumbotron" style=" box-sizing:content-box; background-color:#1bc27d; max-width:500px; min-height: 290px; margin: 30px auto;">
 
 
-<center>
-	<h2> Choose Date </h2>
-	<div class="form-group">
-		StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+					<font face="Helvetica">
+						<font color="black">
 
-		<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
+							<br />
+
+							<h2>Choose Date</h2>
+
+							<hr />
+
+							<div class="text-center">
+
+								<br />
+								<font color="black">StartTime :</font>
+
+								<font color="black">
+									<input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+
+									<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
+								</font>
 
 
-		<br />
-		EndTime :  <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
+								<br />
+								<font color="black">EndTime :</font>
 
-		<input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+								<font color="black">
+									<input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
+
+									<input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+								</font>
 
 
-		<br />
-		Rate : <input type="text" id="rate" class="form-group" disabled="disabled" />
-		<input type="hidden" id="stime" name="stime" />
-		<input type="hidden" id="etime" name="etime" />
-		<input type="hidden" id="tratee" name="tratee" />
-		<br />
-		<button type="submit" class="btn btn-default" onclick="Check()">Next</button>
-	</div>
-</center>
+								<br />
+
+								<font color="black">Rate :</font>
+
+								<font color="black">
+									<input type="text" id="rate" class="form-group" disabled="disabled" />
+									
+									<input type="hidden" id="stime" name="stime" />
+									<input type="hidden" id="etime" name="etime" />
+									<input type="hidden" id="tratee" name="tratee" /></font>
+									<br />
+									<button name="submit" type="submit" button class="button" onclick="Check()"  > Next</button>
+							</div>
+
+							</font>
+						</font>
+				</div>
+
+			</center>
+		</div>
+
+
 }
+
 <script type="text/javascript">
 	var startTime;
 	var endTime;
@@ -91,7 +167,7 @@
 				startDate = selectedValue;
 				endDate = selectedValue;
 				var q = new Date();
-				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;	
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
 				if (startDate < MyDateString)
 				{
 					alert("the input is earlier than today");

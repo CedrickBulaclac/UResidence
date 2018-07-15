@@ -5,11 +5,7 @@
 }
 
 <h2>Admin</h2>
-<div class="btn-link">
 
-	<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" class="btn btn-success" /></a>
-
-</div>
 <hr />
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
@@ -50,6 +46,12 @@
 				}
 			</tbody>
 		</table>
+	</div>
+
+	<div class="btn-link">
+
+		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" class="btn btn-success" /></a>
+
 	</div>
 
 	<div id="auerror" class="alert alert-danger collapse">

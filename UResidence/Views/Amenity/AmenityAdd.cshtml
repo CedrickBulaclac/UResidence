@@ -2,122 +2,300 @@
 @model UResidence.Amenity
 
 @{
-    ViewBag.Title = "AmenityAdd";
-}
-
-<h2>Amenity</h2>
-@using (Html.BeginForm("AmenityAdd", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-	<hr />
-	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-	<div class="form-group">
-		@Html.LabelFor(model => model.AmenityName, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			@Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-			@Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
-		</div>
-	</div>
-	<div class="form-group">
-		@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-			@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-		</div>
-	</div>
-
-	<div class="form-group">
-		@Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-			@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-		</div>
-	</div>
-	<div class="form-group">
-		@Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-			@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-		</div>
-	</div>
-	<div class="form-group">
-		@Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			<input type="file" id="image" name="image" />
-			@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
-		</div>
-	</div>
-
-	<div class="form-group">
-		@Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
-		<div class="col-md-10">
-			@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-			@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
-		</div>
-	</div>
-
-	<div class="form-group">
-		<div class="col-md-offset-2 col-md-10">
-			<input id="btnSave" type="submit" value="Save" class="btn btn-default" />
-			<a href="AmenityView" class="btn btn-default">Cancel</a>
-		</div>
-	</div>
-</div>
-    <div id="aerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> @ViewBag.ErrorMessages;
-    </div>
-    <div id="asuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully added the Amenity
-    </div>
-
-    if (ViewBag.Message != null)
-    {
-        if (ViewBag.Message == true)
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-
-                    $('#asuccess').show('fade');
-
-                    setTimeout(function () {
-                        $('#asuccess').hide('fade');
-                    }, 2000);
-
-
-                });
-            </script>
-        }
-        else
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
-
-                    $('#aerror').show('fade');
-
-                    setTimeout(function () {
-                        $('#aerror').hide('fade');
-                    }, 2000);
-
-
-                });
-            </script>
-        }
-
-    }
-
-
+	ViewBag.Title = "AmenityAdd";
+	
 }
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 
-}
+<html>
+
+<head>
+
+
+
+	<style>
+
+		.col-25 {
+			float: left;
+			width: 25%;
+			margin-top: 6px;
+		}
+
+
+		.col-75 {
+			float: left;
+			width: 75%;
+			margin-top: 6px;
+		}
+
+		label {
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.button {
+			padding: 15px 25px;
+			font-size: 15px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #18ac6f;
+			border: none;
+			border-radius: 5px;
+		}
+
+
+
+			.button:hover {
+				background-color: #46bc8b;
+			}
+	</style>
+</head>
+
+
+<body>
+
+	<br />
+	<br />
+	<br />
+
+	<h2>Amenity</h2>
+	@using (Html.BeginForm("AmenityAdd", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-horizontal">
+			<hr />
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.AmenityName, htmlAttributes: new { @class = "" })
+					<div class="container">
+						@Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Amenity Name">Amenity Name :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "" })
+					<div class="container">
+						@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Description">Description :</label>
+
+				</div>
+
+				<div class="col-75">
+
+					@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+					<p>
+						<label>Capacity :</label>
+					</p>
+				</div>
+
+				<div class="col-75">
+
+					@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+					<p>
+						<label>Rate :</label>
+					</p>
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						<input type="file" id="image" name="image" />
+						@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+					<p>
+						<label>Upload an Image :</label>
+					</p>
+				</div>
+
+				<div class="col-75">
+					<input type="file" id="image" name="image" />
+					@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="form-group">
+					@Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+					<p>
+						<label>Color :</label>
+					</p>
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+
+
+
+
+			<input id="btnSave" type="submit" value="Save" class="button" />
+			<a href="AmenityView" class="button" value="Cancel">Cancel</a>
+		</div>
+
+
+
+
+		<div id="aerror" class="alert alert-danger collapse">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>Error!</strong> @ViewBag.ErrorMessages;
+		</div>
+		<div id="asuccess" class="alert alert-success collapse">
+			<strong>Success!</strong> You have successfully added the Amenity
+		</div>
+
+		if (ViewBag.Message != null)
+		{
+			if (ViewBag.Message == true)
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#asuccess').show('fade');
+
+						setTimeout(function () {
+							$('#asuccess').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+			else
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#aerror').show('fade');
+
+						setTimeout(function () {
+							$('#aerror').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
+
+		}
+
+
+	}
+
+
+	@section Scripts {
+		@Scripts.Render("~/bundles/jqueryval")
+
+	}
+</body>
+</html>

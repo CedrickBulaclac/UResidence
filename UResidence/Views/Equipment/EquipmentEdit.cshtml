@@ -1,111 +1,245 @@
 ﻿@model UResidence.Equipment
 
-@using (Html.BeginForm("EquipmentEdit", "Equipment", FormMethod.Post, new { enctype="multipart/form-data"}))
-{
-	@Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-	<h4>Equipment</h4>
-	<div class="btn-link">
-	
-	</div>
-
-	<hr />
 
 
-    <div class="form-horizontal">
+<html>
+
+<head>
 
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-                <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" ,@required="required"} })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stocks, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<style>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" id="image" name="image" value="@Model.Url" />
-                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-</div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                <a href="@Url.Action("EquipmentView","Equipment")"><input id="btnBack" type="button" value="Cancel" class="btn btn-default" /></a>
-            </div>
-        </div>
-
-
-    </div>
-
-	<div id="aerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem Updating the Equipment
-	</div>
-	<div id="asuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully updated the Equipment
-	</div>
-	if (ViewBag.UpdateMessage != null)
-	{
-		if (ViewBag.UpdateMessage == true)
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-                $(document).ready(function () {
-
-                    $('#asuccess').show('fade');
-
-                    setTimeout(function () {
-                        $('#asuccess').hide('fade');
-                    }, 2000);
-
-
-                });
-			</script>
+		.col-25 {
+			float: left;
+			width: 25%;
+			margin-top: 6px;
 		}
 
-		else
+
+		.col-75 {
+			float: left;
+			width: 75%;
+			margin-top: 6px;
+		}
+
+		label {
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.button {
+			padding: 15px 25px;
+			font-size: 15px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #18ac6f;
+			border: none;
+			border-radius: 5px;
+		}
+
+
+
+			.button:hover {
+				background-color: #46bc8b;
+			}
+	</style>
+</head>
+
+<body>
+
+
+
+
+
+	<br />
+	<br />
+	<br />
+
+	@using (Html.BeginForm("EquipmentEdit", "Equipment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		@Html.AntiForgeryToken()
+
+
+
+
+
+		<div class="form-horizontal">
+			<h4>Equipment</h4>
+			<div class="btn-link">
+
+			</div>
+
+			<hr />
+
+
+			
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				@Html.HiddenFor(model => model.Id)
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Name">Name :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+					</div>
+				</div>
+
+
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Stocks, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Stocks">Stocks :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Rate">Rate :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							<input type="file" id="image" name="image" value="@Model.Url" />
+							@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Rates">Rates :</label>
+
+					</div>
+
+					<div class="col-75">
+						<input type="file" id="image" name="image" value="@Model.Url" />
+						@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<input type="submit" value="Save" class="button" />
+			<a href="@Url.Action("EquipmentView","Equipment")"><input id="btnBack" type="button" value="Cancel" class="button" /></a>
+		
+
+
+		<div id="aerror" class="alert alert-danger collapse">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<strong>Error!</strong> There is a problem Updating the Equipment
+		</div>
+		<div id="asuccess" class="alert alert-success collapse">
+			<strong>Success!</strong> You have successfully updated the Equipment
+		</div>
+		if (ViewBag.UpdateMessage != null)
 		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-                $(document).ready(function () {
+			if (ViewBag.UpdateMessage == true)
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
 
-                    $('#aerror').show('fade');
+						$('#asuccess').show('fade');
 
-                    setTimeout(function () {
-                        $('#aerror').hide('fade');
-                    }, 2000);
+						setTimeout(function () {
+							$('#asuccess').hide('fade');
+						}, 2000);
 
 
-                });
-			</script>
+					});
+				</script>
+			}
+
+			else
+			{
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				</script>
+				<script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#aerror').show('fade');
+
+						setTimeout(function () {
+							$('#aerror').hide('fade');
+						}, 2000);
+
+
+					});
+				</script>
+			}
 		}
 	}
-}
-
+</body>
+</html>

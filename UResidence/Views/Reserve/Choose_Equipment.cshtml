@@ -6,62 +6,242 @@
 	Layout = "~/Views/Reserve/Layout.cshtml";
 }
 
-<center>
-    <h2>Reserve Equipment</h2>
 
 
-    @{int ctr3 = 0;
-        if (equip1.Count > 0)
-        {
-            foreach (var eqp in equip1)
-            {
-                <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                <label class="form-control text-center">@eqp.Name</label>
-                <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
-                <label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
-                <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
-                <br />
-                ctr3++;
-            }
-        }
-        else if (equip.Count > 0)
-        {
-            foreach (var eqp in equip)
-            {
-                <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                <label class="form-control text-center">@eqp.Name</label>
-                <label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
-                <label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
-                <label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
-                <br />
-                ctr3++;
-            }
-        }
-    }
-    <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-    <a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="btn btn-default" onclick="SET()">NEXT</button></a>
 
-</center>
-<script type="text/javascript">
-    var id=[null]
-	var rate = [null];
-	var quantity = [null];
-	var total = [null];
-	var ttotal = 0;
-	var txtctr = parseInt($('#txtctr').val());
-	var quane;
-	
+<html>
 
-	function SET() {
-        for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
-            id[pppp] = $('#eid' + pppp).val();
-			quantity[pppp] = $('#txtQuantity' + pppp).val();
-			rate[pppp] = $('#txtRate' + pppp).val();
-			total[pppp] = quantity[pppp] * rate[pppp];
-			var ttotal = ttotal + total[pppp];
+<head>
+
+
+
+	<style>
+
+		.col-25 {
+			float: left;
+			width: 25%;
+			margin-top: 6px;
 		}
-		$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
-		
-    }
 
-</script>
+
+		.col-75 {
+			float: left;
+			width: 75%;
+			margin-top: 6px;
+		}
+
+		label {
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.button {
+			padding: 15px 25px;
+			font-size: 15px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #09442c;
+			border: none;
+			border-radius: 5px;
+		}
+
+
+
+			.button:hover {
+				background-color: #0e6742;
+			}
+	</style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+	<center>
+
+		<div class="jumbotron" style=" box-sizing:content-box; background-color:#1bc27d; max-width:500px; min-height: 290px; margin: 30px auto;">
+			<h2>Reserve Equipment</h2>
+
+
+			@{int ctr3 = 0;
+				if (equip1.Count > 0)
+				{
+					foreach (var eqp in equip1)
+					{
+						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+
+						<label class=" text-center">@eqp.Name</label>
+
+						@*<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+					<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+					<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>*@
+
+
+
+						<!---Quantity-->
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Quantity">Quantity :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+
+
+							</div>
+						</div>
+
+
+						<!---Stocks-->
+
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Stocks">Stocks :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+
+
+							</div>
+						</div>
+
+						<!--Rate-->
+
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Rate">Rate :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })
+
+
+							</div>
+						</div>
+
+						<br />
+
+						ctr3++;
+					}
+				}
+				else if (equip.Count > 0)
+				{
+					foreach (var eqp in equip)
+					{
+						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+						<label class="text-center">@eqp.Name</label>
+						@*<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+					<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+					<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>*@
+
+
+
+						<!---Quantity-->
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Quantity">Quantity :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+
+
+							</div>
+						</div>
+
+
+						<!---Stocks-->
+
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Stocks">Stocks :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+
+
+							</div>
+						</div>
+
+						<!--Rate-->
+
+						<div class="row">
+							<div class="col-25">
+
+								<label for="Rate">Rate :</label>
+
+							</div>
+
+							<div class="col-75">
+								@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })
+
+
+							</div>
+						</div>
+
+
+
+
+
+
+						<br />
+
+
+
+						ctr3++;
+					}
+				}
+			}
+			<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+			<a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="button" onclick="SET()">NEXT</button></a>
+		</div>
+	</center>
+	<script type="text/javascript">
+		var id = [null]
+		var rate = [null];
+		var quantity = [null];
+		var total = [null];
+		var ttotal = 0;
+		var txtctr = parseInt($('#txtctr').val());
+		var quane;
+
+
+		function SET() {
+			for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+				id[pppp] = $('#eid' + pppp).val();
+				quantity[pppp] = $('#txtQuantity' + pppp).val();
+				rate[pppp] = $('#txtRate' + pppp).val();
+				total[pppp] = quantity[pppp] * rate[pppp];
+				var ttotal = ttotal + total[pppp];
+			}
+			$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
+
+		}
+
+	</script>
+	</body>
+</html>

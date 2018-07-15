@@ -5,147 +5,361 @@
 
 }
 
-<h2>New Owner</h2>
+<html>
 
-@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+<head>
 
-<div class="form-horizontal">
 
-	<hr />
-	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group">
+	<style>
 
-				@Html.LabelFor(model => model.Fname, "First Name")
+		.col-25 {
+			float: left;
+			width: 25%;
+			margin-top: 6px;
+		}
 
-				@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+		.col-75 {
+			float: left;
+			width: 75%;
+			margin-top: 6px;
+		}
+
+		label {
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.button {
+			padding: 15px 25px;
+			font-size: 15px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #18ac6f;
+			border: none;
+			border-radius: 5px;
+		}
+
+
+
+			.button:hover {
+				background-color: #46bc8b;
+			}
+	</style>
+</head>
+
+
+<body>
+
+	<br />
+	<br />
+	<br />
+
+	<h2>New Owner</h2>
+
+	@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post))
+	{
+		@Html.AntiForgeryToken()
+
+
+
+		<div class="form-horizontal">
+
+			<hr />
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+			@*<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+
+						@Html.LabelFor(model => model.Fname, "First Name")
+
+						@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+					</div>
+
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="First Name">First Name :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="col-md-4">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Mname, "Middle Name")
+
+						@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Middle Name">Middle Name :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="col-md-4">
+						<div class="form-group">
+							@Html.LabelFor(model => model.Lname, "Last Name")
+
+							@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Last Name">Last Name :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						@Html.LabelFor(model => model.Bdate, "Birthday")
+
+						@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Birth Date">Birthdate :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+
+
+			@*<div class="col-md-4">
+					<div class="form-group">
+						@Html.LabelFor(model => model.CelNo, "Cellphone No")
+
+						@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+					</div>
+				</div>*@
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Cel no">Cellphone no. :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+			@*<div class="col-md-4">
+						<div class="form-group">
+							@Html.LabelFor(model => model.Email, "Email")
+
+							@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>*@
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Cel no">Email Address :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Cel no">Building no. :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Cel no">Unit no. :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+					@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+
+
+				</div>
+			</div>
+
+
+			@*<div class="row">
+					<div class="col-md-2">
+
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group">
+
+							<b>Building No</b>
+							<br />
+							@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<b>Unit No</b>
+							<br />
+							@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+
+
+
+					<div class="col-md-2">
+
+					</div>
+
+				</div>*@
+
+
+			<a id="Link">Show Other Fields</a>
+			<div id="Other" hidden>
+
+				Sample : <input type="text" id="sample" />
+				Telephone :  <input type="tel" id="tel" />
+
 
 			</div>
 
-		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				@Html.LabelFor(model => model.Mname, "Middle Name")
-
-				@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				@Html.LabelFor(model => model.Lname, "Last Name")
-
-				@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
-			</div>
-		</div>
-	</div>
 
 
-	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group">
-				@Html.LabelFor(model => model.Bdate, "Birthday")
-
-				@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				@Html.LabelFor(model => model.CelNo, "Cellphone No")
-
-				@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				@Html.LabelFor(model => model.Email, "Email")
-
-				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-			</div>
-		</div>
-	</div>
 
 
-	<div class="row">
-		<div class="col-md-2">
+			<a id="uLink" hidden>Hide Other Fields</a>
+			<br />
+			<br />
+			<input type="submit" value="Save" class="button" />
+			<input type="reset" value="Reset" class="button" />
+			<a href="OwnerView" class="button">Cancel</a>
+
 
 		</div>
 
-		<div class="col-md-4">
-			<div class="form-group">
+	}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+	</script>
+	<script type="text/javascript">
 
-				<b>Building No</b>
-				<br />
-				@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="form-group">
-				<b>Unit No</b>
-				<br />
-				@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-			</div>
-		</div>
+		$("#Link").click(function () {
+			$("#Other").show();
+			$("#Link").hide();
+			$("#uLink").show();
+		});
+		$("#uLink").click(function () {
+			$("#Other").hide();
+			$("#Link").show();
+			$("#uLink").hide();
+		});
 
 
+	</script>
 
 
-		<div class="col-md-2">
-
-		</div>
-
-	</div>
-	<a id="Link">Show Other Fields</a>
-	<div id="Other" hidden>
-
-		Sample : <input type="text" id="sample" />
-		Telephone :  <input type="tel" id="tel" />
-
-	</div>
-
-	
-	
-
-	<div class="row">
-		<a id="uLink" hidden>Hide Other Fields</a>
-		<div class="col-md-12 text-center">
-			<input type="submit" value="Save" class="btn btn-default"  />
-			<input type="reset" value="Reset" class="btn btn-default" />
-			<a href="OwnerView" class="btn btn-default">Cancel</a>
-		</div>
-	</div>
-
-</div>
-
-}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-</script>
-<script type="text/javascript">
-
-                $("#Link").click(function () {
-                    $("#Other").show();
-                    $("#Link").hide();
-                    $("#uLink").show();
-    });
-    $("#uLink").click(function () {
-        $("#Other").hide();
-        $("#Link").show();
-        $("#uLink").hide();
-	});
-
-
-</script>
-
-
-
+</body>
+</html>
