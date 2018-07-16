@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-//awdawd
+
 namespace UResidence.Controllers
 {
     public class ReserveController : Controller
@@ -11,19 +11,66 @@ namespace UResidence.Controllers
         private bool status = false;
         public ActionResult SelectAmenity()
         {
-            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
-            List<Equipment> equipList = UResidence.EquipmentController.GetAll();
-            List<object> model = new List<object>();
-            model.Add(amenityList.ToList());
-            model.Add(schedList.ToList());
-            model.Add(equipList.ToList());
-            return View(model);
+           
+                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
+                List<Equipment> equipList = UResidence.EquipmentController.GetAll();
+                List<object> model = new List<object>();
+                model.Add(amenityList.ToList());
+                model.Add(schedList.ToList());
+                model.Add(equipList.ToList());
+
+                return View(model);
+          
+
         }
+        public ActionResult Home()
+        {
+
+            string s = "false";
+            if (Session["status"] is null)
+            {
+                return View();
+            }
+            else
+            {
+                if ((Session["status"]).ToString().Equals(false))
+                {
+                    s = "false";
+                }
+                else
+                {
+                    s = "true";
+                }
+                ViewBag.Status = s;
+                return View();
+            }
+           
+        }
+
         public ActionResult Amenity()
         {
-            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-            return View(amenityList);
+        Billing modelb = default(Billing);
+        int id = Convert.ToInt32(Session["UID"]);
+        string tor = (Session["TOR"]).ToString();
+        if (tor == "Owner")
+        {
+            modelb = UResidence.BillingController.GetOwner(id);
+        }
+        else if (tor == "Tenant")
+        {
+            modelb = UResidence.BillingController.GetTenant(id);
+        }
+            if (modelb.Balance > 0)
+            {
+                Session["status"] = true;
+                return RedirectToAction("Home", "Reserve");
+            }
+            else
+            {
+                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                return View(amenityList);
+            }
         }
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
@@ -48,6 +95,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Date()
         {
+            ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
         }
@@ -224,7 +272,7 @@ namespace UResidence.Controllers
                                 EquipId = Convert.ToInt32(eid[i]),
                                 Quantity = Convert.ToInt32(equantity[i]),
                                 RefNo = refno,
-                                Rate = ratee[i],
+                                Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
 
                             };
 
@@ -261,13 +309,13 @@ namespace UResidence.Controllers
 
         public JsonResult GetEvents()
         {
-            int AID = Convert.ToInt32(Session["ID"]);
-
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllA(AID);
+            string name = (Session["NAME"]).ToString();
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllA(name);
             var events = schedList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+<<<<<<< HEAD
         public ActionResult Home()
         {
             return View();
@@ -460,6 +508,9 @@ namespace UResidence.Controllers
 
 
 
+=======
+       
+>>>>>>> 1898036408ce4cf4df8d3b1078ec3df12c4b59c3
     }
 
 

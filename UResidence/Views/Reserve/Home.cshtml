@@ -3,6 +3,32 @@
 	ViewBag.Title = "Home";
 	Layout = "~/Views/Reserve/Layout.cshtml";
 }
+<<<<<<< HEAD
+<footer>
+    <div id="aaerror" class="alert alert-danger collapse">
+        <strong>Please settle your account before you can reserve.</strong>
+    </div>
+</footer>
+<script type="text/javascript">
+
+    $(document).ready(
+        function () {
+      
+            if (@ViewBag.Status == true) {
+                $('#aaerror').show('fade');
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+            }
+
+        }
+    );
+
+
+
+
+</script>
+=======
 
 
 <html>
@@ -132,3 +158,4 @@
 
 
 
+>>>>>>> af7d1efc28bddc8d9735f84d158e7d77545b6eac

@@ -169,11 +169,8 @@
     <Content Include="applogin\package\velocity.ui.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\logo.png" />
     <Content Include="Content\Log\loginbg.jpg" />
-    <Content Include="Content\WebImages\jumbo1.jpg" />
-    <Content Include="Content\WebImages\jumbo2.jpg" />
-    <Content Include="Content\WebImages\jumbo3.jpg" />
+    <Content Include="Content\Log\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -228,6 +225,7 @@
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
     <Content Include="Views\Reserve\SelectAmenity.cshtml" />
+    <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Home.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\CodeVerification.cshtml" />
@@ -240,9 +238,12 @@
     <Content Include="Views\Reserve\Choose_Date.cshtml" />
     <Content Include="Views\Reserve\Choose_Equipment.cshtml" />
     <Content Include="Views\Reserve\Summary.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Swimming.cshtml" />
     <Content Include="Views\Reserve\SummarySwimming.cshtml" />
+=======
+>>>>>>> 1898036408ce4cf4df8d3b1078ec3df12c4b59c3
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
