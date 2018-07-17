@@ -102,10 +102,14 @@
 
                             <font color="black">Rate :</font>
 
-                            <font color="black">
-                                <input type="text" id="rate" name="rate" class="form-group" readonly/>
-                                <input type="hidden" id="tratee" name="tratee" />
-                            </font>
+							<font color="black">
+								<input type="text" id="rate" name="rate" class="form-group" readonly />
+								<input type="hidden" id="tratee" name="tratee" />
+								<input type="time" id="startT" name="startT" value="08:00" hidden/>
+								<input type="time" id="endT" name="endT" value="21:00" hidden/>
+								<input type="datetime" id="stime" name="stime" hidden/>
+								<input type="datetime" id="etime" name="etime" hidden />
+							</font>
                             <br />
                             <button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
                         </div>
@@ -161,6 +165,19 @@
 					document.getElementById('sd').value = null;
 					document.getElementById('ed').value = null;
 				}
+				var timeS = document.getElementById('startT').value;
+				var dateS = selectedValue;
+				var finaldateTimeS = dateS + " " + timeS;
+				document.getElementById('stime').value = finaldateTimeS;	
+
+
+
+				var timeE = document.getElementById('endT').value;
+				var dateE = selectedValue;
+				var finaldateTimeE = dateE + " " + timeE;
+				document.getElementById('etime').value = finaldateTimeE;	
+
+
 			});
 
 		});
@@ -214,16 +231,21 @@
 
 		
 	function Check() {
-		
+
+
+s
 		var stconcat = document.getElementById('sd').value;
 		var etconcat = document.getElementById('ed').value
 		var cdrate = document.getElementById('rate').value;
+
+
 		//var a = document.getElementById('adult').value;
 		//var c = document.getElementById('child').value;
 
 
-		document.getElementById('stime').value = stconcat;
-		document.getElementById('etime').value = etconcat;
+
+		//document.getElementById('stime').value = stconcatt;
+		//document.getElementById('etime').value = etconcatt;
 		document.getElementById('tratee').value = cdrate;
 		//document.getElementById('adult').value = a;
 		//document.getElementById('child').value = c;

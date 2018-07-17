@@ -362,8 +362,8 @@ namespace UResidence.Controllers
             Session["qc"] = qc;
             Session["ar"] = ar;
             Session["cr"] = cr;
-            string sd = fc["sd"];
-            string ed = fc["ed"];
+            string sd = fc["stime"];
+            string ed = fc["etime"];
             Session["sd"] = sd;
             Session["ed"] = ed;
             string drate = fc["rate"];
