@@ -1,46 +1,46 @@
 ﻿
 @{
-	Layout = "~/Views/Reserve/Layout.cshtml";
+    Layout = "~/Views/Reserve/Layout.cshtml";
 }
 
 <h2>Calendar</h2>
 
 <style>
-	legend0 {
-		color: red;
-	}
+    legend0 {
+        color: red;
+    }
 
-	legend1 {
-		color: yellow;
-	}
+    legend1 {
+        color: yellow;
+    }
 
-	legend2 {
-		color: violet;
-	}
+    legend2 {
+        color: violet;
+    }
 
-	legend3 {
-		color: black;
-	}
-
-
-
-	.button {
-		padding: 15px 25px;
-		font-size: 15px;
-		text-align: center;
-		cursor: pointer;
-		outline: none;
-		color: #fff;
-		background-color: #0f6c45;
-		border: none;
-		border-radius: 5px;
-	}
+    legend3 {
+        color: black;
+    }
 
 
 
-		.button:hover {
-			background-color: #128153;
-		}
+    .button {
+        padding: 15px 25px;
+        font-size: 15px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #0f6c45;
+        border: none;
+        border-radius: 5px;
+    }
+
+
+
+        .button:hover {
+            background-color: #128153;
+        }
 </style>
 
 
@@ -48,22 +48,22 @@
 
 
 <div class="container">
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><span id="eventTitle"></span></h4>
-				</div>
-				<div class="modal-body">
-					<p id="pDetails"></p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -80,81 +80,87 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 
 @section scripts{
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
-	<script>
-
-
-
-		$(document).ready(function () {
-			var events = [];
-			$.ajax({
-				type: "GET",
-				url: "/Reserve/GetEvents",
-				success: function (data) {
-					$.each(data, function (i, v) {
-						events.push({
-							title: v.AmenityName,
-							start: moment(v.StartTime),
-							end: v.EndTIme != null ? moment(v.EndTIme) : null,
-							rate: v.Rate,
-							color: v.Theme
-						});
-					})
-					GenerateCalendar(events);
-				},
-				error: function (error) {
-					alert('failed');
-				}
-			})
-
-			function GenerateCalendar(events) {
-				$('#calendar').fullCalendar('destroy');
-				$('#calendar').fullCalendar({
-					contentHeight: 400,
-					defaultDate: new Date(),
-					timeFormat: 'h(:mm):a',
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,basicWeek,basicDay,agenda'
-					},
-					eventLimit: true,
-					eventColor: '#378006',
-					events: events,
-
-					eventClick: function (calEvent, jsEvent, view) {
-						$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-						var $description = $('<div/>');
-						$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
-						if (calEvent.end != null) {
-							$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
-						}
-						$description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
-						$('#myModal #pDetails').empty().html($description);
-						$('#myModal').modal();
-
-
-					},
-
-				})
-			}
-		})
+    <script>
 
 
 
-	</script>
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Reserve/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            title: v.AmenityName,
+                            start: moment(v.StartTime),
+                            end: v.EndTIme != null ? moment(v.EndTIme) : null,
+                            rate: v.Rate,
+                            color: v.Theme
+                        });
+                    })
+                    GenerateCalendar(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+            function GenerateCalendar(events) {
+                $('#calendar').fullCalendar('destroy');
+                $('#calendar').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm):a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                        }
+                        $description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
+                        $('#myModal #pDetails').empty().html($description);
+                        $('#myModal').modal();
+
+
+                    },
+
+                })
+            }
+        })
+
+
+
+    </script>
 
 
 }
 
 <br />
 <br />
-
-<font color="white"><a class="button" style="text-align:right; text-emphasis-color:aliceblue;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
-
-
+@if (ViewBag.Amenity == "Swimming Pool" || ViewBag.Amenity == "SWIMMING POOL")
+{
+    <font color="white"><a class="button" style="text-align:right; text-emphasis-color:aliceblue;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
+}
+else
+{
+    <font color="white"><a class="button" style="text-align:right; text-emphasis-color:aliceblue;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
+}
+<br />
+<br />
 <legend0><b><u> Basketball Court</u></b></legend0> &nbsp;
 <legend1><b><u>Swimming Pool</u></b></legend1>  &nbsp;
 <legend2><b><u>Gazebo</u></b></legend2> &nbsp;

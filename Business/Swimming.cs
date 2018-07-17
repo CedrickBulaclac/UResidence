@@ -16,7 +16,6 @@ namespace UResidence
         public int Adult { get; set; }
         public int Child { get; set; }
 
-
         public Swimming CreateObject(SqlDataReader reader)
         {
             Swimming ret = new Swimming();
@@ -24,6 +23,7 @@ namespace UResidence
             ret.SchedID = reader.GetInt32(1);
             ret.Adult = reader.GetInt32(2);
             ret.Child = reader.GetInt32(3);
+          
             return ret;
         }
 
@@ -33,6 +33,7 @@ namespace UResidence
             this.SchedID = 0;
             this.Adult = 0;
             this.Child = 0;
+
         }
 
 

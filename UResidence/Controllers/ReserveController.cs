@@ -11,17 +11,17 @@ namespace UResidence.Controllers
         private bool status = false;
         public ActionResult SelectAmenity()
         {
-           
-                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
-                List<Equipment> equipList = UResidence.EquipmentController.GetAll();
-                List<object> model = new List<object>();
-                model.Add(amenityList.ToList());
-                model.Add(schedList.ToList());
-                model.Add(equipList.ToList());
 
-                return View(model);
-          
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
+            List<Equipment> equipList = UResidence.EquipmentController.GetAll();
+            List<object> model = new List<object>();
+            model.Add(amenityList.ToList());
+            model.Add(schedList.ToList());
+            model.Add(equipList.ToList());
+
+            return View(model);
+
 
         }
         public ActionResult Home()
@@ -45,26 +45,34 @@ namespace UResidence.Controllers
                 ViewBag.Status = s;
                 return View();
             }
-           
+
         }
 
         public ActionResult Amenity()
         {
-        Billing modelb = default(Billing);
-        int id = Convert.ToInt32(Session["UID"]);
-        string tor = (Session["TOR"]).ToString();
-        if (tor == "Owner")
-        {
-            modelb = UResidence.BillingController.GetOwner(id);
-        }
-        else if (tor == "Tenant")
-        {
-            modelb = UResidence.BillingController.GetTenant(id);
-        }
-            if (modelb.Balance > 0)
+            Billing modelb = default(Billing);
+            int id = Convert.ToInt32(Session["UID"]);
+            string tor = (Session["TOR"]).ToString();
+            if (tor == "Owner")
             {
-                Session["status"] = true;
-                return RedirectToAction("Home", "Reserve");
+                modelb = UResidence.BillingController.GetOwner(id);
+            }
+            else if (tor == "Tenant")
+            {
+                modelb = UResidence.BillingController.GetTenant(id);
+            }
+            if (modelb != null)
+            {
+                if (modelb.Balance > 0)
+                {
+                    Session["status"] = true;
+                    return RedirectToAction("Home", "Reserve");
+                }
+                else
+                {
+                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                    return View(amenityList);
+                }
             }
             else
             {
@@ -72,6 +80,7 @@ namespace UResidence.Controllers
                 return View(amenityList);
             }
         }
+
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
@@ -90,7 +99,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
-
+            ViewBag.Amenity=(Session["NAME"]).ToString();
             return View();
         }
         public ActionResult Choose_Date()
@@ -181,8 +190,10 @@ namespace UResidence.Controllers
             ViewBag.amenname = Session["NAME"];
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
-
-
+            ViewBag.QA=Session["qa"] ;
+            ViewBag.QC = Session["qc"];
+            ViewBag.AR = Session["ar"];
+            ViewBag.CR = Session["cr"];
 
             return View(equip);
         }
@@ -210,8 +221,12 @@ namespace UResidence.Controllers
 
             };
             status = UResidence.SchedReservationController.Insert(a);
-            if (status == true)
+      
+                if (status == true)
             {
+                string amenityname = (Session["NAME"]).ToString();
+                string qa = (string)Session["qa"];
+                string qc = (string)Session["qc"];
                 SchedReservation b = new SchedReservation();
                 b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed);
                 int sid = b.Id;
@@ -221,6 +236,17 @@ namespace UResidence.Controllers
                 string mname;
                 string lname;
                 string fullname = "";
+                if (amenityname == "Swimming Pool" || amenityname == "SWIMMING POOL")
+                {
+                    Swimming swim = new Swimming
+                    {
+                        Adult = Convert.ToInt32(qa),
+                        Child = Convert.ToInt32(qc),
+                        SchedID =sid,
+                    };
+                    UResidence.SwimmingController.Insert(swim);
+
+                }
                 UResidence.Residence reside = new UResidence.Residence();
                 UResidence.Owner own = new UResidence.Owner();
                 UResidence.Tenant ten = new UResidence.Tenant();
@@ -315,11 +341,8 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-<<<<<<< HEAD
-        public ActionResult Home()
-        {
-            return View();
-        }
+
+
 
 
         public ActionResult Swimming()
@@ -331,15 +354,19 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Swimming(FormCollection fc)
         {
-            string a = fc["adult"];
-            string c = fc["child"];
-            Session["ar"] = a;
-            Session["cr"] = c;
-            string sd = fc["stime"];
-            string ed = fc["etime"];
+            string qa = fc["adult"];
+            string qc = fc["child"];
+            string ar= fc["rateadult"];
+            string cr = fc["ratechild"];
+            Session["qa"] = qa;
+            Session["qc"] = qc;
+            Session["ar"] = ar;
+            Session["cr"] = cr;
+            string sd = fc["sd"];
+            string ed = fc["ed"];
             Session["sd"] = sd;
             Session["ed"] = ed;
-            string drate = fc["tratee"];
+            string drate = fc["rate"];
             Session["drate"] = drate;
             int aid = Convert.ToInt32(Session["ID"]);
 
@@ -360,160 +387,7 @@ namespace UResidence.Controllers
         }
 
 
-        public ActionResult SummarySwimming()
-        {
-            List<Equipment> equip = UResidence.EquipmentController.GetAll();
-            string sd = (string)Session["sd"];
-            string ed = (string)Session["ed"];
-            ViewBag.start = sd;
-            ViewBag.end = ed;
-            ViewBag.ratea = Session["drate"];
-            ViewBag.amenname = Session["NAME"];
-            ViewBag.quan = Session["quantity"];
-            ViewBag.rat = Session["ratee"];
-            ViewBag.adulttt = Session["ar"];
-            ViewBag.childdd = Session["cr"];
-
-
-            return View(equip);
-        }
-
-
-        [HttpPost]
-        public ActionResult SummarySwimming(FormCollection fc)
-        {
-         //   int aaa = (int)Session["cr"];
-
-            string sd = (string)Session["sd"];
-            string ed = (string)Session["ed"];
-            string rate = (string)Session["drate"];
-            int uid = (int)Session["UID"];
-            int aid = (int)Session["ID"];
-            int adult = Convert.ToInt32(Session["ar"]);
-            int child = Convert.ToInt32(Session["cr"]);
-            
-            SchedReservation a = new SchedReservation
-            {
-                AmenityId = aid,
-                StartTime = Convert.ToDateTime(sd),
-                EndTIme = Convert.ToDateTime(ed),
-                Rate = Convert.ToInt32(rate),
-
-            };
-            status = UResidence.SchedReservationController.Insert(a);   
-            if (status == true)
-            {
-                SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed);
-                int sid = b.Id;
-                string tor = (string)Session["TOR"];
-                int UserId = (int)Session["UID"];
-                string fname;
-                string mname;
-                string lname;
-                string fullname = "";
-                UResidence.Residence reside = new UResidence.Residence();
-                UResidence.Owner own = new UResidence.Owner();
-                UResidence.Tenant ten = new UResidence.Tenant();
-                if (tor == "Owner")
-                {
-                    own = UResidence.OwnerController.GetIdOwner(UserId.ToString());
-                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());
-                    fname = RemoveWhitespace(own.Fname);
-                    mname = RemoveWhitespace(own.Mname);
-                    lname = RemoveWhitespace(own.Lname);
-                    fullname = fname + " " + mname + " " + lname;
-                }
-                else if (tor == "Tenant")
-                {
-                    ten = UResidence.TenantController.GetIdTenant(UserId.ToString());
-                    reside = UResidence.ResidenceController.GetTenantNo(UserId.ToString());
-                    fname = RemoveWhitespace(ten.Fname);
-                    mname = RemoveWhitespace(ten.Mname);
-                    lname = RemoveWhitespace(ten.Lname);
-                    fullname = fname + " " + mname + " " + lname;
-                }
-                UResidence.Reservation r = new UResidence.Reservation
-                {
-                    Rid = Convert.ToInt32(reside.Id),
-                    Sid = sid,
-                    Status = "Pending",
-                    Tor = tor,
-                    AcknowledgeBy = "",
-                    ReservedBy = fullname,
-                };
-                status = UResidence.ReservationController.Insert(r);
-                Swimming s = new Swimming()
-                {
-                    SchedID = sid,
-                    Adult = adult,
-                    Child = child
-                };
-                status = UResidence.SwimmingController.Insert(s);
-                if (status == true)
-                {
-                    UResidence.Reservation reserve = new UResidence.Reservation();
-                    reserve = UResidence.ReservationController.GetId(sid);
-                    int refno = reserve.Id;
-                    int[] equantity = (Int32[])Session["quantity"];
-                    int[] eid = (Int32[])Session["eqpid"];
-                    int[] ratee = (Int32[])Session["ratee"];
-
-                    for (int i = 0; i <= equantity.Count() - 1; i++)
-                    {
-
-                        if (Convert.ToInt32(equantity[i]) != 0)
-                        {
-                            EquipReservation er = new EquipReservation
-                            {
-
-                                EquipId = Convert.ToInt32(eid[i]),
-                                Quantity = Convert.ToInt32(equantity[i]),
-                                RefNo = refno,
-                                Rate = ratee[i],
-
-                            };
-
-                            status = UResidence.EquipReservationController.Insert(er);
-                        }
-
-                    }
-
-                    if (status == true)
-                    {
-                        Receipt rp = new Receipt
-                        {
-                            RefNo = refno,
-                            Downpayment = 0,
-                            Charge = 0,
-                            Fullpayment = 0,
-                        };
-                        status = UResidence.ReceiptController.Insert(rp);
-                        if (status == true)
-                        {
-                            Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
-
-                        }
-                    }
-
-
-
-                }
-
-            }
-            return RedirectToAction("Home", "Reserve");
-
-        }
-
-
-
-
-=======
-       
->>>>>>> 1898036408ce4cf4df8d3b1078ec3df12c4b59c3
     }
-
-
 }    
        
 

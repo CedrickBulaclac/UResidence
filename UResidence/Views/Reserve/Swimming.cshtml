@@ -67,54 +67,48 @@
 
 						<hr />
 
-						<div class="text-center">
+                        <div class="text-center">
 
-							<br />
-							<font color="black">StartTime :</font>
+                            <br />
+                            <font color="black"></font>
 
-							<font color="black">
-								<input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
-							
-							</font>
-
-							<font color="black">Adult :</font>
-
-							<font color="black">
-								<input type="number" onselect="myFunction()" class="form-group" name="adult" id="adult" min="0" max="20" required value="0">
-							</font>
-
-							<br />
-							<font color="black">EndTime :</font>
-
-							<font color="black">
-								<input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
-							</font>
+                            <font color="black">
+                                StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />      EndTime : <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
 
 
-							<font color="black">Child :</font>
+                            </font>
+                         
+                            <br />
+                            <font color="black"><label class="text-center">Adult</label></font>
+                            <br />
+                            <font color="black">
+                                Quantity : <input type="number" onselect="myFunction()" class="form-group" name="adult" id="adult" min="0" max="20" required value="0">
+                                <label>Rate :</label>
+                                <input type="text" class="form-group" name="rateadult" id="rateadult" readonly> /head
+                            </font>
+                            <br />
 
-							<font color="black">
-								<input type="number" onselect="myFunction()" class="form-group" name="child" id="child" min="0" max="20" required value="0">
-							</font>
 
+                            <br />
+                            <font color="black"><label class="text-center">Child</label></font>
+                            <br />
+                            <font color="black">
+                                Quantity :<input type="number" onselect="myFunction()" class="form-group" name="child" id="child" min="0" max="20" required value="0">
+                                <label>Rate :</label>
+                                <input type="text" class="form-group" name="ratechild" id="ratechild" readonly> /head
+                            </font>
+                            <br />
+                            <br />
 
+                            <font color="black">Rate :</font>
 
-
-							<br />
-
-							<font color="black">Rate :</font>
-
-							<font color="black">
-								<input type="text" id="rate" name="rate" class="form-group" disabled="disabled" />
-								<input type="hidden" id="stime" name="stime" />
-								<input type="hidden" id="etime" name="etime"/>
-								<input type="hidden" id="adultR" name="adultR" value="0" />
-								<input type="hidden" id="childR" name="childR" value="0" />
-								<input type="hidden" id="tratee" name="tratee" />
-							</font>
-							<br />
-							<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
-						</div>
+                            <font color="black">
+                                <input type="text" id="rate" name="rate" class="form-group" readonly/>
+                                <input type="hidden" id="tratee" name="tratee" />
+                            </font>
+                            <br />
+                            <button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
+                        </div>
 
 					</font>
 				</font>
@@ -137,11 +131,16 @@
 	var rate1=@ViewBag.Message;
 	var rateA;
 	var statuset="Valid";
-	var statusst="Valid";
+    var statusst = "Valid";
+    document.getElementById('rateadult').value = 100;
+    document.getElementById('ratechild').value = 75;
+
+
 	function ValidateDate() {
 		var x = $('#sd').val();
 		var y = $('#adult').val();
-		var z = $('#child').val();
+        var z = $('#child').val();
+       
 		if (x == " " && y == " " && z == " ") {
 			alert("Please fill up all required fields");
 		}
@@ -168,17 +167,18 @@
 
 	$(document).ready(function () {
 		$('#adult').bind('keyup mouseup',function myFunction() {
-			selectedValue1 = $('#adult').val();
-			var rateAdult = 100;
-			var result = document.getElementById('adultR');
+            selectedValue1 = $('#adult').val();
+            var rateAdult = 100;
+			var resulta = document.getElementById('adultR');
 			var fTotalA = rateAdult * selectedValue1;
 
-			result.value = fTotalA;
+            selectedValue2 = $('#child').val();
+            var rateChild = 75;
+            var resultc = document.getElementById('childR');
+            var fTotalC = rateChild * selectedValue2;
 
-			var selectedValue1 = $('#adultR').val();
-			var selectedValue2 = $('#childR').val();
 			var result = document.getElementById('rate');
-			result.value = parseInt(selectedValue1) + parseInt(selectedValue2);
+            result.value = parseInt(fTotalA) + parseInt(fTotalC);
 
 		
 		});
@@ -187,18 +187,20 @@
 
 
 	$(document).ready(function () {
-		$('#child').bind('keyup mouseup', function myFunction() {
-			selectedValue2 = $('#child').val();
-			var rateChild = 75;
-			var result = document.getElementById('childR');
-			var fTotalC = rateChild * selectedValue2;
+        $('#child').bind('keyup mouseup', function myFunction() {
 
-			result.value = fTotalC;
+            selectedValue1 = $('#adult').val();
+            var rateAdult = 100;
+            var resulta = document.getElementById('adultR');
+            var fTotalA = rateAdult * selectedValue1;
 
-			var selectedValue1 = $('#adultR').val();
-			var selectedValue2 = $('#childR').val();
-			var result = document.getElementById('rate');
-			result.value = parseInt(selectedValue1) + parseInt(selectedValue2);
+            selectedValue2 = $('#child').val();
+            var rateChild = 75;
+            var resultc = document.getElementById('childR');
+            var fTotalC = rateChild * selectedValue2;
+
+            var result = document.getElementById('rate');
+            result.value = parseInt(fTotalA) + parseInt(fTotalC);
 
 
 		});
