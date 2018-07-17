@@ -3,35 +3,7 @@
 	ViewBag.Title = "Home";
 	Layout = "~/Views/Reserve/Layout.cshtml";
 }
-<<<<<<< HEAD
-<footer>
-    <div id="aaerror" class="alert alert-danger collapse">
-        <strong>Please settle your account before you can reserve.</strong>
-    </div>
-</footer>
-<script type="text/javascript">
 
-    $(document).ready(
-        function () {
-      
-            if (@ViewBag.Status == true) {
-                $('#aaerror').show('fade');
-                setTimeout(function () {
-                    $('#aaerror').hide('fade');
-                }, 2000);
-            }
-
-        }
-    );
-
-
-
-
-</script>
-=======
-
-
-<html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -50,7 +22,25 @@
 </header>
 
 
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                   
+                </div>
+                <div class="modal-body">
+                    <strong>Please settle your account before you can reserve.</strong>
+                </div>
 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- About Us -->
@@ -149,13 +139,22 @@
 
 <!-- Footer -->
 <footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white">
-
-	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+    <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 </footer>
+ 
+      
 
-</body>
-</html>
+<script type="text/javascript">
 
 
+    $(document).ready(
+        function () {
 
->>>>>>> af7d1efc28bddc8d9735f84d158e7d77545b6eac
+            if (@ViewBag.Status == true) {
+                $('#myModal').modal();
+            }
+
+        }
+    );
+
+</script>
