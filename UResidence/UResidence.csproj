@@ -238,6 +238,12 @@
     <Content Include="Views\Reserve\Choose_Date.cshtml" />
     <Content Include="Views\Reserve\Choose_Equipment.cshtml" />
     <Content Include="Views\Reserve\Summary.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Reserve\Layout.cshtml" />
+    <Content Include="Views\Reserve\Swimming.cshtml" />
+    <Content Include="Views\Reserve\SummarySwimming.cshtml" />
+=======
+>>>>>>> 1898036408ce4cf4df8d3b1078ec3df12c4b59c3
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

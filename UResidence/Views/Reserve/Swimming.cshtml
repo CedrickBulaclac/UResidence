@@ -1,0 +1,233 @@
+﻿
+@{
+	ViewBag.Title = "Swimming";
+	Layout = "~/Views/Reserve/Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Swimming", "Reserve", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style>
+			.button {
+				padding: 15px 25px;
+				font-size: 15px;
+				text-align: center;
+				cursor: pointer;
+				outline: none;
+				color: #fff;
+				background-color: #09442c;
+				border: none;
+				border-radius: 5px;
+			}
+
+
+
+				.button:hover {
+					background-color: #0e6742;
+				}
+		</style>
+
+
+
+
+	</head>
+
+
+
+
+
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<div class=" container ">
+
+
+		<center>
+
+			<div class="jumbotron" style=" box-sizing:content-box; background-color:#1bc27d; max-width:500px; min-height: 290px; margin: 30px auto;">
+
+
+				<font face="Helvetica">
+					<font color="black">
+
+						<br />
+
+						<h2>Choose Date</h2>
+
+						<hr />
+
+						<div class="text-center">
+
+							<br />
+							<font color="black">StartTime :</font>
+
+							<font color="black">
+								<input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+							
+							</font>
+
+							<font color="black">Adult :</font>
+
+							<font color="black">
+								<input type="number" onselect="myFunction()" class="form-group" name="adult" id="adult" min="0" max="20" required value="0">
+							</font>
+
+							<br />
+							<font color="black">EndTime :</font>
+
+							<font color="black">
+								<input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
+							</font>
+
+
+							<font color="black">Child :</font>
+
+							<font color="black">
+								<input type="number" onselect="myFunction()" class="form-group" name="child" id="child" min="0" max="20" required value="0">
+							</font>
+
+
+
+
+							<br />
+
+							<font color="black">Rate :</font>
+
+							<font color="black">
+								<input type="text" id="rate" name="rate" class="form-group" disabled="disabled" />
+								<input type="hidden" id="stime" name="stime" />
+								<input type="hidden" id="etime" name="etime"/>
+								<input type="hidden" id="adultR" name="adultR" value="0" />
+								<input type="hidden" id="childR" name="childR" value="0" />
+								<input type="hidden" id="tratee" name="tratee" />
+							</font>
+							<br />
+							<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
+						</div>
+
+					</font>
+				</font>
+			</div>
+
+		</center>
+	</div>
+
+
+}
+
+<script type="text/javascript">
+	var startTime;
+	var endTime;
+	var selectedValue;
+	var startT;
+	var endT;
+	var startDate;
+	var endDate;
+	var rate1=@ViewBag.Message;
+	var rateA;
+	var statuset="Valid";
+	var statusst="Valid";
+	function ValidateDate() {
+		var x = $('#sd').val();
+		var y = $('#adult').val();
+		var z = $('#child').val();
+		if (x == " " && y == " " && z == " ") {
+			alert("Please fill up all required fields");
+		}
+	}
+	
+	$(document).ready(
+		function () {
+			$('#sd').change(function () {
+				selectedValue = $(this).val();
+				document.getElementById('ed').value = selectedValue;
+				startDate = selectedValue;
+				endDate = selectedValue;
+				var q = new Date();
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+				if (startDate < MyDateString)
+				{
+					alert("the input is earlier than today");
+					document.getElementById('sd').value = null;
+					document.getElementById('ed').value = null;
+				}
+			});
+
+		});
+
+	$(document).ready(function () {
+		$('#adult').bind('keyup mouseup',function myFunction() {
+			selectedValue1 = $('#adult').val();
+			var rateAdult = 100;
+			var result = document.getElementById('adultR');
+			var fTotalA = rateAdult * selectedValue1;
+
+			result.value = fTotalA;
+
+			var selectedValue1 = $('#adultR').val();
+			var selectedValue2 = $('#childR').val();
+			var result = document.getElementById('rate');
+			result.value = parseInt(selectedValue1) + parseInt(selectedValue2);
+
+		
+		});
+	});
+
+
+
+	$(document).ready(function () {
+		$('#child').bind('keyup mouseup', function myFunction() {
+			selectedValue2 = $('#child').val();
+			var rateChild = 75;
+			var result = document.getElementById('childR');
+			var fTotalC = rateChild * selectedValue2;
+
+			result.value = fTotalC;
+
+			var selectedValue1 = $('#adultR').val();
+			var selectedValue2 = $('#childR').val();
+			var result = document.getElementById('rate');
+			result.value = parseInt(selectedValue1) + parseInt(selectedValue2);
+
+
+		});
+	});
+	
+
+
+
+
+
+
+		
+	function Check() {
+		
+		var stconcat = document.getElementById('sd').value;
+		var etconcat = document.getElementById('ed').value
+		var cdrate = document.getElementById('rate').value;
+		//var a = document.getElementById('adult').value;
+		//var c = document.getElementById('child').value;
+
+
+		document.getElementById('stime').value = stconcat;
+		document.getElementById('etime').value = etconcat;
+		document.getElementById('tratee').value = cdrate;
+		//document.getElementById('adult').value = a;
+		//document.getElementById('child').value = c;
+
+		
+	}
+
+
+</script>
