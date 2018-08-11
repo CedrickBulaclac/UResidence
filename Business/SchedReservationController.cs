@@ -48,7 +48,7 @@ namespace UResidence
         }
         public static List<SchedReservation> GetAllA(string name)
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color from [tbSchedReservation] a full join [tbAmenity] b on a.AmenityId=b.Id where AmenityName=@name and a.Id is not null";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color from [tbSchedReservation] a full join [tbAmenity] b on a.AmenityId=b.Id inner join tbReservationForm c on a.Id=c.SchedId where AmenityName=@name and a.Id is not null and Status='Reserved'";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -101,15 +101,16 @@ namespace UResidence
         }
 
 
-        public static SchedReservation GetAmenityNo(string ano, string sd, string ed)
+        public static SchedReservation GetAmenityNo(string ano, string sd, string ed,DateTime date)
         {
-            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityId = @AmenityId and StartTime = @StartTime and EndTime = @EndTime";
+            const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityId = @AmenityId and StartTime = @StartTime and EndTime = @EndTime and Date = @Date";
 
             SchedReservation ret = default(SchedReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@AmenityId", ano));
             com.Parameters.Add(new SqlParameter("@StartTime", sd));
             com.Parameters.Add(new SqlParameter("@EndTime", ed));
+            com.Parameters.Add(new SqlParameter("@Date", date));
             ret = SqlManager.Select<SchedReservation>(com).First();
 
             return ret;
@@ -150,14 +151,14 @@ namespace UResidence
 
         public static bool Insert(SchedReservation usr)
         {
-            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate) values (@AmenityId ,@StartTime,@EndTIme , @Rate)";
+            const string GET_INSERT = @"insert [tbSchedReservation] (AmenityId,StartTime, EndTIme, Rate,Date) values (@AmenityId ,@StartTime,@EndTIme , @Rate,@Date)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@AmenityId", usr.AmenityId));
             com.Parameters.Add(new SqlParameter("@StartTime", usr.StartTime));
             com.Parameters.Add(new SqlParameter("@EndTIme", usr.EndTIme));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));
-  
+            com.Parameters.Add(new SqlParameter("@Date", usr.Date));
 
             return SqlManager.ExecuteNonQuery(com);
         }
