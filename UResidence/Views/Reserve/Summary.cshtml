@@ -69,131 +69,170 @@
 				}
 		</style>
 	</head>
-
-	<h2>Summary</h2>
-    <div class="container">
-        <input type="hidden" id="ida" name="ida" />
-        <input type="hidden" id="thm" name="thm" />
-        <br />
-
-        <div class="col-75">
-            <label for="AmenityName">Amenity Name :</label>
-        </div>
-
-        <div class="input">
-            <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
-        </div>
+    <body>
+        <div>
+            <div class="progress" style="width:860px;">
+                <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                     aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                    <a href="@Url.Action("Amenity","Reserve")">Choose Amenity</a>
+                </div>
 
 
-
-        <br />
-
-        <div class="col-75">
-            <label for="Schedule">Schedule :</label>
-
-        </div>
-
-        <div class="input">
-            <input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
-        </div>
+                <div class="progress-bar progress-bar-success  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <a href="@Url.Action("Calendar","Reserve")">Scheduled Amenity</a>
+                </div>
 
 
-        <input type="hidden" id="sta" name="sta" />
-        <input type="hidden" id="eta" name="eta" />
-        <br />
+                <div class="progress-bar progress-bar-success " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <a href="@Url.Action("Choose_Date","Reserve")">Choose Date</a>
+                </div>
 
-        @if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
-        {
-            <div class="col-75">
-
-                <label>No. of Adult :</label><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"> <label>Rate :</label> <input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled">
-                <br />
-                <br />
-                <label> No. of Children :</label><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"> <label>Rate :</label> <input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled">
+                <div class="progress-bar progress-bar-success " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <a href="@Url.Action("Choose_Equipment","Reserve")">Choose Equipment</a>
+                </div>
+                <div class="progress-bar progress-bar-success progress-bar-striped active  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    Summary
+                </div>
             </div>
-        }
-        else
-        {
-            <div class="col-75">
-                <label for="Price" name="lprice" id="lprice">Price :</label>
-            </div>
+        </div>
+
+
+
+        <h2>Summary</h2>
+        <div class="container">
+            <input type="hidden" id="ida" name="ida" />
+            <input type="hidden" id="thm" name="thm" />
             <br />
-            <input type="text" class="input" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
-            <input type="hidden" id="ap" name="ap" />
 
-        }
-        <br />
-        <br />
+            <div class="col-75">
+                <label for="AmenityName">Amenity Name :</label>
+            </div>
 
-
-
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        @{
+            <div class="input">
+                <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
+            </div>
 
 
 
-            int ctr4 = 0;
+            <br />
+
+            <div class="col-75">
+                <label for="Schedule">Schedule :</label>
+
+            </div>
+
+            <div class="input">
+                <input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
+            </div>
 
 
+            <input type="hidden" id="sta" name="sta" />
+            <input type="hidden" id="eta" name="eta" />
+            <br />
 
-
-            foreach (var eqp in Model)
+            @if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
             {
+                <div class="col-75">
 
-                if (ViewBag.quan[ctr4] != 0)
-                {
-
-                    <div class="col-75">
-                        <label class="  text-center">@eqp.Name</label>
-                    </div>
-
-                    <div class="col-75">
-                        <label for="Quantity">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
-                    </div>
-
-                    <div class="col-75">
-                        <label for="Rate">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
-                    </div>
-
-                    <div class="col-75">
-                        <label for="SubTotal">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
-                    </div>
-
+                    <label>No. of Adult :</label><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"> <label>Rate :</label> <input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled">
                     <br />
-                }
-                else if (ViewBag.quan[ctr4] is null)
-                {
-
-                }
-
-
-                ctr4++;
+                    <br />
+                    <label> No. of Children :</label><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"> <label>Rate :</label> <input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled">
+                </div>
+            }
+            else
+            {
+                <div class="col-75">
+                    <label for="Price" name="lprice" id="lprice">Price :</label>
+                </div>
+                <br />
+                <input type="text" class="input" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
+                <input type="hidden" id="ap" name="ap" />
 
             }
+            <br />
+            <br />
 
-        }
-        <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
 
-        <div class="col-75">
-            <label for="totalamount">Total Amount :</label><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
+
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            @{
+
+
+
+                int ctr4 = 0;
+
+
+
+
+                foreach (var eqp in Model)
+                {
+
+                    if (ViewBag.quan[ctr4] != 0)
+                    {
+
+                        <div class="col-75">
+                            <label class="  text-center">@eqp.Name</label>
+                        </div>
+
+                        <div class="col-75">
+                            <label for="Quantity">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
+                        </div>
+
+                        <div class="col-75">
+                            <label for="Rate">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
+                        </div>
+
+                        <div class="col-75">
+                            <label for="SubTotal">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
+                        </div>
+
+                        <br />
+                    }
+                    else if (ViewBag.quan[ctr4] is null)
+                    {
+
+                    }
+
+
+                    ctr4++;
+
+                }
+
+            }
+            <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+
+            <div class="col-75">
+                <label for="totalamount">Total Amount :</label><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
+            </div>
+
+            <br />
+
+
+            <button id="btnSubmit" name="btnSubmit" class="button" type="submit" style="float:left;">Submit</button>
+
+
         </div>
 
-        <br />
+
+    </body>
 
 
-        <button id="btnSubmit" name="btnSubmit" class="button" type="submit" style="float:left;">Submit</button>
 
 
-    </div>
 
     <script>
       var ctr = parseInt($('#txtctrr').val());

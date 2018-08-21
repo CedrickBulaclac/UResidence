@@ -12,18 +12,48 @@
 @using (Html.BeginForm("Amenity", "Reserve", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-	<center>
+<center>
 
-		<br/>
-		<br/>
+    <br />
+    <br />
+    <div>
+        <div class="progress" style="width:860px;">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="20"
+                 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                Choose Amenity
+            </div>
 
-		<h2>Amenity</h2>
-	</center>
+
+            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+             Scheduled Amenity
+            </div>
+
+
+            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+              Choose Date
+            </div>
+
+            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+             Choose Equipment
+            </div>
+            <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+               Summary
+            </div>
+        </div>
+       
+
+    </div>
+    <h2>Amenity</h2>
+</center>
 
 	<input type="hidden" name="ida" id="ida" />
 	<input type="hidden" name="ratea" id="ratea" />
 	<input type="hidden" name="namea" id="namea" />
-
+    
     <center>
         <table>
             <tr>
@@ -35,20 +65,23 @@
                         ctr++;
                         if (ctr <= 3)
                         {
-                            <td style="border: 1px solid #ddd; padding: 8px;">
+                <td style="border: 1px solid #ddd; padding: 8px;">
 
 
-                                <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg" >@Html.Image(amn.Url)  </button>
-                                <br />
-                                @Html.LabelFor(model => amn.AmenityName, "Name")
-                                @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-                                <br />
-                                @Html.LabelFor(model => amn.Description)
-                                @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                <br />
-                                @Html.LabelFor(model => amn.Rate)
-                                @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                            </td>
+                    <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)  </button>
+                    <br />
+                    @Html.LabelFor(model => amn.AmenityName, "Name")
+                    @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+                    <br />
+                    @Html.LabelFor(model => amn.Description)
+                    @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <br />
+                    @Html.LabelFor(model => amn.Rate)
+                    @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <br />
+                    @Html.LabelFor(model => amn.Capacity)
+                    @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </td>
                         }
                         else
                         {
@@ -66,6 +99,9 @@
                                 <br />
                                 @Html.LabelFor(model => amn.Rate)
                                 @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                <br />
+                                @Html.LabelFor(model => amn.Capacity)
+                                @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                             </td>
                         </tr>
 
