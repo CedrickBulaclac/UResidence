@@ -16,6 +16,7 @@ namespace UResidence
         public int Id { get; set; }
         public string AmenityName { get; set; }
         public string Theme { get; set; }
+        public DateTime Date { get; set; }
         public List<Amenity> amenityList{get; set;}
 
         public void Reset()
@@ -25,6 +26,7 @@ namespace UResidence
             this.EndTIme = DateTime.Today;
             this.Rate = 0;
             this.Id = 0;
+            this.Date = DateTime.Now;
             this.Theme = "Default";
         }
         public string RemoveWhitespace(string str)

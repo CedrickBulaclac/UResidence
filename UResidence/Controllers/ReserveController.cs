@@ -118,19 +118,19 @@ namespace UResidence.Controllers
             string drate = fc["tratee"];
             Session["drate"] = drate;
             int aid = Convert.ToInt32(Session["ID"]);
-
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
-            if (schedList.Count > 0)
-            {
-                Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-            }
-            else
-            {
-                Response.Write("<script>alert('Successful')</script>");
-                return RedirectToAction("Choose_Equipment", "Reserve");
-            }
-
+           
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                if (schedList.Count > 0)
+                {
+                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                }
+                else
+                {
+                    Response.Write("<script>alert('Successful')</script>");
+                    return RedirectToAction("Choose_Equipment", "Reserve");
+                }
+            
             return View();
         }
         public ActionResult Choose_Equipment()
@@ -212,24 +212,29 @@ namespace UResidence.Controllers
             string rate = (string)Session["drate"];
             int uid = (int)Session["UID"];
             int aid = (int)Session["ID"];
+            DateTime date = DateTime.Now;
+           string sdate= String.Format("{0:d/M/yyyy HH:mm:ss}", date);
+            Session["date"] = sdate;
             SchedReservation a = new SchedReservation
             {
                 AmenityId = aid,
                 StartTime = Convert.ToDateTime(sd),
                 EndTIme = Convert.ToDateTime(ed),
                 Rate = Convert.ToInt32(rate),
+                Date = Convert.ToDateTime(sdate),
 
             };
             status = UResidence.SchedReservationController.Insert(a);
-      
-                if (status == true)
+           
+            if (status == true)
             {
                 string amenityname = (Session["NAME"]).ToString();
                 string qa = (string)Session["qa"];
                 string qc = (string)Session["qc"];
                 SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed);
-                int sid = b.Id;
+                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed,Convert.ToDateTime(sdate));
+                
+                int sid =b.Id;
                 string tor = (string)Session["TOR"];
                 int UserId = (int)Session["UID"];
                 string fname;
@@ -371,18 +376,26 @@ namespace UResidence.Controllers
             Session["drate"] = drate;
             int aid = Convert.ToInt32(Session["ID"]);
 
-
-
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
-            if (schedList.Count > 0)
+            
+                CheckSwimming cs = new CheckSwimming();
+                cs = CheckSwimmingController.Get(sd, aid);
+            if (cs == null)
             {
-                Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                return RedirectToAction("Choose_Equipment", "Reserve");
             }
             else
             {
-                Response.Write("<script>alert('Successful')</script>");
-                return RedirectToAction("Choose_Equipment", "Reserve");
+                if (cs.Capacity > 0)
+                {
+                    Response.Write("<script>alert('Successful')</script>");
+                    return RedirectToAction("Choose_Equipment", "Reserve");
+                   
+                }
+                else
+                {
+                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                }
             }
             return View();
         }
