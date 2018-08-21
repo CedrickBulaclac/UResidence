@@ -16,6 +16,15 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
+
+
+        public JsonResult InsertPayment()
+        {
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
         // GET: Calendar
         public ActionResult CalendarView()
         {
@@ -29,6 +38,7 @@ namespace UResidence.Controllers
             int down = dp;
             int fp = Convert.ToInt32(fc["fp"]);
             int cg = Convert.ToInt32(fc["cg"]);
+            string comment = Convert.ToString(fc["description"]);
             string status = mySelect;
 
             bool stats = false;
@@ -38,15 +48,16 @@ namespace UResidence.Controllers
                 if (rid > 0)
                 {
                     //UPDATE EVENT
-                    var v = reservationList.Where(a => a.RId ==rid).FirstOrDefault();
+                    //var v = reservationList.Where(a => a.RId ==rid).FirstOrDefault();
 
 
                     Receipt r = new Receipt
                     {
                         ORNo = rid,
-                        Downpayment = dp,
-                        Fullpayment = fp,
+                        Totalpayment = dp,
                         Charge = cg,
+                        Date = DateTime.Today,
+                        Description = comment
                     };
                     stats=UResidence.ReceiptController.Update(r);
                     if (stats == true)

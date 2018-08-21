@@ -312,9 +312,10 @@ namespace UResidence.Controllers
                         Receipt rp = new Receipt
                         {
                             RefNo = refno,
-                            Downpayment = 0,
+                            Totalpayment = 0,
                             Charge = 0,
-                            Fullpayment = 0,
+                            Date = DateTime.Today,
+                            Description = string.Empty
                         };
                         status = UResidence.ReceiptController.Insert(rp);
                         if (status == true)
@@ -385,7 +386,10 @@ namespace UResidence.Controllers
             }
             return View();
         }
-
+        public ActionResult MEMA()
+        {
+            return View();
+        }
 
     }
 }    

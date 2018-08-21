@@ -11,6 +11,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 		<style>
 			.button {
@@ -30,6 +33,14 @@
 				.button:hover {
 					background-color: #0e6742;
 				}
+
+
+			div.card {
+				width: 700px;
+				height: 450px;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+				padding: 10px;
+			}
 		</style>
 
 
@@ -37,80 +48,90 @@
 
 	</head>
 
+	<div id="main">
+
+		<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+			<div class="w3-row">
+				<div class="w3-col m5">
+					<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>
 
 
 
 
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
+					<br />
+					<img src="~/Content/WebImages/datetime2.png" style="width:70%" />
 
-	<div class=" container ">
-	
-
-			<center>
-
-				<div class="jumbotron" style=" box-sizing:content-box; background-color:#1bc27d; max-width:500px; min-height: 290px; margin: 30px auto;">
-
-
-					<font face="Helvetica">
-						<font color="black">
-
-							<br />
-
-							<h2>Choose Date</h2>
-
-							<hr />
-
-							<div class="text-center">
-
-								<br />
-								<font color="black">StartTime :</font>
-
-								<font color="black">
-									<input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
-
-									<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
-								</font>
-
-
-								<br />
-								<font color="black">EndTime :</font>
-
-								<font color="black">
-									<input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
-
-									<input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
-								</font>
-
-
-								<br />
-
-								<font color="black">Rate :</font>
-
-								<font color="black">
-									<input type="text" id="rate" class="form-group" disabled="disabled" />
-									
-									<input type="hidden" id="stime" name="stime" />
-									<input type="hidden" id="etime" name="etime" />
-									<input type="hidden" id="tratee" name="tratee" /></font>
-									<br />
-									<button name="submit" type="submit" button class="button" onclick="Check()"  > Next</button>
-							</div>
-
-							</font>
-						</font>
 				</div>
 
-			</center>
+
+				<br />
+				<div class="w3-col m7">
+					<div class="card">
+
+						<div class="w3-section">
+
+
+
+							<table>
+
+								<tr>
+									<td> &nbsp;  <label> Start Date: </label>  <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required style="float:left; width:350px;" /> </td>
+									<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> Start Time: </label>  <input type="time" onselect="myFunction()" class="w3-input" min="08:00" max="20:00" id="st" name="st" required style="float:right; width:350px; padding-bottom:18px;" />  </td>
+								</tr>
+							</table>
+
+						</div>
+
+						<br />
+						<div class="w3-section">
+
+
+
+							<table>
+								<tr>
+									<td> &nbsp; <label> End Date: </label> <input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" style="float:left; width:350px;" /> </td>
+									<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> End Time: </label><input type="time" class="w3-input" min="09:00" max="21:00" id="et" name="et" required style="float:right; width:350px; padding-bottom:18px;" /></td>
+								</tr>
+							</table>
+						</div>
+
+						<br />
+						<div class="w3-section">
+							<label>Rate :</label>
+
+							<input type="text" id="rate" class="w3-input" disabled="disabled" />
+
+							<input type="hidden" id="stime" name="stime" />
+							<input type="hidden" id="etime" name="etime" />
+							<input type="hidden" id="tratee" name="tratee" />
+							<input type="hidden" id="qwe" name="qwe" />
+							<input type="hidden" id="abc" name="abc" />
+
+						</div>
+
+						<div class="w3-section">
+
+
+							<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
+						</div>
+
+
+
+					</div>
+				</div>
+
+			</div>
 		</div>
+	</div>
 
 
-}
 
-<script type="text/javascript">
+	
+
+		}
+
+	
+	<script type="text/javascript">
 	var startTime;
 	var endTime;
 	var selectedValue;
@@ -190,6 +211,9 @@
 
 			endTime = $('#et').val();
 
+
+		
+
 			startTime = $(this).val();
 			startT = parseInt(startTime.split(':')[0], 10);
 			if (startT < 8 && startT > 21) {
@@ -208,10 +232,38 @@
 			}
 
 
-
-
 		});
-	});
+		});
+
+
+		//$(document).ready(function () {
+		//	$('#st').change(function myFunction() {
+		//		selectedValue = $('#st').val();
+
+		//		var d = new Date(); // for now
+		//		d.getHours(); // => 9
+		//		d.getMinutes(); // =>  30
+		//		d.getSeconds(); // => 51
+		//		var MyDateString = d.getHours() + ':' + ('0' + (d.getMinutes() + 1)).slice(-2);
+				
+
+		//		document.getElementById('qwe').value = MyDateString;
+
+		//		document.getElementById('abc').value = selectedValue;
+
+		//		if (selectedValue < MyDateString)
+		//		{
+		//			alert("BAWAL YAN NANAY");
+		//			document.getElementById('st').value = null;
+		//			document.getElementById('et').value = null;
+		//		}
+
+
+		//	});
+		//});
+
+
+
 	$(document).ready(function () {
 		$('#st').change(function myFunction() {
 		});
@@ -277,4 +329,4 @@
 	};
 
 
-</script>
+		</script>

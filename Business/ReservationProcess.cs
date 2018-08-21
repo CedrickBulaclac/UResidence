@@ -11,13 +11,15 @@ namespace UResidence
     {
         public int SRId { get; set; }
         public int RFId { get; set; }
-        public int RId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int Rate { get; set; }
-        public int Downpayment { get; set; }
+        public int Total { get; set; }
+        public int TableCost { get; set; }
+        public int ChairCost { get; set; }
         public int Charge { get; set; }
-        public int Fullpayment { get; set; }
+        public string CreatedBy { get; set; }
+        public string ApprovedBy { get; set; }
         public string ReservedBy { get; set; }
         public string Status { get; set; }
         public string Color { get; set; }
@@ -31,20 +33,20 @@ namespace UResidence
             ReservationProcess ret = new ReservationProcess();
             ret.SRId = reader.GetInt32(0);
             ret.RFId = reader.GetInt32(1);
-            ret.RId = reader.GetInt32(2);
-            ret.StartTime = reader.GetDateTime(3);
-            ret.EndTime = reader.GetDateTime(4);
-            ret.Rate = reader.GetInt32(5);
-            ret.Downpayment = reader.GetInt32(6);
-            ret.Charge = reader.GetInt32(7);
-            ret.Fullpayment = reader.GetInt32(8);
-            ret.ReservedBy = reader.GetString(9);
-            ret.Status = RemoveWhitespace(reader.GetString(10));
-            ret.Color = RemoveWhitespace(reader.GetString(11));
-            ret.AId = reader.GetInt32(12);
-            ret.AName = RemoveWhitespace(reader.GetString(13));
-            ret.BldgNo = RemoveWhitespace(reader.GetString(14));
-            ret.UnitNo = RemoveWhitespace(reader.GetString(15));
+            ret.StartTime = reader.GetDateTime(2);
+            ret.EndTime = reader.GetDateTime(3);
+            ret.Rate = reader.GetInt32(4);
+            ret.Charge = reader.GetInt32(5);
+            ret.ReservedBy = reader.GetString(6);
+            ret.Status = RemoveWhitespace(reader.GetString(7));
+            ret.Color = RemoveWhitespace(reader.GetString(8));
+            ret.AId = reader.GetInt32(9);
+            ret.AName = RemoveWhitespace(reader.GetString(10));
+            ret.BldgNo = RemoveWhitespace(reader.GetString(11));
+            ret.UnitNo = RemoveWhitespace(reader.GetString(12));
+            ret.ChairCost= reader.GetInt32(13);
+            ret.TableCost = reader.GetInt32(14);
+            ret.Total = reader.GetInt32(15);
             return ret;
         }
 
@@ -58,13 +60,14 @@ namespace UResidence
         {
             this.SRId = 0;
             this.RFId = 0;
-            this.RId = 0;
+            this.Total = 0;
             this.StartTime = DateTime.Now;
             this.EndTime = DateTime.Now;
             this.Rate = 0;
-            this.Downpayment = 0;
-            this.Charge = 0;
-            this.Fullpayment = 0;
+            this.TableCost = 0;
+            this.ChairCost = 0;
+            this.Total = 0;
+            this.Charge = 0;          
             this.ReservedBy = string.Empty;
             this.Status = string.Empty;
             this.Color = string.Empty;
@@ -72,6 +75,8 @@ namespace UResidence
             this.AName = string.Empty;
             this.BldgNo = string.Empty;
             this.UnitNo = string.Empty;
+            this.CreatedBy = string.Empty;
+            this.ApprovedBy = string.Empty;
         }
 
         

@@ -11,18 +11,23 @@ namespace UResidence
     {
         public int ORNo { get; set; }
         public int RefNo { get; set; }
-        public int Downpayment { get; set; }
+        public int Totalpayment { get; set; }
         public int Charge { get; set; }
-        public int Fullpayment { get; set; }
-
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+        public string CreatedBy { get; set; }
+        public string ApprovedBy { get; set; }
 
         public void Reset()
         {
             this.ORNo = 0;
             this.RefNo =0;
-            this.Downpayment = 0;
+            this.Totalpayment = 0;
             this.Charge = 0;
-            this.Fullpayment = 0;
+            this.Date = DateTime.Today;
+            this.Description = string.Empty;
+            this.CreatedBy = string.Empty;
+            this.ApprovedBy = string.Empty;
         }
 
         public Receipt CreateObject(SqlDataReader reader)
@@ -31,9 +36,12 @@ namespace UResidence
 
             ret.ORNo = reader.GetInt32(0);
             ret.RefNo = reader.GetInt32(1);
-            ret.Downpayment = reader.GetInt32(2);
+            ret.Totalpayment = reader.GetInt32(2);
             ret.Charge = reader.GetInt32(3);
-            ret.Fullpayment = reader.GetInt32(4);
+            ret.Date = reader.GetDateTime(4);
+            ret.Description = reader.GetString(5);
+            ret.CreatedBy = reader.GetString(6);
+            ret.ApprovedBy = reader.GetString(7);
             return ret;
 
             

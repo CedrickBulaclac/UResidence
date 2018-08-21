@@ -36,6 +36,53 @@
 						<input type="hidden" name="rid" id="rid" />
 						<input type="hidden" name="rfid" id="rfid" />
 						<p id="pDetails"></p>
+						<br /><br />
+						<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Paymentt</button>
+						<button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
+						<button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal">Payment History</button>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="container">
+		<div class="modal fade" id="paymentModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
+						<br /><br />
+						<b>Description: </b><input type="text" />
+						<br /><br />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment">Add Payment</button>
+						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="modal fade" id="UpdateModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
 						<b>Status: </b><select id="mySelect" name="mySelect">
 							<option value="Pending">Pending</option>
 							<option value="Reserved">Reserved</option>
@@ -43,21 +90,37 @@
 							<option value="Completed">Completed</option>
 						</select>
 						<br /><br />
-						<b>DownPayment: </b><input type="number" name="dp" id="dp" min="0" />
-						<br /><br />
-						<b>FullPayment: </b><input type="number" name="fp" id="fp" min="0" />
-						<br /><br />
-						<b>Charge: </b><input type="number" name="cg" id="cg" min="0" />
+						<b>Charge: </b><input type="number" name="cg" id="cg" min="0" value="0" />
 					</div>
-
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-success" id="btnSave" name="btnSave">Save Changes</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" data-dismiss="modal">Save Changes</button>
+						<button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="container">
+		<div class="modal fade" id="PaymentHistory" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<div id="calendar"></div>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -88,13 +151,14 @@
 									rate: v.Rate,
 									status: v.Status,
 									color: v.Color,
-									dp: v.Downpayment,
-									fp: v.Fullpayment,
+									dp: v.Total,
 									cg: v.Charge,
 									bn: v.BldgNo,
 									un: v.UnitNo,
 									r: v.RId,
-									rf: v.RFId
+									rf: v.RFId,
+									tc: v.TableCost,
+									cc: v.ChairCost
 								});
 							})
 							GenerateCalendar(events);
@@ -131,13 +195,17 @@
 							$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
 							$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
 							$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
-							$description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
-							document.getElementById('mySelect').value = calEvent.status;
-							document.getElementById('dp').value = calEvent.dp;
+							$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
+							$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+							$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
+							$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+							$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp))));
+							//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
+							//document.getElementById('mySelect').value = calEvent.status;
+							//document.getElementById('dp').value = calEvent.dp;
 							document.getElementById('rid').value = calEvent.r;
 							document.getElementById('rfid').value = calEvent.rf;
-							document.getElementById('fp').value = calEvent.fp;
-							document.getElementById('cg').value = calEvent.cg;
+							//document.getElementById('cg').value = calEvent.cg;
 							$('#myModal #pDetails').empty().html($description);
 
 							$('#myModal').modal();
@@ -145,6 +213,15 @@
 						}
 					})
 				}
+
+
+
+
+
+
+
+
+
 				$('#btnSave').click(function () {
 					if (selectedEvent != null && confirm('Are you sure?')) {
 
@@ -154,6 +231,29 @@
 
 			})
 
+			$('#btnPayment').click(function () {
+
+				$('#paymentModal').modal();
+			})
+			$('#btnCloseP').click(function () {
+
+				$('#myModal').modal();
+			}
+			)
+			$('#btnCModal').click(function () {
+
+				$('#UpdateModal').modal();
+			})
+			$('#btnCloseU').click(function () {
+
+				$('#myModal').modal();
+			}
+			)
+			$('#btnHistory').click(function () {
+
+				$('#PaymentHistory').modal();
+			}
+			)
 
 
 		</script>

@@ -21,16 +21,15 @@
 
 
 <head>
-    <style>
-        .navbar {
-           
-            padding: 0.5em 2em;
-            position:absolute;
-            top:0;
-            width: 100%;
-            background: #1ed88b;
-        }
-    </style>
+	<style>
+		.navbar {
+			padding: 0.5em 2em;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			background: #1ed88b;
+		}
+	</style>
 </head>
 
 <body>
@@ -60,10 +59,10 @@
 		<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.3%; ">
 
 			<button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="50" />
-			@*<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-				<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#">Contact Us</a>
-				<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#">About Us</a>
-				<div class="first"><button type="button">About Us</button></div>*@
+			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
+			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact">Contact Us</a>
+			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout">About Us</a>
+			@*<div class="first"><button type="button" name="btnAbout" id="btnAbout">About Us</button></div>*@
 		</div>
 
 
@@ -85,10 +84,6 @@
 	@*<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 		</footer>*@
 
-	<!-- Footer -->
-	<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position: absolute; left: 0; bottom: 0; width:100%; text-align:center;">
-		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-	</footer>
 
 
 
@@ -110,6 +105,7 @@
 		}
 	</script>
 
+	
 
 </body>
 </html>
