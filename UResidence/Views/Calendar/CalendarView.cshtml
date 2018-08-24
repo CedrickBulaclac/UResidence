@@ -61,13 +61,13 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
+						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" required/>
 						<br /><br />
-						<b>Description: </b><input type="text" />
+						<b>Description: </b><input type="text" id="pdescription" name="pdescription" required/>
 						<br /><br />
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment">Add Payment</button>
+						<button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
 						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -87,13 +87,12 @@
 							<option value="Pending">Pending</option>
 							<option value="Reserved">Reserved</option>
 							<option value="Canceled">Canceled</option>
-							<option value="Completed">Completed</option>
 						</select>
 						<br /><br />
 						<b>Charge: </b><input type="number" name="cg" id="cg" min="0" value="0" />
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" data-dismiss="modal">Save Changes</button>
+						<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
 						<button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -109,7 +108,10 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						
+						<table class="table" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;">                      
+                        </table>
+                       <b>Total :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
@@ -131,133 +133,252 @@
 
 
 		<script>
-			$(document).ready(function () {
-				var events = [];
-				var d = '';
-				var selectedEvent = null;
-				RefreshCalendar();
-				function RefreshCalendar() {
-					events = [];
-					$.ajax({
-						type: "GET",
-						url: "/calendar/GetEvents",
-						success: function (data) {
-							$.each(data, function (i, v) {
-								events.push({
-									title: v.AName,
-									reserved: v.ReservedBy,
-									start: moment(v.StartTime),
-									end: v.EndTime != null ? moment(v.EndTime) : null,
-									rate: v.Rate,
-									status: v.Status,
-									color: v.Color,
-									dp: v.Total,
-									cg: v.Charge,
-									bn: v.BldgNo,
-									un: v.UnitNo,
-									r: v.RId,
-									rf: v.RFId,
-									tc: v.TableCost,
-									cc: v.ChairCost
-								});
-							})
-							GenerateCalendar(events);
-						},
-						error: function (error) {
-							alert('failed');
-						}
-					})
 
-				}
+            function AddPayment() {
+                var refno = document.getElementById('rfid').value;
+                var payment = document.getElementById('dp').value;
+                var q = new Date();
+                var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+                var description = document.getElementById('pdescription').value;
+                var name = "@Session["Fullname"]";
+               
+                var data1 = {
+                    RefNo: refno,
+                    Totalpayment: payment,
+                    Date: MyDateString,
+                    Description: description,
+                    CreatedBy: name
+                };
 
 
-				function GenerateCalendar(events) {
-					$('#calendar').fullCalendar('destroy');
-					$('#calendar').fullCalendar({
-						contentHeight: 400,
-						defaultDate: new Date(),
-						timeFormat: 'h(:mm):a',
-						header: {
-							left: 'prev,next today',
-							center: 'title',
-							right: 'month,basicWeek,basicDay,agenda'
-						},
-						eventLimit: true,
-						eventColor: '#378006',
-						events: events,
+                $.ajax({
+                    type: "POST",
+                    url: "/calendar/InsertPayment",
+                    data: data1,
+                    success: function (data) {
+                        if (data == true) {
+                            $('#paymentModal').modal('hide');
+                            RefreshCalendar();
+                            alert('Success');
+                        }
+                                       
 
-						eventClick: function (calEvent, jsEvent, view) {
-							selectedEvent = calEvent;
-							$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-							var $description = $('<div/>');
-							$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-							$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-							$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-							$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
-							$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
-							$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
-							$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
-							$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
-							$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
-							$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp))));
-							//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
-							//document.getElementById('mySelect').value = calEvent.status;
-							//document.getElementById('dp').value = calEvent.dp;
-							document.getElementById('rid').value = calEvent.r;
-							document.getElementById('rfid').value = calEvent.rf;
-							//document.getElementById('cg').value = calEvent.cg;
-							$('#myModal #pDetails').empty().html($description);
-
-							$('#myModal').modal();
-
-						}
-					})
-				}
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                });
+            }
+          
+            function ReceiptHistory() {
+                var refno = document.getElementById('rfid').value;
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/calendar/ReceiptHistory",
+                    dataType: 'json',
+                    data: {
+                        'refno1': refno
+                    },
+                    success: function (data) {
+                        var totalp = 0;
+                        var trHTML = '';
 
 
+                        $('#tbHistory').empty();
+                        trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
+                        $.each(data, function (i, v) {                        
+                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+                            totalp += v.Totalpayment;
+                        });
+                        $('#tbHistory').append(trHTML);
+                        document.getElementById('txtTotalPayment').innerHTML  = totalp;
+                        trHTML = '';
+                    },
+                    error: function (error) {
+                        alert('Failed to retrieve the record');
+                    }
+                });
+            }
+          
+            function UpdateStatus() {
+                var refno = document.getElementById('rfid').value;
+                var rstatus = document.getElementById('mySelect').value;
+                var charge = document.getElementById('cg').value;
+                $.ajax({
+                    type: "POST",
+                    url: "/calendar/UpdatePayment",
+                    dataType: 'json',
+                    data: {
+                        'rstatus1': rstatus,
+                        'charge1': charge,
+                        'refno1': refno,  },
+                    success: function (data) {
+                        if (data == true) {
+                            $('#UpdateModal').modal('hide');
+                            RefreshCalendar();
+                            alert('Success');
+                        }
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/calendar/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                title: v.AName,
+                                reserved: v.ReservedBy,
+                                start: moment(v.StartTime),
+                                end: v.EndTime != null ? moment(v.EndTime) : null,
+                                rate: v.Rate,
+                                status: v.Status,
+                                color: v.Color,
+                                dp: v.Total,
+                                cg: v.Charge,
+                                bn: v.BldgNo,
+                                un: v.UnitNo,
+                                r: v.RId,
+                                rf: v.RFId,
+                                tc: v.TableCost,
+                                cc: v.ChairCost
+                            });
+                        })
+                        GenerateCalendar(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                });
 
 
 
+            });
+                var events = [];
+                var d = '';
+                var selectedEvent = null;
+              
 
 
 
+                function RefreshCalendar() {
+                    events = [];
+                    $.ajax({
+                        type: "GET",
+                        url: "/calendar/GetEvents",
+                        success: function (data) {
+                            $.each(data, function (i, v) {
+                                events.push({
+                                    title: v.AName,
+                                    reserved: v.ReservedBy,
+                                    start: moment(v.StartTime),
+                                    end: v.EndTime != null ? moment(v.EndTime) : null,
+                                    rate: v.Rate,
+                                    status: v.Status,
+                                    color: v.Color,
+                                    dp: v.Total,
+                                    cg: v.Charge,
+                                    bn: v.BldgNo,
+                                    un: v.UnitNo,
+                                    r: v.RId,
+                                    rf: v.RFId,
+                                    tc: v.TableCost,
+                                    cc: v.ChairCost
+                                });
+                            })
+                            GenerateCalendar(events);
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    });
+                    
 
-				$('#btnSave').click(function () {
-					if (selectedEvent != null && confirm('Are you sure?')) {
-
-						SaveEvent(data);
-					}
-				})
-
-			})
-
-			$('#btnPayment').click(function () {
-
-				$('#paymentModal').modal();
-			})
-			$('#btnCloseP').click(function () {
-
-				$('#myModal').modal();
-			}
-			)
-			$('#btnCModal').click(function () {
-
-				$('#UpdateModal').modal();
-			})
-			$('#btnCloseU').click(function () {
-
-				$('#myModal').modal();
-			}
-			)
-			$('#btnHistory').click(function () {
-
-				$('#PaymentHistory').modal();
-			}
-			)
-
-
-		</script>
+                }
 
 
+                function GenerateCalendar(events) {
+                    $('#calendar').fullCalendar('destroy');
+                    $('#calendar').fullCalendar({
+                        contentHeight: 400,
+                        defaultDate: new Date(),
+                        timeFormat: 'h(:mm):a',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,basicWeek,basicDay,agenda'
+                        },
+                        eventLimit: true,
+                        eventColor: '#378006',
+                        events: events,
+
+                        eventClick: function (calEvent, jsEvent, view) {
+                            selectedEvent = calEvent;
+                            $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                            var $description = $('<div/>');
+                            $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+                            $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                            $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                            $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
+                            $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+                            $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
+                            $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+                            $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp))));
+                            $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
+                            //+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
+                            document.getElementById('mySelect').value = calEvent.status;
+                            //document.getElementById('dp').value = calEvent.dp;
+                            document.getElementById('rid').value = calEvent.r;
+                            document.getElementById('rfid').value = calEvent.rf;
+                            document.getElementById('cg').value = calEvent.cg;
+                            $('#myModal #pDetails').empty().html($description);
+
+                            $('#myModal').modal();
+
+                        }
+                    })
+                }
+           
+
+            $('#btnSave').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+
+                    SaveEvent(data);
+                }
+            });
+            $('#btnPayment').click(function () {
+
+                $('#paymentModal').modal();
+            });
+            $('#btnCloseP').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
+            $('#btnCModal').click(function () {
+                    
+                $('#UpdateModal').modal();
+            });
+            $('#btnCloseU').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
+            $('#btnHistory').click(function () {
+
+                $('#PaymentHistory').modal();
+                ReceiptHistory();
+            });
+
+
+        </script>
 	}
 }

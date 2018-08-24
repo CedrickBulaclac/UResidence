@@ -236,10 +236,7 @@ namespace UResidence.Controllers
                 
                 int sid =b.Id;
                 string tor = (string)Session["TOR"];
-                int UserId = (int)Session["UID"];
-                string fname;
-                string mname;
-                string lname;
+                int UserId = (int)Session["UID"];         
                 string fullname = "";
                 if (amenityname == "Swimming Pool" || amenityname == "SWIMMING POOL")
                 {
@@ -256,23 +253,14 @@ namespace UResidence.Controllers
                 UResidence.Owner own = new UResidence.Owner();
                 UResidence.Tenant ten = new UResidence.Tenant();
                 if (tor == "Owner")
-                {
-                    own = UResidence.OwnerController.GetIdOwner(UserId.ToString());
-                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());
-                    fname = RemoveWhitespace(own.Fname);
-                    mname = RemoveWhitespace(own.Mname);
-                    lname = RemoveWhitespace(own.Lname);
-                    fullname = fname + " " + mname + " " + lname;
+                {                
+                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());                              
                 }
                 else if (tor == "Tenant")
-                {
-                    ten = UResidence.TenantController.GetIdTenant(UserId.ToString());
+                {                  
                     reside = UResidence.ResidenceController.GetTenantNo(UserId.ToString());
-                    fname = RemoveWhitespace(ten.Fname);
-                    mname = RemoveWhitespace(ten.Mname);
-                    lname = RemoveWhitespace(ten.Lname);
-                    fullname = fname + " " + mname + " " + lname;
                 }
+                fullname = (Session["Fullname"]).ToString();
                 UResidence.Reservation r = new UResidence.Reservation
                 {
                     Rid = Convert.ToInt32(reside.Id),
@@ -310,26 +298,12 @@ namespace UResidence.Controllers
                             status = UResidence.EquipReservationController.Insert(er);
                         }
 
-                    }
-
-                    if (status == true)
-                    {
-                        Receipt rp = new Receipt
-                        {
-                            RefNo = refno,
-                            Totalpayment = 0,
-                            Charge = 0,
-                            Date = DateTime.Today,
-                            Description = string.Empty
-                        };
-                        status = UResidence.ReceiptController.Insert(rp);
+                    }     
                         if (status == true)
                         {
                             Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
 
                         }
-                    }
-
                 }
 
             }

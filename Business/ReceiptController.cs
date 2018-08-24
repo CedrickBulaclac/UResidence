@@ -19,6 +19,17 @@ namespace UResidence
             return ret;
         }
 
+        public static List<Receipt> GetAll(int Refno)
+        {
+            const string GET_ALL = @"SELECT Id,RefNo,Totalpayment,Charge,Date,Description,CreatedBy,ApprovedBy FROM [tbReceipt] where RefNo=@RefNo";
+
+            List<Receipt> ret = default(List<Receipt>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@RefNo", Refno));
+            ret = SqlManager.Select<Receipt>(com);
+            return ret;
+        }
+
         public static Receipt GetORno(string orn)
         {
             const string GET_RECORD = @"SELECT Id,RefNo,Totalpayment,Charge,Date,Description,CreatedBy,ApprovedBy FROM [tbReceipt] WHERE Id = @ORNo";
@@ -78,17 +89,31 @@ namespace UResidence
         //        return Update(usr);
         //}
 
+        public static bool UpdateCharge(Receipt usr)
+        {
+            const string GET_UPDATE = @"update [tbReceipt] set  Charge = @Charge WHERE RefNo= @RefNo";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+         
+            com.Parameters.Add(new SqlParameter("@Charge", usr.Charge));
+            com.Parameters.Add(new SqlParameter("@RefNo", usr.RefNo));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
         public static bool Insert(Receipt usr)
         {
 
-            const string GET_INSERT = @"insert [tbReceipt] (RefNo,Totalpayment,Charge,Date,Description) values (@RefNo, @Totalpayment, @Charge, @Date, @Description)";
+            const string GET_INSERT = @"insert [tbReceipt] (RefNo,Totalpayment,Charge,Date,Description,CreatedBy,ApprovedBy) values (@RefNo, @Totalpayment, @Charge, @Date, @Description,@CreatedBy,@ApprovedBy)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@RefNo", usr.RefNo));
             com.Parameters.Add(new SqlParameter("@Totalpayment", usr.Totalpayment));
             com.Parameters.Add(new SqlParameter("@Charge", usr.Charge));
-            com.Parameters.Add(new SqlParameter("@Date", usr.Date));
+            com.Parameters.Add(new SqlParameter("@Date", DateTime.Now));
             com.Parameters.Add(new SqlParameter("@Description", usr.Description));
+            com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
+            com.Parameters.Add(new SqlParameter("@ApprovedBy", "none"));
             return SqlManager.ExecuteNonQuery(com);
         }
     }
