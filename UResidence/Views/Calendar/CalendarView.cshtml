@@ -37,7 +37,7 @@
 						<input type="hidden" name="rfid" id="rfid" />
 						<p id="pDetails"></p>
 						<br /><br />
-						<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Paymentt</button>
+						<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
 						<button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
 						<button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal">Payment History</button>
 
@@ -63,7 +63,7 @@
 					<div class="modal-body">
 						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" required/>
 						<br /><br />
-						<b>Description: </b><input type="text" id="pdescription" name="pdescription" required/>
+						<b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription" required></textarea>
 						<br /><br />
 					</div>
 					<div class="modal-footer">
@@ -82,15 +82,17 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
-					<div class="modal-body">
-						<b>Status: </b><select id="mySelect" name="mySelect">
-							<option value="Pending">Pending</option>
-							<option value="Reserved">Reserved</option>
-							<option value="Canceled">Canceled</option>
-						</select>
-						<br /><br />
-						<b>Charge: </b><input type="number" name="cg" id="cg" min="0" value="0" />
-					</div>
+                    <div class="modal-body">
+                        <b>Status: </b><select id="mySelect" name="mySelect">
+                            <option value="Pending">Pending</option>
+                            <option value="Reserved">Reserved</option>
+                            <option value="Canceled">Canceled</option>
+                        </select>
+                        <br /><br />
+                        <b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
+                        <br /><br />
+                        <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" />
+                    </div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
 						<button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
@@ -114,7 +116,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -160,6 +162,7 @@
                             $('#paymentModal').modal('hide');
                             RefreshCalendar();
                             alert('Success');
+                            $('#myModal').modal();
                         }
                                        
 
@@ -213,7 +216,9 @@
             function UpdateStatus() {
                 var refno = document.getElementById('rfid').value;
                 var rstatus = document.getElementById('mySelect').value;
-                var charge = document.getElementById('cg').value;
+                var charge1 = document.getElementById('cg').value;
+                var charge2 = document.getElementById('cg1').value;
+                var charge = charge1 + charge2;
                 $.ajax({
                     type: "POST",
                     url: "/calendar/UpdatePayment",
@@ -227,6 +232,7 @@
                             $('#UpdateModal').modal('hide');
                             RefreshCalendar();
                             alert('Success');
+                            $('#myModal').modal();
                         }
                     },
                     error: function (error) {
@@ -347,7 +353,8 @@
                             //document.getElementById('dp').value = calEvent.dp;
                             document.getElementById('rid').value = calEvent.r;
                             document.getElementById('rfid').value = calEvent.rf;
-                            document.getElementById('cg').value = calEvent.cg;
+                            document.getElementById('cg').innerHTML = calEvent.cg;
+
                             $('#myModal #pDetails').empty().html($description);
 
                             $('#myModal').modal();
@@ -377,6 +384,11 @@
                 $('#UpdateModal').modal();
             });
             $('#btnCloseU').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
+            $('#btnCloseRH').click(function () {
 
                 $('#myModal').modal();
             }
