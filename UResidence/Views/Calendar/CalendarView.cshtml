@@ -63,7 +63,7 @@
 					<div class="modal-body">
 						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" required/>
 						<br /><br />
-						<b>Description: </b><input type="text" id="pdescription" name="pdescription" required/>
+						<b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription" required></textarea>
 						<br /><br />
 					</div>
 					<div class="modal-footer">
@@ -89,7 +89,7 @@
                             <option value="Canceled">Canceled</option>
                         </select>
                         <br /><br />
-                        <b>Charge: </b><input type="number" name="cg" id="cg" min="0" value="0" readonly />
+                        <b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
                         <br /><br />
                         <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" />
                     </div>
@@ -344,7 +344,8 @@
                             //document.getElementById('dp').value = calEvent.dp;
                             document.getElementById('rid').value = calEvent.r;
                             document.getElementById('rfid').value = calEvent.rf;
-                            document.getElementById('cg').value = calEvent.cg;
+                            document.getElementById('cg').innerHTML = calEvent.cg;
+
                             $('#myModal #pDetails').empty().html($description);
 
                             $('#myModal').modal();
