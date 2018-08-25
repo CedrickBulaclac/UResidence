@@ -9,8 +9,8 @@ namespace UResidence
 {
     public static class SqlManager
     {
-        const string CON_STRING = "Data Source=CEDPC\\SQLEXPRESS;Initial Catalog=UResidence;Integrated Security=True";
-        //const string CON_STRING = "Data Source=MARTINY520\\SQLEXPRESS;Initial Catalog=URESIDENCE;Integrated Security=True";
+        //const string CON_STRING = "Data Source=CEDPC\\SQLEXPRESS;Initial Catalog=UResidence;Integrated Security=True";
+        const string CON_STRING = "Data Source=MARTINY520\\SQLEXPRESS;Initial Catalog=URESIDENCE;Integrated Security=True";
         //const string CON_STRING = "Data Source=HP\\SQLEXPRESS;Initial Catalog=UResidence;Integrated Security=True";
 
         public static List<T> Select<T>(SqlCommand command) where T : BaseProperty<T>, new()
@@ -40,7 +40,7 @@ namespace UResidence
                 }
                 catch
                 {
-                    throw;
+                        throw;
                 }
             }
             return ret;
