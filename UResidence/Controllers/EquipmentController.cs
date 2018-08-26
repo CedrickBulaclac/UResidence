@@ -31,8 +31,7 @@ namespace UResidence.Controllers
                     image.SaveAs(folderPath);
                     Equipment eqp1 = new Equipment()
                     {
-                        Name = eqp.Name,
-                        Url = folderpath,
+                        Name = eqp.Name, 
                         Stocks = eqp.Stocks,
                         Rate = eqp.Rate
                     };
@@ -108,8 +107,7 @@ namespace UResidence.Controllers
                     Equipment eqp1 = new Equipment()
                     {
                        Id=eqp.Id,
-                        Name = eqp.Name,
-                        Url = folderpath,
+                        Name = eqp.Name,              
                         Stocks = eqp.Stocks,
                         Rate = eqp.Rate
                     };

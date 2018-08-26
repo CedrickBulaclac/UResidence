@@ -68,7 +68,7 @@
                 <td style="border: 1px solid #ddd; padding: 8px;">
 
 
-                    <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)  </button>
+                    <button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)</button>
                     <br />
                     @Html.LabelFor(model => amn.AmenityName, "Name")
                     @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })

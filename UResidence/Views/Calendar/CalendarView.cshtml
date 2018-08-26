@@ -173,11 +173,10 @@
                         alert('failed');
                     }
                 });
-            }
-          
+			}
             function ReceiptHistory() {
-                var refno = document.getElementById('rfid').value;
-                
+				var refno = document.getElementById('rfid').value;
+		
                 $.ajax({
                     type: "POST",
                     url: "/calendar/ReceiptHistory",
@@ -188,12 +187,13 @@
                     success: function (data) {
                         var totalp = 0;
                         var trHTML = '';
-
+						format: 'yyyy-mm',
+							
 
                         $('#tbHistory').empty();
                         trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
                         $.each(data, function (i, v) {                        
-                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+							trHTML += '<tr><td>' + ToJavaScriptDate(v.Date) + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
                             totalp += v.Totalpayment;
                         });
                         $('#tbHistory').append(trHTML);
@@ -204,8 +204,17 @@
                         alert('Failed to retrieve the record');
                     }
                 });
-            }
-          
+			}
+
+
+			function ToJavaScriptDate(value) {
+				var pattern = /Date\(([^)]+)\)/;
+				var results = pattern.exec(value);
+				var dt = new Date(parseFloat(results[1]));
+				return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear() + "-" + dt.getHours() + ":" + dt.getMinutes();
+			}
+
+
             function UpdateStatus() {
                 var refno = document.getElementById('rfid').value;
                 var rstatus = document.getElementById('mySelect').value;
@@ -253,7 +262,7 @@
                                 r: v.RId,
                                 rf: v.RFId,
                                 tc: v.TableCost,
-                                cc: v.ChairCost
+                                cc: v.ChairCost,
                             });
                         })
                         GenerateCalendar(events);
