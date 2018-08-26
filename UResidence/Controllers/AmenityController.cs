@@ -17,8 +17,11 @@ namespace UResidence.Controllers
             return View();
         }
 
+
+
+
         [HttpPost]
-        public ActionResult AmenityAdd(Amenity amen,HttpPostedFileBase image)
+        public ActionResult AmenityAdd(Amenity amen, HttpPostedFileBase image)
         {
             string[] err = new string[] { };
             if (image != null)
@@ -73,7 +76,7 @@ namespace UResidence.Controllers
             return View(amenityList);
         }
 
-       
+
         public ActionResult Delete(int id)
         {
 
@@ -84,7 +87,7 @@ namespace UResidence.Controllers
             status = UResidence.AmenityController.Delete(am);
             if (status == true)
             {
-                AmenityView();               
+                AmenityView();
             }
             ViewBag.DeleteStatus = status;
             return View("AmenityView");
@@ -99,53 +102,137 @@ namespace UResidence.Controllers
         {
 
             Amenity amn = default(Amenity);
-               amn= UResidence.AmenityController.GetbyId(id);     
+            amn = UResidence.AmenityController.GetbyId(id);
             return View(amn);
         }
 
 
-        [HttpPost]
-        public ActionResult AmenityEdit(Amenity amen,HttpPostedFileBase image)
-        {
-            string[] err = new string[]{ };
-            if (image != null)
-            {
-                if (image.ContentLength > 0)
-                {
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-                    string folderpath = "~/Content/AmenityImages/" + imagefileName;
-                    image.SaveAs(folderPath);
-                    Amenity a = new Amenity()
-                    {
-                        Id=amen.Id,
-                        AmenityName = amen.AmenityName,
-                        Url = folderpath,
-                        Capacity = amen.Capacity,
-                        Description = amen.Description,
-                        Rate = amen.Rate,
-                        Color=amen.Color
-                    };
-                    if (a.Validate(out err))
-                    {
-                        status = UResidence.AmenityController.Update(a);
-                        if (status == true)
-                        {
-                            ViewBag.UpdateMessage = status;
-                            AmenityView();
-                            return View("AmenityView");
-                        }
-                    }
-                    return View();
-                }
-                else
-                {
+        //public JsonResult UpdateI(string url)
+        //{
+        //    string[] err = new string[] { };
+        //    Amenity amenn = new Amenity
+        //    {
+        //        Url = url
+        //    };
+        //    if (amenn.Validate(out err))
+        //    {
+        //        status = UResidence.AmenityController.UpdateImage(amenn);
+        //        if (status == true)
+        //        {
+        //            ViewBag.UpdateMessage = status;
+        //        }
+        //    }
+        //    return new JsonResult
+        //    {
+        //        Data = status,
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
 
-                    ViewBag.ErrorMessages = FixMessages(err);
+        //}
+
+
+
+        public JsonResult UpdateImage(string url)
+        {
+            bool status = false;
+            //if (image1 != null)
+            //{
+            //    if (image1.ContentLength > 0)
+            //    {
+            //        string imagefileName = Path.GetFileName(image1.FileName);
+            //        string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+            //        string folderpath = "~/Content/AmenityImages/" + imagefileName;
+            //        image1.SaveAs(folderPath);
+            Amenity a = new Amenity
+            {
+                Url = url,
+            };
+
+
+            status = UResidence.AmenityController.UpdateImage(a);
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+        
+
+
+
+
+        //[HttpPost]
+        //public ActionResult Upload(Amenity amen, HttpPostedFileBase image,string url)
+        //{
+        //    string[] err = new string[] { };
+        //    Amenity a = new Amenity()
+        //    {
+        //      Url = url
+        //    };
+        //    if (a.Validate(out err))
+        //    {
+        //        status = UResidence.AmenityController.UpdateImage(a);
+        //        if (status == true)
+        //        {
+        //            ViewBag.UpdateMessage = status;
+        //        }
+
+        //    }
+        //    else
+        //    {
+
+        //        ViewBag.ErrorMessages = FixMessages(err);
+        //    }
+        //    return View(amen);
+        //}
+        //for (int i = 0; i < Request.Files.Count; i++)
+        //{
+        //    var file = Request.Files;
+
+        //    var fileName = Path.GetFileName(file.FileName);
+
+        //    var path = Path.Combine(Server.MapPath("~/Content/AmenityImages/"), fileName);
+        //    file.SaveAs(path);
+
+
+
+
+        [HttpPost]
+        public ActionResult AmenityEdit(Amenity amen, HttpPostedFileBase image)
+        {
+            string[] err = new string[] { };
+          
+            Amenity a = new Amenity()
+            {
+                Id = amen.Id,
+                AmenityName = amen.AmenityName,
+                Capacity = amen.Capacity,
+                Description = amen.Description,
+                Rate = amen.Rate,
+                Color = amen.Color
+            };
+            if (a.Validate(out err))
+            {
+                status = UResidence.AmenityController.Update(a);
+                if (status == true)
+                {
+                    ViewBag.UpdateMessage = status;
+                    AmenityView();
+                    return View("AmenityView");
                 }
+
+            }
+            else
+            {
+
+                ViewBag.ErrorMessages = FixMessages(err);
             }
             return View(amen);
         }
+
+
+
 
         public string FixMessages(string[] err)
         {
@@ -153,6 +240,10 @@ namespace UResidence.Controllers
             foreach (string er in err) errors += (er + "<br />");
             return errors;
         }
-        
+
     }
 }
+
+
+
+

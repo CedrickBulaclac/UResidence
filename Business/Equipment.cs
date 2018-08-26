@@ -15,7 +15,7 @@ namespace UResidence
         public int Stocks { get; set; }
         public int Rate { get; set; }
         public int Id { get; set; }
-        public string Url { get; set; }
+
 
         public Equipment CreateObject(SqlDataReader reader)
         {
@@ -25,7 +25,7 @@ namespace UResidence
             ret.Name = RemoveWhitespace(reader.GetString(1));
             ret.Stocks = reader.GetInt32(2);
             ret.Rate = reader.GetInt32(3);
-            ret.Url = RemoveWhitespace(reader.GetString(4));
+          
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -54,11 +54,7 @@ namespace UResidence
                 err.Add("Equipmemt Rate must be at least 1");
                 ret = false;
             }
-            if(this.Url ==string.Empty|| this.Url is null)
-            {
-                err.Add("Images");
-                ret = false;
-            }
+         
             errors = err.ToArray();
             return ret;
         }
@@ -68,7 +64,6 @@ namespace UResidence
             this.Stocks = 0;
             this.Rate = 0;
             this.Id =0;
-            this.Url = string.Empty;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Equipment> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Name,Stocks,Rate,URL FROM [tbEquipment] order by Id";
+            const string GET_ALL = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] order by Id";
 
 
             List<Equipment> ret = default(List<Equipment>);
@@ -22,7 +22,7 @@ namespace UResidence
 
         public static List<Equipment> GetAll(string st,string et)
         {
-            const string GET_ALL = @"select a.Id,a.Name,(a.Stocks-SUM(Quantity)) as Stocks,a.Rate,a.URL from tbEquipment a inner join tbEquipReservation r on a.Id=r.EquipmentId inner join tbReservationForm c on r.RefNo=c.Id inner join tbSchedReservation d on c.SchedId=d.Id where d.EndTIme between @st and @et and Status='Reserved' group by a.Name,a.Id,a.Rate,a.Stocks,a.URL";
+            const string GET_ALL = @"select a.Id,a.Name,(a.Stocks-SUM(Quantity)) as Stocks,a.Rate from tbEquipment a inner join tbEquipReservation r on a.Id=r.EquipmentId inner join tbReservationForm c on r.RefNo=c.Id inner join tbSchedReservation d on c.SchedId=d.Id where d.EndTIme between @st and @et and Status='Reserved' group by a.Name,a.Id,a.Rate,a.Stocks";
 
 
             List<Equipment> ret = default(List<Equipment>);
@@ -35,7 +35,7 @@ namespace UResidence
 
         public static Equipment Get(string name)
         {
-            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate,URL FROM [tbEquipment] order by EquipmentNo WHERE Name = @Name";
+            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] order by EquipmentNo WHERE Name = @Name";
 
             Equipment ret = default(Equipment);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -47,7 +47,7 @@ namespace UResidence
 
         public static Equipment GetbyId(int eno)
         {
-            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate,URL FROM [tbEquipment] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Name,Stocks,Rate FROM [tbEquipment] WHERE Id = @Id";
 
             Equipment ret = default(Equipment);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -60,14 +60,13 @@ namespace UResidence
 
         public static bool Update(Equipment eqp)
         {
-            const string GET_UPDATE = @"update [tbEquipment] set Name=@Name, Stocks=@Stocks, Rate=@Rate, URL=@Url  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbEquipment] set Name=@Name, Stocks=@Stocks, Rate=@Rate  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));
             com.Parameters.Add(new SqlParameter("@Stocks", eqp.Stocks));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));
             com.Parameters.Add(new SqlParameter("@Id", eqp.Id));
-            com.Parameters.Add(new SqlParameter("@Url", eqp.Url));
             return SqlManager.ExecuteNonQuery(com);
         }
 
@@ -91,13 +90,12 @@ namespace UResidence
         */
         public static bool Insert(Equipment eqp)
         {
-            const string GET_INSERT = @"insert [tbEquipment] (Name,Stocks,Rate,URL) values (@Name, @Stocks, @Rate,@Url)";
+            const string GET_INSERT = @"insert [tbEquipment] (Name,Stocks,Rate) values (@Name, @Stocks, @Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Name", eqp.Name));
             com.Parameters.Add(new SqlParameter("@Stocks", eqp.Stocks));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));
-            com.Parameters.Add(new SqlParameter("@Url", eqp.Url));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

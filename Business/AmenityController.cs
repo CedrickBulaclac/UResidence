@@ -54,16 +54,26 @@ namespace UResidence
 
         public static bool Update(Amenity amty)
         {
-            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, URL=@Url, Rate=@Rate, Color=@Color WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, Rate=@Rate, Color=@Color WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
             com.Parameters.Add(new SqlParameter("@Capacity", amty.Capacity));
             com.Parameters.Add(new SqlParameter("@AmenityName", amty.AmenityName));
             com.Parameters.Add(new SqlParameter("@Id", amty.Id));
-            com.Parameters.Add(new SqlParameter("@Url", amty.Url));
             com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
+        public static bool UpdateImage(Amenity amty)
+        {
+            const string GET_UPDATE = @"update [tbAmenity] set URL=@Url WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Url", amty.Url));
+            com.Parameters.Add(new SqlParameter("@Id", amty.Id));
             return SqlManager.ExecuteNonQuery(com);
         }
 
