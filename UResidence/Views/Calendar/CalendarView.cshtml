@@ -1,4 +1,6 @@
-﻿
+﻿@{ 
+    Layout = "/Views/Layout/FinanceLayout.cshtml";
+}
 @using (Html.BeginForm("CalendarView", "Calendar", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
@@ -112,7 +114,7 @@
 					<div class="modal-body">
 						<table class="table" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;">                      
                         </table>
-                       <b>Total :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+                       <b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
 
 					</div>
 					<div class="modal-footer">
@@ -207,7 +209,7 @@
             function UpdateStatus() {
                 var refno = document.getElementById('rfid').value;
                 var rstatus = document.getElementById('mySelect').value;
-                var charge1 = document.getElementById('cg').value;
+                var charge1 = document.getElementById('cg').innerHTML;
                 var charge2 = document.getElementById('cg1').value;
                 var charge = charge1 + charge2;
                 $.ajax({
@@ -222,12 +224,10 @@
                         if (data == true) {
                             $('#UpdateModal').modal('hide');
                             RefreshCalendar();
-                            alert('Success');
-                            $('#myModal').modal();
                         }
                     },
                     error: function (error) {
-                        alert(error);
+                        alert('Failed');
                     }
                 });
             }
@@ -337,6 +337,7 @@
                             $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
                             $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
                             $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+                            $description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
                             $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp))));
                             $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
                             //+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))

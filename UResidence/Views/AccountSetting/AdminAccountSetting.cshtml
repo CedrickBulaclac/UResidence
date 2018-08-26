@@ -3,7 +3,7 @@
     List<Admin> admin = (Model.ToList()[0] as List<Admin>);
     List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
     ViewBag.Title = "ViewAccountSetting";
-
+    Layout = "~/Views/Layout/FinanceLayout.cshtml";
 }
 @using (Html.BeginForm("AdminAccountSetting", "AccountSetting", FormMethod.Post))
 {
@@ -42,17 +42,18 @@ foreach (var a in admin)
     <input type="hidden" name="ulid" id="ulid" value="@l.Id" />
     <div class="container">
         <label class="form-control text-center">Login</label>
-        <div class="col-lg-4">
-            <label>Username</label>
+        @*<div class="col-lg-4">
+            @*<label>Username</label>
             <br />
-            <input type="text" value="@l.Username" id="username" name="username" class="form-control" />
-        </div>
-        <div class="col-lg-4">
+            <input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
+        </div>*@
+            <div class="col-lg-4">
+                <input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
 
-            <label>Current Password</label>
-            <br />
-            <input type="password" value="" id="cp" name="cp" class="form-control" />
-        </div>
+                <label>Current Password</label>
+                <br />
+                <input type="password" value="" id="cp" name="cp" class="form-control" />
+            </div>
         <div class="col-lg-4">
             <label>New Password</label>
             <br />

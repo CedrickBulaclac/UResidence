@@ -4,8 +4,7 @@
     List<Owner> owner = (Model.ToList()[0] as List<Owner>);
     List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
     ViewBag.Title = "ViewAccountSetting";
-    Layout = "~/Views/Reserve/Layout.cshtml";
-
+    Layout = "~/Views/Layout/Layout.cshtml";
 }
 @using (Html.BeginForm("OwnerAccountSetting", "AccountSetting", FormMethod.Post))
 {
@@ -40,13 +39,14 @@
     {
         <input type="hidden" name="ulid" id="ulid" value="@l.Id" />
         <div class="container">
-            <label class="form-control text-center">Login</label>
+            @*<label class="form-control text-center">Login</label>
             <div class="col-lg-4">
                 <label>Username</label>
                 <br />
                 <input type="text" value="@l.Username" id="username" name="username" class="form-control" />
-            </div>
+            </div>*@
             <div class="col-lg-4">
+                <input type="text" value="@l.Username" id="username" name="username" class="form-control" />
 
                 <label>Current Password</label>
                 <br />

@@ -1,8 +1,9 @@
 ﻿
 @model List<Equipment>
 @{
-	ViewBag.Title = "Summary";
-	Layout = "~/Views/Reserve/Layout.cshtml";
+    ViewBag.Title = "Summary";
+    Layout = "~/Views/Layout/OwnerLayout.cshtml";
+
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {

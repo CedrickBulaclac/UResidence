@@ -106,7 +106,7 @@ namespace UResidence
         }
         public static bool Update(string email,string hash)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Username=@email, Hash=@hash where Username=@email";
+            const string GET_UPDATE = @"update [tbLogin] Hash=@hash where Username=@email";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@email", email));
             com.Parameters.Add(new SqlParameter("@hash", hash));
@@ -114,7 +114,7 @@ namespace UResidence
         }
         public static bool Update(UserLogin usr)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Username= @Username,Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbLogin] set Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Username = @Username";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Username", usr.Username));

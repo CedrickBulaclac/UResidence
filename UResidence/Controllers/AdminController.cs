@@ -26,43 +26,30 @@ namespace UResidence.Controllers
             return hash;
         }
         [HttpPost]
-        public ActionResult Registration(Admin adm)
+        public ActionResult Registration(Admin adm,int typeadmin)
         {
             string hash;
             string pass = adm.Bdate.ToShortDateString();
+            int typea = typeadmin;
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
-            UserLogin ul = new UserLogin
-            {
-                Username = adm.Email,
-                Hash = hash,
-                CreatedBy = "",
-                ModifyBy = "",
-                DateCreated = DateTime.Now,
-                Level = 0,
-                Locked = 1,
-                LastLogin = DateTime.Now
-            };
-
-
-            Admin ad = new Admin()
-            {
-                Fname = adm.Fname,
-                Mname = adm.Mname,
-                Lname = adm.Lname,
-                Bdate = adm.Bdate,
-                CelNo = adm.CelNo,
-                Email = adm.Email,
-                Deleted= "0"
-            };
-
-
-
+           
             if (listUser.Count == 0)
             {
                 string[] err = new string[] { };
                 if (adm.Validate(out err))
                 {
+                    Admin ad = new Admin()
+                    {
+                        Fname = adm.Fname,
+                        Mname = adm.Mname,
+                        Lname = adm.Lname,
+                        Bdate = adm.Bdate,
+                        CelNo = adm.CelNo,
+                        Email = adm.Email,
+                        Deleted = "0"
+                    };
+
                     UResidence.AdminController.Insert(ad);
 
                     Admin admi = new Admin();
@@ -77,7 +64,7 @@ namespace UResidence.Controllers
                         CreatedBy = "",
                         ModifyBy = "",
                         DateCreated = DateTime.Now,
-                        Level = 0,
+                        Level = typea,
                         Locked = 1,
                         LastLogin = DateTime.Now
                     };
