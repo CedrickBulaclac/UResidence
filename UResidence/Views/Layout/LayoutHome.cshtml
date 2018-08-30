@@ -10,6 +10,7 @@
 <html>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
@@ -44,11 +45,40 @@
 			Close &times;
 		</button>
 
-		<font color="white">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green">Home </a> </font>
+		@*<font color="white">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green">Home </a> </font>
 		<font color="white">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green">Reservation </a> </font>
 		<font color="white">    <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green">Bills and Payment</a></font>
 		<font color="white">    <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>  Account Settings</a></font>
-		<font color="white">    <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>  Logout</a></font>
+		<font color="white">    <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>  Logout</a></font>*@
+
+
+
+		<br />
+
+		<p class="w3-center"><img src="~/Content/WebImages/user.png" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+		<hr />
+
+		<font color="white" ; size="4">
+			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-user" style="margin-left:20px;"></i> &nbsp; @Session["Fullname"].ToString() </p>
+			<br />
+			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class="glyphicon glyphicon-gift" style="margin-left:20px;"></i> &nbsp; December 12, 1997 </p>
+			<br />
+			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-tag" style="margin-left:20px"></i> &nbsp; 123 </p>
+		</font>
+		<hr />
+
+
+
+		<font color="white" ; size="4">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green"  style="text-decoration:none; text-decoration-color:none; "> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-home"> </i> &nbsp; &nbsp; Home </p> </a> </font>
+		<br/>
+		<font color="white" ; size="4">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-calendar"></i> &nbsp; &nbsp; Reservation </p> </a> </font>
+		<br />
+		<font color="white" ; size="4"> <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green"  style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-ruble"></i> &nbsp; &nbsp; Bills and Payment</p></a></font>
+		<br />
+		<font color="white" ; size="4"> <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;">  <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-user" style="font-size:20px;"> </i> &nbsp; &nbsp; Account Settings</p></a></font>
+		<br />
+		<font color="white" ; size="4"> <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i> &nbsp; &nbsp;  Logout </p> </a></font>
 
 
 	</div>
@@ -60,8 +90,8 @@
 
 			<button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="50" />
 			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact">Contact Us</a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout">About Us</a>
+			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;">Contact Us</a>
+			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;">About Us</a>
 			@*<div class="first"><button type="button" name="btnAbout" id="btnAbout">About Us</button></div>*@
 		</div>
 

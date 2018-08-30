@@ -21,14 +21,7 @@ namespace UResidence.Controllers
         public ActionResult Registration(Equipment eqp,HttpPostedFileBase image)
         {
             string[] err = new string[] { };
-            if (image != null)
-            {
-                if (image.ContentLength > 0)
-                {
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
-                    string folderpath = "~/Content/EquipmentImages/" + imagefileName;
-                    image.SaveAs(folderPath);
+           
                     Equipment eqp1 = new Equipment()
                     {
                         Name = eqp.Name, 
@@ -50,9 +43,6 @@ namespace UResidence.Controllers
                         ViewBag.Message = false;
                         return View(eqp);
                     }
-                }
-            }
-            return View();
         }
 
         public ActionResult EquipmentView()
