@@ -74,7 +74,8 @@ namespace UResidence.Controllers
                 Amount=data.Amount,
                 Description=data.Description,
                 Status=data.Status,
-                CreatedBy=name
+                CreatedBy=name,
+                ApprovedBy="None"
             };
             status = ReversalController.Insert(reversal);
             return new JsonResult

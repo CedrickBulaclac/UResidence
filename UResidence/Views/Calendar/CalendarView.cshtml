@@ -64,9 +64,9 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" required />
+                        <b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0"  />
                         <br /><br />
-                        <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription" required></textarea>
+                        <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription" ></textarea>
                         <br /><br />
                     </div>
                     <div class="modal-footer">
@@ -90,7 +90,7 @@
 
                         <b>Total Payment:</b> <label id="tpr" name="tpr"></label>
                         <br /><br />
-                        <b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0" required />
+                        <b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0"  required/>
                         <br /><br />
                         <b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
                         <br /><br />
@@ -98,7 +98,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="btnAddReversal" name="btnAddReversal" onclick="AddReversal()">Add Reversal</button>
-                        <button type="button" class="btn btn-default" id="btnAddReversal" name="btnAddReversal" onclick="ReversalHistory()">Reversal History</button>
+                        <button type="button" class="btn btn-default" id="btnHistoryReversal" name="btnHistoryReversal" onclick="ReversalHistory()" data-dismiss="modal">Reversal History</button>
                         <button type="button" class="btn btn-danger" id="btnCloseR" name="btnCloseR" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -122,9 +122,9 @@
                         <br /><br />
                         <b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
                         <br /><br />
-                        <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" />
+                        <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required/>
                         <br /><br />
-                        <b>Description: </b><textarea name="cdescription" id="cdescription"></textarea>
+                        <b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
@@ -313,9 +313,9 @@
 
             function ReversalHistory() {
                 var refno = document.getElementById('rfid').value;           
-                $('#ReversalHistory').modal();
+               
                 $.ajax({
-                    type: "POST",
+                    type:'POST',
                     url: "/calendar/ReversalHistory",
                     dataType: 'json',
                     data: {
@@ -328,7 +328,7 @@
 
 
                             $('#tbRevHistory').empty();
-                        trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
+                        trHTML = '<tr><th>Date</th> <th>Amount</th> <th>Description</th> <th>Created By</th></tr>';
                         $.each(data, function (i, v) {
                             trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
                             totalp += v.Amount;
@@ -515,31 +515,36 @@
                 var refno = document.getElementById('rfid').value;
                 var ar = document.getElementById('atr').value;
                 var desc = document.getElementById('rdescription').value;
-                var select ='Pending';
-                if (ar <= totalpay) {
-                    var data = {
-                        RefNo: refno,
-                        Description: desc,
-                        Status: select,
-                        Amount: ar
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Calendar/AddReversal',
-                        data: data,
-                        success: function (data) {
-                            RefreshCalendar();
-                            alert('Success');
-                            window.location.reload();
-                            $('#myModal').modal();
-                        },
-                        error: function (error) {
-                            alert("Failed to Insert Record");
+                var select = 'Pending';
+                if (ar != 0 && desc$(`#textareaid`).val().length==0) {
+                    if (ar <= totalpay) {
+                        var data = {
+                            RefNo: refno,
+                            Description: desc,
+                            Status: select,
+                            Amount: ar
                         }
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Calendar/AddReversal',
+                            data: data,
+                            success: function (data) {
+                                RefreshCalendar();
+                                alert('Success');
+                                window.location.reload();
+                                $('#myModal').modal();
+                            },
+                            error: function (error) {
+                                alert("Failed to Insert Record");
+                            }
 
 
 
-                    });
+                        });
+                    }
+                    else {
+                        alert('Please input on the required textfield');
+                    }
                 }
                 else {
                     alert('Amount to Return should be less than of the Total payment')
@@ -555,6 +560,11 @@
             });
             $('#btnReversal').click(function () {
                 $('#reversalModal').modal();
+                
+            });
+           
+            $('#btnHistoryReversal').click(function () {
+                $('#ReversalHistory').modal();
             });
             $('#btnPayment').click(function () {
 
@@ -597,7 +607,10 @@
 
                 $('#myModal').modal();
             });
+            $('# btnCloseRevH').click(function () {
 
+                $('#reversalModal').modal();
+            });
 
         </script>
     }

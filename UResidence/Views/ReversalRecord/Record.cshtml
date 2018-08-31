@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Record";
+}
+<br /><br />
+      <center>
+          Sort by:<select class="form-control" id="select" onchange="Set()">
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+          </select>
+      </center>
+              <br />
+              <br />
+              <div class="container">
+                  <table class="table table-bordered table-striped" id="tableReversalList"></table>
+               
+              </div>
+              <script>
+                  $(document).ready(SetP);
+
+
+                  function SetP() {
+
+                      $.ajax({
+                          type: 'POST',
+                          url: '/ReversalRecord/GetP',
+                          success: function (data) {
+                              $('#tableReversalList').empty();
+                              trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Action</th></tr>';
+                              $.each(data, function (i, v) {
+                                  trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td>   <button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(' + v.Id + ',' + v.Description + ',' + v.Amount + ')">Update</button></td></tr>';
+
+                              });
+                              $('#tableReversalList').append(trHTML);
+                              trHTML = '';
+                             
+                          },
+                          error: function (error) {
+                              alert('Failed to retrieve record');
+                          }
+                      });
+                  }
+                  function SetA() {
+
+                      $.ajax({
+                          type: 'POST',
+                          url: '/ReversalRecord/GetA',
+                          success: function (data) {
+                              $('#tableReversalList').empty();
+                              trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Action</th></tr>';
+                              $.each(data, function (i, v) {
+                                  trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td>   <button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(' + v.Id + ',' + v.Description + ',' + v.Amount + ')">Update</button></td></tr>';
+
+                              });
+                              $('#tableReversalList').append(trHTML);
+                              trHTML = '';
+                            
+                          },
+                          error: function (error) {
+                              alert('Failed to retrieve record');
+                          }
+                      });
+                  }
+                  function Set() {
+                      var select = document.getElementById('select').value;
+                      if (select == 'Pending') {
+                          SetP();                 
+                      }
+                      else if (select == 'Approved') {
+                          SetA();                      
+                      }
+                  }
+                  function SetModal(Id, Desc, Amount) {
+                      alert(Id);
+                  }
+              </script>
+
+
+
