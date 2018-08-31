@@ -54,6 +54,8 @@ namespace UResidence.Controllers
                     Session["TOR"] = "Owner";
                     Owner a = new Owner();
                     a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
+                    Session["BDAY"] = a.Bdate.ToShortDateString();
+                    Session["UNO"] = a.UnitNo;
                     string Fname = RemoveWhitespace(a.Fname);
                     string Mname = RemoveWhitespace(a.Mname);
                     string Lname = RemoveWhitespace(a.Lname);

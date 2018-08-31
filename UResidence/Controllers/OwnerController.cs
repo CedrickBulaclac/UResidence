@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
+
 
 namespace UResidence.Controllers
 {
@@ -54,7 +56,8 @@ namespace UResidence.Controllers
                 Bdate = owe.Bdate,
                 CelNo = owe.CelNo,
                 Email = owe.Email,
-                Deleted = "0"
+                Deleted = "0",
+                URL = "~/Content/WebImages/user.png"
 
             };
 
@@ -78,8 +81,8 @@ namespace UResidence.Controllers
                         CreatedBy = "",
                         ModifyBy = "",
                         DateCreated = DateTime.Now,
-                        Level = 1,
-                        Locked = 1,
+                        Level = 4,
+                        Locked = 0,
                         LastLogin = DateTime.Now
                     };
 
@@ -182,6 +185,47 @@ namespace UResidence.Controllers
             }
             ViewBag.UpdateMessage = true;
             return View(owe);
+        }
+
+
+        public JsonResult UpdateImage(Owner owner)
+        {
+            var image = owner.Image;
+            bool status = false;
+            int id = owner.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
+                    Owner a = new Owner
+                    {
+                        Id = id,
+                        URL = folderpath1
+                    };
+
+
+                    status = UResidence.OwnerController.UpdateDP(a);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
         }
 
         public string FixMessages(string[] err)
