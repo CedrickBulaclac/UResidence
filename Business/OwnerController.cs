@@ -41,6 +41,8 @@ namespace UResidence
             return ret;
         }
 
+       
+
         public static Owner GetIdOwner(string idOwner)
         {
             const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL FROM [tbOwner] WHERE Id = @Id";

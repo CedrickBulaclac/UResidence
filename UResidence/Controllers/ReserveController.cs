@@ -26,7 +26,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
-
+            Owner a = new Owner();
+            a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+            Session["URLL"] = a.URL;
+            //Session["URLL"] = Session["URL"];
             string s = "false";
             if (Session["status"] is null)
             {

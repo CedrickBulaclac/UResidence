@@ -56,7 +56,6 @@ namespace UResidence.Controllers
                     a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
                     Session["BDAY"] = a.Bdate.ToShortDateString();
                     Session["UNO"] = a.UnitNo;
-                    Session["URL"] = a.URL;
                     string Fname = RemoveWhitespace(a.Fname);
                     string Mname = RemoveWhitespace(a.Mname);
                     string Lname = RemoveWhitespace(a.Lname);

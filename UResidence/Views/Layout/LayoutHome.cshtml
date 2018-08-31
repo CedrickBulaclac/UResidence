@@ -72,7 +72,7 @@
 
 		<br />
 		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-			<p class="w3-center"><img src="@Url.Content(Session["URL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 			@*<p class="w3-center"><img src="@Url.Content(Model.URL)" class="w3-circle" style="height:106px; width:106px" alt="user"></p>*@
 		</a>
 		<hr />
@@ -168,6 +168,7 @@
 				success: function (data) {
 					if (data == true) {
 						alert('Success');
+						window.location.reload();
 						window.location.href = window.location.href + "?rnd=" + Math.random()
 
 					}
