@@ -146,12 +146,15 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\AmenityMaintenanceController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\ReservationRecordController.cs" />
+    <Compile Include="Controllers\ReversalRecordController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,6 +244,17 @@
     <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Swimming.cshtml" />
     <Content Include="Views\Reserve\SummarySwimming.cshtml" />
+    <Content Include="Views\AccountSetting\AdminAccountSetting.cshtml" />
+    <Content Include="Views\AccountSetting\OwnerAccountSetting.cshtml" />
+    <Content Include="Views\AccountSetting\TenantAccountSetting.cshtml" />
+    <Content Include="Views\Billing\BillingView.cshtml" />
+    <Content Include="Views\Layout\FinanceLayout.cshtml" />
+    <Content Include="Views\Layout\LayoutHome.cshtml" />
+    <Content Include="Views\Layout\OwnerLayout.cshtml" />
+    <Content Include="Views\Layout\RegistrationLayout.cshtml" />
+    <Content Include="Views\Layout\SuperAdminLayout.cshtml" />
+    <Content Include="Views\ReservationRecord\Record.cshtml" />
+    <Content Include="Views\ReversalRecord\Record.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
