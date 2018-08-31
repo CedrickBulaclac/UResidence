@@ -27,6 +27,7 @@ namespace UResidence
         public string AName { get; set; }
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
+        public int Amount { get; set; }
 
         public ReservationProcess CreateObject(SqlDataReader reader)
         {
@@ -47,6 +48,7 @@ namespace UResidence
             ret.ChairCost= reader.GetInt32(13);
             ret.TableCost = reader.GetInt32(14);
             ret.Total = reader.GetInt32(15);
+            ret.Amount = reader.GetInt32(16);
             return ret;
         }
 
@@ -67,7 +69,8 @@ namespace UResidence
             this.TableCost = 0;
             this.ChairCost = 0;
             this.Total = 0;
-            this.Charge = 0;          
+            this.Charge = 0;
+            this.Amount = 0;
             this.ReservedBy = string.Empty;
             this.Status = string.Empty;
             this.Color = string.Empty;
@@ -77,6 +80,7 @@ namespace UResidence
             this.UnitNo = string.Empty;
             this.CreatedBy = string.Empty;
             this.ApprovedBy = string.Empty;
+            
         }
 
         

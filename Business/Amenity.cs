@@ -7,12 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-
-
 namespace UResidence
 {
     public class Amenity : BaseProperty<Amenity>
     {
+       
         public int Id { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }
@@ -20,7 +19,8 @@ namespace UResidence
         public string Url { get; set; }
         public int Rate { get; set; }
         public string Color {get; set;}
-
+        public HttpPostedFileBase Image { get; set; }
+       
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();

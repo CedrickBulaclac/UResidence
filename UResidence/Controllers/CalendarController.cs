@@ -35,16 +35,19 @@ namespace UResidence.Controllers
 
         }
 
-        public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1)
+        public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc)
         {
-
+            string name = (Session["FullName"]).ToString();
             bool status = false;
-            Receipt receipt = new Receipt
+            Charge charge = new Charge
             {
-                Charge = charge1,
-                RefNo = refno1
+                charge = charge1,
+                Refno = refno1,
+                Date=DateTime.Now,
+                CreatedBy=name,
+                Description=desc
             };
-            status = ReceiptController.UpdateCharge(receipt);
+            status = ChargeController.Insert(charge);
             if (status == true)
             {
                 Reservation reservation = new Reservation
@@ -61,6 +64,26 @@ namespace UResidence.Controllers
             };
 
         }
+        public JsonResult AddReversal(Reversal data)
+        {
+            bool status = false;
+            string name = (Session["Fullname"]).ToString();
+            Reversal reversal = new Reversal
+            {
+                RefNo=data.RefNo,
+                Amount=data.Amount,
+                Description=data.Description,
+                Status=data.Status,
+                CreatedBy=name
+            };
+            status = ReversalController.Insert(reversal);
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
 
         public JsonResult ReceiptHistory(int refno1)
         {
@@ -68,7 +91,18 @@ namespace UResidence.Controllers
             var events = receipt.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
+        public JsonResult ReversalHistory(int refno1)
+        {
+            List<Reversal> reversal = ReversalController.GET_ALL(refno1);
+            var events = reversal.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult ChargeHistory(int refno1)
+        {
+            List<Charge> charge = ChargeController.GetAll(refno1);
+            var events = charge.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         // GET: Calendar
         public ActionResult CalendarView()
         {
@@ -99,7 +133,6 @@ namespace UResidence.Controllers
                     {
                         ORNo = rid,
                         Totalpayment = dp,
-                        Charge = cg,
                         Date = DateTime.Today,
                         Description = comment
                     };

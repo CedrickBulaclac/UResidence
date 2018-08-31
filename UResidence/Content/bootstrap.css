@@ -856,11 +856,11 @@ pre code {
 .col-lg-10,
 .col-lg-11,
 .col-lg-12 {
-  position:center;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  background-color: aquamarine;
+    position: center;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: none;
 }
 
 .col-xs-1,

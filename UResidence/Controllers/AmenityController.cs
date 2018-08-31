@@ -31,7 +31,15 @@ namespace UResidence.Controllers
                     string imagefileName = Path.GetFileName(image.FileName);
                     string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
                     string folderpath = "~/Content/AmenityImages/" + imagefileName;
-                    image.SaveAs(folderPath);
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
                     Amenity a = new Amenity()
                     {
                         AmenityName = amen.AmenityName,
@@ -130,26 +138,38 @@ namespace UResidence.Controllers
 
         //}
 
-
-
-        public JsonResult UpdateImage(string url)
+        public JsonResult UpdateImage(Amenity amenity)
         {
+            var image = amenity.Image;
             bool status = false;
-            //if (image1 != null)
-            //{
-            //    if (image1.ContentLength > 0)
-            //    {
-            //        string imagefileName = Path.GetFileName(image1.FileName);
-            //        string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-            //        string folderpath = "~/Content/AmenityImages/" + imagefileName;
-            //        image1.SaveAs(folderPath);
-            Amenity a = new Amenity
+            int id = amenity.Id;
+            if (image != null)
             {
-                Url = url,
-            };
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
+                    Amenity a = new Amenity
+                    {
+                        Id = id,
+                        Url = folderpath1
+                    };
 
 
-            status = UResidence.AmenityController.UpdateImage(a);
+                    status = UResidence.AmenityController.UpdateImage(a);
+                }
+
+            }
             return new JsonResult
             {
                 Data = status,
