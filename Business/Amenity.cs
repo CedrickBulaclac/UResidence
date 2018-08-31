@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
+
 namespace UResidence
 {
     public class Amenity : BaseProperty<Amenity>

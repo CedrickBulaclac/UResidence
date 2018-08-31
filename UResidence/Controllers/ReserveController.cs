@@ -373,10 +373,7 @@ namespace UResidence.Controllers
             }
             return View();
         }
-        public ActionResult MEMA()
-        {
-            return View();
-        }
+       
 
     }
 }    
