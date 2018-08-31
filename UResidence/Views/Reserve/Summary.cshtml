@@ -61,6 +61,9 @@
 				background-color: #18ac6f;
 				border: none;
 				border-radius: 5px;
+				float: right;
+				text-decoration: none;
+				text-decoration-color: none;
 			}
 
 
@@ -70,166 +73,172 @@
 				}
 		</style>
 	</head>
-    <body>
-        <div>
-            <div class="progress" style="width:860px;">
-                <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-                     aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-                    <a href="@Url.Action("Amenity","Reserve")">Choose Amenity</a>
-                </div>
+	<body>
+		<br/>
+		<center>
+			<div>
+				<div class="progress" style="width:860px; height:40px;">
+					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+						<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+					</div>
 
 
-                <div class="progress-bar progress-bar-success  " style="width:20%;" role="progressbar" aria-valuenow="0"
-                     aria-valuemin="0" aria-valuemax="100">
-                    <a href="@Url.Action("Calendar","Reserve")">Scheduled Amenity</a>
-                </div>
+					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+					</div>
 
 
-                <div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-                     aria-valuemin="0" aria-valuemax="100">
-                    <a href="@Url.Action("Choose_Date","Reserve")">Choose Date</a>
-                </div>
+					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Choose_Date","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+					</div>
 
-                <div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-                     aria-valuemin="0" aria-valuemax="100">
-                    <a href="@Url.Action("Choose_Equipment","Reserve")">Choose Equipment</a>
-                </div>
-                <div class="progress-bar progress-bar-success progress-bar-striped active  " style="width:20%;" role="progressbar" aria-valuenow="0"
-                     aria-valuemin="0" aria-valuemax="100">
-                    Summary
-                </div>
-            </div>
-        </div>
+					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Choose_Equipment","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
+					</div>
+					<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
 
-
-
-        <h2>Summary</h2>
-        <div class="container">
-            <input type="hidden" id="ida" name="ida" />
-            <input type="hidden" id="thm" name="thm" />
-            <br />
-
-            <div class="col-75">
-                <label for="AmenityName">Amenity Name :</label>
-            </div>
-
-            <div class="input">
-                <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
-            </div>
+					</div>
+				</div>
 
 
-
-            <br />
-
-            <div class="col-75">
-                <label for="Schedule">Schedule :</label>
-
-            </div>
-
-            <div class="input">
-                <input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
-            </div>
+			</div>
+		</center>
 
 
-            <input type="hidden" id="sta" name="sta" />
-            <input type="hidden" id="eta" name="eta" />
-            <br />
+		<h2>Summary</h2>
+		<div class="container">
+			<input type="hidden" id="ida" name="ida" />
+			<input type="hidden" id="thm" name="thm" />
+			<br />
 
-            @if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
-            {
-                <div class="col-75">
+			<div class="col-75">
+				<label for="AmenityName">Amenity Name :</label>
+			</div>
 
-                    <label>No. of Adult :</label><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"> <label>Rate :</label> <input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled">
-                    <br />
-                    <br />
-                    <label> No. of Children :</label><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"> <label>Rate :</label> <input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled">
-                </div>
-            }
-            else
-            {
-                <div class="col-75">
-                    <label for="Price" name="lprice" id="lprice">Price :</label>
-                </div>
-                <br />
-                <input type="text" class="input" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
-                <input type="hidden" id="ap" name="ap" />
-
-            }
-            <br />
-            <br />
+			<div class="input">
+				<input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
+			</div>
 
 
 
+			<br />
 
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+			<div class="col-75">
+				<label for="Schedule">Schedule :</label>
 
-            @{
+			</div>
 
+			<div class="input">
+				<input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
+			</div>
 
 
-                int ctr4 = 0;
+			<input type="hidden" id="sta" name="sta" />
+			<input type="hidden" id="eta" name="eta" />
+			<br />
+
+			@if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
+			{
+				<div class="col-75">
+
+					<label>No. of Adult :</label><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"> <label>Rate :</label> <input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled">
+					<br />
+					<br />
+					<label> No. of Children :</label><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"> <label>Rate :</label> <input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled">
+				</div>
+			}
+			else
+			{
+				<div class="col-75">
+					<label for="Price" name="lprice" id="lprice">Price :</label>
+				</div>
+				<br />
+				<input type="text" class="input" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
+				<input type="hidden" id="ap" name="ap" />
+
+			}
+			<br />
+			<br />
 
 
 
 
-                foreach (var eqp in Model)
-                {
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
 
-                    if (ViewBag.quan[ctr4] != 0)
-                    {
-
-                        <div class="col-75">
-                            <label class="  text-center">@eqp.Name</label>
-                        </div>
-
-                        <div class="col-75">
-                            <label for="Quantity">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
-                        </div>
-
-                        <div class="col-75">
-                            <label for="Rate">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
-                        </div>
-
-                        <div class="col-75">
-                            <label for="SubTotal">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
-                        </div>
-
-                        <br />
-                    }
-                    else if (ViewBag.quan[ctr4] is null)
-                    {
-
-                    }
+			@{
 
 
-                    ctr4++;
 
-                }
-
-            }
-            <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
-
-            <div class="col-75">
-                <label for="totalamount">Total Amount :</label><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
-            </div>
-
-            <br />
+				int ctr4 = 0;
 
 
-            <button id="btnSubmit" name="btnSubmit" class="button" type="submit" style="float:left;">Submit</button>
 
 
-        </div>
+				foreach (var eqp in Model)
+				{
+
+					if (ViewBag.quan[ctr4] != 0)
+					{
+
+						<div class="col-75">
+							<label class="  text-center">@eqp.Name</label>
+						</div>
+
+						<div class="col-75">
+							<label for="Quantity">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
+						</div>
+
+						<div class="col-75">
+							<label for="Rate">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
+						</div>
+
+						<div class="col-75">
+							<label for="SubTotal">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
+						</div>
+
+						<br />
+					}
+					else if (ViewBag.quan[ctr4] is null)
+					{
+
+					}
 
 
-    </body>
+					ctr4++;
+
+				}
+
+			}
+			<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+
+			<div class="col-75">
+				<label for="totalamount">Total Amount :</label><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
+			</div>
+
+			<br />
+
+
+			<button id="btnSubmit" name="btnSubmit" class="button" type="submit" style="float:left;">Submit</button>
+
+
+		</div>
+
+		
+
+	</body>
 
 
 
@@ -258,3 +267,6 @@
        
     </script>
 }
+	<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+	</footer>
