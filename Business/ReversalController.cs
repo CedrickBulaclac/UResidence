@@ -27,13 +27,11 @@ namespace UResidence
         }
         public static bool Update(Reversal ret)
         {
-            const string GET_UPDATE = @"update [tbReversal] set Description=@Description,Status=@Status,Amount=@Amount WHERE RefNo = @RefNo";
+            const string GET_UPDATE = @"update [tbReversal] set Description=@Description,Amount=@Amount WHERE Id = @id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
-            com.Parameters.Add(new SqlParameter("@RefNo", ret.RefNo));
             com.Parameters.Add(new SqlParameter("@Description", ret.Description));
-            com.Parameters.Add(new SqlParameter("@Status", ret.Status));
-            com.Parameters.Add(new SqlParameter("@CreatedBy", ret.CreatedBy));
+            com.Parameters.Add(new SqlParameter("@id", ret.Id));
             com.Parameters.Add(new SqlParameter("@Amount", ret.Amount));
             return SqlManager.ExecuteNonQuery(com);
         }

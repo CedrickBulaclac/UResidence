@@ -33,5 +33,23 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public JsonResult Update(Reversal data)
+        {
+            bool status = false;
+            Reversal rev = new Reversal
+            {
+                Description=data.Description,
+                Amount=data.Amount,
+                Id=data.Id,
+                Status="Pending"
+             };
+            status = ReversalController.Update(rev);
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
     }
 }
