@@ -35,83 +35,109 @@ namespace UResidence.Controllers
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
-            UserLogin ul = new UserLogin
+            if (listUser.Count == 0)
             {
-                Username = ten.Email,
-                Hash = hash,
-                CreatedBy = "",
-                ModifyBy = "",
-                DateCreated = DateTime.Now,
-                Level = 2,
-                Locked = 1,
-                LastLogin = DateTime.Now
-            };
-
-
-
-            Tenant tenn = new Tenant()
-            {
-
-                BldgNo = ten.BldgNo,
-                UnitNo = ten.UnitNo,
-                Fname = ten.Fname,
-                Mname = ten.Mname,
-                Lname = ten.Lname,
-                Bdate = ten.Bdate,
-                CelNo = ten.CelNo,
-                Email = ten.Email,
-                LeaseStart = ten.LeaseStart,
-                LeaseEnd = ten.LeaseEnd,
-                Deleted = "0",
-                URL = "~/Content/WebImages/user.png"
-
-            };
-
-
-
-            string[] err = new string[] { };
-            if (ten.Validate(out err))
-            {
-
-             
-
-                status = UResidence.TenantController.Insert(tenn);
-
-
-                Tenant b = new Tenant();
-                b = UResidence.TenantController.GetIdTenant(ten.Email.ToString());
-                int tenandID = b.Id;
-
-                UserLogin ull = new UserLogin
+                UserLogin ul = new UserLogin
                 {
-                    TenantId = tenandID,
                     Username = ten.Email,
                     Hash = hash,
                     CreatedBy = "",
                     ModifyBy = "",
                     DateCreated = DateTime.Now,
-                    Level = 5,
-                    Locked = 0,
+                    Level = 2,
+                    Locked = 1,
                     LastLogin = DateTime.Now
-                    
                 };
+                Owner own = new Owner(); ;
+                own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
 
-                UResidence.UserController.InsertTenantId(ull);
+                if (own.Id != 0)
+                {
+                    Tenant tenn = new Tenant()
+                    {
 
+                        BldgNo = ten.BldgNo,
+                        UnitNo = ten.UnitNo,
+                        Fname = ten.Fname,
+                        Mname = ten.Mname,
+                        Lname = ten.Lname,
+                        Bdate = ten.Bdate,
+                        CelNo = ten.CelNo,
+                        Email = ten.Email,
+                        LeaseStart = ten.LeaseStart,
+                        LeaseEnd = ten.LeaseEnd,
+                        Deleted = "0",
+                        URL = "~/Content/WebImages/user.png"
 
-          
-                status = true;
-                ViewBag.AddMessage = status;
-                TenantView();
-                return View("TenantView");
+                    };
+                    List<Tenant> listTen = default(List<Tenant>);
+                    listTen = UResidence.TenantController.Check(tenn);
+                    if (listTen.Count == 0)
+                    {
+                        string[] err = new string[] { };
+                        if (ten.Validate(out err))
+                        {
+                            status = UResidence.TenantController.Insert(tenn);
+                            Tenant b = new Tenant();
+                            b = UResidence.TenantController.GetEmailTenant(ten.Email);
+                            int tenandID = b.Id;
+
+                            UserLogin ull = new UserLogin
+                            {
+                                TenantId = tenandID,
+                                Username = ten.Email,
+                                Hash = hash,
+                                CreatedBy = "",
+                                ModifyBy = "",
+                                DateCreated = DateTime.Now,
+                                Level = 5,
+                                Locked = 0,
+                                LastLogin = DateTime.Now
+
+                            };
+
+                            UResidence.UserController.InsertTenantId(ull);
+
+                            Residence red = new Residence
+                            {
+                                OwnerNo = own.Id,
+                                TenantNo = tenandID
+                            };
+
+                            ResidenceController.Insert(red);
+
+                            status = true;
+                            ViewBag.AddMessage = status;
+                            TenantView();
+                            return View("TenantView");
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = FixMessages(err);
+                            status = false;
+
+                        }
+                    }
+                    else
+                    {
+                        string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
+                        Response.Write(script);
+                        status = false;
+                    }
+                }
+                else
+                {
+                    string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
+                    Response.Write(script);
+                    status = false;
+                }
             }
             else
             {
-                ViewBag.ErrorMessage = FixMessages(err);
+                string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
+                Response.Write(script);
                 status = false;
-
             }
-
             ViewBag.AddMessage = status;
             return View();
         }
