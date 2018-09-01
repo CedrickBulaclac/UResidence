@@ -105,7 +105,7 @@
 
                         name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
                         ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="GetRefNO(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                     });
                     $('#tbReservationList').append(trHTML);
@@ -131,7 +131,7 @@
 
                         name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
                         ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="GetRefNO(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                     });
                     $('#tbReservationList').append(trHTML);
@@ -161,7 +161,7 @@
 
                         name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
                         ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="GetRefNO(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                     });
                     $('#tbReservationList').append(trHTML);
@@ -244,6 +244,7 @@
                         $description.append($('<p/>').html('<b>Chair Cost: </b>' + v.ChairCost ));
                         $description.append($('<p/>').html('<b>Charge: </b>' + v.Charge ));
                         $description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge))));
+                        $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));
                         $description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total )));
                         $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total))));
                         $description.append($('<p/>').html('<b>Status: </b>' + v.Status ));

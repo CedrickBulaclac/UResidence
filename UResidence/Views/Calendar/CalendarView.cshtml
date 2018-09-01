@@ -328,9 +328,9 @@
 
 
                             $('#tbRevHistory').empty();
-                        trHTML = '<tr><th>Date</th> <th>Amount</th> <th>Description</th> <th>Created By</th></tr>';
+                        trHTML = '<tr><th>Date</th> <th>Amount</th> <th>Description</th> <th>Created By</th><th>Status</th></tr>';
                         $.each(data, function (i, v) {
-                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td><td>' + v.Status + '</td></tr>';
                             totalp += v.Amount;
                         });
                         $('#tbRevHistory').append(trHTML);

@@ -255,6 +255,7 @@
     <Content Include="Views\Layout\SuperAdminLayout.cshtml" />
     <Content Include="Views\ReservationRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Record.cshtml" />
+    <Content Include="Views\ReversalRecord\Records.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

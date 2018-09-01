@@ -17,6 +17,7 @@ namespace UResidence
         public string Status { get; set; }
        public string Date { get; set; }
         public int Id { get; set; }
+        public int RefNo { get; set; }
         public ReversalList CreateObject(SqlDataReader reader)
         {
             ReversalList ret = new ReversalList();
@@ -28,6 +29,7 @@ namespace UResidence
             ret.Status = reader.GetString(5);
             ret.Date = reader.GetString(6);
             ret.Id = reader.GetInt32(7);
+            ret.RefNo = reader.GetInt32(8);
             return ret;
         }
 
@@ -41,6 +43,7 @@ namespace UResidence
             this.Status = string.Empty;
             this.Date = string.Empty;
             this.Id = 0;
+            this.RefNo = 0;
         }
     }
 }
