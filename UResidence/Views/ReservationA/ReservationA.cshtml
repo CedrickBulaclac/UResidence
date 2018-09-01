@@ -1,0 +1,32 @@
+﻿
+@{
+	ViewBag.Title = "ReservationAdmin";
+	Layout = "~/Views/Layout/ReservationLayout.cshtml";
+}
+
+@using (Html.BeginForm("ReservationA", "ReservationA", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+
+	<br /><br /><br />
+	<label>Building Number: </label> <input type="text" name="bldgno" id="bldgno" />
+	<br />
+	<label>Unit Number: </label> <input type="text" name="unitno" id="unitno" />
+	<br />
+	<input type="submit" id="submitId" value="submit" />
+
+
+
+
+}
+
+
+<script type="text/javascript">
+
+</script>
+
+
+
+
+

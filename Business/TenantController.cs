@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Tenant> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted FROM [tbTenant] where Deleted=0 order by Id";
+            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL FROM [tbTenant] where Deleted=0 order by Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -20,11 +20,11 @@ namespace UResidence
         }
         public static Tenant GetIdTenant(string idTenant)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted  FROM [tbTenant] WHERE Email = @Email";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
-            com.Parameters.Add(new SqlParameter("@Email", idTenant));
+            com.Parameters.Add(new SqlParameter("@Id", idTenant));
             ret = SqlManager.Select<Tenant>(com).First();
 
             return ret;
@@ -32,7 +32,7 @@ namespace UResidence
 
         public static Tenant GetId(string id)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted  FROM [tbTenant] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -42,6 +42,18 @@ namespace UResidence
             return ret;
         }
 
+
+        public static List<Tenant> GetId(int id)
+        {
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
+
+            List<Tenant> ret = default(List<Tenant>);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Id", id));
+            ret = SqlManager.Select<Tenant>(com);
+
+            return ret;
+        }
 
 
         public static bool Update(Tenant usr)
@@ -73,6 +85,17 @@ namespace UResidence
             return SqlManager.ExecuteNonQuery(com);
         }
 
+
+
+        public static bool UpdateDP(Tenant ten)
+        {
+
+            const string GET_UPDATE = @"update [tbTenant] set URL=@URL  WHERE Id = @Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", ten.Id));
+            com.Parameters.Add(new SqlParameter("@URL", ten.URL));
+            return SqlManager.ExecuteNonQuery(com);
+        }
 
 
 
@@ -109,7 +132,7 @@ namespace UResidence
         public static bool Insert(Tenant usr)
         {
 
-            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted)";
+            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted,@URL)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@BldgNo", usr.BldgNo));
@@ -123,7 +146,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@LeaseStart", usr.LeaseStart));
             com.Parameters.Add(new SqlParameter("@LeaseEnd", usr.LeaseEnd));
             com.Parameters.Add(new SqlParameter("@Deleted", usr.Deleted));
-
+            com.Parameters.Add(new SqlParameter("@URL", usr.URL));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

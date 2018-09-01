@@ -1,18 +1,22 @@
 ﻿
 ﻿@{ 
-    Layout = "";
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        Layout = "/Views/Layout/FinanceLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 3)
-    {
-        Layout = "/Views/Layout/RegistrationLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 0)
-    {
-        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-    }
+	Layout = "";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/FinanceLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 3)
+	{
+		Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 2)
+	{
+		Layout = "/Views/Layout/ReservationLayout.cshtml";
+	}
 }
 
 ﻿<!DOCTYPE html>

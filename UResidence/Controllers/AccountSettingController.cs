@@ -158,15 +158,15 @@ namespace UResidence.Controllers
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
 
-            List<Admin> a = new List<Admin>();
+            List<Tenant> a = new List<Tenant>();
             List<UserLogin> ul = new List<UserLogin>();
 
-            a = UResidence.AdminController.Get(Aid);
-            ul = UResidence.UserController.AGetAll(Aid);
+            a = UResidence.TenantController.GetId(Aid);
+            ul = UResidence.UserController.TGetAll(Aid);
             List<object> model = new List<object>();
             model.Add(a.ToList());
             model.Add(ul.ToList());
-            return View();
+            return View(model);
         }
         [HttpPost]
         public ActionResult TenantAccountSetting(FormCollection fc)
