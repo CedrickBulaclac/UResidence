@@ -405,7 +405,9 @@
                                 rf: v.RFId,
                                 tc: v.TableCost,
                                 cc: v.ChairCost,
-                                amt: v.Amount
+                                amt: v.Amount,
+                                cq: v.ChairQuantity,
+                                tq:v.TableQuantity
                             });
                         })
                         GenerateCalendar(events);
@@ -448,7 +450,9 @@
                                     rf: v.RFId,
                                     tc: v.TableCost,
                                     cc: v.ChairCost,
-                                    amt: v.Amount
+                                    amt: v.Amount,
+                                    cq: v.ChairQuantity,
+                                    tq: v.TableQuantity
                                 });
                             })
                             GenerateCalendar(events);
@@ -487,7 +491,9 @@
                             $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
                             $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
                             $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
+                            $description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
                             $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+                            $description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
                             $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
                             $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
                             $description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
@@ -516,7 +522,7 @@
                 var ar = document.getElementById('atr').value;
                 var desc = document.getElementById('rdescription').value;
                 var select = 'Pending';
-                if (ar != 0 && desc$(`#textareaid`).val().length==0) {
+             
                     if (ar <= totalpay) {
                         var data = {
                             RefNo: refno,
@@ -541,13 +547,10 @@
 
 
                         });
-                    }
-                    else {
-                        alert('Please input on the required textfield');
-                    }
-                }
+                    }                  
+                
                 else {
-                    alert('Amount to Return should be less than of the Total payment')
+                    alert('Amount to Return should be Less than or Equal of the Total payment')
                 }
 
 
