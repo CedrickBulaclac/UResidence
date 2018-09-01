@@ -49,6 +49,7 @@ namespace UResidence.Controllers
                 }
                 else if (user.Level == 4)
                 {
+                    Session["Level"] = user.Level;
                     Session["LID"] = user.Id;
                     Session["UID"] = user.OwnerId;
                     Session["TOR"] = "Owner";
@@ -65,6 +66,7 @@ namespace UResidence.Controllers
                 }
                 else if (user.Level == 5)
                 {
+                    Session["Level"] = user.Level;
                     Session["LID"] = user.Id;
                     Session["UID"] = user.TenantId;
                     Session["TOR"] = "Tenant";
@@ -74,8 +76,10 @@ namespace UResidence.Controllers
                     string Mname = RemoveWhitespace(a.Mname);
                     string Lname = RemoveWhitespace(a.Lname);
                     Session["FullName"] = Fname + " " + Mname + " " + Lname;
+                    Session["BDAY"] = a.Bdate.ToShortDateString();
+                    Session["UNO"] = a.UnitNo;
                     UResidence.UserController.UpdateLog(user.Id);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Home", "Reserve");
                 }
             }
             else

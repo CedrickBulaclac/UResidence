@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using UResidence;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace UResidence.Controllers
 {
@@ -61,7 +62,8 @@ namespace UResidence.Controllers
                 Email = ten.Email,
                 LeaseStart = ten.LeaseStart,
                 LeaseEnd = ten.LeaseEnd,
-                Deleted = "0"
+                Deleted = "0",
+                URL = "~/Content/WebImages/user.png"
 
             };
 
@@ -88,8 +90,8 @@ namespace UResidence.Controllers
                     CreatedBy = "",
                     ModifyBy = "",
                     DateCreated = DateTime.Now,
-                    Level = 2,
-                    Locked = 1,
+                    Level = 5,
+                    Locked = 0,
                     LastLogin = DateTime.Now
                     
                 };
@@ -181,6 +183,48 @@ namespace UResidence.Controllers
             }
            
             return View(ten);
+        }
+
+
+        public JsonResult UpdateImage(Tenant tenant)
+        {
+            var image = tenant.Image;
+            bool status = false;
+            int id = tenant.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
+                    Tenant t = new Tenant
+                    {
+                        Id = id,
+                        URL = folderpath1
+                    };
+
+
+                    status = UResidence.TenantController.UpdateDP(t);
+                }
+
+            }
+
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
         }
 
         public string FixMessages(string[] err)

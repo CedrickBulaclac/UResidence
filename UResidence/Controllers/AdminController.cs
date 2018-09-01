@@ -65,7 +65,7 @@ namespace UResidence.Controllers
                         ModifyBy = "",
                         DateCreated = DateTime.Now,
                         Level = typea,
-                        Locked = 1,
+                        Locked = 0,
                         LastLogin = DateTime.Now
                     };
 

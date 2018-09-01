@@ -6,8 +6,31 @@ using System.Web.Mvc;
 
 namespace UResidence.Controllers
 {
-    public class ReserveController : Controller
+    public class ReservationAController : Controller
     {
+        // GET: ReservationAdmin
+        public ActionResult ReservationA()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ReservationA(FormCollection fc)
+        {
+            string bldgno = Convert.ToString(fc["bldgno"]);
+            string unitno = Convert.ToString(fc["unitno"]);
+            Owner ownerList = UResidence.OwnerController.GetOwnerReserve(bldgno, unitno);
+            string fname = ownerList.Fname;
+            string mname = ownerList.Mname;
+            string lname = ownerList.Lname;
+            string fullname = fname + ' ' + mname + ' ' + lname;
+            Session["FULLN"] = fullname;
+            Session["TORA"] = "Owner";
+            Session["UIDA"] = ownerList.Id;
+            return RedirectToAction("Amenity", "ReservationA");
+        }
+
+
         private bool status = false;
         public ActionResult SelectAmenity()
         {
@@ -24,43 +47,7 @@ namespace UResidence.Controllers
 
 
         }
-        public ActionResult Home()
-        {
-            int level = Convert.ToInt32(Session["Level"]);
-
-            if (level == 4)
-            {
-                Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
-                Session["URLL"] = a.URL;
-            }
-            else if (level == 5)
-            {
-                Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
-                Session["URLL"] = t.URL;
-            }
-            
-            string s = "false";
-            if (Session["status"] is null)
-            {
-                return View();
-            }
-            else
-            {
-                if ((Session["status"]).ToString().Equals(false))
-                {
-                    s = "false";
-                }
-                else
-                {
-                    s = "true";
-                }
-                ViewBag.Status = s;
-                return View();
-            }
-
-        }
+      
 
         public ActionResult Amenity()
         {
@@ -108,20 +95,26 @@ namespace UResidence.Controllers
             Session["NAME"] = aname;
 
 
-            return RedirectToAction("Calendar", "Reserve");
+            return RedirectToAction("Calendar", "ReservationA");
 
         }
+
+
         public ActionResult Calendar()
         {
-            ViewBag.Amenity=(Session["NAME"]).ToString();
+            ViewBag.Amenity = (Session["NAME"]).ToString();
             return View();
         }
+
+
         public ActionResult Choose_Date()
         {
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
         }
+
+
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
@@ -132,21 +125,23 @@ namespace UResidence.Controllers
             string drate = fc["tratee"];
             Session["drate"] = drate;
             int aid = Convert.ToInt32(Session["ID"]);
-           
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
-                if (schedList.Count > 0)
-                {
-                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                }
-                else
-                {
-                    Response.Write("<script>alert('Successful')</script>");
-                    return RedirectToAction("Choose_Equipment", "Reserve");
-                }
-            
+
+            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+            if (schedList.Count > 0)
+            {
+                Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+            }
+            else
+            {
+                Response.Write("<script>alert('Successful')</script>");
+                return RedirectToAction("Choose_Equipment", "ReservationA");
+            }
+
             return View();
         }
+
+
         public ActionResult Choose_Equipment()
         {
             int[] eqpid;
@@ -166,6 +161,8 @@ namespace UResidence.Controllers
             Session["eqpid"] = eqpid;
             return View(model);
         }
+
+
         [HttpPost]
         public void Choose_Equipment(int[] data, int[] datar)
         {
@@ -192,6 +189,8 @@ namespace UResidence.Controllers
             }
 
         }
+
+
         public ActionResult Summary()
         {
 
@@ -204,13 +203,15 @@ namespace UResidence.Controllers
             ViewBag.amenname = Session["NAME"];
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
-            ViewBag.QA=Session["qa"] ;
+            ViewBag.QA = Session["qa"];
             ViewBag.QC = Session["qc"];
             ViewBag.AR = Session["ar"];
             ViewBag.CR = Session["cr"];
 
             return View(equip);
         }
+
+
 
         public string RemoveWhitespace(string str)
         {
@@ -227,7 +228,7 @@ namespace UResidence.Controllers
             int uid = (int)Session["UID"];
             int aid = (int)Session["ID"];
             DateTime date = DateTime.Now;
-           string sdate= String.Format("{0:d/M/yyyy HH:mm:ss}", date);
+            string sdate = String.Format("{0:d/M/yyyy HH:mm:ss}", date);
             Session["date"] = sdate;
             SchedReservation a = new SchedReservation
             {
@@ -239,18 +240,18 @@ namespace UResidence.Controllers
 
             };
             status = UResidence.SchedReservationController.Insert(a);
-           
+
             if (status == true)
             {
                 string amenityname = (Session["NAME"]).ToString();
                 string qa = (string)Session["qa"];
                 string qc = (string)Session["qc"];
                 SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed,Convert.ToDateTime(sdate));
-                
-                int sid =b.Id;
-                string tor = (string)Session["TOR"];
-                int UserId = (int)Session["UID"];         
+                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed, Convert.ToDateTime(sdate));
+
+                int sid = b.Id;
+                string tor = (string)Session["TORA"];
+                int UserId = (int)Session["UIDA"];
                 string fullname = "";
                 if (amenityname == "Swimming Pool" || amenityname == "SWIMMING POOL")
                 {
@@ -258,7 +259,7 @@ namespace UResidence.Controllers
                     {
                         Adult = Convert.ToInt32(qa),
                         Child = Convert.ToInt32(qc),
-                        SchedID =sid,
+                        SchedID = sid,
                     };
                     UResidence.SwimmingController.Insert(swim);
 
@@ -267,14 +268,15 @@ namespace UResidence.Controllers
                 UResidence.Owner own = new UResidence.Owner();
                 UResidence.Tenant ten = new UResidence.Tenant();
                 if (tor == "Owner")
-                {                
-                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());                              
+                {
+                    reside = UResidence.ResidenceController.GetOwnerNo(UserId.ToString());
                 }
                 else if (tor == "Tenant")
-                {                  
+                {
                     reside = UResidence.ResidenceController.GetTenantNo(UserId.ToString());
                 }
-                fullname = (Session["Fullname"]).ToString();
+                fullname = (Session["FULLN"]).ToString();
+
                 UResidence.Reservation r = new UResidence.Reservation
                 {
                     Rid = Convert.ToInt32(reside.Id),
@@ -312,16 +314,16 @@ namespace UResidence.Controllers
                             status = UResidence.EquipReservationController.Insert(er);
                         }
 
-                    }     
-                        if (status == true)
-                        {
-                            Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
+                    }
+                    if (status == true)
+                    {
+                        Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
 
-                        }
+                    }
                 }
 
             }
-            return RedirectToAction("Home", "Reserve");
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -345,12 +347,14 @@ namespace UResidence.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public ActionResult Swimming(FormCollection fc)
         {
             string qa = fc["adult"];
             string qc = fc["child"];
-            string ar= fc["rateadult"];
+            string ar = fc["rateadult"];
             string cr = fc["ratechild"];
             Session["qa"] = qa;
             Session["qc"] = qc;
@@ -364,20 +368,20 @@ namespace UResidence.Controllers
             Session["drate"] = drate;
             int aid = Convert.ToInt32(Session["ID"]);
 
-            
-                CheckSwimming cs = new CheckSwimming();
-                cs = CheckSwimmingController.Get(sd, aid);
+
+            CheckSwimming cs = new CheckSwimming();
+            cs = CheckSwimmingController.Get(sd, aid);
             if (cs == null)
             {
-                return RedirectToAction("Choose_Equipment", "Reserve");
+                return RedirectToAction("Choose_Equipment", "ReservationA");
             }
             else
             {
                 if (cs.Capacity > 0)
                 {
                     Response.Write("<script>alert('Successful')</script>");
-                    return RedirectToAction("Choose_Equipment", "Reserve");
-                   
+                    return RedirectToAction("Choose_Equipment", "ReservationA");
+
                 }
                 else
                 {
@@ -387,25 +391,9 @@ namespace UResidence.Controllers
             }
             return View();
         }
-       
+
+
+
 
     }
-}    
-       
-
-      
-
-
-      
-      
-        
-      
-
-
-     
-    
-    
-      
-
-
- 
+}

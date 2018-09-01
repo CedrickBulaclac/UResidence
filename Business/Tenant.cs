@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 namespace UResidence
 {
      public class Tenant : BaseProperty<Tenant>
@@ -28,6 +29,8 @@ namespace UResidence
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LeaseEnd { get; set; }
         public string Deleted { get; set; }
+        public string URL { get; set; }
+        public HttpPostedFileBase Image { get; set; }
 
         public bool Validate(out string[] errors)
         {
@@ -80,6 +83,7 @@ namespace UResidence
             this.LeaseStart = DateTime.Today;
             this.LeaseEnd = DateTime.Today;
             this.Deleted = string.Empty;
+            this.URL = string.Empty;
          
         }
 
@@ -99,7 +103,7 @@ namespace UResidence
             ret.LeaseStart = reader.GetDateTime(9);
             ret.LeaseEnd = reader.GetDateTime(10);
             ret.Deleted = RemoveWhitespace(reader.GetString(11));
-
+            ret.URL = RemoveWhitespace(reader.GetString(12));
             return ret;
         }
     }
