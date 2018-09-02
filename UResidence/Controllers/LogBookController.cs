@@ -43,5 +43,20 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public JsonResult Update(Logbook data)
+        {
+            bool status = false;
+            Logbook log = new Logbook
+            {
+                Id = data.Id,
+                Timeout = data.Timeout
+            };
+            status = UResidence.LogbookController.Update(log);
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

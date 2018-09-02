@@ -55,7 +55,30 @@
 
 
     function Update(id) {
-        alert(id);
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        var timenow = h + ':' + m;
+
+        var data = {
+            Id: id,
+            TimeOut: timenow
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Update',
+            data: data,
+            success: function (data) {
+
+                window.location.reload();
+            },
+            error: function (error) {
+                alert('Failed to update record');
+            }
+        });
+
+
+
     }
 
     function SetText() {
