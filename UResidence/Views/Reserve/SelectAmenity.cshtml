@@ -4,9 +4,17 @@
 	List<UResidence.SchedReservation> sched = Model.ToList()[1] as List<UResidence.SchedReservation>;
 	List<UResidence.Equipment> equip = Model.ToList()[2] as List<UResidence.Equipment>;
 	ViewBag.Title = "SelectAmenity";
-	Layout = "~/Views/Layout/OwnerLayout.cshtml";
+		if (Convert.ToInt32(Session["Level"]) == 4)
+		{
+			Layout = "~/Views/Layout/LayoutHome.cshtml";
+		}
+		else if (Convert.ToInt32(Session["Level"]) == 5)
+		{
+			Layout = "~/Views/Layout/TenantLayout.cshtml";
+		}
+	}
 
-}
+
 <style type="text/css">
 	body {
 		margin-top: 40px;
@@ -106,37 +114,37 @@
 
 	<br />
 	<br />
-	
+
 
 	<center>
-		<div class="progress" style="width:860px;height:40px;"> 
-		<div class="container">
-			<div class="stepwizard">
-				<div class="stepwizard-row setup-panel">
-					<div class="stepwizard-step">
-						<a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-						<p style="font-family:Arial, Helvetica, sans-serif"	size="2">Choose Amenity</p>
-					</div>
-					<div class="stepwizard-step">
-						<a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-						<p style="font-family:Arial, Helvetica, sans-serif" size="2"><font color="white">Schedule Amenities</font></p>
-					</div>
-					<div class="stepwizard-step">
-						<a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-						<p>Choose Date</p>
-					</div>
-					<div class="stepwizard-step">
-						<a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-						<p>Choose Equipment</p>
-					</div>
-					<div class="stepwizard-step">
-						<a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-						<p>Summary</p>
+		<div class="progress" style="width:860px;height:40px;">
+			<div class="container">
+				<div class="stepwizard">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step">
+							<a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+							<p style="font-family:Arial, Helvetica, sans-serif" size="2">Choose Amenity</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+							<p style="font-family:Arial, Helvetica, sans-serif" size="2"><font color="white">Schedule Amenities</font></p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+							<p>Choose Date</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+							<p>Choose Equipment</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+							<p>Summary</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-			</div>
 	</center>
 
 

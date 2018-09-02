@@ -17,18 +17,56 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult ReservationA(FormCollection fc)
         {
-            string bldgno = Convert.ToString(fc["bldgno"]);
-            string unitno = Convert.ToString(fc["unitno"]);
-            Owner ownerList = UResidence.OwnerController.GetOwnerReserve(bldgno, unitno);
-            string fname = ownerList.Fname;
-            string mname = ownerList.Mname;
-            string lname = ownerList.Lname;
-            string fullname = fname + ' ' + mname + ' ' + lname;
-            Session["FULLN"] = fullname;
-            Session["TORA"] = "Owner";
-            Session["UIDA"] = ownerList.Id;
-            return RedirectToAction("Amenity", "ReservationA");
-        }
+            int level = Convert.ToInt32(Session["OTLEVEL"]);
+            if (level == 4)
+            {
+                string bldgno = Convert.ToString(fc["bldgno"]);
+                string unitno = Convert.ToString(fc["unitno"]);
+                try
+                {
+                    Owner ownerList = UResidence.OwnerController.GetOwnerReserve(bldgno, unitno);
+                    string fname = ownerList.Fname;
+                    string mname = ownerList.Mname;
+                    string lname = ownerList.Lname;
+                    string fullname = fname + ' ' + mname + ' ' + lname;
+                    Session["FULLN"] = fullname;
+                    Session["TORA"] = "Owner";
+                    Session["UIDA"] = ownerList.Id;
+                    return RedirectToAction("Amenity", "ReservationA");
+                }
+                catch(InvalidOperationException i)
+                {
+                    TempData["msg"] = "<script>alert('No Owner Found');</script>";
+                }
+
+               
+
+            }
+            else if (level == 5)
+            {
+                string bldgno = Convert.ToString(fc["bldgno"]);
+                string unitno = Convert.ToString(fc["unitno"]);
+
+                try
+                {
+                    Tenant tenantList = UResidence.TenantController.GetTenantReserve(bldgno, unitno);
+                    string fname = tenantList.Fname;
+                    string mname = tenantList.Mname;
+                    string lname = tenantList.Lname;
+                    string fullname = fname + ' ' + mname + ' ' + lname;
+                    Session["FULLN"] = fullname;
+                    Session["TORA"] = "Tenant";
+                    Session["UIDA"] = tenantList.Id;
+                    return RedirectToAction("Amenity", "ReservationA");
+                }
+                catch (InvalidOperationException i)
+                {
+                    TempData["msg"] = "<script>alert('No Tenant Found');</script>";
+                }
+
+            }
+            return View();
+            }
 
 
         private bool status = false;
@@ -393,6 +431,62 @@ namespace UResidence.Controllers
         }
 
 
+        public ActionResult SelectOT()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SelectOT(FormCollection fc)
+        {
+            int level = Convert.ToInt32(fc["ownten"]);
+            Session["OTLEVEL"] = level;
+            return RedirectToAction("ReservationA", "ReservationA");
+        }
+
+
+
+        public ActionResult CalendarReservationAdmin() {
+
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult CalendarReservationAdmin()
+        //{
+
+        //    return View();
+        //}
+
+
+        public JsonResult GetEventsA()
+        {
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
+
+        public JsonResult UpdateStatus(int refno1, string rstatus1)
+        {
+            string name = (Session["FullName"]).ToString();
+            bool status = false;
+
+                Reservation reservation = new Reservation
+                {
+                    Status = rstatus1,
+                    Id = refno1,
+                };
+                status = ReservationController.Update(reservation);
+            
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
 
 
     }

@@ -1,0 +1,380 @@
+﻿
+@{
+	ViewBag.Title = "CalendarReservationAdmin";
+	Layout = "~/Views/Layout/ReservationLayout.cshtml";
+}
+
+@using (Html.BeginForm("CalendarReservationAdmin", "ReservationA", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<br />
+	<br />
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span id="eventTitle"></span></h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="rid" id="rid" />
+						<input type="hidden" name="rfid" id="rfid" />
+						<b>Status: </b><select id="mySelect" name="mySelect">
+							<option value="Pending">Pending</option>
+							<option value="Reserved">Reserved</option>
+							@*<option value="Canceled">Canceled</option>*@
+						</select>
+						<p id="pDetails">
+						</p>
+						<br /><br />
+						@*<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+					      <button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>*@
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div class="container">
+		<div class="modal fade" id="UpdateModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+					
+						<br /><br />
+						<b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
+						<br /><br />
+						<b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
+						<br /><br />
+						<b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
+					</div>
+					<div class="modal-footer">
+						
+						<button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
+						<button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="modal fade" id="PaymentHistory" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+						<b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="modal fade" id="ReversalHistory" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+						<b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseRevH" name="btnCloseRevH" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="modal fade" id="ChargeHistory" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+						<b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseCH" name="btnCloseCH" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="calendar"></div>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+	@section scripts{
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+
+		<script>
+
+          
+
+        
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/ReservationA/GetEventsA",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                title: v.AName,
+                                reserved: v.ReservedBy,
+                                start: moment(v.StartTime),
+                                end: v.EndTime != null ? moment(v.EndTime) : null,
+                                rate: v.Rate,
+                                status: v.Status,
+                                color: v.Color,
+                                dp: v.Total,
+                                cg: v.Charge,
+                                bn: v.BldgNo,
+                                un: v.UnitNo,
+                                r: v.RId,
+                                rf: v.RFId,
+                                tc: v.TableCost,
+                                cc: v.ChairCost,
+                                amt: v.Amount
+                            });
+                        })
+                        GenerateCalendar(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                });
+
+
+
+            });
+                var events = [];
+                var d = '';
+                var selectedEvent = null;
+            var totalpay = 0;
+
+
+
+                function RefreshCalendar() {
+                    events = [];
+                    $.ajax({
+                        type: "GET",
+                        url: "/ReservationA/GetEventsA",
+                        success: function (data) {
+                            $.each(data, function (i, v) {
+                                events.push({
+                                    title: v.AName,
+                                    reserved: v.ReservedBy,
+                                    start: moment(v.StartTime),
+                                    end: v.EndTime != null ? moment(v.EndTime) : null,
+                                    rate: v.Rate,
+                                    status: v.Status,
+                                    color: v.Color,
+                                    dp: v.Total,
+                                    cg: v.Charge,
+                                    bn: v.BldgNo,
+                                    un: v.UnitNo,
+                                    r: v.RId,
+                                    rf: v.RFId,
+                                    tc: v.TableCost,
+                                    cc: v.ChairCost,
+                                    amt: v.Amount
+                                });
+                            })
+                            GenerateCalendar(events);
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    });
+
+
+			}
+
+			//const monthNames = ["January", "February", "March", "April", "May", "June",
+			//	"July", "August", "September", "October", "November", "December"
+			//];
+
+			//var today = new Date();
+			//var dateee = (monthNames[today.getMonth()]) + ' ' + today.getDate();
+
+
+                function GenerateCalendar(events) {
+                    $('#calendar').fullCalendar('destroy');
+                    $('#calendar').fullCalendar({
+                        contentHeight: 400,
+                        defaultDate: new Date(),
+                        timeFormat: 'h(:mm):a',
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,basicWeek,basicDay,agenda'
+                        },
+                        eventLimit: true,
+                        eventColor: '#378006',
+                        events: events,
+
+                        eventClick: function (calEvent, jsEvent, view) {
+                            selectedEvent = calEvent;
+							$('#myModal #eventTitle').html('<b>Date: </b>' + calEvent.start.format("DD/MMM/YYYY"))
+							var $description = $('<div/>');						
+							$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
+							$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+							$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
+							$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
+							document.getElementById('mySelect').value = calEvent.status;
+							document.getElementById('rid').value = calEvent.r;
+							document.getElementById('rfid').value = calEvent.rf;
+
+
+                            //$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                            //$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                            //$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
+                            //$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+                            //$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
+                            //$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+							//$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
+                            //$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));        
+                            //$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
+                            //+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))                        
+                            //document.getElementById('dp').value = calEvent.dp;
+                            //document.getElementById('cg').innerHTML = calEvent.cg;
+                            //totalpay = calEvent.dp;
+                            //document.getElementById('tpr').innerHTML = calEvent.dp;
+                            $('#myModal #pDetails').empty().html($description);
+
+                            $('#myModal').modal();
+
+                        }
+                    })
+			}
+
+			function UpdateStatus() {
+				var refno = document.getElementById('rfid').value;
+				var rstatus = document.getElementById('mySelect').value;
+				$.ajax({
+					type: "POST",
+					url: "/ReservationA/UpdateStatus",
+					dataType: 'json',
+					data: {
+						'rstatus1': rstatus,
+						'refno1': refno,
+					},
+					success: function (data) {
+						if (data == true) {				
+							RefreshCalendar();
+							window.location.reload();
+							//window.location.href = window.location.href + "?rnd=" + Math.random();
+							$('#myModal').modal();
+						}
+					},
+					error: function (error) {
+						alert('Failed');
+					}
+				});
+			}
+
+
+
+        
+            $('#btnSave').click(function () {
+                if (selectedEvent != null && confirm('Are you sure?')) {
+
+                    SaveEvent(data);
+                }
+            });
+            $('#btnReversal').click(function () {
+                $('#reversalModal').modal();
+
+            });
+
+            $('#btnHistoryReversal').click(function () {
+                $('#ReversalHistory').modal();
+            });
+            $('#btnPayment').click(function () {
+
+                $('#paymentModal').modal();
+            });
+            $('#btnCloseP').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
+            $('#btnCModal').click(function () {
+
+                $('#UpdateModal').modal();
+            });
+            $('#btnCloseU').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
+            $('#btnCloseRH').click(function () {
+
+                $('#paymentModal').modal();
+            }
+            );
+            $('#btnHistory').click(function () {
+
+                $('#PaymentHistory').modal();
+
+            });
+            $('#btnCHistory').click(function () {
+
+                $('#ChargeHistory').modal();
+
+            });
+            $('#btnCloseCH').click(function () {
+
+                $('#UpdateModal').modal();
+            });
+            $('#btnCloseR').click(function () {
+
+                $('#myModal').modal();
+            });
+            $('# btnCloseRevH').click(function () {
+
+                $('#reversalModal').modal();
+            });
+
+		</script>
+	}
+}

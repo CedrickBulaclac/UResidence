@@ -7,7 +7,7 @@
 @using (Html.BeginForm("ReservationA", "ReservationA", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-
+	@Html.Raw(TempData["msg"])
 
 	<br /><br /><br />
 	<label>Building Number: </label> <input type="text" name="bldgno" id="bldgno" />
