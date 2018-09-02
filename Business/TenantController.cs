@@ -29,6 +29,17 @@ namespace UResidence
 
             return ret;
         }
+        public static Tenant GetEmailTenant(string Email)
+        {
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Email = @Email";
+
+            Tenant ret = default(Tenant);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Email", Email));
+            ret = SqlManager.Select<Tenant>(com).First();
+
+            return ret;
+        }
 
 
         public static Tenant GetTenantReserve(string bldgno, string unitno)
@@ -57,7 +68,18 @@ namespace UResidence
 
             return ret;
         }
+        public static List<Tenant> Check(Tenant ten)
+        {
+            const string GET_RECORD = @" SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL FROM [tbTenant] where Deleted=0 and LeaseEnd Between @start and @end ";
 
+            List<Tenant> ret = default(List<Tenant>);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@start", ten.LeaseStart));
+            com.Parameters.Add(new SqlParameter("@end", ten.LeaseEnd));
+            ret = SqlManager.Select<Tenant>(com);
+
+            return ret;
+        }
 
         public static List<Tenant> GetId(int id)
         {

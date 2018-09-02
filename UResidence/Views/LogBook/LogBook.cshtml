@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "LogBook";
+}
+<br />
+<br />
+<div class="container">
+    <table class="table table-bordered table-striped" id="tableLog"></table>
+  
+   
+  
+</div>
+<script>
+    $(document).ready(Set());
+
+    function Set() {
+        $('#tableLog').empty();
+        $.ajax({
+            type: "GET",
+            url: "/LogBook/GetEvents",
+            success: function (data) {
+                var trHTML = '';
+
+                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+                $.each(data, function (i, v) {
+                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Timein + '</td><td>'+v.Timeout+'</td></tr>';
+                });
+                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input class="form-control" type="time" id="timein" name="timein" required/></td><td><input class="form-control" type="time" id="timeout" name="timeout" required/></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Add</button></td></tr>';
+                $('#tableLog').append(trHTML);
+            },
+            error: function(error){
+                alert('Failed to retrieve the record');
+            }
+        });
+
+    }
+    function SetText() {
+        var date = document.getElementById('date').value;
+        var ResidentName = document.getElementById('residentname').value;
+        var VisitorName = document.getElementById('visitorname').value;
+        alert(date);
+    }
+
+</script>
+
