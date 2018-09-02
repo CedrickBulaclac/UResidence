@@ -24,5 +24,24 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public JsonResult Insert(Logbook data)
+        {
+            Logbook log = new Logbook {
+                date = data.date,
+                ResidentName = data.ResidentName,
+                VisitorName = data.VisitorName,
+                Purpose = data.Purpose,
+                Timein = data.Timein,
+                Timeout = Convert.ToDateTime("00:00:00")
+               
+                            };
+
+            bool status = UResidence.LogbookController.Insert(log);
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

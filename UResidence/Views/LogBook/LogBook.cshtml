@@ -23,10 +23,28 @@
 
                 trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
                 $.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Timein + '</td><td>'+v.Timeout+'</td></tr>';
+
+                    if (v.sTimeout == '00:00:00') {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update('+v.Id+')">Time Out</button></td></tr>';
+
+                    }
+                    else {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+                    }
                 });
-                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input class="form-control" type="time" id="timein" name="timein" required/></td><td><input class="form-control" type="time" id="timeout" name="timeout" required/></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Add</button></td></tr>';
+                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date"/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" /></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
                 $('#tableLog').append(trHTML);
+
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();
+
+                document.getElementById('date').value = today;
+
+             
             },
             error: function(error){
                 alert('Failed to retrieve the record');
@@ -34,12 +52,44 @@
         });
 
     }
+
+
+    function Update(id) {
+        alert(id);
+    }
+
     function SetText() {
         var date = document.getElementById('date').value;
         var ResidentName = document.getElementById('residentname').value;
         var VisitorName = document.getElementById('visitorname').value;
-        alert(date);
-    }
+        var Purpose = document.getElementById('purpose').value;
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        var timenow = h + ':' + m;
 
+        var data = {
+            Date:date,
+            ResidentName: ResidentName,
+            VisitorName: VisitorName,
+            Timein: timenow,
+            Purpose: Purpose
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Insert',
+            data: data,
+            success: function (data) {
+
+                window.location.reload();
+            },
+            error: function (error) {
+                alert('Failed to insert a record');
+            }
+        });
+
+    }
+  
 </script>
 

@@ -281,31 +281,31 @@
 		});
 
 
-		//$(document).ready(function () {
-		//	$('#st').change(function myFunction() {
-		//		selectedValue = $('#st').val();
+		$(document).ready(function () {
+			$('#st').change(function myFunction() {
+				selectedValue = $('#st').val();
 
-		//		var d = new Date(); // for now
-		//		d.getHours(); // => 9
-		//		d.getMinutes(); // =>  30
-		//		d.getSeconds(); // => 51
-		//		var MyDateString = d.getHours() + ':' + ('0' + (d.getMinutes() + 1)).slice(-2);
-
-
-		//		document.getElementById('qwe').value = MyDateString;
-
-		//		document.getElementById('abc').value = selectedValue;
-
-		//		if (selectedValue < MyDateString)
-		//		{
-		//			alert("BAWAL YAN NANAY");
-		//			document.getElementById('st').value = null;
-		//			document.getElementById('et').value = null;
-		//		}
+				var d = new Date(); // for now
+				d.getHours(); // => 9
+				d.getMinutes(); // =>  30
+				d.getSeconds(); // => 51
+				var MyDateString = d.getHours() + ':' + ('0' + (d.getMinutes() + 1)).slice(-2);
 
 
-		//	});
-		//});
+				document.getElementById('qwe').value = MyDateString;
+
+				document.getElementById('abc').value = selectedValue;
+
+				if (selectedValue < MyDateString)
+				{
+					alert("BAWAL YAN NANAY");
+					document.getElementById('st').value = null;
+					document.getElementById('et').value = null;
+				}
+
+
+			});
+		});
 
 
 

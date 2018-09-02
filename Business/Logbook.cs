@@ -16,16 +16,19 @@ namespace UResidence
         public string Purpose { get; set; }
         public DateTime Timein { get; set; }
         public DateTime Timeout { get; set; }
+        public string sTimein { get; set; }
+        public string sTimeout { get; set; }
+        public string sDate { get; set; }
         public Logbook CreateObject(SqlDataReader reader)
         {
             Logbook ret = new Logbook();
 
             ret.Id = reader.GetInt32(0);
-            ret.date = reader.GetDateTime(1);
+            ret.sDate = reader.GetString(1);
             ret.VisitorName = reader.GetString(2);
             ret.ResidentName = reader.GetString(3);
-            ret.Timein = reader.GetDateTime(4);
-            ret.Timeout = reader.GetDateTime(5);
+            ret.sTimein = reader.GetString(4);
+            ret.sTimeout = reader.GetString(5);         
             ret.Purpose = reader.GetString(6);
 
             return ret;
@@ -40,6 +43,9 @@ namespace UResidence
             this.Timein = DateTime.Now;
             this.Timeout = DateTime.Now;
             this.Purpose = string.Empty;
+            this.sTimein = string.Empty;
+            this.sTimeout = string.Empty;
+            this.sDate = string.Empty;
         }
     }
 }
