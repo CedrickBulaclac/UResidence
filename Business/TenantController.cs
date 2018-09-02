@@ -41,6 +41,22 @@ namespace UResidence
             return ret;
         }
 
+
+        public static Tenant GetTenantReserve(string bldgno, string unitno)
+        {
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+
+            Tenant ret = default(Tenant);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@BldgNo", bldgno));
+            com.Parameters.Add(new SqlParameter("@UnitNo", unitno));
+            ret = SqlManager.Select<Tenant>(com).First();
+
+
+            return ret;
+        }
+
+
         public static Tenant GetId(string id)
         {
             const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
@@ -118,6 +134,8 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@URL", ten.URL));
             return SqlManager.ExecuteNonQuery(com);
         }
+
+
 
 
 

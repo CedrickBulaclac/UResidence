@@ -336,6 +336,14 @@ namespace UResidence.Controllers
 
         }
 
+        public JsonResult GetEventsA()
+        {
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+
 
 
 
@@ -387,6 +395,13 @@ namespace UResidence.Controllers
             }
             return View();
         }
+
+
+        public ActionResult CalendarViewOT()
+        {
+            return View();
+        }
+
        
 
     }

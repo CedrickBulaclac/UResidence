@@ -4,7 +4,7 @@
 	List<Owner> owner = (Model.ToList()[0] as List<Owner>);
 	List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
 	ViewBag.Title = "ViewAccountSetting";
-	Layout = "~/Views/Layout/OwnerLayout.cshtml";
+	Layout = "~/Views/Layout/LayoutHome.cshtml";
 }
 @using (Html.BeginForm("OwnerAccountSetting", "AccountSetting", FormMethod.Post))
 {

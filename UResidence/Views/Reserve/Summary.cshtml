@@ -1,8 +1,15 @@
 ﻿
 @model List<Equipment>
 @{
-    ViewBag.Title = "Summary";
-    Layout = "~/Views/Layout/OwnerLayout.cshtml";
+	ViewBag.Title = "Summary";
+		if (Convert.ToInt32(Session["Level"]) == 4)
+		{
+			Layout = "~/Views/Layout/LayoutHome.cshtml";
+		}
+		else if (Convert.ToInt32(Session["Level"]) == 5)
+		{
+			Layout = "~/Views/Layout/TenantLayout.cshtml";
+		}
 
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
@@ -15,7 +22,6 @@
 		<style>
 
 			.input {
-			
 				padding: 12px 20px;
 				margin: 8px 0;
 				display: inline-block;
@@ -23,7 +29,6 @@
 				border-radius: 4px;
 				box-sizing: border-box;
 				width: 10%;
-
 			}
 
 
@@ -36,7 +41,6 @@
 
 			.col-75 {
 				float: left;
-		
 				margin-top: 6px;
 			}
 
@@ -74,7 +78,7 @@
 		</style>
 	</head>
 	<body>
-		<br/>
+		<br />
 		<center>
 			<div>
 				<div class="progress" style="width:860px; height:40px;">
@@ -236,7 +240,7 @@
 
 		</div>
 
-		
+
 
 	</body>
 
@@ -244,29 +248,29 @@
 
 
 
-    <script>
+	<script>
       var ctr = parseInt($('#txtctrr').val());
     var total = parseInt(@ViewBag.ratea);
     var totale=0;
     $(document).ready(function () {
 
         for (var pppp = 0; pppp <= ctr - 1; pppp++) {
-           
+
             var quantity = $('#quantity' + pppp).val();
             var rate = $('#rate' + pppp).val()
             if (quantity != null) {
                 totale = quantity * rate;
                 total = total + totale;
             }
-            
-               
-            
+
+
+
         }
         document.getElementById('total1').value = total;
     });
-       
-    </script>
+
+	</script>
 }
-	<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
-		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-	</footer>
+<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+</footer>
