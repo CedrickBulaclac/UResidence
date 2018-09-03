@@ -17,7 +17,10 @@ namespace UResidence.Controllers
         {
             return View();
         }
-
+        public ActionResult Home()
+        {
+            return View();
+        }
         public static string Hash(string p)
         {
             SHA1CryptoServiceProvider sh = new SHA1CryptoServiceProvider();
