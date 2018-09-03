@@ -45,7 +45,7 @@ namespace UResidence.Controllers
                     string Lname = RemoveWhitespace(a.Lname);
                     Session["FullName"] = Fname + " " + Mname + " " + Lname;
                     UResidence.UserController.UpdateLog(user.Id);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Home", "Admin");
                 }
                 else if (user.Level == 4)
                 {

@@ -26,6 +26,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level == 4)
@@ -41,7 +42,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
             }
             
-            string s = "false";
+           bool s = false;
             if (Session["status"] is null)
             {
                 return View();
@@ -50,11 +51,11 @@ namespace UResidence.Controllers
             {
                 if ((Session["status"]).ToString().Equals(false))
                 {
-                    s = "false";
+                    s = false;
                 }
                 else
                 {
-                    s = "true";
+                    s = true;
                 }
                 ViewBag.Status = s;
                 return View();

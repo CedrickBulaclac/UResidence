@@ -235,25 +235,6 @@
 
     </div>
 
-		<div id="Other" hidden>
-
-			Sample : <input type="text" id="sample" />
-			Telephone :  <input type="tel" id="tel" />
-
-		</div>
-	
-			<a id="Link">Show Other Fields</a>
-			<a id="uLink" hidden>Hide Other Fields</a>
-			<br />
-			<br />
-
-				<input type="submit" value="Save" class="button" />
-				<a href="TenantView" class="button">Back</a>
-
-		
-		
-
-	
 		<div id="aerror" class="alert alert-danger collapse">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Error!</strong> There is a problem submitting your form
@@ -264,19 +245,7 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 		</script>
-		<script type="text/javascript">
-
-			$("#Link").click(function () {
-				$("#Other").show();
-				$("#Link").hide();
-				$("#uLink").show();
-			});
-			$("#uLink").click(function () {
-				$("#Other").hide();
-				$("#Link").show();
-				$("#uLink").hide();
-			});
-		</script>
+		
 
 		if (ViewBag.AddMessage != null)
 		{
