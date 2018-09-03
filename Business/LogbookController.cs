@@ -17,6 +17,17 @@ namespace UResidence
             return ret;
 
         }
+        public static bool Update(Logbook log)
+        {
+            const string GET_INSERT = @"update [tbLogbook] set TimeOut=@TimeOut where Id=@Id  ";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Id", log.Id));
+            com.Parameters.Add(new SqlParameter("@TimeOut", log.Timeout));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
         public static bool Insert(Logbook log)
         {
             const string GET_INSERT = @"insert [tbLogbook] (Date,VisitorName,ResidentName,TimeIn,TimeOut,Purpose) values (@Date,@VisitorName,@ResidentName,@TimeIn,@TimeOut,@Purpose) ";
