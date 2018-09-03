@@ -1,9 +1,28 @@
 ﻿@model IEnumerable<object>
 @{
-    List<Admin> admin = (Model.ToList()[0] as List<Admin>);
-    List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
-    ViewBag.Title = "ViewAccountSetting";
-    Layout = "~/Views/Layout/FinanceLayout.cshtml";
+	List<Admin> admin = (Model.ToList()[0] as List<Admin>);
+	List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
+	ViewBag.Title = "ViewAccountSetting";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/FinanceLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 3)
+	{
+		Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 2)
+	{
+		Layout = "/Views/Layout/ReservationLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 6)
+	{
+		Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
+	}
 }
 @using (Html.BeginForm("AdminAccountSetting", "AccountSetting", FormMethod.Post))
 {

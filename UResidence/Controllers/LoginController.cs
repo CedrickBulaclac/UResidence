@@ -31,7 +31,7 @@ namespace UResidence.Controllers
             user = UResidence.UserController.Get(username, chash);
             if (user != default(UserLogin))
             {
-                if (user.Level == 0 || user.Level == 1 || user.Level == 2 || user.Level == 3)
+                if (user.Level == 0 || user.Level == 1 || user.Level == 2 || user.Level == 3 || user.Level == 6)
                 {
  
                     Session["Level"] = user.Level;

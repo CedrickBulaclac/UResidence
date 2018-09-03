@@ -384,7 +384,6 @@ namespace UResidence.Controllers
         public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
          
-            string edata;
             if (level == 4)
             {
                 try

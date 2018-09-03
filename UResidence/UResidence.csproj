@@ -272,6 +272,7 @@
     <Content Include="Views\Reserve\CalendarViewOT.cshtml" />
     <Content Include="Views\Layout\ReservationLayout.cshtml" />
     <Content Include="Views\Layout\TenantLayout.cshtml" />
+    <Content Include="Views\Layout\SecurityGuardLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

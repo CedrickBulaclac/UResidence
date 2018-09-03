@@ -17,6 +17,11 @@
 	{
 		Layout = "/Views/Layout/ReservationLayout.cshtml";
 	}
+	else if (Convert.ToInt32(Session["Level"]) == 6)
+	{
+		Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
+	}
+	
 }
 
 ﻿<!DOCTYPE html>
