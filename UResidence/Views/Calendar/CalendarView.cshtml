@@ -26,181 +26,183 @@
     </head>
     <br />
     <br />
-    <div class="container">
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="rid" id="rid" />
-                        <input type="hidden" name="rfid" id="rfid" />
-                        <p id="pDetails"></p>
-                        <br /><br />
-                        <button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
-                        <button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
-                        <button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
+	<body>
+		<div class="container">
+			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span id="eventTitle"></span></h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" name="rid" id="rid" />
+							<input type="hidden" name="rfid" id="rfid" />
+							<p id="pDetails"></p>
+							<br /><br />
+							<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+							<button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
+							<button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
 
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 
 
-    <div class="container">
-        <div class="modal fade" id="paymentModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0"  />
-                        <br /><br />
-                        <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription" ></textarea>
-                        <br /><br />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
-                        <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
-                        <button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="container">
+			<div class="modal fade" id="paymentModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
+							<br /><br />
+							<b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
+							<br /><br />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
+							<button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
+							<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="modal fade" id="reversalModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
+		<div class="container">
+			<div class="modal fade" id="reversalModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
 
-                        <b>Total Payment:</b> <label id="tpr" name="tpr"></label>
-                        <br /><br />
-                        <b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0"  required/>
-                        <br /><br />
-                        <b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
-                        <br /><br />
+							<b>Total Payment:</b> <label id="tpr" name="tpr"></label>
+							<br /><br />
+							<b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0" required />
+							<br /><br />
+							<b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
+							<br /><br />
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="btnAddReversal" name="btnAddReversal" onclick="AddReversal()">Add Reversal</button>
-                        <button type="button" class="btn btn-default" id="btnHistoryReversal" name="btnHistoryReversal" onclick="ReversalHistory()" data-dismiss="modal">Reversal History</button>
-                        <button type="button" class="btn btn-danger" id="btnCloseR" name="btnCloseR" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="btnAddReversal" name="btnAddReversal" onclick="AddReversal()">Add Reversal</button>
+							<button type="button" class="btn btn-default" id="btnHistoryReversal" name="btnHistoryReversal" onclick="ReversalHistory()" data-dismiss="modal">Reversal History</button>
+							<button type="button" class="btn btn-danger" id="btnCloseR" name="btnCloseR" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="modal fade" id="UpdateModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <b>Status: </b><select id="mySelect" name="mySelect">
-                            <option value="Pending">Pending</option>
-                            <option value="Reserved">Reserved</option>
-                            <option value="Canceled">Canceled</option>
-                        </select>
-                        <br /><br />
-                        <b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
-                        <br /><br />
-                        <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required/>
-                        <br /><br />
-                        <b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
-                        <button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
-                        <button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="container">
+			<div class="modal fade" id="UpdateModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<b>Status: </b><select id="mySelect" name="mySelect">
+								<option value="Pending">Pending</option>
+								<option value="Reserved">Reserved</option>
+								<option value="Canceled">Canceled</option>
+							</select>
+							<br /><br />
+							<b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
+							<br /><br />
+							<b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
+							<br /><br />
+							<b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
+							<button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
+							<button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="modal fade" id="PaymentHistory" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                        <b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+		<div class="container">
+			<div class="modal fade" id="PaymentHistory" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+							<b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="modal fade" id="ReversalHistory" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                        <b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
+		<div class="container">
+			<div class="modal fade" id="ReversalHistory" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+							<b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btnCloseRevH" name="btnCloseRevH" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" id="btnCloseRevH" name="btnCloseRevH" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="modal fade" id="ChargeHistory" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                        <b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
+		<div class="container">
+			<div class="modal fade" id="ChargeHistory" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+							<b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btnCloseCH" name="btnCloseCH" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" id="btnCloseCH" name="btnCloseCH" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
-    <div id="calendar"></div>
+		<div id="calendar"></div>
+	</body>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
-
+}
     @section scripts{
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
@@ -468,53 +470,89 @@
 
                 function GenerateCalendar(events) {
                     $('#calendar').fullCalendar('destroy');
-                    $('#calendar').fullCalendar({
-                        contentHeight: 400,
-                        defaultDate: new Date(),
-                        timeFormat: 'h(:mm):a',
-                        header: {
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'month,basicWeek,basicDay,agenda'
-                        },
-                        eventLimit: true,
-                        eventColor: '#378006',
-                        events: events,
+					$('#calendar').fullCalendar({
+						contentHeight: 400,
+						defaultDate: new Date(),
+						timeFormat: 'h(:mm):a',
+						header: {
+							left: 'prev,next today',
+							center: 'title',
+							right: 'month,basicWeek,basicDay,agenda'
+						},
+						eventLimit: true,
+						eventColor: '#378006',
+						events: events,
 
-                        eventClick: function (calEvent, jsEvent, view) {
-                            selectedEvent = calEvent;
-                            $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-                            var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-                            $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-                            $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-                            $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
-                            $description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
-                            $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
-                            $description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
-                            $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
-                            $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
-                            $description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
-                            $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
-                            $description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp-calEvent.amt)));
-                            $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
-                            $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
-                            //+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
-                            document.getElementById('mySelect').value = calEvent.status;
-                            //document.getElementById('dp').value = calEvent.dp;
-                            document.getElementById('rid').value = calEvent.r;
-                            document.getElementById('rfid').value = calEvent.rf;
-                            document.getElementById('cg').innerHTML = calEvent.cg;
-                            totalpay = calEvent.dp;
-                            document.getElementById('tpr').innerHTML = calEvent.dp;
-                            $('#myModal #pDetails').empty().html($description);
+						eventClick: function (calEvent, jsEvent, view) {
 
-                            $('#myModal').modal();
+							if (calEvent.title == 'SwimmingPool') {
+								selectedEvent = calEvent;
+								$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+								var $description = $('<div/>');
+								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+								$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+								$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+								$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate + '&nbsp;&nbsp;&nbsp;&nbsp;<a>View Details</a>'));
+								$description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
+								$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+								$description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
+								$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
+								$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+								$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
+								$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
+								$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
+								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
+								$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
+								//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
+								document.getElementById('mySelect').value = calEvent.status;
+								//document.getElementById('dp').value = calEvent.dp;
+								document.getElementById('rid').value = calEvent.r;
+								document.getElementById('rfid').value = calEvent.rf;
+								document.getElementById('cg').innerHTML = calEvent.cg;
+								totalpay = calEvent.dp;
+								document.getElementById('tpr').innerHTML = calEvent.dp;
+								$('#myModal #pDetails').empty().html($description);
 
-                        }
-                    })
+								$('#myModal').modal();
+							}
+
+							else 
+							{
+								selectedEvent = calEvent;
+								$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+								var $description = $('<div/>');
+								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+								$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+								$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+								$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
+								$description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
+								$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
+								$description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
+								$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
+								$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
+								$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
+								$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
+								$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
+								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
+								$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
+								//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
+								document.getElementById('mySelect').value = calEvent.status;
+								//document.getElementById('dp').value = calEvent.dp;
+								document.getElementById('rid').value = calEvent.r;
+								document.getElementById('rfid').value = calEvent.rf;
+								document.getElementById('cg').innerHTML = calEvent.cg;
+								totalpay = calEvent.dp;
+								document.getElementById('tpr').innerHTML = calEvent.dp;
+								$('#myModal #pDetails').empty().html($description);
+
+								$('#myModal').modal();
+							}
+						}
+					});
                 }
 
             function AddReversal() {
@@ -609,12 +647,12 @@
             $('#btnCloseR').click(function () {
 
                 $('#myModal').modal();
-            });
-            $('# btnCloseRevH').click(function () {
+			});
+
+            $('#btnCloseRevH').click(function () {
 
                 $('#reversalModal').modal();
             });
 
         </script>
     }
-}

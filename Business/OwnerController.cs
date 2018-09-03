@@ -30,7 +30,19 @@ namespace UResidence
             return ret;
         }
 
-        public static Owner GetOwnerReserve(string bldgno, string unitno)
+        public static List<Owner> GetOwnerReserve(string bldgno, string unitno)
+        {
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+            List<Owner> ret = default(List<Owner>);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@BldgNo", bldgno));
+            com.Parameters.Add(new SqlParameter("@UnitNo", unitno));
+            ret = SqlManager.Select<Owner>(com);
+
+            return ret;
+        }
+
+        public static Owner GetOwnerReservee(string bldgno, string unitno)
         {
             const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
             Owner ret = default(Owner);

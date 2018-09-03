@@ -84,13 +84,13 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();                 
                     return View(amenityList);
                 }
             }
             else
             {
-                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                List<Amenity> amenityList = UResidence.AmenityController.GetAll();           
                 return View(amenityList);
             }
         }
@@ -107,6 +107,9 @@ namespace UResidence.Controllers
             Session["RATE"] = arate;
             Session["NAME"] = aname;
 
+            Amenity amenity = UResidence.AmenityController.GetAmenityImage(aid);
+            string amenitylink = amenity.Url.ToString();
+            Session["AmenityURL"] = amenitylink;
 
             return RedirectToAction("Calendar", "Reserve");
 

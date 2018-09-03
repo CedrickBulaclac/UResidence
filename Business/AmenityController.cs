@@ -42,6 +42,19 @@ namespace UResidence
             return ret;
         }
 
+
+        public static Amenity GetAmenityImage(int Id)
+        {
+            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Id=@Id and Color!='Black' order by Id ";
+
+            Amenity ret = default(Amenity);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Id", Id));
+            ret = SqlManager.Select<Amenity>(com).First();
+
+            return ret;
+        }
+
         public static Amenity GetbyId(int id)
         {
             const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName,URL,Rate,Color FROM [tbAmenity] WHERE Id = @Id";

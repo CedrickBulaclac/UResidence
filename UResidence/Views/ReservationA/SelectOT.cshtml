@@ -3,9 +3,39 @@
 	ViewBag.Title = "SelectOT";
 	Layout = "~/Views/Layout/ReservationLayout.cshtml";
 }
-@using (Html.BeginForm("SelectOT", "ReservationA", FormMethod.Post))
-{
+
 	@Html.AntiForgeryToken()
+	@Html.Raw(TempData["msg"])
+
+
+
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span id="eventTitle"></span></h4>
+					</div>
+					<div class="modal-body">
+						<label>Building Number: </label> <input type="text" name="bldgno" id="bldgno" />
+						<br />
+						<label>Unit Number: </label> <input type="text" name="unitno" id="unitno" />
+						@*<br />
+						<input type="submit" id="submitId" value="submit" />*@
+						<p id="pDetails"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="btnSubmit" name="btnSubmit" onclick="SubmitOT()">Submit</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,28 +62,78 @@
 		<input type="hidden" id="ownten" name="ownten" value="0" />
 		<center>
 			<br><br>
-			<a href="~/ReservationA/ReservationA"><button class="block" id="owner" name="owner" >Owner</button></a>
+			<button class="block" id="btnOwner" name="btnOwner" >Owner</button>
 			<br>
-			<a href="~/ReservationA/ReservationA"><button class="block" id="tenant" name="tenant">Tenant</button></a>
+			<button class="block" id="btnTenant" name="btnTenant">Tenant</button>
 			<br />
 
 		</center>
 	</body>
 </html>
-}
-<script>
+
+	<script>
 
 
 	jQuery(function ($) {
-		$("#owner").click(function () {
+		$("#btnOwner").click(function () {
 			document.getElementById("ownten").value = "4";
 		});
 
-		$("#tenant").click(function () {
+		$('#btnOwner').click(function () {
+
+			$('#myModal').modal();
+		});
+
+
+		$('#btnTenant').click(function () {
+
+			$('#myModal').modal();
+		});
+
+		$("#btnTenant").click(function () {
 			document.getElementById("ownten").value = "5";
 		});
 	});
-</script>
+
+
+	
+
+
+	function SubmitOT() {
+		var bldgno = document.getElementById('bldgno').value;
+		var unitno = document.getElementById('unitno').value;
+		var level = document.getElementById('ownten').value;
+		$.ajax({
+			type: "POST",
+			url: "/ReservationA/SelectOT",
+			dataType: 'json',
+			data: {
+				'bldgno': bldgno,
+				'unitno': unitno,
+				'level': level,
+			},
+			success: function (data) {
+				if (data == true) {
+					alert('Success');
+					window.location.href = "/ReservationA/Amenity";
+				}
+				else if (data == "Owner") {
+					alert('No Owner Found');
+				}
+				else if (data == "Tenant") {
+					alert('No Tenant Found');
+				}
+			},
+			error: function (error) {
+					alert('Failed');
+
+
+
+			}
+		});
+	}
+
+	</script>
 
 
 

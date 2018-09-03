@@ -151,8 +151,10 @@
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogBookController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\ReservationAController.cs" />
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
@@ -256,6 +258,20 @@
     <Content Include="Views\ReservationRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Records.cshtml" />
+    <Content Include="Views\ReservationA\Amenity.cshtml" />
+    <Content Include="Views\ReservationA\Calendar.cshtml" />
+    <Content Include="Views\ReservationA\CalendarReservationAdmin.cshtml" />
+    <Content Include="Views\ReservationA\Choose_Date.cshtml" />
+    <Content Include="Views\ReservationA\Choose_Equipment.cshtml" />
+    <Content Include="Views\ReservationA\ReservationA.cshtml" />
+    <Content Include="Views\ReservationA\SelectAmenity.cshtml" />
+    <Content Include="Views\ReservationA\SelectOT.cshtml" />
+    <Content Include="Views\ReservationA\Summary.cshtml" />
+    <Content Include="Views\ReservationA\Swimming.cshtml" />
+    <Content Include="Views\LogBook\LogBook.cshtml" />
+    <Content Include="Views\Reserve\CalendarViewOT.cshtml" />
+    <Content Include="Views\Layout\ReservationLayout.cshtml" />
+    <Content Include="Views\Layout\TenantLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

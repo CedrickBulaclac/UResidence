@@ -48,10 +48,10 @@ namespace UResidence.Controllers
                     Locked = 1,
                     LastLogin = DateTime.Now
                 };
-                Owner own = new Owner(); ;
+                List<Owner> own = new List<Owner>(); ;
                 own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
 
-                if (own.Id != 0)
+                if (own.Count != 0)
                 {
                     Tenant tenn = new Tenant()
                     {
@@ -100,7 +100,7 @@ namespace UResidence.Controllers
 
                             Residence red = new Residence
                             {
-                                OwnerNo = own.Id,
+                                OwnerNo = own[0].Id,
                                 TenantNo = tenandID
                             };
 
