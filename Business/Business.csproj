@@ -74,7 +74,6 @@
     <Compile Include="ReversalController.cs" />
     <Compile Include="ReversalList.cs" />
     <Compile Include="ReversalListController.cs" />
-    <Compile Include="SchedAmenity.cs" />
     <Compile Include="SchedReservation.cs" />
     <Compile Include="SchedReservationController.cs" />
     <Compile Include="Swimming.cs" />

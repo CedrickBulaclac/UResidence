@@ -46,9 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -157,6 +154,7 @@
     <Compile Include="Controllers\LogBookController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
+    <Compile Include="Controllers\ReservationAController.cs" />
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
@@ -165,12 +163,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
-    <Compile Include="Views\Report\Reserve.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reserve.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="applogin\css\style.css" />
@@ -266,7 +258,20 @@
     <Content Include="Views\ReservationRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Records.cshtml" />
+    <Content Include="Views\ReservationA\Amenity.cshtml" />
+    <Content Include="Views\ReservationA\Calendar.cshtml" />
+    <Content Include="Views\ReservationA\CalendarReservationAdmin.cshtml" />
+    <Content Include="Views\ReservationA\Choose_Date.cshtml" />
+    <Content Include="Views\ReservationA\Choose_Equipment.cshtml" />
+    <Content Include="Views\ReservationA\ReservationA.cshtml" />
+    <Content Include="Views\ReservationA\SelectAmenity.cshtml" />
+    <Content Include="Views\ReservationA\SelectOT.cshtml" />
+    <Content Include="Views\ReservationA\Summary.cshtml" />
+    <Content Include="Views\ReservationA\Swimming.cshtml" />
     <Content Include="Views\LogBook\LogBook.cshtml" />
+    <Content Include="Views\Reserve\CalendarViewOT.cshtml" />
+    <Content Include="Views\Layout\ReservationLayout.cshtml" />
+    <Content Include="Views\Layout\TenantLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -296,15 +301,6 @@
       <Project>{55a95247-ac42-429a-bda0-2518bb4744d5}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Report\Reserve.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Reserve.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

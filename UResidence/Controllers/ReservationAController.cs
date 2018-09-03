@@ -9,66 +9,6 @@ namespace UResidence.Controllers
     public class ReservationAController : Controller
     {
         // GET: ReservationAdmin
-        public ActionResult ReservationA()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult ReservationA(FormCollection fc)
-        {
-            int level = Convert.ToInt32(Session["OTLEVEL"]);
-            if (level == 4)
-            {
-                string bldgno = Convert.ToString(fc["bldgno"]);
-                string unitno = Convert.ToString(fc["unitno"]);
-                try
-                {
-                    Owner ownerList = UResidence.OwnerController.GetOwnerReserve(bldgno, unitno);
-                    string fname = ownerList.Fname;
-                    string mname = ownerList.Mname;
-                    string lname = ownerList.Lname;
-                    string fullname = fname + ' ' + mname + ' ' + lname;
-                    Session["FULLN"] = fullname;
-                    Session["TORA"] = "Owner";
-                    Session["UIDA"] = ownerList.Id;
-                    return RedirectToAction("Amenity", "ReservationA");
-                }
-                catch(InvalidOperationException i)
-                {
-                    TempData["msg"] = "<script>alert('No Owner Found');</script>";
-                }
-
-               
-
-            }
-            else if (level == 5)
-            {
-                string bldgno = Convert.ToString(fc["bldgno"]);
-                string unitno = Convert.ToString(fc["unitno"]);
-
-                try
-                {
-                    Tenant tenantList = UResidence.TenantController.GetTenantReserve(bldgno, unitno);
-                    string fname = tenantList.Fname;
-                    string mname = tenantList.Mname;
-                    string lname = tenantList.Lname;
-                    string fullname = fname + ' ' + mname + ' ' + lname;
-                    Session["FULLN"] = fullname;
-                    Session["TORA"] = "Tenant";
-                    Session["UIDA"] = tenantList.Id;
-                    return RedirectToAction("Amenity", "ReservationA");
-                }
-                catch (InvalidOperationException i)
-                {
-                    TempData["msg"] = "<script>alert('No Tenant Found');</script>";
-                }
-
-            }
-            return View();
-            }
-
-
         private bool status = false;
         public ActionResult SelectAmenity()
         {
@@ -131,6 +71,10 @@ namespace UResidence.Controllers
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
+
+            Amenity amenity = UResidence.AmenityController.GetAmenityImage(aid);
+            string amenitylink = amenity.Url.ToString();
+            Session["AmenityURL"] = amenitylink;
 
 
             return RedirectToAction("Calendar", "ReservationA");
@@ -437,12 +381,60 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectOT(FormCollection fc)
+        public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
-            int level = Convert.ToInt32(fc["ownten"]);
-            Session["OTLEVEL"] = level;
-            return RedirectToAction("ReservationA", "ReservationA");
+         
+            string edata;
+            if (level == 4)
+            {
+                try
+                {
+                    Owner ownerList = UResidence.OwnerController.GetOwnerReservee(bldgno, unitno);
+                    string fname = ownerList.Fname;
+                    string mname = ownerList.Mname;
+                    string lname = ownerList.Lname;
+                    string fullname = fname + ' ' + mname + ' ' + lname;
+                    Session["FULLN"] = fullname;
+                    Session["TORA"] = "Owner";
+                    Session["UIDA"] = ownerList.Id;
+                    bool data;
+                    return Json(data = true);              
+                }
+                catch (InvalidOperationException i)
+                {
+                    string data;
+                    return Json(data = "Owner");
+                }
+
+
+
+            }
+            else if (level == 5)
+            {
+                try
+                {
+                    Tenant tenantList = UResidence.TenantController.GetTenantReserve(bldgno, unitno);
+                    string fname = tenantList.Fname;
+                    string mname = tenantList.Mname;
+                    string lname = tenantList.Lname;
+                    string fullname = fname + ' ' + mname + ' ' + lname;
+                    Session["FULLN"] = fullname;
+                    Session["TORA"] = "Tenant";
+                    Session["UIDA"] = tenantList.Id;
+                    bool data;
+                    return Json(data = true);
+                }
+                catch (InvalidOperationException i)
+                {
+                    string data;
+                    return Json(data = "Tenant");
+                }
+
+            }
+            return View();
         }
+
+       
 
 
 
@@ -450,13 +442,6 @@ namespace UResidence.Controllers
 
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult CalendarReservationAdmin()
-        //{
-
-        //    return View();
-        //}
 
 
         public JsonResult GetEventsA()
