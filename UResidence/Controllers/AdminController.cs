@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net;
+using System.Net.Mail;
 
 namespace UResidence.Controllers
 {
@@ -13,6 +15,34 @@ namespace UResidence.Controllers
     {
         bool status;
         // GET: Admin
+        private void SendEmail(string email1,string pass)
+        {
+            var fromAddress = new MailAddress("uresidence04@gmail.com", "URESIDENCE");
+            var toAddress = new MailAddress(email1, "To Name");
+            const string fromPassword = "uresidence";
+            const string subject = "PalmDale Heights Condominium";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = "Account Information"+"\n"+"Username :" + email1 + "\n"
+                + "Password :"+ pass
+            })
+            {
+
+                smtp.Send(message);
+
+            }
+        }
         public ActionResult Registration()
         {
             return View();
@@ -74,7 +104,7 @@ namespace UResidence.Controllers
 
 
                     UResidence.UserController.InsertAdminId(ull);
-
+                    SendEmail(adm.Email,pass);
                     status = true;
                     ViewBag.AddMessage = status;
                     AdminView();
@@ -82,6 +112,8 @@ namespace UResidence.Controllers
                 }
                 else
                 {
+                    string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    Response.Write(script);
                     ViewBag.ErrorMessage = FixMessages(err);
                     status = false;
 

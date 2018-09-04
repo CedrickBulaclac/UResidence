@@ -13,6 +13,18 @@ namespace UResidence.Controllers
         {
             return View();
         }
+        
+        public JsonResult Search(Logbook data)
+        {
+            List<Logbook> logbookList = new List<Logbook>();
+            logbookList = UResidence.LogbookController.GET_ALL(data.date);
+            var events = logbookList.ToList();
+            return new JsonResult
+            {
+                Data = events,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult GetEvents()
         {
             List<Logbook> log = new List<Logbook>();

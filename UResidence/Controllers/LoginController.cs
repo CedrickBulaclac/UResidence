@@ -182,7 +182,7 @@ namespace UResidence.Controllers
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
-                    Body = body
+                    Body = "Your Reference Code is : "+ body +"."
                 })
                 {
                 i = body;

@@ -5,6 +5,11 @@
 }
 <br />
 <br />
+<center>
+   Search: <input type="date" id="txtdate" name=="txtdate"/> <button class="btn btn-success" onclick="Search()">Search</button>
+</center>
+<br />
+<br />
 <div class="container">
     <table class="table table-bordered table-striped" id="tableLog"></table>
   
@@ -13,7 +18,7 @@
 </div>
 <script>
     $(document).ready(Set());
-
+    var value;
     function Set() {
         $('#tableLog').empty();
         $.ajax({
@@ -54,8 +59,8 @@
 
     }
 
-
     function Update(id) {
+   
         var d = new Date(),
             h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
             m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
@@ -70,16 +75,59 @@
             url: '/LogBook/Update',
             data: data,
             success: function (data) {
-
+               
+                Set();
                 window.location.reload();
             },
             error: function (error) {
                 alert('Failed to update record');
             }
         });
+    }
 
+    function Search() {
+        $('#tableLog').empty();
+        var datee = document.getElementById('txtdate').value;
+        value = datee;
+        var data = {
+            date: datee
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Search',
+            data:data,
+            success: function (data) {
+                var trHTML = '';
 
+                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+                $.each(data, function (i, v) {
 
+                    if (v.sTimeout == '00:00:00') {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td></tr>';
+
+                    }
+                    else {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+                    }
+                });
+                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date"/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" /></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
+                $('#tableLog').append(trHTML);
+
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();
+
+                document.getElementById('date').value = today;
+
+            },
+            error: function (data) {
+                alert('Failed to retrieve record');
+            }
+
+        });
     }
 
     function SetText() {

@@ -31,6 +31,10 @@ namespace UResidence
         public string Deleted { get; set; }
         public string URL { get; set; }
         public HttpPostedFileBase Image { get; set; }
+        public string MovingIn { get; set; }
+        public string MovingOut { get; set; }
+        public HttpPostedFileBase movingIn { get; set; }
+        public HttpPostedFileBase movingOut { get; set; }
 
         public bool Validate(out string[] errors)
         {

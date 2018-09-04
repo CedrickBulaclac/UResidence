@@ -68,7 +68,7 @@ namespace UResidence.Controllers
                     if(status==true)
                     {
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Admin");
                     }
 
                 }              

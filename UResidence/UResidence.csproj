@@ -150,7 +150,6 @@
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogBookController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
@@ -210,8 +209,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Amenity\AmenityAdd.cshtml" />
     <Content Include="Views\Admin\Registration.cshtml" />
     <Content Include="Views\Amenity\AmenityView.cshtml" />
@@ -225,7 +222,6 @@
     <Content Include="Views\Admin\AdminView.cshtml" />
     <Content Include="Views\Admin\AdminEdit.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
@@ -273,6 +269,7 @@
     <Content Include="Views\Layout\ReservationLayout.cshtml" />
     <Content Include="Views\Layout\TenantLayout.cshtml" />
     <Content Include="Views\Layout\SecurityGuardLayout.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
