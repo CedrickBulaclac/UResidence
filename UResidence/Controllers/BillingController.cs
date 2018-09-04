@@ -11,18 +11,21 @@ namespace UResidence.Controllers
         // GET: Billing
         public ActionResult BillingView()
         {
-            Billing model = default(Billing);
-            int id = Convert.ToInt32(Session["UID"]);
-            string tor = (Session["TOR"]).ToString();
-            if (tor == "Owner")
-            {
-                model = UResidence.BillingController.GetOwner(id);
-            }
-            else if(tor=="Tenant")
-            {
-                model = UResidence.BillingController.GetTenant(id);
-            }
-            return View(model);
+            return View();
+        }
+        public JsonResult GetEvents()
+        {
+            string uid = (Session["UID"]).ToString();
+            List<ReservationProcess> reservationList = ReservationProcessController.GETById(uid);
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        }
+        public JsonResult ReceiptHistory(int refno1)
+        {
+            List<Receipt> receipt = ReceiptController.GetAll(refno1);
+            var events = receipt.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }
