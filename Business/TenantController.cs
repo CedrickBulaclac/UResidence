@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Tenant> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL FROM [tbTenant] where Deleted=0 order by Id";
+            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut FROM [tbTenant] where Deleted=0 order by Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -20,7 +20,7 @@ namespace UResidence
         }
         public static Tenant GetIdTenant(string idTenant)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut  FROM [tbTenant] WHERE Id = @Id";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -31,7 +31,7 @@ namespace UResidence
         }
         public static Tenant GetEmailTenant(string Email)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Email = @Email";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut  FROM [tbTenant] WHERE Email = @Email";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -44,7 +44,7 @@ namespace UResidence
 
         public static Tenant GetTenantReserve(string bldgno, string unitno)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut  FROM [tbTenant] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -59,7 +59,7 @@ namespace UResidence
 
         public static Tenant GetId(string id)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut  FROM [tbTenant] WHERE Id = @Id";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -70,7 +70,7 @@ namespace UResidence
         }
         public static List<Tenant> Check(Tenant ten)
         {
-            const string GET_RECORD = @" SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL FROM [tbTenant] where Deleted=0 and LeaseEnd Between @start and @end ";
+            const string GET_RECORD = @" SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut FROM [tbTenant] where Deleted=0 and LeaseEnd Between @start and @end ";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -83,7 +83,7 @@ namespace UResidence
 
         public static List<Tenant> GetId(int id)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL  FROM [tbTenant] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut  FROM [tbTenant] WHERE Id = @Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -96,7 +96,7 @@ namespace UResidence
 
         public static bool Update(Tenant usr)
         {
-            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo, MovingIn=@MovingIn, MovingOut=@MovingOut WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@UnitNo", usr.UnitNo));
@@ -107,6 +107,8 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Bdate", usr.Bdate));
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
+            com.Parameters.Add(new SqlParameter("@MovingIn", usr.MovingIn));
+            com.Parameters.Add(new SqlParameter("@@MovingOut", usr.MovingOut));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
 
             return SqlManager.ExecuteNonQuery(com);
@@ -172,7 +174,7 @@ namespace UResidence
         public static bool Insert(Tenant usr)
         {
 
-            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted,@URL)";
+            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted,@URL,@MovingIn,@MovingOut)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@BldgNo", usr.BldgNo));
@@ -187,6 +189,8 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@LeaseEnd", usr.LeaseEnd));
             com.Parameters.Add(new SqlParameter("@Deleted", usr.Deleted));
             com.Parameters.Add(new SqlParameter("@URL", usr.URL));
+            com.Parameters.Add(new SqlParameter("@MovingIn", usr.MovingIn));
+            com.Parameters.Add(new SqlParameter("@MovingOut", usr.MovingOut));
             return SqlManager.ExecuteNonQuery(com);
         }
     }
