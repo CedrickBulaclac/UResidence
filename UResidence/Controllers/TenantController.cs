@@ -57,9 +57,66 @@ namespace UResidence.Controllers
 
             }
         }
+
+
+        public JsonResult InsertMoving(Tenant tenant)
+        {
+            var image1 = tenant.Image1;
+            var image2 = tenant.Image2;
+            bool status = false;
+            if (image1 != null)
+            {
+                if (image1.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image1.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
+                    Session["MoveIn"] = folderpath1;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image1.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image1.SaveAs(folderPath);
+                    }
+                }
+
+            }
+
+            if (image2 != null)
+            {
+                if (image2.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image2.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath2 = "~/Content/AmenityImages/" + imagefileName;
+                    Session["MoveOut"] = folderpath2;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image2.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image2.SaveAs(folderPath);
+                    }
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
         [HttpPost]
         public ActionResult TenantAdd(Tenant ten)
         {
+          
             string hash;
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
@@ -79,9 +136,10 @@ namespace UResidence.Controllers
                 };
                 List<Owner> own = new List<Owner>(); ;
                 own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
-
-                if (own.Count != 0)
-                {
+                string MoveIn = Session["MoveIn"].ToString();
+                string MoveOut = Session["MoveOut"].ToString();
+                 if (own.Count != 0)
+                 {
                     Tenant tenn = new Tenant()
                     {
 
@@ -96,80 +154,85 @@ namespace UResidence.Controllers
                         LeaseStart = ten.LeaseStart,
                         LeaseEnd = ten.LeaseEnd,
                         Deleted = "0",
-                        URL = "~/Content/WebImages/user.png"
-
+                        URL = "~/Content/WebImages/user.png",
+                        MovingIn = MoveIn,
+                        MovingOut = MoveOut
                     };
-                    List<Tenant> listTen = default(List<Tenant>);
-                    listTen = UResidence.TenantController.Check(tenn);
-                    if (listTen.Count == 0)
-                    {
-                        string[] err = new string[] { };
-                        if (ten.Validate(out err))
-                        {
-                            status = UResidence.TenantController.Insert(tenn);
-                            Tenant b = new Tenant();
-                            b = UResidence.TenantController.GetEmailTenant(ten.Email);
-                            int tenandID = b.Id;
+                                    List<Tenant> listTen = default(List<Tenant>);
+                                    listTen = UResidence.TenantController.Check(tenn);
+                                    if (listTen.Count == 0)
+                                    {
+                                        string[] err = new string[] { };
+                                        if (ten.Validate(out err))
+                                        {
+                                            status = UResidence.TenantController.Insert(tenn);
+                                            Tenant b = new Tenant();
+                                            b = UResidence.TenantController.GetEmailTenant(ten.Email);
+                                            int tenandID = b.Id;
 
-                            UserLogin ull = new UserLogin
+                                            UserLogin ull = new UserLogin
+                                            {
+                                                TenantId = tenandID,
+                                                Username = ten.Email,
+                                                Hash = hash,
+                                                CreatedBy = "",
+                                                ModifyBy = "",
+                                                DateCreated = DateTime.Now,
+                                                Level = 5,
+                                                Locked = 0,
+                                                LastLogin = DateTime.Now
+
+                                            };
+
+                                            UResidence.UserController.InsertTenantId(ull);
+
+                                            Residence red = new Residence
+                                            {
+                                                OwnerNo = own[0].Id,
+                                                TenantNo = tenandID
+                                            };
+
+                                            ResidenceController.Insert(red);
+                                            SendEmail(ten.Email, pass);
+                                            status = true;
+                                            ViewBag.AddMessage = status;
+                                            TenantView();
+                                            return View("TenantView");
+                                        }
+                                        else
+                                        {
+                                            ViewBag.ErrorMessage = FixMessages(err);
+                                            status = false;
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
+                                        Response.Write(script);
+                                        status = false;
+                                    }
+                                }
+                                else
+                                {
+                                    string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
+                                    Response.Write(script);
+                                    status = false;
+                                }
+                            }
+                            else
                             {
-                                TenantId = tenandID,
-                                Username = ten.Email,
-                                Hash = hash,
-                                CreatedBy = "",
-                                ModifyBy = "",
-                                DateCreated = DateTime.Now,
-                                Level = 5,
-                                Locked = 0,
-                                LastLogin = DateTime.Now
-
-                            };
-
-                            UResidence.UserController.InsertTenantId(ull);
-
-                            Residence red = new Residence
-                            {
-                                OwnerNo = own[0].Id,
-                                TenantNo = tenandID
-                            };
-
-                            ResidenceController.Insert(red);
-                            SendEmail(ten.Email, pass);
-                            status = true;
+                                string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
+                                Response.Write(script);
+                                status = false;
+                            }
                             ViewBag.AddMessage = status;
-                            TenantView();
-                            return View("TenantView");
-                        }
-                        else
-                        {
-                            ViewBag.ErrorMessage = FixMessages(err);
-                            status = false;
-
-                        }
-                    }
-                    else
-                    {
-                        string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
-                        Response.Write(script);
-                        status = false;
-                    }
-                }
-                else
-                {
-                    string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
-                    Response.Write(script);
-                    status = false;
-                }
-            }
-            else
-            {
-                string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
-                Response.Write(script);
-                status = false;
-            }
-            ViewBag.AddMessage = status;
-            return View();
-        }
+                            return View();
+                           }
+                   
+            
+           
+        
         public ActionResult TenantView()
         {
             List<Tenant> tenantList = UResidence.TenantController.GetAll();

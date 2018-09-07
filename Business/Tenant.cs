@@ -33,8 +33,8 @@ namespace UResidence
         public HttpPostedFileBase Image { get; set; }
         public string MovingIn { get; set; }
         public string MovingOut { get; set; }
-        public HttpPostedFileBase movingIn { get; set; }
-        public HttpPostedFileBase movingOut { get; set; }
+        public HttpPostedFileBase Image1 { get; set; }
+        public HttpPostedFileBase Image2 { get; set; }
 
         public bool Validate(out string[] errors)
         {
@@ -88,7 +88,9 @@ namespace UResidence
             this.LeaseEnd = DateTime.Today;
             this.Deleted = string.Empty;
             this.URL = string.Empty;
-         
+            this.MovingIn = string.Empty;
+            this.MovingOut = string.Empty;
+
         }
 
         public Tenant CreateObject(SqlDataReader reader)
@@ -108,6 +110,8 @@ namespace UResidence
             ret.LeaseEnd = reader.GetDateTime(10);
             ret.Deleted = RemoveWhitespace(reader.GetString(11));
             ret.URL = RemoveWhitespace(reader.GetString(12));
+            ret.MovingIn = RemoveWhitespace(reader.GetString(13));
+            ret.MovingOut = RemoveWhitespace(reader.GetString(14));
             return ret;
         }
     }
