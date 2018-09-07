@@ -1,16 +1,15 @@
 ﻿
 @model List<Equipment>
 @{
-	ViewBag.Title = "Summary";
-		if (Convert.ToInt32(Session["Level"]) == 4)
-		{
-			Layout = "~/Views/Layout/LayoutHome.cshtml";
-		}
-		else if (Convert.ToInt32(Session["Level"]) == 5)
-		{
-			Layout = "~/Views/Layout/TenantLayout.cshtml";
-		}
-
+    ViewBag.Title = "Summary";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/OwnerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {

@@ -31,7 +31,7 @@ namespace UResidence.Controllers
             user = UResidence.UserController.Get(username, chash);
             if (user != default(UserLogin))
             {
-                if (user.Level == 0 || user.Level == 1 || user.Level == 2 || user.Level == 3 || user.Level == 6)
+                if (user.Level <=6)
                 {
  
                     Session["Level"] = user.Level;
@@ -47,7 +47,7 @@ namespace UResidence.Controllers
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Home", "Admin");
                 }
-                else if (user.Level == 4)
+                else if (user.Level == 8)
                 {
                     Session["Level"] = user.Level;
                     Session["LID"] = user.Id;
@@ -64,7 +64,7 @@ namespace UResidence.Controllers
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Home", "Reserve");
                 }
-                else if (user.Level == 5)
+                else if (user.Level == 9)
                 {
                     Session["Level"] = user.Level;
                     Session["LID"] = user.Id;

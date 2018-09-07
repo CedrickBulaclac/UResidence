@@ -13,7 +13,10 @@ namespace UResidence.Controllers
         {
             return View();
         }
-        
+        public ActionResult LogBookView()
+        {
+            return View();
+        }
         public JsonResult Search(Logbook data)
         {
             List<Logbook> logbookList = new List<Logbook>();

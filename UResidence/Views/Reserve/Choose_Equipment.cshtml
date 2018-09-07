@@ -1,17 +1,16 @@
 ﻿@model IEnumerable<object>
 @{
-	List<UResidence.Equipment> equip1 = Model.ToList()[0] as List<UResidence.Equipment>;
-	List<UResidence.Equipment> equip = Model.ToList()[1] as List<UResidence.Equipment>;
-	ViewBag.Title = "Choose_Equipment";
-		if (Convert.ToInt32(Session["Level"]) == 4)
-		{
-			Layout = "~/Views/Layout/LayoutHome.cshtml";
-		}
-		else if (Convert.ToInt32(Session["Level"]) == 5)
-		{
-			Layout = "~/Views/Layout/TenantLayout.cshtml";
-		}
-	
+    List<UResidence.Equipment> equip1 = Model.ToList()[0] as List<UResidence.Equipment>;
+    List<UResidence.Equipment> equip = Model.ToList()[1] as List<UResidence.Equipment>;
+    ViewBag.Title = "Choose_Equipment";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/OwnerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
 
 }
 

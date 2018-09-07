@@ -18,6 +18,24 @@ namespace UResidence
             ret = SqlManager.Select<Admin>(com);
             return ret;
         }
+        public static List<Admin> GetAllCashier()
+        {
+            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=3 order by Id";
+
+            List<Admin> ret = default(List<Admin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<Admin>(com);
+            return ret;
+        }
+        public static List<Admin> GetAllSecurity()
+        {
+            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=7 order by Id";
+
+            List<Admin> ret = default(List<Admin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            ret = SqlManager.Select<Admin>(com);
+            return ret;
+        }
         public static List<Admin> Get(int id)
         {
             const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted  FROM[tbAdmin] where Id=@Rid";

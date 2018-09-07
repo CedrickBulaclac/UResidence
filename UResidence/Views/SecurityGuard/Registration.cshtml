@@ -1,0 +1,227 @@
+﻿@model UResidence.Admin
+
+@{
+    Layout = "/Views/Layout/OICLayout.cshtml";
+    ViewBag.Title = "Registration";
+}
+
+
+
+
+<html>
+
+<head>
+
+
+
+    <style>
+
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .button {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #18ac6f;
+            border: none;
+            border-radius: 5px;
+        }
+
+
+
+            .button:hover {
+                background-color: #46bc8b;
+            }
+    </style>
+</head>
+
+
+<body>
+
+
+    <br />
+    <br />
+    <br />
+
+    <h2>Admin</h2>
+    @using (Html.BeginForm("Registration", "SecurityGuard", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="First Name">First Name :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="Middle Name">Middle Name :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="Last Name">Last Name :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="Bdate">Birthdate :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="Cel">Cellphone no. :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+
+                    <label for="Email">Email :</label>
+
+                </div>
+
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+            <input id="btnSave" type="submit" value="Save" class="button" />
+            <a href="SecurityGuardView" class="button">Cancel</a>
+        </div>
+
+
+        <div id="aerror" class="alert alert-danger collapse">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Error!</strong> There is a problem submitting your form
+        </div>
+        <div id="asuccess" class="alert alert-success collapse">
+            <strong>Success!</strong> You have successfully added a Security Guard
+        </div>
+        if (ViewBag.Message != null)
+        {
+            if (ViewBag.Message == true)
+            {
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+                </script>
+                <script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#asuccess').show('fade');
+
+						setTimeout(function () {
+							$('#asuccess').hide('fade');
+						}, 2000);
+
+
+					});
+                </script>
+
+            }
+
+            else
+            {
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+                </script>
+                <script type="text/javascript">
+					$(document).ready(function () {
+
+						$('#aerror').show('fade');
+
+						setTimeout(function () {
+							$('#aerror').hide('fade');
+						}, 2000);
+
+
+					});
+
+                </script>
+            }
+
+        }
+
+
+
+    }
+</body>
+</html>

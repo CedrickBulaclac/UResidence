@@ -1,8 +1,13 @@
 ﻿
 @{
 	ViewBag.Title = "LogBook";
-	Layout = "/Views/Layout/SecurityGuardlLayout.cshtml";
+	Layout = "/Views/Layout/OICLayout.cshtml";
 }
+<br />
+<br />
+<center>
+   Search: <input type="date" id="txtdate" name="txtdate"/> <button class="btn btn-success" onclick="Search()">Search</button>
+</center>
 <br />
 <br />
 <div class="container">
@@ -26,7 +31,7 @@
                 $.each(data, function (i, v) {
 
                     if (v.sTimeout == '00:00:00') {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update('+v.Id+')">Time Out</button></td></tr>';
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
 
                     }
                     else {
@@ -34,7 +39,6 @@
 
                     }
                 });
-                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date"/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" /></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
                 $('#tableLog').append(trHTML);
 
                 var now = new Date();
@@ -80,39 +84,51 @@
         });
     }
 
-
-    function SetText() {
-        var date = document.getElementById('date').value;
-        var ResidentName = document.getElementById('residentname').value;
-        var VisitorName = document.getElementById('visitorname').value;
-        var Purpose = document.getElementById('purpose').value;
-        var d = new Date(),
-            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-        var timenow = h + ':' + m;
-
+    function Search() {
+        $('#tableLog').empty();
+        var datee = document.getElementById('txtdate').value;
+        value = datee;
         var data = {
-            Date:date,
-            ResidentName: ResidentName,
-            VisitorName: VisitorName,
-            Timein: timenow,
-            Purpose: Purpose
-        }
-
+            date: datee
+        };
         $.ajax({
             type: 'POST',
-            url: '/LogBook/Insert',
-            data: data,
+            url: '/LogBook/Search',
+            data:data,
             success: function (data) {
+                var trHTML = '';
 
-                window.location.reload();
+                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+                $.each(data, function (i, v) {
+
+                    if (v.sTimeout == '00:00:00') {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
+
+                    }
+                    else {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+                    }
+                });
+               
+                $('#tableLog').append(trHTML);
+
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();
+
+                document.getElementById('date').value = today;
+
             },
-            error: function (error) {
-                alert('Failed to insert a record');
+            error: function (data) {
+                alert('Failed to retrieve record');
             }
-        });
 
+        });
     }
+
   
 </script>
 

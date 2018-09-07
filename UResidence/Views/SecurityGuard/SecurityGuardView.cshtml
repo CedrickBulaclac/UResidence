@@ -1,0 +1,201 @@
+﻿@model List<UResidence.Admin>
+
+@{
+    Layout = "/Views/Layout/OICLayout.cshtml";
+ }
+
+
+
+<br />
+@using (Html.BeginForm("SecurityGuardView", "SecurityGuard", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="dl-horizontal">
+        <table class=" table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th>Fname</th>
+                    <th>Mname</th>
+                    <th>Lname</th>
+                    <th>Bdate</th>
+                    <th>CelNo</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Admin a in Model)
+                {
+
+                    <tr>
+
+                        <td>@Html.DisplayFor(model => a.Fname)</td>
+                        <td>@Html.DisplayFor(model => a.Mname)</td>
+                        <td>@Html.DisplayFor(model => a.Lname)</td>
+                        <td>@Html.DisplayFor(model => a.Bdate)</td>
+                        <td>@Html.DisplayFor(model => a.CelNo)</td>
+                        <td>@Html.DisplayFor(model => a.Email)</td>
+                        <td>
+                            <a class="btn btn-link" href="@Url.Action("Edit", "SecurityGuard", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+                            <a class="btn btn-link" href="@Url.Action("Delete", "SecurityGuard", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+                        </td>
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="btn-link">
+
+        <a href="@Url.Action("Registration", "SecurityGuard")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" class="btn btn-success" /></a>
+
+    </div>
+
+    <div id="auerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem updating the Security Guard
+    </div>
+    <div id="ausuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully updated the Security Guard
+    </div>
+
+
+    <div id="aerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem deleting the Security Guard
+    </div>
+    <div id="asuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully deleted the Security Guard
+    </div>
+
+
+    <div id="aaerror" class="alert alert-danger collapse">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> There is a problem submitting your form
+    </div>
+    <div id="aasuccess" class="alert alert-success collapse">
+        <strong>Success!</strong> You have successfully added a Security Guard
+    </div>
+
+    if (ViewBag.DeleteStatus != null)
+    {
+        if (ViewBag.DeleteStatus == true)
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#asuccess').show('fade');
+
+					setTimeout(function () {
+						$('#asuccess').hide('fade');
+					}, 2000);
+				});
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#aerror').show('fade');
+
+					setTimeout(function () {
+						$('#aerror').hide('fade');
+					}, 2000);
+
+
+				});
+            </script>
+        }
+    }
+
+    if (ViewBag.UpdateMessage != null)
+    {
+        if (ViewBag.UpdateMessage == true)
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#ausuccess').show('fade');
+
+					setTimeout(function () {
+						$('#ausuccess').hide('fade');
+					}, 2000);
+
+
+				});
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#auerror').show('fade');
+
+					setTimeout(function () {
+						$('#auerror').hide('fade');
+					}, 2000);
+
+
+				});
+            </script>
+        }
+    }
+
+    if (ViewBag.AddMessage != null)
+    {
+        if (ViewBag.AddMessage == true)
+        {
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+				$(document).ready(function () {
+
+					$('#aasuccess').show('fade');
+
+					setTimeout(function () {
+						$('#aasuccess').hide('fade');
+					}, 20000);
+
+				});
+            </script>
+        }
+
+        else
+        {
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+            </script>
+            <script type="text/javascript">
+
+				$(document).ready(function () {
+
+					$('#aaerror').show('fade');
+
+					setTimeout(function () {
+						$('#aaerror').hide('fade');
+					}, 2000);
+
+
+				});
+            </script>
+
+        }
+
+    }
+}

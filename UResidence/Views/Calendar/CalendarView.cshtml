@@ -27,6 +27,17 @@
     <br />
     <br />
 	<body>
+        <center>
+            <div class="container">
+
+                <label>Sort by :</label><select class="form-control" id="ssort" onchange="Sort()">
+                    <option>Pending</option>
+                    <option>Reserved</option>
+                </select>
+            </div>
+        </center>
+        <br />
+        <br />
 		<div class="container">
 			<div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
@@ -391,9 +402,14 @@
             }
 
             $(document).ready(function () {
+                var status = document.getElementById('ssort').value;
+                var data = {
+                    Status:status
+                }
                 $.ajax({
                     type: "GET",
-                    url: "/calendar/GetEvents",
+                    url: "/calendar/GET_EVENTS",
+                    data:data,
                     success: function (data) {
                         $.each(data, function (i, v) {
                             events.push({
@@ -434,11 +450,16 @@
 
 
 
-                function RefreshCalendar() {
+            function RefreshCalendar() {
+                var status = document.getElementById('ssort').value
+                var data = {
+                    Status:status
+                }
                     events = [];
                     $.ajax({
                         type: "GET",
-                        url: "/calendar/GetEvents",
+                        url: "/calendar/GET_EVENTS",
+                        data:data,
                         success: function (data) {
                             $.each(data, function (i, v) {
                                 events.push({
@@ -597,6 +618,9 @@
                 }
 
 
+            }
+            function Sort() {
+                RefreshCalendar();
             }
             $('#btnSave').click(function () {
                 if (selectedEvent != null && confirm('Are you sure?')) {
