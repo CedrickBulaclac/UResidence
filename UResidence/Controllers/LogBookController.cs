@@ -15,7 +15,10 @@ namespace UResidence.Controllers
             logbookList = UResidence.LogbookController.GET_ALL();
             return View(logbookList);
         }
-        
+        public ActionResult LogBookView()
+        {
+            return View();
+        }
         public JsonResult Search(Logbook data)
         {
             List<Logbook> logbookList = new List<Logbook>();

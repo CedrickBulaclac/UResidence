@@ -64,7 +64,7 @@ namespace UResidence.Controllers
                     UResidence.UserController.UpdateLog(user.Id);
                     return RedirectToAction("Home", "Reserve");
                 }
-                else if (user.Level == 5)
+                else if (user.Level == 9)
                 {
                     Session["Level"] = user.Level;
                     Session["LID"] = user.Id;

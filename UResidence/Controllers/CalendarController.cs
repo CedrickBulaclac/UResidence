@@ -16,14 +16,11 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-
-        //public JsonResult GetEventsSwim()
-        //{
-        //    List<Swimming> reservationList = SwimmingController.GET_ALLSwimmingInfo();
-        //    var events = reservationList.ToList();
-        //    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
-        //}
+        public JsonResult GET_EVENTS(ReservationProcess rese)
+        {
+            List<ReservationProcess> reservationList = ReservationProcessController.GETALL(rese.Status);
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
 
         public JsonResult InsertPayment(Receipt receipt)
@@ -42,7 +39,6 @@ namespace UResidence.Controllers
             return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-
         public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc)
         {
             string name = (Session["FullName"]).ToString();

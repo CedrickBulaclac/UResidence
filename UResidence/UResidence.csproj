@@ -148,14 +148,17 @@
     <Compile Include="Controllers\AmenityMaintenanceController.cs" />
     <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\LogBookController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\ReservationAController.cs" />
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
+    <Compile Include="Controllers\SecurityGuardController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -171,10 +174,30 @@
     <Content Include="applogin\package\velocity.min.js" />
     <Content Include="applogin\package\velocity.ui.js" />
     <Content Include="applogin\package\velocity.ui.min.js" />
+    <Content Include="Content\AmenityImages\baskteballcourt.jpeg" />
+    <Content Include="Content\AmenityImages\baskteballcourtM.jpg" />
+    <Content Include="Content\AmenityImages\c.jpg" />
+    <Content Include="Content\AmenityImages\Gazebo.jpeg" />
+    <Content Include="Content\AmenityImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
+    <Content Include="Content\AmenityImages\planet_earth_2-1920x1080.jpg" />
+    <Content Include="Content\AmenityImages\received_233134183897688.jpeg" />
+    <Content Include="Content\AmenityImages\swimmingpool.jpeg" />
+    <Content Include="Content\AmenityImages\swimmingpool2.jpeg" />
+    <Content Include="Content\AmenityImages\swimmingpool2M.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EquipmentImages\baskteballcourtM.jpg" />
+    <Content Include="Content\EquipmentImages\chairs.jpg" />
+    <Content Include="Content\EquipmentImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
+    <Content Include="Content\EquipmentImages\planet_earth_2-1920x1080.jpg" />
+    <Content Include="Content\EquipmentImages\table.jpg" />
+    <Content Include="Content\logo.png" />
+    <Content Include="Content\Logo\logo.png" />
     <Content Include="Content\Log\loginbg.jpg" />
     <Content Include="Content\Log\logo.png" />
+    <Content Include="Content\WebImages\jumbo1.jpg" />
+    <Content Include="Content\WebImages\jumbo2.jpg" />
+    <Content Include="Content\WebImages\jumbo3.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -267,6 +290,16 @@
     <Content Include="Views\Layout\TenantLayout.cshtml" />
     <Content Include="Views\Layout\SecurityGuardLayout.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Finance\Registration_Cashier.cshtml" />
+    <Content Include="Views\Finance\ViewCashier.cshtml" />
+    <Content Include="Views\Finance\CashierEdit.cshtml" />
+    <Content Include="Views\Cashier\Calendar.cshtml" />
+    <Content Include="Views\Layout\CashierLayout.cshtml" />
+    <Content Include="Views\SecurityGuard\SecurityGuardView.cshtml" />
+    <Content Include="Views\SecurityGuard\Registration.cshtml" />
+    <Content Include="Views\SecurityGuard\Edit.cshtml" />
+    <Content Include="Views\Layout\OICLayout.cshtml" />
+    <Content Include="Views\LogBook\LogBookView.cshtml" />
     <Content Include="Views\Tenant\TenantEdit.cshtml" />
     <Content Include="Views\Tenant\TenantAdd.cshtml" />
     <Content Include="Views\Tenant\TenantView.cshtml" />
@@ -274,8 +307,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\AmenityImages\" />
-    <Folder Include="Content\EquipmentImages\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
