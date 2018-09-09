@@ -28,9 +28,9 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
-@Scripts.Render("~/bundles/modernizr")
-@Styles.Render("~/Content/css")
 
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -111,15 +111,7 @@
 			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
 			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;">Contact Us</a>
 			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;">About Us</a>
-			@*<div class="first"><button type="button" name="btnAbout" id="btnAbout">About Us</button></div>*@
 		</div>
-
-
-
-
-
-		@*<a class="w3-bar-item w3-button w3-right w3-hover-green" href="@Url.Action("OwnerAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>*@
 	</div>
 
 
@@ -138,7 +130,7 @@
 
 
 	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")				
+	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
 	<script>
 		function w3_open() {
@@ -193,12 +185,6 @@
 			$('#updateprofilepicture').modal();
 		}
 		);
-
-
 	</script>
-
-
-
-
 </body>
 </html>

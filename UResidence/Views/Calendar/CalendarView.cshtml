@@ -1,32 +1,39 @@
-﻿@{
-    Layout = "/Views/Layout/FinanceLayout.cshtml";
+﻿@model List<UResidence.Amenity>
+@{
+	Layout = "/Views/Layout/FinanceLayout.cshtml";
 }
 @using (Html.BeginForm("CalendarView", "Calendar", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+	@Html.AntiForgeryToken()
 
-    <head>
-        <style>
-            legend0 {
-                color: red;
-            }
+	<head>
+		<style>
+			legend0 {
+				color: red;
+			}
 
-            legend1 {
-                color: yellow;
-            }
+			legend1 {
+				color: yellow;
+			}
 
-            legend2 {
-                color: violet;
-            }
+			legend2 {
+				color: violet;
+			}
 
-            legend3 {
-                color: black;
-            }
-        </style>
-    </head>
-    <br />
-    <br />
+			legend3 {
+				color: black;
+			}
+		</style>
+	</head>
+	<br />
+	<br />
+
+
+
 	<body>
+
+
+
 		<div class="container">
 			<div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
@@ -57,14 +64,59 @@
 
 
 
+
+		@*<div class="container">
+			<div class="modal fade" id="viewDetailsModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span id="eventTitle"></span></h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" name="rid" id="rid" />
+							<input type="hidden" name="rfid" id="rfid" />
+							<p id="pDetails"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>*@
+
+		<div class="container">
+			<div class="modal fade" id="viewDetailsModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Swimming Details</span></h4>
+						</div>
+						<div class="modal-body">
+							<table class="table table-bordered table-striped" name="tbSwimmingDetails" id="tbSwimmingDetails" style="overflow-y:scroll;height:200px;display:block;"></table>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" id="btnCloseS" name="btnCloseS" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
 		<div class="container">
 			<div class="modal fade" id="paymentModal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Payment</span></h4>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Payment</span></h4>
+						</div>
 						<div class="modal-body">
 							<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
 							<br /><br />
@@ -85,10 +137,10 @@
 			<div class="modal fade" id="reversalModal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Reversal</span></h4>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Reversal</span></h4>
+						</div>
 						<div class="modal-body">
 
 							<b>Total Payment:</b> <label id="tpr" name="tpr"></label>
@@ -113,9 +165,9 @@
 			<div class="modal fade" id="UpdateModal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
 						<div class="modal-body">
 							<b>Status: </b><select id="mySelect" name="mySelect">
 								<option value="Pending">Pending</option>
@@ -143,10 +195,10 @@
 			<div class="modal fade" id="PaymentHistory" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Payment History</span></h4>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Payment History</span></h4>
+						</div>
 						<div class="modal-body">
 							<table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
 							<b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
@@ -164,10 +216,10 @@
 			<div class="modal fade" id="ReversalHistory" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Reversal History</span></h4>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Reversal History</span></h4>
+						</div>
 						<div class="modal-body">
 							<table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
 							<b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
@@ -185,10 +237,10 @@
 			<div class="modal fade" id="ChargeHistory" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Charge History</span></h4>
-                        </div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span>Charge History</span></h4>
+						</div>
 						<div class="modal-body">
 							<table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
 							<b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
@@ -203,17 +255,26 @@
 		</div>
 
 
+
 		<div id="calendar" class="container"></div>
+
 	</body>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+	foreach (Amenity amn in Model)
+	{
+		<tr scope="row">
+			<p><font color="@amn.Color">@amn.AmenityName</font></p>
+		</tr>
+	}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 }
-    @section scripts{
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+@section scripts{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 
-        <script>
+	<script>
 
             function AddPayment() {
                 var refno = document.getElementById('rfid').value;
@@ -319,8 +380,8 @@
 			}
 
             function ReversalHistory() {
-                var refno = document.getElementById('rfid').value;           
-               
+                var refno = document.getElementById('rfid').value;
+
                 $.ajax({
                     type:'POST',
                     url: "/calendar/ReversalHistory",
@@ -414,7 +475,10 @@
                                 cc: v.ChairCost,
                                 amt: v.Amount,
                                 cq: v.ChairQuantity,
-                                tq:v.TableQuantity
+								tq: v.TableQuantity,
+								sid: v.SRId,
+								adu: v.Adult,
+								chi: v.Child
                             });
                         })
                         GenerateCalendar(events);
@@ -459,7 +523,9 @@
                                     cc: v.ChairCost,
                                     amt: v.Amount,
                                     cq: v.ChairQuantity,
-                                    tq: v.TableQuantity
+									tq: v.TableQuantity,
+									sid: v.SRId,
+
                                 });
                             })
                             GenerateCalendar(events);
@@ -499,7 +565,7 @@
 								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
 								$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
 								$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-								$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate + '&nbsp;&nbsp;&nbsp;&nbsp;<a>View Details</a>'));
+								$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<button type="button" class="btn btn-link" id="viewDetails" name="viewDetails" data-dismiss="modal" onclick="View(' + calEvent.sid + ')">View Details</button>'));
 								$description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
 								$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
 								$description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
@@ -523,7 +589,7 @@
 								$('#myModal').modal();
 							}
 
-							else 
+							else
 							{
 								selectedEvent = calEvent;
 								$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
@@ -565,7 +631,7 @@
                 var ar = document.getElementById('atr').value;
                 var desc = document.getElementById('rdescription').value;
                 var select = 'Pending';
-             
+
                     if (ar <= totalpay) {
                         var data = {
                             RefNo: refno,
@@ -590,8 +656,8 @@
 
 
                         });
-                    }                  
-                
+                    }
+
                 else {
                     alert('Amount to Return should be Less than or Equal of the Total payment')
                 }
@@ -606,9 +672,9 @@
             });
             $('#btnReversal').click(function () {
                 $('#reversalModal').modal();
-                
+
             });
-           
+
             $('#btnHistoryReversal').click(function () {
                 $('#ReversalHistory').modal();
             });
@@ -657,7 +723,44 @@
             $('#btnCloseRevH').click(function () {
 
                 $('#reversalModal').modal();
-            });
+			});
+			//$('#viewDetails').click(function () {
+			//	alert('tfhd');
+			//
 
-        </script>
-    }
+			//});
+
+			function View(Id) {
+					var refno = Id;
+
+					$.ajax({
+						type: "GET",
+						url: "/calendar/SwimmingInfo",
+						dataType: 'json',
+						data: {
+							'refno1': refno
+						},
+						success: function (data) {
+							var trHTML = '';		
+								$('#tbSwimmingDetails').empty();
+							trHTML = '<tr><th>Adult</th> <th>Child</th></tr>';
+							$.each(data, function (i, v) {
+								trHTML += '</td><td>' + v.Adult + '</td><td>' + v.Child;
+
+							});
+							$('#tbSwimmingDetails').append(trHTML);
+							trHTML = '';
+						},
+						error: function (error) {
+							alert('Failed to retrieve the record');
+						}
+					});
+				
+
+
+				$('#viewDetailsModal').modal();
+			}
+
+	</script>
+
+}

@@ -56,6 +56,25 @@ namespace UResidence
             return ret;
         }
 
+        public static bool UpdateImage1(Tenant ten)
+        {
+            const string GET_UPDATE = @"update [tbTenant] set MovingIn=@MovingIn WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@MovingIn", ten.MovingIn));
+            com.Parameters.Add(new SqlParameter("@Id", ten.Id));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+        public static bool UpdateImage2(Tenant ten)
+        {
+            const string GET_UPDATE = @"update [tbTenant] set MovingOut=@MovingOut WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@MovingOut", ten.MovingOut));
+            com.Parameters.Add(new SqlParameter("@Id", ten.Id));
+            return SqlManager.ExecuteNonQuery(com);
+        }
 
         public static Tenant GetId(string id)
         {

@@ -59,19 +59,18 @@ namespace UResidence.Controllers
         }
 
 
-        public JsonResult InsertMoving(Tenant tenant)
+        public JsonResult InsertMoving1(Tenant tenant)
         {
+            int id = tenant.Id;
             var image1 = tenant.Image1;
-            var image2 = tenant.Image2;
             bool status = false;
             if (image1 != null)
             {
                 if (image1.ContentLength > 0)
                 {
                     string imagefileName = Path.GetFileName(image1.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
-                    Session["MoveIn"] = folderpath1;
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+                    string folderpath1 = "~/Content/TenantImages/" + imagefileName;
                     if (System.IO.File.Exists(folderPath))
                     {
                         System.IO.File.Delete(folderPath);
@@ -81,27 +80,12 @@ namespace UResidence.Controllers
                     {
                         image1.SaveAs(folderPath);
                     }
-                }
-
-            }
-
-            if (image2 != null)
-            {
-                if (image2.ContentLength > 0)
-                {
-                    string imagefileName = Path.GetFileName(image2.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-                    string folderpath2 = "~/Content/AmenityImages/" + imagefileName;
-                    Session["MoveOut"] = folderpath2;
-                    if (System.IO.File.Exists(folderPath))
+                    Tenant a = new Tenant()
                     {
-                        System.IO.File.Delete(folderPath);
-                        image2.SaveAs(folderPath);
-                    }
-                    else
-                    {
-                        image2.SaveAs(folderPath);
-                    }
+                        Id = id,
+                        MovingIn = folderpath1,
+                    };
+                    status = UResidence.TenantController.UpdateImage1(a);
                 }
 
             }
@@ -110,8 +94,48 @@ namespace UResidence.Controllers
                 Data = status,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
-
         }
+
+        public JsonResult InsertMoving2(Tenant tenant)
+        {
+            int id = tenant.Id;
+            var image2 = tenant.Image2;
+            bool status = false;
+
+            if (image2 != null)
+            {
+                if (image2.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image2.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+                    string folderpath2 = "~/Content/TenantImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image2.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image2.SaveAs(folderPath);
+                    }
+                    Tenant a = new Tenant()
+                    {
+                        Id = id,
+                        MovingOut = folderpath2
+                    };
+                    status = UResidence.TenantController.UpdateImage2(a);
+                }
+
+            }
+         
+
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
 
         [HttpPost]
         public ActionResult TenantAdd(Tenant ten)
@@ -136,8 +160,8 @@ namespace UResidence.Controllers
                 };
                 List<Owner> own = new List<Owner>(); ;
                 own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
-                string MoveIn = Session["MoveIn"].ToString();
-                string MoveOut = Session["MoveOut"].ToString();
+                //string MoveIn = Session["MoveIn"].ToString();
+                //string MoveOut = Session["MoveOut"].ToString();
                  if (own.Count != 0)
                  {
                     Tenant tenn = new Tenant()
@@ -155,8 +179,8 @@ namespace UResidence.Controllers
                         LeaseEnd = ten.LeaseEnd,
                         Deleted = "0",
                         URL = "~/Content/WebImages/user.png",
-                        MovingIn = MoveIn,
-                        MovingOut = MoveOut
+                        MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
+                        MovingOut = "~/Content/WebImages/Noimageavailable.jpeg"
                     };
                                     List<Tenant> listTen = default(List<Tenant>);
                                     listTen = UResidence.TenantController.Check(tenn);
@@ -314,8 +338,8 @@ namespace UResidence.Controllers
                 if (image.ContentLength > 0)
                 {
                     string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-                    string folderpath1 = "~/Content/AmenityImages/" + imagefileName;
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+                    string folderpath1 = "~/Content/TenantImages/" + imagefileName;
                     if (System.IO.File.Exists(folderPath))
                     {
                         System.IO.File.Delete(folderPath);

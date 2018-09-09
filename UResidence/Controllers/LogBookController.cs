@@ -11,7 +11,9 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
-            return View();
+            List<Logbook> logbookList = new List<Logbook>();
+            logbookList = UResidence.LogbookController.GET_ALL();
+            return View(logbookList);
         }
         
         public JsonResult Search(Logbook data)
@@ -44,9 +46,11 @@ namespace UResidence.Controllers
                 VisitorName = data.VisitorName,
                 Purpose = data.Purpose,
                 Timein = data.Timein,
-                Timeout = Convert.ToDateTime("00:00:00")
-               
-                            };
+                Timeout = Convert.ToDateTime("00:00:00"),
+                URL = "~/Content/LogBookImages/Noimageavailable.jpeg"
+
+
+            };
 
             bool status = UResidence.LogbookController.Insert(log);
             return new JsonResult

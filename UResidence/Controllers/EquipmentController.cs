@@ -18,7 +18,7 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(Equipment eqp,HttpPostedFileBase image)
+        public ActionResult Registration(Equipment eqp)
         {
             string[] err = new string[] { };
            
@@ -26,7 +26,9 @@ namespace UResidence.Controllers
                     {
                         Name = eqp.Name, 
                         Stocks = eqp.Stocks,
-                        Rate = eqp.Rate
+                        Rate = eqp.Rate,
+                        Url = "~/Content/EquipmentImages/Noimageavailable.jpeg",
+                        Description = eqp.Description
                     };
 
                     if (eqp1.Validate(out err))
@@ -44,6 +46,48 @@ namespace UResidence.Controllers
                         return View(eqp);
                     }
         }
+
+        public JsonResult UpdateImage(Equipment equipment)
+        {
+            var image = equipment.Image;
+            bool status = false;
+            int id = equipment.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
+                    string folderpath1 = "~/Content/EquipmentImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
+                    Equipment e = new Equipment
+                    {
+                        Id = id,
+                        Url = folderpath1
+                    };
+
+
+                    status = UResidence.EquipmentController.UpdateImage(e);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
+
 
         public ActionResult EquipmentView()
         {
@@ -74,32 +118,26 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult EquipmentEdit(int eno)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 Equipment equipmentList = default(Equipment);
                 equipmentList = UResidence.EquipmentController.GetbyId(eno);
                 return View(equipmentList);
-            }
-            return View("EquipmentView");
+            //}
+            //return View("EquipmentView");
         }
         [HttpPost]
-        public ActionResult EquipmentEdit(Equipment eqp, HttpPostedFileBase image)
+        public ActionResult EquipmentEdit(Equipment eqp)
         {
             string[] err = new string[] { };
-            if (image != null)
-            {
-                if (image.ContentLength > 0)
-                {
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
-                    string folderpath = "~/Content/EquipmentImages/" + imagefileName;
-                    image.SaveAs(folderPath);
+          
                     Equipment eqp1 = new Equipment()
                     {
                        Id=eqp.Id,
                         Name = eqp.Name,              
                         Stocks = eqp.Stocks,
-                        Rate = eqp.Rate
+                        Rate = eqp.Rate,
+                        Description = eqp.Description
                     };
                     if (eqp1.Validate(out err))
                     {
@@ -114,16 +152,14 @@ namespace UResidence.Controllers
                         {
                             ViewBag.UpdateMessage = status;
                         }
-                    }
-                }
-                else
-                {
-                    ViewBag.ErrorMessages = FixMessages(err);
-                }
+                       ViewBag.ErrorMessages = FixMessages(err);
             }
-         
-                return View(eqp);
+            return View(eqp);
         }
+            
+         
+             
+        
 
         public string FixMessages(string[] err)
         {

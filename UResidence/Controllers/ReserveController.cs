@@ -29,7 +29,7 @@ namespace UResidence.Controllers
 
             int level = Convert.ToInt32(Session["Level"]);
 
-            if (level == 4)
+            if (level == 8)
             {
                 Owner a = new Owner();
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
@@ -118,7 +118,8 @@ namespace UResidence.Controllers
         public ActionResult Calendar()
         {
             ViewBag.Amenity=(Session["NAME"]).ToString();
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
         public ActionResult Choose_Date()
         {
@@ -403,7 +404,8 @@ namespace UResidence.Controllers
 
         public ActionResult CalendarViewOT()
         {
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
 
        

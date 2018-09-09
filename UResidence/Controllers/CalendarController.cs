@@ -17,6 +17,14 @@ namespace UResidence.Controllers
 
         }
 
+        //public JsonResult GetEventsSwim()
+        //{
+        //    List<Swimming> reservationList = SwimmingController.GET_ALLSwimmingInfo();
+        //    var events = reservationList.ToList();
+        //    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+        //}
+
 
         public JsonResult InsertPayment(Receipt receipt)
         {
@@ -85,7 +93,12 @@ namespace UResidence.Controllers
             };
 
         }
-
+        public JsonResult SwimmingInfo(int refno1)
+        {
+            List<Swimming> swimming = SwimmingController.GETALL(refno1);
+            var events = swimming.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult ReceiptHistory(int refno1)
         {
             List<Receipt> receipt = ReceiptController.GetAll(refno1);
@@ -107,7 +120,8 @@ namespace UResidence.Controllers
         // GET: Calendar
         public ActionResult CalendarView()
         {
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
         [HttpPost]
         public ActionResult CalendarView(FormCollection fc, string mySelect, int dp)
