@@ -26,7 +26,7 @@ namespace UResidence
         {
             Amenity ret = new Amenity();
             ret.Id = reader.GetInt32(0);
-            ret.Description = RemoveWhitespace(reader.GetString(1));
+            ret.Description = reader.GetString(1);
             ret.Capacity = reader.GetInt32(2);
             ret.AmenityName = reader.GetString(3);
            ret.Url = RemoveWhitespace(reader.GetString(4));

@@ -29,7 +29,17 @@ namespace UResidence
             ret = SqlManager.Select<Amenity>(com);
             return ret;
         }
+        public static List<Amenity> GetPicById(int id)
+        {
+            const string GET_ALL = @"select a.Id,Description,Capacity,AmenityName,ia.URL,Rate,Color from tbAmenity a inner join tbImageAmenity ia on a.Id=ia.AmenityId where AmenityId=@Id";
 
+
+            List<Amenity> ret = default(List<Amenity>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Id", id));
+            ret = SqlManager.Select<Amenity>(com);
+            return ret;
+        }
         public static Amenity GetbyAmenityName(string name)
         {
             const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
@@ -111,6 +121,17 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Url", amty.Url));
             com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool InsertImage(Amenity amty)
+        {
+            const string GET_INSERT = @"insert [tbImahgeAmenity] (Id,URL) values (@Id,@Url)";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+           
+            com.Parameters.Add(new SqlParameter("@Url", amty.Url));
+            com.Parameters.Add(new SqlParameter("@Id", amty.Id));
+
             return SqlManager.ExecuteNonQuery(com);
         }
     }

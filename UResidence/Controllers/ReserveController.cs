@@ -29,13 +29,13 @@ namespace UResidence.Controllers
 
             int level = Convert.ToInt32(Session["Level"]);
 
-            if (level == 4)
+            if (level == 8)
             {
                 Owner a = new Owner();
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            else if (level == 5)
+            else if (level == 9)
             {
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());

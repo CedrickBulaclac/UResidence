@@ -17,29 +17,26 @@ namespace UResidence.Controllers
             return View();
         }
 
-
+        public JsonResult ViewImage(ImageAmenity am)
+        {
+            List<ImageAmenity> amenList = default(List<ImageAmenity>);
+            amenList=UResidence.ImageAmenityController.GetPicByAId(am.Id);
+            var events=amenList.ToList();
+            return new JsonResult {
+                Data=events,
+                JsonRequestBehavior=JsonRequestBehavior.AllowGet
+            };
+        }
 
 
         [HttpPost]
-        public ActionResult AmenityAdd(Amenity amen, HttpPostedFileBase image)
+        public ActionResult AmenityAdd(Amenity amen)
         {
+          
             string[] err = new string[] { };
-            if (image != null)
-            {
-                if (image.ContentLength > 0)
-                {
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
-                    string folderpath = "~/Content/AmenityImages/" + imagefileName;
-                    if (System.IO.File.Exists(folderPath))
-                    {
-                        System.IO.File.Delete(folderPath);
-                        image.SaveAs(folderPath);
-                    }
-                    else
-                    {
-                        image.SaveAs(folderPath);
-                    }
+              
+                    string folderpath = "~/Content/AmenityImages/noimage.jpeg";
+                
                     Amenity a = new Amenity()
                     {
                         AmenityName = amen.AmenityName,
@@ -50,32 +47,21 @@ namespace UResidence.Controllers
                         Color = amen.Color
                     };
 
-                    if (amen.Validate(out err))
-                    {
+            if (amen.Validate(out err))
+            {
 
-                        ViewBag.Message = UResidence.AmenityController.Insert(a);
-                        status = true;
-                        ViewBag.AddMessage = status;
-                        AmenityView();
-                        return View("AmenityView");
-                    }
-                    else
-                    {
-                        ViewBag.Message = false;
-                        ViewBag.ErrorMessages = FixMessages(err);
-                        return View(amen);
-                    }
-                }
-
+                ViewBag.Message = UResidence.AmenityController.Insert(a);
+                status = true;
+                ViewBag.AddMessage = status;
+                AmenityView();
+                return View("AmenityView");
             }
-
             else
             {
-                string script = "<script type = 'text/javascript'>alert('No picture attached');</script>";
-                Response.Write(script);
-                return View();
-            }
-            return View();
+                ViewBag.Message = false;
+                ViewBag.ErrorMessages = FixMessages(err);
+                return View(amen);
+            }           
         }
 
         public ActionResult AmenityView()
@@ -83,8 +69,35 @@ namespace UResidence.Controllers
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
-
-
+        public JsonResult DeleteImage(ImageAmenity ia)
+        {
+            bool status = false;
+            status=ImageAmenityController.Delete(ia.Id);
+            string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), ia.URL);
+            string folderpath = "~/Content/AmenityImages/" + ia.URL;
+            if (status==true)
+            {
+                if (System.IO.File.Exists(folderPath))
+                {
+                    System.IO.File.Delete(folderPath);
+                }
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        public JsonResult ViewAmenity()
+        {
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            var events = amenityList.ToList();
+            return new JsonResult
+            {
+                Data=events,
+                JsonRequestBehavior=JsonRequestBehavior.AllowGet
+            };
+        }
         public ActionResult Delete(int id)
         {
 
@@ -93,9 +106,11 @@ namespace UResidence.Controllers
                 Id = id
             };
             status = UResidence.AmenityController.Delete(am);
+          
             if (status == true)
             {
                 AmenityView();
+
             }
             ViewBag.DeleteStatus = status;
             return View("AmenityView");
@@ -115,30 +130,44 @@ namespace UResidence.Controllers
         }
 
 
-        //public JsonResult UpdateI(string url)
-        //{
-        //    string[] err = new string[] { };
-        //    Amenity amenn = new Amenity
-        //    {
-        //        Url = url
-        //    };
-        //    if (amenn.Validate(out err))
-        //    {
-        //        status = UResidence.AmenityController.UpdateImage(amenn);
-        //        if (status == true)
-        //        {
-        //            ViewBag.UpdateMessage = status;
-        //        }
-        //    }
-        //    return new JsonResult
-        //    {
-        //        Data = status,
-        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //    };
+       
+        public JsonResult InsertImage(ImageAmenity amenity)
+        {
+            bool events=false;
+            var image = amenity.Image;
+            string[] err = new string[] { };
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
+                    string folderpath = "~/Content/AmenityImages/" + imagefileName;
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        System.IO.File.Delete(folderPath);
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image.SaveAs(folderPath);
+                    }
+                    ImageAmenity amn = new ImageAmenity
+                    {
+                        AmenityId = amenity.Id,
+                        URL = folderpath
+                    };
+                    events = UResidence.ImageAmenityController.InsertImage(amn);
+                }
+            }
 
-        //}
-
-        public JsonResult UpdateImage(Amenity amenity)
+            return new JsonResult
+            {
+                Data = events,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        public JsonResult UpdateImage(ImageAmenity amenity)
         {
             var image = amenity.Image;
             bool status = false;
@@ -159,14 +188,14 @@ namespace UResidence.Controllers
                     {
                         image.SaveAs(folderPath);
                     }
-                    Amenity a = new Amenity
+                    ImageAmenity a = new ImageAmenity
                     {
                         Id = id,
-                        Url = folderpath1
+                        URL = folderpath1
                     };
 
 
-                    status = UResidence.AmenityController.UpdateImage(a);
+                    status = UResidence.ImageAmenityController.UpdateImage(a);
                 }
 
             }
@@ -178,45 +207,6 @@ namespace UResidence.Controllers
 
         }
         
-
-
-
-
-        //[HttpPost]
-        //public ActionResult Upload(Amenity amen, HttpPostedFileBase image,string url)
-        //{
-        //    string[] err = new string[] { };
-        //    Amenity a = new Amenity()
-        //    {
-        //      Url = url
-        //    };
-        //    if (a.Validate(out err))
-        //    {
-        //        status = UResidence.AmenityController.UpdateImage(a);
-        //        if (status == true)
-        //        {
-        //            ViewBag.UpdateMessage = status;
-        //        }
-
-        //    }
-        //    else
-        //    {
-
-        //        ViewBag.ErrorMessages = FixMessages(err);
-        //    }
-        //    return View(amen);
-        //}
-        //for (int i = 0; i < Request.Files.Count; i++)
-        //{
-        //    var file = Request.Files;
-
-        //    var fileName = Path.GetFileName(file.FileName);
-
-        //    var path = Path.Combine(Server.MapPath("~/Content/AmenityImages/"), fileName);
-        //    file.SaveAs(path);
-
-
-
 
         [HttpPost]
         public ActionResult AmenityEdit(Amenity amen, HttpPostedFileBase image)

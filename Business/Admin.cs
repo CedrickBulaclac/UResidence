@@ -17,7 +17,10 @@ namespace UResidence
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong mobile")]
         public string CelNo { get; set; }
+        [EmailAddress]
         public string Email{ get; set; }
         public string Deleted { get; set; }
 
