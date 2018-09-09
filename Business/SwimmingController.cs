@@ -18,6 +18,16 @@ namespace UResidence
             ret = SqlManager.Select<Swimming>(com);
             return ret;
         }
+        public static List<Swimming> GETALL(int id)
+        {
+            const string GET_ALL = "Select Id,SchedID,Adult,Child from [tbSwimmingPayment] where SchedID=@SchedID order by SchedID";
+
+            List<Swimming> ret = default(List<Swimming>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@SchedID", id));
+            ret = SqlManager.Select<Swimming>(com);
+            return ret;
+        }
 
         public static bool Update(Swimming swm)
         {

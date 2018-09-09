@@ -85,7 +85,8 @@ namespace UResidence.Controllers
         public ActionResult Calendar()
         {
             ViewBag.Amenity = (Session["NAME"]).ToString();
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);         
         }
 
 
@@ -439,8 +440,8 @@ namespace UResidence.Controllers
 
 
         public ActionResult CalendarReservationAdmin() {
-
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
 
 

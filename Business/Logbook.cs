@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace UResidence
 {
@@ -19,6 +20,9 @@ namespace UResidence
         public string sTimein { get; set; }
         public string sTimeout { get; set; }
         public string sDate { get; set; }
+        public string URL { get; set; }
+        public HttpPostedFileBase Image { get; set; }
+
         public Logbook CreateObject(SqlDataReader reader)
         {
             Logbook ret = new Logbook();
@@ -30,6 +34,7 @@ namespace UResidence
             ret.sTimein = reader.GetString(4);
             ret.sTimeout = reader.GetString(5);         
             ret.Purpose = reader.GetString(6);
+            ret.URL = reader.GetString(7);
 
             return ret;
         }
@@ -46,6 +51,7 @@ namespace UResidence
             this.sTimein = string.Empty;
             this.sTimeout = string.Empty;
             this.sDate = string.Empty;
+            this.URL = string.Empty;
         }
     }
 }

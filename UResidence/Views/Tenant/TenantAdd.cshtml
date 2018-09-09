@@ -242,53 +242,7 @@
 		<br />
 
 
-		@*Modal for Insert Moving and Out*@
-		<div class="container">
-			<div class="modal fade" id="insertImageModal" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<div class="modal-body">
-
-							<label>Note: Must upload moving in and moving out</label>
-							<div class="row">
-								<div class="col-25">
-									<p>
-										<label>Upload Moving In :</label>
-									</p>
-								</div>
-
-								<div class="col-75">
-									<input type="file" id="image1" name="image1" />
-									@Html.ValidationMessageFor(model => model.MovingIn, "", new { @class = "text-danger" })
-								</div>
-							</div>
-
-
-							<div class="row">
-								<div class="col-25">
-									<p>
-										<label>Upload Moving Out :</label>
-									</p>
-								</div>
-
-								<div class="col-75">
-									<input type="file" id="image2" name="image2" />
-									@Html.ValidationMessageFor(model => model.MovingOut, "", new { @class = "text-danger" })
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input id="btnConfirm" name="btnConfirm" type="button" value="Confirm" class="btn btn-success" onclick="InsertMoving()" data-dismiss="modal" />
-							<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		
 
 		<input id="btnSave" type="submit" value="Save" class="button" />
 		<a href="TenantView" class="button" value="Cancel">Cancel</a>
@@ -355,30 +309,6 @@
 
 
 <script>
-
-	function InsertMoving() {
-		var file1 = $("#image1").get(0).files;
-		var file2 = $("#image2").get(0).files;
-
-		var data = new FormData();
-		data.append("Image1", file1[0]);
-		data.append("Image2", file2[0]);
-		$.ajax({
-			type: "POST",
-			url: "/Tenant/InsertMoving/",
-			data: data,
-			contentType: false,
-			processData: false,
-			success: function (data) {
-					alert('Success');
-
-
-			},
-			error: function (error) {
-				alert(error);
-			}
-		});
-	}
 	$('#btnCloseImage').click(function () {
 
 		$('#insertImageModal').hide();

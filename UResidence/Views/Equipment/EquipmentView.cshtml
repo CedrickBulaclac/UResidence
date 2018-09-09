@@ -1,12 +1,32 @@
 ﻿@model List<UResidence.Equipment>
 
 @{
-    Layout = "/Views/Layout/RegistrationLayout.cshtml";
-    ViewBag.Title = "EquipmentView";
+	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	ViewBag.Title = "EquipmentView";
 }
 <h2>Equipment</h2>
 
-
+@*Modal for Viewing Image Equipment*@
+<div class="container">
+	<div class="modal fade" id="equipmentModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Equipment Image</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<center>
+						<img height="250px" src="" width="250px" id="equip">
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 @using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
@@ -23,6 +43,12 @@
 					</th>
 					<th>
 						Name
+					</th>
+					<th>
+						Image
+					</th>
+					<th>
+						Description
 					</th>
 					<th>
 						Actions
@@ -44,6 +70,14 @@
 							@Html.DisplayFor(model => e.Name)
 						</td>
 						<td>
+							<center>
+								<button type="button" class="btn btn-info" id="btnEquipImage" name="btnEquipImage" onclick="Set('@e.Url')">View</button>
+							</center>
+						</td>
+						<td>
+							@Html.DisplayFor(model => e.Description)
+						</td>
+						<td>
 							<a class="btn btn-link" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
 							<a class="btn" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
 
@@ -57,9 +91,9 @@
 
 	<div class="btn-link">
 
-	<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" class="btn btn-success" /></a>
+		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" class="btn btn-success" /></a>
 
-</div>
+	</div>
 
 
 	<div id="auerror" class="alert alert-danger collapse">
@@ -205,3 +239,17 @@
 	}
 
 }
+
+<script>
+	function Set(url) {
+		URL = url;
+		var fullpath = (URL).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		var path = "../Content/EquipmentImages/" + filename;
+
+		document.getElementById('equip').setAttribute('src', path)
+
+		$('#equipmentModal').modal();
+	}
+
+</script>
