@@ -49,6 +49,15 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public static string Hash(string p)
@@ -80,7 +89,8 @@ namespace UResidence.Controllers
                         Bdate = adm.Bdate,
                         CelNo = adm.CelNo,
                         Email = adm.Email,
-                        Deleted = "0"
+                        Deleted = "0",
+                        URL = "~/Content/AdminImages/user.png"
                     };
 
                     UResidence.AdminController.Insert(ad);

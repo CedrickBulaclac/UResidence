@@ -6,42 +6,47 @@
 {
 	@Html.AntiForgeryToken()
 
-	<head>
-		<style>
-			legend0 {
-				color: red;
-			}
 
-			legend1 {
-				color: yellow;
-			}
 
-			legend2 {
-				color: violet;
-			}
+	
+<head>
+	<style type='text/css'>
+		.my-legend .legend-scale ul li {
+			font-size: 80%;
+			list-style: none;
+			margin-left: 0;
+			line-height: 18px;
+			margin-bottom: 2px;
+		}
 
-			legend3 {
-				color: black;
-			}
-		</style>
-	</head>
+		.my-legend ul.legend-labels li span {
+			display: block;
+			float: left;
+			height: 16px;
+			width: 30px;
+			margin-right: 5px;
+			margin-left: 0;
+			border: 1px solid #999;
+		}
+	</style>
+</head>
 	<br />
 	<br />
 
 
 
 	<body>
-        <center>
-            <div class="container">
+		<center>
+			<div class="container">
 
-                <label>Sort by :</label><select class="form-control" id="ssort" onchange="Sort()">
-                    <option>Pending</option>
-                    <option>Reserved</option>
-                </select>
-            </div>
-        </center>
-        <br />
-        <br />
+				<label>Sort by :</label><select class="form-control" id="ssort" onchange="Sort()">
+					<option>Pending</option>
+					<option>Reserved</option>
+				</select>
+			</div>
+		</center>
+		<br />
+		<br />
 		<div class="container">
 			<div class="modal fade" id="myModal" role="dialog">
 				<div class="modal-dialog">
@@ -245,11 +250,22 @@
 		<div id="calendar" class="container"></div>
 
 	</body>
+	@*foreach (Amenity amn in Model)
+		{
+			<tr scope="row">
+				<p><font color="@amn.Color">@amn.AmenityName</font></p>
+			</tr>
+		}*@
+<br />
 	foreach (Amenity amn in Model)
 	{
-		<tr scope="row">
-			<p><font color="@amn.Color">@amn.AmenityName</font></p>
-		</tr>
+		<div class='my-legend'>
+			<div class='legend-scale'>
+				<ul class='legend-labels'>
+					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+				</ul>
+			</div>
+		</div>
 	}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -740,7 +756,7 @@
 							'refno1': refno
 						},
 						success: function (data) {
-							var trHTML = '';		
+							var trHTML = '';
 								$('#tbSwimmingDetails').empty();
 							trHTML = '<tr><th>Adult</th> <th>Child</th></tr>';
 							$.each(data, function (i, v) {
@@ -754,7 +770,7 @@
 							alert('Failed to retrieve the record');
 						}
 					});
-				
+
 
 
 				$('#viewDetailsModal').modal();

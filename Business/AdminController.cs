@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Admin> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] where Deleted=0 order by Id";
+            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM [tbAdmin] where Deleted=0 order by Id";
 
             List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -20,7 +20,7 @@ namespace UResidence
         }
         public static List<Admin> GetAllCashier()
         {
-            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=3 order by Id";
+            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=3 order by Id";
 
             List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -29,7 +29,7 @@ namespace UResidence
         }
         public static List<Admin> GetAllSecurity()
         {
-            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=7 order by Id";
+            const string GET_ALL = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM [tbAdmin] a inner join tbLogin l on a.Id=l.AdminId where Deleted=0 and Level=7 order by Id";
 
             List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -38,7 +38,7 @@ namespace UResidence
         }
         public static List<Admin> Get(int id)
         {
-            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted  FROM[tbAdmin] where Id=@Rid";
+            const string GET_ALL = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url  FROM[tbAdmin] where Id=@Rid";
 
             List<Admin> ret = default(List<Admin>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -48,7 +48,7 @@ namespace UResidence
         }
         public static Admin GetbyID(int Id)
         {
-            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM [tbAdmin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM [tbAdmin] WHERE Id = @Id";
 
            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -58,9 +58,20 @@ namespace UResidence
             return ret;
         }
 
+        public static Admin GetIdAdmin(string idAdmin)
+        {
+            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM [tbAdmin] WHERE Id = @Id";
+            Admin ret = default(Admin);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Id", idAdmin));
+            ret = SqlManager.Select<Admin>(com).First();
+
+            return ret;
+        }
+
         public static Admin GetbyIDEdit(string Id)
         {
-            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM[tbAdmin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM[tbAdmin] WHERE Id = @Id";
 
             Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -73,7 +84,7 @@ namespace UResidence
 
         public static Admin GetEmailAdmin(string email)
         {
-            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted FROM[tbAdmin] WHERE Email = @Email";
+            const string GET_RECORD = @"SELECT Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url FROM[tbAdmin] WHERE Email = @Email";
 
            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -121,6 +132,18 @@ namespace UResidence
         }
 
 
+        public static bool UpdateDP(Admin adm)
+        {
+
+            const string GET_UPDATE = @"update [tbAdmin] set URL=@URL  WHERE Id = @Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", adm.Id));
+            com.Parameters.Add(new SqlParameter("@URL", adm.URL));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
+
         public static bool Delete(Admin adm)
         {
             const string GET_DELETE = @"delete [tbAdmin] WHERE Id = @Id";
@@ -132,7 +155,7 @@ namespace UResidence
         }
         public static bool Insert(Admin adm)
         {
-            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted) ";
+            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
@@ -142,6 +165,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@CelNo", adm.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", adm.Email));
             com.Parameters.Add(new SqlParameter("@Deleted", adm.Deleted));
+            com.Parameters.Add(new SqlParameter("@Url", adm.URL));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 
 namespace UResidence.Controllers
 {
@@ -79,7 +80,8 @@ namespace UResidence.Controllers
                         Bdate = adm.Bdate,
                         CelNo = adm.CelNo,
                         Email = adm.Email,
-                        Deleted = "0"
+                        Deleted = "0",
+                        URL = "~/Content/AdminImages/user.png"
                     };
 
                     UResidence.AdminController.Insert(ad);
@@ -188,6 +190,109 @@ namespace UResidence.Controllers
             ViewBag.UpdateMessage = true;
             return View();
         }
+
+        public JsonResult UpdateImage(Admin adm)
+        {
+            var image = adm.Image;
+            bool status = false;
+            int id = adm.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/OICImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/OICImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/OICImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/OICImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+
+                    Admin a = new Admin
+                    {
+                        Id = id,
+                        URL = finalpath
+                    };
+
+
+                    status = UResidence.AdminController.UpdateDP(a);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
+        public JsonResult UpdateImageGuard(Admin adm)
+        {
+            var image = adm.Image;
+            bool status = false;
+            int id = adm.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/SecuGuardImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/SecuGuardImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/SecuGuardImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/SecuGuardImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+
+                    Admin a = new Admin
+                    {
+                        Id = id,
+                        URL = finalpath
+                    };
+
+
+                    status = UResidence.AdminController.UpdateDP(a);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
 
         public string FixMessages(string[] err)
         {

@@ -11,7 +11,8 @@ namespace UResidence.Controllers
         // GET: Cashier
         public ActionResult Calendar()
         {
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
         public JsonResult GetEvents()
         {

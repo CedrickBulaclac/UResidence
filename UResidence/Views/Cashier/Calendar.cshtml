@@ -1,108 +1,123 @@
-﻿@{
-    Layout = "/Views/Layout/CashierLayout.cshtml";
+﻿@model List<UResidence.Amenity>
+@{
+	Layout = "/Views/Layout/CashierLayout.cshtml";
 }
 <head>
-    <style>
-        legend0 {
-            color: red;
-        }
+	<style type='text/css'>
+		.my-legend .legend-scale ul li {
+			font-size: 80%;
+			list-style: none;
+			margin-left: 0;
+			line-height: 18px;
+			margin-bottom: 2px;
+		}
 
-        legend1 {
-            color: yellow;
-        }
-
-        legend2 {
-            color: violet;
-        }
-
-        legend3 {
-            color: black;
-        }
-    </style>
+		.my-legend ul.legend-labels li span {
+			display: block;
+			float: left;
+			height: 16px;
+			width: 30px;
+			margin-right: 5px;
+			margin-left: 0;
+			border: 1px solid #999;
+		}
+	</style>
+</head>
 </head>
 <body>
-    <div class="container">
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="rid" id="rid" />
-                        <input type="hidden" name="rfid" id="rfid" />
-                        <p id="pDetails"></p>
-                        <br /><br />
-                        <button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
-                      
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span id="eventTitle"></span></h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="rid" id="rid" />
+						<input type="hidden" name="rfid" id="rfid" />
+						<p id="pDetails"></p>
+						<br /><br />
+						<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-    <div class="container">
-        <div class="modal fade" id="paymentModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span>Payment</span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
-                        <br /><br />
-                        <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
-                        <br /><br />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
-                        <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
-                        <button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="modal fade" id="paymentModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span>Payment</span></h4>
+					</div>
+					<div class="modal-body">
+						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
+						<br /><br />
+						<b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
+						<br /><br />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
+						<button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
+						<button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <div class="container">
-        <div class="modal fade" id="PaymentHistory" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span>Payment History</span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                        <b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+	<div class="container">
+		<div class="modal fade" id="PaymentHistory" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span>Payment History</span></h4>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+						<b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
-        <div id="calendar" class="container"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div id="calendar" class="container"></div>
+	<br />
+	@foreach (Amenity amn in Model)
+	{
+	<div class='my-legend'>
+		<div class='legend-scale'>
+			<ul class='legend-labels'>
+				<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+			</ul>
+		</div>
+	</div>
+	}
 </body>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 
-    @section scripts{
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+@section scripts{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 
-        <script>
+	<script>
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
@@ -324,7 +339,7 @@
                         $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
                         $description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
                         $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
-                        $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));                      
+                        $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
                         document.getElementById('rid').value = calEvent.r;
                         document.getElementById('rfid').value = calEvent.rf;
                         totalpay = calEvent.dp;
@@ -349,6 +364,6 @@
                 $('#myModal').modal();
             }
             );
-        </script>
+	</script>
 
-    }
+}

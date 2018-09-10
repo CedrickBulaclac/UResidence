@@ -2,7 +2,25 @@
 @{
 	Layout = "";
 }
-
+@*---Modal for Update Profile Picture---*@
+<div class="container">
+	<div class="modal fade" id="updateprofilepicture" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<input type="file" id="image" name="image" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+					<button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <html>
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -41,6 +59,9 @@
 			Close &times;
 		</button>
 
+		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+		</a>
 
 
 		<font color="white">
@@ -85,6 +106,47 @@
 			document.getElementById("mySidebar").style.display = "none";
 			document.getElementById("openNav").style.display = "inline-block";
 		}
+
+
+			function UpdateProfilePic() {
+			var id = @Session["UID"];
+
+			var file = $("#image").get(0).files;
+			var data = new FormData();
+			data.append("Image", file[0]);
+			data.append("Id", id);
+			$.ajax({
+				type: "POST",
+				url: "/securityguard/UpdateImageGuard/",
+				data: data,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if (data == true) {
+						alert('Success');
+						window.location.reload();
+						window.location.href = window.location.href + "?rnd=" + Math.random()
+
+					}
+				},
+				error: function (error) {
+					alert(error);
+				}
+			});
+		}
+
+		$('#btnCloseImageProfile').click(function () {
+
+			$('#updateprofilepicture').hide();
+		}
+		);
+
+
+		$('#OpenModal').click(function () {
+
+			$('#updateprofilepicture').modal();
+		}
+		);
 	</script>
 
 

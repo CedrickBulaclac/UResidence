@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 namespace UResidence
 {
     public class Admin : BaseProperty<Admin>
@@ -20,6 +21,8 @@ namespace UResidence
         public string CelNo { get; set; }
         public string Email{ get; set; }
         public string Deleted { get; set; }
+        public string URL { get; set; }
+        public HttpPostedFileBase Image { get; set; }
 
         public Admin CreateObject(SqlDataReader reader)
         {
@@ -32,6 +35,7 @@ namespace UResidence
             ret.CelNo = RemoveWhitespace(reader.GetString(5));
             ret.Email = RemoveWhitespace(reader.GetString(6));
             ret.Deleted = RemoveWhitespace(reader.GetString(7));
+            ret.URL = RemoveWhitespace(reader.GetString(8));
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -61,6 +65,7 @@ namespace UResidence
             this.CelNo = string.Empty;
             this.Email = string.Empty;
             this.Deleted = string.Empty;
+            this.URL = string.Empty;
         }
     }
 

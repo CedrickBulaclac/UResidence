@@ -1,4 +1,4 @@
-﻿
+﻿@model List<UResidence.Amenity>
 @{
 	ViewBag.Title = "CalendarReservationAdmin";
 	Layout = "~/Views/Layout/ReservationLayout.cshtml";
@@ -8,6 +8,26 @@
 {
 	@Html.AntiForgeryToken()
 
+
+	<style type='text/css'>
+		.my-legend .legend-scale ul li {
+			font-size: 80%;
+			list-style: none;
+			margin-left: 0;
+			line-height: 18px;
+			margin-bottom: 2px;
+		}
+
+		.my-legend ul.legend-labels li span {
+			display: block;
+			float: left;
+			height: 16px;
+			width: 30px;
+			margin-right: 5px;
+			margin-left: 0;
+			border: 1px solid #999;
+		}
+	</style>
 	<br />
 	<br />
 	<div class="container">
@@ -135,11 +155,16 @@
 
 
 	<div id="calendar"></div>
+	<br />
 	foreach (Amenity amn in Model)
 	{
-		<tr scope="row">
-			<p><font color="@amn.Color">@amn.AmenityName</font></p>
-		</tr>
+		<div class='my-legend'>
+			<div class='legend-scale'>
+				<ul class='legend-labels'>
+					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+				</ul>
+			</div>
+		</div>
 	}
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />

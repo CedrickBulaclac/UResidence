@@ -1,81 +1,102 @@
 ﻿@{
-    Layout = "";
+	Layout = "";
 
 }
 
 
-
+@*---Modal for Update Profile Picture---*@
+<div class="container">
+	<div class="modal fade" id="updateprofilepicture" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<input type="file" id="image" name="image" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+					<button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <html>
 
 <head>
-    <title>Palmdale Heights</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<title>Palmdale Heights</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        .navbar {
-            background: #1ed88b;
-            padding: 0.5em 2em;
-            position: absolute;
-            top: 0;
-            width: 100%;
-        }
-    </style>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		.navbar {
+			background: #1ed88b;
+			padding: 0.5em 2em;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+	</style>
 </head>
 <body>
-    <div class="navbar"> 		</div>
-    @*<div class="navbar-collapse collapse" style="background-color:#333">
+	<div class="navbar"> 		</div>
+	@*<div class="navbar-collapse collapse" style="background-color:#333">
 
-        </div>*@
+		</div>*@
 
-    <div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
-
-
-        <button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
-                onclick="w3_close()">
-            Close &times;
-        </button>
+	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
 
 
+		<button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
+				onclick="w3_close()">
+			Close &times;
+		</button>
 
-        <font color="white">
-
-            <a href="~/SecurityGuard/SecurityGuardView" class="w3-bar-item w3-button  w3-hover-green">Manage Security Guard</a>
-            <a href="~/LogBook/LogBookView" class="w3-bar-item w3-button  w3-hover-green">Entrance and Exit Log</a>
-        </font>
-    </div>
+		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+		</a>
 
 
-    <div id="main">
+		<font color="white">
 
-        <div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.4%; ">
+			<a href="~/SecurityGuard/SecurityGuardView" class="w3-bar-item w3-button  w3-hover-green">Manage Security Guard</a>
+			<a href="~/LogBook/LogBookView" class="w3-bar-item w3-button  w3-hover-green">Entrance and Exit Log</a>
+		</font>
+	</div>
 
-            <button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="45" />
 
-            <a class="w3-bar-item w3-button w3-right" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>
-            <a class="w3-bar-item w3-button w3-right" href="@Url.Action("AdminAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
-            <a class="w3-bar-item w3-button w3-right" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-        </div>
+	<div id="main">
 
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-        </footer>
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    <script>
+		<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.4%; ">
+
+			<button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="45" />
+
+			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>
+			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("AdminAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
+			<a class="w3-bar-item w3-button w3-right" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
+		</div>
+
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+		</footer>
+	</div>
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+	<script>
 		function w3_open() {
 			document.getElementById("main").style.marginLeft = "25%";
 			document.getElementById("mySidebar").style.width = "25%";
@@ -87,7 +108,48 @@
 			document.getElementById("mySidebar").style.display = "none";
 			document.getElementById("openNav").style.display = "inline-block";
 		}
-    </script>
+
+
+			function UpdateProfilePic() {
+			var id = @Session["UID"];
+
+			var file = $("#image").get(0).files;
+			var data = new FormData();
+			data.append("Image", file[0]);
+			data.append("Id", id);
+			$.ajax({
+				type: "POST",
+				url: "/SecurityGuard/UpdateImage/",
+				data: data,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if (data == true) {
+						alert('Success');
+						window.location.reload();
+						window.location.href = window.location.href + "?rnd=" + Math.random()
+
+					}
+				},
+				error: function (error) {
+					alert(error);
+				}
+			});
+		}
+
+		$('#btnCloseImageProfile').click(function () {
+
+			$('#updateprofilepicture').hide();
+		}
+		);
+
+
+		$('#OpenModal').click(function () {
+
+			$('#updateprofilepicture').modal();
+		}
+		);
+	</script>
 
 
 </body>

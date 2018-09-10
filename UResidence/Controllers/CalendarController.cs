@@ -21,7 +21,7 @@ namespace UResidence.Controllers
             List<ReservationProcess> reservationList = ReservationProcessController.GETALL(rese.Status);
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
+        }
 
         public JsonResult InsertPayment(Receipt receipt)
         {
