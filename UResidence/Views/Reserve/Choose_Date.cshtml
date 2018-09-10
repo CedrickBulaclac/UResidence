@@ -1,9 +1,11 @@
 ﻿
 @{
+    /**/
+
     ViewBag.Title = "Choose_Date";
     if (Convert.ToInt32(Session["Level"]) == 8)
     {
-        Layout = "~/Views/Layout/OwnerLayout.cshtml";
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
     }
     else if (Convert.ToInt32(Session["Level"]) == 9)
     {
@@ -12,177 +14,205 @@
 }
 @using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-		<style>
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #09442c;
-				border: none;
-				border-radius: 5px;
-				float: right;
-				text-decoration: none;
-				text-decoration-color: none;
-			}
-
-
-
-				.button:hover {
-					background-color: #0e6742;
-				}
-
-
-			div.card {
-				width: 700px;
-				height: 450px;
-				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-				padding: 10px;
-			}
-		</style>
+        <style>
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #09442c;
+                border: none;
+                border-radius: 5px;
+                float: right;
+                text-decoration: none;
+                text-decoration-color: none;
+            }
 
 
 
-
-	</head>
-	<body>
-
-		<br />
-		<center>
-			<!--Progress bar start-->
-			<div>
-				<div class="progress" style="width:860px;height:40px;">
-					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-						<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-					</div>
+                .button:hover {
+                    background-color: #0e6742;
+                }
 
 
-					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-					</div>
-
-
-					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-					</div>
-
-					<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-					</div>
-					<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-					</div>
-				</div>
-
-				<!--Progress bar end-->
-			</div>
-		</center>
-
-		<div id="main">
-
-
-			<div class="w3-container w3-padding-64 w3-theme-l5" id="cdate">
-				<div class="w3-row">
-					<div class="w3-col m5">
-						<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>
+            div.card {
+                width: 700px;
+                height: 450px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 10px;
+                background-color: #595959;
+               
+            }
+        </style>
 
 
 
 
-						<br />
-						<img src="@Url.Content(Session["AmenityURL"].ToString())" style="width:70%" />
+    </head>
+    <body>
 
-					</div>
-
-					<!--Card start-->
-					<br />
-					<div class="w3-col m7">
-						<div class="card">
-
-							<div class="w3-section">
-
-
-
-								<table>
-
-									<tr>
-										<td> &nbsp;  <label> Start Date: </label>  <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required style="float:left; width:350px;" /> </td>
-										<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> Start Time: </label>  <input type="time" onselect="myFunction()" class="w3-input" min="08:00" max="20:00" id="st" name="st" required style="float:right; width:350px; padding-bottom:18px;" />  </td>
-									</tr>
-								</table>
-
-							</div>
-
-							<br />
-							<div class="w3-section">
+        <br />
+        <center>
+            <!--Progress bar start-->
+            <div>
+                <div class="progress" style="width:860px;height:40px;">
+                    <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                         aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                        <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                    </div>
 
 
-
-								<table>
-									<tr>
-										<td> &nbsp; <label> End Date: </label> <input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" style="float:left; width:350px;" /> </td>
-										<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> End Time: </label><input type="time" class="w3-input" min="09:00" max="21:00" id="et" name="et" required style="float:right; width:350px; padding-bottom:18px;" /></td>
-									</tr>
-								</table>
-							</div>
-
-							<br />
-							<div class="w3-section">
-								<label>Rate :</label>
-
-								<input type="text" id="rate" class="w3-input" disabled="disabled" />
-
-								<input type="hidden" id="stime" name="stime" />
-								<input type="hidden" id="etime" name="etime" />
-								<input type="hidden" id="tratee" name="tratee" />
-								<input type="hidden" id="qwe" name="qwe" />
-								<input type="hidden" id="abc" name="abc" />
-
-							</div>
-
-							<div class="w3-section">
+                    <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                    </div>
 
 
-								<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
-							</div>
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                    </div>
+
+                    <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                    </div>
+                    <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                    </div>
+                </div>
+
+                <!--Progress bar end-->
+            </div>
+        </center>
+
+        <div id="main" class="container">
+
+
+            <div class="w3-container w3-padding-64 w3-theme-l5" id="cdate">
+                <div class="w3-row">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+                        @*<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>*@
 
 
 
-						</div>
-					</div>
 
-				</div>
-			</div>
-		</div>
+                        <br />
+                        <div class="w3-panel w3-dark-gray" style="width:100%">
 
-		<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
-			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-		</footer>
-	</body>
+                            <div class="w3-container w3-center">
+                                <div class="w3-section">
+                                    <img src="@Url.Content(Session["AmenityURL"].ToString())" style="width:100%" />
+                                    <h5>@Session["NAME"].ToString()</h5>
+                                    <p><i class="glyphicon glyphicon-usd"></i>@Session["RATE"].ToString()</p>
+                                </div>
+                                <div class="w3-section">
+                                    <button class="w3-button w3-green" onclick="openModal()">Details</button>
+                                </div>
+                            </div>
 
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <!--Card start-->
+                    <br />
+                    <div class="col-md-4">
+                        <div class="card">
+
+                            <div class="w3-section">
+
+                                <center>
+                                    <font color="white">
+                                        <label> Date of Reservation: </label>
+                                    </font>
+                                    <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required style="width:350px;" />
+
+                                </center>
+                            </div>
+
+                            <br />
+                            <div class="w3-section">
+
+
+
+                                <table>
+                                    <tr>
+                                        <td>&nbsp;&nbsp;&nbsp;<font color="white"> <label> Start Time: </label></font>   <input type="time" onselect="myFunction()" class="w3-input" min="08:00" max="20:00" id="st" name="st" required style="float:right; width:350px; padding-bottom:18px;" />  </td>
+                                        <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color="white"> <label> End Time: </label></font> <input type="time" class="w3-input" min="09:00" max="21:00" id="et" name="et" required style="float:right; width:350px; padding-bottom:18px;" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <br />
+                            <div class="w3-section">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<font color="white"><label>Rate Per Hour :</label></font><input type="text" id="rate" class="w3-input" style="float:right; width:350px; padding-bottom:18px;" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                   
+                                </table>
+
+
+                                <input type="hidden" id="stime" name="stime" />
+                                <input type="hidden" id="etime" name="etime" />
+                                <input type="hidden" id="tratee" name="tratee" />
+                                <input type="hidden" id="qwe" name="qwe" />
+                                <input type="hidden" id="abc" name="abc" />
+
+                            </div>
+
+                            <div class="w3-section">
+                                <button name="submit" type="submit" class="w3-button w3-green" onclick="Check()"> Next</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+
+                </div>
+
+            </div>
+          
+        </div>
+       
+    </body>
 
 
 }
 
+<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+    <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+</footer>
 
 <script type="text/javascript">
+    function openModal() {
+
+    }
 	var startTime;
 	var endTime;
 	var selectedValue;
@@ -235,7 +265,7 @@
 		function () {
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
-				document.getElementById('ed').value = selectedValue;
+				
 				startDate = selectedValue;
 				endDate = selectedValue;
 				var q = new Date();
@@ -244,7 +274,7 @@
 				{
 					alert("the input is earlier than today");
 					document.getElementById('sd').value = null;
-					document.getElementById('ed').value = null;
+					
 				}
 			});
 

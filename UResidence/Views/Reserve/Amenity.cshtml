@@ -5,7 +5,7 @@
     ViewBag.Title = "Amenity";
     if (Convert.ToInt32(Session["Level"]) == 8)
     {
-        Layout = "~/Views/Layout/OwnerLayout.cshtml";
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
     }
     else if (Convert.ToInt32(Session["Level"]) == 9)
     {
@@ -13,120 +13,132 @@
     }
 }
 <style>
-	.hidden {
-		display: none;
-	}
+    .hidden {
+        display: none;
+    }
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" >
 </style>
 @using (Html.BeginForm("Amenity", "Reserve", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
-	<center>
+    @Html.AntiForgeryToken()
+
+    <center>
 
 
-		<br />
-		<!--Progress bar start-->
-		<div>
-			<div class="progress" style="width:860px;height:40px;">
-				<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="20"
-					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-					<p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p>
-				</div>
+        <br />
+        <!--Progress bar start-->
+        <div>
+            <div class="progress" style="width:860px;height:40px;">
+                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="20"
+                     aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                    <p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p>
+                </div>
 
 
-				<div class="progress-bar" style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
-				</div>
+                <div class="progress-bar" style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
+                </div>
 
 
-				<div class="progress-bar" style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-				</div>
+                <div class="progress-bar" style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                </div>
 
-				<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-				</div>
-				<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-				</div>
-			</div>
+                <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                </div>
+                <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                </div>
+            </div>
 
-			<!--Progress bar end-->
-		</div>
-	</center>
+            <!--Progress bar end-->
+        </div>
+    </center>
 
-	
-
-	<input type="hidden" name="ida" id="ida" />
-	<input type="hidden" name="ratea" id="ratea" />
-	<input type="hidden" name="namea" id="namea" />
-
-	<center>
-		<table>
-			<tr>
-				@{
-
-					int ctr = 0;
-					foreach (var amn in Model)
-					{
-						ctr++;
-						if (ctr <= 3)
-						{
-							<td style="border: 1px solid #ddd; padding: 8px;">
+    <div class="container">
+        <div class="row">
+            <input type="hidden" name="ida" id="ida" />
+            <input type="hidden" name="ratea" id="ratea" />
+            <input type="hidden" name="namea" id="namea" />
 
 
-								<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)</button>
-								<br />
-								@Html.LabelFor(model => amn.AmenityName, "Name")
-								@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-								<br />
-								@Html.LabelFor(model => amn.Description)
-								@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-								<br />
-								@Html.LabelFor(model => amn.Rate)
-								@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-								<br />
-								@Html.LabelFor(model => amn.Capacity)
-								@Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-							</td>
-						}
-						else
-						{
-							ctr = 0;
-						<tr>
-							<td style="border: 1px solid #ddd; padding: 8px;">
+            @{
 
-								<button class="btn-default" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">@Html.Image(amn.Url)  </button>
-								<br />
-								@Html.LabelFor(model => amn.AmenityName, "Name")
-								@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
-								<br />
-								@Html.LabelFor(model => amn.Description)
-								@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-								<br />
-								@Html.LabelFor(model => amn.Rate)
-								@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-								<br />
-								@Html.LabelFor(model => amn.Capacity)
-								@Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-							</td>
-						</tr>
+                int ctr = 0;
+                foreach (var amn in Model)
+                {
+                    ctr++;
+                    if (ctr <= 3)
+                    {
 
-					}
-				}
-				}
-				</tr>
-			</table>
-		</center>
 
-	}
-<script type="text/javascript">
-	function GetId(id, rate, name) {
-		document.getElementById('ida').value = id;
-		document.getElementById('ratea').value = rate;
-		document.getElementById('namea').value = name;
-	}
-</script>
+                        <div class="col-md-4">
+                            <div class="w3-container">
+                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
+
+                                    <div class="w3-container w3-center">
+                                        <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                        <img src="@Url.Content(amn.Url)" style="width:90%" />
+                                        <p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <div class="w3-section">
+                                            <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">Select</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+
+
+                    else
+                    {
+                        ctr = 0;
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="w3-container">
+                                        <div class="w3-card-4 w3-dark-grey" style="width:50%">
+
+                                            <div class="w3-container w3-center">
+                                                <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                                <img src="@Url.Content(amn.Url)" style="width:80%" />
+                                                <p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                <div class="w3-section">
+                                                    <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">Select</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+            }
+
+        <script type="text/javascript">
+            function GetId(id, rate, name) {
+                document.getElementById('ida').value = id;
+                document.getElementById('ratea').value = rate;
+                document.getElementById('namea').value = name;
+            }
+        </script>

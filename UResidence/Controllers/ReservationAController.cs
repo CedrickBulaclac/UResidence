@@ -395,10 +395,11 @@ namespace UResidence.Controllers
                     Session["FULLN"] = fullname;
                     Session["TORA"] = "Owner";
                     Session["UIDA"] = ownerList.Id;
+
                     bool data;
                     return Json(data = true);              
                 }
-                catch (InvalidOperationException i)
+                catch (InvalidOperationException)
                 {
                     string data;
                     return Json(data = "Owner");

@@ -35,7 +35,7 @@ namespace UResidence.Controllers
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            else if (level == 5)
+            else if (level == 9)
             {
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());

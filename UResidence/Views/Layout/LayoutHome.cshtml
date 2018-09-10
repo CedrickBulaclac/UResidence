@@ -1,26 +1,26 @@
 ﻿
 @{
-	Layout = "";
+    Layout = "";
 
 }
 @*---Modal for Update Profile Picture---*@
 <div class="container">
-	<div class="modal fade" id="updateprofilepicture" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<input type="file" id="image" name="image" />
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
-					<button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="updateprofilepicture" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="image" name="image" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+                    <button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!DOCTYPE html>
@@ -28,9 +28,9 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
-@Scripts.Render("~/bundles/modernizr")
-@Styles.Render("~/Content/css")
 
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -39,108 +39,226 @@
 
 
 <head>
-	<style>
-		.navbar {
-			padding: 0.5em 2em;
-			position: absolute;
-			top: 0;
-			width: 100%;
-			background: #1ed88b;
-		}
-	</style>
+    <style>
+        .navbar {
+            padding: 0.5em 2em;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: #2a2a2a;
+        }
+
+        /* Underline From Center */
+        .hvr-underline-from-center {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hvr-underline-from-center:before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 50%;
+                right: 50%;
+                bottom: 0;
+                background: #20d13d;
+                height: 4px;
+                -webkit-transition-property: left, right;
+                transition-property: left, right;
+                -webkit-transition-duration: 0.3s;
+                transition-duration: 0.3s;
+                -webkit-transition-timing-function: ease-out;
+                transition-timing-function: ease-out;
+            }
+
+            .hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+                left: 0;
+                right: 0;
+            }
+    </style>
 </head>
 
 <body>
-	@*<body background="~/Content/WebImages/bg2.jpg" style=" background-size:cover; background-repeat: no-repeat; ">*@
-
-	<div class="navbar"> 	</div>
-
-	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
-
-		<button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
-				onclick="w3_close()">
-			Close &times;
-		</button>
-
-		@*<font color="white">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green">Home </a> </font>
-			<font color="white">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green">Reservation </a> </font>
-			<font color="white">    <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green">Bills and Payment</a></font>
-			<font color="white">    <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>  Account Settings</a></font>
-			<font color="white">    <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>  Logout</a></font>*@
 
 
+    <!--SIDEBAR TOH-->
+    @*<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
 
-		<br />
-		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal" >
-			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-			@*<p class="w3-center"><img src="@Url.Content(Model.URL)" class="w3-circle" style="height:106px; width:106px" alt="user"></p>*@
-		</a>
-		<hr />
+        <button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
+                onclick="w3_close()">
+            Close &times;
+        </button>*@
 
-		<font color="white" ; size="4">
-			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-user" style="margin-left:20px;"></i> &nbsp; @Session["Fullname"].ToString() </p>
-			<br />
-			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class="glyphicon glyphicon-gift" style="margin-left:20px;"></i> &nbsp;  @Session["BDAY"].ToString() </p>
-			<br />
-			<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-tag" style="margin-left:20px"></i> &nbsp;   @Session["UNO"].ToString() </p>
-		</font>
-		<hr />
+    <!--PROFILE PIC TOH-->
+    @*<br />
+            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+            </a>
+            <hr />
+
+            <font color="white" ; size="4">
+                <p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-user" style="margin-left:20px;"></i> &nbsp; @Session["Fullname"].ToString() </p>
+                <br />
+                <p style="font-family:Arial, Helvetica, sans-serif;"> <i class="glyphicon glyphicon-gift" style="margin-left:20px;"></i> &nbsp;  @Session["BDAY"].ToString() </p>
+                <br />
+                <p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-tag" style="margin-left:20px"></i> &nbsp;   @Session["UNO"].ToString() </p>
+            </font>
+            <hr />
 
 
 
-		<font color="white" ; size="4">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none; "> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-home"> </i> &nbsp; &nbsp; Home </p> </a> </font>
-		<br />
-		<font color="white" ; size="4">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-pencil"></i> &nbsp; &nbsp; Reservation </p> </a> </font>
-		<br />
-		<font color="white" ; size="4"> <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-ruble"></i> &nbsp; &nbsp; Bills and Payment</p></a></font>
-		<br />
-		<font color="white" ; size="4"> <a href="~/Reserve/CalendarViewOT" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-calendar"></i> &nbsp; &nbsp; Schedule</p></a></font>
-		<br />
-		<font color="white" ; size="4"> <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;">  <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-user" style="font-size:20px;"> </i> &nbsp; &nbsp; Account Settings</p></a></font>
-		<br />
-		<font color="white" ; size="4"> <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i> &nbsp; &nbsp;  Logout </p> </a></font>
+            <font color="white" ; size="4">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none; "> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-home"> </i> &nbsp; &nbsp; Home </p> </a> </font>
+            <br />
+            <font color="white" ; size="4">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-pencil"></i> &nbsp; &nbsp; Reservation </p> </a> </font>
+            <br />
+            <font color="white" ; size="4"> <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-ruble"></i> &nbsp; &nbsp; Bills and Payment</p></a></font>
+            <br />
+            <font color="white" ; size="4"> <a href="~/Reserve/CalendarViewOT" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-calendar"></i> &nbsp; &nbsp; Schedule</p></a></font>
+            <br />
+            <font color="white" ; size="4"> <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;">  <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-user" style="font-size:20px;"> </i> &nbsp; &nbsp; Account Settings</p></a></font>
+            <br />
+            <font color="white" ; size="4"> <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i> &nbsp; &nbsp;  Logout </p> </a></font>
 
 
-	</div>
+        </div>*@
+
+    <!--NAVBAR TOH-->
 
 
-	<div id="main">
+    <nav class="navbar navbar-inverse ">
+        @*<nav class=" fill">*@
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-		<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.3%; ">
-			<span id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</span> <img src="~/Content/logo.png" width="150" height="50" />
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;">Contact Us</a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;">About Us</a>
-			@*<div class="first"><button type="button" name="btnAbout" id="btnAbout">About Us</button></div>*@
-		</div>
+                @*<span id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</span> <img src="~/Content/logo.png" width="150" height="50" />*@
 
-
-
-
-
-		@*<a class="w3-bar-item w3-button w3-right w3-hover-green" href="@Url.Action("OwnerAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
-			<a class="w3-bar-item w3-button w3-right w3-hover-green" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>*@
-	</div>
+                @*<a class="navbar-brand" href="#">WebSiteName</a>*@
+                <center><img src="~/Content/logo.png" width="190" height="70" /> </center>
 
 
+            </div>
+            <br />
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+                                </a>
+                            </li>
+
+
+                            <li><a href="~/Reserve/CalendarViewOT" style="text-decoration:none;text-decoration-color:none;"> Schedule</a> </li>
+
+                            <li><a href="~/Billing/BillingView" style="text-decoration:none;text-decoration-color:none;"> Bills and Payment</a></li>
+
+                            <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> Account Settings</a> </li>
+
+                        </ul>
+
+                    </li>
+
+                    <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+
+                    <li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
+                    <li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
+                    <li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
+                    <li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
+
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    @*<div class="container">
+                <h3>Collapsible Navbar</h3>
+                <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
+                <p>Only when the button is clicked, the navigation bar will be displayed.</p>
+            </div>
+        </div>*@
 
 
 
 
-	<!-- Footer -->
-	@*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white">*@
-	@RenderBody()
-	@*<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-		</footer>*@
 
 
 
 
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")				
-	@RenderSection("scripts", required: false)
-	<script>
+
+
+
+
+
+
+
+
+
+    @*<div id="main">
+
+            <div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.3%; ">
+                <span id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</span> <img src="~/Content/logo.png" width="150" height="50" />
+                <a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
+                <a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;">Contact Us</a>
+                <a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;">About Us</a>
+
+            </div>
+
+
+
+
+
+
+        </div>*@
+
+
+
+
+
+    <!-- Footer -->
+    @*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white">*@
+    @RenderBody()
+    @*<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+        </footer>*@
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
 		function w3_open() {
 			document.getElementById("main").style.marginLeft = "25%";
 			document.getElementById("mySidebar").style.width = "25%";
@@ -195,7 +313,7 @@
 		);
 
 
-	</script>
+    </script>
 
 
 

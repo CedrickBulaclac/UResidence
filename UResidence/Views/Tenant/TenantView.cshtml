@@ -79,6 +79,77 @@
 			</thead>
 			@if (Model != null)
 			{
+<<<<<<< HEAD
+			<tbody>
+				@foreach (Tenant ten in Model)
+				{
+					@*Modal for Viewing MovingIn*@
+					<div class="container">
+						<div class="modal fade" id="movingInModal" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<label>Moving In Form</label>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<center>
+											<img height="250px" src="@Url.Content(ten.MovingIn)" width="250px">
+										</center>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@*Modal for Viewing MovingOut*@
+					<div class="container">
+						<div class="modal fade" id="movingOutModal" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<label>Moving Out Form</label>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<center>
+
+											<img height="250px" src="@Url.Content(ten.MovingOut)" width="250px">
+										</center>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-danger" id="btnCloseImagee" name="btnCloseImagee" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    
+					<tr scope="row">
+						<td>@Html.DisplayFor(model => ten.UnitNo)</td>
+						<td>@Html.DisplayFor(model => ten.BldgNo)  </td>
+						<td>@Html.DisplayFor(model => ten.Fname)  </td>
+						<td>@Html.DisplayFor(model => ten.Mname)  </td>
+						<td>@Html.DisplayFor(model => ten.Lname)</td>
+						<td>@Html.DisplayFor(model => ten.Bdate)  </td>
+						<td>@Html.DisplayFor(model => ten.CelNo)  </td>
+						<td>@Html.DisplayFor(model => ten.Email)  </td>
+						<td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
+						<td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
+						<td><button type="button" class="btn btn-info" id="btnMovingIn" name="btnMovingIn" data-dismiss="modal">View</button></td>
+						<td><button type="button" class="btn btn-info" id="btnMovingOut" name="btnMovingOut" data-dismiss="modal">View</button></td>
+						<td>
+							<a class="btn btn-link" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
+							<a class="btn btn-link" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+						</td>
+					</tr>
+
+				}
+			</tbody>
+=======
 				<tbody>
 					@foreach (Tenant ten in Model)
 					{					
@@ -103,6 +174,7 @@
 
 					}
 				</tbody>
+>>>>>>> d0d43eb54399b4f628dd51331c6860df41c4a31d
 
 
 			}

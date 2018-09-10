@@ -183,8 +183,6 @@
     <Content Include="Content\AmenityImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
     <Content Include="Content\AmenityImages\planet_earth_2-1920x1080.jpg" />
     <Content Include="Content\AmenityImages\received_233134183897688.jpeg" />
-    <Content Include="Content\AmenityImages\swimmingpool.jpeg" />
-    <Content Include="Content\AmenityImages\swimmingpool2.jpeg" />
     <Content Include="Content\AmenityImages\swimmingpool2M.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -194,7 +192,7 @@
     <Content Include="Content\EquipmentImages\planet_earth_2-1920x1080.jpg" />
     <Content Include="Content\EquipmentImages\table.jpg" />
     <Content Include="Content\logo.png" />
-    <Content Include="Content\Logo\logo.png" />
+    <Content Include="Content\Logo\palmdale.png" />
     <Content Include="Content\Log\loginbg.jpg" />
     <Content Include="Content\Log\logo.png" />
     <Content Include="Content\WebImages\jumbo1.jpg" />
@@ -248,7 +246,6 @@
     <Content Include="Views\Owner\OwnerAdd.cshtml" />
     <Content Include="Views\Owner\OwnerEdit.cshtml" />
     <Content Include="Views\Reserve\SelectAmenity.cshtml" />
-    <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Home.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\CodeVerification.cshtml" />
@@ -261,7 +258,6 @@
     <Content Include="Views\Reserve\Choose_Date.cshtml" />
     <Content Include="Views\Reserve\Choose_Equipment.cshtml" />
     <Content Include="Views\Reserve\Summary.cshtml" />
-    <Content Include="Views\Reserve\Layout.cshtml" />
     <Content Include="Views\Reserve\Swimming.cshtml" />
     <Content Include="Views\Reserve\SummarySwimming.cshtml" />
     <Content Include="Views\AccountSetting\AdminAccountSetting.cshtml" />
