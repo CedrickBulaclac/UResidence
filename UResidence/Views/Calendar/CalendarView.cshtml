@@ -86,8 +86,7 @@
 							<h4 class="modal-title"><span>Swimming Details</span></h4>
 						</div>
 						<div class="modal-body">
-							<table class="table table-bordered table-striped" name="tbSwimmingDetails" id="tbSwimmingDetails" style="overflow-y:scroll;height:200px;display:block;"></table>
-
+							<p id="sDetails"></p>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" id="btnCloseS" name="btnCloseS" data-dismiss="modal">Close</button>
@@ -247,7 +246,20 @@
 
 
 
-		<div id="calendar" class="container"></div>
+		<div id="calendar" class="container">
+			<br />
+			<label><b>Legends</b></label>
+			@foreach (Amenity amn in Model)
+			{
+			<div class='my-legend'>
+				<div class='legend-scale'>
+					<ul class='legend-labels'>
+						<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+					</ul>
+				</div>
+			</div>
+			}
+		</div>
 
 	</body>
 	@*foreach (Amenity amn in Model)
@@ -257,16 +269,7 @@
 			</tr>
 		}*@
 <br />
-	foreach (Amenity amn in Model)
-	{
-		<div class='my-legend'>
-			<div class='legend-scale'>
-				<ul class='legend-labels'>
-					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-				</ul>
-			</div>
-		</div>
-	}
+	
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 }
@@ -756,16 +759,15 @@
 							'refno1': refno
 						},
 						success: function (data) {
-							var trHTML = '';
-								$('#tbSwimmingDetails').empty();
-							trHTML = '<tr><th>Adult</th> <th>Child</th></tr>';
 							$.each(data, function (i, v) {
-								trHTML += '</td><td>' + v.Adult + '</td><td>' + v.Child;
-
-							});
-							$('#tbSwimmingDetails').append(trHTML);
-							trHTML = '';
+								var $description = $('<div/>');
+								$description.append($('<p/>').html('<b>Adult: </b>' + v.Adult));
+								$description.append($('<p/>').html('<b>Child: </b>' + v.Child));
+								$('#viewDetailsModal #sDetails').empty().html($description);
+							})
+				
 						},
+						
 						error: function (error) {
 							alert('Failed to retrieve the record');
 						}
