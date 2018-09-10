@@ -9,275 +9,214 @@
     {
         Layout = "~/Views/Layout/TenantLayout.cshtml";
     }
-
+}
 
 
 
 @using (Html.BeginForm("Swimming", "Reserve", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
 
+    @Html.AntiForgeryToken()
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-		<style>
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #09442c;
-				border: none;
-				border-radius: 5px;
-				float: right;
-				text-decoration: none;
-				text-decoration-color: none;
-			}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+        <style>
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #09442c;
+                border: none;
+                border-radius: 5px;
+                float: right;
+                text-decoration: none;
+                text-decoration-color: none;
+            }
+
+
+
+                .button:hover {
+                    background-color: #0e6742;
+                }
+
+            div.card {
+                width: 710px;
+                height: 640px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 10px;
+            }
+        </style>
+
 
 
-				.button:hover {
-					background-color: #0e6742;
-				}
 
-			div.card {
-				width: 710px;
-				height: 640px;
-				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-				padding: 10px;
-			}
-		</style>
+    </head>
 
+
+    <br />
 
+    <center>
+        <div>
+            <div class="progress" style="width:860px;height:40px;">
+                <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                     aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                    <a href="@Url.Action("Amenity", "Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                </div>
+
 
+                <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                </div>
 
-	</head>
 
+                <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                </div>
 
-	<br />
+                <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                </div>
+                <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                     aria-valuemin="0" aria-valuemax="100">
+                    <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                </div>
+            </div>
+        </div>
+    </center>
 
-	<center>
-		<div>
-			<div class="progress" style="width:860px;height:40px;">
-				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-					<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-				</div>
+    <!---Header-->
+    <div id="main">
 
+        <header class="w3-display-container w3-content" style="max-width:1500px;">
+            <img class="w3-image" src="~/Content/Log/loginbg.jpg" alt="Palmdale" style="min-width:1000px" width="1500" height="800">
+            <div class="w3-display-middle w3-padding w3-col l6 m8">
+                <div class="w3-container w3-green">
+                    <h2><i class="glyphicon glyphicon-tags"></i>   Palmdale Heights Condiminium</h2>
+                </div>
 
-				<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-				</div>
+                <div class="w3-container w3-white w3-padding-16">
+                    @*<form action="/action_page.php" target="_blank">*@
 
+                    <div class="w3-row-padding" style="margin:0 -16px;">
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="glyphicon glyphicon-time"></i> Start Time</label>
+                            <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required @*style="float:left; width:350px;"*@ />
 
-				<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-				</div>
+                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+                        </div>
+                        <div class="w3-half">
 
-				<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-				</div>
-				<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-				</div>
-			</div>
-		</div>
-	</center>
+                            <label><i class="glyphicon glyphicon-time"></i> End Time</label>
+                            <input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" @*style="float:right; width:350px; padding-bottom:14px;"*@ />
 
-	<!--Choose time -->
-	<div id="main">
+                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+                        </div>
+                    </div>
 
 
-		<div class="w3-container w3-padding-64 w3-theme-l5" id="cdate">
-			<div class="w3-row">
-				<div class="w3-col m5">
-					<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>
+                    <!---For Swimming Pool   ADULTS-->
+                    <div class="w3-row-padding" style="margin:8px -16px;">
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="glyphicon glyphicon-user"></i> Adults </label>
+                            <input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
+                        </div>
+                        <div class="w3-half">
+                            <label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
+                            <input class="w3-input w3-border" type="number" value="0" name="rateadult" min="0" max="6">
+                        </div>
+                    </div>
 
+                    <!----For Swimming Pool KIDS-------->
 
+                    <div class="w3-row-padding" style="margin:8px -16px;">
+                        <div class="w3-half w3-margin-bottom">
+                            <label><i class="glyphicon glyphicon-user"></i> Kids </label>
+                            <input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
 
+                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+                        </div>
+                        <div class="w3-half">
 
-					<br />
-					<img src="@Url.Content(Session["AmenityURL"].ToString())" style="width:70%" />
+                            <label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
+                            <input type="text" class="w3-input" name="ratechild" id="ratechild" readonly @*style="float:right; width:350px; padding-bottom:14px;"*@>
 
-				</div>
+                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+                        </div>
+                    </div>
 
-				<!--Card start-->
-				<br />
-				<div class="w3-col m7">
-					<div class="card">
 
-						<div class="w3-section">
+                    <!---Rate-->
+                    <div class="w3-row-padding" style="margin:16px -16px;">
+                        <div class="w3-half w3-margin-bottom">
+                            <label>Rate :</label>
 
+                            <input type="text" id="rate" name="rate" class="w3-input" readonly />
+                            <input type="hidden" id="tratee" name="tratee" />
+                            <input type="time" id="startT" name="startT" value="08:00" hidden />
+                            <input type="time" id="endT" name="endT" value="21:00" hidden />
+                            <input type="datetime" id="stime" name="stime" hidden />
+                            <input type="datetime" id="etime" name="etime" hidden />
 
+                        </div>
+                    </div>
 
-							<table>
 
-								<tr>
-									<td> &nbsp;  <label> Start Time: </label>  <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required style="float:left; width:350px;" /> </td>
-									<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> End Time: </label> <input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" style="float:right; width:350px; padding-bottom:14px;" /> </td>
-								</tr>
-							</table>
 
-						</div>
 
-						<br />
-						<div class="w3-section">
 
 
 
-							<table>
-								<tr>
-									<h3>For Adult</h3>
-									<td> &nbsp; <label> Quantity: </label> <input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" max="20" required value="0" style="float:left; width:350px;"> </td>
-									<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> Rate: </label><input type="text" class="w3-input" name="rateadult" id="rateadult" readonly style="float:right; width:350px; padding-bottom:14px;"> </td>
-								</tr>
-							</table>
-						</div>
 
-						<br />
-						<div class="w3-section">
+                    <button class="button" type="submit"><i class="glyphicon glyphicon-circle-arrow-right"></i> Next</button>
 
 
+                    @*</form>*@
 
-							<table>
-								<tr>
-									<h3>For Kids</h3>
-									<td> &nbsp; <label> Quantity: </label> <input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0" max="20" required value="0" style="float:left; width:350px;"> </td>
-									<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label> Rate: </label> <input type="text" class="w3-input" name="ratechild" id="ratechild" readonly style="float:right; width:350px; padding-bottom:14px;"> </td>
-								</tr>
-							</table>
-						</div>
+                </div>
+            </div>
+        </header>
+    </div>
 
-						<br />
-						<div class="w3-section">
-							<label>Rate :</label>
 
-							<input type="text" id="rate" name="rate" class="w3-input" readonly />
-							<input type="hidden" id="tratee" name="tratee" />
-							<input type="time" id="startT" name="startT" value="08:00" hidden />
-							<input type="time" id="endT" name="endT" value="21:00" hidden />
-							<input type="datetime" id="stime" name="stime" hidden />
-							<input type="datetime" id="etime" name="etime" hidden />
 
-						</div>
 
-						<div class="w3-section">
 
 
-							@*<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>*@
-							<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
-						</div>
 
+    <div class="third">
+        <iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>
 
+        <!---Save NATEN TOH AHHKK XDD-->
+        @*<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3150648&x=121.099658&y=14.549327&z=0&item=197607366'> </iframe>*@
 
-					</div>
-				</div>
+        <!-- Footer -->
+        <footer @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+            <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+            <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+            <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+            <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+            <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
-			</div>
-		</div>
-	</div>
+        </footer>
+    </div>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	@*<div class=" container ">
-
-
-			<center>
-
-				<div class="jumbotron" style=" box-sizing:content-box; background-color:#1bc27d; max-width:500px; min-height: 290px; margin: 30px auto;">
-
-
-					<font face="Helvetica">
-						<font color="black">
-
-							<br />
-
-							<h2>Choose Date</h2>
-
-							<hr />
-
-							<div class="text-center">
-
-								<br />
-								<font color="black"></font>
-
-								<font color="black">
-									StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />      EndTime : <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
-
-
-								</font>
-
-								<br />
-								<font color="black"><label class="text-center">Adult</label></font>
-								<br />
-								<font color="black">
-									Quantity : <input type="number" onselect="myFunction()" class="form-group" name="adult" id="adult" min="0" max="20" required value="0">
-									<label>Rate :</label>
-									<input type="text" class="form-group" name="rateadult" id="rateadult" readonly> /head
-								</font>
-								<br />
-
-
-								<br />
-								<font color="black"><label class="text-center">Child</label></font>
-								<br />
-								<font color="black">
-									Quantity :<input type="number" onselect="myFunction()" class="form-group" name="child" id="child" min="0" max="20" required value="0">
-									<label>Rate :</label>
-									<input type="text" class="form-group" name="ratechild" id="ratechild" readonly> /head
-								</font>
-								<br />
-								<br />
-
-								<font color="black">Rate :</font>
-
-								<font color="black">
-									<input type="text" id="rate" name="rate" class="form-group" readonly />
-									<input type="hidden" id="tratee" name="tratee" />
-									<input type="time" id="startT" name="startT" value="08:00" hidden />
-									<input type="time" id="endT" name="endT" value="21:00" hidden />
-									<input type="datetime" id="stime" name="stime" hidden />
-									<input type="datetime" id="etime" name="etime" hidden />
-								</font>
-								<br />
-								<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
-							</div>
-
-						</font>
-					</font>
-				</div>
-
-			</center>
-		</div>*@
-
-
-}
-
-<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
-	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-</footer>
+@*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+        <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+    </footer>*@
 
 <script type="text/javascript">
 	var startTime;
@@ -387,8 +326,6 @@
 
 	function Check() {
 
-
-s
 		var stconcat = document.getElementById('sd').value;
 		var etconcat = document.getElementById('ed').value
 		var cdrate = document.getElementById('rate').value;
@@ -404,9 +341,11 @@ s
 		document.getElementById('tratee').value = cdrate;
 		//document.getElementById('adult').value = a;
 		//document.getElementById('child').value = c;
+    }
 
 
-	}
 
 
 </script>
+
+}
