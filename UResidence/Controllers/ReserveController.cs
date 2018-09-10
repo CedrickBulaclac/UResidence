@@ -26,6 +26,11 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+            List<Contact> contactList = default(List<Contact>);
+            contactList = ContactController.GetAll();
+            var list = contactList.ToList();
+            Session["oldcontactList"] = list.Count();
+         
 
             int level = Convert.ToInt32(Session["Level"]);
 
@@ -408,7 +413,18 @@ namespace UResidence.Controllers
             return View(amenityList);
         }
 
-       
+        public JsonResult GetNotificationContacts()
+        {
+            int ctr = Convert.ToInt32(Session["oldcontactList"]);
+            Session["oldcontactList"] = ctr;
+            List<Contact> contactList = default(List<Contact>);
+            contactList = ContactController.GetAll();
+            var list = contactList.ToList();
+            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
+
 
     }
 }    
