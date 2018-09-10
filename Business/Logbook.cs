@@ -53,5 +53,15 @@ namespace UResidence
             this.sDate = string.Empty;
             this.URL = string.Empty;
         }
+        public static bool Validation(Logbook l)
+        {
+            bool ret = true;
+            if (l.VisitorName == null) { ret = false; }
+            if (l.ResidentName == null) { ret = false; }
+            if (l.Purpose == null) { ret = false; }
+            if (l.URL == null) { ret = false; }
+
+            return ret;
+        }
     }
 }

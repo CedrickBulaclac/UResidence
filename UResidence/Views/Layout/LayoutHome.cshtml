@@ -40,6 +40,10 @@
 
 <head>
     <style>
+        .dropdown-menu {
+            background: #2a2a2a;
+        }
+
         .navbar {
             padding: 0.5em 2em;
             position: absolute;
@@ -157,7 +161,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+                        <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
 
                         <ul class="dropdown-menu">
 
@@ -169,17 +173,18 @@
                             </li>
 
 
-                            <li><a href="~/Reserve/CalendarViewOT" style="text-decoration:none;text-decoration-color:none;"> Schedule</a> </li>
+                            <li><a href="~/Reserve/CalendarViewOT" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-calendar"> Schedule</span></a> </li>
 
-                            <li><a href="~/Billing/BillingView" style="text-decoration:none;text-decoration-color:none;"> Bills and Payment</a></li>
+                            <li><a href="~/Billing/BillingView" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
 
-                            <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> Account Settings</a> </li>
+                            <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-cog">Account Settings</span></a> </li>
 
+                            <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
                         </ul>
 
                     </li>
 
-                    <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+                   
 
                 </ul>
 

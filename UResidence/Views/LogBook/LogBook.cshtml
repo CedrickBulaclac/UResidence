@@ -1,211 +1,253 @@
 ﻿@model List<UResidence.Logbook>
 @{
-	ViewBag.Title = "LogBook";
-	Layout = "/Views/Layout/SecurityGuardlLayout.cshtml";
+    ViewBag.Title = "LogBook";
+    Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
 }
 
-@*Modal for Viewing Logbook Image*@
-<div class="container">
-	<div class="modal fade" id="logbookImageModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<label>Moving In Form</label>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<center>
-						<img height="250px" src="" width="250px" id="log">
-					</center>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
+
+
 <br />
 <br />
+
 <center>
-	Search: <input type="date" id="txtdate" name= ="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
+    Search: <input type="date" id="txtdate" name="txtdate" />   &nbsp; <button class="btn btn-success" onclick="Search()">Search</button>
 </center>
 <br />
 <br />
-<div class="container">
-	<table class="table table-bordered table-striped" id="tableLog"></table>
 
+    <div class="container">
+        <div class="modal fade" id="logbookImageModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label>Valid ID</label>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            <img height="250" width="250" id="log">
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
+   <img id="hid" name="hid" style=""/>
+   
+    <div class="container">
+        <img name="hide" id="hide" hidden />
+        <table class="table table-bordered table-striped" id="tableLog"></table>
+    </div>
+
 <script>
-	$(document).ready(Set());
-	var value;
-	function Set() {
-		$('#tableLog').empty();
-		$.ajax({
-			type: "GET",
-			url: "/LogBook/GetEvents",
-			success: function (data) {
-				var trHTML = '';
-				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th> <th>Image</th></tr>';
-				$.each(data, function (i, v) {
-					var a = v.URL;
-					alert(a);
-					//document.getElementById('myImage').src = a;
-					//document.getElementById('myImage').src = v.URL.value;
-					if (v.sTimeout == '00:00:00') {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td><td><button type="button" class="btn btn-info" id="btnLogPic" name="btnLogPic" onclick="View(' + a + ')">View</button></td></tr>';
+    var filei;
+    $(document).ready(Set());
+   
+    var value;
 
-					}
-					else {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td><td><button type="button" class="btn btn-info" id="btnLogPic" name="btnLogPic" onclick="View(' + a + ')">View</button></td></tr>';
+    function Sample() {
+        var file = $("#pc").get(0).files;
+        ReadImage(file[0]);
+    }
 
-					}
-				});
-				trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date"/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" /></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
-				$('#tableLog').append(trHTML);
+    var ReadImage = function (file) {
+        var reader = new FileReader;
+        var image1 = new Image;
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+            image1.src = file.target.result;
+            image.onload = function () {
+                $("#hid").attr('src', _file.target.result);
+            }
+        }
 
-				var now = new Date();
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				var today = now.getFullYear() + "-" + (month) + "-" + (day);
-				var ti = new Date().toLocaleTimeString();
+    };
+    function Set() {
+        $('#tableLog').empty();
+        $.ajax({
+            type: "GET",
+            url: "/LogBook/GetEvents",
+            success: function (data) {
+                var trHTML = '';
+                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th><th>Image</th><th>Time In</th> <th>Time Out</th></tr>';
+                $.each(data, function (i, v) {
+                    if (v.sTimeout == '00:00:00') {
+                        if (v.URL == 'none') {
+                            trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td></tr>';
+                        }
+                        else {
+                            var fullpath = (v.URL).toString();
+                            var filename = fullpath.replace(/^.*[\\\/]/, '');
+                            filei = filename;
+                            trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td></tr>';
 
-				document.getElementById('date').value = today;
+                        }
 
+                    }
+                    else {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
 
-			},
-			error: function (error) {
-				alert('Failed to retrieve the record');
-			}
-		});
+                    }
+                });
+                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input type="file" class="form-control" id="pc" name="pc" onchange="Sample()" /> </td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
+                $('#tableLog').append(trHTML);
 
-	}
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();
 
-	function View(pi) {
-		alert(pi);
-		//link = url;
-		//var fullpath = (link).toString();
-		//var filename = fullpath.replace(/^.*[\\\/]/, '');
-		//var path = "../Content/LogBookImages/" + filename;
-
-		//document.getElementById('log').setAttribute('src', path)
-
-		//$('#logbookImageModal').modal();
-	}
-
-	$('#btnCloseImage').click(function () {
-
-		$('#logbookImageModal').hide();
-	}
-	);
-
-	function Update(id) {
-
-		var d = new Date(),
-			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-		var timenow = h + ':' + m;
-
-		var data = {
-			Id: id,
-			TimeOut: timenow
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Update',
-			data: data,
-			success: function (data) {
-
-				Set();
-				window.location.reload();
-			},
-			error: function (error) {
-				alert('Failed to update record');
-			}
-		});
-	}
-
-	function Search() {
-		$('#tableLog').empty();
-		var datee = document.getElementById('txtdate').value;
-		value = datee;
-		var data = {
-			date: datee
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Search',
-			data: data,
-			success: function (data) {
-				var trHTML = '';
-
-				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th><th>Image</th></tr>';
-				$.each(data, function (i, v) {
-
-					if (v.sTimeout == '00:00:00') {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td ><td>' + v.URL + '</td></tr>';
-
-					}
-					else {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td>><td>' + v.URL + '</td></tr>';
-
-					}
-				});
-				trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date"/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" /></td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
-				$('#tableLog').append(trHTML);
-
-				var now = new Date();
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				var today = now.getFullYear() + "-" + (month) + "-" + (day);
-				var ti = new Date().toLocaleTimeString();
-
-				document.getElementById('date').value = today;
-
-			},
-			error: function (data) {
-				alert('Failed to retrieve record');
-			}
-
-		});
-	}
-
-	function SetText() {
-		var date = document.getElementById('date').value;
-		var ResidentName = document.getElementById('residentname').value;
-		var VisitorName = document.getElementById('visitorname').value;
-		var Purpose = document.getElementById('purpose').value;
-		var d = new Date(),
-			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-		var timenow = h + ':' + m;
-
-		var data = {
-			Date: date,
-			ResidentName: ResidentName,
-			VisitorName: VisitorName,
-			Timein: timenow,
-			Purpose: Purpose
-		}
-
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Insert',
-			data: data,
-			success: function (data) {
-
-				window.location.reload();
-			},
-			error: function (error) {
-				alert('Failed to insert a record');
-			}
-		});
-
-	}
+                document.getElementById('date').value = today;
 
 
+            },
+            error: function (error) {
+                alert('Failed to retrieve the record');
+            }
+        });
+
+    }
+
+    function ViewPIC() {
+        var path = "../Content/LogBookImages/" + filei;
+
+        document.getElementById('log').setAttribute('src', path)
+        $('#logbookImageModal').modal();
+    }
+
+    $('#btnCloseImage').click(function () {
+
+        $('#logbookImageModal').hide();
+    }
+    );
+ 
+  
+    function Update(id) {
+
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        var timenow = h + ':' + m;
+
+        var data = {
+            Id: id,
+            TimeOut: timenow
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Update',
+            data: data,
+            success: function (data) {
+
+                Set();
+                window.location.reload();
+            },
+            error: function (error) {
+                alert('Failed to update record');
+            }
+        });
+    }
+
+    function Search() {
+        $('#tableLog').empty();
+        var datee = document.getElementById('txtdate').value;
+        value = datee;
+        var data = {
+            date: datee
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Search',
+            data: data,
+            success: function (data) {
+                var trHTML = '';
+
+                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th><th>Image</th><th>Time In</th><th>Time Out</th></tr>';
+                $.each(data, function (i, v) {
+                    var fullpath = (v.URL).toString();
+                    var filename = fullpath.replace(/^.*[\\\/]/, '');
+                    filei = filename;
+
+                    if (v.sTimeout == '00:00:00') {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Update(' + v.Id + ')">Time Out</button></td></tr>';
+
+                    }
+                    else {
+                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+                    }
+                });
+                trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input type="file" class="form-control" id="pc" name="pc"/> </td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
+                $('#tableLog').append(trHTML);
+
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();    
+                document.getElementById('date').value = today;
+
+            },
+            error: function (data) {
+                alert('Failed to retrieve record');
+            }
+
+        });
+    }
+
+    function SetText() {
+
+        var date = document.getElementById('date').value;
+        var ResidentName = document.getElementById('residentname').value;
+        var VisitorName = document.getElementById('visitorname').value;
+        var Purpose = document.getElementById('purpose').value;
+
+        var pic = document.getElementById('pc').value;
+        var fullpath = (pic).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        filei = filename;
+
+        document.getElementById('hid').setAttribute('src', fullpath);
+
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        var timenow = h + ':' + m;
+
+        var data = {
+            Date: date,
+            ResidentName: ResidentName,
+            VisitorName: VisitorName,
+            Purpose: Purpose,
+            Timein: timenow,
+            Url:filei
+        }
 
 
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Insert',
+            data: data,
+            success: function (data) {
+                if (data == false) {
+
+                    alert("Please input all required Textfield");
+                }
+                else {
+                    window.location.reload();
+                }
+
+            },
+            error: function (error) {
+                alert('Failed to insert a record');
+            }
+        });
+
+    }
 </script>
-

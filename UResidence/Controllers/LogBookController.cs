@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Text;
+using System.IO;
+using System.Drawing;
 namespace UResidence.Controllers
 {
     public class LogBookController : Controller
@@ -41,21 +43,64 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public ActionResult InsertImage(Logbook data)
+        {
+            bool status=false;
+            var image1 = data.Image;
+            if (image1 != null)
+            {
+                if (image1.ContentLength > 0)
+                {
+                    
+                    string imagefileName = Path.GetFileName(image1.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), imagefileName);
+                    string folderpath1 = "~/Content/LogBookImages/" + imagefileName;
+                   
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        image1.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        image1.SaveAs(folderPath);
+                    }
+                    Logbook log = new Logbook
+                    {
+                        Id=data.Id,
+                        URL = folderpath1
+                    };
+                    if(Logbook.Validation(log)==true)
+                    {
+                        status = LogbookController.UpdateImage(log);
+                       
+                    }
+                    else
+                    {
+                        status = false;
+                    }
+                }
+            }
+            return View("LogBook");
+        }
         public JsonResult Insert(Logbook data)
         {
-            Logbook log = new Logbook {
-                date = data.date,
-                ResidentName = data.ResidentName,
-                VisitorName = data.VisitorName,
-                Purpose = data.Purpose,
-                Timein = data.Timein,
-                Timeout = Convert.ToDateTime("00:00:00"),
-                URL = "~/Content/LogBookImages/Noimageavailable.jpeg"
+            bool status = false;
+            string folderpath1 = "~/Content/LogBookImages/" + data.URL;
+            string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), data.URL);
 
 
+            Logbook log = new Logbook
+                    {
+                        date = data.date,
+                        ResidentName = data.ResidentName,
+                        VisitorName = data.VisitorName,
+                        Purpose = data.Purpose,
+                        Timein = data.Timein,
+                        Timeout = Convert.ToDateTime("00:00:00"),
+                        URL = folderpath1
             };
-
-            bool status = UResidence.LogbookController.Insert(log);
+            status = LogbookController.Insert(log);
             return new JsonResult
             {
                 Data = status,
