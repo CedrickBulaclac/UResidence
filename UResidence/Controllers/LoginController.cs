@@ -15,12 +15,21 @@ namespace UResidence.Controllers
         string email1;
         public ActionResult Index()
         {
+            List<Contact> contactList = default(List<Contact>);
+            contactList = ContactController.GetCount();
+            int oldlist = contactList.Count;
+
+            Session["contactList"] = contactList;
+            Session["oldcontactList"] = oldlist;
+            Session["COUNTER"] = oldlist;
             return View();
         }
         [HttpPost]
         public ActionResult Index(FormCollection fc)
-        {
-         
+        {           
+           
+
+
             string chash;
             string hash= fc["Hash"];
             string username;

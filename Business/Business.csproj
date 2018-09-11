@@ -52,6 +52,8 @@
     <Compile Include="ChargeController.cs" />
     <Compile Include="CheckSwimming .cs" />
     <Compile Include="CheckSwimmingController.cs" />
+    <Compile Include="Contact.cs" />
+    <Compile Include="ContactController.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentController.cs" />
     <Compile Include="EquipReservation.cs" />

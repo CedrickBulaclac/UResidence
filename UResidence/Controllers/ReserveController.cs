@@ -9,6 +9,7 @@ namespace UResidence.Controllers
     public class ReserveController : Controller
     {
         private bool status = false;
+       
         public ActionResult SelectAmenity()
         {
 
@@ -26,12 +27,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
-            List<Contact> contactList = default(List<Contact>);
-            contactList = ContactController.GetAll();
-            var list = contactList.ToList();
-            Session["oldcontactList"] = list.Count();
-         
 
+            
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level == 8)
@@ -412,7 +409,17 @@ namespace UResidence.Controllers
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
-
+        public JsonResult GetCount()
+        {
+            List<Contact> oldContact = default(List<Contact>);
+            oldContact = ContactController.GetCount();
+            var events = oldContact.Count();
+            return new JsonResult
+            {
+                Data=events,
+                JsonRequestBehavior=JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult GetNotificationContacts()
         {
             int ctr = Convert.ToInt32(Session["oldcontactList"]);
@@ -423,6 +430,32 @@ namespace UResidence.Controllers
             return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult UpdateNotif()
+        {
+            List<Contact> contactList = default(List<Contact>);
+            contactList = ContactController.GetCount();
+            var liste = contactList.ToList();
+            int oldlist = liste.Count;
+
+            bool status = false;
+           for(int ii=0; ii<oldlist;ii++)
+            {
+                Contact cont = new Contact
+                {
+                    ContactID = liste[ii].ContactID, 
+                    Visit = 1
+                };
+                status = ContactController.UpdateVisit(cont);
+            }
+            List<Contact> listcot = new List<Contact>();
+            listcot = ContactController.GetAll();
+            var events = listcot.ToList();        
+            return new JsonResult
+            {
+                Data =events,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
 
 

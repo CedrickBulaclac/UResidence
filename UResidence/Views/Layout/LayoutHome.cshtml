@@ -163,11 +163,7 @@
 </head>
 
 <body>
-	<span class="noti glyphicon glyphicon-bell" id="notifBell"><span class="count">&nbsp;</span></span>
-	<div class="noti-content">
-		<div class="noti-top-arrow"></div>
-		<ul id="notiContent"></ul>
-	</div>
+	
 
 	<!--SIDEBAR TOH-->
 	@*<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
@@ -266,17 +262,23 @@
 
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <span class="noti glyphicon glyphicon-bell" id="notifBell"><span class="count">&nbsp;</span></span>
+                    </li>
+                    <div class="noti-content">
+                        <div class="noti-top-arrow"></div>
+                        <ul id="notiContent"></ul>
+                    </div>
+                    <li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
+                    <li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
+                    <li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
+                    <li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
 
 
-					<li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
-					<li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
-					<li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
-					<li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
 
-
-
-				</ul>
+                </ul>
 
 			</div>
 		</div>
@@ -347,15 +349,24 @@
 		var count=0;
 		var counter=0;
 		$('#notifBell').click(function () {
-			$('span.count', this).html('&nbsp;');
+            $('span.count', this).html('&nbsp;');
+            updateVisit();
 			$('.noti-content').hide();
 			$('#himodal').modal();
 		})
 
-		function getNotif(ctr) {
-			list = @Session["oldcontactList"];
-			var notifNo = ctr - list;			
-			updateNotificationCount(notifNo);
+		function getNotif() {
+            $.ajax({
+                type:'get',
+                url: '/Reserve/GetCount',
+                success: function (data) {
+                    updateNotificationCount(data);                 
+                },
+                error: function (data) {
+
+                }
+            });
+
 		}
 
 		function updateNotif() {
@@ -371,24 +382,44 @@
 					$('#hello').empty();
 					if (response.length == 0) {
 						$('#hello').append($('<li>No data available</li>'));
-					}
-					counter = 0;
-					$.each(response, function (index, value) {
-					
-						counter++;
+					}					
+					$.each(response, function (index, value) {											
 						$('#hello').append($('<li>New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
-					});
-					getNotif(counter);
+                    });
+                  
+                    getNotif();
+                   
 				},
 				error: function (error) {
 					console.log(error);
 				}
 			})
 		}
+        function updateVisit() {
+            $('#hello').empty();
+            $.ajax({
+                type: 'POST',
+                url: '/Reserve/UpdateNotif',
+                success: function (response) {
+                    if (response.count == 0) {
+                        $('#hello').append($('<li>No data available</li>'));
+                    }
+                  
+                    $.each(response, function (index, value) {                      
+                        $('#hello').append($('<li>New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
+                    });
+                  
+                    getNotif();
+                },
+                error: function (data) {
 
+                }
+            });
+        }
 		function updateNotificationCount(count) {
 			if (count == 0) {
-				$('span.count').html('&nbsp;');
+                $('span.count').html('&nbsp;');
+               
 			}
 			else {
 				$('span.count').html(count);

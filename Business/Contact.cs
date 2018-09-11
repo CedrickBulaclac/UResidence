@@ -13,6 +13,7 @@ namespace UResidence
         public string ContactName { get; set; }
         public string ContactNo { get; set; }
         public DateTime AddedOn { get; set; }
+        public int Visit { get; set; }
 
         public Contact CreateObject(SqlDataReader reader)
         {
@@ -21,6 +22,8 @@ namespace UResidence
             ret.ContactName = reader.GetString(1);
             ret.ContactNo = reader.GetString(2);
             ret.AddedOn = reader.GetDateTime(3);
+
+
             return ret;
         }
 
