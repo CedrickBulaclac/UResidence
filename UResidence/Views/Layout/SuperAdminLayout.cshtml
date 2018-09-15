@@ -121,92 +121,95 @@
 <body>
 
 
-	<div class="col-sm-12">
+    <div class="col-sm-12">
 
 
-		<center><h2>Reservation Management</h2> </center>
-		<hr />
-	</div>
-
-
-
-	<br />
-
-
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<div class="regcontainer">
-		<div class="container">
-			<div class="row ">
-
-
-				<div class="col-lg-2">
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-6">
-									<i class="fa fa-calendar-plus-o fa-5x"></i>
-								</div>
-								<div class="col-xs-6 text-right">
-									<p class="announcement-heading"> </p>
-									<p class="announcement-text">Reservation List</p>
-								</div>
-							</div>
-						</div>
-						<a href="~/ReservationRecord/Record">
-							<div class="panel-footer announcement-bottom">
-								<div class="row">
-									<div class="col-xs-6">
-										Open
-									</div>
-									<div class="col-xs-6 text-right">
-										<i class="fa fa-arrow-circle-right"></i>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-
-
-				<div class="regcontainer2">
-					<div class="col-lg-2">
-						<div class="panel panel-success ">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-6">
-										<i class="fa fa-calendar-check-o fa-5x"></i>
-									</div>
-									<div class="col-xs-6 text-right">
-										<p class="announcement-heading"></p>
-										<p class="announcement-text"> Reversal List</p>
-									</div>
-								</div>
-							</div>
-							<a href="~/ReversalRecord/Records">
-								<div class="panel-footer announcement-bottom">
-									<div class="row">
-										<div class="col-xs-6">
-											Open
-										</div>
-										<div class="col-xs-6 text-right">
-											<i class="fa fa-arrow-circle-right"></i>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
+        <center><h2>Reservation Management</h2> </center>
+        <hr />
+    </div>
 
 
 
+    <br />
 
 
-	<script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="regcontainer">
+        <div class="container">
+            <div class="row ">
+
+
+                <div class="col-lg-2">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <i class="fa fa-calendar-plus-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <p class="announcement-heading"> </p>
+                                    <p class="announcement-text">Reservation List</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="~/ReservationRecord/Record">
+                            <div class="panel-footer announcement-bottom">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        Open
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <i class="fa fa-arrow-circle-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="regcontainer2">
+                    <div class="col-lg-2">
+                        <div class="panel panel-success ">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <i class="fa fa-calendar-check-o fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <p class="announcement-heading"></p>
+                                        <p class="announcement-text"> Reversal List</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="~/ReversalRecord/Records">
+                                <div class="panel-footer announcement-bottom">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            Open
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <i class="fa fa-arrow-circle-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
 		function w3_open() {
 			document.getElementById("main").style.marginLeft = "25%";
 			document.getElementById("mySidebar").style.width = "25%";
@@ -259,7 +262,7 @@
 			$('#updateprofilepicture').modal();
 		}
 		);
-	</script>
+    </script>
 
 
 
