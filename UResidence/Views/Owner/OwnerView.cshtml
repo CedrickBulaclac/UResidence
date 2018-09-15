@@ -1,95 +1,102 @@
 ﻿@model List<UResidence.Owner>
 
 @{
-    ViewBag.Title = "OwnerView";
-    Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	ViewBag.Title = "OwnerView";
+	Layout = "/Views/Layout/RegistrationLayout.cshtml";
 }
-
-<h2>List of Owner</h2>
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<center>
+	<h2>List of Owner</h2>
+</center>
 
 <hr />
 @using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-	<table class="table table-bordered table-striped">
-		<tr>
-			<th scope="col">
-				Id
-			</th>
-			<th scope="col">
-				BldgNo
-			</th>
-			<th scope="col">
-				UnitNo
-			</th>
-			<th scope="col">
-				Fname
-			</th>
-			<th scope="col">
-				Mname
-			</th>
-			<th scope="col">
-				Lname
-			</th>
-			<th scope="col">
-				Bdate
-			</th>
-			<th scope="col">
-				CelNo
-			</th>
-			<th scope="col">
-				Email
-			</th>
 
-			<th>Actions</th>
-		</tr>
-		@if (Model != null)
-		{
-			<tbody>
-				@foreach (Owner item in Model)
-				{
-					<tr scope="row">
-						<td>
-							@Html.DisplayFor(modelItem => item.Id)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.BldgNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.UnitNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Fname)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Mname)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Lname)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Bdate)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.CelNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Email)
-						</td>
-						<td>
-							<a class="btn btn-link" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-							<a class="btn btn-link" href="@Url.Action("Delete", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+	<div class="container">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th scope="col">
+					Id
+				</th>
+				<th scope="col">
+					BldgNo
+				</th>
+				<th scope="col">
+					UnitNo
+				</th>
+				<th scope="col">
+					Fname
+				</th>
+				<th scope="col">
+					Mname
+				</th>
+				<th scope="col">
+					Lname
+				</th>
+				<th scope="col">
+					Bdate
+				</th>
+				<th scope="col">
+					CelNo
+				</th>
+				<th scope="col">
+					Email
+				</th>
 
-						</td>
-					</tr>
-				}
-			</tbody>
-		}
+				<th>Actions</th>
+			</tr>
+			@if (Model != null)
+			{
+				<tbody>
+					@foreach (Owner item in Model)
+					{
+						<tr scope="row">
+							<td>
+								@Html.DisplayFor(modelItem => item.Id)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.BldgNo)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.UnitNo)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Fname)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Mname)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Lname)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Bdate)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CelNo)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Email)
+							</td>
+							<td>
+								<a class="btn btn-primary" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+								<a class="btn btn-danger" href="@Url.Action("Delete", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
 
-	</table>
+							</td>
+						</tr>
+					}
+				</tbody>
+			}
+
+		</table>
+	</div>
 	<div class="btn-link">
 
-		<a href="@Url.Action("OwnerAdd","Owner")" class="btn btn-success">ADD NEW OWNER</a>
+		<a href="@Url.Action("OwnerAdd","Owner")" style="margin-left:150px;" class="btn btn-success">ADD NEW OWNER</a>
 
 	</div>
 	<div id="auerror" class="alert alert-danger collapse">

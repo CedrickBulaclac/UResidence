@@ -1,17 +1,23 @@
 ﻿@model List<UResidence.Admin>
 
 @{
-    Layout = "/Views/Layout/RegistrationLayout.cshtml";
-    ViewBag.Title = "AdminView";
+	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	ViewBag.Title = "AdminView";
 }
 
-<h2>Admin</h2>
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<center>
+	<h2>Admin</h2>
+</center>
 
 <hr />
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-	<div class="dl-horizontal">
+	<div class="container">
 		<table class=" table table-bordered table-striped">
 
 			<thead>
@@ -38,8 +44,8 @@
 						<td>@Html.DisplayFor(model => a.CelNo)</td>
 						<td>@Html.DisplayFor(model => a.Email)</td>
 						<td>
-							<a class="btn btn-link" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-							<a class="btn btn-link" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+							<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+							<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
 						</td>
 					</tr>
 
@@ -51,7 +57,7 @@
 
 	<div class="btn-link">
 
-		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" class="btn btn-success" /></a>
+		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" style="margin-left:150px;" class="btn btn-success" /></a>
 
 	</div>
 

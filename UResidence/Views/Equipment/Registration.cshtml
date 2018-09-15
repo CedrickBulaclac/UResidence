@@ -1,11 +1,13 @@
 ﻿@model UResidence.Equipment
 
 @{
-    Layout = "/Views/Layout/RegistrationLayout.cshtml";
-    ViewBag.Title = "Registration";
+	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	ViewBag.Title = "Registration";
 }
 
-
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <html>
 
 <head>
@@ -56,7 +58,9 @@
 				background-color: #46bc8b;
 			}
 
-	
+		.containerAdmin {
+			padding-left: 150px;
+		}
 	</style>
 </head>
 
@@ -66,200 +70,201 @@
 	<br />
 	<br />
 
-	<h2>Equipment</h2>
+	<div class="containerAdmin">
+		<h2>Equipment</h2>
 
-	@using (Html.BeginForm("Registration", "Equipment", FormMethod.Post, new { enctype = "multipart/form-data" }))
-	{
-		@Html.AntiForgeryToken()
-
-
-
-
-
-	<div class="form-horizontal">
-
-
-		<hr />
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
-		@*<div class="form-group">
-			@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-			</div>
-		</div>*@
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label>Name :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-
-			</div>
-		</div>
-
-
-
-
-
-
-
-
-
-
-		@*<div class="form-group">
-			@Html.LabelFor(model => model.Stocks, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
-			</div>
-		</div>*@
-
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label>Stocks :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-
-
-
-
-
-
-		@*<div class="form-group">
-			@Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-			</div>
-		</div>*@
-
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label>Rate :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-
-
-
-
-
-
-		@*<div class="form-group">
-			@Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				<input type="file" id="image" name="image" />
-				@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
-			</div>
-		</div>*@
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label>Description :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form - control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-
-
-
-
-		<input type="submit" value="Submit" class="button" />
-		<a href="@Url.Action("EquipmentView","Equipment")" class="button">Cancel</a>
-	</div>
-
-		<div id="aerror" class="alert alert-danger collapse">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<strong>Error!</strong> There is a problem submitting your form
-		</div>
-		<div id="asuccess" class="alert alert-success collapse">
-			<strong>Success!</strong> You have successfully added the Equipment
-		</div>
-
-		if (ViewBag.Message != null)
+		@using (Html.BeginForm("Registration", "Equipment", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{
-			if (ViewBag.Message == true)
+			@Html.AntiForgeryToken()
+
+
+
+
+
+			<div class="form-horizontal">
+
+
+				<hr />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label>Name :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Stocks, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label>Stocks :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
+							@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label>Rate :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+
+
+
+
+				@*<div class="form-group">
+						@Html.LabelFor(model => model.Url, "Upload an Image", htmlAttributes: new { @class = "control-label col-md-2" })
+						<div class="col-md-10">
+							<input type="file" id="image" name="image" />
+							@Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+						</div>
+					</div>*@
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label>Description :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form - control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+
+
+				<input type="submit" value="Submit" class="button" />
+				<a href="@Url.Action("EquipmentView","Equipment")" class="button">Cancel</a>
+			</div>
+
+			<div id="aerror" class="alert alert-danger collapse">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<strong>Error!</strong> There is a problem submitting your form
+			</div>
+			<div id="asuccess" class="alert alert-success collapse">
+				<strong>Success!</strong> You have successfully added the Equipment
+			</div>
+
+			if (ViewBag.Message != null)
 			{
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-				</script>
-				<script type="text/javascript">
-					$(document).ready(function () {
+				if (ViewBag.Message == true)
+				{
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+					</script>
+					<script type="text/javascript">
+						$(document).ready(function () {
 
-						$('#asuccess').show('fade');
+							$('#asuccess').show('fade');
 
-						setTimeout(function () {
-							$('#asuccess').hide('fade');
-						}, 2000);
-
-
-					});
-				</script>
-
-			}
-
-			else
-			{
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-				</script>
-				<script type="text/javascript">
-					$(document).ready(function () {
-
-						$('#aerror').show('fade');
-
-						setTimeout(function () {
-							$('#aerror').hide('fade');
-						}, 2000);
+							setTimeout(function () {
+								$('#asuccess').hide('fade');
+							}, 2000);
 
 
-					});
+						});
+					</script>
 
-				</script>
+				}
+
+				else
+				{
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+					</script>
+					<script type="text/javascript">
+						$(document).ready(function () {
+
+							$('#aerror').show('fade');
+
+							setTimeout(function () {
+								$('#aerror').hide('fade');
+							}, 2000);
 
 
+						});
+
+					</script>
+
+
+				}
 			}
 		}
-	}
-	@section Scripts {
-		@Scripts.Render("~/bundles/jqueryval")
+		@section Scripts {
+			@Scripts.Render("~/bundles/jqueryval")
 
 
-	}
-
+		}
+	</div>
 </body>
 </html>

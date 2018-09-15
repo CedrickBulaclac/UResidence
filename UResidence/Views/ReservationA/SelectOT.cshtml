@@ -1,77 +1,77 @@
-﻿
+﻿@model List<UResidence.Amenity>
 @{
 	ViewBag.Title = "SelectOT";
 	Layout = "~/Views/Layout/ReservationLayout.cshtml";
 }
 
-	@Html.AntiForgeryToken()
-	@Html.Raw(TempData["msg"])
+@Html.AntiForgeryToken()
+@Html.Raw(TempData["msg"])
 
 
 
-	<div class="container">
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title"><span id="eventTitle"></span></h4>
-					</div>
-					<div class="modal-body">
-						<label>Building Number: </label> <input type="text" name="bldgno" id="bldgno" />
-						<br />
-						<label>Unit Number: </label> <input type="text" name="unitno" id="unitno" />
-						@*<br />
+<div class="container">
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><span id="eventTitle"></span></h4>
+				</div>
+				<div class="modal-body">
+					<label>Building Number: </label> <input type="text" name="bldgno" id="bldgno" />
+					<br />
+					<label>Unit Number: </label> <input type="text" name="unitno" id="unitno" />
+					@*<br />
 						<input type="submit" id="submitId" value="submit" />*@
-						<p id="pDetails"></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="btnSubmit" name="btnSubmit" onclick="SubmitOT()">Submit</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
+					<p id="pDetails"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnSubmit" name="btnSubmit" onclick="SubmitOT()">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 
 
-	<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style>
-			.block {
-				display: block;
-				width: 50%;
-				border: none;
-				background-color: #4CAF50;
-				color: white;
-				padding: 100px 100px;
-				font-size: 16px;
-				cursor: pointer;
-				text-align: center;
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.block {
+			display: block;
+			width: 50%;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			padding: 100px 100px;
+			font-size: 16px;
+			cursor: pointer;
+			text-align: center;
+		}
+
+			.block:hover {
+				background-color: #ddd;
+				color: black;
 			}
+	</style>
+</head>
+<body>
+	<input type="hidden" id="ownten" name="ownten" value="0" />
+	<center>
+		<br><br>
+		<button class="block" id="btnOwner" name="btnOwner">Owner</button>
+		<br>
+		<button class="block" id="btnTenant" name="btnTenant">Tenant</button>
+		<br />
 
-				.block:hover {
-					background-color: #ddd;
-					color: black;
-				}
-		</style>
-	</head>
-	<body>
-		<input type="hidden" id="ownten" name="ownten" value="0" />
-		<center>
-			<br><br>
-			<button class="block" id="btnOwner" name="btnOwner" >Owner</button>
-			<br>
-			<button class="block" id="btnTenant" name="btnTenant">Tenant</button>
-			<br />
-
-		</center>
-	</body>
+	</center>
+</body>
 </html>
 
-	<script>
+<script>
 
 
 	jQuery(function ($) {
@@ -96,7 +96,7 @@
 	});
 
 
-	
+
 
 
 	function SubmitOT() {
@@ -125,7 +125,7 @@
 				}
 			},
 			error: function (error) {
-					alert('Failed');
+				alert('Failed');
 
 
 
@@ -133,7 +133,7 @@
 		});
 	}
 
-	</script>
+</script>
 
 
 

@@ -62,6 +62,8 @@
     <Compile Include="ImageAmenityController.cs" />
     <Compile Include="Logbook.cs" />
     <Compile Include="LogbookController.cs" />
+    <Compile Include="Notification.cs" />
+    <Compile Include="NotificationController.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="OwnerController.cs" />
     <Compile Include="Receipt.cs" />

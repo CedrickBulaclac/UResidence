@@ -27,8 +27,9 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+            List<Amenity> amen = default(List<Amenity>);
+            amen = UResidence.AmenityController.GetAll();
 
-            
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level == 8)
@@ -47,7 +48,7 @@ namespace UResidence.Controllers
            bool s = false;
             if (Session["status"] is null)
             {
-                return View();
+                return View(amen);
             }
             else
             {
@@ -60,9 +61,8 @@ namespace UResidence.Controllers
                     s = true;
                 }
                 ViewBag.Status = s;
-                return View();
+                return View(amen);
             }
-
         }
 
         public ActionResult Amenity()
@@ -409,55 +409,103 @@ namespace UResidence.Controllers
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
+       
+    
+
+
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
         public JsonResult GetCount()
         {
-            List<Contact> oldContact = default(List<Contact>);
-            oldContact = ContactController.GetCount();
+            int level = Convert.ToInt32(Session["Level"]);
+            int uid = Convert.ToInt32(Session["UID"]);
+
+            List<Notification> oldContact = default(List<Notification>);
+            if (level == 8)
+            {
+                oldContact = UResidence.NotificationController.GetCountO(uid);
+            }
+            else
+            {
+                oldContact = UResidence.NotificationController.GetCountT(uid);
+            }
             var events = oldContact.Count();
             return new JsonResult
             {
-                Data=events,
-                JsonRequestBehavior=JsonRequestBehavior.AllowGet
+                Data = events,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
         public JsonResult GetNotificationContacts()
         {
+
             int ctr = Convert.ToInt32(Session["oldcontactList"]);
             Session["oldcontactList"] = ctr;
-            List<Contact> contactList = default(List<Contact>);
-            contactList = ContactController.GetAll();
-            var list = contactList.ToList();
+            int level = Convert.ToInt32(Session["Level"]);
+            int uid = Convert.ToInt32(Session["UID"]);
+            List<Notification> notiList = default(List<Notification>);
+            if (level == 8)
+            {
+                notiList = NotificationController.GetAllO(uid);
+            }
+            else if (level == 9)
+            {
+                notiList = NotificationController.GetAllT(uid);
+            }
+            var list = notiList.ToList();
             return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public JsonResult UpdateNotif()
         {
-            List<Contact> contactList = default(List<Contact>);
-            contactList = ContactController.GetCount();
-            var liste = contactList.ToList();
+            int level = Convert.ToInt32(Session["Level"]);
+            int uid = Convert.ToInt32(Session["UID"]);
+            List<Notification> notiList = default(List<Notification>);
+            if (level == 8)
+            {
+                notiList = UResidence.NotificationController.GetCountO(uid);
+            }
+            else
+            {
+                notiList = UResidence.NotificationController.GetCountT(uid);
+            }
+            var liste = notiList.ToList();
             int oldlist = liste.Count;
 
             bool status = false;
-           for(int ii=0; ii<oldlist;ii++)
+            var events = default(List<Notification>);
+            for (int ii = 0; ii < oldlist; ii++)
             {
-                Contact cont = new Contact
+                Notification noti = new Notification
                 {
-                    ContactID = liste[ii].ContactID, 
+                    Id = liste[ii].Id,
                     Visit = 1
                 };
-                status = ContactController.UpdateVisit(cont);
+
+                status = NotificationController.UpdateVisit(noti);
             }
-            List<Contact> listcot = new List<Contact>();
-            listcot = ContactController.GetAll();
-            var events = listcot.ToList();        
+
+            List<Notification> notList = default(List<Notification>);
+            if (level == 8)
+            {
+                notList = NotificationController.GetAllO(uid);
+            }
+            else if (level == 9)
+            {
+                notList = NotificationController.GetAllT(uid);
+
+            }
+            events = notList.ToList();
             return new JsonResult
             {
-                Data =events,
+                Data = events,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
-
 
     }
 }    

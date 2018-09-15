@@ -1,215 +1,235 @@
-﻿@{ 
-    Layout = "~/Views/Layout/FinanceLayout.cshtml";
+﻿@{
+	string pending = "Pending";
+	string approved = "Approved";
+	string denied = "Denied";
+	string completed = "Completed";
+	Layout = "~/Views/Layout/FinanceLayout.cshtml";
 }
+
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <div class="container">
-    <div class="modal fade" id="updateModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="txtid" name="txtid" />
-                    <b>Amount :</b> <input type="text" class="form-control" name="amount" id="amount" required/>
-                    <br /><br />
-                    <b>Description :</b>  <textarea type="text" class="form-control" name="description" id="description" required></textarea>
-                    <br /><br />
+	<div class="modal fade" id="updateModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><span id="eventTitle"></span></h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="txtid" name="txtid" />
+					<b>Amount :</b> <input type="text" class="form-control" name="amount" id="amount" required />
+					<br /><br />
+					<b>Description :</b>  <textarea type="text" class="form-control" name="description" id="description" required></textarea>
+					<br /><br />
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="Update()" data-dismiss="modal">Save Changes</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="Update()" data-dismiss="modal">Save Changes</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <br /><br />
-<center>
-    <b>Sort by:</b><select class="form-control" id="select" onchange="Set()">
-    <option value="Pending">Pending</option>
-    <option value="Approved">Approved</option>
-    <option value="Denied">Denied</option>
-    <option value="Completed">Completed</option>
-</select>
-</center>
-<br />
-<br />
-<div class="container">
-    <table class="table table-bordered table-striped" id="tableReversalList"></table>
+<div class="panel panel-default">
+	<div class="container">
+		<div class="pull-right">
+			<div class="btn-group">
 
+				<button type="button" class="btn btn-primary btn-filter " value="Approved" onclick="Set('@approved')">Approved</button>
+				<button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="Set('@pending')">Pending</button>
+				<button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="Set('@denied')">Cancelled</button>
+				<button type="button" class="btn btn-success btn-filter" value="Completed" onclick="Set('@completed')">Completed</button>
+
+			</div>
+		</div>
+		<br />
+		<br />
+
+		<table class="table table-bordered table-striped" id="tableReversalList"></table>
+
+
+	</div>
 </div>
+
 <script>
-    $(document).ready(SetP());
-    function SetP() {
+	$(document).ready(SetP());
+	function SetP() {
 
-        $.ajax({
-            type: 'POST',
-            url: '/ReversalRecord/GetP',
-            success: function (data) {
-                $('#tableReversalList').empty();
-                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
-                $.each(data, function (i, v) {
+		$.ajax({
+			type: 'POST',
+			url: '/ReversalRecord/GetP',
+			success: function (data) {
+				$('#tableReversalList').empty();
+				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+				$.each(data, function (i, v) {
 
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>'+v.Status+'</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+					trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
-                });
-                $('#tableReversalList').append(trHTML);
-                trHTML = '';
+				});
+				$('#tableReversalList').append(trHTML);
+				trHTML = '';
 
-            },
-            error: function (error) {
-                alert('Failed to retrieve record');
-            }
-        });
-    }
-    function SetA() {
+			},
+			error: function (error) {
+				alert('Failed to retrieve record');
+			}
+		});
+	}
+	function SetA() {
 
-        $.ajax({
-            type: 'POST',
-            url: '/ReversalRecord/GetA',
-            success: function (data) {
-                $('#tableReversalList').empty();
-                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
-                $.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+		$.ajax({
+			type: 'POST',
+			url: '/ReversalRecord/GetA',
+			success: function (data) {
+				$('#tableReversalList').empty();
+				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+				$.each(data, function (i, v) {
+					trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
-                });
-                $('#tableReversalList').append(trHTML);
-                trHTML = '';
+				});
+				$('#tableReversalList').append(trHTML);
+				trHTML = '';
 
-            },
-            error: function (error) {
-                alert('Failed to retrieve record');
-            }
-        });
-    }
-    function SetC() {
+			},
+			error: function (error) {
+				alert('Failed to retrieve record');
+			}
+		});
+	}
+	function SetC() {
 
-        $.ajax({
-            type: 'POST',
-            url: '/ReversalRecord/GetC',
-            success: function (data) {
-                $('#tableReversalList').empty();
-                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
-                $.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+		$.ajax({
+			type: 'POST',
+			url: '/ReversalRecord/GetC',
+			success: function (data) {
+				$('#tableReversalList').empty();
+				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+				$.each(data, function (i, v) {
+					trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
-                });
-                $('#tableReversalList').append(trHTML);
-                trHTML = '';
+				});
+				$('#tableReversalList').append(trHTML);
+				trHTML = '';
 
-            },
-            error: function (error) {
-                alert('Failed to retrieve record');
-            }
-        });
-    }
-    function SetD() {
+			},
+			error: function (error) {
+				alert('Failed to retrieve record');
+			}
+		});
+	}
+	function SetD() {
 
-        $.ajax({
-            type: 'POST',
-            url: '/ReversalRecord/GetD',
-            success: function (data) {
-                $('#tableReversalList').empty();
-                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
-                $.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+		$.ajax({
+			type: 'POST',
+			url: '/ReversalRecord/GetD',
+			success: function (data) {
+				$('#tableReversalList').empty();
+				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+				$.each(data, function (i, v) {
+					trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
-                });
-                $('#tableReversalList').append(trHTML);
-                trHTML = '';
+				});
+				$('#tableReversalList').append(trHTML);
+				trHTML = '';
 
-            },
-            error: function (error) {
-                alert('Failed to retrieve record');
-            }
-        });
-    }
-    function Set() {
-        var select = document.getElementById('select').value;
-        if (select == 'Pending') {
-            SetP();
-        }
-        else if (select == 'Approved') {
-            SetA();
-        }
-    }
-    function SetModal(Id,Amount,Description) {
-        $('#updateModal').modal();
-        document.getElementById('amount').value = Amount;
-        document.getElementById('description').value = Description;
-        document.getElementById('txtid').value = Id;
-    }
+			},
+			error: function (error) {
+				alert('Failed to retrieve record');
+			}
+		});
+	}
+	//function Set(select) {
+	//    //var select = document.getElementById('select').value;
+	//    if (select == 'Pending') {
+	//        SetP();
+	//    }
+	//    else if (select == 'Approved') {
+	//        SetA();
+	//    }
+	//    else if (select == 'Denied') {
 
-    function Update() {
-        if (confirm('Are you sure?')) {
-            var desc = document.getElementById('description').value;
-            var amt = document.getElementById('amount').value;
-            var id = document.getElementById('txtid').value;
-            var data = {
-                Description: desc,
-                Amount: amt,
-                Id: id
-            }
+	//        SetD();
+	//    }
+	//}
+	function SetModal(Id, Amount, Description) {
+		$('#updateModal').modal();
+		document.getElementById('amount').value = Amount;
+		document.getElementById('description').value = Description;
+		document.getElementById('txtid').value = Id;
+	}
 
-            $.ajax({
-                type: 'POST',
-                url: '/ReversalRecord/Update',
-                data: data,
-                success: function (data) {
-                    alert('Success');
-                    window.location.reload();
+	function Update() {
+		if (confirm('Are you sure?')) {
+			var desc = document.getElementById('description').value;
+			var amt = document.getElementById('amount').value;
+			var id = document.getElementById('txtid').value;
+			var data = {
+				Description: desc,
+				Amount: amt,
+				Id: id
+			}
 
-                },
-                error: function (data) {
-                    alert('Failed');
-                }
+			$.ajax({
+				type: 'POST',
+				url: '/ReversalRecord/Update',
+				data: data,
+				success: function (data) {
+					alert('Success');
+					window.location.reload();
+
+				},
+				error: function (data) {
+					alert('Failed');
+				}
 
 
 
-            });
-        }
-    }
-    function UpdateStatus(id) {
-        if (confirm('Are you sure?')) {
-            var status = document.getElementById('rstatus').value;
-            var data = {
-                Id: id,
-                Status: status
-            };
-            $.ajax({
-                type: 'POST',
-                url: '/ReversalRecord/UpdateStatus',
-                data: data,
-                success: function (data) {
-                    window.location.reload();
-                },
-                error: function (data) {
-                    alert('failed');
-                }
+			});
+		}
+	}
+	function UpdateStatus(id) {
+		if (confirm('Are you sure?')) {
+			var status = document.getElementById('rstatus').value;
+			var data = {
+				Id: id,
+				Status: status
+			};
+			$.ajax({
+				type: 'POST',
+				url: '/ReversalRecord/UpdateStatus',
+				data: data,
+				success: function (data) {
+					window.location.reload();
+				},
+				error: function (data) {
+					alert('failed');
+				}
 
-            });
-        }
-    }
-    function Set() {
-        var s = document.getElementById('select').value;
-        if (s == 'Pending') {
-            SetP();
-        }
-        else if (s == 'Approved') {
-            SetA();
-        }
-        else if (s == 'Denied') {
-            SetD();
-        }
-        else {
-            SetC();
-        }
-    }
+			});
+		}
+	}
+	function Set(s) {
+		//var s = document.getElementById('select').value;
+		if (s == 'Pending') {
+			SetP();
+		}
+		else if (s == 'Approved') {
+			SetA();
+		}
+		else if (s == 'Denied') {
+			SetD();
+		}
+		else {
+			SetC();
+		}
+	}
 </script>
 
 

@@ -376,7 +376,8 @@ namespace UResidence.Controllers
 
         public ActionResult SelectOT()
         {
-            return View();
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            return View(amenityList);
         }
 
         [HttpPost]

@@ -1,50 +1,49 @@
 ﻿@model List<UResidence.Amenity>
 @{
+	string pending = "pending";
+	string reserved = "reserved";
+	string cancelled = "cancelled";
 	Layout = "/Views/Layout/FinanceLayout.cshtml";
 }
+
+
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @using (Html.BeginForm("CalendarView", "Calendar", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 
 
 
-	
-<head>
-	<style type='text/css'>
-		.my-legend .legend-scale ul li {
-			font-size: 80%;
-			list-style: none;
-			margin-left: 0;
-			line-height: 18px;
-			margin-bottom: 2px;
-		}
 
-		.my-legend ul.legend-labels li span {
-			display: block;
-			float: left;
-			height: 16px;
-			width: 30px;
-			margin-right: 5px;
-			margin-left: 0;
-			border: 1px solid #999;
-		}
-	</style>
-</head>
+	<head>
+		<style type='text/css'>
+			.my-legend .legend-scale ul li {
+				font-size: 80%;
+				list-style: none;
+				margin-left: 0;
+				line-height: 18px;
+				margin-bottom: 2px;
+			}
+
+			.my-legend ul.legend-labels li span {
+				display: block;
+				float: left;
+				height: 16px;
+				width: 30px;
+				margin-right: 5px;
+				margin-left: 0;
+				border: 1px solid #999;
+			}
+		</style>
+	</head>
 	<br />
 	<br />
 
 
 
 	<body>
-		<center>
-			<div class="container">
-
-				<label>Sort by :</label><select class="form-control" id="ssort" onchange="Sort()">
-					<option>Pending</option>
-					<option>Reserved</option>
-				</select>
-			</div>
-		</center>
 		<br />
 		<br />
 		<div class="container">
@@ -244,32 +243,43 @@
 			</div>
 		</div>
 
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="pull-right">
+					<div class="btn-group">
 
+						<button type="button" class="btn btn-success btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
+						<button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
+						<button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
+						@*<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>*@
 
-		<div id="calendar" class="container">
-			<br />
-			<label><b>Legends</b></label>
-			@foreach (Amenity amn in Model)
-			{
-			<div class='my-legend'>
-				<div class='legend-scale'>
-					<ul class='legend-labels'>
-						<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-					</ul>
+					</div>
 				</div>
+				<br />
+
+
+				<div id="calendar" class="container">
+					<br />
+
+					<label><b>Legends</b></label>
+					@foreach (Amenity amn in Model)
+					{
+						<div class='my-legend'>
+							<div class='legend-scale'>
+								<ul class='legend-labels'>
+									<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+								</ul>
+							</div>
+						</div>
+					}
+				</div>
+
 			</div>
-			}
 		</div>
 
 	</body>
-	@*foreach (Amenity amn in Model)
-		{
-			<tr scope="row">
-				<p><font color="@amn.Color">@amn.AmenityName</font></p>
-			</tr>
-		}*@
-<br />
-	
+	<br />
+
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 }
@@ -457,7 +467,7 @@
             }
 
             $(document).ready(function () {
-                var status = document.getElementById('ssort').value;
+                var status ='Pending';
                 var data = {
                     Status:status
                 }
@@ -508,10 +518,12 @@
 
 
 
-            function RefreshCalendar() {
-                var status = document.getElementById('ssort').value
+            function RefreshCalendar(stat) {
+                if (stat == null) {
+                    stat = "Pending";
+                }
                 var data = {
-                    Status:status
+                    Status:stat
                 }
                     events = [];
                     $.ajax({
@@ -765,9 +777,9 @@
 								$description.append($('<p/>').html('<b>Child: </b>' + v.Child));
 								$('#viewDetailsModal #sDetails').empty().html($description);
 							})
-				
+
 						},
-						
+
 						error: function (error) {
 							alert('Failed to retrieve the record');
 						}

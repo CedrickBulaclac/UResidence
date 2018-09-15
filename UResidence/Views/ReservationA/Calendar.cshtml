@@ -86,6 +86,7 @@
 		margin-right: 5px;
 		margin-left: 0;
 		border: 1px solid #999;
+	}
 </style>
 
 
@@ -114,16 +115,22 @@
 
 
 <br />
+
+<div id="calendar" class="container">
+	<br />
+
+	<label><b>Legends</b></label>
 	@foreach (Amenity amn in Model)
 	{
-<div class='my-legend'>
-	<div class='legend-scale'>
-		<ul class='legend-labels'>
-			<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-		</ul>
-	</div>
-</div>
+		<div class='my-legend'>
+			<div class='legend-scale'>
+				<ul class='legend-labels'>
+					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+				</ul>
+			</div>
+		</div>
 	}
+</div>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 

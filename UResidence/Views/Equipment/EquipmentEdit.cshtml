@@ -1,8 +1,10 @@
 ﻿@model UResidence.Equipment
-@{ 
-    Layout = "/Views/Layout/RegistrationLayout.cshtml";
+@{
+	Layout = "/Views/Layout/RegistrationLayout.cshtml";
 }
-
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <html>
 
@@ -53,6 +55,10 @@
 			.button:hover {
 				background-color: #46bc8b;
 			}
+
+		.containerAdmin {
+			padding-left: 150px;
+		}
 	</style>
 </head>
 
@@ -71,10 +77,10 @@
 		@Html.AntiForgeryToken()
 
 
+		<div class="containerAdmin">
 
 
 
-		<div class="form-horizontal">
 			<h4>Equipment</h4>
 			<div class="btn-link">
 
@@ -179,7 +185,7 @@
 			<div class="row">
 				<div class="col-25">
 
-					<label for="Rate">Image :</label>
+					<label for="Image">Image :</label>
 
 				</div>
 
@@ -218,10 +224,10 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<input type="file" id="image" name="image" />
+							<input type="file" id="imageequip" name="imageequip" />
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate"  onclick="UpdateImage(@Model.Id)">Update</button>
+							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)">Update</button>
 							<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -275,18 +281,18 @@
 			}
 		}
 	}
+	</div>
 </body>
 </html>
 
 
 <script>
 	function UpdateImage(id) {
-		
+
 		var Id = id;
 
-		var file = $("#image").get(0).files;
+		var file = $("#imageequip").get(0).files;
 		var data = new FormData();
-
 		data.append("Image", file[0]);
 		data.append("Id", Id);
 

@@ -31,74 +31,334 @@
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 
 <head>
 	<title>Palmdale Heights</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	
+	@*For dropdown*@
+
+
+
+
 	<style>
+
+		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+		.row.content {
+			height: 1000px
+		}
+
+		/* Set gray background color and 100% height */
+		.sidenav {
+			background-color: #c8e6c9;
+			height: 100%;
+			/*text-emphasis-color: aliceblue;*/
+		}
+
+		/* On small screens, set height to 'auto' for the grid */
+		@@media screen and (max-width: 767px) {
+			.row.content {
+				height: auto;
+			}
+		}
+
 		.navbar {
-			background: #1ed88b;
+			background: #37474F;
 			padding: 0.5em 2em;
 			position: absolute;
 			top: 0;
 			width: 100%;
+			padding-bottom: 10px;
+		}
+
+
+		.amenity, .equipment, .admin, .tenant, .owner, .maintenance {
+			margin-top: 70px;
+			margin-bottom: 70px;
+		}
+
+		.counter-count {
+			font-size: 18px;
+			background-color: #2e7d32;
+			border-radius: 50%;
+			position: relative;
+			color: #ffffff;
+			text-align: center;
+			line-height: 92px;
+			width: 92px;
+			height: 92px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			display: inline-block;
+		}
+
+		.amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
+			font-size: 24px;
+			color: #1b5e20;
+			line-height: 34px;
+		}
+
+
+
+		.modal-backdrop {
+			z-index: 1 !important;
+		}
+
+
+		.regcontainer {
+			padding-left: 150px;
 		}
 	</style>
 </head>
 <body>
-	<div class="navbar"> 		</div>
-	@*<div class="navbar-collapse collapse" style="background-color:#333">
+	<div class="navbar">
+		<img src="~/Content/logo.png" width="190" height="85" />
 
-		</div>*@
-
-	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
-
-
-		<button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
-				onclick="w3_close()">
-			Close &times;
-		</button>
-
-		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-		</a>
-
-
-		<font color="white">
-			<a href="~/Amenity/AmenityView" class="w3-bar-item w3-button  w3-hover-green">Amenity</a>
-			<a href="~/Equipment/EquipmentView" class="w3-bar-item w3-button  w3-hover-green">Equipment</a>
-			<a href="~/Admin/AdminView" class="w3-bar-item w3-button  w3-hover-green">Admin</a>
-			<a href="~/Tenant/TenantView" class="w3-bar-item w3-button  w3-hover-green">Tenant</a>
-			<a href="~/Owner/OwnerView" class="w3-bar-item w3-button  w3-hover-green">Owner</a>
-			<a href="~/AmenityMaintenance/AmenityMaintenanceView" class="w3-bar-item w3-button  w3-hover-green">Maintenance</a>
-		</font>
-	</div>
-
-
-	<div id="main">
-
-		<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.4%; ">
-
-			<button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="45" />
-
-			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>
-			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("AdminAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
-			<a class="w3-bar-item w3-button w3-right" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
+		@*<nav class=" fill">*@
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
 		</div>
 
 	</div>
-	<div class="container body-content">
-		@RenderBody()
+
+	<div class="collapse navbar-collapse" id="myNavbar">
+
+		<center>
+			@*<ul class="nav navbar-nav ">*@
+			<font color="white">
+				<ul class="nav navbar-nav navbar-right">
+
+					<li > <a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span>Home</a> </li></li>
+
+					<li class="dropdown " >
+						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+
+						<ul class="dropdown-menu">
+
+
+
+							<li>
+								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+								</a>
+							</li>
+
+
+							<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+
+							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+
+						</ul>
+
+					</li>
+
+
+
+				</ul>
+			</font>
+		</center>
+
+	</div>
+
+
+
+
+
+
+
+
+	<div class="col-sm-12">
+
+
+		<center><h2>Registration Management</h2> </center>
 		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-		</footer>
+	</div>
+
+
+
+	<br />
+
+
+
+
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<div class="regcontainer">
+		<div class="container">
+			<div class="row ">
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-building-o fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"> </p>
+									<p class="announcement-text">Amenity</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Amenity/AmenityView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-user-plus fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"></p>
+									<p class="announcement-text"> Admin</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Admin/AdminView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-cube fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"></p>
+									<p class="announcement-text">Equipment</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Equipment/EquipmentView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-id-card-o fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"></p>
+									<p class="announcement-text"> Tenant </p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Tenant/TenantView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-id-card fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"> </p>
+									<p class="announcement-text">Owner</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Owner/OwnerView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@RenderBody()
+	<hr />
+	<footer>
+		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+	</footer>
 	</div>
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
@@ -116,7 +376,7 @@
 			document.getElementById("openNav").style.display = "inline-block";
 		}
 
-		
+
 			function UpdateProfilePic() {
 			var id = @Session["UID"];
 
@@ -156,6 +416,42 @@
 			$('#updateprofilepicture').modal();
 		}
 		);
+
+
+
+		$('.counter-count').each(function () {
+			$(this).prop('Counter', 0).animate({
+				Counter: $(this).text()
+			}, {
+					duration: 5000,
+					easing: 'swing',
+					step: function (now) {
+						$(this).text(Math.ceil(now));
+					}
+				});
+		});
+
+
+		$('.counter-count').each(function () {
+			$(this).prop('Counter', 0).animate({
+				Counter: $(this).text()
+			}, {
+					duration: 5000,
+					easing: 'swing',
+					step: function (now) {
+						$(this).text(Math.ceil(now));
+					}
+				});
+		});
+
+		$('.btn-side').on("click", function () {
+			var page = $(this).attr("href");
+			$("#out").load(page);
+			return false;
+
+		});
+
+
 	</script>
 
 

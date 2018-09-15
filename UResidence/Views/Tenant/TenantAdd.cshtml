@@ -5,7 +5,9 @@
 	Layout = "/Views/Layout/RegistrationLayout.cshtml";
 }
 
-
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <html>
 
@@ -56,6 +58,11 @@
 			.button:hover {
 				background-color: #46bc8b;
 			}
+
+
+		.containerAdmin {
+			padding-left: 150px;
+		}
 	</style>
 </head>
 
@@ -63,247 +70,247 @@
 <body>
 
 
+	<div class="containerAdmin">
 
+		<h2>New Tenant</h2>
 
-	<h2>New Tenant</h2>
-
-	@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post))
-	{
-		@Html.AntiForgeryToken()
-	<div class="form-horizontal">
-
-		<hr />
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="First Name">First Name :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Middle Name">Middle Name :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Last Name">Last Name :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Birth Date">Birthdate :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Cel">Cellphone no. :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Email">Email Address :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Bldg no">Building no. :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Unit no">Unit no. :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-				@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Lease Start">Lease Start :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-25">
-
-				<label for="Bldg no">Lease End :</label>
-
-			</div>
-
-			<div class="col-75">
-				@Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
-
-
-			</div>
-		</div>
-
-
-		<div class="row">
-			<div class="col-75">
-				<button type="button" class="btn btn-info" id="btnInsertImage" name="btnInsertImage" data-dismiss="modal">Upload Moving In and Moving Out</button>
-			</div>
-		</div>
-		<br />
-		<br />
-
-
-		
-
-		<input id="btnSave" type="submit" value="Save" class="button" />
-		<a href="TenantView" class="button" value="Cancel">Cancel</a>
-	</div>
-
-		<div id="aerror" class="alert alert-danger collapse">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			<strong>Error!</strong> There is a problem submitting your form
-		</div>
-		<div id="asuccess" class="alert alert-success collapse">
-			<strong>Success!</strong> You have successfully added a Tenant
-		</div>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-		</script>
-
-
-		if (ViewBag.AddMessage != null)
+		@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post))
 		{
-			if (ViewBag.AddMessage == true)
+			@Html.AntiForgeryToken()
+			<div class="form-horizontal">
+
+				<hr />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="First Name">First Name :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Middle Name">Middle Name :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Last Name">Last Name :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Birth Date">Birthdate :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Cel">Cellphone no. :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Email">Email Address :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Bldg no">Building no. :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Unit no">Unit no. :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+						@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Lease Start">Lease Start :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="Bldg no">Lease End :</label>
+
+					</div>
+
+					<div class="col-75">
+						@Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
+
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-75">
+						<button type="button" class="btn btn-info" id="btnInsertImage" name="btnInsertImage" data-dismiss="modal">Upload Moving In and Moving Out</button>
+					</div>
+				</div>
+				<br />
+				<br />
+
+
+
+
+				<input id="btnSave" type="submit" value="Save" class="button" />
+				<a href="TenantView" class="button" value="Cancel">Cancel</a>
+			</div>
+
+			<div id="aerror" class="alert alert-danger collapse">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<strong>Error!</strong> There is a problem submitting your form
+			</div>
+			<div id="asuccess" class="alert alert-success collapse">
+				<strong>Success!</strong> You have successfully added a Tenant
+			</div>
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+
+
+			if (ViewBag.AddMessage != null)
 			{
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-				</script>
-				<script type="text/javascript">
-					$(document).ready(function () {
+				if (ViewBag.AddMessage == true)
+				{
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+					</script>
+					<script type="text/javascript">
+						$(document).ready(function () {
 
-						$('#asuccess').show('fade');
+							$('#asuccess').show('fade');
 
-						setTimeout(function () {
-							$('#asuccess').hide('fade');
-						}, 2000);
-
-
-					});
-				</script>
-
-			}
-
-			else
-			{
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-				</script>
-				<script type="text/javascript">
-					$(document).ready(function () {
-
-						$('#aerror').show('fade');
-
-						setTimeout(function () {
-							$('#aerror').hide('fade');
-						}, 2000);
+							setTimeout(function () {
+								$('#asuccess').hide('fade');
+							}, 2000);
 
 
-					});
+						});
+					</script>
 
-				</script>
+				}
+
+				else
+				{
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+					</script>
+					<script type="text/javascript">
+						$(document).ready(function () {
+
+							$('#aerror').show('fade');
+
+							setTimeout(function () {
+								$('#aerror').hide('fade');
+							}, 2000);
+
+
+						});
+
+					</script>
+				}
+
 			}
 
 		}
-
-	}
-
+	</div>
 </body>
 </html>
 

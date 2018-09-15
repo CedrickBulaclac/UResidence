@@ -11,6 +11,7 @@ namespace UResidence.Controllers
 
         public JsonResult GetEvents()
         {
+            string status = "Pending";
             List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

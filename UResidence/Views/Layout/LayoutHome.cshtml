@@ -28,7 +28,7 @@
 
 
 
-<div class="container">
+@*<div class="container">
     <div class="modal fade" id="himodal" role="dialog" style="height:auto;overflow-y:auto">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <!DOCTYPE html>
 <html>
@@ -59,57 +59,58 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 
 <head>
-    <style>
-        .dropdown-menu {
-            background: #2a2a2a;
-        }
+	<style>
+		.dropdown-menu {
+			background: #2a2a2a;
+		}
 
-        .navbar {
-            padding: 0.5em 2em;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            background: #2a2a2a;
-        }
+		.navbar {
+			padding: 0.5em 2em;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			background: #2a2a2a;
+		}
 
-        /* Underline From Center */
-        .hvr-underline-from-center {
-            display: inline-block;
-            vertical-align: middle;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -moz-osx-font-smoothing: grayscale;
-            position: relative;
-            overflow: hidden;
-        }
+		/* Underline From Center */
+		.hvr-underline-from-center {
+			display: inline-block;
+			vertical-align: middle;
+			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+			box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			-moz-osx-font-smoothing: grayscale;
+			position: relative;
+			overflow: hidden;
+		}
 
-            .hvr-underline-from-center:before {
-                content: "";
-                position: absolute;
-                z-index: -1;
-                left: 50%;
-                right: 50%;
-                bottom: 0;
-                background: #20d13d;
-                height: 4px;
-                -webkit-transition-property: left, right;
-                transition-property: left, right;
-                -webkit-transition-duration: 0.3s;
-                transition-duration: 0.3s;
-                -webkit-transition-timing-function: ease-out;
-                transition-timing-function: ease-out;
-            }
+			.hvr-underline-from-center:before {
+				content: "";
+				position: absolute;
+				z-index: -1;
+				left: 50%;
+				right: 50%;
+				bottom: 0;
+				background: #20d13d;
+				height: 4px;
+				-webkit-transition-property: left, right;
+				transition-property: left, right;
+				-webkit-transition-duration: 0.3s;
+				transition-duration: 0.3s;
+				-webkit-transition-timing-function: ease-out;
+				transition-timing-function: ease-out;
+			}
 
-            .hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
-                left: 0;
-                right: 0;
-            }
+			.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+				left: 0;
+				right: 0;
+			}
 
 		.noti-content {
 			position: fixed;
@@ -159,53 +160,10 @@
 			position: relative;
 			top: -3px;
 		}
-    </style>
+	</style>
 </head>
 
 <body>
-	
-
-	<!--SIDEBAR TOH-->
-	@*<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
-
-		<button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
-				onclick="w3_close()">
-			Close &times;
-		</button>*@
-
-	<!--PROFILE PIC TOH-->
-	@*<br />
-			<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-				<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-
-			</a>
-			<hr />
-
-			<font color="white" ; size="4">
-				<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-user" style="margin-left:20px;"></i> &nbsp; @Session["Fullname"].ToString() </p>
-				<br />
-				<p style="font-family:Arial, Helvetica, sans-serif;"> <i class="glyphicon glyphicon-gift" style="margin-left:20px;"></i> &nbsp;  @Session["BDAY"].ToString() </p>
-				<br />
-				<p style="font-family:Arial, Helvetica, sans-serif;"> <i class=" glyphicon glyphicon-tag" style="margin-left:20px"></i> &nbsp;   @Session["UNO"].ToString() </p>
-			</font>
-			<hr />
-
-
-
-			<font color="white" ; size="4">	<a href="~/Reserve/Home" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none; "> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-home"> </i> &nbsp; &nbsp; Home </p> </a> </font>
-			<br />
-			<font color="white" ; size="4">	<a href="~/Reserve/Amenity" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"> <i class="glyphicon glyphicon-pencil"></i> &nbsp; &nbsp; Reservation </p> </a> </font>
-			<br />
-			<font color="white" ; size="4"> <a href="~/Billing/BillingView" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-ruble"></i> &nbsp; &nbsp; Bills and Payment</p></a></font>
-			<br />
-			<font color="white" ; size="4"> <a href="~/Reserve/CalendarViewOT" class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none;text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-calendar"></i> &nbsp; &nbsp; Schedule</p></a></font>
-			<br />
-			<font color="white" ; size="4"> <a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;">  <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-user" style="font-size:20px;"> </i> &nbsp; &nbsp; Account Settings</p></a></font>
-			<br />
-			<font color="white" ; size="4"> <a href=@Url.Action("Index","Login") class="w3-bar-item w3-button w3-hover-green" style="text-decoration:none; text-decoration-color:none;"> <p style="font-family:Arial, Helvetica, sans-serif"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i> &nbsp; &nbsp;  Logout </p> </a></font>
-
-
-		</div>*@
 
 	<!--NAVBAR TOH-->
 
@@ -219,126 +177,66 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-
-				@*<span id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</span> <img src="~/Content/logo.png" width="150" height="50" />*@
-
-				@*<a class="navbar-brand" href="#">WebSiteName</a>*@
 				<center><img src="~/Content/logo.png" width="190" height="70" /> </center>
-
-
 			</div>
 			<br />
 			<div class="collapse navbar-collapse" id="myNavbar">
 
+				<center>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
+						<li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
+						<li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
+						<li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+						<li class="dropdown">
 
-						<ul class="dropdown-menu">
+							<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span class="count">&nbsp;</span> <span class="caret"></span> </a>
 
-							<li>
-								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+							<ul class="dropdown-menu" id="hello"></ul>
 
-								</a>
-							</li>
-
-
-
-
-							<li><a href="~/Reserve/CalendarViewOT" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-calendar"> Schedule</span></a> </li>
-
-							<li><a href="~/Billing/BillingView" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
-
-							<li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-cog">Account Settings</span></a> </li>
-
-							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
-						</ul>
-
-					</li>
+						</li>
 
 
 
-				</ul>
+						<li class="dropdown">
+							<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
 
-                <ul class="nav navbar-nav navbar-right">
+							<ul class="dropdown-menu">
 
-                    <li>
-                        <span class="noti glyphicon glyphicon-bell" id="notifBell"><span class="count">&nbsp;</span></span>
-                    </li>
-                    <div class="noti-content">
-                        <div class="noti-top-arrow"></div>
-                        <ul id="notiContent"></ul>
-                    </div>
-                    <li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
-                    <li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
-                    <li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
-                    <li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
+								<li>
+									<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+										<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+									</a>
+								</li>
 
 
 
-                </ul>
+
+								<li><a href="~/Reserve/CalendarViewOT" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-calendar"> Schedule</span></a> </li>
+
+								<li><a href="~/Billing/BillingView" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
+
+
+
+
+								<li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-cog">Account Settings</span></a> </li>
+
+								<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+							</ul>
+
+						</li>
+					</ul>
+				</center>
+
+
 
 			</div>
 		</div>
 	</nav>
 
-
-	@*<div class="container">
-				<h3>Collapsible Navbar</h3>
-				<p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
-				<p>Only when the button is clicked, the navigation bar will be displayed.</p>
-			</div>
-		</div>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	@*<div id="main">
-
-			<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.3%; ">
-				<span id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</span> <img src="~/Content/logo.png" width="150" height="50" />
-				<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-				<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;">Contact Us</a>
-				<a class="w3-bar-item w3-button w3-right w3-hover-green" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;">About Us</a>
-
-			</div>
-
-
-
-
-
-
-		</div>*@
-
-
-
-
-
-	<!-- Footer -->
-	@*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white">*@
 	@RenderBody()
-	@*<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-		</footer>*@
-
-
-
-
 
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
@@ -350,9 +248,10 @@
 		var counter=0;
 		$('#notifBell').click(function () {
             $('span.count', this).html('&nbsp;');
-            updateVisit();
+			updateVisit();
+			$('#hello').empty();
 			$('.noti-content').hide();
-			$('#himodal').modal();
+			//$('#himodal').modal();
 		})
 
 		function getNotif() {
@@ -360,7 +259,7 @@
                 type:'get',
                 url: '/Reserve/GetCount',
                 success: function (data) {
-                    updateNotificationCount(data);                 
+                    updateNotificationCount(data);
                 },
                 error: function (data) {
 
@@ -370,7 +269,7 @@
 		}
 
 		function updateNotif() {
-			$('#hello').empty();
+		
 			$('#hello').append($('<li>Loading...</li>'));
 
 			$.ajax({
@@ -378,17 +277,15 @@
 				url: '/Reserve/GetNotificationContacts',
 				success: function (response) {
 
-				
-					$('#hello').empty();
 					if (response.length == 0) {
 						$('#hello').append($('<li>No data available</li>'));
-					}					
-					$.each(response, function (index, value) {											
-						$('#hello').append($('<li>New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
+					}
+					$.each(response, function (index, value) {
+						$('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
                     });
-                  
+
                     getNotif();
-                   
+
 				},
 				error: function (error) {
 					console.log(error);
@@ -404,11 +301,11 @@
                     if (response.count == 0) {
                         $('#hello').append($('<li>No data available</li>'));
                     }
-                  
-                    $.each(response, function (index, value) {                      
-                        $('#hello').append($('<li>New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
+
+                    $.each(response, function (index, value) {
+						$('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
                     });
-                  
+
                     getNotif();
                 },
                 error: function (data) {
@@ -419,7 +316,7 @@
 		function updateNotificationCount(count) {
 			if (count == 0) {
                 $('span.count').html('&nbsp;');
-               
+
 			}
 			else {
 				$('span.count').html(count);
@@ -478,6 +375,159 @@
 			$('#updateprofilepicture').modal();
 		}
 		);
+
+
+
+
+		var myVar = setInterval(updateNotif, 3000);
+		var list =0;
+		var count=0;
+		var counter=0;
+		$('#notifBell').click(function () {
+            //$('span.count', this).html('&nbsp;');
+            updateVisit();
+			$('.noti-content').hide();
+			//$('#himodal').modal();
+		})
+
+		function getNotif() {
+            $.ajax({
+                type:'get',
+                url: '/Reserve/GetCount',
+                success: function (data) {
+                    updateNotificationCount(data);
+                },
+                error: function (data) {
+
+                }
+            });
+
+		}
+
+		function updateNotif() {
+			$('#hello').empty();
+			$('#hello').append($('<li>Loading...</li>'));
+
+			$.ajax({
+				type: 'GET',
+				url: '/Reserve/GetNotificationContacts',
+				success: function (response) {
+
+
+					$('#hello').empty();
+					if (response.length == 0) {
+                        $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+					}
+                    $.each(response, function (index, value) {
+                        if (value.Visit = 0) {
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+
+                        }
+                        else {
+                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+ '<p><hR></li>'));
+
+                        }
+                    });
+
+                    getNotif();
+
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			})
+		}
+        function updateVisit() {
+            $('#hello').empty();
+            $.ajax({
+                type: 'POST',
+                url: '/Reserve/UpdateNotif',
+                success: function (response) {
+                    if (response.count == 0) {
+                        $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+                    }
+
+                    $.each(response, function (index, value) {
+                        if (value.Visit = 0) {
+                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : ' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+'</p><hr></li>'));
+
+                        }
+                        else {
+                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + value.Date + '<p><hR></li>'));
+
+                        }
+                    });
+
+                    getNotif();
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+		function updateNotificationCount(count) {
+			if (count == 0) {
+                $('span.count').html('&nbsp;');
+
+			}
+			else {
+				$('span.count').html(count);
+			}
+		}
+
+		function w3_open() {
+			document.getElementById("main").style.marginLeft = "25%";
+			document.getElementById("mySidebar").style.width = "25%";
+			document.getElementById("mySidebar").style.display = "block";
+			document.getElementById("openNav").style.display = 'none';
+		}
+		function w3_close() {
+			document.getElementById("main").style.marginLeft = "0%";
+			document.getElementById("mySidebar").style.display = "none";
+			document.getElementById("openNav").style.display = "inline-block";
+		}
+
+		function UpdateProfilePic() {
+			var id = @Session["UID"];
+
+			var file = $("#image").get(0).files;
+			var data = new FormData();
+			data.append("Image", file[0]);
+			data.append("Id", id);
+			$.ajax({
+				type: "POST",
+				url: "/owner/UpdateImage/",
+				data: data,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if (data == true) {
+						alert('Success');
+						window.location.reload();
+						window.location.href = window.location.href + "?rnd=" + Math.random()
+
+					}
+				},
+				error: function (error) {
+					alert(error);
+				}
+			});
+		}
+
+
+		$('#btnCloseImageProfile').click(function () {
+
+			$('#updateprofilepicture').hide();
+		}
+		);
+
+
+		$('#OpenModal').click(function () {
+
+			$('#updateprofilepicture').modal();
+		}
+		);
+
 
 
 	</script>

@@ -4,8 +4,13 @@
 	Layout = "/Views/Layout/RegistrationLayout.cshtml";
 	ViewBag.Title = "EquipmentView";
 }
-<h2>Equipment</h2>
-
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<center>
+	<h2>Equipment</h2>
+</center>
+	\
 @*Modal for Viewing Image Equipment*@
 <div class="container">
 	<div class="modal fade" id="equipmentModal" role="dialog">
@@ -31,7 +36,7 @@
 {
 	@Html.AntiForgeryToken()
 	<hr />
-	<div class="dl-horizontal">
+	<div class="container">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -78,8 +83,8 @@
 							@Html.DisplayFor(model => e.Description)
 						</td>
 						<td>
-							<a class="btn btn-link" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i>EDIT</a>
-							<a class="btn" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> DELETE</a>
+							<a class="btn btn-primary" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+							<a class="btn btn-danger" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
 
 						</td>
 					</tr>
@@ -91,7 +96,7 @@
 
 	<div class="btn-link">
 
-		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" class="btn btn-success" /></a>
+		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" style="margin-left:150px;" class="btn btn-success" /></a>
 
 	</div>
 

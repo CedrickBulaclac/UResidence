@@ -42,63 +42,170 @@
 <head>
 	<title>Palmdale Heights</title>
 	<style>
+		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+		.row.content {
+			height: 1000px
+		}
+
+		/* Set gray background color and 100% height */
+		.sidenav {
+			background-color: #c8e6c9;
+			height: 100%;
+			/*text-emphasis-color: aliceblue;*/
+		}
+
+		/* On small screens, set height to 'auto' for the grid */
+		@@media screen and (max-width: 767px) {
+			.row.content {
+				height: auto;
+			}
+		}
+
 		.navbar {
-			background: #1ed88b;
+			background: #37474F;
 			padding: 0.5em 2em;
 			position: absolute;
 			top: 0;
 			width: 100%;
+			padding-bottom: 10px;
+		}
+
+
+		.amenity, .equipment, .admin, .tenant, .owner, .maintenance {
+			margin-top: 70px;
+			margin-bottom: 70px;
+		}
+
+		.counter-count {
+			font-size: 18px;
+			background-color: #2e7d32;
+			border-radius: 50%;
+			position: relative;
+			color: #ffffff;
+			text-align: center;
+			line-height: 92px;
+			width: 92px;
+			height: 92px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			display: inline-block;
+		}
+
+		.amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
+			font-size: 24px;
+			color: #1b5e20;
+			line-height: 34px;
+		}
+
+
+
+		/*.bg.well {
+			background-color: #c8e6c9;
+			font-family: FZShuTi;
+		}*/
+
+		.regcontainer {
+			/*padding-left: 480px;*/
+			margin-left: 400px;
+		}
+
+		.regcontainer2 {
+			padding-left: 50px;
 		}
 	</style>
 </head>
+
+
 <body>
-	<div class="navbar"> 		</div>
-	@*<div class="navbar-collapse collapse" style="background-color:#333">
-
-		</div>*@
-
-	<div class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-dark-gray" style="display:none; top:0; position:fixed; " id="mySidebar">
 
 
-		<button class="w3-bar-item w3-button w3-large w3-right w3-hover-green"
-				onclick="w3_close()">
-			Close &times;
-		</button>
-
-		<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-			<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-		</a>
+	<div class="col-sm-12">
 
 
-		<font color="white">
-			<a href="~/ReservationRecord/Record" class="w3-bar-item w3-button  w3-hover-green">Reservation List</a>
-			<a href="~/ReversalRecord/Records" class="w3-bar-item w3-button  w3-hover-green">Reversal List</a>
-		</font>
-	</div>
-
-
-	<div id="main">
-
-		<div class="w3-dark-gray w3-wide w3-padding w3-card" style="height:8.4%; ">
-
-			<button id="openNav" class="w3-button w3-dark-gray w3-xlarge w3-hover-green" onclick="w3_open()">&#9776;</button> <img src="~/Content/logo.png" width="150" height="45" />
-
-			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("Index","Login")"><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log-Out</a>
-			<a class="w3-bar-item w3-button w3-right" href="@Url.Action("AdminAccountSetting","AccountSetting")"><i class="glyphicon glyphicon-user" style="font-size:20px"></i>Account Setting</a>
-			<a class="w3-bar-item w3-button w3-right" href="#"><i class="glyphicon glyphicon-bell" style="font-size:20px"></i></a>
-		</div>
-
-	</div>
-	<div class="container body-content">
-		@RenderBody()
+		<center><h2>Reservation Management</h2> </center>
 		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-		</footer>
 	</div>
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+
+
+
+	<br />
+
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<div class="regcontainer">
+		<div class="container">
+			<div class="row ">
+
+
+				<div class="col-lg-2">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-calendar-plus-o fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"> </p>
+									<p class="announcement-text">Reservation List</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/ReservationRecord/Record">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+				<div class="regcontainer2">
+					<div class="col-lg-2">
+						<div class="panel panel-success ">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-6">
+										<i class="fa fa-calendar-check-o fa-5x"></i>
+									</div>
+									<div class="col-xs-6 text-right">
+										<p class="announcement-heading"></p>
+										<p class="announcement-text"> Reversal List</p>
+									</div>
+								</div>
+							</div>
+							<a href="~/ReversalRecord/Records">
+								<div class="panel-footer announcement-bottom">
+									<div class="row">
+										<div class="col-xs-6">
+											Open
+										</div>
+										<div class="col-xs-6 text-right">
+											<i class="fa fa-arrow-circle-right"></i>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<script>
 		function w3_open() {
 			document.getElementById("main").style.marginLeft = "25%";
@@ -153,6 +260,7 @@
 		}
 		);
 	</script>
+
 
 
 </body>

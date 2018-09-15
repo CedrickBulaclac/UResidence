@@ -47,31 +47,43 @@ namespace UResidence.Controllers
                     }
         }
 
-        public JsonResult UpdateImage(Equipment equipment)
+
+        public JsonResult UpdateImage(Equipment eqp)
         {
-            var image = equipment.Image;
+            var image = eqp.Image;
             bool status = false;
-            int id = equipment.Id;
+            int id = eqp.Id;
             if (image != null)
             {
                 if (image.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
                     string imagefileName = Path.GetFileName(image.FileName);
                     string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
-                    string folderpath1 = "~/Content/EquipmentImages/" + imagefileName;
+                    string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        System.IO.File.Delete(folderPath);
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/EquipmentImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
                         image.SaveAs(folderPath);
                     }
                     else
                     {
+                        string folderpath1 = "~/Content/EquipmentImages/" + fileName + extension;
+                        finalpath = folderpath1;
                         image.SaveAs(folderPath);
                     }
+
                     Equipment e = new Equipment
                     {
                         Id = id,
-                        Url = folderpath1
+                        Url = finalpath
                     };
 
 

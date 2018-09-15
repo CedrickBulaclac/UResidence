@@ -1,8 +1,16 @@
-﻿@{
+﻿
+@{
 	ViewBag.Title = "Choose_Date";
-    Layout = "~/Views/Layout/ReservationLayout.cshtml";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/LayoutHome.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
 }
-@using (Html.BeginForm("Choose_Date", "ReservationA", FormMethod.Post))
+@using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 
@@ -12,66 +20,100 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
 		<style>
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #09442c;
-				border: none;
-				border-radius: 5px;
-				float:right;
-				text-decoration:none;
-				text-decoration-color:none;
 
-				
-			}
+				/*body {
+				background: url(../../Content/Log/loginbg.jpg) no-repeat center center fixed;
 
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}*/
 
+				body {
+					background: url(../../Content/HomeImages/bg3.jpg) no-repeat center center fixed;
+					-webkit-background-size: cover;
+					-moz-background-size: cover;
+					-o-background-size: cover;
+					background-size: cover;
+				}
 
-				.button:hover {
-					background-color: #0e6742;
+				.button {
+					padding: 15px 25px;
+					font-size: 15px;
+					text-align: center;
+					cursor: pointer;
+					outline: none;
+					color: #fff;
+					background-color: #09442c;
+					border: none;
+					border-radius: 5px;
+					float: right;
+					text-decoration: none;
+					text-decoration-color: none;
 				}
 
 
-			div.card {
-				width: 700px;
-				height: 450px;
-				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-				padding: 10px;
-			}
+
+					.button:hover {
+						background-color: #0e6742;
+					}
+
+
+				div.card {
+					width: 700px;
+					height: 450px;
+					box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+					padding: 10px;
+				}
+
+				/*.card header {
+				background-color: #ef5350;*/
+				/*#81c784;*/
+				/*}
+
+			.card-footer {
+				background-color: #ef5350;*/
+				/*#81c784;*/
+				/*}
+
+			.card-body {
+				background-color: #ffcdd2;*/
+				/*#c8e6c9;*/
+				/*}*/
+
 		</style>
 
 
 
 
 	</head>
-	<body> 
-	
-		<br/>
+	<body>
+
+		<br />
+		<br />
+
 		<center>
 			<!--Progress bar start-->
 			<div>
-				<div class="progress" style="width:860px;height:40px;">
+				<div class="progress" style="width:1400px;height:45px;">
 					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
 						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-						<a href="@Url.Action("Amenity","ReservationA") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+						<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
 					</div>
 
 
 					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
 						 aria-valuemin="0" aria-valuemax="100">
-						<a href="@Url.Action("Calendar","ReservationA")"style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+						<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
 					</div>
 
 
 					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">			
+						 aria-valuemin="0" aria-valuemax="100">
 						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
 					</div>
 
@@ -87,26 +129,154 @@
 
 				<!--Progress bar end-->
 			</div>
-			</center>
-
-	<div id="main">
+		</center>
 
 
-		<div class="w3-container w3-padding-64 w3-theme-l5" id="cdate">
-			<div class="w3-row">
-				<div class="w3-col m5">
-					<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>
+		<!-- Header -->
+
+		<div id="main">
+
+			@*<div class="container">
+					<h2>Card Header and Footer</h2>
+					<div class="card">
+						<div class="card-header">Note</div>
+						<div class="card-body">Content</div>
+						<div class="card-footer">Palmdale Condiminium Management</div>
+					</div>
+				</div>*@
+
+
+			<header class="w3-display-container w3-content" style="max-width:1500px; ">
+
+				<center>
+					<p> <strong> REMINDERS </strong></p>
+					<p> <i class="glyphicon glyphicon-exclamation-sign"></i> Kindly settle your full payment within 24 hours.</p>
+					<p> <i class="glyphicon glyphicon-erase"></i> Failure to pay in full will not be considered as Reserved.</p>
+					<p> <i class="glyphicon glyphicon-ban-circle"></i> Non-refundable in all amenities.</p>
+					<p> <i class="glyphicon glyphicon-remove-sign"></i> Additional charges may vary upon extension of time and damage.</p>
+
+				</center>
+
+				<img class="w3-image" src="~/Content/HomeImages/Pamdale4.jpg" alt="Palmdale" @*style="opacity:0;"*@ width="1500" height="400">
+
+
+
+				<div class="w3-display-middle w3-padding w3-col l6 m8">
+					<br /> <br />
+					<div class="w3-container w3-green">
+
+						<h3><i class="glyphicon glyphicon-tags"></i>   Palmdale Heights Condiminium</h3>
+					</div>
+
+					<div class="w3-container w3-dark-gray w3-padding-16">
+						@*<form action="/action_page.php" target="_blank">*@
+
+						<div class="w3-row-padding" style="margin:0 -16px;">
+							<div class="w3-half w3-margin-bottom">
+								<label><i class="glyphicon glyphicon-calendar"></i> Start Date</label>
+
+								<font color="black">
+									<input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required @*style="float:left; width:350px;"*@ />
+								</font>
+
+
+								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+							</div>
+							<div class="w3-half">
+
+								<label><i class="glyphicon glyphicon-time"></i> Start Time</label>
+
+								<font color="black">
+									<input type="time" onselect="myFunction()" class="w3-input" min="08:00" max="20:00" id="st" name="st" required @*style="float:right; width:350px; padding-bottom:18px;"*@ />
+								</font>
+								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+							</div>
+						</div>
+
+						<!----EndDate/EndTime-------->
+
+						<div class="w3-row-padding" style="margin:8px -16px;">
+							<div class="w3-half w3-margin-bottom">
+								<label><i class="glyphicon glyphicon-calendar"></i> End Date</label>
+
+								<font color="black">
+									<input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" @*style="float:left; width:350px;"*@ />
+								</font>
+
+								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+							</div>
+							<div class="w3-half">
+
+								<label><i class="glyphicon glyphicon-time"></i> End Time</label>
+
+								<font color="black">
+									<input type="time" class="w3-input" min="09:00" max="21:00" id="et" name="et" required @*style="float:right; width:350px; padding-bottom:18px;"*@ />
+								</font>
+
+								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+							</div>
+						</div>
+
+						<!---Rate-->
+						<div class="w3-row-padding" style="margin:16px -16px;">
+							<div class="w3-half w3-margin-bottom">
+								<label> <i class="glyphicon glyphicon-ruble"> </i> Rate :</label>
+
+								<font color="black">
+									<input type="text" id="rate" class="w3-input" disabled="disabled" />
+
+									<input type="hidden" id="stime" name="stime" />
+									<input type="hidden" id="etime" name="etime" />
+									<input type="hidden" id="tratee" name="tratee" />
+									<input type="hidden" id="qwe" name="qwe" />
+									<input type="hidden" id="abc" name="abc" />
+								</font>
+							</div>
+						</div>
 
 
 
 
-					<br />
-					<img src="@Url.Content(Session["AmenityURL"].ToString())" style="width:70%" />
 
+						<!---For Swimming Pool-->
+						@*<div class="w3-row-padding" style="margin:8px -16px;">
+							<div class="w3-half w3-margin-bottom">
+							<label><i class="fa fa-male"></i> Adults</label>
+							<input class="w3-input w3-border" type="number" value="1" name="Adults" min="1" max="6">
+							</div>
+							<div class="w3-half">
+							<label><i class="fa fa-child"></i> Kids</label>
+							<input class="w3-input w3-border" type="number" value="0" name="Kids" min="0" max="6">
+							</div>
+							</div>*@
+
+						<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
+
+
+
+						@*</form>*@
+
+					</div>
 				</div>
+			</header>
+			<!--Header Ends-->
+			@*<div class="w3-container w3-padding-64 w3-theme-l5" id="cdate">
+				<div class="w3-row">
+					<div class="w3-col m5">
+						<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">Choose Time and Date</span></div>
 
-				<!--Card start-->
-				<br />
+
+
+
+						<br />
+						<img src="@Url.Content(Session["AmenityURL"].ToString())" style="width:70%" />
+
+					</div>*@
+
+
+
+			<!--Card start-->
+			@*<br />
 				<div class="w3-col m7">
 					<div class="card">
 
@@ -160,16 +330,36 @@
 
 
 					</div>
-				</div>
+				</div>*@
 
-			</div>
 		</div>
-	</div>
 
-	<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
-		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-	</footer>
-</body>
+
+
+
+		@*<div class="third">
+			<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>*@
+
+		<!---Save NATEN TOH AHHKK XDD-->
+		@*<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3150648&x=121.099658&y=14.549327&z=0&item=197607366'> </iframe>*@
+
+		<!-- Footer -->
+		<footer @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+			<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+			<p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+			<p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+			<p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+
+		</footer>
+
+
+
+
+		@*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+				<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+			</footer>*@
+	</body>
 
 
 
@@ -261,19 +451,34 @@
 
 			startTime = $(this).val();
 			startT = parseInt(startTime.split(':')[0], 10);
+			endT = parseInt(endTime.split(':')[0], 10);
 			if (startT < 8 && startT > 21) {
 				alert("Start Time is invalid, 8:00 AM - 8:00 PM only");
 				document.getElementById('st').value = startTime + ":PM";
 				document.getElementById('rate').value = 0;
 
 			}
+			else {
+				if (endTime != null) {
+					var hourDiff =
+						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
 
-			if (endTime != null) {
-				var hourDiff =
-					parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-				rateA = rate1 * hourDiff
-				document.getElementById('rate').value = rateA;
+					if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21)) {
+						if ((startT <= 20 && startT >= 18) && (endT <= 21 && endT >= 19))
+						{
+							rateA = ((rate1 * 2) * hourDiff);
+						}
+						else
+						{
+							rateA = rate1 * hourDiff;
+						}
+																					}
+					else {
+						alert("Reservation period is only available at 8am to 9pm");
+					}
+					document.getElementById('rate').value = rateA;
 
+				}
 			}
 
 
@@ -298,7 +503,7 @@
 
 		//		if (selectedValue < MyDateString)
 		//		{
-		//			alert("BAWAL YAN NANAY");
+		//			alert("Invalid Time");
 		//			document.getElementById('st').value = null;
 		//			document.getElementById('et').value = null;
 		//		}
@@ -316,22 +521,43 @@
 		document.getElementById('et').value = selectedValue;
 
 	});
-	$(document).ready(function () {
+
 		$('#et').change(function myFunction() {
 			endTime = $(this).val();
-
+			startTime = document.getElementById('st').value;
 			var endT = parseInt(endTime.split(':')[0], 10);
+			var endTminutes = parseInt(endTime.split(':')[1], 10);
+			var startTminutes = parseInt(startTime.split(':')[1], 10);
+
+			var ONE_HOUR = 60 * 60 * 1000; /* ms */
+			alert(startTminutes);
 
 
 			if (endT >= 9 && endT <= 21) {
 				if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21)) {
 					if (endT > startT) {
+						if (startTminutes != endTminutes) {
+							alert("The duration of the reservation should be at least one hour");
+							selectedValue = $('#st').val();
+
+							var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
+							var fmins = selectedValue.split(':')[1];
+							var f = selectedValue.split(' ')[2];
+							var final = fhours + ":" + fmins;
+							document.getElementById('et').value = final;
+
+
+						}
+						else
+						{
+
+						}
 						var hourDiff =
 							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-						rateA = rate1 * hourDiff
+						rateA = 0;
+						rateA= rate1 * hourDiff
 						document.getElementById('rate').value = rateA;
 						statuset = "Valid";
-
 					}
 					else
 					{
@@ -342,6 +568,7 @@
 
 					var hourDiff =
 						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+					rateA = 0;
 					rateA = ((rate1 * 2) * hourDiff)
 					document.getElementById('rate').value = 0;
 					statuset = "Invalid";
@@ -358,7 +585,14 @@
 
 
 		});
-	});
+
+
+
+
+
+
+
+
 	function Check() {
 		if (statusst == 'Valid' && statuset == 'Valid') {
 			var stconcat = startDate + " " + startTime;

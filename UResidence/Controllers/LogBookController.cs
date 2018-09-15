@@ -17,21 +17,97 @@ namespace UResidence.Controllers
             logbookList = UResidence.LogbookController.GET_ALL();
             return View(logbookList);
         }
+        [HttpPost]
+        public ActionResult LogBook(FormCollection fc,HttpPostedFileBase logbookpic)
+        {
+            DateTime date= Convert.ToDateTime(fc["date"]);
+            string visitor = Convert.ToString(fc["visitorname"]);
+            string resident = Convert.ToString(fc["residentname"]);
+            string purpose = Convert.ToString(fc["purpose"]);
+            DateTime timein = DateTime.Now;
+
+
+            bool status = false;
+            var image = logbookpic;
+
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/LogBookImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+
+                        string folderpath1 = "~/Content/LogBookImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+                    status = true;
+                    Logbook log = new Logbook
+                    {
+                        date = date,
+                        ResidentName = resident,
+                        VisitorName = visitor,
+                        Purpose =purpose,
+                        Timein =timein,
+                        Timeout = Convert.ToDateTime("00:00:00"),
+                        URL = finalpath
+                    };
+                    status = LogbookController.Insert(log);
+                }
+            }
+            List<Logbook> logbookList = new List<Logbook>();
+            logbookList = UResidence.LogbookController.GET_ALL();
+            return View(logbookList);
+        }
         public ActionResult LogBookView()
         {
-            return View();
+            List<Logbook> log = new List<Logbook>();
+            log = UResidence.LogbookController.GET_ALL();
+            return View(log);
         }
         public JsonResult Search(Logbook data)
         {
-            List<Logbook> logbookList = new List<Logbook>();
-            logbookList = UResidence.LogbookController.GET_ALL(data.date);
-            var events = logbookList.ToList();
-            return new JsonResult
+            try
             {
-                Data = events,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
+                List<Logbook> logbookList = new List<Logbook>();
+                logbookList = UResidence.LogbookController.GET_ALL(data.date);
+                var events = logbookList.ToList();
+                return new JsonResult
+                {
+                    Data = events,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+            catch (System.Data.SqlTypes.SqlTypeException ex)
+            {
+                var events = false;
+                return new JsonResult
+                {
+                    Data = events,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+
+            }
         }
+
+
         public JsonResult GetEvents()
         {
             List<Logbook> log = new List<Logbook>();
@@ -43,6 +119,9 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+
+
         public ActionResult InsertImage(Logbook data)
         {
             bool status=false;
@@ -83,14 +162,44 @@ namespace UResidence.Controllers
             }
             return View("LogBook");
         }
-        public JsonResult Insert(Logbook data)
+
+
+
+        public JsonResult Insert(Logbook data, HttpPostedFileBase logbookpic)
         {
             bool status = false;
-            string folderpath1 = "~/Content/LogBookImages/" + data.URL;
-            string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), data.URL);
+            var image = data.Image;
 
-
-            Logbook log = new Logbook
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                      
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/LogBookImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        
+                        string folderpath1 = "~/Content/LogBookImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+                    status = true;
+                    Logbook log = new Logbook
                     {
                         date = data.date,
                         ResidentName = data.ResidentName,
@@ -98,15 +207,45 @@ namespace UResidence.Controllers
                         Purpose = data.Purpose,
                         Timein = data.Timein,
                         Timeout = Convert.ToDateTime("00:00:00"),
-                        URL = folderpath1
-            };
-            status = LogbookController.Insert(log);
+                        URL = finalpath
+                    };
+                    status = LogbookController.Insert(log);
+                }
+            }
+
+        
             return new JsonResult
             {
                 Data = status,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+
+
+
+
+            //        string folderpath1 = "~/Content/LogBookImages/" + data.URL;
+            //string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), data.URL);
         }
+
+
+
+
+        //public ActionResult Update(FormCollection fc, int id)
+        //{
+
+        //    DateTime date = DateTime.Now;
+
+        //    bool status = false;
+        //    Logbook log = new Logbook
+        //    {
+        //        Id = id,
+        //        Timeout = date
+        //    };
+        //    status = UResidence.LogbookController.Update(log);
+        //    return View("LogBook");
+        //}
+
+
         public JsonResult Update(Logbook data)
         {
             bool status = false;
@@ -116,6 +255,8 @@ namespace UResidence.Controllers
                 Timeout = data.Timeout
             };
             status = UResidence.LogbookController.Update(log);
+         
+          
             return new JsonResult
             {
                 Data = status,

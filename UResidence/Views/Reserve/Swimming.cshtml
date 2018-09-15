@@ -96,97 +96,113 @@
     </center>
 
     <!---Header-->
-    <div id="main">
+	<div id="main">
 
-        <header class="w3-display-container w3-content" style="max-width:1500px;">
-            <img class="w3-image" src="~/Content/Log/loginbg.jpg" alt="Palmdale" style="min-width:1000px" width="1500" height="800">
-            <div class="w3-display-middle w3-padding w3-col l6 m8">
-                <div class="w3-container w3-green">
-                    <h2><i class="glyphicon glyphicon-tags"></i>   Palmdale Heights Condiminium</h2>
-                </div>
+		<header class="w3-display-container w3-content" style="max-width:1500px;">
 
-                <div class="w3-container w3-white w3-padding-16">
-                    @*<form action="/action_page.php" target="_blank">*@
+			<center>
+				<p> <strong> REMINDERS </strong></p>
+				<p> <i class="glyphicon glyphicon-exclamation-sign"></i> Kindly settle your full payment within 24 hours.</p>
+				<p> <i class="glyphicon glyphicon-erase"></i> Failure to pay in full will not be considered as Reserved.</p>
+				<p> <i class="glyphicon glyphicon-ban-circle"></i> Non-refundable in all amenities.</p>
+				<p> <i class="glyphicon glyphicon-remove-sign"></i> Additional charges may vary upon extension of time and damage.</p>
 
-                    <div class="w3-row-padding" style="margin:0 -16px;">
-                        <div class="w3-half w3-margin-bottom">
-                            <label><i class="glyphicon glyphicon-time"></i> Start Time</label>
-                            <input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required @*style="float:left; width:350px;"*@ />
+			</center>
 
-                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
-                        </div>
-                        <div class="w3-half">
-
-                            <label><i class="glyphicon glyphicon-time"></i> End Time</label>
-                            <input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" @*style="float:right; width:350px; padding-bottom:14px;"*@ />
-
-                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
-                        </div>
-                    </div>
+			<img class="w3-image" src="~/Content/HomeImages/Pamdale4.jpg" alt="Palmdale" @*style="opacity:0;"*@ width="1500" height="400">
 
 
-                    <!---For Swimming Pool   ADULTS-->
-                    <div class="w3-row-padding" style="margin:8px -16px;">
-                        <div class="w3-half w3-margin-bottom">
-                            <label><i class="glyphicon glyphicon-user"></i> Adults </label>
-                            <input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
-                        </div>
+			@*<img class="w3-image" src="~/Content/Log/loginbg.jpg" alt="Palmdale" style="min-width:1000px" width="1500" height="800">*@
+			<div class="w3-display-middle w3-padding w3-col l6 m8">
+				<br /> <br />
+
+				<div class="w3-container w3-green">
+					<h2><i class="glyphicon glyphicon-tags"></i>   Palmdale Heights Condiminium</h2>
+				</div>
+
+
+				<div class="w3-container w3-white w3-padding-16">
+					@*<form action="/action_page.php" target="_blank">*@
+
+					<div class="w3-row-padding" style="margin:0 -16px;">
+						<div class="w3-half w3-margin-bottom">
+							<label><i class="glyphicon glyphicon-time"></i> Start Time</label>
+							<input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required @*style="float:left; width:350px;"*@ />
+
+							@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+						</div>
+						<div class="w3-half">
+
+							<label><i class="glyphicon glyphicon-time"></i> End Time</label>
+							<input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" @*style="float:right; width:350px; padding-bottom:14px;"*@ />
+
+							@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+						</div>
+					</div>
+
+
+					<!---For Swimming Pool   ADULTS-->
+					<div class="w3-row-padding" style="margin:8px -16px;">
+						<div class="w3-half w3-margin-bottom">
+							<label><i class="glyphicon glyphicon-user"></i> Adults </label>
+							<input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
+						</div>
 						<div class="w3-half">
 							<label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
-							<input type="text" class="w3-input" name="rateadult" id="rateadult" readonly >
+							<input type="text" class="w3-input" name="rateadult" id="rateadult" readonly>
 						</div>
-                    </div>
+					</div>
 
-                    <!----For Swimming Pool KIDS-------->
+					<!----For Swimming Pool KIDS-------->
 
-                    <div class="w3-row-padding" style="margin:8px -16px;">
-                        <div class="w3-half w3-margin-bottom">
-                            <label><i class="glyphicon glyphicon-user"></i> Kids </label>
-                            <input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
+					<div class="w3-row-padding" style="margin:8px -16px;">
+						<div class="w3-half w3-margin-bottom">
+							<label><i class="glyphicon glyphicon-user"></i> Kids </label>
+							<input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
 
-                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
-                        </div>
-                        <div class="w3-half">
+							@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+						</div>
+						<div class="w3-half">
 
-                            <label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
-                            <input type="text" class="w3-input" name="ratechild" id="ratechild" readonly @*style="float:right; width:350px; padding-bottom:14px;"*@>
+							<label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
+							<input type="text" class="w3-input" name="ratechild" id="ratechild" readonly @*style="float:right; width:350px; padding-bottom:14px;"*@>
 
-                            @*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
-                        </div>
-                    </div>
-
-
-                    <!---Rate-->
-                    <div class="w3-row-padding" style="margin:16px -16px;">
-                        <div class="w3-half w3-margin-bottom">
-                            <label>Rate :</label>
-
-                            <input type="text" id="rate" name="rate" class="w3-input" readonly />
-                            <input type="hidden" id="tratee" name="tratee" />
-                            <input type="time" id="startT" name="startT" value="08:00" hidden />
-                            <input type="time" id="endT" name="endT" value="21:00" hidden />
-                            <input type="datetime" id="stime" name="stime" hidden />
-                            <input type="datetime" id="etime" name="etime" hidden />
-
-                        </div>
-                    </div>
+							@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
+						</div>
+					</div>
 
 
+					<!---Rate-->
+					<div class="w3-row-padding" style="margin:16px -16px;">
+						<div class="w3-half w3-margin-bottom">
+							<label>Rate :</label>
+
+							<input type="text" id="rate" name="rate" class="w3-input" readonly />
+							<input type="hidden" id="tratee" name="tratee" />
+							<input type="time" id="startT" name="startT" value="08:00" hidden />
+							<input type="time" id="endT" name="endT" value="21:00" hidden />
+							<input type="datetime" id="stime" name="stime" hidden />
+							<input type="datetime" id="etime" name="etime" hidden />
+
+						</div>
+					</div>
 
 
 
 
 
 
-                    <button class="button" type="submit"><i class="glyphicon glyphicon-circle-arrow-right"></i> Next</button>
 
 
-                    @*</form>*@
+					<button class="button" type="submit"><i class="glyphicon glyphicon-circle-arrow-right"></i> Next</button>
 
-                </div>
-            </div>
-        </header>
-    </div>
+
+					@*</form>*@
+
+				</div>
+			</div>
+		</header>
+	</div>
 
 
 
