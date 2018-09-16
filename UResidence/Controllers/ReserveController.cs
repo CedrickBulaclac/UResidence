@@ -134,47 +134,74 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-            string sd = fc["stime"];
-            string ed = fc["etime"];
-            Session["sd"] = sd;
-            Session["ed"] = ed;
-            string drate = fc["tratee"];
-            Session["drate"] = drate;
-            int aid = Convert.ToInt32(Session["ID"]);
-           
+            string nameamenity = (Session["NAME"]).ToString();
+            if (nameamenity != "Basketball Court")
+            {
+                string sd = fc["stime"];
+                string ed = fc["etime"];
+                Session["sd"] = sd;
+                Session["ed"] = ed;
+                string drate = fc["tratee"];
+                Session["drate"] = drate;
+                int aid = Convert.ToInt32(Session["ID"]);
+
                 List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
                     ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
                 }
                 else
                 {
                     Response.Write("<script>alert('Successful')</script>");
                     return RedirectToAction("Choose_Equipment", "Reserve");
                 }
-            
-            return View();
+            }
+            else
+            {
+                string sd = fc["stime"];
+                string ed = fc["etime"];
+                Session["sd"] = sd;
+                Session["ed"] = ed;
+                string drate = fc["tratee"];
+                Session["drate"] = drate;
+                int aid = Convert.ToInt32(Session["ID"]);
+
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                if (schedList.Count > 0)
+                {
+                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Successful')</script>");
+                    return RedirectToAction("Summary", "Reserve");
+                }
+               
+            }           
         }
         public ActionResult Choose_Equipment()
-        {
-            ViewBag.Amenity = (Session["NAME"]).ToString();
-            int[] eqpid;
-            List<int> qid = new List<int>();
-            string sd = (string)Session["sd"];
-            string ed = (string)Session["ed"];
-            List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
-            List<Equipment> equip = UResidence.EquipmentController.GetAll();
-            List<object> model = new List<object>();
-            model.Add(equipList.ToList());
-            model.Add(equip.ToList());
-            foreach (Equipment eqp in equip)
-            {
-                qid.Add(eqp.Id);
-            }
-            eqpid = qid.ToArray();
-            Session["eqpid"] = eqpid;
-            return View(model);
+        {        
+                ViewBag.Amenity = (Session["NAME"]).ToString();
+                int[] eqpid;
+                List<int> qid = new List<int>();
+                string sd = (string)Session["sd"];
+                string ed = (string)Session["ed"];
+                List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
+                List<Equipment> equip = UResidence.EquipmentController.GetAll();
+                List<object> model = new List<object>();
+                model.Add(equipList.ToList());
+                model.Add(equip.ToList());
+                foreach (Equipment eqp in equip)
+                {
+                    qid.Add(eqp.Id);
+                }
+                eqpid = qid.ToArray();
+                Session["eqpid"] = eqpid;
+                return View(model);                     
         }
         [HttpPost]
         public void Choose_Equipment(int[] data, int[] datar)
@@ -212,6 +239,7 @@ namespace UResidence.Controllers
             ViewBag.end = ed;
             ViewBag.ratea = Session["drate"];
             ViewBag.amenname = Session["NAME"];
+
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
             ViewBag.QA=Session["qa"] ;
