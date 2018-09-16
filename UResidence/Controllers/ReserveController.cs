@@ -135,7 +135,7 @@ namespace UResidence.Controllers
         public ActionResult Choose_Date(FormCollection fc)
         {
             string nameamenity = (Session["NAME"]).ToString();
-            if (nameamenity != "Basketball Court")
+            if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
                 string sd = fc["stime"];
                 string ed = fc["etime"];
@@ -331,33 +331,34 @@ namespace UResidence.Controllers
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
                     int[] ratee = (Int32[])Session["ratee"];
-
-                    for (int i = 0; i <= equantity.Count() - 1; i++)
+                    if (equantity != null)
                     {
-
-                        if (Convert.ToInt32(equantity[i]) != 0)
+                        for (int i = 0; i <= equantity.Count() - 1; i++)
                         {
-                            EquipReservation er = new EquipReservation
+
+                            if (Convert.ToInt32(equantity[i]) != 0)
                             {
+                                EquipReservation er = new EquipReservation
+                                {
 
-                                EquipId = Convert.ToInt32(eid[i]),
-                                Quantity = Convert.ToInt32(equantity[i]),
-                                RefNo = refno,
-                                Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
+                                    EquipId = Convert.ToInt32(eid[i]),
+                                    Quantity = Convert.ToInt32(equantity[i]),
+                                    RefNo = refno,
+                                    Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
 
-                            };
+                                };
 
-                            status = UResidence.EquipReservationController.Insert(er);
+                                status = UResidence.EquipReservationController.Insert(er);
+                            }
+
                         }
-
-                    }     
                         if (status == true)
                         {
                             Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
 
                         }
+                    }
                 }
-
             }
             return RedirectToAction("Home", "Reserve");
 
