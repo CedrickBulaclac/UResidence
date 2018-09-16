@@ -32,7 +32,9 @@
 		Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
 	}
 }
-
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <head>
 	<style>
@@ -165,55 +167,55 @@
 			{
 
 
-					<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
+				<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
 
 
-					<div class="row">
-						<div class="col-25">
+				<div class="row">
+					<div class="col-25">
 
-							<label>Username :</label>
+						<label>Username :</label>
 
-						</div>
-
-						<div class="col-75">
-							<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
-						</div>
 					</div>
 
+					<div class="col-75">
+						<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+					</div>
+				</div>
 
 
-					<div class="row">
-						<div class="col-25">
 
-							<label for="Current Password">Current Password :</label>
+				<div class="row">
+					<div class="col-25">
 
-						</div>
+						<label for="Current Password">Current Password :</label>
 
-						<div class="col-75">
-							<input type="password" value="" id="cp" name="cp" class="form-control" />
-						</div>
 					</div>
 
-
-
-
-					<div class="row">
-						<div class="col-25">
-
-							<label for="New Password">New Password :</label>
-
-						</div>
-
-						<div class="col-75">
-							<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
-						</div>
+					<div class="col-75">
+						<input type="password" value="" id="cp" name="cp" class="form-control" />
 					</div>
-				}
+				</div>
 
 
 
-				<input type="submit" class="button" value="Save Changes" />
-			
+
+				<div class="row">
+					<div class="col-25">
+
+						<label for="New Password">New Password :</label>
+
+					</div>
+
+					<div class="col-75">
+						<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
+					</div>
+				</div>
+			}
+
+
+
+			<input type="submit" class="button" value="Save Changes" />
+
 			<div class=".col-sm-6">
 
 				<div class="row1">
@@ -224,26 +226,26 @@
 
 			</div>
 		</div>
-		</div>
+	</div>
 
 
 
 
 
 
-		
-			<input type="submit" class="btn-default" value="Save Changes" />
 
-			<script type="text/javascript">
-				function Check() {
-					var cp = document.getElementById('cp').value;
-					var np = document.getElementById('np').value;
-					if (cp != "") {
-						if (cp == np) {
-							alert("Current Password and New Password are the same");
-							document.getElementById('np').value = "";
-						}
-					}
+	<input type="submit" class="btn-default" value="Save Changes" />
+
+	<script type="text/javascript">
+		function Check() {
+			var cp = document.getElementById('cp').value;
+			var np = document.getElementById('np').value;
+			if (cp != "") {
+				if (cp == np) {
+					alert("Current Password and New Password are the same");
+					document.getElementById('np').value = "";
 				}
-			</script>
 			}
+		}
+	</script>
+}

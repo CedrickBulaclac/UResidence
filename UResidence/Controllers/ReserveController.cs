@@ -155,6 +155,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Equipment()
         {
+            ViewBag.Amenity = (Session["NAME"]).ToString();
             int[] eqpid;
             List<int> qid = new List<int>();
             string sd = (string)Session["sd"];
@@ -200,7 +201,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Summary()
         {
-
+            ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];

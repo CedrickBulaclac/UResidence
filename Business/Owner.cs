@@ -14,19 +14,65 @@ namespace UResidence
     public class Owner : BaseProperty<Owner>
     {
         public int Id { get; set; }
+
+        [StringLength(10, ErrorMessage = "Building Number cannot be longer than 10 characters.")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string BldgNo { get; set; }
+
+        [StringLength(10, ErrorMessage = "Unit Number cannot be longer than 10 characters.")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string UnitNo { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "First Name cannot be longer than 30 characters.")]
         public string Fname { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "Middle Name cannot be longer than 30 characters.")]
         public string Mname { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "Last Name cannot be longer than 30 characters.")]
         public string Lname { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Invalid Mobile Number")]
         public string CelNo { get; set; }
+
+        [RegularExpression(".+@.+\\..+",ErrorMessage ="Email format seems wrong")]
+        [Required(ErrorMessage ="Enter Email")]
         public string Email { get; set; }
+
+
         public string Deleted { get; set; }
         public string URL { get; set; }
         public HttpPostedFileBase Image { get; set; }
+
+
+        public class MinimumAgeAttribute : ValidationAttribute
+        {
+            int _minimumAge;
+
+            public MinimumAgeAttribute(int minimumAge)
+            {
+                _minimumAge = minimumAge;
+            }
+
+            public override bool IsValid(object value)
+            {
+                DateTime date;
+                if (DateTime.TryParse(value.ToString(), out date))
+                {
+                    return date.AddYears(_minimumAge) < DateTime.Now;
+                }
+
+                return false;
+            }
+        }
 
 
         public Owner CreateObject(SqlDataReader reader)

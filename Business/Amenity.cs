@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace UResidence
@@ -14,11 +15,21 @@ namespace UResidence
     {
        
         public int Id { get; set; }
+        [StringLength(250, ErrorMessage = "Description cannot be longer than 250 characters.")]
         public string Description { get; set; }
+
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Capacity { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "Amenity Name cannot be longer than 30 characters.")]
         public string AmenityName { get; set; }
         public string Url { get; set; }
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Rate { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
        

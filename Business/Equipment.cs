@@ -6,18 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace UResidence
 
 {
     public class Equipment : BaseProperty<Equipment>
     {
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "First Name cannot be longer than 30 characters.")]
         public string Name { get; set; }
+
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Stocks { get; set; }
+
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Rate { get; set; }
         public int Id { get; set; }
         public string Url { get; set; }
+
+        [StringLength(250, ErrorMessage = "Description cannot be longer than 250 characters.")]
         public string Description { get; set; }
+
         public HttpPostedFileBase Image { get; set; }
 
 

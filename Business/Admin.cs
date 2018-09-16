@@ -12,16 +12,29 @@ namespace UResidence
     public class Admin : BaseProperty<Admin>
     {
         public int Id { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "First Name cannot be longer than 30 characters.")]
         public string Fname{ get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "Middle Name cannot be longer than 30 characters.")]
         public string Mname{ get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(30, ErrorMessage = "Last Name cannot be longer than 30 characters.")]
         public string Lname { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Bdate { get; set; }
+
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = "Wrong mobile")]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Invalid Mobile Number")]
         public string CelNo { get; set; }
         [EmailAddress]
+
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Email format seems wrong")]
+        [Required(ErrorMessage = "Enter Email")]
         public string Email{ get; set; }
         public string Deleted { get; set; }
         public string URL { get; set; }

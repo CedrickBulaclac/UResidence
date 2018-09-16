@@ -27,32 +27,35 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
-            int balance = 0;
-            List<Billing> billing = new List<Billing>();
-            int uid = Convert.ToInt32(Session["UID"]);
-            string type = (Session["TOR"]).ToString();
-            if (type == "Owner")
-            {
-                billing = UResidence.BillingController.GetOwner(uid);
-            }
-            else
-            {
-                billing = UResidence.BillingController.GetTenant(uid);
-            }
-            for (int i = 0; i <= billing.Count - 1; i++)
-            {
-                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
-            }
-            if (balance > 0)
-            {
-                Session["status"] = true;
-                return RedirectToAction("Home", "Reserve");
-            }
-            else
-            {
+            //int balance = 0;
+            //List<Billing> billing = new List<Billing>();
+            //int uid = Convert.ToInt32(Session["UIDA"]);
+            //string type = (Session["TORA"]).ToString();
+            //if (type == "Owner")
+            //{
+            //    billing = UResidence.BillingController.GetOwner(uid);
+            //}
+            //else
+            //{
+            //    billing = UResidence.BillingController.GetTenant(uid);
+            //}
+            //for (int i = 0; i <= billing.Count - 1; i++)
+            //{
+            //    balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+            //}
+            //if (balance > 0)
+            //{
+            //    Session["status"] = true;
+            //    //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
+            //    ViewBag.Message = string.Format("There is still remaining balance of: ₱" + balance);
+            //    return View();
+
+            //}
+            //else
+            //{
                 List<Amenity> amenityList = UResidence.AmenityController.GetAll();
                 return View(amenityList);
-            }
+            //}
         }
 
         [HttpPost]
@@ -122,6 +125,7 @@ namespace UResidence.Controllers
 
         public ActionResult Choose_Equipment()
         {
+            ViewBag.Amenity = (Session["NAME"]).ToString();
             int[] eqpid;
             List<int> qid = new List<int>();
             string sd = (string)Session["sd"];
@@ -171,7 +175,7 @@ namespace UResidence.Controllers
 
         public ActionResult Summary()
         {
-
+            ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -393,9 +397,43 @@ namespace UResidence.Controllers
                     Session["FULLN"] = fullname;
                     Session["TORA"] = "Owner";
                     Session["UIDA"] = ownerList.Id;
+                   
 
-                    bool data;
-                    return Json(data = true);              
+
+                    int balance = 0;
+                    List<Billing> billing = new List<Billing>();
+                    int uid = Convert.ToInt32(Session["UIDA"]);
+                    string type = (Session["TORA"]).ToString();
+                    if (type == "Owner")
+                    {
+                        billing = UResidence.BillingController.GetOwner(uid);
+                    }
+                    else
+                    {
+                        billing = UResidence.BillingController.GetTenant(uid);
+                    }
+                    for (int i = 0; i <= billing.Count - 1; i++)
+                    {
+                        balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+                    }
+                    if (balance > 0)
+                    {
+                        Session["status"] = true;
+                        //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
+                        int data;
+                        return Json(data = balance );
+
+                    }
+                    else
+                    {
+                        bool data;
+                        return Json(data = true);
+                    }
+
+
+
+
+                           
                 }
                 catch (InvalidOperationException)
                 {
@@ -418,8 +456,38 @@ namespace UResidence.Controllers
                     Session["FULLN"] = fullname;
                     Session["TORA"] = "Tenant";
                     Session["UIDA"] = tenantList.Id;
-                    bool data;
-                    return Json(data = true);
+              
+
+
+
+                    int balance = 0;
+                    List<Billing> billing = new List<Billing>();
+                    int uid = Convert.ToInt32(Session["UIDA"]);
+                    string type = (Session["TORA"]).ToString();
+                    if (type == "Owner")
+                    {
+                        billing = UResidence.BillingController.GetOwner(uid);
+                    }
+                    else
+                    {
+                        billing = UResidence.BillingController.GetTenant(uid);
+                    }
+                    for (int i = 0; i <= billing.Count - 1; i++)
+                    {
+                        balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+                    }
+                    if (balance > 0)
+                    {
+                        Session["status"] = true;
+                        //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
+                        int data;
+                        return Json(data = balance);
+                    }
+                    else
+                    {
+                        bool data;
+                        return Json(data = true);
+                    }
                 }
                 catch (InvalidOperationException i)
                 {
