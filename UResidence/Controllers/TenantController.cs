@@ -154,7 +154,7 @@ namespace UResidence.Controllers
                     CreatedBy = "",
                     ModifyBy = "",
                     DateCreated = DateTime.Now,
-                    Level = 2,
+                    Level = 9,
                     Locked = 1,
                     LastLogin = DateTime.Now
                 };
@@ -202,7 +202,7 @@ namespace UResidence.Controllers
                                                 CreatedBy = "",
                                                 ModifyBy = "",
                                                 DateCreated = DateTime.Now,
-                                                Level = 5,
+                                                Level = 9,
                                                 Locked = 0,
                                                 LastLogin = DateTime.Now
 

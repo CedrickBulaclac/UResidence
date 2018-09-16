@@ -1,6 +1,7 @@
 ﻿
 @{
-	ViewBag.Title = "SuperAdminLayout";
+	Layout = "";
+
 }
 @*---Modal for Update Profile Picture---*@
 <div class="container">
@@ -187,8 +188,7 @@
 
 	<div class="col-sm-12">
 
-
-		<center><h2>Super Admin Management</h2> </center>
+		<center><h2>Reservation Management</h2> </center>
 		<hr />
 	</div>
 
@@ -207,20 +207,21 @@
 
 
 
+
 				<div class="col-lg-2">
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
-									<i class="fa fa-user-plus fa-5x"></i>
+									<i class="fa fa-calendar-plus-o fa-5x"></i>
 								</div>
 								<div class="col-xs-6 text-right">
-									<p class="announcement-heading"></p>
-									<p class="announcement-text"> Admin</p>
+									<p class="announcement-heading"> </p>
+									<p class="announcement-text">Reservation List</p>
 								</div>
 							</div>
 						</div>
-						<a href="~/SuperAdmin/SuperAdminView">
+						<a href="~/ReservationRecord/Record">
 							<div class="panel-footer announcement-bottom">
 								<div class="row">
 									<div class="col-xs-6">
@@ -235,13 +236,42 @@
 					</div>
 				</div>
 
-			
 
+				<div class="regcontainer2">
+					<div class="col-lg-2">
+						<div class="panel panel-success ">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-6">
+										<i class="fa fa-calendar-check-o fa-5x"></i>
+									</div>
+									<div class="col-xs-6 text-right">
+										<p class="announcement-heading"></p>
+										<p class="announcement-text"> Reversal List</p>
+									</div>
+								</div>
+							</div>
+							<a href="~/ReversalRecord/Records">
+								<div class="panel-footer announcement-bottom">
+									<div class="row">
+										<div class="col-xs-6">
+											Open
+										</div>
+										<div class="col-xs-6 text-right">
+											<i class="fa fa-arrow-circle-right"></i>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
 
-
+				</div>
 			</div>
 		</div>
 	</div>
+
+
 
 	@RenderBody()
 	@Scripts.Render("~/bundles/jquery")
@@ -260,7 +290,7 @@
 			data.append("Id", id);
 			$.ajax({
 				type: "POST",
-				url: "/SuperAdmin/UpdateImage/",
+				url: "/BossManager/UpdateImage/",
 				data: data,
 				contentType: false,
 				processData: false,
@@ -300,4 +330,3 @@
 
 </body>
 </html>
-

@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Tenant> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut FROM [tbTenant] where Deleted=0 order by Id";
+            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut FROM [tbTenant] where Deleted=0  order by Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_ALL);

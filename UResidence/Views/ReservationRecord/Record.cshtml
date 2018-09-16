@@ -1,371 +1,375 @@
 ﻿
 @{
-    Layout = "~/Views/Layout/SuperAdminLayout.cshtml";
+	Layout = "~/Views/Layout/BossManagerLayout.cshtml";
 }
+
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <br />
 <br />
 <div class="container">
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="rid" id="rid" />
-                    <input type="hidden" name="rfid" id="rfid" />
-                    <p id="pDetails"></p>
-                    <br /><br />               
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><span id="eventTitle"></span></h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="rid" id="rid" />
+					<input type="hidden" name="rfid" id="rfid" />
+					<p id="pDetails"></p>
+					<br /><br />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-1">
-            <b>Search</b>
-        </div>
-        <div class="col-md-4">
-            <input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
-            <input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
-        </div>
-        <div class="col-md-1">
-            <b>Category</b>
-        </div>
-        <div class="col-md-4">
-            <select class="form-control" id="category" onchange="Setfield()">
-                <option value="0">By Amenity</option>
-                <option value="1">By Date</option>
-                <option value="2">By Owner</option>
-                <option value="3">By Tenant</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-success" onclick="Search();">Search</button>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-1">
+			<b>Search</b>
+		</div>
+		<div class="col-md-4">
+			<input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
+			<input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
+		</div>
+		<div class="col-md-1">
+			<b>Category</b>
+		</div>
+		<div class="col-md-4">
+			<select class="form-control" id="category" onchange="Setfield()">
+				<option value="0">By Amenity</option>
+				<option value="1">By Date</option>
+				<option value="2">By Owner</option>
+				<option value="3">By Tenant</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-success" onclick="Search();">Search</button>
+		</div>
+	</div>
 
-    <br /><br />
-    <table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
+	<br /><br />
+	<table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
 
 </div>
 @section scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
-    <script>
-        $(document).ready(GetO());
+	<script>
+		$(document).ready(GetO());
 
-        function Notify(outstanding,Id,type) {
-            console.log(type);
-           
-
-            var data = {
-                Description: 'You have an Outstanding Charge of ' + outstanding + ' in your account.',
-                OwnerId: Id,
-                type:type
-            }
-            $.ajax({
-                type: 'post',
-                url: '/ReservationRecord/InsertNotif',
-                data: data,
-                success: function (data) {
-                    alert("You have successfully notify the user");
-                },
-                error: function (data) {
-
-                }
-            });
-        }
+		function Notify(outstanding, Id, type) {
+			console.log(type);
 
 
-        function GetO() {
-            $('#tbReservationList').empty();
-            $.ajax({
-                type: "POST",
-                url: "/ReservationRecord/GetEvents",
-                dataType: 'json',
-                success: function (Data) {
-                    var trHTML = '';
-                    var name = '';
-                    var ob = 0;
+			var data = {
+				Description: 'You have an Outstanding Charge of ' + outstanding + ' in your account.',
+				OwnerId: Id,
+				type: type
+			}
+			$.ajax({
+				type: 'post',
+				url: '/ReservationRecord/InsertNotif',
+				data: data,
+				success: function (data) {
+					alert("You have successfully notify the user");
+				},
+				error: function (data) {
 
-                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-                    $.each(Data, function (i, v) {
-
-                        
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        if (ob == 0) {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                            }
-                        else {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-
-                            }
-                            }
-                    });
-                    $('#tbReservationList').append(trHTML);
-                },
-                error: function (error) {
-                    alert('Failed to retrieve the record');
-                }
-            });
-        }
-
-        function GetT() {
-            $('#tbReservationList').empty();
-            $.ajax({
-                type: "POST",
-                url: "/ReservationRecord/GetT",
-                dataType: 'json',
-                success: function (Data) {
-                    var trHTML = '';
-                    var name = '';
-                    var ob = 0;
-
-                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-                    $.each(Data, function (i, v) {
+				}
+			});
+		}
 
 
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        if (ob == 0) {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                        }
-                        else {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+		function GetO() {
+			$('#tbReservationList').empty();
+			$.ajax({
+				type: "POST",
+				url: "/ReservationRecord/GetEvents",
+				dataType: 'json',
+				success: function (Data) {
+					var trHTML = '';
+					var name = '';
+					var ob = 0;
 
-                            }
-                        }
-                    });
-                    $('#tbReservationList').append(trHTML);
-                },
-                error: function (error) {
-                    alert('Failed to retrieve the record');
-                }
-            });
-        }
-        function GetD() {
-            $('#tbReservationList').empty();
-            $.ajax({
-                type: "POST",
-                url: "/ReservationRecord/GetD",
-                dataType: 'json',
-                success: function (Data) {
-                    var trHTML = '';
-                    var name = '';
-                    var ob = 0;
-
-                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-                    $.each(Data, function (i, v) {
+					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
+					$.each(Data, function (i, v) {
 
 
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        if (ob == 0) {
-                            trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                        }
-                        else {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+						if (ob == 0) {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+						}
+						else {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-                            }
-                        }
-                    });
-                    $('#tbReservationList').append(trHTML);
-                },
-                error: function (error) {
-                    alert('Failed to retrieve the record');
-                }
-            });
-        }
-        function GetBy(level, search) {
-            var data = level;
-            var s = search;
-            $('#tbReservationList').empty();
-            $.ajax({
-                type: "POST",
-                url: "/ReservationRecord/Get",
-                dataType: 'json',
-                data: { 'Level': data, 'Search': s },
-                success: function (Data) {
-                    var trHTML = '';
-                    var name = '';
-                    var ob = 0;
+							}
+						}
+					});
+					$('#tbReservationList').append(trHTML);
+				},
+				error: function (error) {
+					alert('Failed to retrieve the record');
+				}
+			});
+		}
 
-                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-                    $.each(Data, function (i, v) {
+		function GetT() {
+			$('#tbReservationList').empty();
+			$.ajax({
+				type: "POST",
+				url: "/ReservationRecord/GetT",
+				dataType: 'json',
+				success: function (Data) {
+					var trHTML = '';
+					var name = '';
+					var ob = 0;
+
+					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
+					$.each(Data, function (i, v) {
 
 
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        if (ob == 0) {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-                            }
-                        }
-                        else {
-                            if (v.typeResident == "Owner") {
-                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-                            }
-                            else {
-                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+						if (ob == 0) {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+						}
+						else {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-                            }
-                        }
-                    });
-                    $('#tbReservationList').append(trHTML);
-                },
-                error: function (error) {
-                    alert('Failed to retrieve the record');
-                }
-            });
-        }
+							}
+						}
+					});
+					$('#tbReservationList').append(trHTML);
+				},
+				error: function (error) {
+					alert('Failed to retrieve the record');
+				}
+			});
+		}
+		function GetD() {
+			$('#tbReservationList').empty();
+			$.ajax({
+				type: "POST",
+				url: "/ReservationRecord/GetD",
+				dataType: 'json',
+				success: function (Data) {
+					var trHTML = '';
+					var name = '';
+					var ob = 0;
 
-        function Search() {
-            var value = document.getElementById('txtsearch').value;
-            var cat = document.getElementById('category').value;
-            if (cat == 0) {
-                if ($.type(value) === "string") {
-                    GetBy(cat, value);
-                }
-                else {
-                    alert("Wrong Input");
-                }
-            }
-            else if (cat == 1) {
-                if (value == '') {
-                    value = ' ';
-                    value = document.getElementById('txtdate').value;
-                    GetBy(cat, value);
-                }
-                else {
-                    value = document.getElementById('txtdate').value;
-                    GetBy(cat, value);
-                }
-            }
-            else if (cat == 2) {
-                if (typeof value == 'string') {
-                    GetBy(cat, value);
-                }
-                else {
-                    alert("Wrong Input");
-                }
-            }
-            else if (cat == 3) {
-                if (typeof value == 'string') {
-                    GetBy(cat, value);
-                }
-                else {
-                    alert("Wrong Input");
-                }
-            }
+					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
+					$.each(Data, function (i, v) {
 
-        }
 
-        function ToJavaScriptDate(value) {
-            var pattern = /Date\(([^)]+)\)/;
-            var results = pattern.exec(value);
-            var dt = new Date(parseFloat(results[1]));
-            return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear() + "-" + dt.getHours() + ":" + dt.getMinutes();
-        }
+						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+						if (ob == 0) {
+							trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+						}
+						else {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-        function toModal(refno) {
-            $('#myModal').modal();
-            $.ajax({
-                type: "POST",
-                url: "/ReservationRecord/GetModal",              
-                data: {'refno':refno},
-                success: function (Data) {
-                    $.each(Data, function (i, v) {
-                        var s = moment(v.StartTime);
-                        var st = s.format("DD/MMM/YYYY hh:mm a");
-                        var e = moment(v.EndTime);
-                        var et = e.format("DD/MMM/YYYY hh:mm a");
-                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + v.AName);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Reserved By: </b>' + v.ReservedBy ));
-                        $description.append($('<p/>').html('<b>Building No: </b>' + v.BldgNo ));
-                        $description.append($('<p/>').html('<b>Unit No: </b>' + v.UnitNo));
-                        $description.append($('<p/>').html('<b>StartTime: </b>' + st ));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + et ));
-                        $description.append($('<p/>').html('<b>Amenity Cost: </b>' + v.Rate));
-                        $description.append($('<p/>').html('<b>Table Cost: </b>' + v.TableCost ));
-                        $description.append($('<p/>').html('<b>Chair Cost: </b>' + v.ChairCost ));
-                        $description.append($('<p/>').html('<b>Charge: </b>' + v.Charge ));
-                        $description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge))));
-                        $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));
-                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total )));
-                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total))));
-                        $description.append($('<p/>').html('<b>Status: </b>' + v.Status ));
+							}
+						}
+					});
+					$('#tbReservationList').append(trHTML);
+				},
+				error: function (error) {
+					alert('Failed to retrieve the record');
+				}
+			});
+		}
+		function GetBy(level, search) {
+			var data = level;
+			var s = search;
+			$('#tbReservationList').empty();
+			$.ajax({
+				type: "POST",
+				url: "/ReservationRecord/Get",
+				dataType: 'json',
+				data: { 'Level': data, 'Search': s },
+				success: function (Data) {
+					var trHTML = '';
+					var name = '';
+					var ob = 0;
 
-                        document.getElementById('rid').value = v.SRId ;
-                        document.getElementById('rfid').value = v.RFId;
-                        $('#myModal #pDetails').empty().html($description);
-                    })
+					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
+					$.each(Data, function (i, v) {
 
-                  
-                },
-                error:
-                    function (error) {
-                        alert('Failed to retrieve the record');
-                    }
 
-            });
-        }   
-        function Setfield() {
-            var s = document.getElementById('category').value;
-            if (s == 1) {
-                document.getElementById('txtsearch').value ='';
-                $('#txtsearch').hide();
-                $('#txtdate').show();
-            }
-            else {
-                document.getElementById('txtdate').value = '';
-                $('#txtsearch').show();
-                $('#txtdate').hide();
-            }
+						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+						if (ob == 0) {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+							}
+						}
+						else {
+							if (v.typeResident == "Owner") {
+								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+							}
+							else {
+								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-        }
-    </script>
+							}
+						}
+					});
+					$('#tbReservationList').append(trHTML);
+				},
+				error: function (error) {
+					alert('Failed to retrieve the record');
+				}
+			});
+		}
+
+		function Search() {
+			var value = document.getElementById('txtsearch').value;
+			var cat = document.getElementById('category').value;
+			if (cat == 0) {
+				if ($.type(value) === "string") {
+					GetBy(cat, value);
+				}
+				else {
+					alert("Wrong Input");
+				}
+			}
+			else if (cat == 1) {
+				if (value == '') {
+					value = ' ';
+					value = document.getElementById('txtdate').value;
+					GetBy(cat, value);
+				}
+				else {
+					value = document.getElementById('txtdate').value;
+					GetBy(cat, value);
+				}
+			}
+			else if (cat == 2) {
+				if (typeof value == 'string') {
+					GetBy(cat, value);
+				}
+				else {
+					alert("Wrong Input");
+				}
+			}
+			else if (cat == 3) {
+				if (typeof value == 'string') {
+					GetBy(cat, value);
+				}
+				else {
+					alert("Wrong Input");
+				}
+			}
+
+		}
+
+		function ToJavaScriptDate(value) {
+			var pattern = /Date\(([^)]+)\)/;
+			var results = pattern.exec(value);
+			var dt = new Date(parseFloat(results[1]));
+			return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear() + "-" + dt.getHours() + ":" + dt.getMinutes();
+		}
+
+		function toModal(refno) {
+			$('#myModal').modal();
+			$.ajax({
+				type: "POST",
+				url: "/ReservationRecord/GetModal",
+				data: { 'refno': refno },
+				success: function (Data) {
+					$.each(Data, function (i, v) {
+						var s = moment(v.StartTime);
+						var st = s.format("DD/MMM/YYYY hh:mm a");
+						var e = moment(v.EndTime);
+						var et = e.format("DD/MMM/YYYY hh:mm a");
+						$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + v.AName);
+						var $description = $('<div/>');
+						$description.append($('<p/>').html('<b>Reserved By: </b>' + v.ReservedBy));
+						$description.append($('<p/>').html('<b>Building No: </b>' + v.BldgNo));
+						$description.append($('<p/>').html('<b>Unit No: </b>' + v.UnitNo));
+						$description.append($('<p/>').html('<b>StartTime: </b>' + st));
+						$description.append($('<p/>').html('<b>EndTime: </b>' + et));
+						$description.append($('<p/>').html('<b>Amenity Cost: </b>' + v.Rate));
+						$description.append($('<p/>').html('<b>Table Cost: </b>' + v.TableCost));
+						$description.append($('<p/>').html('<b>Chair Cost: </b>' + v.ChairCost));
+						$description.append($('<p/>').html('<b>Charge: </b>' + v.Charge));
+						$description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge))));
+						$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));
+						$description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total)));
+						$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total))));
+						$description.append($('<p/>').html('<b>Status: </b>' + v.Status));
+
+						document.getElementById('rid').value = v.SRId;
+						document.getElementById('rfid').value = v.RFId;
+						$('#myModal #pDetails').empty().html($description);
+					})
+
+
+				},
+				error:
+					function (error) {
+						alert('Failed to retrieve the record');
+					}
+
+			});
+		}
+		function Setfield() {
+			var s = document.getElementById('category').value;
+			if (s == 1) {
+				document.getElementById('txtsearch').value = '';
+				$('#txtsearch').hide();
+				$('#txtdate').show();
+			}
+			else {
+				document.getElementById('txtdate').value = '';
+				$('#txtsearch').show();
+				$('#txtdate').hide();
+			}
+
+		}
+	</script>
 }

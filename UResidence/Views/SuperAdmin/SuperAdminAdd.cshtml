@@ -1,7 +1,7 @@
 ﻿@model UResidence.Admin
 
 @{
-	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	Layout = "/Views/Layout/SuperAdminLayout.cshtml";
 	ViewBag.Title = "Registration";
 }
 
@@ -76,7 +76,7 @@
 
 	<div class="containerAdmin">
 		<h2>Admin</h2>
-		@using (Html.BeginForm("Registration", "Admin", FormMethod.Post))
+		@using (Html.BeginForm("SuperAdminAdd", "SuperAdmin", FormMethod.Post))
 		{
 			@Html.AntiForgeryToken()
 
@@ -254,6 +254,7 @@
 							<option value="4">Reservation Admin</option>
 							<option value="1">Boss Manager</option>
 							<option value="6">Security Guard Admin</option>
+							<option value="0">Super Admin</option>
 						</select>
 
 
@@ -321,3 +322,4 @@
 	</div>
 </body>
 </html>
+@Scripts.Render("~/bundles/jqueryval")  

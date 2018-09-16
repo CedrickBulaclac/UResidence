@@ -110,10 +110,11 @@ namespace UResidence.Controllers
                         CreatedBy = "",
                         ModifyBy = "",
                         DateCreated = DateTime.Now,
-                        Level = 4,
+                        Level = 8,
                         Locked = 0,
                         LastLogin = DateTime.Now
                     };
+
 
 
                     UResidence.UserController.InsertOwnerId(ull);

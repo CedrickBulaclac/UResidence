@@ -160,6 +160,7 @@
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
     <Compile Include="Controllers\SecurityGuardController.cs" />
+    <Compile Include="Controllers\BossManagerController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Global.asax.cs">
@@ -268,7 +269,7 @@
     <Content Include="Views\Layout\LayoutHome.cshtml" />
     <Content Include="Views\Layout\OwnerLayout.cshtml" />
     <Content Include="Views\Layout\RegistrationLayout.cshtml" />
-    <Content Include="Views\Layout\SuperAdminLayout.cshtml" />
+    <Content Include="Views\Layout\BossManagerLayout.cshtml" />
     <Content Include="Views\ReservationRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Records.cshtml" />
@@ -303,12 +304,15 @@
     <Content Include="Views\Tenant\TenantView.cshtml" />
     <Content Include="Views\Reserve\AboutUs.cshtml" />
     <Content Include="Views\Reserve\ContactUs.cshtml" />
+    <Content Include="Views\Layout\SuperAdminLayout.cshtml" />
+    <Content Include="Views\SuperAdmin\SuperAdminAdd.cshtml" />
+    <Content Include="Views\SuperAdmin\SuperAdminView.cshtml" />
+    <Content Include="Views\SuperAdmin\SuperAdminEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Registration\" />
-    <Folder Include="Views\SuperAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

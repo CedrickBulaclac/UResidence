@@ -13,7 +13,7 @@
 	}
 	else if (Convert.ToInt32(Session["Level"]) == 1)
 	{
-		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
 	}
 	else if (Convert.ToInt32(Session["Level"]) == 4)
 	{
@@ -30,6 +30,10 @@
 	else if (Convert.ToInt32(Session["Level"]) == 7)
 	{
 		Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
 	}
 }
 @*Scripts for dropdown*@
@@ -218,10 +222,7 @@
 
 			<div class=".col-sm-6">
 
-				<div class="row1">
-
-					<img src="~/Content/AmenityImages/iron-man-1920x1080-artwork-hd-8108.jpg" style="width:200px; height:100px; float:right; padding-right:10em;" />
-				</div>
+				
 
 
 			</div>

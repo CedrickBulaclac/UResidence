@@ -409,7 +409,10 @@
 		selectedValue = $(this).val();
 		document.getElementById('et').value = selectedValue;
 
+
 	});
+
+
 	$(document).ready(function () {
 		$('#et').change(function myFunction() {
 			endTime = $(this).val();
@@ -417,42 +420,33 @@
 			var endT = parseInt(endTime.split(':')[0], 10);
 
 
-			if (endT >= 9 && endT <= 21) {
-				if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21)) {
-					if (endT > startT) {
-						var hourDiff =
-							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-						rateA = rate1 * hourDiff
-						document.getElementById('rate').value = rateA;
-						statuset = "Valid";
-
+				if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21))
+				{
+					if ((startT >= 18 && startT <= 20) && (endT >= 19 && endT <= 21))
+					{
+						var hourDiff = parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = ((rate1 * 2) * hourDiff)
+						document.getElementById('rate').value = 0;
+						statuset = "Invalid";
 					}
 					else
 					{
-						statuset = "Invalid";
-					}
+						var hourDiff = parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = rate1 * hourDiff
+						document.getElementById('rate').value = rateA;
+						statuset = "Valid";
+					}					
 				}
-				else {
-
-					var hourDiff =
-						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-					rateA = ((rate1 * 2) * hourDiff)
+				else
+				{
+					alert("End Time is invalid 9:00 AM - 9:00 PM only");
+					document.getElementById('et').value = "PM";
 					document.getElementById('rate').value = 0;
 					statuset = "Invalid";
-
-				}
-			}
-			else {
-				alert("End Time is invalid 9:00 AM - 9:00 PM only");
-				document.getElementById('et').value = "PM";
-				document.getElementById('rate').value = 0;
-				statuset = "Invalid";
-
-			}
-
-
+				}		
 		});
 	});
+
 	function Check() {
 		if (statusst == 'Valid' && statuset == 'Valid') {
 			var stconcat = startDate + " " + startTime;

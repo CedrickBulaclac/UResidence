@@ -35,7 +35,7 @@ namespace UResidence
 
         public static Residence GetOwnerNo(string ono)
         {
-            const string GET_RECORD = @"SELECT Id,OwnerNo,TenantNo FROM [tbResidence] WHERE OwnerNo = @OwnerNo";
+            const string GET_RECORD = @"SELECT Id,OwnerNo,ISNULL(TenantNo,0) FROM [tbResidence] WHERE OwnerNo =@OwnerNo";
 
             Residence ret = default(Residence);
             SqlCommand com = new SqlCommand(GET_RECORD);
