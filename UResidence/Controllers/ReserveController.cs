@@ -26,42 +26,39 @@ namespace UResidence.Controllers
 
         }
         public ActionResult Home()
-        {        
-            List<Amenity> amen = default(List<Amenity>);
-            amen = UResidence.AmenityController.GetAll();
-
-            int level = Convert.ToInt32(Session["Level"]);
-
-            if (level == 8)
+        {
+            int balance = 0;
+            List<Billing> billing = new List<Billing>();
+            int uid = Convert.ToInt32(Session["UID"]);
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
             {
-                Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
-                Session["URLL"] = a.URL;
+                billing = UResidence.BillingController.GetOwner(uid);
             }
-            else if (level == 9)
+
+            else
             {
-                Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
-                Session["URLL"] = t.URL;
+
+                billing = UResidence.BillingController.GetTenant(uid);
             }
-            
-           bool s = false;
-            if (Session["status"] is null)
+
+            for (int i = 0; i <= billing.Count - 1; i++)
             {
-                return View(amen);
+
+                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+            }
+            if (balance > 0)
+            {
+                Session["status"] = true;                
+                string hrtml = "<script>alert('You have an Outstanding Balance of " + balance + "' \n hi)</script>";
+                Response.Write(hrtml);
+                return RedirectToAction("Home", "Reserve");
             }
             else
             {
-                if ((Session["status"]).ToString().Equals(false))
-                {
-                    s = false;
-                }
-                else
-                {
-                    s = true;
-                }
-                ViewBag.Status = s;
-                return View(amen);
+                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                return View(amenityList);
+
             }
         }
 

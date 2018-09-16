@@ -23,7 +23,12 @@ namespace UResidence.Controllers
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-
+        public JsonResult Search(ReservationProcess rese)
+        {
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(rese.RFId);
+            var events = reservationList.ToList();
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public JsonResult InsertPayment(Receipt receipt)
         {
             bool status = false;

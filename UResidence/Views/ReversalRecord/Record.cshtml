@@ -38,30 +38,34 @@
 
 <br /><br />
 <div class="panel panel-default">
-	<div class="container">
-		<div class="pull-right">
-			<div class="btn-group">
+    <div class="container">
+        <div class="pull-left">
+            <label id="caption" name="caption"></label>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group">
 
-				<button type="button" class="btn btn-primary btn-filter " value="Approved" onclick="Set('@approved')">Approved</button>
-				<button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="Set('@pending')">Pending</button>
-				<button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="Set('@denied')">Cancelled</button>
-				<button type="button" class="btn btn-success btn-filter" value="Completed" onclick="Set('@completed')">Completed</button>
+                <button type="button" class="btn btn-primary btn-filter " value="Approved" onclick="Set('@approved')">Approved</button>
+                <button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="Set('@pending')">Pending</button>
+                <button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="Set('@denied')">Cancelled</button>
+                <button type="button" class="btn btn-success btn-filter" value="Completed" onclick="Set('@completed')">Completed</button>
 
-			</div>
-		</div>
-		<br />
-		<br />
+            </div>
+        </div>
+        <br />
+        <br />
 
-		<table class="table table-bordered table-striped" id="tableReversalList"></table>
+        <table class="table table-bordered table-striped" id="tableReversalList"></table>
 
 
-	</div>
+    </div>
 </div>
 
 <script>
 	$(document).ready(SetP());
-	function SetP() {
-
+    function SetP() {
+        var s = 'Pending';
+        document.getElementById('caption').innerHTML = 'List of ' + s;
 		$.ajax({
 			type: 'POST',
 			url: '/ReversalRecord/GetP',
@@ -217,6 +221,7 @@
 	}
 	function Set(s) {
 		//var s = document.getElementById('select').value;
+        document.getElementById('caption').innerHTML = 'List of ' + s;
 		if (s == 'Pending') {
 			SetP();
 		}
