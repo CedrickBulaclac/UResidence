@@ -20,25 +20,31 @@ namespace UResidence.Controllers
             model.Add(amenityList.ToList());
             model.Add(schedList.ToList());
             model.Add(equipList.ToList());
-
             return View(model);
 
 
         }
         public ActionResult Home()
         {
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             int balance = 0;
             List<Billing> billing = new List<Billing>();
             int uid = Convert.ToInt32(Session["UID"]);
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
                 billing = UResidence.BillingController.GetOwner(uid);
             }
 
             else
             {
 
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
                 billing = UResidence.BillingController.GetTenant(uid);
             }
 
@@ -49,14 +55,14 @@ namespace UResidence.Controllers
             }
             if (balance > 0)
             {
-                Session["status"] = true;                
-                string hrtml = "<script>alert('You have an Outstanding Balance of " + balance + "' \n hi)</script>";
+                Session["status"] = true;
+                string hrtml = "<script>alert('You have an Outstanding Balance of ₱" + balance + " ')</script>";
                 Response.Write(hrtml);
-                return RedirectToAction("Home", "Reserve");
+                return View(amenityList);
             }
             else
             {
-                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+              
                 return View(amenityList);
 
             }
