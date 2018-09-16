@@ -40,7 +40,7 @@ namespace UResidence.Controllers
             return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }
-        public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc)
+        public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc,Notification data)
         {
             string name = (Session["FullName"]).ToString();
             bool status = false;
@@ -61,6 +61,32 @@ namespace UResidence.Controllers
                     Id = refno1,
                 };
                 status = ReservationController.Update(reservation);
+                if(status==true)
+                {
+                    if (data.type == "Owner")
+                    {
+                        Notification not = new Notification
+                        {
+                            Description = data.Description,
+                            Visit = 0,
+                            OwnerId = data.OwnerId,
+                            Date = DateTime.Now
+                        };
+                        status = NotificationController.InsertO(not);
+                    }
+                    else
+                    {
+                        Notification not = new Notification
+                        {
+                            Description = data.Description,
+                            Visit = 0,
+                            TenantId = data.OwnerId,
+                            Date = DateTime.Now
+                        };
+                        status = NotificationController.InsertT(not);
+                    }
+                }
+                    
             }
             return new JsonResult
             {

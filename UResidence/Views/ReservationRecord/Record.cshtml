@@ -2,9 +2,6 @@
 @{
     Layout = "~/Views/Layout/SuperAdminLayout.cshtml";
 }
-
-
-
 <br />
 <br />
 <div class="container">
@@ -36,7 +33,7 @@
         </div>
         <div class="col-md-4">
             <input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
-            <input type="search" id="txtsearch" name="txtsearch" class="form-control" />
+            <input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
         </div>
         <div class="col-md-1">
             <b>Category</b>
@@ -64,6 +61,29 @@
     <script>
         $(document).ready(GetO());
 
+        function Notify(outstanding,Id,type) {
+            console.log(type);
+           
+
+            var data = {
+                Description: 'You have an Outstanding Charge of ' + outstanding + ' in your account.',
+                OwnerId: Id,
+                type:type
+            }
+            $.ajax({
+                type: 'post',
+                url: '/ReservationRecord/InsertNotif',
+                data: data,
+                success: function (data) {
+                    alert("You have successfully notify the user");
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+
+
         function GetO() {
             $('#tbReservationList').empty();
             $.ajax({
@@ -71,7 +91,6 @@
                 url: "/ReservationRecord/GetEvents",
                 dataType: 'json',
                 success: function (Data) {
-                    console.log(Data);
                     var trHTML = '';
                     var name = '';
                     var ob = 0;
@@ -79,10 +98,29 @@
                     trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
                     $.each(Data, function (i, v) {
 
-                        name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
+                        
                         ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        if (ob == 0) {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
+                            }
+                            }
                     });
                     $('#tbReservationList').append(trHTML);
                 },
@@ -99,17 +137,36 @@
                 url: "/ReservationRecord/GetT",
                 dataType: 'json',
                 success: function (Data) {
-                    console.log(Data);
                     var trHTML = '';
                     var name = '';
                     var ob = 0;
+
                     trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
                     $.each(Data, function (i, v) {
 
-                        name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
+                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+                        if (ob == 0) {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                        }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
                     });
                     $('#tbReservationList').append(trHTML);
                 },
@@ -125,17 +182,29 @@
                 url: "/ReservationRecord/GetD",
                 dataType: 'json',
                 success: function (Data) {
-                    console.log(Data);
                     var trHTML = '';
                     var name = '';
                     var ob = 0;
+
                     trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
                     $.each(Data, function (i, v) {
 
-                        name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
+                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+                        if (ob == 0) {
+                            trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
                     });
                     $('#tbReservationList').append(trHTML);
                 },
@@ -154,7 +223,6 @@
                 dataType: 'json',
                 data: { 'Level': data, 'Search': s },
                 success: function (Data) {
-                    console.log(Data);
                     var trHTML = '';
                     var name = '';
                     var ob = 0;
@@ -162,10 +230,29 @@
                     trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
                     $.each(Data, function (i, v) {
 
-                        name = v.Fname + ' ' + v.Mname + ' ' + v.Lname;
-                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-default" name="btnView" id="btnView" onclick="toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
+                        ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+                        if (ob == 0) {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                        }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
                     });
                     $('#tbReservationList').append(trHTML);
                 },

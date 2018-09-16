@@ -8,9 +8,16 @@ namespace UResidence
 {
     public class ReservationList : BaseProperty<ReservationList>
     {
-        public string Fname { get; set; }
-        public string Mname { get; set; }
-        public string Lname { get; set; }
+        public int OwnerId { get; set; }
+        public int TenantId { get; set; }
+        public string typeResident { get; set; }
+        public string oFname { get; set; }
+        public string oMname { get; set; }
+        public string oLname { get; set; }
+        public string oDate { get; set; }
+        public string tFname { get; set; }
+        public string tMname { get; set; }
+        public string tLname { get; set; }
         public string Date { get; set; }
         public string AmenityName { get; set; }
         public int Rate { get; set; }
@@ -23,17 +30,23 @@ namespace UResidence
         public ReservationList CreateObject(SqlDataReader reader)
         {
             ReservationList ret = new ReservationList();
-            ret.RefNo = reader.GetInt32(0);
-            ret.Fname = RemoveWhitespace(reader.GetString(1));
-            ret.Mname = RemoveWhitespace(reader.GetString(2));
-            ret.Lname = RemoveWhitespace(reader.GetString(3));
-            ret.Date = reader.GetString(4);
-            ret.AmenityName = reader.GetString(5);
-            ret.Rate = reader.GetInt32(6);
-            ret.Charge = reader.GetInt32(7);
-            ret.ChairCost = reader.GetInt32(8);
-            ret.TableCost = reader.GetInt32(9);
-            ret.TotalPayment = reader.GetInt32(10);
+            ret.OwnerId = reader.GetInt32(0);
+            ret.TenantId = reader.GetInt32(1);
+            ret.typeResident = reader.GetString(2);
+           ret.RefNo = reader.GetInt32(3);
+            ret.oFname = RemoveWhitespace(reader.GetString(4));
+            ret.oMname = RemoveWhitespace(reader.GetString(5));
+            ret.oLname = RemoveWhitespace(reader.GetString(6));
+            ret.tFname = RemoveWhitespace(reader.GetString(7));
+            ret.tMname = RemoveWhitespace(reader.GetString(8));
+            ret.tLname = RemoveWhitespace(reader.GetString(9));
+            ret.Date = reader.GetString(10);
+            ret.AmenityName = reader.GetString(11);
+            ret.Rate = reader.GetInt32(12);
+            ret.Charge = reader.GetInt32(13);
+            ret.ChairCost = reader.GetInt32(14);
+            ret.TableCost = reader.GetInt32(15);
+            ret.TotalPayment = reader.GetInt32(16);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -42,9 +55,14 @@ namespace UResidence
         }
         public void Reset()
         {
-            this.Fname = string.Empty;
-            this.Mname = string.Empty;
-            this.Lname = string.Empty;
+            this.OwnerId = 0;
+            this.TenantId = 0;
+            this.tFname = string.Empty;
+            this.tMname = string.Empty;
+            this.tLname = string.Empty;
+            this.oFname = string.Empty;
+            this.oMname = string.Empty;
+            this.oLname = string.Empty;
             this.Date = string.Empty;
             this.AmenityName = string.Empty;
             this.Rate = 0;

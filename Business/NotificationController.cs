@@ -63,9 +63,9 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-        public static bool Insert(Notification not)
+        public static bool InsertO(Notification not)
         {
-            const string GET_INSERT = @"insert [tbNotification] (Description,Date,Visit,OwnerId,TenantId) values (@Description,@Date,@Visit,@OwnerId,@TenantId) ";
+            const string GET_INSERT = @"insert [tbNotification] (Description,Date,Visit,OwnerId) values (@Description,@Date,@Visit,@OwnerId) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
 
@@ -73,11 +73,21 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Date", not.Date));
             com.Parameters.Add(new SqlParameter("@Visit", not.Visit));
             com.Parameters.Add(new SqlParameter("@OwnerId", not.OwnerId));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+        public static bool InsertT(Notification not)
+        {
+            const string GET_INSERT = @"insert [tbNotification] (Description,Date,Visit,TenantId) values (@Description,@Date,@Visit,@TenantId) ";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+
+            com.Parameters.Add(new SqlParameter("@Description", not.Description));
+            com.Parameters.Add(new SqlParameter("@Date", not.Date));
+            com.Parameters.Add(new SqlParameter("@Visit", not.Visit));
             com.Parameters.Add(new SqlParameter("@TenantId", not.TenantId));
 
             return SqlManager.ExecuteNonQuery(com);
         }
-
-
     }
 }

@@ -15,6 +15,7 @@ namespace UResidence
         public int Visit { get; set; }
         public int OwnerId { get; set; }
         public int TenantId { get; set; }
+        public string type { get; set; }
 
         public Notification CreateObject(SqlDataReader reader)
         {

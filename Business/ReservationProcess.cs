@@ -9,6 +9,9 @@ namespace UResidence
 {
     public class ReservationProcess : BaseProperty<ReservationProcess> 
     {
+        public int OwnerId { get; set; }
+        public int TenantId { get; set; }
+        public string typeResident { get; set; }
         public int SRId { get; set; }
         public int RFId { get; set; }
         public DateTime StartTime { get; set; }
@@ -34,25 +37,28 @@ namespace UResidence
         public ReservationProcess CreateObject(SqlDataReader reader)
         {
             ReservationProcess ret = new ReservationProcess();
-            ret.SRId = reader.GetInt32(0);
-            ret.RFId = reader.GetInt32(1);
-            ret.StartTime = reader.GetDateTime(2);
-            ret.EndTime = reader.GetDateTime(3);
-            ret.Rate = reader.GetInt32(4);
-            ret.Charge = reader.GetInt32(5);
-            ret.ReservedBy = reader.GetString(6);
-            ret.Status = RemoveWhitespace(reader.GetString(7));
-            ret.Color = RemoveWhitespace(reader.GetString(8));
-            ret.AId = reader.GetInt32(9);
-            ret.AName = RemoveWhitespace(reader.GetString(10));
-            ret.BldgNo = RemoveWhitespace(reader.GetString(11));
-            ret.UnitNo = RemoveWhitespace(reader.GetString(12));
-            ret.ChairCost= reader.GetInt32(13);
-            ret.TableCost = reader.GetInt32(14);
-            ret.Total = reader.GetInt32(15);
-            ret.Amount = reader.GetInt32(16);
-            ret.ChairQuantity = reader.GetInt32(17);
-            ret.TableQuantity = reader.GetInt32(18);
+            ret.OwnerId = reader.GetInt32(0);
+            ret.TenantId = reader.GetInt32(1);
+            ret.typeResident = reader.GetString(2);
+            ret.SRId = reader.GetInt32(3);
+            ret.RFId = reader.GetInt32(4);
+            ret.StartTime = reader.GetDateTime(5);
+            ret.EndTime = reader.GetDateTime(6);
+            ret.Rate = reader.GetInt32(7);
+            ret.Charge = reader.GetInt32(8);
+            ret.ReservedBy = reader.GetString(9);
+            ret.Status = RemoveWhitespace(reader.GetString(10));
+            ret.Color = RemoveWhitespace(reader.GetString(11));
+            ret.AId = reader.GetInt32(12);
+            ret.AName = RemoveWhitespace(reader.GetString(13));
+            ret.BldgNo = RemoveWhitespace(reader.GetString(14));
+            ret.UnitNo = RemoveWhitespace(reader.GetString(15));         
+            ret.ChairCost= reader.GetInt32(16);
+            ret.TableCost = reader.GetInt32(17);
+            ret.Total = reader.GetInt32(18);
+            ret.Amount = reader.GetInt32(19);
+            ret.ChairQuantity = reader.GetInt32(20);
+            ret.TableQuantity = reader.GetInt32(21);
             return ret;
         }
 
@@ -64,6 +70,9 @@ namespace UResidence
 
         public void Reset()
         {
+            this.OwnerId = 0;
+            this.TenantId = 0;
+            this.typeResident = string.Empty;
             this.SRId = 0;
             this.RFId = 0;
             this.Total = 0;

@@ -48,6 +48,8 @@
     <Compile Include="AmenityController.cs" />
     <Compile Include="Billing.cs" />
     <Compile Include="BillingController.cs" />
+    <Compile Include="BillingList.cs" />
+    <Compile Include="BillingListController.cs" />
     <Compile Include="Charge.cs" />
     <Compile Include="ChargeController.cs" />
     <Compile Include="CheckSwimming .cs" />

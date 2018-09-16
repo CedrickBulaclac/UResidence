@@ -54,17 +54,19 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title"><span id="eventTitle"></span></h4>
 						</div>
-						<div class="modal-body">
-							<input type="hidden" name="rid" id="rid" />
-							<input type="hidden" name="rfid" id="rfid" />
-							<p id="pDetails"></p>
-							<br /><br />
-							<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
-							<button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
-							<button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
+                        <div class="modal-body">
+                            <input type="hidden" name="rid" id="rid" />
+                            <input type="hidden" name="rfid" id="rfid" />
+                            <input type="hidden" name="oid" id="oid">
+                            <input type="hidden" name="typeid" id="typeid">
+                            <p id="pDetails"></p>
+                            <br /><br />
+                            <button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+                            <button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
+                            <button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
 
 
-						</div>
+                        </div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
@@ -157,19 +159,19 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
-						<div class="modal-body">
-							<b>Status: </b><select id="mySelect" name="mySelect">
-								<option value="Pending">Pending</option>
-								<option value="Reserved">Reserved</option>
-								<option value="Canceled">Canceled</option>
-							</select>
-							<br /><br />
-							<b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
-							<br /><br />
-							<b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
-							<br /><br />
-							<b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
-						</div>
+                        <div class="modal-body">
+                            <b>Status: </b><select id="mySelect" name="mySelect">
+                                <option value="Pending">Pending</option>
+                                <option value="Reserved">Reserved</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>                          
+                            <br /><br />
+                            <b>Current Charge: </b><label name="cg" id="cg" min="0"></label>
+                            <br /><br />
+                            <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
+                            <br /><br />
+                            <b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
+                        </div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
 							<button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
@@ -439,8 +441,15 @@
                 var rstatus = document.getElementById('mySelect').value;
                 var charge1 = document.getElementById('cg').innerHTML;
                 var charge2 = document.getElementById('cg1').value;
+                var id = document.getElementById('oid').value;
+                var typeid = document.getElementById('typeid').value;
                 var charge = charge1 + charge2;
                 var cdescription = document.getElementById('cdescription').value;
+                var data = {
+                    OwnerId: id,
+                    type: typeid,
+                    Description: "You have been Added a Charge of " + charge2
+                };
                 $.ajax({
                     type: "POST",
                     url: "/calendar/UpdatePayment",
@@ -449,7 +458,8 @@
                         'rstatus1': rstatus,
                         'charge1': charge,
                         'refno1': refno,
-                        'desc': cdescription
+                        'desc': cdescription,
+                        data
                     },
                     success: function (data) {
                         if (data == true) {
@@ -498,7 +508,11 @@
 								tq: v.TableQuantity,
 								sid: v.SRId,
 								adu: v.Adult,
-								chi: v.Child
+                                chi: v.Child,
+                                oid: v.OwnerId,
+                                tid: v.TenantId,
+                                typeR: v.typeResident
+
                             });
                         })
                         GenerateCalendar(events);
@@ -552,7 +566,11 @@
                                     cq: v.ChairQuantity,
 									tq: v.TableQuantity,
 									sid: v.SRId,
-
+                                    adu: v.Adult,
+                                    chi: v.Child,
+                                    oid: v.OwnerId,
+                                    tid: v.TenantId,
+                                    typeR: v.typeResident
                                 });
                             })
                             GenerateCalendar(events);
@@ -608,7 +626,18 @@
 								//document.getElementById('dp').value = calEvent.dp;
 								document.getElementById('rid').value = calEvent.r;
 								document.getElementById('rfid').value = calEvent.rf;
-								document.getElementById('cg').innerHTML = calEvent.cg;
+                                document.getElementById('cg').innerHTML = calEvent.cg;
+                                document.getElementById('cg').innerHTML = calEvent.cg;
+                                
+                                if (calEvent.typeR == "Owner") {
+                                    document.getElementById('oid').value = calEvent.oid;
+                                   
+                                }
+                                else {
+                                    document.getElementById('oid').value = calEvent.tid;
+                                    
+                                }
+                                document.getElementById('typeid').value = calEvent.typeR;
 								totalpay = calEvent.dp;
 								document.getElementById('tpr').innerHTML = calEvent.dp;
 								$('#myModal #pDetails').empty().html($description);
@@ -643,7 +672,17 @@
 								document.getElementById('rid').value = calEvent.r;
 								document.getElementById('rfid').value = calEvent.rf;
 								document.getElementById('cg').innerHTML = calEvent.cg;
-								totalpay = calEvent.dp;
+                                totalpay = calEvent.dp;
+
+                                if (calEvent.typeR == "Owner") {
+                                    document.getElementById('oid').value = calEvent.oid;
+
+                                }
+                                else {
+                                    document.getElementById('oid').value = calEvent.tid;
+
+                                }
+                                document.getElementById('typeid').value = calEvent.typeR;
 								document.getElementById('tpr').innerHTML = calEvent.dp;
 								$('#myModal #pDetails').empty().html($description);
 

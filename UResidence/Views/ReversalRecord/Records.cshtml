@@ -180,8 +180,8 @@
                         $description.append($('<p/>').html('<b>Charge: </b>' + v.Charge));
                         $description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge))));
                         $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));
-                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total)));
-                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total))));
+                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total - v.Amount)));
+                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total - v.Amount))));
                         $description.append($('<p/>').html('<b>Status: </b>' + v.Status));
 
                         document.getElementById('rid').value = v.SRId;

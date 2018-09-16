@@ -1,4 +1,4 @@
-﻿@model UResidence.Billing
+﻿@model List<BillingList>
 
 @{
     Layout = "~/Views/Layout/LayoutHome.cshtml";
@@ -15,16 +15,24 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><span id="eventTitle"></span></h4>
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" name="rid" id="rid" />
-                    <input type="hidden" name="rfid" id="rfid" />
-                    <p id="pDetails"></p>
-                    <br /><br />
+                <div class="modal-body">      
+                    <input type="hidden" name="rfid" id="rfid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <table class="table table-bordered" width="100" id="rowtotalCost"></table>
+                            </div>
+                            <div class="col-sm-3">
+                                <table class="table table-bordered" width="100" id="rowtotalPayment"></table>
+                            </div>
+                        </div>
 
-                    <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
+                    </div>
+
 
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
 
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
@@ -54,173 +62,185 @@
 </div>
 
 <br />
-<div id="calendar" class="container"></div>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
-@section scripts{
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
-    <script>
-        var events = [];
-        $(document).ready(function () {
-            events = [];
-            $.ajax({
-                type: "GET",
-                url: "/Billing/GetEvents",
-                success: function (data) {
-                    $.each(data, function (i, v) {
-                        events.push({
-                            title: v.AName,
-                            reserved: v.ReservedBy,
-                            start: moment(v.StartTime),
-                            end: v.EndTime != null ? moment(v.EndTime) : null,
-                            rate: v.Rate,
-                            status: v.Status,
-                            color: v.Color,
-                            dp: v.Total,
-                            cg: v.Charge,
-                            bn: v.BldgNo,
-                            un: v.UnitNo,
-                            r: v.RId,
-                            rf: v.RFId,
-                            tc: v.TableCost,
-                            cc: v.ChairCost,
-                            amt: v.Amount,
-                            cq: v.ChairQuantity,
-                            tq: v.TableQuantity
-                        });
-                    })
-                    GenerateCalendar(events);
-                },
-                error: function (error) {
-                    alert('failed');
-                }
-            });
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <table class="table table-bordered" width="100">
+                <tr><td colspan="2" style="text-align:center; font-size:16px; font-weight:bold; background:#2ba74a; color:#FFF;"><h3>Account Billing</h3></td></tr>
+                <tr>
+                    <td style="text-align:center; font-size:16px; font-weight:bold;">Outstanding Total :</td>
+                    <td style="text-align:center; font-size:16px; font-weight:bold;">₱@ViewBag.Balance</td>
+                </tr>
+            </table>
 
+        </div>
+        <div class="col-lg-6">
 
+        </div>
+    </div>
+    <br />
+ 
 
-        });
+    <table class="table table-bordered">
+        <tr><td colspan="7" style="text-align:center; font-size:16px; font-weight:bold; background:#2ba74a; color:#FFF;"><h4>Billing Information</h4></td></tr>
+        <tr>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Reservation Form ID</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Date of Reservation</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Amenity Reserved</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Total Cost</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Total Payment</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">Balance</td>
+            <td style="text-align:center; font-size:16px; font-weight:bold;">View</td>
+        </tr>
+        @foreach (var data in Model)
+        {
 
-
-        function GenerateCalendar(events) {
-            $('#calendar').fullCalendar('destroy');
-            $('#calendar').fullCalendar({
-                contentHeight: 400,
-                defaultDate: new Date(),
-                timeFormat: 'h(:mm):a',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay,agenda'
-                },
-                eventLimit: true,
-                eventColor: '#378006',
-                events: events,
-
-                eventClick: function (calEvent, jsEvent, view) {
-
-                    if (calEvent.title == 'SwimmingPool') {
-                        selectedEvent = calEvent;
-                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-                        $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-                        $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-                        $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate + '&nbsp;&nbsp;&nbsp;&nbsp;<a>View Details</a>'));
-                        $description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
-                        $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
-                        $description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
-                        $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
-                        $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
-                        $description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
-                        $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
-                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
-                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
-                        $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));                 
-                        document.getElementById('rid').value = calEvent.r;
-                        document.getElementById('rfid').value = calEvent.rf;
-                  
-                        totalpay = calEvent.dp;
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal();
-                    }
-
-                    else {
-                        selectedEvent = calEvent;
-                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-                        $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-                        $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-                        $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
-                        $description.append($('<p/>').html('<b>Table Quantity: </b>' + calEvent.tq));
-                        $description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
-                        $description.append($('<p/>').html('<b>Chair Quantity: </b>' + calEvent.cq));
-                        $description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
-                        $description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
-                        $description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
-                        $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
-                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
-                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
-                        $description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
-                        document.getElementById('rid').value = calEvent.r;
-                        document.getElementById('rfid').value = calEvent.rf;
-                        totalpay = calEvent.dp;
-                      
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal();
-                    }
-                }
-            });
+        <tr>
+            <td style="text-align:center; font-size:16px; ">@data.RFID</td>
+            <td style="text-align:center; font-size:16px; ">@data.Date</td>
+            <td style="text-align:center; font-size:16px;">@data.AmenityName</td>
+            <td style="text-align:center; font-size:16px; ">₱@data.TotalRate</td>
+            <td style="text-align:center; font-size:16px;">₱@data.TotalPayment</td>
+            <td style="text-align:center; font-size:16px; ">₱@data.OutstandingTotal</td>
+            <td style="text-align:center; font-size:16px;"><button class="btn btn-default" onclick="Modal(@data.RFID)">View</button></td>
+        </tr>
         }
 
 
-        function ReceiptHistory() {
-            var refno = document.getElementById('rfid').value;
+    </table>
 
+
+</div>
+
+
+
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <script>
+
+        function Modal(rfid) {          
+            var data = {
+                RFId:rfid
+            };
+            document.getElementById('rfid').value = rfid;
             $.ajax({
-                type: "POST",
-                url: "/Billing/ReceiptHistory",
-                dataType: 'json',
-                data: {
-                    'refno1': refno
-                },
+                type: 'POST',
+                url: "/Billing/GetEvents",
+                data: data,
                 success: function (data) {
+                    $('#rowtotalCost').empty();
+                    var totalc = 0;
+                    totalc = data[0].Rate + data[0].ChairCost + data[0].TableCost + data[0].Charge;
+                    var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
+                    trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Rate + '</td ></tr>';
+
+                    trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" > Chair Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].ChairCost + '</td></tr>';                     
+                    trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Table Cost</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].TableCost + '</td></tr>';
+                    trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Charge</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Charge + '</td></tr>';
+                    trHtml += '<tr> <td style="text-align:center; font - size: 10px; font - weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalc + '</td ></tr>';
+    
+                    $('#rowtotalCost').append(trHtml);
+
+                    $('#rowtotalPayment').empty();
                     var totalp = 0;
-                    var trHTML = '';
-                    format: 'yyyy-mm',
-
-
-                        $('#tbHistory').empty();
-                    trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
-                    $.each(data, function (i, v) {
-                        trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td><td><button class="btn btn-success">Print</button></td></tr>';
-                        totalp += v.Totalpayment;
-                    });
-                    $('#tbHistory').append(trHTML);
-                    document.getElementById('txtTotalPayment').innerHTML = totalp;
-                    trHTML = '';
-                },
-                error: function (error) {
+                    totalp = data[0].Total - data[0].Amount;
+                    var trHtml1 = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Payment</h5></td></tr>';
+                    trHtml1 += '<tr><td style="text-align:center; font-size: 10px; font-weight: bold;">Total Payment</td><td style = "text-align:center; font-size:10px; font-weight:bold;" >₱' + data[0].Total + '</td ></tr>';
+                    trHtml1 += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >Reversal Amount</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Amount + '</td></tr>';                     
+                    trHtml1 += '<tr> <td style="text-align:center; font-size: 10px; font-weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalp + '</td ></tr>';
+                    $('#rowtotalPayment').append(trHtml1);
+                        $('#myModal').modal();
+    
+                    },
+                error: function (data) {
                     alert('Failed to retrieve the record');
                 }
             });
         }
-        $('#btnHistory').click(function () {
 
-            $('#PaymentHistory').modal();
+            //var events = [];
+            //$(document).ready(function () {
+            //    events = [];
+            //    $.ajax({
+            //        type: "GET",
+            //        url: "/Billing/GetEvents",
+            //        success: function (data) {
+            //            $.each(data, function (i, v) {
+            //                events.push({
+            //                    title: v.AName,
+            //                    reserved: v.ReservedBy,
+            //                    start: moment(v.StartTime),
+            //                    end: v.EndTime != null ? moment(v.EndTime) : null,
+            //                    rate: v.Rate,
+            //                    status: v.Status,
+            //                    color: v.Color,
+            //                    dp: v.Total,
+            //                    cg: v.Charge,
+            //                    bn: v.BldgNo,
+            //                    un: v.UnitNo,
+            //                    r: v.RId,
+            //                    rf: v.RFId,
+            //                    tc: v.TableCost,
+            //                    cc: v.ChairCost,
+            //                    amt: v.Amount,
+            //                    cq: v.ChairQuantity,
+            //                    tq: v.TableQuantity
+            //                });
+            //            })
+            //            GenerateCalendar(events);
+            //        },
+            //        error: function (error) {
+            //            alert('failed');
+            //        }
+            //    });
 
-        });
-        $('#btnCloseRH').click(function () {
 
-            $('#myModal').modal();
-        }
-        );
+
+            //});
+
+            function ReceiptHistory() {
+                var refno = document.getElementById('rfid').value;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Billing/ReceiptHistory",
+                    dataType: 'json',
+                    data: {
+                        'refno1': refno
+                    },
+                    success: function (data) {
+                        var totalp = 0;
+                        var trHTML = '';
+                        format: 'yyyy-mm',
+
+
+                            $('#tbHistory').empty();
+                        trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
+                        $.each(data, function (i, v) {
+                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td><td><button class="btn btn-success">Print</button></td></tr>';
+                            totalp += v.Totalpayment;
+                        });
+                        $('#tbHistory').append(trHTML);
+                        document.getElementById('txtTotalPayment').innerHTML = totalp;
+                        trHTML = '';
+                    },
+                    error: function (error) {
+                        alert('Failed to retrieve the record');
+                    }
+                });
+            }
+
+            $('#btnHistory').click(function () {
+
+                $('#PaymentHistory').modal();
+
+            });
+        $('#btnClosePH').click(function () {
+
+                $('#myModal').modal();
+            }
+            );
     </script>
 }

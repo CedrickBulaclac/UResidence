@@ -13,6 +13,41 @@ namespace UResidence.Controllers
         {
             return View();
         }
+        public string RemoveWhitespace(string str)
+        {
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+        }
+        public JsonResult InsertNotif(Notification not)
+        {
+            bool status = false;
+            if (RemoveWhitespace(not.type) == "Owner")
+            {
+                Notification notilist = new Notification
+                {
+                    Description = not.Description,
+                    Visit = 0,
+                    Date = DateTime.Now,
+                    OwnerId=not.OwnerId
+                };
+                status = NotificationController.InsertO(notilist);
+            }
+            else
+            {
+                Notification notilist = new Notification
+                {
+                    Description = not.Description,
+                    Visit = 0,
+                    Date = DateTime.Now,
+                    TenantId = not.OwnerId
+                };
+                status = NotificationController.InsertT(notilist);
+            }
+            return new JsonResult
+            {
+                Data=status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult GetModal(int refno)
         {
             List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(refno);

@@ -19,106 +19,108 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
-
 <head>
-	<style>
-		.dropdown-menu {
-			background: #2a2a2a;
-		}
+    <style>
+        .dropdown-menu {
+            background: #2a2a2a;
+        }
 
-		.navbar {
-			padding: 0.5em 2em;
-			position: absolute;
-			top: 0;
-			width: 100%;
-			background: #2a2a2a;
-		}
+        .navbar {
+            padding: 0.5em 2em;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: #2a2a2a;
+        }
 
-		/* Underline From Center */
-		.hvr-underline-from-center {
-			display: inline-block;
-			vertical-align: middle;
-			-webkit-transform: translateZ(0);
-			transform: translateZ(0);
-			box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-			-webkit-backface-visibility: hidden;
-			backface-visibility: hidden;
-			-moz-osx-font-smoothing: grayscale;
-			position: relative;
-			overflow: hidden;
-		}
+        /* Underline From Center */
+        .hvr-underline-from-center {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow: hidden;
+        }
 
-			.hvr-underline-from-center:before {
-				content: "";
-				position: absolute;
-				z-index: -1;
-				left: 50%;
-				right: 50%;
-				bottom: 0;
-				background: #20d13d;
-				height: 4px;
-				-webkit-transition-property: left, right;
-				transition-property: left, right;
-				-webkit-transition-duration: 0.3s;
-				transition-duration: 0.3s;
-				-webkit-transition-timing-function: ease-out;
-				transition-timing-function: ease-out;
-			}
+            .hvr-underline-from-center:before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 50%;
+                right: 50%;
+                bottom: 0;
+                background: #20d13d;
+                height: 4px;
+                -webkit-transition-property: left, right;
+                transition-property: left, right;
+                -webkit-transition-duration: 0.3s;
+                transition-duration: 0.3s;
+                -webkit-transition-timing-function: ease-out;
+                transition-timing-function: ease-out;
+            }
 
-			.hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
-				left: 0;
-				right: 0;
-			}
+            .hvr-underline-from-center:hover:before, .hvr-underline-from-center:focus:before, .hvr-underline-from-center:active:before {
+                left: 0;
+                right: 0;
+            }
 
-		.noti-content {
-			position: fixed;
-			right: 100px;
-			background: #e5e5e5;
-			border-radius: 4px;
-			top: 47px;
-			width: 250px;
-			display: none;
-			border: 1px solid #9E988B;
-		}
+        .noti-content {
+            position: fixed;
+            right: 100px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            top: 47px;
+            width: 250px;
+            display: none;
+            border: 1px solid #9E988B;
+        }
 
-		ul#notiContent {
-			max-height: 200px;
-			overflow: auto;
-			padding: 0px;
-			margin: 0px;
-			padding-left: 20px;
-		}
+        ul#notiContent {
+            max-height: 200px;
+            overflow: auto;
+            padding: 0px;
+            margin: 0px;
+            padding-left: 20px;
+        }
 
-			ul#notiContent li {
-				margin: 3px;
-				padding: 6px;
-				background: #fff;
-			}
+            ul#notiContent li {
+                margin: 3px;
+                padding: 6px;
+                background: #fff;
+            }
 
-		.noti-top-arrow {
-			border-color: transparent;
-			border-bottom-color: #F5DEB3;
-			border-style: dashed dashed solid;
-			border-width: 0 8.5px 8.5px;
-			position: absolute;
-			right: 32px;
-			top: -8px;
-		}
+        .noti-top-arrow {
+            border-color: transparent;
+            border-bottom-color: #F5DEB3;
+            border-style: dashed dashed solid;
+            border-width: 0 8.5px 8.5px;
+            position: absolute;
+            right: 32px;
+            top: -8px;
+        }
 
-		span.noti {
-			color: #FF2323;
-			margin: 15px;
-			position: fixed;
-			right: 100px;
-			font-size: 18px;
-			cursor: pointer;
-		}
+        span.noti {
+            color: #FF2323;
+            margin: 15px;
+            position: fixed;
+            right: 100px;
+            font-size: 18px;
+            cursor: pointer;
+        }
 
-		span.count {
-			position: relative;
-			top: -3px;
-		}
-	</style>
+        span.count {
+            position: relative;
+            top: -3px;
+        }
+
+
+
+    </style>
 </head>
 
 <body>
@@ -173,7 +175,7 @@
                             <ul class="dropdown-menu" id="hello"></ul>
 
                         </li>
-
+                       
 
 
                         <li class="dropdown">
@@ -191,16 +193,16 @@
 
 
 
-                                <li><a href="~/Reserve/CalendarViewOT" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-calendar"> Schedule</span></a> </li>
+                                <li><a href="~/Reserve/CalendarViewOT" style="text-decoration:none;text-decoration-color:none;color: white;">Schedule</a> </li>
 
-                                <li><a href="~/Billing/BillingView" class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
-
-
+                                <li><a href="~/Billing/BillingView" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
 
 
-                                <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"><span class="glyphicon glyphicon-cog">Account Settings</span></a> </li>
 
-                                <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;color: white;"> <span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+
+                                <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;color: white;">Account Settings</a> </li>
+
+                                <li><a href=@Url.Action("Index","Login") style="text-decoration:none; text-decoration-color:none;color: white;">Logout </a></li>
                             </ul>
 
                         </li>
@@ -219,143 +221,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script>
-		var myVar = setInterval(updateNotif, 3000);
-		var list =0;
-		var count=0;
-		var counter=0;
-		$('#notifBell').click(function () {
-            $('span.count', this).html('&nbsp;');
-			updateVisit();
-			$('#hello').empty();
-			$('.noti-content').hide();
-			//$('#himodal').modal();
-		})
-
-		function getNotif() {
-            $.ajax({
-                type:'get',
-                url: '/Reserve/GetCount',
-                success: function (data) {
-                    updateNotificationCount(data);
-                },
-                error: function (data) {
-
-                }
-            });
-
-		}
-
-		function updateNotif() {
-
-			$('#hello').append($('<li>Loading...</li>'));
-
-			$.ajax({
-				type: 'GET',
-				url: '/Reserve/GetNotificationContacts',
-				success: function (response) {
-
-					if (response.length == 0) {
-						$('#hello').append($('<li>No data available</li>'));
-					}
-					$.each(response, function (index, value) {
-						$('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
-                    });
-
-                    getNotif();
-
-				},
-				error: function (error) {
-					console.log(error);
-				}
-			})
-		}
-        function updateVisit() {
-            $('#hello').empty();
-            $.ajax({
-                type: 'POST',
-                url: '/Reserve/UpdateNotif',
-                success: function (response) {
-                    if (response.count == 0) {
-                        $('#hello').append($('<li>No data available</li>'));
-                    }
-
-                    $.each(response, function (index, value) {
-						$('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">New contact : ' + value.ContactName + ' (' + value.ContactNo + ') added</li>'));
-                    });
-
-                    getNotif();
-                },
-                error: function (data) {
-
-                }
-            });
-        }
-		function updateNotificationCount(count) {
-			if (count == 0) {
-                $('span.count').html('&nbsp;');
-
-			}
-			else {
-				$('span.count').html(count);
-			}
-		}
-
-		function w3_open() {
-			document.getElementById("main").style.marginLeft = "25%";
-			document.getElementById("mySidebar").style.width = "25%";
-			document.getElementById("mySidebar").style.display = "block";
-			document.getElementById("openNav").style.display = 'none';
-		}
-		function w3_close() {
-			document.getElementById("main").style.marginLeft = "0%";
-			document.getElementById("mySidebar").style.display = "none";
-			document.getElementById("openNav").style.display = "inline-block";
-		}
-
-		function UpdateProfilePic() {
-			var id = @Session["UID"];
-
-			var file = $("#image").get(0).files;
-			var data = new FormData();
-			data.append("Image", file[0]);
-			data.append("Id", id);
-			$.ajax({
-				type: "POST",
-				url: "/owner/UpdateImage/",
-				data: data,
-				contentType: false,
-				processData: false,
-				success: function (data) {
-					if (data == true) {
-						alert('Success');
-						window.location.reload();
-						window.location.href = window.location.href + "?rnd=" + Math.random()
-
-					}
-				},
-				error: function (error) {
-					alert(error);
-				}
-			});
-		}
-
-
-		$('#btnCloseImageProfile').click(function () {
-
-			$('#updateprofilepicture').hide();
-		}
-		);
-
-
-		$('#OpenModal').click(function () {
-
-			$('#updateprofilepicture').modal();
-		}
-		);
-
-
-
-
 		var myVar = setInterval(updateNotif, 3000);
 		var list =0;
 		var count=0;
@@ -401,7 +266,7 @@
 
                         }
                         else {
-                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+ '<p><hR></li>'));
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+ '<p><hR></li>'));
 
                         }
                     });
@@ -426,11 +291,11 @@
 
                     $.each(response, function (index, value) {
                         if (value.Visit = 0) {
-                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : ' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+'</p><hr></li>'));
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : ' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+'</p><hr></li>'));
 
                         }
                         else {
-                            $('#hello').append($('<li  class="hvr-underline-from-center" style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + value.Date + '<p><hR></li>'));
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
 
                         }
                     });

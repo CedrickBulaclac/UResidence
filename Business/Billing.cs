@@ -9,17 +9,32 @@ namespace UResidence
 {
     public class Billing : BaseProperty<Billing>
     {
-        public int Balance { get; set; }
+        public int Rate { get; set; }
+        public int Charge { get; set; }
+        public int ChairCost { get; set; }
+        public int TableCost { get; set; }
+        public int Totale { get; set; }
+        public int Amount { get; set; }
         public Billing CreateObject(SqlDataReader reader)
         {
             Billing ret = new Billing();
-            ret.Balance = reader.GetInt32(0);
+            ret.Rate = reader.GetInt32(0);
+            ret.Charge = reader.GetInt32(1);
+            ret.ChairCost = reader.GetInt32(2);
+            ret.TableCost = reader.GetInt32(3);
+            ret.Totale = reader.GetInt32(4);
+            ret.Amount = reader.GetInt32(5);
             return ret;
         }
 
         public void Reset()
         {
-           this.Balance = 0;
+            this.Rate = 0;
+            this.Charge = 0;
+            this.ChairCost = 0;
+            this.TableCost = 0;
+            this.Totale = 0;
+            this.Amount = 0;
         }
     }
 }

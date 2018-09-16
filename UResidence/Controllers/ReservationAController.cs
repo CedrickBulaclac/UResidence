@@ -27,29 +27,26 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
-            Billing modelb = default(Billing);
-            int id = Convert.ToInt32(Session["UID"]);
-            string tor = (Session["TOR"]).ToString();
-            if (tor == "Owner")
+            int balance = 0;
+            List<Billing> billing = new List<Billing>();
+            int uid = Convert.ToInt32(Session["UID"]);
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
             {
-                modelb = UResidence.BillingController.GetOwner(id);
+                billing = UResidence.BillingController.GetOwner(uid);
             }
-            else if (tor == "Tenant")
+            else
             {
-                modelb = UResidence.BillingController.GetTenant(id);
+                billing = UResidence.BillingController.GetTenant(uid);
             }
-            if (modelb != null)
+            for (int i = 0; i <= billing.Count - 1; i++)
             {
-                if (modelb.Balance > 0)
-                {
-                    Session["status"] = true;
-                    return RedirectToAction("Home", "Reserve");
-                }
-                else
-                {
-                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-                    return View(amenityList);
-                }
+                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+            }
+            if (balance > 0)
+            {
+                Session["status"] = true;
+                return RedirectToAction("Home", "Reserve");
             }
             else
             {

@@ -28,8 +28,6 @@ namespace UResidence.Controllers
         public ActionResult Index(FormCollection fc)
         {           
            
-
-
             string chash;
             string hash= fc["Hash"];
             string username;
