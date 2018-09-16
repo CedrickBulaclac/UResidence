@@ -302,6 +302,7 @@
     <Content Include="Views\Tenant\TenantAdd.cshtml" />
     <Content Include="Views\Tenant\TenantView.cshtml" />
     <Content Include="Views\Reserve\AboutUs.cshtml" />
+    <Content Include="Views\Reserve\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
