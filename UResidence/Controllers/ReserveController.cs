@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace UResidence.Controllers
 {
@@ -55,14 +57,21 @@ namespace UResidence.Controllers
             }
             if (balance > 0)
             {
+                bool ss = true;
+                ViewBag.Bal = balance;
+                ViewBag.s = ss;
                 Session["status"] = true;
-                string hrtml = "<script>alert('You have an Outstanding Balance of ₱" + balance + " ')</script>";
-                Response.Write(hrtml);
+                //string hrtml = "<script>alert('You have an Outstanding Balance of ₱" + balance + " ')</script>";
+                //Response.Write(hrtml);
+               
                 return View(amenityList);
+                
             }
             else
             {
-              
+                bool ss = false;
+                ViewBag.Bal = balance;
+                ViewBag.s = ss ;
                 return View(amenityList);
 
             }
@@ -88,9 +97,9 @@ namespace UResidence.Controllers
             }
                 if ( balance > 0)
                 {
-                    Session["status"] = true;
-                string hrtml = "<script>alert('You have an Outstanding Balance of " + balance + "' \n hi)</script>";
-                Response.Write(hrtml);
+                Session["aa"] = 0;
+
+
                 return RedirectToAction("Home", "Reserve");
                 }
                 else
@@ -121,6 +130,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
+            Session["aa"] = 1;
             ViewBag.Amenity=(Session["NAME"]).ToString();
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
@@ -438,15 +448,41 @@ namespace UResidence.Controllers
 
         public ActionResult CalendarViewOT()
         {
+            Session["aa"] = 1;
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
-       
+        public ActionResult DownloadReservation(int refno1)
+        {
+            bool events = false ;
+            //int refno = Convert.ToInt32(fc["rfid"]);
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationForm.rpt"));        
+            List<ReportReservationAmenity> data = default(List<ReportReservationAmenity>);
+            data = UResidence.ReportReservationAmenityController.GET(refno1);
+            rd.SetDataSource(data.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Reservation.pdf");
+               
+            }
+            catch (Exception)
+            {
+                throw;              
+            }
+          
+        }
     
 
 
         public ActionResult AboutUs()
         {
+            Session["aa"] = 1;
             return View();
         }
 

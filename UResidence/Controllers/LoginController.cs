@@ -56,6 +56,7 @@ namespace UResidence.Controllers
                 }
                 else if (user.Level == 8)
                 {
+                    Session["aa"] = 0;
                     Session["Level"] = user.Level;
                     Session["LID"] = user.Id;
                     Session["UID"] = user.OwnerId;

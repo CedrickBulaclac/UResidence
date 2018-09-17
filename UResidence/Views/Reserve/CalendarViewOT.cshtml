@@ -71,8 +71,9 @@
 					</p>
 					<br /><br />
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<div class="modal-footer" id="footer">
+                   
+					
 				</div>
 			</div>
 		</div>
@@ -101,7 +102,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 
-	<script>
+    <script>
 		$(document).ready(function () {
 			var events = [];
 			$.ajax({
@@ -138,7 +139,23 @@
 
 
 		});
+        function Download(refno) {
+            $.post("/Reserve/DownloadReservation", { refno1: refno });
+            //$.ajax({
+            //    Url.
+            //    type: 'POST',
+            //    url: '/Reserve/DownloadReservation',
+            //    data:{ 'refno' : refno },
+            //    success: function (data) {
+            //        if (data == false) {
+            //            alert('Please try again later');
+            //        }
+            //    },
+            //    error: function (data) {
 
+            //    }
+            //});
+        }
 		function GenerateCalendar(events) {
 			$('#calendar').fullCalendar('destroy');
 			$('#calendar').fullCalendar({
@@ -183,15 +200,23 @@
 					//document.getElementById('cg').innerHTML = calEvent.cg;
 					//totalpay = calEvent.dp;
 					//document.getElementById('tpr').innerHTML = calEvent.dp;
-					$('#myModal #pDetails').empty().html($description);
+                    $('#myModal #pDetails').empty().html($description);
+                    $('#footer').empty();
+                   
+                    if (calEvent.status == "Reserved") {
+                        $('#footer').append('<button class="btn btn-success" onclick="Download(' + calEvent.rf + ')">Print</btn> <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
 
+                    }
+                    else {
+                        $('#footer').append('<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
+                    }
 					$('#myModal').modal();
 
 				}
 			})
 		}
 
-	</script>
+    </script>
 }
 
 

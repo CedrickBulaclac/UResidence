@@ -50,6 +50,13 @@
 			-webkit-transform: scale(1.1);
 			background: #20d14f;
 		}
+    .modal {
+        position: absolute;
+        float: left;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>
 
 
@@ -87,7 +94,7 @@
 
 				</div>
 				<div class="modal-body">
-					<strong>Please settle your account before you can reserve.</strong>
+                    <strong>You have an Outstanding Balance of ₱ @ViewBag.Bal</strong>
 				</div>
 
 				<div class="modal-footer">
@@ -219,18 +226,20 @@
 
 
 <script type="text/javascript">
-    @*$(document).ready(
-        function () {
-
-            if (@ViewBag.Status == true) {
-                $('#myModal').modal();
-            }
-
-        }
-    );*@
+   
 </script>
 
 <script>
+     $(document).ready(
+        function () {
+            var visit = @Convert.ToInt32(Session["aa"]);           
+            if ('@ViewBag.s' == 'True') {
+                if (visit == 0) {
+                    $('#myModal').modal();
+                }
+        
+             }
+         });
 	$("#btnAbout").click(function () {
 		$('html,body').animate({
 			scrollTop: $(".second").offset().top
