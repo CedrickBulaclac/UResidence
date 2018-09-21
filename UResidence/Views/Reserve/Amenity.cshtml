@@ -77,76 +77,93 @@
 
 
     <div class="container">
-        <div class="row">
-            <input type="hidden" name="ida" id="ida" />
-            <input type="hidden" name="ratea" id="ratea" />
-            <input type="hidden" name="namea" id="namea" />
+		<div class="row">
+			<input type="hidden" name="ida" id="ida" />
+			<input type="hidden" name="ratea" id="ratea" />
+			<input type="hidden" name="namea" id="namea" />
+			<input type="hidden" name="ratec" id="ratec" />
+			<input type="hidden" name="rateaa" id="rateaa" />
+
+			@{
+
+				int ctr = 0;
+				foreach (var amn in Model)
+				{
+					ctr++;
+					if (ctr <= 3)
+					{
 
 
-            @{
+						<div class="col-md-4">
+							<div class="w3-container">
+								<div class="w3-card-4 w3-dark-grey" style="width:100%">
 
-                int ctr = 0;
-                foreach (var amn in Model)
-                {
-                    ctr++;
-                    if (ctr <= 3)
-                    {
+									<div class="w3-container w3-center">
+										<h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+										<img src="@Url.Content(amn.Url)" style="width:90%" />
+										<p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										@if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
+										{
+											<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+											<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										}
+										else
+										{
+											<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										}
+										<div class="w3-section">
+											<button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
+										</div>
+									</div>
 
-
-                        <div class="col-md-4">
-                            <div class="w3-container">
-                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
-
-                                    <div class="w3-container w3-center">
-                                        <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                        <img src="@Url.Content(amn.Url)" style="width:90%" />
-                                        <p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <div class="w3-section">
-                                            <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">Select</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+								</div>
+							</div>
+						</div>
 
 
-                    }
+					}
 
 
-                    else
-                    {
-                        ctr = 0;
+					else
+					{
+						ctr = 0;
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="w3-container">
-                                        <div class="w3-card-4 w3-dark-grey" style="width:50%">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="w3-container">
+										<div class="w3-card-4 w3-dark-grey" style="width:50%">
 
-                                            <div class="w3-container w3-center">
-                                                <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                                <img src="@Url.Content(amn.Url)" style="width:80%" />
-                                                <p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                                <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                                <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                                <div class="w3-section">
-                                                    <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName')" name="btnImg">Select</button>
-                                                </div>
-                                            </div>
+											<div class="w3-container w3-center">
+												<h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+												<img src="@Url.Content(amn.Url)" style="width:80%" />
+												<p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+												<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+												@if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
+												{
+													<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+													<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+												}
+												else
+												{
+													<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+												}
+												<div class="w3-section">
+													<button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
+												</div>
+											</div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-            }
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				}
+			}
 
-        </div>
+		</div>
     </div>
 }
 <br />
@@ -163,9 +180,11 @@
 </footer>
 
 <script type="text/javascript">
-    function GetId(id, rate, name) {
+    function GetId(id, rate, name,ratechild,rateadult) {
         document.getElementById('ida').value = id;
-        document.getElementById('ratea').value = rate;
+		document.getElementById('ratea').value = rate;
+		document.getElementById('ratec').value = ratechild;
+		document.getElementById('rateaa').value = rateadult;
         document.getElementById('namea').value = name;
     }
 </script>
