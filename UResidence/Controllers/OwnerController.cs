@@ -90,15 +90,22 @@ namespace UResidence.Controllers
                 URL = "~/Content/WebImages/user.png"
 
             };
-
+           
             if (listUser.Count == 0)
             {
                 string[] err = new string[] { };
                 if (owe.Validate(out err))
                 {
-            
-                    UResidence.OwnerController.Insert(ow);
+                    
 
+                    UResidence.OwnerController.Insert(ow);
+                    string email=owe.Email;
+                    Owner owee = UResidence.OwnerController.GetEmailOwner(email);
+                    Residence r = new Residence()
+                    {
+                        OwnerNo = owee.Id
+                    };
+                    UResidence.ResidenceController.Insert(r);
                     Owner b = new Owner();
                     b = UResidence.OwnerController.GetEmailOwner(owe.Email.ToString());
                     int ownerid = b.Id;

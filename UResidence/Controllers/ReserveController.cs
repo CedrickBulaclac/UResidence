@@ -394,7 +394,17 @@ namespace UResidence.Controllers
 
         public JsonResult GetEventsA()
         {
-            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            List<ReservationProcess> reservationList = default(List<ReservationProcess>);
+          int id = Convert.ToInt32(Session["UID"]);
+            string tor = Convert.ToString(Session["TOR"]);
+
+            if (tor == "Owner") { 
+             reservationList = ReservationProcessController.GET_ALLO(id);
+            }
+        else
+            {
+               reservationList = ReservationProcessController.GET_ALLT(id);
+            }
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

@@ -289,12 +289,12 @@
 	$(document).ready(function () {
 		$('#adult').bind('keyup mouseup',function myFunction() {
             selectedValue1 = $('#adult').val();
-            var rateAdult = 100;
+            var rateAdult = @Session["adult"];
 			var resulta = document.getElementById('adultR');
 			var fTotalA = rateAdult * selectedValue1;
 
             selectedValue2 = $('#child').val();
-            var rateChild = 75;
+            var rateChild =  @Session["child"];
             var resultc = document.getElementById('childR');
             var fTotalC = rateChild * selectedValue2;
 
@@ -311,12 +311,12 @@
         $('#child').bind('keyup mouseup', function myFunction() {
 
             selectedValue1 = $('#adult').val();
-            var rateAdult = 100;
+            var rateAdult = @Session["adult"];
             var resulta = document.getElementById('adultR');
             var fTotalA = rateAdult * selectedValue1;
 
             selectedValue2 = $('#child').val();
-            var rateChild = 75;
+            var rateChild =  @Session["child"];
             var resultc = document.getElementById('childR');
             var fTotalC = rateChild * selectedValue2;
 
