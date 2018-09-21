@@ -85,6 +85,7 @@ namespace UResidence.Controllers
 
             public ActionResult OwnerAccountSetting()
         {
+            Session["aa"] = 1;
             string RType = (string)Session["TOR"];
             ViewBag.Type = RType;
             int Oid = (int)Session["UID"];
@@ -102,6 +103,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerAccountSetting(FormCollection fc)
         {
+            Session["aa"] = 1;
             int lid = (int)Session["LID"];
             bool status = false;
             int Aid = (int)Session["UID"];
@@ -154,7 +156,7 @@ namespace UResidence.Controllers
         }
             public ActionResult TenantAccountSetting()
         {
-
+            Session["aa"] = 1;
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
 
@@ -171,6 +173,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantAccountSetting(FormCollection fc)
         {
+            Session["aa"] = 1;
             int lid = (int)Session["LID"];
             bool status = false;
             int Aid = (int)Session["UID"];

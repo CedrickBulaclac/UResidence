@@ -346,12 +346,15 @@
     $(document).ready(function () {
         $('#st').change(function myFunction() {
             selectedValue = $('#st').val();
-
+           
             var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
             var fmins = selectedValue.split(':')[1];
             var f = selectedValue.split(' ')[2];
             var final = fhours + ":" + fmins;
             document.getElementById('et').value = final;
+            endTime = $('#et').val();
+            startTime = selectedValue;
+
             var startHours = parseInt(selectedValue.split(':')[0], 10);            
             if (startHours >= 8 && startHours <= 20) {
                 if (startHours == 17 && fhours == 18) {
@@ -393,6 +396,7 @@
 
     $(document).ready(function () {
         $('#et').change(function myFunction() {
+            endTime = $(this).val();
             var startHours = document.getElementById('st').value;
             var endHours = document.getElementById('et').value;
             var sh = parseInt(startHours.split(':')[0], 10);
