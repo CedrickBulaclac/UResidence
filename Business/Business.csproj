@@ -70,8 +70,8 @@
     <Compile Include="OwnerController.cs" />
     <Compile Include="Receipt.cs" />
     <Compile Include="ReceiptController.cs" />
-    <Compile Include="ReportReservationAmenity.cs" />
-    <Compile Include="ReportReservationAmenityController.cs" />
+    <Compile Include="ReportReservation.cs" />
+    <Compile Include="ReportReservationController.cs" />
     <Compile Include="Reservation.cs" />
     <Compile Include="ReservationController.cs" />
     <Compile Include="ReservationList.cs" />

@@ -40,8 +40,8 @@ namespace UResidence
         public string URL { get; set; }
         public string Role { get; set; }
         public string Fullname { get; set; }
+        public string Birthday { get; set; }
         public HttpPostedFileBase Image { get; set; }
-
         public Admin CreateObject(SqlDataReader reader)
         {
             Admin ret = new Admin();
@@ -55,7 +55,8 @@ namespace UResidence
             ret.Deleted = RemoveWhitespace(reader.GetString(7));
             ret.URL = RemoveWhitespace(reader.GetString(8));
             ret.Role = reader.GetString(9);
-            ret.Fullname = reader.GetString(9);
+            ret.Fullname = reader.GetString(10);
+            ret.Birthday = reader.GetString(11);
             return ret;
         }
         public string RemoveWhitespace(string str)

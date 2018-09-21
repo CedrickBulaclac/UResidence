@@ -214,8 +214,8 @@ namespace UResidence.Controllers
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "AdminList.rpt"));
-            List<Owner> data = default(List<Owner>);
-            data = UResidence.OwnerController.GetAll();
+            List<Admin> data = default(List<Admin>);
+            data = UResidence.AdminController.GetAll();
             rd.SetDataSource(data.ToList());
             Response.Buffer = false;
             Response.ClearContent();

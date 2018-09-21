@@ -56,7 +56,7 @@ namespace UResidence
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LeaseEnd { get; set; }
 
-
+        public string Lease { get; set; }
         public string Deleted { get; set; }
         public string URL { get; set; }
         public HttpPostedFileBase Image { get; set; }
@@ -64,7 +64,8 @@ namespace UResidence
         public string MovingOut { get; set; }
         public HttpPostedFileBase Image1 { get; set; }
         public HttpPostedFileBase Image2 { get; set; }
-
+        public string Fullname { get; set; }
+        public string Birthday { get; set; }
         public bool Validate(out string[] errors)
         {
             bool ret = true;
@@ -141,6 +142,9 @@ namespace UResidence
             ret.URL = RemoveWhitespace(reader.GetString(12));
             ret.MovingIn = RemoveWhitespace(reader.GetString(13));
             ret.MovingOut = RemoveWhitespace(reader.GetString(14));
+            ret.Fullname = reader.GetString(15);
+            ret.Birthday = reader.GetString(16);
+            ret.Lease = reader.GetString(17);
             return ret;
         }
     }
