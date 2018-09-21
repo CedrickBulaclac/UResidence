@@ -15,12 +15,7 @@
 {
 	@Html.AntiForgeryToken()
 
-	<br />
-	<br />
 
-	<center>
-		Search: <input type="date" id="txtdate" name="txtdate" />   &nbsp; <button class="btn btn-success" onclick="Search()">Search</button>
-	</center>
 	<br />
 	<br />
 
@@ -112,7 +107,7 @@
 				<td> <input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
 				<td>  <input class="form-control" type="text" id="residentname" name="residentname" required /></td>
 				<td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
-				<td><input type="file" id="logbookpic" name="logbookpic" /> </td>
+				<td><input type="file" id="logbookpic" name="logbookpic"  required/> </td>
 				<td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
 				<td></td>
 			</tr>
@@ -178,7 +173,8 @@
 		var d = new Date(),
 			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
 			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-		var timenow = h + ':' + m;
+			s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+		var timenow = h + ':' + m + ':' + s;
 
 		var data = {
 			Id: id,
@@ -237,32 +233,32 @@
 	}
 
 
-	function Search() {
-		$('#tableLog').empty();
-		var datee = document.getElementById('txtdate').value;
-		value = datee;
-		var data = {
-			date: datee
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Search',
-			data: data,
-			success: function (data) {
+	//function Search() {
+	//	$('#tableLog').empty();
+	//	var datee = document.getElementById('txtdate').value;
+	//	value = datee;
+	//	var data = {
+	//		date: datee
+	//	};
+	//	$.ajax({
+	//		type: 'POST',
+	//		url: '/LogBook/Search',
+	//		data: data,
+	//		success: function (data) {
 
-				if (data == false) {
-					alert('No date input');
-				}
-				else {
+	//			if (data == false) {
+	//				alert('No date input');
+	//			}
+	//			else {
 				
-				}
-			},
-			error: function (data) {
-				alert('Failed to retrieve record');
-			}
+	//			}
+	//		},
+	//		error: function (data) {
+	//			alert('Failed to retrieve record');
+	//		}
 
-		});
-	}
+	//	});
+	//}
 
 
 

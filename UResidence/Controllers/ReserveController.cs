@@ -137,8 +137,8 @@ namespace UResidence.Controllers
             string nameamenity = (Session["NAME"]).ToString();
             if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
-                string sd = fc["stime"];
-                string ed = fc["etime"];
+                string sd = Convert.ToString(fc["stime"]);
+                string ed = Convert.ToString(fc["etime"]);
                 Session["sd"] = sd;
                 Session["ed"] = ed;
                 string drate = fc["tratee"];
@@ -160,8 +160,8 @@ namespace UResidence.Controllers
             }
             else
             {
-                string sd = fc["stime"];
-                string ed = fc["etime"];
+                string sd = Convert.ToString(fc["stime"]);
+                string ed = Convert.ToString(fc["etime"]);
                 Session["sd"] = sd;
                 Session["ed"] = ed;
                 string drate = fc["tratee"];

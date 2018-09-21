@@ -99,29 +99,55 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-            string sd = fc["stime"];
-            string ed = fc["etime"];
-            Session["sd"] = sd;
-            Session["ed"] = ed;
-            string drate = fc["tratee"];
-            Session["drate"] = drate;
-            int aid = Convert.ToInt32(Session["ID"]);
-
-            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
-            if (schedList.Count > 0)
+            string nameamenity = (Session["NAME"]).ToString();
+            if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
-                Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                string sd = fc["stime"];
+                string ed = fc["etime"];
+                Session["sd"] = sd;
+                Session["ed"] = ed;
+                string drate = fc["tratee"];
+                Session["drate"] = drate;
+                int aid = Convert.ToInt32(Session["ID"]);
+
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                if (schedList.Count > 0)
+                {
+                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Successful')</script>");
+                    return RedirectToAction("Choose_Equipment", "ReservationA");
+                }
             }
             else
             {
-                Response.Write("<script>alert('Successful')</script>");
-                return RedirectToAction("Choose_Equipment", "ReservationA");
+                string sd = Convert.ToString(fc["stime"]);
+                string ed = Convert.ToString(fc["etime"]);
+                Session["sd"] = sd;
+                Session["ed"] = ed;
+                string drate = fc["tratee"];
+                Session["drate"] = drate;
+                int aid = Convert.ToInt32(Session["ID"]);
+
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                if (schedList.Count > 0)
+                {
+                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Successful')</script>");
+                    return RedirectToAction("Summary", "ReservationA");
+                }
             }
-
-            return View();
         }
-
+     
 
         public ActionResult Choose_Equipment()
         {
@@ -277,35 +303,36 @@ namespace UResidence.Controllers
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
                     int[] ratee = (Int32[])Session["ratee"];
-
-                    for (int i = 0; i <= equantity.Count() - 1; i++)
+                    if (equantity != null)
                     {
-
-                        if (Convert.ToInt32(equantity[i]) != 0)
+                        for (int i = 0; i <= equantity.Count() - 1; i++)
                         {
-                            EquipReservation er = new EquipReservation
+
+                            if (Convert.ToInt32(equantity[i]) != 0)
                             {
+                                EquipReservation er = new EquipReservation
+                                {
 
-                                EquipId = Convert.ToInt32(eid[i]),
-                                Quantity = Convert.ToInt32(equantity[i]),
-                                RefNo = refno,
-                                Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
+                                    EquipId = Convert.ToInt32(eid[i]),
+                                    Quantity = Convert.ToInt32(equantity[i]),
+                                    RefNo = refno,
+                                    Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
 
-                            };
+                                };
 
-                            status = UResidence.EquipReservationController.Insert(er);
+                                status = UResidence.EquipReservationController.Insert(er);
+                            }
+
                         }
+                        if (status == true)
+                        {
+                            Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
 
-                    }
-                    if (status == true)
-                    {
-                        Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
-
+                        }
                     }
                 }
-
             }
-            return RedirectToAction("Home", "Admin");
+                    return RedirectToAction("Home", "Admin");
 
         }
 

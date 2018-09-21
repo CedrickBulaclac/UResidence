@@ -264,7 +264,7 @@
 }
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 	var startTime;
 	var endTime;
 	var selectedValue;
@@ -332,121 +332,100 @@
 
 		});
 
-	$(document).ready(function () {
-		$('#st').change(function myFunction() {
+
+
+    $(document).ready(function () {
+        $('#st').change(function myFunction() {
 			selectedValue = $('#st').val();
-
-			var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
-			var fmins = selectedValue.split(':')[1];
-			var f = selectedValue.split(' ')[2];
-			var final = fhours + ":" + fmins;
-			document.getElementById('et').value = final;
-
-			endTime = $('#et').val();
-
-
-
-
 			startTime = $(this).val();
-			startT = parseInt(startTime.split(':')[0], 10);
-			if (startT < 8 && startT > 21) {
-				alert("Start Time is invalid, 8:00 AM - 8:00 PM only");
-				document.getElementById('st').value = startTime + ":PM";
-				document.getElementById('rate').value = 0;
 
-			}
+            var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
+            var fmins = selectedValue.split(':')[1];
+            var f = selectedValue.split(' ')[2];
+            var final = fhours + ":" + fmins;
+            document.getElementById('et').value = final;
+            var startHours = parseInt(selectedValue.split(':')[0], 10);
+            if (startHours >= 8 && startHours <= 20) {
+                if (startHours == 17 && fhours == 18) {
+                    alert('5pm-6pm is not Available');
+                    document.getElementById('st').value = '';
+                    document.getElementById('et').value = '';
+                    document.getElementById('rate').value = 0;
+                }
+                else if (startHours >= 8 && startHours <= 17) {
+                    var hourDiff = fhours - startHours;
+                    rateA = rate1 * hourDiff;
+                    document.getElementById('rate').value = rateA;
+                }
+                else if (startHours >= 18 && startHours <= 20) {
 
-			if (endTime != null) {
-				var hourDiff =
-					parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-				rateA = rate1 * hourDiff
-				document.getElementById('rate').value = rateA;
+                    var hourDiff = fhours - startHours;
+                    rateA = ((rate1 * 2) * hourDiff);
+                    document.getElementById('rate').value = rateA;
+                }
+                else {
+                    alert('5pm-6pm is not Available');
+                    document.getElementById('st').value = '';
+                    document.getElementById('et').value = '';
+                    document.getElementById('rate').value = 0;
+                }
+            }
+            else {
+                alert("Reservation period is 8am-5pm and 6pm-9pm only");
+                document.getElementById('st').value = '';
+                document.getElementById('et').value = '';
+                document.getElementById('rate').value = 0;
+            }
 
-			}
-
-
-		});
-		});
-
-
-		//$(document).ready(function () {
-		//	$('#st').change(function myFunction() {
-		//		selectedValue = $('#st').val();
-
-		//		var d = new Date(); // for now
-		//		d.getHours(); // => 9
-		//		d.getMinutes(); // =>  30
-		//		d.getSeconds(); // => 51
-		//		var MyDateString = d.getHours() + ':' + ('0' + (d.getMinutes() + 1)).slice(-2);
-
-
-		//		document.getElementById('qwe').value = MyDateString;
-
-		//		document.getElementById('abc').value = selectedValue;
-
-		//		if (selectedValue < MyDateString)
-		//		{
-		//			alert("Invalid Time");
-		//			document.getElementById('st').value = null;
-		//			document.getElementById('et').value = null;
-		//		}
-
-
-		//	});
-		//});
+        });
+    });
 
 
 
-	$(document).ready(function () {
-		$('#st').change(function myFunction() {
-		});
-		selectedValue = $(this).val();
-		document.getElementById('et').value = selectedValue;
 
-	});
-	$(document).ready(function () {
+    $(document).ready(function () {
 		$('#et').change(function myFunction() {
 			endTime = $(this).val();
+            var startHours = document.getElementById('st').value;
+            var endHours = document.getElementById('et').value;
+            var sh = parseInt(startHours.split(':')[0], 10);
+            var eh = parseInt(endHours.split(':')[0], 10);
+            var diff = eh - sh;
+            if (eh >= 9 && eh <= 21) {
+                if (sh == 17 && eh == 18) {
+                    alert('Unavailable Time');
+                    document.getElementById('st').value = '';
+                    document.getElementById('et').value = '';
+                    document.getElementById('rate').value = 0;
+                }
+                else if (eh >= 9 && eh <= 17  ) {
+                    rateA = rate1 * diff;
+                    document.getElementById('rate').value = rateA;
+                }
+                else if (eh >= 18 && eh <= 21) {
 
-			var endT = parseInt(endTime.split(':')[0], 10);
-
-
-			if (endT >= 9 && endT <= 21) {
-				if ((startT >= 8 && startT <= 20) && (endT >= 9 && endT <= 21)) {
-					if (endT > startT) {
-						var hourDiff =
-							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-						rateA = rate1 * hourDiff
-						document.getElementById('rate').value = rateA;
-						statuset = "Valid";
-
-					}
-					else
-					{
-						statuset = "Invalid";
-					}
-				}
-				else {
-
-					var hourDiff =
-						parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
-					rateA = ((rate1 * 2) * hourDiff)
-					document.getElementById('rate').value = 0;
-					statuset = "Invalid";
-
-				}
-			}
-			else {
-				alert("End Time is invalid 9:00 AM - 9:00 PM only");
-				document.getElementById('et').value = "PM";
-				document.getElementById('rate').value = 0;
-				statuset = "Invalid";
-
-			}
+                    rateA = ((rate1 * 2) * diff);
+                    document.getElementById('rate').value = rateA;
+                }
+            }
+            else {
+                alert("Reservation period is 8am-5pm and 6pm-9pm only");
+                document.getElementById('st').value = '';
+                document.getElementById('et').value = '';
+                document.getElementById('rate').value = 0;
+            }
+        });
+    });
 
 
-		});
-	});
+
+
+
+
+
+
+
+
 	function Check() {
 		if (statusst == 'Valid' && statuset == 'Valid') {
 			var stconcat = startDate + " " + startTime;
@@ -462,4 +441,4 @@
 	};
 
 
-</script>
+	</script>

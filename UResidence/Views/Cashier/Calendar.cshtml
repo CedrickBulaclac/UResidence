@@ -23,7 +23,7 @@
 		}
 	</style>
 </head>
-</head>
+
 <body>
 	<div class="container">
 		<div class="modal fade" id="myModal" role="dialog">
@@ -59,7 +59,7 @@
 						<h4 class="modal-title"><span>Payment</span></h4>
 					</div>
 					<div class="modal-body">
-						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
+						<b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57" title="Numbers only">
 						<br /><br />
 						<b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
 						<br /><br />

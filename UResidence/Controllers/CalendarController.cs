@@ -31,19 +31,27 @@ namespace UResidence.Controllers
         }
         public JsonResult InsertPayment(Receipt receipt)
         {
-            bool status = false;
-            status = ReceiptController.Insert(receipt);
-            if (status == true)
+            if (receipt.Description != null && receipt.Description != "")
             {
-                Reservation reservation = new Reservation
-                {
-                    Status = "Reserved",
-                    Id = receipt.RefNo,
-                };
-                status = ReservationController.Update(reservation);
-            }
-            return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
+                bool status = false;
+                status = ReceiptController.Insert(receipt);
+                if (status == true)
+                {
+                    Reservation reservation = new Reservation
+                    {
+                        Status = "Reserved",
+                        Id = receipt.RefNo,
+                    };
+                    status = ReservationController.Update(reservation);
+                }
+                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            else
+            {
+                bool status = false;
+                return new JsonResult { Data = status};
+            }
         }
         public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc,Notification data)
         {

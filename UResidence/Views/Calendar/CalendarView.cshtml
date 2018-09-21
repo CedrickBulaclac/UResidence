@@ -110,8 +110,10 @@
                             <h4 class="modal-title"><span>Payment</span></h4>
                         </div>
                         <div class="modal-body">
-                            <b>Payment: </b><input type="number" name="dp" id="dp" min="0" value="0" />
-                            <br /><br />
+							@*///////////////////////////////////////////////////////////////////////////////////*@
+                            <b>Payment: </b><input type="number" class="dp" name="dp" id="dp" min="0" value="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
+                        
+							<br /><br />
                             <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
                             <br /><br />
                         </div>
@@ -316,8 +318,8 @@
 
 
 	<script>
-
-            function AddPayment() {
+		var downp;
+		function AddPayment() {
                 var refno = document.getElementById('rfid').value;
                 var payment = document.getElementById('dp').value;
                 var q = new Date();
@@ -339,14 +341,17 @@
                     url: "/calendar/InsertPayment",
                     data: data1,
                     success: function (data) {
-                        if (data == true) {
-                            $('#paymentModal').modal('hide');
-                            RefreshCalendar();
-                            alert('Success');
-                            window.location.reload();
-                            //window.location.href = window.location.href + "?rnd=" + Math.random();
-                            $('#myModal').modal();
-                        }
+						if (data == true) {
+							$('#paymentModal').modal('hide');
+							RefreshCalendar();
+							alert('Success');
+							window.location.reload();
+							//window.location.href = window.location.href + "?rnd=" + Math.random();
+							$('#myModal').modal();
+						}
+						else if (data == false) {
+							alert("Description is blank");
+						}
 
 
                     },
@@ -759,7 +764,11 @@
 								document.getElementById('rfid').value = calEvent.rf;
                                 document.getElementById('cg').innerHTML = calEvent.cg;
                                 document.getElementById('cg').innerHTML = calEvent.cg;
-                                
+
+								 downp = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								//alert(downp);
+								//document.getElementById('dp').setAttribute('max', downp);
+
                                 if (calEvent.typeR == "Owner") {
                                     document.getElementById('oid').value = calEvent.oid;
                                    
@@ -803,6 +812,11 @@
 								document.getElementById('rid').value = calEvent.r;
 								document.getElementById('rfid').value = calEvent.rf;
 								document.getElementById('cg').innerHTML = calEvent.cg;
+
+								 downp = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								//alert(downp);
+								//document.getElementById('dp').setAttribute('max', downp);
+
                                 totalpay = calEvent.dp;
 
                                 if (calEvent.typeR == "Owner") {
@@ -959,6 +973,19 @@
 
 				$('#viewDetailsModal').modal();
 			}
+
+
+		$('.dp').on('keyup keydown', function (e) {
+			console.log($(this).val() > downp)
+			if ($(this).val() > downp
+				&& e.keyCode != 46
+				&& e.keyCode != 8
+			) {
+				e.preventDefault();
+				document.getElementById('dp').setAttribute('max', downp);
+				$(this).val(downp);
+			}
+		});
 
 	</script>
 

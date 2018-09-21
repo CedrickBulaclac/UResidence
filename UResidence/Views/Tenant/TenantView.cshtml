@@ -97,8 +97,8 @@
 							<td>@Html.DisplayFor(model => ten.Email)  </td>
 							<td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
 							<td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
-							<td><button type="button" class="btn btn-info" id="btnMovingIn" name="btnMovingIn" data-dismiss="modal">View</button></td>
-							<td><button type="button" class="btn btn-info" id="btnMovingOut" name="btnMovingOut" data-dismiss="modal">View</button></td>
+							<td><button type="button" class="btn btn-info" id="btnMovingIn" name="btnMovingIn" data-dismiss="modal"  onclick="Set1('@ten.MovingIn')">View</button></td>
+							<td><button type="button" class="btn btn-info" id="btnMovingOut" name="btnMovingOut" data-dismiss="modal"  onclick="Set2('@ten.MovingOut')">View</button></td>
 							<td>
 								<a class="btn btn-primary" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
 								<a class="btn btn-danger" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
@@ -291,6 +291,9 @@
 		$('#movingOutModal').modal();
 	}
 
+
+
+
 	$('#btnCloseImage').click(function () {
 
 		$('#movingInModal').hide();
@@ -299,7 +302,7 @@
 
 	$('#btnMovingIn').click(function () {
 
-		//$('#movingInModal').modal();
+		$('#movingInModal').modal();
 	}
 	);
 
