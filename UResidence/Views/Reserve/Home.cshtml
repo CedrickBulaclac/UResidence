@@ -121,7 +121,16 @@
 
 					<div class="align">
 						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Capacity persons</li>
-						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Rate per hour</li>
+						@if (a.AmenityName.ToUpper() == "SWIMMING POOL")
+						{
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: @a.Adult </li>
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: @a.Child </li>
+						}
+						else
+						{
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Rate per hour</li>
+						}
+
 						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Not available for Overnight use ( strictly until 9:00 pm only)</li>
 						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Location</li>
 						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Additional charges may vary upon extension of time and damage </li>

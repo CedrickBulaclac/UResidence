@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.IO;
 using CrystalDecisions.CrystalReports.Engine;
 
+
 namespace UResidence.Controllers
 {
     public class ReserveController : Controller
@@ -120,7 +121,13 @@ namespace UResidence.Controllers
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
-
+            if(aname.ToUpper()=="SWIMMING POOL")
+            {
+                int child = Convert.ToInt32(fc["ratec"]);
+                int adult = Convert.ToInt32(fc["rateaa"]);
+                Session["child"] = child;
+                Session["adult"] = adult;
+            }
             Amenity amenity = UResidence.AmenityController.GetAmenityImage(aid);
             string amenitylink = amenity.Url.ToString();
             Session["AmenityURL"] = amenitylink;

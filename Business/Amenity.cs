@@ -33,6 +33,8 @@ namespace UResidence
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
        public string Location { get; set; }
+        public int Adult { get; set; }
+        public int Child { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -44,6 +46,8 @@ namespace UResidence
             ret.Rate = reader.GetInt32(5);
             ret.Color = RemoveWhitespace(reader.GetString(6));
             ret.Location = reader.GetString(7);
+            ret.Adult = reader.GetInt32(8);
+            ret.Child = reader.GetInt32(9);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -72,7 +76,7 @@ namespace UResidence
                 err.Add("Description must not be empty.");
                 ret = false;
             }
-            if(this.Rate<=0)
+            if(this.Rate<0)
             {
                 err.Add("Amenity rate must be at least 1");
                 ret = false;
