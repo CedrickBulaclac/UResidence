@@ -100,7 +100,7 @@
                                     <div class="w3-container w3-center">
                                         <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
                                         <img src="@Url.Content(amn.Url)" style="width:90%" />
-                                        <p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
                                         <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
                                         <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
                                         <div class="w3-section">

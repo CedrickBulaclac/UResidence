@@ -9,7 +9,8 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace UResidence.Controllers
 {
@@ -148,7 +149,35 @@ namespace UResidence.Controllers
             return hash;
         }
 
+        public ActionResult Download()
+        {
+                
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "OwnerList.rpt"));
+            List<Owner> data = default(List<Owner>);
+            data = UResidence.OwnerController.GetAll();
+            rd.SetDataSource(data.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+           
+            try
+            {
+                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+ 
+                return File(stream, "application/pdf", "OwnerList.pdf");
 
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public ActionResult OwnerView()
         {
             List<Owner> ownerList = UResidence.OwnerController.GetAll();

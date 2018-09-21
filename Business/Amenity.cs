@@ -32,7 +32,7 @@ namespace UResidence
         [StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
-       
+       public string Location { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -43,6 +43,7 @@ namespace UResidence
            ret.Url = RemoveWhitespace(reader.GetString(4));
             ret.Rate = reader.GetInt32(5);
             ret.Color = RemoveWhitespace(reader.GetString(6));
+            ret.Location = reader.GetString(7);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -89,6 +90,7 @@ namespace UResidence
             this.Url = string.Empty;
             this.Rate = 0;
             this.Color = string.Empty;
+            this.Location = string.Empty;
         }
        
     }

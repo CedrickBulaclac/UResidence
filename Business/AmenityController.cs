@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Color!='Black' order by Id ";
+            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color,Location FROM[tbAmenity] where Color!='Black' order by Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -21,7 +21,7 @@ namespace UResidence
         
         public static List<Amenity> GetAllM()
         {
-            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Color='Black' order by Id ";
+            const string GET_ALL = @" SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color,Location FROM[tbAmenity] where Color='Black' order by Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -31,7 +31,7 @@ namespace UResidence
         }
         public static List<Amenity> GetPicById(int id)
         {
-            const string GET_ALL = @"select a.Id,Description,Capacity,AmenityName,ia.URL,Rate,Color from tbAmenity a inner join tbImageAmenity ia on a.Id=ia.AmenityId where AmenityId=@Id";
+            const string GET_ALL = @"select a.Id,Description,Capacity,AmenityName,ia.URL,Rate,Color,Location from tbAmenity a inner join tbImageAmenity ia on a.Id=ia.AmenityId where AmenityId=@Id";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -42,7 +42,7 @@ namespace UResidence
         }
         public static Amenity GetbyAmenityName(string name)
         {
-            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
+            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color,Location FROM[tbAmenity] order by AmenityName WHERE AmenityName = @AmenityName";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -55,7 +55,7 @@ namespace UResidence
 
         public static Amenity GetAmenityImage(int Id)
         {
-            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color FROM[tbAmenity] where Id=@Id and Color!='Black' order by Id ";
+            const string GET_RECORD = @"SELECT Id,Description, Capacity, AmenityName,URL,Rate,Color,Location FROM[tbAmenity] where Id=@Id and Color!='Black' order by Id ";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -67,7 +67,7 @@ namespace UResidence
 
         public static Amenity GetbyId(int id)
         {
-            const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName,URL,Rate,Color FROM [tbAmenity] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Description,Capacity,AmenityName,URL,Rate,Color,Location FROM [tbAmenity] WHERE Id = @Id";
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", id));
@@ -77,7 +77,7 @@ namespace UResidence
 
         public static bool Update(Amenity amty)
         {
-            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, Rate=@Rate, Color=@Color WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, Rate=@Rate, Color=@Color , Location=@Location WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
@@ -86,6 +86,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Id", amty.Id));
             com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
+            com.Parameters.Add(new SqlParameter("@Location", amty.Location));
             return SqlManager.ExecuteNonQuery(com);
         }
 
@@ -112,7 +113,7 @@ namespace UResidence
       
         public static bool Insert(Amenity amty)
         {
-            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName,URL,Rate,Color) values (@Description, @Capacity, @AmenityName,@Url,@Rate,@Color)";
+            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName,URL,Rate,Color,Location) values (@Description, @Capacity, @AmenityName,@Url,@Rate,@Color,Location)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
@@ -121,6 +122,8 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Url", amty.Url));
             com.Parameters.Add(new SqlParameter("@Rate", amty.Rate));
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
+            com.Parameters.Add(new SqlParameter("@Location", amty.Location));
+
             return SqlManager.ExecuteNonQuery(com);
         }
         public static bool InsertImage(Amenity amty)

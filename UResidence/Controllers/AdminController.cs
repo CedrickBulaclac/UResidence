@@ -8,6 +8,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using CrystalDecisions.Shared;
 
 namespace UResidence.Controllers
 {
@@ -205,6 +208,30 @@ namespace UResidence.Controllers
             string errors = "Please check the following: <br/>";
             foreach (string er in err) errors += (er + "<br/>");
             return errors;
+        }
+
+        public ActionResult Download()
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "AdminList.rpt"));
+            List<Owner> data = default(List<Owner>);
+            data = UResidence.OwnerController.GetAll();
+            rd.SetDataSource(data.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf","AdminList.pdf");
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

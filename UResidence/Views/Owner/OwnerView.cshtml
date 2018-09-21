@@ -17,6 +17,7 @@
 	@Html.AntiForgeryToken()
 
 	<div class="container">
+        <button class="btn btn-default" onclick="Download()">Download List of Owner</button>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th scope="col">
@@ -242,3 +243,10 @@
 	}
 
 }
+<script>
+    function Download() {
+        $.post("/Owner/Download");
+    }
+
+
+</script>

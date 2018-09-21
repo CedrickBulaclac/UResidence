@@ -113,6 +113,9 @@
 					<th>
 						Image
 					</th>
+                    <th>
+						Location
+					</th>
 					<th>
 						Actions
 					</th>
@@ -124,29 +127,32 @@
 					foreach (Amenity a in Model)
 					{
 
-						<tr>
+                <tr>
 
-							<td>
-								@Html.DisplayFor(model => a.AmenityName)
-							</td>
-							<td>
-								@Html.DisplayFor(model => a.Description)
-							</td>
-							<td>
-								@Html.DisplayFor(model => a.Capacity)
-							</td>
-							<td>
-								@Html.DisplayFor(model => a.Rate)
-							</td>
-							<td>
-								<a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set(@a.Id)" aria-hidden="true">View Image</a>
-							</td>
-							<td>
-								<a class="btn btn-primary" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-								<a class="btn btn-danger" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-							</td>
+                    <td>
+                        @Html.DisplayFor(model => a.AmenityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => a.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => a.Capacity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => a.Rate)
+                    </td>
+                    <td>
+                        <a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set(@a.Id)" aria-hidden="true">View Image</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => a.Location)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+                    </td>
 
-						</tr>
+                </tr>
 					}
 				}
 			</tbody>
