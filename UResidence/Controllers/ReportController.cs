@@ -14,8 +14,8 @@ namespace UResidence.Controllers
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine("~/Report"),"ReservationForm.rpt");
-            List<ReportReservationAmenity> data =default(List<ReportReservationAmenity>);
-            data = UResidence.ReportReservationAmenityController.GET(refno);
+            List<ReportReservation> data =default(List<ReportReservation>);
+            data = UResidence.ReportReservationAmenityController.GETO(refno);
             rd.SetDataSource(data.ToList());
             Response.Buffer = false;
             Response.ClearContent();

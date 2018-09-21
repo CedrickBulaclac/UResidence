@@ -10,6 +10,8 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace UResidence.Controllers
 {
@@ -58,7 +60,35 @@ namespace UResidence.Controllers
             }
         }
 
+        public ActionResult Download()
+        {
 
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "TenantList.rpt"));
+            List<Tenant> data = default(List<Tenant>);
+            data = UResidence.TenantController.GetAll();
+            rd.SetDataSource(data.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
+
+                return File(stream, "application/pdf", "TenantList.pdf");
+
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public JsonResult InsertMoving1(Tenant tenant)
         {
             int id = tenant.Id;

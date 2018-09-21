@@ -16,14 +16,14 @@ namespace UResidence.Views.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReservationForm : ReportClass {
+    public class OwnerList : ReportClass {
         
-        public ReservationForm() {
+        public OwnerList() {
         }
         
         public override string ResourceName {
             get {
-                return "ReservationForm.rpt";
+                return "OwnerList.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace UResidence.Views.Report {
         
         public override string FullResourceName {
             get {
-                return "UResidence.Views.Report.ReservationForm.rpt";
+                return "UResidence.Views.Report.OwnerList.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace UResidence.Views.Report {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReservationForm : Component, ICachedReport {
+    public class CachedOwnerList : Component, ICachedReport {
         
-        public CachedReservationForm() {
+        public CachedOwnerList() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace UResidence.Views.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReservationForm rpt = new ReservationForm();
+            OwnerList rpt = new OwnerList();
             rpt.Site = this.Site;
             return rpt;
         }

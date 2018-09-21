@@ -51,7 +51,8 @@ namespace UResidence
         public string Deleted { get; set; }
         public string URL { get; set; }
         public HttpPostedFileBase Image { get; set; }
-
+        public string Fullname { get; set; }
+        public string Birthday { get; set; }
 
         public class MinimumAgeAttribute : ValidationAttribute
         {
@@ -89,6 +90,8 @@ namespace UResidence
             ret.Email = RemoveWhitespace(reader.GetString(8));
             ret.Deleted = RemoveWhitespace(reader.GetString(9));
             ret.URL = RemoveWhitespace(reader.GetString(10));
+            ret.Fullname = reader.GetString(11);
+            ret.Birthday = reader.GetString(12);
             return ret;
         }
         public string RemoveWhitespace(string str)

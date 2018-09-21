@@ -456,10 +456,18 @@ namespace UResidence.Controllers
         {
             bool events = false ;
             //int refno = Convert.ToInt32(fc["rfid"]);
+              
+            List<ReportReservation> data = default(List<ReportReservation>);         
+            data = UResidence.ReportReservationAmenityController.GETO(refno1);
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationForm.rpt"));        
-            List<ReportReservationAmenity> data = default(List<ReportReservationAmenity>);
-            data = UResidence.ReportReservationAmenityController.GET(refno1);
+            if (data[0].TypeResident == "Owner")
+            {
+                rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormO.rpt"));
+            }
+            else
+            {
+                rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
+            }
             rd.SetDataSource(data.ToList());
             Response.Buffer = false;
             Response.ClearContent();
