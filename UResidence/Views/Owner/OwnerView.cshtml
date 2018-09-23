@@ -12,12 +12,13 @@
 </center>
 
 <hr />
+<a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owner</a>
 @using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 
 	<div class="container">
-        <button class="btn btn-default" onclick="Download()">Download List of Owner</button>
+        
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th scope="col">
