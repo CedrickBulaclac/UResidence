@@ -58,61 +58,62 @@
 
 
 <hr />
+<a class="btn btn-default" href="@Url.Action("Download","Tenant")">Download List of Tenant</a>
 @using (Html.BeginForm("TenantView", "Tenant", FormMethod.Post))
 {
 
-<div class="container">
-    <button class="btn btn-default" onclick="Download()">Download List of Tenant</button>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th scope="col">UnitNo</th>
-                <th scope="row">BldgNo</th>
-                <th scope="row">  Fname </th>
-                <th scope="row">  Mname </th>
-                <th scope="row"> Lname </th>
-                <th scope="row">Bdate  </th>
-                <th scope="row"> CelNo  </th>
-                <th scope="row"> Email  </th>
-                <th scope="row"> LeaseStart  </th>
-                <th scope="row">  LeaseEnd </th>
-                <th scope="row">Moving In</th>
-                <th scope="row">Moving Out</th>
-                <th scope="row">Actions</th>
-            </tr>
-        </thead>
-        @if (Model != null)
-        {
-            <tbody>
-                @foreach (Tenant ten in Model)
-                {
+	<div class="container">
 
-                    <tr scope="row">
-                        <td>@Html.DisplayFor(model => ten.UnitNo)</td>
-                        <td>@Html.DisplayFor(model => ten.BldgNo)  </td>
-                        <td>@Html.DisplayFor(model => ten.Fname)  </td>
-                        <td>@Html.DisplayFor(model => ten.Mname)  </td>
-                        <td>@Html.DisplayFor(model => ten.Lname)</td>
-                        <td>@Html.DisplayFor(model => ten.Bdate)  </td>
-                        <td>@Html.DisplayFor(model => ten.CelNo)  </td>
-                        <td>@Html.DisplayFor(model => ten.Email)  </td>
-                        <td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
-                        <td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
-                        <td><button type="button" class="btn btn-info" id="btnMovingIn" name="btnMovingIn" data-dismiss="modal" onclick="Set1('@ten.MovingIn')">View</button></td>
-                        <td><button type="button" class="btn btn-info" id="btnMovingOut" name="btnMovingOut" data-dismiss="modal" onclick="Set2('@ten.MovingOut')">View</button></td>
-                        <td>
-                            <a class="btn btn-primary" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a class="btn btn-danger" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-                        </td>
-                    </tr>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th scope="col">UnitNo</th>
+					<th scope="row">BldgNo</th>
+					<th scope="row">  Fname </th>
+					<th scope="row">  Mname </th>
+					<th scope="row"> Lname </th>
+					<th scope="row">Bdate  </th>
+					<th scope="row"> CelNo  </th>
+					<th scope="row"> Email  </th>
+					<th scope="row"> LeaseStart  </th>
+					<th scope="row">  LeaseEnd </th>
+					<th scope="row">Moving In</th>
+					<th scope="row">Moving Out</th>
+					<th scope="row">Actions</th>
+				</tr>
+			</thead>
+			@if (Model != null)
+			{
+				<tbody>
+					@foreach (Tenant ten in Model)
+					{
 
-                }
-            </tbody>
+						<tr scope="row">
+							<td>@Html.DisplayFor(model => ten.UnitNo)</td>
+							<td>@Html.DisplayFor(model => ten.BldgNo)  </td>
+							<td>@Html.DisplayFor(model => ten.Fname)  </td>
+							<td>@Html.DisplayFor(model => ten.Mname)  </td>
+							<td>@Html.DisplayFor(model => ten.Lname)</td>
+							<td>@Html.DisplayFor(model => ten.Bdate)  </td>
+							<td>@Html.DisplayFor(model => ten.CelNo)  </td>
+							<td>@Html.DisplayFor(model => ten.Email)  </td>
+							<td>@Html.DisplayFor(model => ten.LeaseStart)  </td>
+							<td>@Html.DisplayFor(model => ten.LeaseEnd)</td>
+							<td><button type="button" class="btn btn-info" id="btnMovingIn" name="btnMovingIn" data-dismiss="modal" onclick="Set1('@ten.MovingIn')">View</button></td>
+							<td><button type="button" class="btn btn-info" id="btnMovingOut" name="btnMovingOut" data-dismiss="modal" onclick="Set2('@ten.MovingOut')">View</button></td>
+							<td>
+								<a class="btn btn-primary" href="@Url.Action("TenantEdit","Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+								<a class="btn btn-danger" href="@Url.Action("Delete", "Tenant", new { id = Convert.ToInt32(ten.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+							</td>
+						</tr>
 
-        }
+					}
+				</tbody>
 
-    </table>
-</div>
+			}
+
+		</table>
+	</div>
 	<div class="btn-link">
 
 		<a href="@Url.Action("TenantAdd","Tenant")"><input id="btnAdd" type="button" value="ADD NEW TENANT" style="margin-left:150px;" class="btn btn-success" /></a>
@@ -269,9 +270,9 @@
 
 <script>
 	var mi;
-    function Download() {
-        $.post("/Tenant/Download");
-    }
+	function Download() {
+		$.post("/Tenant/Download");
+	}
 
 	function Set1(movingIn) {
 		mi = movingIn;

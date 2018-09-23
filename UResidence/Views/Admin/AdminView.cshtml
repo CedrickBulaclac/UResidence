@@ -14,7 +14,7 @@
 </center>
 
 <hr />
-<button class="btn btn-default" onclick="Download()">Download List of Admin</button>
+<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
