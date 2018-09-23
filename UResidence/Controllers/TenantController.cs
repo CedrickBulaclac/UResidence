@@ -33,30 +33,38 @@ namespace UResidence.Controllers
         }
         private void SendEmail(string email1, string pass)
         {
-            var fromAddress = new MailAddress("uresidence04@gmail.com", "URESIDENCE");
-            var toAddress = new MailAddress(email1, "To Name");
-            const string fromPassword = "uresidence";
-            const string subject = "PalmDale Heights Condominium";
-
-            var smtp = new SmtpClient
+            try
             {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = "Account Information" + "\n" + "Username :" + email1 + "\n"
-                + "Password :" + pass
-            })
-            {
+                var fromAddress = new MailAddress("uresidence04@gmail.com", "URESIDENCE");
+                var toAddress = new MailAddress(email1, "To Name");
+                const string fromPassword = "uresidence";
+                const string subject = "PalmDale Heights Condominium";
 
-                smtp.Send(message);
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = "Account Information" + "\n" + "Username :" + email1 + "\n"
+                    + "Password :" + pass
+                })
+                {
 
+                    smtp.Send(message);
+
+                }
+            }
+            catch(Exception)
+            {
+                string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
+                Response.Write(script);
             }
         }
 

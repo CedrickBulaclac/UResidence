@@ -173,6 +173,8 @@ namespace UResidence.Controllers
 
         private void SendEmail()
         {
+            try
+            {
                 var fromAddress = new MailAddress("uresidence04@gmail.com", "URESIDENCE");
                 var toAddress = new MailAddress(email1, "To Name");
                 const string fromPassword = "uresidence";
@@ -190,13 +192,19 @@ namespace UResidence.Controllers
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
-                    Body = "Your Reference Code is : "+ body +"."
+                    Body = "Your Reference Code is : " + body + "."
                 })
                 {
-                i = body;
-                smtp.Send(message);
-                   
+                    i = body;
+                    smtp.Send(message);
+
                 }
+            }
+            catch(Exception)
+            {
+                string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
+                Response.Write(script);
+            }
         }
 
           public string Randomizer()
