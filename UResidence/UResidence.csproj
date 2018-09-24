@@ -199,6 +199,12 @@
       <DependentUpon>ReservationFormT.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Report\ReservationList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReservationList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Report\TenantList.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -395,6 +401,10 @@
     <EmbeddedResource Include="Views\Report\ReservationFormT.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationFormT.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReservationList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReservationList.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\TenantList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

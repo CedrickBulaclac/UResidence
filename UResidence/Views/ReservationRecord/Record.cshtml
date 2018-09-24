@@ -47,7 +47,7 @@
 				<option value="0">By Amenity</option>
 				<option value="1">By Date</option>
 				<option value="2">By Owner</option>
-				<option value="3">By Tenant</option>
+				
 			</select>
 		</div>
 		<div class="col-md-2">
@@ -55,7 +55,9 @@
 		</div>
 	</div>
 
-	<br /><br />
+	<br />
+    <div id="Download"></div>
+    <br /><br />
 	<table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
 
 </div>
@@ -63,6 +65,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
 	<script>
+        var l = 3;
+        var se = 'none';
+     
 		$(document).ready(GetO());
 
 		function Notify(outstanding, Id, type) {
@@ -89,7 +94,10 @@
 
 
 		function GetO() {
-			$('#tbReservationList').empty();
+            $('#tbReservationList').empty();
+            $('#Download').empty();
+            var hrtml = '<a href="@Url.Action("Download", "ReservationRecord")?Level=' + l + '&Search=' + se + '" class="btn btn-default">Download</a>';
+            $('#Download').append(hrtml);
 			$.ajax({
 				type: "POST",
 				url: "/ReservationRecord/GetEvents",
@@ -101,27 +109,25 @@
 
 					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
 					$.each(Data, function (i, v) {
-
-
-						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-						if (ob == 0) {
+		
+						if (v.Outstanding == 0) {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 						}
 						else {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
 							}
 						}
@@ -134,53 +140,56 @@
 			});
 		}
 
-		function GetT() {
-			$('#tbReservationList').empty();
-			$.ajax({
-				type: "POST",
-				url: "/ReservationRecord/GetT",
-				dataType: 'json',
-				success: function (Data) {
-					var trHTML = '';
-					var name = '';
-					var ob = 0;
+		//function GetT() {
+		//	$('#tbReservationList').empty();
+		//	$.ajax({
+		//		type: "POST",
+		//		url: "/ReservationRecord/GetT",
+		//		dataType: 'json',
+		//		success: function (Data) {
+		//			var trHTML = '';
+		//			var name = '';
+		//			var ob = 0;
 
-					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-					$.each(Data, function (i, v) {
+		//			trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
+		//			$.each(Data, function (i, v) {
 
 
-						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-						if (ob == 0) {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-						}
-						else {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+		//				ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
+		//				if (ob == 0) {
+		//					if (v.typeResident == "Owner") {
+		//						name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+		//					}
+		//					else {
+		//						name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+		//					}
+		//				}
+		//				else {
+		//					if (v.typeResident == "Owner") {
+		//						name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+		//					}
+		//					else {
+		//						name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-							}
-						}
-					});
-					$('#tbReservationList').append(trHTML);
-				},
-				error: function (error) {
-					alert('Failed to retrieve the record');
-				}
-			});
-		}
+		//					}
+		//				}
+		//			});
+		//			$('#tbReservationList').append(trHTML);
+		//		},
+		//		error: function (error) {
+		//			alert('Failed to retrieve the record');
+		//		}
+		//	});
+		//}
 		function GetD() {
-			$('#tbReservationList').empty();
+            $('#tbReservationList').empty();
+             $('#Download').empty();
+            var hrtml = '<a href="@Url.Action("Download", "ReservationRecord")?Level=' + l + '&Search=' + se + '" class="btn btn-default">Download</a>';
+            $('#Download').append(hrtml);
 			$.ajax({
 				type: "POST",
 				url: "/ReservationRecord/GetD",
@@ -196,16 +205,16 @@
 
 						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
 						if (ob == 0) {
-							trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 						}
 						else {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
 							}
 						}
@@ -217,10 +226,15 @@
 				}
 			});
 		}
-		function GetBy(level, search) {
+        function GetBy(level, search) {
+            l = level;
+            se = search;
 			var data = level;
 			var s = search;
-			$('#tbReservationList').empty();
+            $('#tbReservationList').empty();
+             $('#Download').empty();
+            var hrtml = '<a href="@Url.Action("Download", "ReservationRecord")?Level=' + l + '&Search=' + se + '" class="btn btn-default">Download</a>';
+            $('#Download').append(hrtml);
 			$.ajax({
 				type: "POST",
 				url: "/ReservationRecord/Get",
@@ -236,24 +250,24 @@
 
 
 						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-						if (ob == 0) {
+                        if (v.Outstanding == 0) {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 						}
 						else {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-								trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
 							}
 						}
@@ -296,14 +310,14 @@
 					alert("Wrong Input");
 				}
 			}
-			else if (cat == 3) {
-				if (typeof value == 'string') {
-					GetBy(cat, value);
-				}
-				else {
-					alert("Wrong Input");
-				}
-			}
+			//else if (cat == 3) {
+			//	if (typeof value == 'string') {
+			//		GetBy(cat, value);
+			//	}
+			//	else {
+			//		alert("Wrong Input");
+			//	}
+			//}
 
 		}
 

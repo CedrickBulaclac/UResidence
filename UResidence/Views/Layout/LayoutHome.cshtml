@@ -113,10 +113,16 @@
             cursor: pointer;
         }
 
-        span.count {
-            position: relative;
-            top: -3px;
-        }
+        /*span.count {
+            background-color: #fa3e3e;
+            border-radius: 2px;
+            color: white;
+            padding: 1px 3px;
+            font-size: 10px;
+            position: absolute; 
+            top: 0;
+            right: 0;
+        }*/
 
 
 
@@ -170,7 +176,7 @@
 
                         <li class="dropdown">
 
-                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span class="count">&nbsp;</span> <span class="caret"></span> </a>
+                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span id="bellspan"></span></a>
 
                             <ul class="dropdown-menu" id="hello"></ul>
 
@@ -307,13 +313,18 @@
                 }
             });
         }
-		function updateNotificationCount(count) {
-			if (count == 0) {
-                $('span.count').html('&nbsp;');
+        function updateNotificationCount(count1) {
+            $('#bellspan').empty();
+			if (count1 == 0) {
+                var hrtml = '<span class="count">&nbsp;</span>';
+                $('#bellspan').append(hrtml);
 
 			}
-			else {
-				$('span.count').html(count);
+            else {
+
+                var hrtml = '<span class="count" style=" background-color: #fa3e3e;border-radius: 2px;color: white;padding: 1px 3px;font-size: 10px;position: absolute;top: 0;right: 0;">' + count1 + '</span>';
+                $('#bellspan').append(hrtml);
+				//$('span.count').html(count1);
 			}
 		}
 
