@@ -87,7 +87,8 @@ namespace UResidence.Controllers
                 CelNo = owe.CelNo,
                 Email = owe.Email,
                 Deleted = "0",
-                URL = "~/Content/WebImages/user.png"
+                URL = "~/Content/WebImages/user.png",
+                Form = "~/Content/WebImages/noimage.jpeg"
 
             };
            
@@ -294,6 +295,57 @@ namespace UResidence.Controllers
 
 
                     status = UResidence.OwnerController.UpdateDP(a);
+                }
+
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
+        public JsonResult UpdateImageForm(Owner own)
+        {
+            var image = own.Image1;
+            bool status = false;
+            int id = own.Id;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/OwnerImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/OwnerImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+
+                    Owner a = new Owner
+                    {
+                        Id = id,
+                        Form = finalpath
+                    };
+
+
+                    status = UResidence.OwnerController.UpdateForm(a);
                 }
 
             }

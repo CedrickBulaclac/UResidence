@@ -50,7 +50,9 @@ namespace UResidence
 
         public string Deleted { get; set; }
         public string URL { get; set; }
+        public string Form { get; set; }
         public HttpPostedFileBase Image { get; set; }
+        public HttpPostedFileBase Image1 { get; set; }
         public string Fullname { get; set; }
         public string Birthday { get; set; }
 
@@ -92,6 +94,7 @@ namespace UResidence
             ret.URL = RemoveWhitespace(reader.GetString(10));
             ret.Fullname = reader.GetString(11);
             ret.Birthday = reader.GetString(12);
+            ret.Form = reader.GetString(13);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -144,6 +147,7 @@ namespace UResidence
             this.Email = string.Empty;
             this.Deleted = string.Empty;
             this.URL = string.Empty;
+            this.Form = string.Empty;
 
         }
 
