@@ -1,26 +1,26 @@
 ﻿
 @{
-	Layout = "";
+    Layout = "";
 
 }
 @*---Modal for Update Profile Picture---*@
 <div class="container">
-	<div class="modal fade" id="updateprofilepicture" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<input type="file" id="image" name="image" />
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
-					<button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="updateprofilepicture" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="image" name="image" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+                    <button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!DOCTYPE html>
@@ -30,302 +30,1472 @@
 
 <head>
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
 
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 
-	<title>Palmdale Heights</title>
-	<style>
-
-		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-		.row.content {
-			height: 1000px
-		}
-
-		/* Set gray background color and 100% height */
-		.sidenav {
-			background-color: #c8e6c9;
-			height: 100%;
-			/*text-emphasis-color: aliceblue;*/
-		}
-
-		/* On small screens, set height to 'auto' for the grid */
-		@@media screen and (max-width: 767px) {
-			.row.content {
-				height: auto;
-			}
-		}
-
-		.navbar {
-			background: #37474F;
-			padding: 0.5em 2em;
-			position: absolute;
-			top: 0;
-			width: 100%;
-			padding-bottom: 10px;
-		}
-
-
-		.amenity, .equipment, .admin, .tenant, .owner, .maintenance {
-			margin-top: 70px;
-			margin-bottom: 70px;
-		}
-
-		.counter-count {
-			font-size: 18px;
-			background-color: #2e7d32;
-			border-radius: 50%;
-			position: relative;
-			color: #ffffff;
-			text-align: center;
-			line-height: 92px;
-			width: 92px;
-			height: 92px;
-			-webkit-border-radius: 50%;
-			-moz-border-radius: 50%;
-			-ms-border-radius: 50%;
-			-o-border-radius: 50%;
-			display: inline-block;
-		}
-
-		.amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
-			font-size: 24px;
-			color: #1b5e20;
-			line-height: 34px;
-		}
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 
 
 
-		/*.bg.well {
-			background-color: #c8e6c9;
-			font-family: FZShuTi;
-		}*/
+    <title>Palmdale Heights</title>
+    <style>
 
-		.regcontainer {
-			/*padding-left: 480px;*/
-			margin-left: 400px;
-		}
 
-		.regcontainer2 {
-			padding-left: 50px;
-		}
 
-		.modal-backdrop {
-			display: none;
-		}
-	</style>
+
+        /************/
+
+        body {
+            background-color: #ecf0f1;
+        }
+
+        .navbar-inverse {
+            background-color: #2C3E50;
+            border-color: #2C3E50;
+            margin-top: 0px;
+            top: 0px;
+            position: absolute;
+        }
+
+        .navbar {
+            position: relative;
+            min-height: 50px;
+            margin-bottom: 0px;
+            border: 0px solid transparent;
+        }
+
+
+
+        .navbar-nav > li > a {
+            padding-top: 20px;
+            padding-bottom: 10px;
+            line-height: 20px;
+        }
+
+        @@media (min-width: 768px) {
+
+            .navbar {
+                border-radius: 0px;
+            }
+        }
+
+        .navbar-brand {
+            float: left;
+            height: auto;
+            padding: 15px 15px;
+            font-size: 18px;
+            line-height: 20px;
+        }
+
+        .sidebar-toggle {
+            color: #fff;
+            font-size: 28px;
+            display: inline-block;
+            padding: 3px 22px;
+        }
+
+        @@media (min-width:768px) {
+            .container-1 {
+                width: 15%;
+                float: left;
+            }
+
+            .container-2 {
+                width: 100%;
+                float: left;
+            }
+        }
+
+        @@media (max-width:768px) {
+            .container-1 {
+                width: 100%;
+            }
+
+            .container-2 {
+                width: 100%;
+            }
+        }
+
+        .container-1:after,
+        .container-2:before,
+        {
+            display: table;
+            content: " ";
+        }
+
+        .container-1:after,
+        .container-2:after,
+        {
+            clear: both;
+        }
+
+        .container-1 {
+            display: none;
+        }
+
+        /*navbar-right=====START==========*/
+
+        .social-icon {
+            margin: 0px;
+            padding: 0px;
+        }
+
+            .social-icon li {
+                margin: 0px;
+                padding: 0px;
+                list-style-type: none;
+            }
+
+                .social-icon li a {
+                    display: block;
+                    padding: 15px 14px;
+                    text-decoration: none;
+                }
+
+                    .social-icon li a:focus {
+                        color: #fff;
+                        text-decoration: none;
+                    }
+
+        .messages-link {
+            color: #fff !important;
+            background: #16a085 !important;
+        }
+
+        .alerts-link {
+            color: #fff !important;
+            background: #f39c12 !important;
+        }
+
+        .tasks-link {
+            color: #fff !important;
+            background: #2980b9 !important;
+        }
+
+        .user-link {
+            color: #fff !important;
+            background: #E74C3C !important;
+        }
+
+        .number {
+            position: absolute;
+            bottom: 25px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            padding-right: 1px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 11px;
+            line-height: 20px;
+            background-color: #2c3e50;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: -105px;
+            z-index: 1000;
+            display: none;
+            float: left;
+            min-width: 160px;
+            padding: 5px 0;
+            margin: 2px 0 0;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        }
+        /*navbar-right=======END========*/
+
+
+        /*sidebar-toggle=============*/
+        .sidebar-toggle:hover, .sidebar-toggle:focus {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+
+        /*sidr-NAVBAR=======START========*/
+        .navbar-nav-1 {
+            width: 100%;
+            background-color: #34495E;
+            height: auto;
+            overflow: hidden;
+            z-index: 1020;
+            position: relative;
+        }
+
+        .side-user {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-top: none !important;
+            border-bottom: 1px solid #142638;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            z-index: 99;
+            color: #fff;
+            font-size: 31px;
+            top: 0px;
+            left: 223px;
+            display: none;
+            padding: 0px;
+            cursor: pointer;
+        }
+
+            .close-btn .fa-window-close {
+                color: #fff;
+                font-size: 25px;
+            }
+
+        .welcome {
+            margin: 0;
+            font-style: italic;
+            color: #9aa4af;
+        }
+
+        .name {
+            margin: 0;
+            font-family: "Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 20px;
+            font-weight: 300;
+            color: #ccd1d7;
+        }
+
+        .side-user a {
+            color: #fff;
+        }
+
+        .nav-search {
+            border-top: 1px solid #54677a;
+        }
+
+            .nav-search .form-control {
+                border: 1px solid #000;
+                border-radius: 0px;
+            }
+
+            .nav-search .btn {
+                border: 1px solid #000;
+                border-radius: 0px;
+            }
+
+        .dashboard > a {
+            color: #fff;
+        }
+
+        .side-nav li {
+            border-top: 1px solid #54677a;
+            border-bottom: 1px solid #142638;
+        }
+
+        .side-nav > li > a:active {
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+            outline: none;
+            color: #fff;
+            background-color: #34495e;
+        }
+
+        .panel {
+            margin-bottom: 0;
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+            .panel > a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+                color: #fff;
+            }
+
+            .panel > ul > li > a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+                color: darkcyan;
+                background: black;
+            }
+
+        .nav > li > a:hover, .nav > li > a:focus {
+            text-decoration: none;
+            background-color: #3d566e;
+        }
+        /*sidr-NAVBAR=======END========*/
+        @@media (min-width: 768px) {
+
+            #page-wrapper {
+                padding: 0 30px;
+                min-height: 1300px;
+                border-left: 1px solid #2c3e50;
+            }
+        }
+
+        #page-wrapper {
+            padding: 0 15px;
+            border: none;
+        }
+
+        .date-picker {
+            border-color: #138871;
+            color: #fff;
+            background-color: #149077;
+            margin-top: -7px;
+            border-radius: 0px;
+            margin-right: -15px;
+        }
+
+        #page-wrapper .breadcrumb {
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            list-style: none;
+            background-color: #e0e7e8;
+            border-radius: 0px;
+        }
+
+
+
+
+        @@media (min-width: 768px) {
+            .circle-tile {
+                margin-bottom: 30px;
+            }
+        }
+
+        .circle-tile {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .circle-tile-heading {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto -40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 100%;
+            color: #fff;
+            transition: all ease-in-out .3s;
+        }
+
+        /* -- Background Helper Classes */
+
+        /* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
+
+        .dark-blue {
+            background-color: #34495e;
+        }
+
+        .green {
+            background-color: #16a085;
+        }
+
+        .blue {
+            background-color: #2980b9;
+        }
+
+        .orange {
+            background-color: #f39c12;
+        }
+
+        .red {
+            background-color: #e74c3c;
+        }
+
+        .purple {
+            background-color: #8e44ad;
+        }
+
+        .dark-gray {
+            background-color: #7f8c8d;
+        }
+
+        .gray {
+            background-color: #95a5a6;
+        }
+
+        .light-gray {
+            background-color: #bdc3c7;
+        }
+
+        .yellow {
+            background-color: #f1c40f;
+        }
+
+        /* -- Text Color Helper Classes */
+
+        .text-dark-blue {
+            color: #34495e;
+        }
+
+        .text-green {
+            color: #16a085;
+        }
+
+        .text-blue {
+            color: #2980b9;
+        }
+
+        .text-orange {
+            color: #f39c12;
+        }
+
+        .text-red {
+            color: #e74c3c;
+        }
+
+        .text-purple {
+            color: #8e44ad;
+        }
+
+        .text-faded {
+            color: rgba(255,255,255,0.7);
+        }
+
+
+
+        .circle-tile-heading .fa {
+            line-height: 80px;
+        }
+
+        .circle-tile-content {
+            padding-top: 50px;
+        }
+
+        .circle-tile-description {
+            text-transform: uppercase;
+        }
+
+        .text-faded {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .circle-tile-number {
+            padding: 5px 0 15px;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .circle-tile-footer {
+            display: block;
+            padding: 5px;
+            color: rgba(255,255,255,0.5);
+            background-color: rgba(0,0,0,0.1);
+            transition: all ease-in-out .3s;
+        }
+
+            .circle-tile-footer:hover {
+                text-decoration: none;
+                color: rgba(255,255,255,0.5);
+                background-color: rgba(0,0,0,0.2);
+            }
+
+
+        .morning {
+            /*background: url(https://lh3.googleusercontent.com/-1YbV7nsVnX8/WMugaq-6BEI/AAAAAAAADSg/0wPfQ84vMUcCle_SkgiUDOumUKscMaA8QCL0B/w530-d-h353-p-rw/widget-bg-morning.jpg) center bottom no-repeat;*/
+            background-size: cover;
+        }
+
+        .time-widget {
+            margin-top: 5px;
+            overflow: hidden;
+            text-align: center;
+            font-size: 1.75em;
+        }
+
+        .time-widget-heading {
+            text-transform: uppercase;
+            font-size: .5em;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        #datetime {
+            color: #fff;
+        }
+
+        .tile-img {
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.9);
+        }
+
+        .tile {
+            margin-bottom: 15px;
+            padding: 15px;
+            overflow: hidden;
+            color: #fff;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        .side-menu {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+        }
+
+            .side-menu .navbar {
+                border: none;
+            }
+
+            .side-menu .navbar-header {
+                width: 100%;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+            .side-menu .navbar-nav .active a {
+                background-color: transparent;
+                margin-right: -1px;
+                border-right: 5px solid #e7e7e7;
+            }
+
+            .side-menu .navbar-nav li {
+                display: block;
+                width: 100%;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+                .side-menu .navbar-nav li a {
+                    padding: 15px;
+                }
+
+                    .side-menu .navbar-nav li a .glyphicon {
+                        padding-right: 10px;
+                    }
+
+            .side-menu #dropdown {
+                border: 0;
+                margin-bottom: 0;
+                border-radius: 0;
+                background-color: transparent;
+                box-shadow: none;
+            }
+
+                .side-menu #dropdown .caret {
+                    float: right;
+                    margin: 9px 5px 0;
+                }
+
+                .side-menu #dropdown .indicator {
+                    float: right;
+                }
+
+                .side-menu #dropdown > a {
+                    border-bottom: 1px solid #e7e7e7;
+                }
+
+                .side-menu #dropdown .panel-body {
+                    padding: 0;
+                    background-color: #f3f3f3;
+                }
+
+                    .side-menu #dropdown .panel-body .navbar-nav {
+                        width: 100%;
+                    }
+
+                        .side-menu #dropdown .panel-body .navbar-nav li {
+                            padding-left: 15px;
+                            border-bottom: 1px solid #e7e7e7;
+                        }
+
+                            .side-menu #dropdown .panel-body .navbar-nav li:last-child {
+                                border-bottom: none;
+                            }
+
+                    .side-menu #dropdown .panel-body .panel > a {
+                        margin-left: -20px;
+                        padding-left: 35px;
+                    }
+
+                    .side-menu #dropdown .panel-body .panel-body {
+                        margin-left: -15px;
+                    }
+
+                        .side-menu #dropdown .panel-body .panel-body li {
+                            padding-left: 30px;
+                        }
+
+                            .side-menu #dropdown .panel-body .panel-body li:last-child {
+                                border-bottom: 1px solid #e7e7e7;
+                            }
+
+            .side-menu #search-trigger {
+                background-color: #f3f3f3;
+                border: 0;
+                border-radius: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 15px 18px;
+            }
+
+            .side-menu .brand-name-wrapper {
+                min-height: 50px;
+            }
+
+                .side-menu .brand-name-wrapper .navbar-brand {
+                    display: block;
+                }
+
+            .side-menu #search {
+                position: relative;
+                z-index: 1000;
+            }
+
+                .side-menu #search .panel-body {
+                    padding: 0;
+                }
+
+                    .side-menu #search .panel-body .navbar-form {
+                        padding: 0;
+                        padding-right: 50px;
+                        width: 100%;
+                        margin: 0;
+                        position: relative;
+                        border-top: 1px solid #e7e7e7;
+                    }
+
+                        .side-menu #search .panel-body .navbar-form .form-group {
+                            width: 100%;
+                            position: relative;
+                        }
+
+                        .side-menu #search .panel-body .navbar-form input {
+                            border: 0;
+                            border-radius: 0;
+                            box-shadow: none;
+                            width: 100%;
+                            height: 50px;
+                        }
+
+                        .side-menu #search .panel-body .navbar-form .btn {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            border: 0;
+                            border-radius: 0;
+                            background-color: #f3f3f3;
+                            padding: 15px 18px;
+                        }
+        /* Main body section */
+        .side-body {
+            margin-left: 310px;
+        }
+        /* small screen */
+        @@media (max-width: 768px) {
+            .side-menu {
+                position: relative;
+                width: 100%;
+                height: 0;
+                border-right: 0;
+            }
+
+                .side-menu .navbar {
+                    z-index: 999;
+                    position: relative;
+                    height: 0;
+                    min-height: 0;
+                    background-color: none !important;
+                    border-color: none !important;
+                }
+
+                .side-menu .brand-name-wrapper .navbar-brand {
+                    display: inline-block;
+                }
+            /* Slide in animation */
+            @@-moz-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-webkit-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-moz-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@-webkit-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+            /* Slide side menu*/
+            /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
+            .side-menu-container > .navbar-nav.slide-in {
+                -moz-animation: slidein 300ms forwards;
+                -o-animation: slidein 300ms forwards;
+                -webkit-animation: slidein 300ms forwards;
+                animation: slidein 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .side-menu-container > .navbar-nav {
+                /* Add position:absolute for scrollable menu -> see top comment */
+                position: fixed;
+                left: -300px;
+                width: 300px;
+                top: 43px;
+                height: 100%;
+                border-right: 1px solid #e7e7e7;
+                background-color: #f8f8f8;
+                overflow: auto;
+                -moz-animation: slideout 300ms forwards;
+                -o-animation: slideout 300ms forwards;
+                -webkit-animation: slideout 300ms forwards;
+                animation: slideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            @@-moz-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-webkit-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-moz-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@-webkit-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+            /* Slide side body*/
+            .side-body {
+                margin-left: 5px;
+                margin-top: 70px;
+                position: relative;
+                -moz-animation: bodyslideout 300ms forwards;
+                -o-animation: bodyslideout 300ms forwards;
+                -webkit-animation: bodyslideout 300ms forwards;
+                animation: bodyslideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .body-slide-in {
+                -moz-animation: bodyslidein 300ms forwards;
+                -o-animation: bodyslidein 300ms forwards;
+                -webkit-animation: bodyslidein 300ms forwards;
+                animation: bodyslidein 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+        }
+    </style>
 </head>
 
 <body>
-	<div class="navbar">
-		<img src="~/Content/logo.png" width="190" height="85" />
 
-		@*<nav class=" fill">*@
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-		</div>
+    <!--=============================
+               NAVIGATION
+     =============================-->
+    <!--top nav start=======-->
 
-	</div>
+    <nav class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img class="img-responsive" src="~/Content/logo.png" width="150" height="20"></a>
+                @*<a href="javascript:;" class="sidebar-toggle">
+                        <i class="fa fa-bars"></i>
+                    </a>*@
+                <span class="close-btn" id="hide-btn"><i class="fa fa-times" aria-hidden="true"></i></span>
+            </div>
 
-	<div class="collapse navbar-collapse" id="myNavbar">
-
-		<center>
-			@*<ul class="nav navbar-nav ">*@
-			<font color="white">
-				<ul class="nav navbar-nav navbar-right">
-
-					<li><a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>
-
-					<li class="dropdown">
-						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
-
-						<ul class="dropdown-menu">
+            <ul class="social-icon pull-right list-inline">
 
 
+                <li class="dropdown">
+                    <a class="user-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="side-user">
+                            @*<img class="img-circle" src="" alt="admin">*@
+                        <li>
+                            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-							<li>
-								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-
-								</a>
-							</li>
-
-
-							<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
-
-							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
-
-						</ul>
-
-					</li>
-
-
-
-				</ul>
-			</font>
-		</center>
-
-	</div>
+                            </a>
+                        </li>
+                </li>
+                <li><a href="@Url.Action("AdminAccountSetting", "AccountSetting")">Account Settings</a></li>
+                <li><a href="@Url.Action("Index","Login")">Logout</a></li>
 
 
-	<div class="col-sm-12">
+            </ul>
+            </li>
 
-		<center><h2>Reservation Management</h2> </center>
-		<hr />
-	</div>
+            @*<li class="dropdown">
+                    <a class="messages-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span class="number">4</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>*@
 
+            <li class="dropdown">
+                <a class="alerts-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-bell"></span>
+                    <span class="number">6</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Page 1-1</a></li>
+                    <li><a href="#">Page 1-2</a></li>
+                    <li><a href="#">Page 1-3</a></li>
+                </ul>
+            </li>
 
+            @*<li class="dropdown">
+                    <a class="tasks-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="number">11</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>*@
 
-	<br />
-
-
-
-
-
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<div class="regcontainer">
-		<div class="container">
-			<div class="row ">
-
-
-
-
-				<div class="col-lg-2">
-					<div class="panel panel-success">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-6">
-									<i class="fa fa-calendar-plus-o fa-5x"></i>
-								</div>
-								<div class="col-xs-6 text-right">
-									<p class="announcement-heading"> </p>
-									<p class="announcement-text">Reservation List</p>
-								</div>
-							</div>
-						</div>
-						<a href="~/ReservationRecord/Record">
-							<div class="panel-footer announcement-bottom">
-								<div class="row">
-									<div class="col-xs-6">
-										Open
-									</div>
-									<div class="col-xs-6 text-right">
-										<i class="fa fa-arrow-circle-right"></i>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
+            </ul>
+        </div>
+    </nav>
+    <!--    top nav end===========-->
 
 
-				<div class="regcontainer2">
-					<div class="col-lg-2">
-						<div class="panel panel-success ">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-6">
-										<i class="fa fa-calendar-check-o fa-5x"></i>
-									</div>
-									<div class="col-xs-6 text-right">
-										<p class="announcement-heading"></p>
-										<p class="announcement-text"> Reversal List</p>
-									</div>
-								</div>
-							</div>
-							<a href="~/ReversalRecord/Records">
-								<div class="panel-footer announcement-bottom">
-									<div class="row">
-										<div class="col-xs-6">
-											Open
-										</div>
-										<div class="col-xs-6 text-right">
-											<i class="fa fa-arrow-circle-right"></i>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="side-menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Main Menu -->
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+                            <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
+                            <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
+                            <!-- Dropdown-->
+                            <li class="panel panel-default" id="dropdown">
+                                <a data-toggle="collapse" href="#dropdown-lvl1">
+                                    <span class="fa fa-paper-plane"></span> Reports <span class="caret"></span>
+                                </a>
+                                <!-- Dropdown level 1 -->
+                                <div id="dropdown-lvl1" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="#">Admin List</a></li>
+                                            <li><a href="#">atbp xdd</a></li>
+                                            <li><a href="#">atbp xdd</a></li>
+                                            <!-- Dropdown level 2 -->
+                                            @*<li class="panel panel-default" id="dropdown">
+                                                    <a data-toggle="collapse" href="#dropdown-lvl2">
+                                                        <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
+                                                    </a>
+                                                    <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <ul class="nav navbar-nav">
+                                                                <li><a href="#">Link</a></li>
+                                                                <li><a href="#">Link</a></li>
+                                                                <li><a href="#">Link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Charts</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
 
 
 
-	@RenderBody()
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
-
-	<script>
 
 
-		function UpdateProfilePic() {
-			var id = @Session["UID"];
-
-			var file = $("#image").get(0).files;
-			var data = new FormData();
-			data.append("Image", file[0]);
-			data.append("Id", id);
-			$.ajax({
-				type: "POST",
-				url: "/BossManager/UpdateImage/",
-				data: data,
-				contentType: false,
-				processData: false,
-				success: function (data) {
-					if (data == true) {
-						alert('Success');
-						window.location.reload();
-						window.location.href = window.location.href + "?rnd=" + Math.random()
-
-					}
-				},
-				error: function (error) {
-					alert(error);
-				}
-			});
-		}
 
 
-		$('#btnCloseImageProfile').click(function () {
-
-			$('#updateprofilepicture').hide();
-		}
-		);
 
 
-		$('#OpenModal').click(function () {
-
-			$('#updateprofilepicture').modal();
-		}
-		);
 
 
-	</script>
 
 
+
+
+        <div class="col-lg-10">
+            <div class="page-title">
+                <h2>Dashboard<small>Content Overview</small></h2>
+                <ol class="breadcrumb">
+                    <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+                    <li class="pull-right">
+                        <div id="reportrange" class="btn btn-green btn-square date-picker">
+                            <i class="fa fa-calendar"></i>
+                            <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        @*</div>*@
+
+
+        <center>
+            <!--Employee-->
+            <div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/Admin/AdminView">
+                        <div class="circle-tile-heading dark-blue">
+                            <i class="fa fa-users fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content dark-blue">
+                        <div class="circle-tile-description text-faded">
+                            Employees
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            44
+                            <span id="sparklineA"></span>
+                        </div>
+                        <a href="~/Admin/AdminView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Owner-->
+            <div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/Owner/OwnerView">
+                        <div class="circle-tile-heading green">
+                            <i class="fa fa-id-card fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content green">
+                        <div class="circle-tile-description text-faded">
+                            Owner
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            465
+                        </div>
+                        <a href="~/Owner/OwnerView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Tenant-->
+            <div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/Tenant/TenantView">
+                        <div class="circle-tile-heading orange">
+                            <i class="fa fa-id-card-o fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content orange">
+                        <div class="circle-tile-description text-faded">
+                            Tenant
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            109
+                        </div>
+                        <a href="~/Tenant/TenantView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Amenity List-->
+            <div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/Amenity/AmenityView">
+                        <div class="circle-tile-heading purple">
+                            <i class="fa fa-building-o fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content purple">
+                        <div class="circle-tile-description text-faded">
+                            Amenity
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            05
+                            <span id="sparklineD"></span>
+                        </div>
+                        <a href="~/Amenity/AmenityView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </center>
+
+
+
+        <!--Reservation List-->
+        @*<div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/ReservationRecord/Record">
+                        <div class="circle-tile-heading blue">
+                            <i class="fa fa-calendar fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content blue">
+                        <div class="circle-tile-description text-faded">
+                            Reservation List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            100
+                            <span id="sparklineB"></span>
+                        </div>
+                        <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>*@
+
+
+        <!---Reversal List-->
+        @*<div class="col-lg-2 col-sm-6">
+                <div class="circle-tile">
+                    <a href="~/ReversalRecord/Records">
+                        <div class="circle-tile-heading red">
+                            <i class="fa fa-money fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content red">
+                        <div class="circle-tile-description text-faded">
+                            Reversal List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            24
+                            <span id="sparklineC"></span>
+                        </div>
+                        <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>*@
+
+
+        <!---chart-->
+
+
+        <div class="col-lg-8">
+            <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+        </div>
+        <div class="col-lg-8">
+            <div id="chartContainer2" style="height: 300px; width: 50%;"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+    <script>
+
+
+    function UpdateProfilePic() {
+    var id = @Session["UID"];
+
+    var file = $("#image").get(0).files;
+    var data = new FormData();
+    data.append("Image", file[0]);
+    data.append("Id", id);
+    $.ajax({
+    type: "POST",
+    url: "/BossManager/UpdateImage/",
+    data: data,
+    contentType: false,
+    processData: false,
+    success: function (data) {
+    if (data == true) {
+    alert('Success');
+    window.location.reload();
+    window.location.href = window.location.href + "?rnd=" + Math.random()
+
+    }
+    },
+    error: function (error) {
+    alert(error);
+    }
+    });
+    }
+
+
+    $('#btnCloseImageProfile').click(function () {
+
+    $('#updateprofilepicture').hide();
+    }
+    );
+
+
+    $('#OpenModal').click(function () {
+
+    $('#updateprofilepicture').modal();
+    }
+    );
+
+
+
+
+
+
+
+
+
+
+        $(function () {
+            $('.navbar-toggle-sidebar').click(function () {
+                $('.navbar-nav').toggleClass('slide-in');
+                $('.side-body').toggleClass('body-slide-in');
+                $('#search').removeClass('in').addClass('collapse').slideUp(200);
+            });
+
+            $('#search-trigger').click(function () {
+                $('.navbar-nav').removeClass('slide-in');
+                $('.side-body').removeClass('body-slide-in');
+                $('.search-input').focus();
+            });
+        });
+
+
+
+
+
+        window.onload = function () {
+
+            var options = {
+                title: {
+                    text: "Amenity Usage"
+                },
+                subtitles: [{
+                    text: "As of November, 2017"
+                }],
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        { y: 48.36, label: "Basketball" },
+                        { y: 26.85, label: "Swimming Pool" },
+                        { y: 1.49, label: "Gazebo 1 " },
+                        { y: 6.98, label: "Gazebo 2" },
+                        { y: 6.53, label: "Gazebo 3" },
+                        { y: 2.45, label: "Trellis" },
+                        { y: 3.32, label: "Clubhouse" },
+                        { y: 4.03, label: "Others" }
+                    ]
+                }]
+            };
+            $("#chartContainer1").CanvasJSChart(options);
+
+        }
+
+
+
+//       window.onload = function () {
+
+//var totalVisitors = 883000;
+//var visitorsData = {
+//	"New vs Returning Visitors": [{
+//		click: visitorsChartDrilldownHandler,
+//		cursor: "pointer",
+//		explodeOnClick: false,
+//		innerRadius: "75%",
+//		legendMarkerType: "square",
+//		name: "New vs Returning Visitors",
+//		radius: "100%",
+//		showInLegend: true,
+//		startAngle: 90,
+//		type: "doughnut",
+//		dataPoints: [
+//			{ y: 519960, name: "New Visitors", color: "#E7823A" },
+//			{ y: 363040, name: "Returning Visitors", color: "#546BC1" }
+//		]
+//	}],
+//	"New Visitors": [{
+//		color: "#E7823A",
+//		name: "New Visitors",
+//		type: "column",
+//		xValueFormatString: "MMM YYYY",
+//		dataPoints: [
+//			{ x: new Date("1 Jan 2015"), y: 33000 },
+//			{ x: new Date("1 Feb 2015"), y: 35960 },
+//			{ x: new Date("1 Mar 2015"), y: 42160 },
+//			{ x: new Date("1 Apr 2015"), y: 42240 },
+//			{ x: new Date("1 May 2015"), y: 43200 },
+//			{ x: new Date("1 Jun 2015"), y: 40600 },
+//			{ x: new Date("1 Jul 2015"), y: 42560 },
+//			{ x: new Date("1 Aug 2015"), y: 44280 },
+//			{ x: new Date("1 Sep 2015"), y: 44800 },
+//			{ x: new Date("1 Oct 2015"), y: 48720 },
+//			{ x: new Date("1 Nov 2015"), y: 50840 },
+//			{ x: new Date("1 Dec 2015"), y: 51600 }
+//		]
+//	}],
+//	"Returning Visitors": [{
+//		color: "#546BC1",
+//		name: "Returning Visitors",
+//		type: "column",
+//		xValueFormatString: "MMM YYYY",
+//		dataPoints: [
+//			{ x: new Date("1 Jan 2015"), y: 22000 },
+//			{ x: new Date("1 Feb 2015"), y: 26040 },
+//			{ x: new Date("1 Mar 2015"), y: 25840 },
+//			{ x: new Date("1 Apr 2015"), y: 23760 },
+//			{ x: new Date("1 May 2015"), y: 28800 },
+//			{ x: new Date("1 Jun 2015"), y: 29400 },
+//			{ x: new Date("1 Jul 2015"), y: 33440 },
+//			{ x: new Date("1 Aug 2015"), y: 37720 },
+//			{ x: new Date("1 Sep 2015"), y: 35200 },
+//			{ x: new Date("1 Oct 2015"), y: 35280 },
+//			{ x: new Date("1 Nov 2015"), y: 31160 },
+//			{ x: new Date("1 Dec 2015"), y: 34400 }
+//		]
+//	}]
+//};
+
+//var newVSReturningVisitorsOptions = {
+//	animationEnabled: true,
+//	theme: "light2",
+//	title: {
+//		text: "New and Returning Visitors"
+//	},
+//	subtitles: [{
+//		text: "Click on Any Segment to Drilldown",
+//		backgroundColor: "#2eacd1",
+//		fontSize: 16,
+//		fontColor: "white",
+//		padding: 5
+//	}],
+//	legend: {
+//		fontFamily: "calibri",
+//		fontSize: 14,
+//		itemTextFormatter: function (e) {
+//			return e.dataPoint.name + ": " + Math.round(e.dataPoint.y / totalVisitors * 100) + "%";
+//		}
+//	},
+//	data: []
+//};
+
+//var visitorsDrilldownedChartOptions = {
+//	animationEnabled: true,
+//	theme: "light2",
+//	axisX: {
+//		labelFontColor: "#717171",
+//		lineColor: "#a2a2a2",
+//		tickColor: "#a2a2a2"
+//	},
+//	axisY: {
+//		gridThickness: 0,
+//		includeZero: false,
+//		labelFontColor: "#717171",
+//		lineColor: "#a2a2a2",
+//		tickColor: "#a2a2a2",
+//		lineThickness: 1
+//	},
+//	data: []
+//};
+
+//newVSReturningVisitorsOptions.data = visitorsData["New vs Returning Visitors"];
+//$("#chartContainer2").CanvasJSChart(newVSReturningVisitorsOptions);
+
+//function visitorsChartDrilldownHandler(e) {
+//	e.chart.options = visitorsDrilldownedChartOptions;
+//	e.chart.options.data = visitorsData[e.dataPoint.name];
+//	e.chart.options.title = { text: e.dataPoint.name }
+//	e.chart.render();
+//	$("#backButton").toggleClass("invisible");
+//}
+
+//$("#backButton").click(function() {
+//	$(this).toggleClass("invisible");
+//	newVSReturningVisitorsOptions.data = visitorsData["New vs Returning Visitors"];
+//	$("#chartContainer2").CanvasJSChart(newVSReturningVisitorsOptions);
+//});
+
+//}
+    </script>
 
 
 </body>
