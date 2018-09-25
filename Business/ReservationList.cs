@@ -26,7 +26,10 @@ namespace UResidence
         public int TableCost { get; set; }
         public int TotalPayment { get; set; }
         public int RefNo { get; set; }
-
+        public int Outstanding { get; set; }
+        public string BldgNo { get; set; }
+        public string UnitNo { get; set; }
+        public string ReservedBy { get; set; }
         public ReservationList CreateObject(SqlDataReader reader)
         {
             ReservationList ret = new ReservationList();
@@ -46,7 +49,11 @@ namespace UResidence
             ret.Charge = reader.GetInt32(13);
             ret.ChairCost = reader.GetInt32(14);
             ret.TableCost = reader.GetInt32(15);
-            ret.TotalPayment = reader.GetInt32(16);
+            ret.TotalPayment = reader.GetInt32(16);           
+            ret.BldgNo = reader.GetString(17);
+            ret.UnitNo = reader.GetString(18);
+            ret.ReservedBy = reader.GetString(19);
+            ret.Outstanding = reader.GetInt32(20);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -70,6 +77,7 @@ namespace UResidence
             this.ChairCost = 0;
             this.TableCost = 0;
             this.TotalPayment = 0;
+            this.Outstanding = 0;
         }
     }
 }

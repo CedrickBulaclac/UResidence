@@ -29,6 +29,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+          
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             int balance = 0;
             List<Billing> billing = new List<Billing>();
@@ -471,9 +472,7 @@ namespace UResidence.Controllers
         }
         public ActionResult DownloadReservation(int refno1)
         {
-            bool events = false ;
-            //int refno = Convert.ToInt32(fc["rfid"]);
-              
+          
             List<ReportReservation> data = default(List<ReportReservation>);         
             data = UResidence.ReportReservationAmenityController.GETO(refno1);
             ReportDocument rd = new ReportDocument();
