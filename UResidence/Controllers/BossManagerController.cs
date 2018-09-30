@@ -62,7 +62,7 @@ namespace UResidence.Controllers
             double total=0;
             double compute = 0 ;
             List<DashResult> ret = default(List<DashResult>);
-            ret = DashResultController.GetAll(month,2018);
+            ret = DashResultController.GetAll(month,year);
             List<object> data1 = new List<object>();
             object[][] data = new object[ret.Count][];
 

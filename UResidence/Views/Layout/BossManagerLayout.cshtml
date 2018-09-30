@@ -1104,22 +1104,18 @@
             </div>
         </div>*@
            
-            <div>
-                <div class="row">
-                    <div class="col-lg-4">
 
-                    </div>
-                    <div class="col-lg-4">
-                        <b>Year :</b>
-                        <select id="year" name="year"></select>
-                    </div>
-                    <div class="col-lg-4">
-
-                    </div>
-                </div>
-               
 
                 <!---chart-->
+            <center>
+                <b>Year :</b>
+                <select id="textyear" name="textyear" class="form-control">
+                    <option value="2018">2018</option>
+                </select>
+                <br />
+                <br />
+            </center>
+              
                 <div class="col-lg-4" id="chart1">
 
                     <div>
@@ -1155,7 +1151,7 @@
 
             </div>
         </div>
-    </div>
+
 
 
 
@@ -1273,19 +1269,16 @@
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script>
         $(document).ready(function () {
-
             var date = new Date();
             var year = date.getFullYear();
-            for (var i = year; i >= 2018; i--) {
-                console.log(i);
-                $('#year').append('<option value="' + i + '">' + i + '</option>');
+            for (var i = year; i > 2018; i--) {
+                $('#textyear').append('<option value="' + i + '">' + i + '</option>');
             }
-
-
         });
 
         function ValueChange() {
             var month = document.getElementById('month').value;
+            var year1 = document.getElementById('textyear').value;
             var month1 = '';
             var datapoints=[];
             switch (month) {
@@ -1329,20 +1322,18 @@
             $.ajax({
                 type: 'POST',
                 url: '/BossManager/GetMonthly',
-                data: { month: month, year: 2018 },
-
+                data: { month: month, year: year1 },
                 success: function (data1) {
                     console.log(data1.length);
                     for (var i = 0; i <= data1.length - 1; i += 2) {
                         datapoints.push({ y: data1[i + 1], label: data1[i] });
                     }
-                    console.log(datapoints);
                     var options = {
                         title: {
                             text: "Amenity Usage"
                         },
                         subtitles: [{
-                            text: month1 + ", 2018"
+                            text: month1 + ", "+year1
                         }],
                         animationEnabled: true,
                         data: [{
