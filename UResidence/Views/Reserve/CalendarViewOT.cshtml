@@ -207,7 +207,7 @@
                     if (calEvent.status == "Reserved") {
                      
                         //$('#footer').append('<a class="btn btn-success" onclick="Download(' + calEvent.rf + ')">Print</a> <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
-                        $('#footer').append('<a class="btn btn-success" href="@Url.Action("DownloadReservation","Reserve")?refno=' + calEvent.rf + '">Print</a><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
+                        $('#footer').append('<a class="btn btn-success" href="@Url.Action("DownloadReservation","Reserve")?refno1=' + calEvent.rf + '">Print</a><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
                     }
                     else {
                         $('#footer').append('<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');

@@ -33,6 +33,8 @@ namespace UResidence
         public int TotalPayment { get; set; }
         public string Description { get; set; }
         public DateTime DateP { get; set; }
+        public int AdultRate { get; set; }
+        public int ChildRate { get; set; }
         public ReportReservation CreateObject(SqlDataReader reader)
         {
             ReportReservation ret = new ReportReservation();
@@ -44,20 +46,22 @@ namespace UResidence
             ret.DateofReservation = reader.GetString(5);   
             ret.AmenityName = reader.GetString(6);
             ret.Rate = reader.GetInt32(7);
-            ret.AmenityHour = reader.GetInt32(8);
-            ret.TotalAmenityRate = reader.GetInt32(9);
-            ret.Date = reader.GetDateTime(10);
-            ret.EquipmentName = reader.GetString(11);
-            ret.EquipmentQuantity = reader.GetInt32(12);
-            ret.EquipmentRate = reader.GetInt32(13);
-            ret.EquipmentCost = reader.GetInt32(14);
-            ret.TypeResident = reader.GetString(15);
-            ret.Adult = reader.GetInt32(16);
-            ret.Child = reader.GetInt32(17);
-            ret.Charge = reader.GetInt32(18);
-            ret.TotalPayment = reader.GetInt32(19);
-            ret.Description = reader.GetString(20);
-            ret.DateP = reader.GetDateTime(21);
+            ret.AdultRate = reader.GetInt32(8);
+            ret.ChildRate = reader.GetInt32(9);
+            ret.AmenityHour = reader.GetInt32(10);
+            ret.TotalAmenityRate = reader.GetInt32(11);
+            ret.Date = reader.GetDateTime(12);
+            ret.EquipmentName = reader.GetString(13);
+            ret.EquipmentQuantity = reader.GetInt32(14);
+            ret.EquipmentRate = reader.GetInt32(15);
+            ret.EquipmentCost = reader.GetInt32(16);
+            ret.TypeResident = reader.GetString(17);
+            ret.Adult = reader.GetInt32(18);
+            ret.Child = reader.GetInt32(19);
+            ret.Charge = reader.GetInt32(20);
+            ret.TotalPayment = reader.GetInt32(21);
+            ret.Description = reader.GetString(22);
+            ret.DateP = reader.GetDateTime(23);
 
             return ret;
         }

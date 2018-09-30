@@ -478,7 +478,14 @@ namespace UResidence.Controllers
             ReportDocument rd = new ReportDocument();
             if (data[0].TypeResident == "Owner")
             {
-                rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormO.rpt"));
+                if ((data[0].AmenityName).ToUpper() == "SWIMMING POOL")
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReserveSwimmingO.rpt"));
+                }
+                else
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormO.rpt"));
+                }
             }
             else
             {

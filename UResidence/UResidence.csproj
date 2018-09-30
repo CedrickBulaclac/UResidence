@@ -205,6 +205,12 @@
       <DependentUpon>ReservationList.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Report\ReserveSwimmingO.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReserveSwimmingO.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Report\TenantList.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -405,6 +411,10 @@
     <EmbeddedResource Include="Views\Report\ReservationList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationList.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReserveSwimmingO.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReserveSwimmingO.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\TenantList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -1,75 +1,86 @@
 ﻿
 @{
-	Layout = "~/Views/Layout/BossManagerLayout.cshtml";
+    Layout = "~/Views/Layout/BossManagerLayout.cshtml";
 }
+<script>  $(document).ready(function () {
+        $('#maincontent').empty();
+        $('#maincontent1').empty();
+    });</script>
+    @*Scripts for dropdown*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <br />
+    <br />
 
-@*Scripts for dropdown*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<br />
-<br />
-<div class="container">
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><span id="eventTitle"></span></h4>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" name="rid" id="rid" />
-					<input type="hidden" name="rfid" id="rfid" />
-					<p id="pDetails"></p>
-					<br /><br />
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-1">
-			<b>Search</b>
-		</div>
-		<div class="col-md-4">
-			<input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
-			<input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
-		</div>
-		<div class="col-md-1">
-			<b>Category</b>
-		</div>
-		<div class="col-md-4">
-			<select class="form-control" id="category" onchange="Setfield()">
-				<option value="0">By Amenity</option>
-				<option value="1">By Date</option>
-				<option value="2">By Owner</option>
-				
-			</select>
-		</div>
-		<div class="col-md-2">
-			<button class="btn btn-success" onclick="Search();">Search</button>
-		</div>
-	</div>
+    <div id="content1">
+        <br />
+        <br />
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="rid" id="rid" />
+                            <input type="hidden" name="rfid" id="rfid" />
+                            <p id="pDetails"></p>
+                            <br /><br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="container"  >
+               
+                    <div class="col-md-1">
+                        <b>Search</b>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
+                        <input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
+                    </div>
+                    <div class="col-md-1">
+                        <b>Category</b>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control" id="category" onchange="Setfield()">
+                            <option value="0">By Amenity</option>
+                            <option value="1">By Date</option>
+                            <option value="2">By Owner</option>
 
-	<br />
-    <div id="Download"></div>
-    <br /><br />
-	<table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success" onclick="Search();">Search</button>
+                    </div>
+                </div>
 
-</div>
+                <br />
+                <div id="Download"></div>
+                <br /><br />
+                <table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
+        </div>
+
 @section scripts{
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
-	<script>
+    <script>
         var l = 3;
         var se = 'none';
-     
-		$(document).ready(GetO());
 
+        $(document).ready(GetO());
+        $(document).ready(function () {
+            var content1 = document.getElementById('content1');
+            $('#maincontent1').append(content1);
+
+        });
 		function Notify(outstanding, Id, type) {
 			console.log(type);
 
@@ -109,7 +120,7 @@
 
 					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
 					$.each(Data, function (i, v) {
-		
+
 						if (v.Outstanding == 0) {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
@@ -385,5 +396,5 @@
 			}
 
 		}
-	</script>
+    </script>
 }

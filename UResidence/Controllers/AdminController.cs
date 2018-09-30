@@ -18,7 +18,7 @@ namespace UResidence.Controllers
     {
         bool status;
         // GET: Admin
-        private void SendEmail(string email1,string pass)
+        private void SendEmail(string email1, string pass)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace UResidence.Controllers
 
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
                 Response.Write(script);
@@ -79,14 +79,14 @@ namespace UResidence.Controllers
             return hash;
         }
         [HttpPost]
-        public ActionResult Registration(Admin adm,int typeadmin)
+        public ActionResult Registration(Admin adm, int typeadmin)
         {
             string hash;
             string pass = adm.Bdate.ToShortDateString();
             int typea = typeadmin;
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
-           
+
             if (listUser.Count == 0)
             {
                 string[] err = new string[] { };
@@ -125,7 +125,7 @@ namespace UResidence.Controllers
 
 
                     UResidence.UserController.InsertAdminId(ull);
-                    SendEmail(adm.Email,pass);
+                    SendEmail(adm.Email, pass);
                     status = true;
                     ViewBag.AddMessage = status;
                     AdminView();
@@ -143,8 +143,8 @@ namespace UResidence.Controllers
                 ViewBag.AddMessage = status;
 
             }
-                return View();
-            
+            return View();
+
         }
         public ActionResult AdminView()
         {
@@ -157,24 +157,24 @@ namespace UResidence.Controllers
             Admin am = new Admin()
             {
                 Id = id,
-                Deleted=delete
+                Deleted = delete
             };
-            status=UResidence.AdminController.UpdateDelete(am);
+            status = UResidence.AdminController.UpdateDelete(am);
             if (status == true)
             {
-                     
+
                 AdminView();
             }
             ViewBag.DeleteStatus = status;
             return View("AdminView");
-       }
+        }
         public ActionResult AdminEdit()
         {
             return View();
         }
         [HttpGet]
         public ActionResult AdminEdit(int id)
-        {                   
+        {
             string i = id.ToString();
             if (ModelState.IsValid)
             {
@@ -183,7 +183,7 @@ namespace UResidence.Controllers
             }
             return View("AdminEdit");
         }
-    
+
         [HttpPost]
         public ActionResult AdminEdit(Admin adm)
         {
@@ -232,7 +232,7 @@ namespace UResidence.Controllers
             {
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf","AdminList.pdf");
+                return File(stream, "application/pdf", "AdminList.pdf");
 
             }
             catch (Exception)
@@ -241,5 +241,7 @@ namespace UResidence.Controllers
             }
 
         }
+
+     
     }
 }
