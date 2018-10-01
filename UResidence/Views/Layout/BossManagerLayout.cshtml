@@ -908,38 +908,7 @@
                             <li class="active"><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
                             <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
                             <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
-                            <!-- Dropdown-->
-                            @*<li class="panel panel-default" id="dropdown">
-                                <a data-toggle="collapse" href="#dropdown-lvl1">
-                                    <span class="fa fa-paper-plane"></span> Reports <span class="caret"></span>
-                                </a>*@
-                            <!-- Dropdown level 1 -->
-                            @*<div id="dropdown-lvl1" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="#">Admin List</a></li>
-                                        <li><a href="#">atbp xdd</a></li>
-                                        <li><a href="#">atbp xdd</a></li>*@
-                            <!-- Dropdown level 2 -->
-                            @*<li class="panel panel-default" id="dropdown">
-                                    <a data-toggle="collapse" href="#dropdown-lvl2">
-                                        <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
-                                    </a>
-                                    <div id="dropdown-lvl2" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul class="nav navbar-nav">
-                                                <li><a href="#">Link</a></li>
-                                                <li><a href="#">Link</a></li>
-                                                <li><a href="#">Link</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>*@
-                            @*</ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Charts</a></li>*@
+
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
@@ -961,11 +930,11 @@
                     <ol class="breadcrumb">
                         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
                         @*<li class="pull-right">
-                        <div id="reportrange" class="btn btn-green btn-square date-picker">
-                            <i class="fa fa-calendar"></i>
-                            <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
-                        </div>
-                    </li>*@
+                            <div id="reportrange" class="btn btn-green btn-square date-picker">
+                                <i class="fa fa-calendar"></i>
+                                <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+                            </div>
+                        </li>*@
                     </ol>
                 </div>
             </div>
@@ -976,7 +945,7 @@
                 <!--Employee-->
                 <div class="col-lg-2 col-sm-6">
                     <div class="circle-tile">
-                        <a href="~/Admin/AdminView">
+                        <a href="#" onclick="ShowAdmin()">
                             <div class="circle-tile-heading dark-blue">
                                 <i class="fa fa-users fa-fw fa-3x"></i>
                             </div>
@@ -989,7 +958,7 @@
 
                                 <span id="sparklineA"></span>
                             </div>
-                            <a href="~/Admin/AdminView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                            <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -998,7 +967,7 @@
                 <!--Owner-->
                 <div class="col-lg-2 col-sm-6">
                     <div class="circle-tile">
-                        <a href="~/Owner/OwnerView">
+                        <a href="#" onclick="ShowOwner()">
                             <div class="circle-tile-heading green">
                                 <i class="fa fa-id-card fa-fw fa-3x"></i>
                             </div>
@@ -1010,7 +979,7 @@
                             <div class="circle-tile-number text-faded" id="OwnerCount">
 
                             </div>
-                            <a href="~/Owner/OwnerView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                            <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1019,7 +988,7 @@
                 <!--Tenant-->
                 <div class="col-lg-2 col-sm-6">
                     <div class="circle-tile">
-                        <a href="~/Tenant/TenantView">
+                        <a href="#" onclick="ShowTenant()">
                             <div class="circle-tile-heading orange">
                                 <i class="fa fa-id-card-o fa-fw fa-3x"></i>
                             </div>
@@ -1031,7 +1000,7 @@
                             <div class="circle-tile-number text-faded" id="TenantCount">
 
                             </div>
-                            <a href="~/Tenant/TenantView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                            <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1040,7 +1009,7 @@
                 <!--Amenity List-->
                 <div class="col-lg-2 col-sm-6">
                     <div class="circle-tile">
-                        <a href="~/Amenity/AmenityView">
+                        <a href="~/Amenity/AmenityView" onclick="ShowAmenity()">
                             <div class="circle-tile-heading purple">
                                 <i class="fa fa-building-o fa-fw fa-3x"></i>
                             </div>
@@ -1053,7 +1022,7 @@
 
                                 <span id="sparklineD"></span>
                             </div>
-                            <a href="~/Amenity/AmenityView" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                            <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1063,60 +1032,61 @@
 
             <!--Reservation List-->
             @*<div class="col-lg-2 col-sm-6">
-            <div class="circle-tile">
-                <a href="~/ReservationRecord/Record">
-                    <div class="circle-tile-heading blue">
-                        <i class="fa fa-calendar fa-fw fa-3x"></i>
+                <div class="circle-tile">
+                    <a href="~/ReservationRecord/Record">
+                        <div class="circle-tile-heading blue">
+                            <i class="fa fa-calendar fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content blue">
+                        <div class="circle-tile-description text-faded">
+                            Reservation List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            100
+                            <span id="sparklineB"></span>
+                        </div>
+                        <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                     </div>
-                </a>
-                <div class="circle-tile-content blue">
-                    <div class="circle-tile-description text-faded">
-                        Reservation List
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        100
-                        <span id="sparklineB"></span>
-                    </div>
-                    <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
 
             <!---Reversal List-->
             @*<div class="col-lg-2 col-sm-6">
-            <div class="circle-tile">
-                <a href="~/ReversalRecord/Records">
-                    <div class="circle-tile-heading red">
-                        <i class="fa fa-money fa-fw fa-3x"></i>
+                <div class="circle-tile">
+                    <a href="~/ReversalRecord/Records">
+                        <div class="circle-tile-heading red">
+                            <i class="fa fa-money fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content red">
+                        <div class="circle-tile-description text-faded">
+                            Reversal List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            24
+                            <span id="sparklineC"></span>
+                        </div>
+                        <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                     </div>
-                </a>
-                <div class="circle-tile-content red">
-                    <div class="circle-tile-description text-faded">
-                        Reversal List
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        24
-                        <span id="sparklineC"></span>
-                    </div>
-                    <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
-            </div>
-        </div>*@
-           
+            </div>*@
 
 
-                <!---chart-->
-            <center>
-                <b>Year :</b>
-                <select id="textyear" name="textyear" class="form-control">
-                    <option value="2018">2018</option>
-                </select>
-                <br />
-                <br />
-            </center>
-              
-                <div class="col-lg-4" id="chart1">
+
+            <!---chart-->
+            <div id="containerChart">
+                <center>
+                    <b>Year :</b>
+                    <select id="textyear" name="textyear" class="form-control">
+                        <option value="2018">2018</option>
+                    </select>
+                    <br />
+                    <br />
+                </center>
+
+                <div class="col-lg-8" id="chart1">
 
                     <div>
                         <center>
@@ -1142,15 +1112,53 @@
 
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div id="chartContainer2" style="height: 300px; width: 50%;"></div>
-                </div>
-            </div>
-
-            <div id="maincontent1" class="col-lg-10">
 
             </div>
+            @*<div class="col-lg-8">
+                <div id="chartContainer2" style="height: 300px; width: 50%;"></div>
+            </div>*@
+
+
+
         </div>
+
+        <div id="maincontent1" class="col-lg-10">
+
+        </div>
+        <div id="contentAmenity" class="col-lg-8">
+            <center><h3>Amenity</h3></center>
+            <br />
+            <table class="table table-striped" id="tbAmenity">
+               
+            </table>
+        </div>
+        <div id="contentAdmin" class="col-lg-8">
+            <center><h3>Admin</h3></center>
+            <br />
+            <table class="table table-striped" id="tbAdmin">
+               
+            </table>
+        </div>
+
+        <div id="contentOwner" class="col-lg-8">
+            <center><h3>Owner</h3></center>
+            <br />
+            <table class="table table-striped" id="tbOwner">
+               
+            </table>
+        </div>
+        <div id="contentTenant" class="col-lg-8">
+            <center><h3>Tenant</h3></center>
+            <br />
+            <table class="table table-striped" id="tbTenant">
+               
+            </table>
+        </div>
+
+
+
+
+    </div>
 
 
 
@@ -1268,6 +1276,118 @@
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script>
+       
+        function ShowAmenity() {
+            document.getElementById('contentAmenity').hidden = false;
+            document.getElementById('contentAdmin').hidden = true;
+            document.getElementById('contentTenant').hidden = true;
+            document.getElementById('contentOwner').hidden = true;
+            $('#containerChart').empty();
+            var hrtml = '';
+            $('#tbAmenity').empty();
+            hrtml = '<tr><th>AmenityName</th><th>Description</th><th>Location</th><th>Capacity</th><th>Rate</th></tr>';
+            $.ajax({
+                type: "GET",
+                url: "/BossManager/AmenityLoad",
+                success: function (Data) {
+                    console.log(Data);
+                    $.each(Data, function (i, v) {
+                        hrtml += '<tr><td>' + v.AmenityName + '</td><td>' + v.Description + '</td><td>' + v.Location + '</td><td>' + v.Capacity + '</td><td>' + v.Rate + '</td></tr>';
+                    });
+                    $('#tbAmenity').append(hrtml);
+                },
+                error: function (data) {
+                    alert(failed);
+                }
+            });
+
+        }
+
+        function ShowAdmin() {
+            document.getElementById('contentAmenity').hidden = true;
+            document.getElementById('contentAdmin').hidden = false;
+            document.getElementById('contentTenant').hidden = true;
+            document.getElementById('contentOwner').hidden = true;
+            $('#containerChart').empty();
+            var hrtml = '';
+            hrtml = '<tr><th>Name</th><th>Birthday</th><th>Email</th><th>Cellphone No</th><th>Role</tr>';
+            $('#tbAdmin').empty();
+            $.ajax({
+                type: "GET",
+                url: "/BossManager/AdminLoad",
+                success: function (Data) {
+                    console.log(Data);
+                    $.each(Data, function (i, v) {
+                        hrtml += '<tr><td>' + v.Fullname + '</td><td>' + v.Birthday + '</td><td>' + v.Email + '</td><td>' + v.CelNo + '</td><td>'+v.Role+'</td></tr>';
+                    });
+                    $('#tbAdmin').append(hrtml);
+                },
+                error: function (data) {
+                    alert(failed);
+                }
+            });
+
+        }
+        function ShowOwner() {
+            document.getElementById('contentAmenity').hidden = true;
+            document.getElementById('contentAdmin').hidden = true;
+            document.getElementById('contentTenant').hidden = true;
+            document.getElementById('contentOwner').hidden = false;
+            $('#containerChart').empty();
+            var hrtml = '';
+            hrtml = '<tr><th>Building No</th><th>Unit No</th><th>Name</th><th>Birthday</th><th>Email</th><th>Cellphone No</th></tr>';
+            $('#tbOwner').empty();
+            $.ajax({
+                type: "GET",
+                url: "/BossManager/OwnerLoad",
+                success: function (Data) {
+                    console.log(Data);
+                    $.each(Data, function (i, v) {
+                        hrtml += '<tr><td>' + v.BldgNo + '</td><td>' + v.UnitNo + '</td><td>' + v.Fullname + '</td><td>' + v.Birthday + '</td><td>' + v.Email + '</td><td>' + v.CelNo + '</td></tr>';
+                    });
+                    $('#tbOwner').append(hrtml);
+                },
+                error: function (data) {
+                    alert(failed);
+                }
+            });
+
+        }
+        function ShowTenant() {
+            document.getElementById('contentAmenity').hidden = true;
+            document.getElementById('contentAdmin').hidden = true;
+            document.getElementById('contentOwner').hidden = true;
+            document.getElementById('contentTenant').hidden = false;
+            $('#containerChart').empty();
+            var hrtml = '';
+            hrtml = '<tr><th>Building No</th><th>Unit No</th><th>Name</th><th>Birthday</th><th>Email</th><th>Cellphone No</th></tr>';
+            $('#tbTenant').empty();
+            $.ajax({
+                type: "GET",
+                url: "/BossManager/TenantLoad",
+                success: function (Data) {
+                    console.log(Data);
+                    $.each(Data, function (i, v) {
+                        hrtml += '<tr><td>' + v.BldgNo + '</td><td>' + v.UnitNo + '</td><td>' + v.Fullname + '</td><td>' + v.Birthday + '</td><td>' + v.Email + '</td><td>' + v.CelNo + '</td></tr>';
+                    });
+                    $('#tbTenant').append(hrtml);
+                },
+                error: function (data) {
+                    alert(failed);
+                }
+            });
+
+        }
+
+        $(document).ready(function () {
+            document.getElementById('contentAmenity').hidden = true;
+            document.getElementById('contentAdmin').hidden = true;
+            document.getElementById('contentTenant').hidden = true;
+            document.getElementById('contentOwner').hidden = true;
+
+
+        });
+
         $(document).ready(function () {
             var date = new Date();
             var year = date.getFullYear();

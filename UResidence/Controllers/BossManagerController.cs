@@ -130,5 +130,33 @@ namespace UResidence.Controllers
             };
 
         }
+        public JsonResult AmenityLoad()
+        {
+            List<Amenity> amn = new List<Amenity>();
+            amn = UResidence.AmenityController.GetAll();
+            var data=amn.ToList();
+            return new JsonResult { Data =data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult AdminLoad()
+        {
+            List<Admin> admin = new List<Admin>();
+            admin = UResidence.AdminController.GetAll();
+            var data = admin.ToList();
+            return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult OwnerLoad()
+        {
+            List<Owner> owner = new List<Owner>();
+            owner = UResidence.OwnerController.GetAll();
+            var data = owner.ToList();
+            return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult TenantLoad()
+        {
+            List<Tenant> tenant = new List<Tenant>();
+            tenant = UResidence.TenantController.GetAll();
+            var data = tenant.ToList();
+            return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }

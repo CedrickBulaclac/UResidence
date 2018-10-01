@@ -80,14 +80,29 @@ namespace UResidence.Controllers
                     Session["TOR"] = "Tenant";
                     Tenant a = new Tenant();
                     a = UResidence.TenantController.GetIdTenant(user.TenantId.ToString());
-                    string Fname = RemoveWhitespace(a.Fname);
-                    string Mname = RemoveWhitespace(a.Mname);
-                    string Lname = RemoveWhitespace(a.Lname);
-                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
-                    Session["BDAY"] = a.Bdate.ToShortDateString();
-                    Session["UNO"] = a.UnitNo;
-                    UResidence.UserController.UpdateLog(user.Id);
-                    return RedirectToAction("Home", "Reserve");
+
+                    if (a.LeaseEnd < DateTime.Now)
+                    {
+                        Tenant t = new Tenant
+                        {
+                            Deleted = "1",
+                            Id = user.TenantId
+                    };
+                        UResidence.TenantController.UpdateDelete(t);
+                        string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                        Response.Write(script);
+                    }
+                    else
+                    {
+                        string Fname = RemoveWhitespace(a.Fname);
+                        string Mname = RemoveWhitespace(a.Mname);
+                        string Lname = RemoveWhitespace(a.Lname);
+                        Session["FullName"] = Fname + " " + Mname + " " + Lname;
+                        Session["BDAY"] = a.Bdate.ToShortDateString();
+                        Session["UNO"] = a.UnitNo;
+                        UResidence.UserController.UpdateLog(user.Id);
+                        return RedirectToAction("Home", "Reserve");
+                    }
                 }
             }
             else
