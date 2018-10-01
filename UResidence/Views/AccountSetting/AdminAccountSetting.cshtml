@@ -10,11 +10,7 @@
 	else if (Convert.ToInt32(Session["Level"]) == 5)
 	{
 		Layout = "/Views/Layout/RegistrationLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 1)
-	{
-		Layout = "/Views/Layout/BossManagerLayout.cshtml";
-	}
+	}	
 	else if (Convert.ToInt32(Session["Level"]) == 4)
 	{
 		Layout = "/Views/Layout/ReservationLayout.cshtml";
@@ -229,13 +225,6 @@
 		</div>
 	</div>
 
-
-
-
-
-
-
-	<input type="submit" class="btn-default" value="Save Changes" />
 
 	<script type="text/javascript">
 		function Check() {

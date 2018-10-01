@@ -358,6 +358,7 @@
     <Content Include="Views\SuperAdmin\SuperAdminView.cshtml" />
     <Content Include="Views\SuperAdmin\SuperAdminEdit.cshtml" />
     <Content Include="Views\Amenity\AmenityAddPool.cshtml" />
+    <Content Include="Views\AccountSetting\ManagerAccountSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
