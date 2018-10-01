@@ -479,6 +479,8 @@ namespace UResidence.Controllers
             }
             else if (level == 5)
             {
+
+
                 try
                 {
                     Tenant tenantList = UResidence.TenantController.GetTenantReserve(bldgno, unitno);
@@ -489,10 +491,24 @@ namespace UResidence.Controllers
                     Session["FULLN"] = fullname;
                     Session["TORA"] = "Tenant";
                     Session["UIDA"] = tenantList.Id;
-              
 
 
+                    Tenant a = new Tenant();
+                    a = UResidence.TenantController.GetIdTenant(tenantList.Id.ToString());
+                    if (a.LeaseEnd < DateTime.Now)
+                    {
+                        Tenant t = new Tenant
+                        {
+                            Deleted = "1",
+                            Id = tenantList.Id
+                        };
+                        UResidence.TenantController.UpdateDelete(t);
+                        string data;
+                        return Json(data = "Tenant");
+                    }
 
+                    else
+                    { 
                     int balance = 0;
                     List<Billing> billing = new List<Billing>();
                     int uid = Convert.ToInt32(Session["UIDA"]);
@@ -522,11 +538,13 @@ namespace UResidence.Controllers
                         return Json(data = true);
                     }
                 }
+                }
                 catch (InvalidOperationException i)
                 {
                     string data;
                     return Json(data = "Tenant");
                 }
+
 
             }
             return View();
