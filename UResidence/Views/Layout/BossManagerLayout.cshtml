@@ -1285,8 +1285,14 @@
                 success: function (Data) {
                     console.log(Data);
                     $.each(Data, function (i, v) {
-                        hrtml += '<tr><td>' + v.AmenityName + '</td><td>' + v.Description + '</td><td>' + v.Location + '</td><td>' + v.Capacity + '</td><td>' + v.Rate + '</td></tr>';
-                    });
+                        if (v.Rate != 0) {
+                            hrtml += '<tr><td>' + v.AmenityName + '</td><td>' + v.Description + '</td><td>' + v.Location + '</td><td>' + v.Capacity + '</td><td>' + v.Rate + '</td></tr>';
+                        }
+                        else {
+                            hrtml += '<tr><td>' + v.AmenityName + '</td><td>' + v.Description + '</td><td>' + v.Location + '</td><td>' + v.Capacity + '</td><td><b>Adult :</b>' +v.Adult+' <b>Child :</b>'+v.Child+'</td></tr>';
+
+                        }
+                        });
                     $('#tbAmenity').append(hrtml);
                 },
                 error: function (data) {
