@@ -10,45 +10,47 @@
     });</script>
 @*Scripts for dropdown*@
 <div id="content1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <div class="container">
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" name="rid" id="rid" />
-                        <input type="hidden" name="rfid" id="rfid" />
-                        <p id="pDetails"></p>
-                        <br /><br />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br /><br />
-    <center>
-        <b>Sort by:</b><select class="form-control" id="select" onchange="Set()">
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Denied">Denied</option>
-            <option value="Completed">Completed</option>
-        </select>
-    </center>
-    <br />
-    <br />
-    <div class="container">
-        <table class="table table-bordered table-striped" id="tableReversalList"></table>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><span id="eventTitle"></span></h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="rid" id="rid" />
+						<input type="hidden" name="rfid" id="rfid" />
+						<p id="pDetails"></p>
+						<br /><br />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br /><br />
+	<center><h2>Reversal List</h2></center>
+	<br />
+	<center>
+		<b>Sort by:</b><select class="form-control" id="select" onchange="Set()">
+			<option value="Pending">Pending</option>
+			<option value="Approved">Approved</option>
+			<option value="Denied">Denied</option>
+			<option value="Completed">Completed</option>
+		</select>
+	</center>
+	<br />
+	<br />
+	<div class="container">
+		<table class="table table-bordered table-striped" id="tableReversalList"></table>
 
-    </div>
-    </div>
+	</div>
+</div>
     @section scripts{
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script>
