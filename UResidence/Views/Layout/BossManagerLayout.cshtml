@@ -1559,15 +1559,12 @@
 		}
 
 		$(function () {
+			var year1 = document.getElementById('textyear').value;
         var chart = new CanvasJS.Chart("chartContainer", {
             title: {
-                text: "Yearly Reservation"
+                text: "Amenity Usage on "+year1
             },
-            subtitles: [
-                {
-                    text: "Click on Legends to Enable/Disable Data Series"
-                }
-            ],
+          
             animationEnabled: true,
             legend: {
                 cursor: "pointer",
@@ -1607,8 +1604,8 @@
             {
                 type: "bar",
                 showInLegend: true,
-                name: "Gold",
-                color: "gold",
+                name: "Basketball Court",
+					color: "Blue",
                 dataPoints: [
                     { y: 243, label: "January" },
                     { y: 273, label: "February" },
@@ -1630,8 +1627,8 @@
             {
                 type: "bar",
                 showInLegend: true,
-                name: "Silver",
-                color: "silver",
+                name: "Swimming Pool",
+				color: "Green",
                 dataPoints: [
 					{ y: 243, label: "January" },
 					{ y: 273, label: "February" },
@@ -1653,8 +1650,8 @@
             {
                 type: "bar",
                 showInLegend: true,
-                name: "Bronze",
-                color: "#A57164",
+                name: "Gazebo",
+                color: "Red",
                 dataPoints: [
 					{ y: 243, label: "January" },
 					{ y: 273, label: "February" },
