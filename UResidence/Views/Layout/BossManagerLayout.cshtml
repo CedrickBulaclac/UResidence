@@ -837,83 +837,83 @@
 </head>
 
 <body>
-    <div class="navbar1">
-        <img src="~/Content/logo.png" width="190" height="85" />
+	<div class="navbar1">
+		<img src="~/Content/logo.png" width="190" height="85" />
 
-        @*<nav class=" fill">*@
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-        </div>
+		@*<nav class=" fill">*@
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="collapse navbar-collapse" id="myNavbar">
+	<div class="collapse navbar-collapse" id="myNavbar">
 
-        <center>
-            @*<ul class="nav navbar-nav ">*@
-            <font color="white">
-                <ul class="nav navbar-nav navbar-right">
+		<center>
+			@*<ul class="nav navbar-nav ">*@
+			<font color="white">
+				<ul class="nav navbar-nav navbar-right">
 
-                    @*<li><a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>*@
+					@*<li><a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>*@
 
-                    <li class="dropdown">
-                        <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+					<li class="dropdown">
+						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
 
-                        <ul class="dropdown-menu">
+						<ul class="dropdown-menu">
 
 
 
-                            <li>
-                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+							<li>
+								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-                                </a>
-                            </li>
+								</a>
+							</li>
 
 
-                            <li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+							<li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-                            <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-                        </ul>
+						</ul>
 
-                    </li>
+					</li>
 
 
 
-                </ul>
-            </font>
-        </center>
+				</ul>
+			</font>
+		</center>
 
-    </div>
+	</div>
 
 
 
 
 
 
-    <div class="row">
-        <div class="col-lg-2">
-            <div class="side-menu">
-                <nav class="navbar navbar-default" role="navigation">
-                    <!-- Main Menu -->
-                    <div class="side-menu-container">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-                            <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
-                            <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
+	<div class="row">
+		<div class="col-lg-2">
+			<div class="side-menu">
+				<nav class="navbar navbar-default" role="navigation">
+					<!-- Main Menu -->
+					<div class="side-menu-container">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
+							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
 
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-            </div>
-        </div>
+						</ul>
+					</div><!-- /.navbar-collapse -->
+				</nav>
+			</div>
+		</div>
 
 
 
@@ -923,360 +923,353 @@
 
 
 
-        <div id="maincontent">
-            <div class="col-lg-10">
-                <div class="page-title">
-                    <h2>Dashboard<small>Content Overview</small></h2>
-                    <ol class="breadcrumb">
-                        <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-                        @*<li class="pull-right">
-                            <div id="reportrange" class="btn btn-green btn-square date-picker">
-                                <i class="fa fa-calendar"></i>
-                                <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
-                            </div>
-                        </li>*@
-                    </ol>
-                </div>
-            </div>
-            @*</div>*@
-
-
-            <center>
-                <!--Employee-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowAdmin()">
-                            <div class="circle-tile-heading dark-blue">
-                                <i class="fa fa-users fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content dark-blue">
-                            <div class="circle-tile-description text-faded">
-                                Employees
-                            </div>
-                            <div class="circle-tile-number text-faded" id="AdminCount">
-
-                                <span id="sparklineA"></span>
-                            </div>
-                            <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--Owner-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowOwner()">
-                            <div class="circle-tile-heading green">
-                                <i class="fa fa-id-card fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content green">
-                            <div class="circle-tile-description text-faded">
-                                Owner
-                            </div>
-                            <div class="circle-tile-number text-faded" id="OwnerCount">
-
-                            </div>
-                            <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--Tenant-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowTenant()">
-                            <div class="circle-tile-heading orange">
-                                <i class="fa fa-id-card-o fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content orange">
-                            <div class="circle-tile-description text-faded">
-                                Tenant
-                            </div>
-                            <div class="circle-tile-number text-faded" id="TenantCount">
-
-                            </div>
-                            <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--Amenity List-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="~/Amenity/AmenityView" onclick="ShowAmenity()">
-                            <div class="circle-tile-heading purple">
-                                <i class="fa fa-building-o fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content purple">
-                            <div class="circle-tile-description text-faded">
-                                Amenity
-                            </div>
-                            <div class="circle-tile-number text-faded" id="AmenityCount">
-
-                                <span id="sparklineD"></span>
-                            </div>
-                            <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </center>
-
-
-
-            <!--Reservation List-->
-            @*<div class="col-lg-2 col-sm-6">
-                <div class="circle-tile">
-                    <a href="~/ReservationRecord/Record">
-                        <div class="circle-tile-heading blue">
-                            <i class="fa fa-calendar fa-fw fa-3x"></i>
-                        </div>
-                    </a>
-                    <div class="circle-tile-content blue">
-                        <div class="circle-tile-description text-faded">
-                            Reservation List
-                        </div>
-                        <div class="circle-tile-number text-faded">
-                            100
-                            <span id="sparklineB"></span>
-                        </div>
-                        <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>*@
-
-
-            <!---Reversal List-->
-            @*<div class="col-lg-2 col-sm-6">
-                <div class="circle-tile">
-                    <a href="~/ReversalRecord/Records">
-                        <div class="circle-tile-heading red">
-                            <i class="fa fa-money fa-fw fa-3x"></i>
-                        </div>
-                    </a>
-                    <div class="circle-tile-content red">
-                        <div class="circle-tile-description text-faded">
-                            Reversal List
-                        </div>
-                        <div class="circle-tile-number text-faded">
-                            24
-                            <span id="sparklineC"></span>
-                        </div>
-                        <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>*@
-
-
-
-            <!---chart-->
-            <div id="containerChart">
-                <center>
-                    <b>Year :</b>
-                    <select id="textyear" name="textyear" class="form-control">
-                        <option value="2018">2018</option>
-                    </select>
-                    <br />
-                    <br />
-                </center>
-
-                <div class="col-lg-8" id="chart1">
-
-                    <div>
-                        <center>
-                            <b>Month :</b> <select id="month" name="month" onchange="ValueChange()">
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                        </center>
+		<div id="maincontent">
+			<div class="col-lg-10">
+				<div class="page-title">
+					<h2>Dashboard<small>Content Overview</small></h2>
+					<ol class="breadcrumb">
+						<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+						@*<li class="pull-right">
+								<div id="reportrange" class="btn btn-green btn-square date-picker">
+									<i class="fa fa-calendar"></i>
+									<span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+								</div>
+							</li>*@
+					</ol>
+				</div>
+			</div>
+			@*</div>*@
+
+
+			<center>
+				<!--Employee-->
+				<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="#" onclick="ShowAdmin()">
+							<div class="circle-tile-heading dark-blue">
+								<i class="fa fa-users fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content dark-blue">
+							<div class="circle-tile-description text-faded">
+								Employees
+							</div>
+							<div class="circle-tile-number text-faded" id="AdminCount">
+
+								<span id="sparklineA"></span>
+							</div>
+							<a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+
+				<!--Owner-->
+				<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="#" onclick="ShowOwner()">
+							<div class="circle-tile-heading green">
+								<i class="fa fa-id-card fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content green">
+							<div class="circle-tile-description text-faded">
+								Owner
+							</div>
+							<div class="circle-tile-number text-faded" id="OwnerCount">
+
+							</div>
+							<a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+
+				<!--Tenant-->
+				<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="#" onclick="ShowTenant()">
+							<div class="circle-tile-heading orange">
+								<i class="fa fa-id-card-o fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content orange">
+							<div class="circle-tile-description text-faded">
+								Tenant
+							</div>
+							<div class="circle-tile-number text-faded" id="TenantCount">
+
+							</div>
+							<a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+
+				<!--Amenity List-->
+				<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="~/Amenity/AmenityView" onclick="ShowAmenity()">
+							<div class="circle-tile-heading purple">
+								<i class="fa fa-building-o fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content purple">
+							<div class="circle-tile-description text-faded">
+								Amenity
+							</div>
+							<div class="circle-tile-number text-faded" id="AmenityCount">
+
+								<span id="sparklineD"></span>
+							</div>
+							<a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</center>
+
+
+
+			<!--Reservation List-->
+			@*<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="~/ReservationRecord/Record">
+							<div class="circle-tile-heading blue">
+								<i class="fa fa-calendar fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content blue">
+							<div class="circle-tile-description text-faded">
+								Reservation List
+							</div>
+							<div class="circle-tile-number text-faded">
+								100
+								<span id="sparklineB"></span>
+							</div>
+							<a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>*@
+
+
+			<!---Reversal List-->
+			@*<div class="col-lg-2 col-sm-6">
+					<div class="circle-tile">
+						<a href="~/ReversalRecord/Records">
+							<div class="circle-tile-heading red">
+								<i class="fa fa-money fa-fw fa-3x"></i>
+							</div>
+						</a>
+						<div class="circle-tile-content red">
+							<div class="circle-tile-description text-faded">
+								Reversal List
+							</div>
+							<div class="circle-tile-number text-faded">
+								24
+								<span id="sparklineC"></span>
+							</div>
+							<a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
+				</div>*@
+
+
+
+			<!---chart-->
+			<div id="containerChart">
+				<center>
+					<b>Year :</b>
+					<select id="textyear" name="textyear" class="form-control">
+						<option value="2018">2018</option>
+					</select>
+					<br />
+					<br />
+				</center>
 
-                    </div>
-                    <div id="chartContainer1" style="height: 300px; width: 100%;">
+				<div class="col-lg-8" id="chart1">
 
+					<div>
+						<center>
+							<b>Month :</b> <select id="month" name="month" onchange="ValueChange()">
+								<option value="1">January</option>
+								<option value="2">February</option>
+								<option value="3">March</option>
+								<option value="4">April</option>
+								<option value="5">May</option>
+								<option value="6">June</option>
+								<option value="7">July</option>
+								<option value="8">August</option>
+								<option value="9">September</option>
+								<option value="10">October</option>
+								<option value="11">November</option>
+								<option value="12">December</option>
+							</select>
+						</center>
 
-                    </div>
-                </div>
+					</div>
+					<div id="chartContainer1" style="height: 300px; width: 100%;">
 
-            </div>
-            @*<div class="col-lg-8">
-                <div id="chartContainer2" style="height: 300px; width: 50%;"></div>
-            </div>*@
-
-
-
-        </div>
-
-        <div id="maincontent1" class="col-lg-10">
-
-        </div>
-        <div id="contentAmenity" class="col-lg-8">
-            <center><h3>Amenity</h3></center>
-            <br />
-            <table class="table table-striped" id="tbAmenity">
-               
-            </table>
-        </div>
-        <div id="contentAdmin" class="col-lg-8">
-            <center><h3>Admin</h3></center>
-            <br />
-            <table class="table table-striped" id="tbAdmin">
-               
-            </table>
-        </div>
-
-        <div id="contentOwner" class="col-lg-8">
-            <center><h3>Owner</h3></center>
-            <br />
-            <table class="table table-striped" id="tbOwner">
-               
-            </table>
-        </div>
-        <div id="contentTenant" class="col-lg-8">
-            <center><h3>Tenant</h3></center>
-            <br />
-            <table class="table table-striped" id="tbTenant">
-               
-            </table>
-        </div>
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @*<div class="col-sm-12">
-
-            <center><h2>Reservation Management</h2> </center>
-            <hr />
-        </div>
-
-
-
-        <br />
-
-
-
-
-
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="regcontainer">
-            <div class="container">
-                <div class="row ">
-
-
-
-
-                    <div class="col-lg-2">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <i class="fa fa-calendar-plus-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-6 text-right">
-                                        <p class="announcement-heading"> </p>
-                                        <p class="announcement-text">Reservation List</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="~/ReservationRecord/Record">
-                                <div class="panel-footer announcement-bottom">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            Open
-                                        </div>
-                                        <div class="col-xs-6 text-right">
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <div class="regcontainer2">
-                        <div class="col-lg-2">
-                            <div class="panel panel-success ">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <i class="fa fa-calendar-check-o fa-5x"></i>
-                                        </div>
-                                        <div class="col-xs-6 text-right">
-                                            <p class="announcement-heading"></p>
-                                            <p class="announcement-text"> Reversal List</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="~/ReversalRecord/Records">
-                                    <div class="panel-footer announcement-bottom">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                Open
-                                            </div>
-                                            <div class="col-xs-6 text-right">
-                                                <i class="fa fa-arrow-circle-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-
-
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-
-
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <script>
-       
+
+					</div>
+				</div>
+
+			</div>
+			@*<div class="col-lg-8">
+					<div id="chartContainer2" style="height: 300px; width: 50%;"></div>
+				</div>*@
+
+
+
+		</div>
+
+		<div id="maincontent1" class="col-lg-10">
+
+		</div>
+		<div id="contentAmenity" class="col-lg-8">
+			<center><h3>Amenity</h3></center>
+			<br />
+			<table class="table table-striped" id="tbAmenity"></table>
+		</div>
+		<div id="contentAdmin" class="col-lg-8">
+			<center><h3>Admin</h3></center>
+			<br />
+			<table class="table table-striped" id="tbAdmin"></table>
+		</div>
+
+		<div id="contentOwner" class="col-lg-8">
+			<center><h3>Owner</h3></center>
+			<br />
+			<table class="table table-striped" id="tbOwner"></table>
+		</div>
+		<div id="contentTenant" class="col-lg-8">
+			<center><h3>Tenant</h3></center>
+			<br />
+			<table class="table table-striped" id="tbTenant"></table>
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@*<div class="col-sm-12">
+
+			<center><h2>Reservation Management</h2> </center>
+			<hr />
+		</div>
+
+
+
+		<br />
+
+
+
+
+
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<div class="regcontainer">
+			<div class="container">
+				<div class="row ">
+
+
+
+
+					<div class="col-lg-2">
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-6">
+										<i class="fa fa-calendar-plus-o fa-5x"></i>
+									</div>
+									<div class="col-xs-6 text-right">
+										<p class="announcement-heading"> </p>
+										<p class="announcement-text">Reservation List</p>
+									</div>
+								</div>
+							</div>
+							<a href="~/ReservationRecord/Record">
+								<div class="panel-footer announcement-bottom">
+									<div class="row">
+										<div class="col-xs-6">
+											Open
+										</div>
+										<div class="col-xs-6 text-right">
+											<i class="fa fa-arrow-circle-right"></i>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+
+					<div class="regcontainer2">
+						<div class="col-lg-2">
+							<div class="panel panel-success ">
+								<div class="panel-heading">
+									<div class="row">
+										<div class="col-xs-6">
+											<i class="fa fa-calendar-check-o fa-5x"></i>
+										</div>
+										<div class="col-xs-6 text-right">
+											<p class="announcement-heading"></p>
+											<p class="announcement-text"> Reversal List</p>
+										</div>
+									</div>
+								</div>
+								<a href="~/ReversalRecord/Records">
+									<div class="panel-footer announcement-bottom">
+										<div class="row">
+											<div class="col-xs-6">
+												Open
+											</div>
+											<div class="col-xs-6 text-right">
+												<i class="fa fa-arrow-circle-right"></i>
+											</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>*@
+
+
+
+	@RenderBody()
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+
+
+
+	@*<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	*@
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+	<script>
+
         function ShowAmenity() {
             document.getElementById('contentAmenity').hidden = false;
             document.getElementById('contentAdmin').hidden = true;
@@ -1573,7 +1566,7 @@
 		);
 
 
-    </script>
+	</script>
 
 
 
