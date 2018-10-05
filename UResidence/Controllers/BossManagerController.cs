@@ -63,8 +63,8 @@ namespace UResidence.Controllers
         {
             double total=0;
             double compute = 0 ;
-            List<Month> ret = default(List<Month>);
-            ret = MonthController.GetAll(month,year);
+            List<Dashboard> ret = default(List<Dashboard>);
+            ret = DashboardController.GetAllm(month,year);
             List<object> data = new List<object>();         
             for (int i = 0; i <= ret.Count - 1; i++)
             {                           
@@ -85,8 +85,8 @@ namespace UResidence.Controllers
         {
             double total = 0;
             double compute = 0;
-            List<Year> ret = default(List<Year>);
-            ret = YearController.GetAll(year);
+            List<Dashboard> ret = default(List<Dashboard>);
+            ret = DashboardController.GetAlly(year);
             List<object> data = new List<object>();
             for (int i = 0; i <= ret.Count - 1; i++)
             {

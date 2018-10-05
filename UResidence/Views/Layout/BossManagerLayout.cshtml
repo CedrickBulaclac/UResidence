@@ -77,9 +77,10 @@
         }
 
         .navbar1 {
+            z-index:1;
             background: #37474F;
             padding: 0.5em 2em;
-            position: absolute;
+            position: fixed;
             top: 0;
             width: 100%;
             padding-bottom: 10px;
@@ -475,164 +476,62 @@
 
 
 
-
-
-
-
-
-
-
         .side-menu {
-            position: relative;
-            width: 100%;
+            position: fixed;
+            z-index: 1;
+            top: 14%;
+            left: 0;
+            overflow-x: hidden;
+            width: 300px;
             height: 100%;
             background-color: #f8f8f8;
             border-right: 1px solid #e7e7e7;
         }
 
-            .side-menu .navbar {
-                border: none;
+        .main {
+            margin-left: 300px;
+        }
+
+        .side-menu .navbar {
+            border: none;
+        }
+
+        .side-menu .navbar-header {
+            width: 100%;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .side-menu .navbar-nav .active a {
+            background-color: transparent;
+            margin-right: -1px;
+            border-right: 5px solid #e7e7e7;
+        }
+
+        .side-menu .navbar-nav li {
+            display: block;
+            width: 100%;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+            .side-menu .navbar-nav li a {
+                padding: 15px;
             }
 
-            .side-menu .navbar-header {
-                width: 100%;
-                border-bottom: 1px solid #e7e7e7;
-            }
+                .side-menu .navbar-nav li a .glyphicon {
+                    padding-right: 10px;
+                }
 
-            .side-menu .navbar-nav .active a {
-                background-color: transparent;
-                margin-right: -1px;
-                border-right: 5px solid #e7e7e7;
-            }
 
-            .side-menu .navbar-nav li {
+
+        .side-menu .brand-name-wrapper {
+            min-height: 50px;
+        }
+
+            .side-menu .brand-name-wrapper .navbar-brand {
                 display: block;
-                width: 100%;
-                border-bottom: 1px solid #e7e7e7;
             }
 
-                .side-menu .navbar-nav li a {
-                    padding: 15px;
-                }
 
-                    .side-menu .navbar-nav li a .glyphicon {
-                        padding-right: 10px;
-                    }
-
-            .side-menu #dropdown {
-                border: 0;
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: transparent;
-                box-shadow: none;
-            }
-
-                .side-menu #dropdown .caret {
-                    float: right;
-                    margin: 9px 5px 0;
-                }
-
-                .side-menu #dropdown .indicator {
-                    float: right;
-                }
-
-                .side-menu #dropdown > a {
-                    border-bottom: 1px solid #e7e7e7;
-                }
-
-                .side-menu #dropdown .panel-body {
-                    padding: 0;
-                    background-color: #f3f3f3;
-                }
-
-                    .side-menu #dropdown .panel-body .navbar-nav {
-                        width: 100%;
-                    }
-
-                        .side-menu #dropdown .panel-body .navbar-nav li {
-                            padding-left: 15px;
-                            border-bottom: 1px solid #e7e7e7;
-                        }
-
-                            .side-menu #dropdown .panel-body .navbar-nav li:last-child {
-                                border-bottom: none;
-                            }
-
-                    .side-menu #dropdown .panel-body .panel > a {
-                        margin-left: -20px;
-                        padding-left: 35px;
-                    }
-
-                    .side-menu #dropdown .panel-body .panel-body {
-                        margin-left: -15px;
-                    }
-
-                        .side-menu #dropdown .panel-body .panel-body li {
-                            padding-left: 30px;
-                        }
-
-                            .side-menu #dropdown .panel-body .panel-body li:last-child {
-                                border-bottom: 1px solid #e7e7e7;
-                            }
-
-            .side-menu #search-trigger {
-                background-color: #f3f3f3;
-                border: 0;
-                border-radius: 0;
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 15px 18px;
-            }
-
-            .side-menu .brand-name-wrapper {
-                min-height: 50px;
-            }
-
-                .side-menu .brand-name-wrapper .navbar-brand {
-                    display: block;
-                }
-
-            .side-menu #search {
-                position: relative;
-                z-index: 1000;
-            }
-
-                .side-menu #search .panel-body {
-                    padding: 0;
-                }
-
-                    .side-menu #search .panel-body .navbar-form {
-                        padding: 0;
-                        padding-right: 50px;
-                        width: 100%;
-                        margin: 0;
-                        position: relative;
-                        border-top: 1px solid #e7e7e7;
-                    }
-
-                        .side-menu #search .panel-body .navbar-form .form-group {
-                            width: 100%;
-                            position: relative;
-                        }
-
-                        .side-menu #search .panel-body .navbar-form input {
-                            border: 0;
-                            border-radius: 0;
-                            box-shadow: none;
-                            width: 100%;
-                            height: 50px;
-                        }
-
-                        .side-menu #search .panel-body .navbar-form .btn {
-                            position: absolute;
-                            right: 0;
-                            top: 0;
-                            border: 0;
-                            border-radius: 0;
-                            background-color: #f3f3f3;
-                            padding: 15px 18px;
-                        }
         /* Main body section */
         .side-body {
             margin-left: 310px;
@@ -832,434 +731,324 @@
                 color: #C0C0C0;
             }
         }
-        
     </style>
 </head>
 
 <body>
-	<div class="navbar1">
-		<img src="~/Content/logo.png" width="190" height="85" />
+    <div class="navbar1">
+        <img src="~/Content/logo.png" width="190" height="85" />
 
-		@*<nav class=" fill">*@
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-		</div>
+        @*<nav class=" fill">*@
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+        </div>
 
-	</div>
+    </div>
 
-	<div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="myNavbar">
 
-		<center>
-			@*<ul class="nav navbar-nav ">*@
-			<font color="white">
-				<ul class="nav navbar-nav navbar-right">
+        <center>
+            @*<ul class="nav navbar-nav ">*@
 
-					@*<li><a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>*@
-
-					<li class="dropdown">
-						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
-
-						<ul class="dropdown-menu">
+            <ul class="social-icon pull-right list-inline" style="z-index:1;">
 
 
-
-							<li>
-								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-
-								</a>
-							</li>
-
-
-							<li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
-
-							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
-
-						</ul>
-
-					</li>
+                <li class="dropdown">
+                    <a class="user-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
 
 
 
-				</ul>
-			</font>
-		</center>
+                        <li>
+                            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-	</div>
-
-
-
+                            </a>
+                        </li>
 
 
+                        <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-	<div class="row">
-		<div class="col-lg-2">
-			<div class="side-menu">
-				<nav class="navbar navbar-default" role="navigation">
-					<!-- Main Menu -->
-					<div class="side-menu-container">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
-							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
+                        <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				</nav>
-			</div>
-		</div>
+                    </ul>
+
+                </li>
+
+
+            </ul>
+        </center>
+
+    </div>
 
 
 
 
 
 
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="side-menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Main Menu -->
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+                            <li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+                            <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
+                            <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
 
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
 
+        <div id="maincontent" class="main">
+            <div class="col-lg-12">
+                <div class="page-title">
+                    <h2>Dashboard<small>Content Overview</small></h2>
+                    <ol class="breadcrumb">
+                        <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+                        @*<li class="pull-right">
+                                <div id="reportrange" class="btn btn-green btn-square date-picker">
+                                    <i class="fa fa-calendar"></i>
+                                    <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+                                </div>
+                            </li>*@
+                    </ol>
+                </div>
+            </div>
+            @*</div>*@
 
-		<div id="maincontent">
-			<div class="col-lg-10">
-				<div class="page-title">
-					<h2>Dashboard<small>Content Overview</small></h2>
-					<ol class="breadcrumb">
-						<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-						@*<li class="pull-right">
-								<div id="reportrange" class="btn btn-green btn-square date-picker">
-									<i class="fa fa-calendar"></i>
-									<span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
-								</div>
-							</li>*@
-					</ol>
-				</div>
-			</div>
-			@*</div>*@
+            <br />
+            <center>
+                <!--Employee-->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="#" onclick="ShowAdmin()">
+                            <div class="circle-tile-heading dark-blue">
+                                <i class="fa fa-users fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content dark-blue">
+                            <div class="circle-tile-description text-faded">
+                                Employees
+                            </div>
+                            <div class="circle-tile-number text-faded" id="AdminCount">
 
-
-			<center>
-				<!--Employee-->
-				<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="#" onclick="ShowAdmin()">
-							<div class="circle-tile-heading dark-blue">
-								<i class="fa fa-users fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content dark-blue">
-							<div class="circle-tile-description text-faded">
-								Employees
-							</div>
-							<div class="circle-tile-number text-faded" id="AdminCount">
-
-								<span id="sparklineA"></span>
-							</div>
-							<a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-
-
-				<!--Owner-->
-				<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="#" onclick="ShowOwner()">
-							<div class="circle-tile-heading green">
-								<i class="fa fa-id-card fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content green">
-							<div class="circle-tile-description text-faded">
-								Owner
-							</div>
-							<div class="circle-tile-number text-faded" id="OwnerCount">
-
-							</div>
-							<a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-
-
-				<!--Tenant-->
-				<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="#" onclick="ShowTenant()">
-							<div class="circle-tile-heading orange">
-								<i class="fa fa-id-card-o fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content orange">
-							<div class="circle-tile-description text-faded">
-								Tenant
-							</div>
-							<div class="circle-tile-number text-faded" id="TenantCount">
-
-							</div>
-							<a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-
-
-				<!--Amenity List-->
-				<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="#" onclick="ShowAmenity()">
-							<div class="circle-tile-heading purple">
-								<i class="fa fa-building-o fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content purple">
-							<div class="circle-tile-description text-faded">
-								Amenity
-							</div>
-							<div class="circle-tile-number text-faded" id="AmenityCount">
-
-								<span id="sparklineD"></span>
-							</div>
-							<a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</center>
-
-
-
-			<!--Reservation List-->
-			@*<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="~/ReservationRecord/Record">
-							<div class="circle-tile-heading blue">
-								<i class="fa fa-calendar fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content blue">
-							<div class="circle-tile-description text-faded">
-								Reservation List
-							</div>
-							<div class="circle-tile-number text-faded">
-								100
-								<span id="sparklineB"></span>
-							</div>
-							<a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>*@
-
-
-			<!---Reversal List-->
-			@*<div class="col-lg-2 col-sm-6">
-					<div class="circle-tile">
-						<a href="~/ReversalRecord/Records">
-							<div class="circle-tile-heading red">
-								<i class="fa fa-money fa-fw fa-3x"></i>
-							</div>
-						</a>
-						<div class="circle-tile-content red">
-							<div class="circle-tile-description text-faded">
-								Reversal List
-							</div>
-							<div class="circle-tile-number text-faded">
-								24
-								<span id="sparklineC"></span>
-							</div>
-							<a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-						</div>
-					</div>
-				</div>*@
-
-
-
-			<!---chart-->
-            <div id="containerChart">
-              
-                    <div class="col-lg-12">
-                        <center>
-                            <b>Year :</b>
-                            <select id="textyear" name="textyear" onchange="ValueYearChange()">
-                                <option value="2018">2018</option>
-                            </select>
-                        </center>
-                    </div>
-                              
-                            <center>
-                                <b>Month :</b> <select id="month" name="month" onchange="ValueMonthChange()">
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3">March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
-                                    <option value="7">July</option>
-                                    <option value="8">August</option>
-                                    <option value="9">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
-                            </center>
-
-                       
-                        <div id="chartContainer1" style="height: 300px; width: 100%;display:inline-block;">
+                                <span id="sparklineA"></span>
+                            </div>
+                            <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
-             
-                        <div id="chartContainerYear" style="height: 300%; width: 100px;display:inline-block;">                    
-                         </div>
-                
+                    </div>
+                </div>
+
+
+                <!--Owner-->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="#" onclick="ShowOwner()">
+                            <div class="circle-tile-heading green">
+                                <i class="fa fa-id-card fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content green">
+                            <div class="circle-tile-description text-faded">
+                                Owner
+                            </div>
+                            <div class="circle-tile-number text-faded" id="OwnerCount">
+
+                            </div>
+                            <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Tenant-->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="#" onclick="ShowTenant()">
+                            <div class="circle-tile-heading orange">
+                                <i class="fa fa-id-card-o fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content orange">
+                            <div class="circle-tile-description text-faded">
+                                Tenant
+                            </div>
+                            <div class="circle-tile-number text-faded" id="TenantCount">
+
+                            </div>
+                            <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Amenity List-->
+                <div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="~/Amenity/AmenityView" onclick="ShowAmenity()">
+                            <div class="circle-tile-heading purple">
+                                <i class="fa fa-building-o fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content purple">
+                            <div class="circle-tile-description text-faded">
+                                Amenity
+                            </div>
+                            <div class="circle-tile-number text-faded" id="AmenityCount">
+
+                                <span id="sparklineD"></span>
+                            </div>
+                            <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </center>
+            <br />
+
+
+
+
+
+
+
+
+            <!--Reservation List-->
+            @*<div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="~/ReservationRecord/Record">
+                            <div class="circle-tile-heading blue">
+                                <i class="fa fa-calendar fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content blue">
+                            <div class="circle-tile-description text-faded">
+                                Reservation List
+                            </div>
+                            <div class="circle-tile-number text-faded">
+                                100
+                                <span id="sparklineB"></span>
+                            </div>
+                            <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>*@
+
+
+            <!---Reversal List-->
+            @*<div class="col-lg-2 col-sm-6">
+                    <div class="circle-tile">
+                        <a href="~/ReversalRecord/Records">
+                            <div class="circle-tile-heading red">
+                                <i class="fa fa-money fa-fw fa-3x"></i>
+                            </div>
+                        </a>
+                        <div class="circle-tile-content red">
+                            <div class="circle-tile-description text-faded">
+                                Reversal List
+                            </div>
+                            <div class="circle-tile-number text-faded">
+                                24
+                                <span id="sparklineC"></span>
+                            </div>
+                            <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+
+        <!---chart-->
+        <div id="containerChart">
+            <div class="row main">
+                <div class="col-lg-12">
+                    <center>
+                        <b>Year :</b>
+                        <select id="textyear" name="textyear">
+                            <option value="2018">2018</option>
+                        </select>
+                    </center>
+                </div>
+                <br />
+                <div class="col-lg-8" id="chart1">
+                    <center>
+                        <b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </center>
+                    <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
+                    <div id="chartContainerYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
+                </div>
+
             </div>
 
-		<div id="maincontent1" class="col-lg-10">
-
-		</div>
-		<div id="contentAmenity" class="col-lg-8">
-			<center><h3>Amenity</h3></center>
-			<br />
-			<table class="table table-striped" id="tbAmenity"></table>
-		</div>
-		<div id="contentAdmin" class="col-lg-8">
-			<center><h3>Admin</h3></center>
-			<br />
-			<table class="table table-striped" id="tbAdmin"></table>
-		</div>
-
-		<div id="contentOwner" class="col-lg-8">
-			<center><h3>Owner</h3></center>
-			<br />
-			<table class="table table-striped" id="tbOwner"></table>
-		</div>
-		<div id="contentTenant" class="col-lg-8">
-			<center><h3>Tenant</h3></center>
-			<br />
-			<table class="table table-striped" id="tbTenant"></table>
-		</div>
-
-
-
-
-	</div>
+        </div>
 
 
 
 
 
+        <div id="maincontent1" class="col-lg-10 main">
+
+        </div>
+        <div id="contentAmenity" class="col-lg-8 main">
+            <center><h3>Amenity</h3></center>
+            <br />
+            <table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
+        </div>
+        <div id="contentAdmin" class="col-lg-8 main">
+            <center><h3>Admin</h3></center>
+            <br />
+            <table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
+        </div>
+
+        <div id="contentOwner" class="col-lg-8 main">
+            <center><h3>Owner</h3></center>
+            <br />
+            <table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
+        </div>
+        <div id="contentTenant" class="col-lg-8 main">
+            <center><h3>Tenant</h3></center>
+            <br />
+            <table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
+        </div>
+
+        @RenderBody()
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
 
 
+        <script src="js/jquery-3.1.1.js"></script>
+        <script src="js/bootstrap.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-	@*<div class="col-sm-12">
-
-			<center><h2>Reservation Management</h2> </center>
-			<hr />
-		</div>
-
-
-
-		<br />
-
-
-
-
-
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-		<div class="regcontainer">
-			<div class="container">
-				<div class="row ">
-
-
-
-
-					<div class="col-lg-2">
-						<div class="panel panel-success">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-6">
-										<i class="fa fa-calendar-plus-o fa-5x"></i>
-									</div>
-									<div class="col-xs-6 text-right">
-										<p class="announcement-heading"> </p>
-										<p class="announcement-text">Reservation List</p>
-									</div>
-								</div>
-							</div>
-							<a href="~/ReservationRecord/Record">
-								<div class="panel-footer announcement-bottom">
-									<div class="row">
-										<div class="col-xs-6">
-											Open
-										</div>
-										<div class="col-xs-6 text-right">
-											<i class="fa fa-arrow-circle-right"></i>
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
-
-
-					<div class="regcontainer2">
-						<div class="col-lg-2">
-							<div class="panel panel-success ">
-								<div class="panel-heading">
-									<div class="row">
-										<div class="col-xs-6">
-											<i class="fa fa-calendar-check-o fa-5x"></i>
-										</div>
-										<div class="col-xs-6 text-right">
-											<p class="announcement-heading"></p>
-											<p class="announcement-text"> Reversal List</p>
-										</div>
-									</div>
-								</div>
-								<a href="~/ReversalRecord/Records">
-									<div class="panel-footer announcement-bottom">
-										<div class="row">
-											<div class="col-xs-6">
-												Open
-											</div>
-											<div class="col-xs-6 text-right">
-												<i class="fa fa-arrow-circle-right"></i>
-											</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>*@
-
-
-
-	@RenderBody()
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
-
-
-
-	@*<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-	*@
-	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-	<script>
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+        <script>
 
         function ShowAmenity() {
             document.getElementById('contentAmenity').hidden = false;
@@ -1386,8 +1175,9 @@
             }
         });
 
-        function ValueMonthChange() {
+        function ValueChange() {
             var month = document.getElementById('month').value;
+            console.log(month);
             var year1 = document.getElementById('textyear').value;
             var month1 = '';
             var datapoints=[];
@@ -1465,52 +1255,51 @@
 
             });
         }
-        function ValueYearChange() {
-
-            var year1 = document.getElementById('textyear').value;
-            var datapoints = [];
-            $.ajax({
-                type: "GET",
-                url: "/BossManager/GetYearly",
-                data: { "year": year1 },
-                success: function (data1) {
-                    console.log(data1.length);
-                    for (var i = 0; i <= data1.length - 1; i += 2) {
-                        datapoints.push({ y: data1[i + 1], label: data1[i] });
+            function ValueYearChange() {                          
+                var year1 = document.getElementById('textyear').value;               
+                var datapoints = [];              
+                $.ajax({
+                    type: 'POST',
+                    url: '/BossManager/GetYearly',
+                    data: {  year: year1 },
+                    success: function (data1) {
+                        console.log(data1.length);
+                        for (var i = 0; i <= data1.length - 1; i += 2) {
+                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                        }
+                        var options = {
+                            title: {
+                                text: "Amenity Usage"
+                            },
+                            subtitles: [{
+                                text: year1
+                            }],
+                            animationEnabled: true,
+                            data: [{
+                                type: "pie",
+                                startAngle: 40,
+                                toolTipContent: "<b>{label}</b>: {y}%",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                indexLabelFontSize: 16,
+                                indexLabel: "{label} - {y}%",
+                                dataPoints: datapoints
+                            }]
+                        };
+                        $("#chartContainerYear").CanvasJSChart(options);
+                    },
+                    error: function (data) {
+                        alert('Failed');
                     }
-                    var options = {
-                        title: {
-                            text: "Amenity Usage"
-                        },
-                        subtitles: [{
-                            text: year1
-                        }],
-                        animationEnabled: true,
-                        data: [{
-                            type: "pie",
-                            startAngle: 40,
-                            toolTipContent: "<b>{label}</b>: {y}%",
-                            showInLegend: "true",
-                            legendText: "{label}",
-                            indexLabelFontSize: 16,
-                            indexLabel: "{label} - {y}%",
-                            dataPoints: datapoints
-                        }]
-                    };
-                    $("#chartContainerYear").CanvasJSChart(options);
-                },
-                error: function (data) {
-                    alert('Failed');
-                }
 
-            });
-        }
+                });
+            }
         $(document).ready(AmenityCount());
         $(document).ready(TenantCount());
         $(document).ready(OwnerCount());
         $(document).ready(AdminCount());
-        $(document).ready(ValueMonthChange());
-        $(document).ready(ValueYearChange());
+            $(document).ready(ValueChange());
+            $(document).ready(ValueYearChange());
         function AmenityCount() {
             $.ajax({
                 type: 'GET',
@@ -1519,7 +1308,7 @@
                     $('#AmenityCount').append(data);
                 },
                 error: function (data) {
-                    //alert('Failed');
+                    alert('Failed');
                 }
             });
         }
@@ -1531,7 +1320,7 @@
                     $('#TenantCount').append(data);
                 },
                 error: function (data) {
-                    //alert('Failed');
+                    alert('Failed');
                 }
             });
         }
@@ -1543,7 +1332,7 @@
                     $('#OwnerCount').append(data);
                 },
                 error: function (data) {
-                    //alert('Failed');
+                    alert('Failed');
                 }
             });
         }
@@ -1555,7 +1344,7 @@
                     $('#AdminCount').append(data);
                 },
                 error: function (data) {
-                    //alert('Failed');
+                    alert('Failed');
                 }
             });
         }
@@ -1586,14 +1375,9 @@
 					alert(error);
 				}
 			});
-        }
+		}
 
-       
 
- 
-      
-	
- 
 		$('#btnCloseImageProfile').click(function () {
 
 			$('#updateprofilepicture').hide();
@@ -1608,7 +1392,15 @@
 		);
 
 
-	</script>
+
+
+
+
+
+
+
+
+        </script>
 
 
 
