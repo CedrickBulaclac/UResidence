@@ -63,10 +63,43 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public ActionResult OwnerAdd(Owner owe)
+        public ActionResult OwnerAdd(Owner owe, HttpPostedFileBase Image1)
         {
-           
-            string hash;
+            string finalpath = "";
+            var image = Image1;
+            bool status = false;        
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), imagefileName);
+                  
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/OwnerImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/OwnerImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                       
+
+                    }
+                }
+            }
+            
+                    string hash;
             string pass = owe.Bdate.ToShortDateString();
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
@@ -82,32 +115,57 @@ namespace UResidence.Controllers
                 LastLogin = DateTime.Now
             };
 
-
-            Owner ow = new Owner()
-            {
-
-                BldgNo = owe.BldgNo,
-                UnitNo = owe.UnitNo,
-                Fname = owe.Fname,
-                Mname = owe.Mname,
-                Lname = owe.Lname,
-                Bdate = owe.Bdate,
-                CelNo = owe.CelNo,
-                Email = owe.Email,
-                Deleted = "0",
-                URL = "~/Content/WebImages/user.png",
-                Form = "~/Content/WebImages/noimage.jpeg"
-
-            };
+       
            
             if (listUser.Count == 0)
             {
                 string[] err = new string[] { };
                 if (owe.Validate(out err))
                 {
-                    
+                    if (image != null)
+                    {
+                        Owner ow = new Owner()
+                        {
 
-                    UResidence.OwnerController.Insert(ow);
+                            BldgNo = owe.BldgNo,
+                            UnitNo = owe.UnitNo,
+                            Fname = owe.Fname,
+                            Mname = owe.Mname,
+                            Lname = owe.Lname,
+                            Bdate = owe.Bdate,
+                            CelNo = owe.CelNo,
+                            Email = owe.Email,
+                            Deleted = "0",
+                            URL = "~/Content/OwnerImages/user.png",
+                            Form = finalpath
+
+                        };
+
+                        UResidence.OwnerController.Insert(ow);
+                    }
+                    else
+                    {
+                        Owner ow = new Owner()
+                        {
+
+                            BldgNo = owe.BldgNo,
+                            UnitNo = owe.UnitNo,
+                            Fname = owe.Fname,
+                            Mname = owe.Mname,
+                            Lname = owe.Lname,
+                            Bdate = owe.Bdate,
+                            CelNo = owe.CelNo,
+                            Email = owe.Email,
+                            Deleted = "0",
+                            URL = "~/Content/OwnerImages/user.png",
+                            Form = "~/Content/OwnerImages/noimage.jpeg"
+
+                        };
+
+                        UResidence.OwnerController.Insert(ow);
+                    }
+
+                  
                     string email=owe.Email;
                     Owner owee = UResidence.OwnerController.GetEmailOwner(email);
                     Residence r = new Residence()

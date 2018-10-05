@@ -18,33 +18,98 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(Equipment eqp)
+        public ActionResult Registration(Equipment eqp, HttpPostedFileBase Image)
         {
             string[] err = new string[] { };
-           
-                    Equipment eqp1 = new Equipment()
-                    {
-                        Name = eqp.Name, 
-                        Stocks = eqp.Stocks,
-                        Rate = eqp.Rate,
-                        Url = "~/Content/EquipmentImages/Noimageavailable.jpeg",
-                        Description = eqp.Description
-                    };
+            string finalpath = "";
+            var image = Image;
+            bool status = false;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), imagefileName);
 
-                    if (eqp1.Validate(out err))
+                    if (System.IO.File.Exists(folderPath))
                     {
-                        UResidence.EquipmentController.Insert(eqp1);
-                        status = true;
-                        ViewBag.AddMessage = status;
-                        EquipmentView();
-                        return View("EquipmentView");
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/EquipmentImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/EquipmentImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = FixMessages(err);
-                        ViewBag.Message = false;
-                        return View(eqp);
+                        string folderpath1 = "~/Content/EquipmentImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+
+
                     }
+                }
+            }
+
+
+
+            if (image != null)
+            {
+                Equipment eqp1 = new Equipment()
+                {
+                    Name = eqp.Name,
+                    Stocks = eqp.Stocks,
+                    Rate = eqp.Rate,
+                    Url = finalpath,
+                    Description = eqp.Description
+                };
+
+                if (eqp1.Validate(out err))
+                {
+                    UResidence.EquipmentController.Insert(eqp1);
+                    status = true;
+                    ViewBag.AddMessage = status;
+                    EquipmentView();
+                    return View("EquipmentView");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = FixMessages(err);
+                    ViewBag.Message = false;
+                    return View(eqp);
+                }
+            }
+            else
+            {
+                Equipment eqp1 = new Equipment()
+                {
+                    Name = eqp.Name,
+                    Stocks = eqp.Stocks,
+                    Rate = eqp.Rate,
+                    Url = "~/Content/EquipmentImages/Noimageavailable.jpeg",
+                    Description = eqp.Description
+                };
+
+                if (eqp1.Validate(out err))
+                {
+                    UResidence.EquipmentController.Insert(eqp1);
+                    status = true;
+                    ViewBag.AddMessage = status;
+                    EquipmentView();
+                    return View("EquipmentView");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = FixMessages(err);
+                    ViewBag.Message = false;
+                    return View(eqp);
+                }
+            }
+                
         }
 
 

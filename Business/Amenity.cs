@@ -32,7 +32,9 @@ namespace UResidence
         [StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
-       public string Location { get; set; }
+        [StringLength(50, ErrorMessage = "Unit Number cannot be longer than 50 characters.")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        public string Location { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }
         public Amenity CreateObject(SqlDataReader reader)

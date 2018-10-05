@@ -291,9 +291,43 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public ActionResult TenantAdd(Tenant ten)
+        public ActionResult TenantAdd(Tenant ten, HttpPostedFileBase Image1)
         {
-          
+            string finalpath = "";
+            var image = Image1;
+            bool status = false;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/TenantImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/TenantImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+
+
+                    }
+                }
+            }
+
+
             string hash;
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
@@ -317,32 +351,82 @@ namespace UResidence.Controllers
                 //string MoveOut = Session["MoveOut"].ToString();
                  if (own.Count != 0)
                  {
-                    Tenant tenn = new Tenant()
-                    {
+                  
+                        Tenant tenn = new Tenant()
+                        {
 
-                        BldgNo = ten.BldgNo,
-                        UnitNo = ten.UnitNo,
-                        Fname = ten.Fname,
-                        Mname = ten.Mname,
-                        Lname = ten.Lname,
-                        Bdate = ten.Bdate,
-                        CelNo = ten.CelNo,
-                        Email = ten.Email,
-                        LeaseStart = ten.LeaseStart,
-                        LeaseEnd = ten.LeaseEnd,
-                        Deleted = "0",
-                        URL = "~/Content/WebImages/user.png",
-                        MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
-                        MovingOut = "~/Content/WebImages/Noimageavailable.jpeg"
-                    };
-                                    List<Tenant> listTen = default(List<Tenant>);
+                            BldgNo = ten.BldgNo,
+                            UnitNo = ten.UnitNo,
+                            Fname = ten.Fname,
+                            Mname = ten.Mname,
+                            Lname = ten.Lname,
+                            Bdate = ten.Bdate,
+                            CelNo = ten.CelNo,
+                            Email = ten.Email,
+                            LeaseStart = ten.LeaseStart,
+                            LeaseEnd = ten.LeaseEnd,
+                            Deleted = "0",
+                            URL = "~/Content/TenantImages/user.png",
+                            MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
+                            MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                        };
+
+                    
+                        List<Tenant> listTen = default(List<Tenant>);
                                     listTen = UResidence.TenantController.Check(tenn);
                                     if (listTen.Count == 0)
                                     {
                                         string[] err = new string[] { };
                                         if (ten.Validate(out err))
                                         {
-                                            status = UResidence.TenantController.Insert(tenn);
+                            if (image != null)
+                            {
+                                Tenant tennn = new Tenant()
+                                {
+
+                                    BldgNo = ten.BldgNo,
+                                    UnitNo = ten.UnitNo,
+                                    Fname = ten.Fname,
+                                    Mname = ten.Mname,
+                                    Lname = ten.Lname,
+                                    Bdate = ten.Bdate,
+                                    CelNo = ten.CelNo,
+                                    Email = ten.Email,
+                                    LeaseStart = ten.LeaseStart,
+                                    LeaseEnd = ten.LeaseEnd,
+                                    Deleted = "0",
+                                    URL = "~/Content/TenantImages/user.png",
+                                    MovingIn = finalpath,
+                                    MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                };
+                                status = UResidence.TenantController.Insert(tennn);
+                            }
+                            else
+                            {
+                                Tenant tennn = new Tenant()
+                                {
+
+                                    BldgNo = ten.BldgNo,
+                                    UnitNo = ten.UnitNo,
+                                    Fname = ten.Fname,
+                                    Mname = ten.Mname,
+                                    Lname = ten.Lname,
+                                    Bdate = ten.Bdate,
+                                    CelNo = ten.CelNo,
+                                    Email = ten.Email,
+                                    LeaseStart = ten.LeaseStart,
+                                    LeaseEnd = ten.LeaseEnd,
+                                    Deleted = "0",
+                                    URL = "~/Content/TenantImages/user.png",
+                                    MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
+                                    MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                };
+                                status = UResidence.TenantController.Insert(tennn);
+                            }
+
+
+
+                                           
                                             Tenant b = new Tenant();
                                             b = UResidence.TenantController.GetEmailTenant(ten.Email);
                                             int tenandID = b.Id;
@@ -389,7 +473,7 @@ namespace UResidence.Controllers
                                         Response.Write(script);
                                         status = false;
                                     }
-                                }
+                                }////////////
                                 else
                                 {
                                     string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
