@@ -916,8 +916,8 @@
                     </div>
                 </div>
             </center>
-            <br />
-
+           </div>
+			<br />
 
 
 
@@ -983,22 +983,22 @@
                 </div>
                 <br />
                 <div class="col-lg-8" id="chart1">
-                    <center>
-                        <b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                    </center>
+					<center>
+						<b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>	
+					</center>
                     <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
                     <div id="chartContainerYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
                 </div>
@@ -1081,7 +1081,6 @@
             });
 
         }
-
         function ShowAdmin() {
             document.getElementById('contentAmenity').hidden = true;
             document.getElementById('contentAdmin').hidden = false;
@@ -1174,7 +1173,7 @@
                 $('#textyear').append('<option value="' + i + '">' + i + '</option>');
             }
         });
-
+			
         function ValueChange() {
             var month = document.getElementById('month').value;
             console.log(month);
@@ -1298,7 +1297,89 @@
         $(document).ready(TenantCount());
         $(document).ready(OwnerCount());
         $(document).ready(AdminCount());
-            $(document).ready(ValueChange());
+			$(document).ready(function () {
+				var d = new Date();
+				var month = d.getMonth() + 1;
+				document.getElementById('month').value = month;
+				var year1 = document.getElementById('textyear').value;
+				var month1 = "";
+				console.log(month);
+				var datapoints = [];
+				switch (month) {
+					case 1:
+						month1 = "January";
+						break;
+					case 2:
+						month1 = "February";
+						break;
+					case 3:
+						month1 = "March";
+						break;
+					case 4:
+						month1 = "April";
+						break;
+					case 5:
+						month1 = "May";
+						break;
+					case 6:
+						month1 = "June";
+						break;
+					case 7:
+						month1 = "July";
+						break;
+					case 8:
+						month1 = "August";
+						break;
+					case 9:
+						month1 = "September";
+						break;
+					case 10:
+						month1 = "October";
+						break;
+					case 11:
+						month1 = "November";
+						break;
+					case 12:
+						month1 = "December";
+						break;
+				}
+				console.log(month1);
+				$.ajax({
+					type: 'POST',
+					url: '/BossManager/GetMonthly',
+					data: { month: month, year: year1 },
+					success: function (data1) {
+						console.log(data1.length);
+						for (var i = 0; i <= data1.length - 1; i += 2) {
+							datapoints.push({ y: data1[i + 1], label: data1[i] });
+						}
+						var options = {
+							title: {
+								text: "Amenity Usage"
+							},
+							subtitles: [{
+								text: month1 + ", " + year1
+							}],
+							animationEnabled: true,
+							data: [{
+								type: "pie",
+								startAngle: 40,
+								toolTipContent: "<b>{label}</b>: {y}%",
+								showInLegend: "true",
+								legendText: "{label}",
+								indexLabelFontSize: 16,
+								indexLabel: "{label} - {y}%",
+								dataPoints: datapoints
+							}]
+						};
+						$("#chartContainer1").CanvasJSChart(options);
+					},
+					error: function (data) {
+						alert('Failed');
+					}
+
+				});
+			});
             $(document).ready(ValueYearChange());
         function AmenityCount() {
             $.ajax({
