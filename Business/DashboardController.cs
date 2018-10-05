@@ -28,5 +28,16 @@ namespace UResidence
             ret = SqlManager.Select<Dashboard>(com);
             return ret;
         }
+        public static List<Dashboard> GetAllqy(int year,int start,int end)
+        {
+            const string GET_ALL = @"select a.AmenityName,COUNT(sr.Id) as Count from tbSchedReservation sr inner join tbReservationForm rf on rf.SchedId=sr.Id inner join tbAmenity a on sr.AmenityId=a.Id where Status='Reserved' and ((MONTH(StartTime))>=@start and (MONTH(StartTime))<=@end) and YEAR(StartTime)=@year group by AmenityName";
+            List<Dashboard> ret = default(List<Dashboard>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@year", year));
+            com.Parameters.Add(new SqlParameter("@start", start));
+            com.Parameters.Add(new SqlParameter("@end", end));
+            ret = SqlManager.Select<Dashboard>(com);
+            return ret;
+        }
     }
 }

@@ -489,7 +489,7 @@
         }
 
         .main {
-            margin-left: 300px;
+            margin-left: 500px;
         }
 
         .side-menu .navbar {
@@ -811,23 +811,24 @@
                 </nav>
             </div>
         </div>
-
-        <div id="maincontent" class="main">
-            <div class="col-lg-12">
+       
+        <div id="maincontent">
+            <div class="col-lg-12" style="margin-left:300px;">
                 <div class="page-title">
                     <h2>Dashboard<small>Content Overview</small></h2>
                     <ol class="breadcrumb">
                         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
                         @*<li class="pull-right">
-                                <div id="reportrange" class="btn btn-green btn-square date-picker">
-                                    <i class="fa fa-calendar"></i>
-                                    <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
-                                </div>
-                            </li>*@
+                        <div id="reportrange" class="btn btn-green btn-square date-picker">
+                            <i class="fa fa-calendar"></i>
+                            <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+                        </div>
+                    </li>*@
                     </ol>
                 </div>
             </div>
             @*</div>*@
+            <div class="main">
 
             <br />
             <center>
@@ -898,7 +899,7 @@
                 <!--Amenity List-->
                 <div class="col-lg-2 col-sm-6">
                     <div class="circle-tile">
-                        <a href="~/Amenity/AmenityView" onclick="ShowAmenity()">
+                        <a href="#" onclick="ShowAmenity()">
                             <div class="circle-tile-heading purple">
                                 <i class="fa fa-building-o fa-fw fa-3x"></i>
                             </div>
@@ -916,59 +917,60 @@
                     </div>
                 </div>
             </center>
-           </div>
-			<br />
-
-
-
-
-
-
-
-            <!--Reservation List-->
-            @*<div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="~/ReservationRecord/Record">
-                            <div class="circle-tile-heading blue">
-                                <i class="fa fa-calendar fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content blue">
-                            <div class="circle-tile-description text-faded">
-                                Reservation List
-                            </div>
-                            <div class="circle-tile-number text-faded">
-                                100
-                                <span id="sparklineB"></span>
-                            </div>
-                            <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>*@
-
-
-            <!---Reversal List-->
-            @*<div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="~/ReversalRecord/Records">
-                            <div class="circle-tile-heading red">
-                                <i class="fa fa-money fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content red">
-                            <div class="circle-tile-description text-faded">
-                                Reversal List
-                            </div>
-                            <div class="circle-tile-number text-faded">
-                                24
-                                <span id="sparklineC"></span>
-                            </div>
-                            <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
-                    </div>
-                </div>*@
-
         </div>
+            </div>
+        <br />
+
+
+
+
+
+
+
+        <!--Reservation List-->
+        @*<div class="col-lg-2 col-sm-6">
+            <div class="circle-tile">
+                <a href="~/ReservationRecord/Record">
+                    <div class="circle-tile-heading blue">
+                        <i class="fa fa-calendar fa-fw fa-3x"></i>
+                    </div>
+                </a>
+                <div class="circle-tile-content blue">
+                    <div class="circle-tile-description text-faded">
+                        Reservation List
+                    </div>
+                    <div class="circle-tile-number text-faded">
+                        100
+                        <span id="sparklineB"></span>
+                    </div>
+                    <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                </div>
+            </div>
+        </div>*@
+
+
+        <!---Reversal List-->
+        @*<div class="col-lg-2 col-sm-6">
+            <div class="circle-tile">
+                <a href="~/ReversalRecord/Records">
+                    <div class="circle-tile-heading red">
+                        <i class="fa fa-money fa-fw fa-3x"></i>
+                    </div>
+                </a>
+                <div class="circle-tile-content red">
+                    <div class="circle-tile-description text-faded">
+                        Reversal List
+                    </div>
+                    <div class="circle-tile-number text-faded">
+                        24
+                        <span id="sparklineC"></span>
+                    </div>
+                    <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                </div>
+            </div>
+        </div>*@
+
+    </div>
 
         <!---chart-->
         <div id="containerChart">
@@ -976,39 +978,45 @@
                 <div class="col-lg-12">
                     <center>
                         <b>Year :</b>
-                        <select id="textyear" name="textyear">
+                        <select id="textyear" name="textyear" onchange="Change()">
                             <option value="2018">2018</option>
                         </select>
                     </center>
                 </div>
                 <br />
                 <div class="col-lg-8" id="chart1">
-					<center>
-						<b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
-							<option value="1">January</option>
-							<option value="2">February</option>
-							<option value="3">March</option>
-							<option value="4">April</option>
-							<option value="5">May</option>
-							<option value="6">June</option>
-							<option value="7">July</option>
-							<option value="8">August</option>
-							<option value="9">September</option>
-							<option value="10">October</option>
-							<option value="11">November</option>
-							<option value="12">December</option>
-						</select>	
-					</center>
+                    <center>
+                        <b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </center>
                     <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
                     <div id="chartContainerYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
+                    <br />
+                    <center>
+                        <b style=" margin-left: 230px;">Month :</b> <select id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
+                            <option value="1">January - June</option>
+                            <option value="2">July - December</option>
+
+                        </select>
+                    </center>
+                    <div id="chartContainerQuarterYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
                 </div>
 
             </div>
 
         </div>
-
-
-
 
 
         <div id="maincontent1" class="col-lg-10 main">
@@ -1049,7 +1057,103 @@
         <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
         <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
         <script>
+            $(document).ready(function () {
+                document.getElementById('contentAmenity').hidden = true;
+                document.getElementById('contentAdmin').hidden = true;
+                document.getElementById('contentTenant').hidden = true;
+                document.getElementById('contentOwner').hidden = true;
+                var date = new Date();
+                var year = date.getFullYear();
+                for (var i = year; i > 2018; i--) {
+                    $('#textyear').append('<option value="' + i + '">' + i + '</option>');
+                }
+                AmenityCount();
+                TenantCount();
+                OwnerCount();
+                AdminCount();
 
+                var d = new Date();
+                var month = d.getMonth() + 1;
+                document.getElementById('month').value = month;
+                var year1 = document.getElementById('textyear').value;
+                var month1 = "";
+                var datapoints = [];
+                switch (month) {
+                    case 1:
+                        month1 = "January";
+                        break;
+                    case 2:
+                        month1 = "February";
+                        break;
+                    case 3:
+                        month1 = "March";
+                        break;
+                    case 4:
+                        month1 = "April";
+                        break;
+                    case 5:
+                        month1 = "May";
+                        break;
+                    case 6:
+                        month1 = "June";
+                        break;
+                    case 7:
+                        month1 = "July";
+                        break;
+                    case 8:
+                        month1 = "August";
+                        break;
+                    case 9:
+                        month1 = "September";
+                        break;
+                    case 10:
+                        month1 = "October";
+                        break;
+                    case 11:
+                        month1 = "November";
+                        break;
+                    case 12:
+                        month1 = "December";
+                        break;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/BossManager/GetMonthly',
+                    data: { month: month, year: year1 },
+                    success: function (data1) {
+                        console.log(data1.length);
+                        for (var i = 0; i <= data1.length - 1; i += 2) {
+                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                        }
+                        var options = {
+                            title: {
+                                text: "Amenity Usage"
+                            },
+                            subtitles: [{
+                                text: month1 + ", " + year1
+                            }],
+                            animationEnabled: true,
+                            data: [{
+                                type: "pie",
+                                startAngle: 40,
+                                toolTipContent: "<b>{label}</b>: {y}%",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                indexLabelFontSize: 16,
+                                indexLabel: "{label} - {y}%",
+                                dataPoints: datapoints
+                            }]
+                        };
+                        $("#chartContainer1").CanvasJSChart(options);
+                    },
+                    error: function (data) {
+                        alert('Failed');
+                    }
+
+                });
+                ValueYearChange();
+                ValueQuarterYearChange();
+            });
         function ShowAmenity() {
             document.getElementById('contentAmenity').hidden = false;
             document.getElementById('contentAdmin').hidden = true;
@@ -1156,24 +1260,11 @@
             });
 
         }
-
-        $(document).ready(function () {
-            document.getElementById('contentAmenity').hidden = true;
-            document.getElementById('contentAdmin').hidden = true;
-            document.getElementById('contentTenant').hidden = true;
-            document.getElementById('contentOwner').hidden = true;
-
-
-        });
-
-        $(document).ready(function () {
-            var date = new Date();
-            var year = date.getFullYear();
-            for (var i = year; i > 2018; i--) {
-                $('#textyear').append('<option value="' + i + '">' + i + '</option>');
+            function Change()
+            {
+                ValueChange();
+                ValueYearChange();
             }
-        });
-			
         function ValueChange() {
             var month = document.getElementById('month').value;
             console.log(month);
@@ -1254,7 +1345,7 @@
 
             });
         }
-            function ValueYearChange() {                          
+        function ValueYearChange() {                          
                 var year1 = document.getElementById('textyear').value;               
                 var datapoints = [];              
                 $.ajax({
@@ -1293,94 +1384,63 @@
 
                 });
             }
-        $(document).ready(AmenityCount());
-        $(document).ready(TenantCount());
-        $(document).ready(OwnerCount());
-        $(document).ready(AdminCount());
-			$(document).ready(function () {
-				var d = new Date();
-				var month = d.getMonth() + 1;
-				document.getElementById('month').value = month;
-				var year1 = document.getElementById('textyear').value;
-				var month1 = "";
-				console.log(month);
-				var datapoints = [];
-				switch (month) {
-					case 1:
-						month1 = "January";
-						break;
-					case 2:
-						month1 = "February";
-						break;
-					case 3:
-						month1 = "March";
-						break;
-					case 4:
-						month1 = "April";
-						break;
-					case 5:
-						month1 = "May";
-						break;
-					case 6:
-						month1 = "June";
-						break;
-					case 7:
-						month1 = "July";
-						break;
-					case 8:
-						month1 = "August";
-						break;
-					case 9:
-						month1 = "September";
-						break;
-					case 10:
-						month1 = "October";
-						break;
-					case 11:
-						month1 = "November";
-						break;
-					case 12:
-						month1 = "December";
-						break;
-				}
-				console.log(month1);
-				$.ajax({
-					type: 'POST',
-					url: '/BossManager/GetMonthly',
-					data: { month: month, year: year1 },
-					success: function (data1) {
-						console.log(data1.length);
-						for (var i = 0; i <= data1.length - 1; i += 2) {
-							datapoints.push({ y: data1[i + 1], label: data1[i] });
-						}
-						var options = {
-							title: {
-								text: "Amenity Usage"
-							},
-							subtitles: [{
-								text: month1 + ", " + year1
-							}],
-							animationEnabled: true,
-							data: [{
-								type: "pie",
-								startAngle: 40,
-								toolTipContent: "<b>{label}</b>: {y}%",
-								showInLegend: "true",
-								legendText: "{label}",
-								indexLabelFontSize: 16,
-								indexLabel: "{label} - {y}%",
-								dataPoints: datapoints
-							}]
-						};
-						$("#chartContainer1").CanvasJSChart(options);
-					},
-					error: function (data) {
-						alert('Failed');
-					}
+            function ValueQuarterYearChange() {
 
-				});
-			});
-            $(document).ready(ValueYearChange());
+            var year1 = document.getElementById('textyear').value;
+                var quarter = document.getElementById('quarter').value;
+                var s=0;
+                var e = 0;
+                var period = "";
+                switch (quarter) {
+                    case "1":
+                        s = 1;
+                        e = 6;
+                        period = "January - June";
+                        break;
+                    case "2":
+                        s = 7;
+                        e = 12;
+                        period = "July - December"
+                        break;
+                }
+                var datapoints = [];
+                $.ajax({
+                    type: 'POST',
+                    url: '/BossManager/GetQuarterYear',
+                    data: { year: year1,start:s,end:e},
+                    success: function (data1) {
+                        console.log(data1.length);
+                        for (var i = 0; i <= data1.length - 1; i += 2) {
+                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                        }
+                        var options = {
+                            title: {
+                                text: "Amenity Usage"
+                            },
+                            subtitles: [{
+                                text: period+' , '+year1
+                            }],
+                            animationEnabled: true,
+                            data: [{
+                                type: "pie",
+                                startAngle: 40,
+                                toolTipContent: "<b>{label}</b>: {y}%",
+                                showInLegend: "true",
+                                legendText: "{label}",
+                                indexLabelFontSize: 16,
+                                indexLabel: "{label} - {y}%",
+                                dataPoints: datapoints
+                            }]
+                        };
+                        $("#chartContainerQuarterYear").CanvasJSChart(options);
+                    },
+                    error: function (data) {
+                        alert('Failed');
+                    }
+
+                });
+            }
+		
         function AmenityCount() {
             $.ajax({
                 type: 'GET',
