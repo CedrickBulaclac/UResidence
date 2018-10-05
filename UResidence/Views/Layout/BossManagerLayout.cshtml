@@ -1076,52 +1076,42 @@
 
 
 			<!---chart-->
-			<div id="containerChart">
-				<center>
-					<b>Year :</b>
-					<select id="textyear" name="textyear" class="form-control">
-						<option value="2018">2018</option>
-					</select>
-					<br />
-					<br />
-				</center>
+            <div id="containerChart">
+              
+                    <div class="col-lg-12">
+                        <center>
+                            <b>Year :</b>
+                            <select id="textyear" name="textyear" onchange="ValueYearChange()">
+                                <option value="2018">2018</option>
+                            </select>
+                        </center>
+                    </div>
+                              
+                            <center>
+                                <b>Month :</b> <select id="month" name="month" onchange="ValueMonthChange()">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </center>
 
-				<div class="col-lg-8" id="chart1">
-
-					<div>
-						<center>
-							<b>Month :</b> <select id="month" name="month" onchange="ValueChange()">
-								<option value="1">January</option>
-								<option value="2">February</option>
-								<option value="3">March</option>
-								<option value="4">April</option>
-								<option value="5">May</option>
-								<option value="6">June</option>
-								<option value="7">July</option>
-								<option value="8">August</option>
-								<option value="9">September</option>
-								<option value="10">October</option>
-								<option value="11">November</option>
-								<option value="12">December</option>
-							</select>
-						</center>
-
-					</div>
-					<div id="chartContainer1" style="height: 300px; width: 100%;">
-
-
-					</div>
-					<div id="chartContainer" style="width: 100%; height: 700px;display: inline-block;"></div>
-				</div>
-
-			</div>
-			@*<div class="col-lg-8">
-					<div id="chartContainer2" style="height: 300px; width: 50%;"></div>
-				</div>*@
-
-
-
-		</div>
+                       
+                        <div id="chartContainer1" style="height: 300px; width: 100%;display:inline-block;">
+                        </div>
+             
+                        <div id="chartContainerYear" style="height: 300%; width: 100px;display:inline-block;">                    
+                         </div>
+                
+            </div>
 
 		<div id="maincontent1" class="col-lg-10">
 
@@ -1396,7 +1386,7 @@
             }
         });
 
-        function ValueChange() {
+        function ValueMonthChange() {
             var month = document.getElementById('month').value;
             var year1 = document.getElementById('textyear').value;
             var month1 = '';
@@ -1475,12 +1465,52 @@
 
             });
         }
+        function ValueYearChange() {
 
+            var year1 = document.getElementById('textyear').value;
+            var datapoints = [];
+            $.ajax({
+                type: "GET",
+                url: "/BossManager/GetYearly",
+                data: { "year": year1 },
+                success: function (data1) {
+                    console.log(data1.length);
+                    for (var i = 0; i <= data1.length - 1; i += 2) {
+                        datapoints.push({ y: data1[i + 1], label: data1[i] });
+                    }
+                    var options = {
+                        title: {
+                            text: "Amenity Usage"
+                        },
+                        subtitles: [{
+                            text: year1
+                        }],
+                        animationEnabled: true,
+                        data: [{
+                            type: "pie",
+                            startAngle: 40,
+                            toolTipContent: "<b>{label}</b>: {y}%",
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabelFontSize: 16,
+                            indexLabel: "{label} - {y}%",
+                            dataPoints: datapoints
+                        }]
+                    };
+                    $("#chartContainerYear").CanvasJSChart(options);
+                },
+                error: function (data) {
+                    alert('Failed');
+                }
+
+            });
+        }
         $(document).ready(AmenityCount());
         $(document).ready(TenantCount());
         $(document).ready(OwnerCount());
         $(document).ready(AdminCount());
-        $(document).ready(ValueChange());
+        $(document).ready(ValueMonthChange());
+        $(document).ready(ValueYearChange());
         function AmenityCount() {
             $.ajax({
                 type: 'GET',
@@ -1556,127 +1586,14 @@
 					alert(error);
 				}
 			});
-		}
+        }
 
-		$(function () {
-			var year1 = document.getElementById('textyear').value;
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Amenity Usage on "+year1
-            },
-          
-            animationEnabled: true,
-            legend: {
-                cursor: "pointer",
-                itemclick: function (e) {
-                    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                        e.dataSeries.visible = false;
-                    }
-                    else {
-                        e.dataSeries.visible = true;
-                    }
-                    chart.render();
-                }
-            },
-            axisY: {
-                title: "Number of Reservation"
-            },
-            toolTip: {
-                shared: true,
-                content: function (e) {
-                    var str = '';
-                    var total = 0;
-                    var str3;
-                    var str2;
-                    for (var i = 0; i < e.entries.length; i++) {
-                        var str1 = "<span style= 'color:" + e.entries[i].dataSeries.color + "'> " + e.entries[i].dataSeries.name + "</span>: <strong>" + e.entries[i].dataPoint.y + "</strong> <br/>";
-                        total = e.entries[i].dataPoint.y + total;
-                        str = str.concat(str1);
-                    }
-                    str2 = "<span style = 'color:DodgerBlue; '><strong>" + e.entries[0].dataPoint.label + "</strong></span><br/>";
-                    str3 = "<span style = 'color:Tomato '>Total: </span><strong>" + total + "</strong><br/>";
+       
 
-                    return (str2.concat(str)).concat(str3);
-                }
-
-            },
-            data: [
-            {
-                type: "bar",
-                showInLegend: true,
-                name: "Basketball Court",
-					color: "Blue",
-                dataPoints: [
-                    { y: 243, label: "January" },
-                    { y: 273, label: "February" },
-                    { y: 525, label: "March" },
-					{ y: 1118, label: "April" },
-					{ y: 243, label: "May" },
-					{ y: 273, label: "June" },
-					{ y: 525, label: "July" },
-					{ y: 1118, label: "August" },
-					{ y: 243, label: "September" },
-					{ y: 273, label: "October" },
-					{ y: 525, label: "November" },
-					{ y: 1118, label: "December" }
-                ],
-
-                //You can add dynamic data from the controller as shown below. Check the controller and uncomment the line which generates dataPoints.
-                //dataPoints: @Html.Raw(ViewBag.DataPoints),
-            },
-            {
-                type: "bar",
-                showInLegend: true,
-                name: "Swimming Pool",
-				color: "Green",
-                dataPoints: [
-					{ y: 243, label: "January" },
-					{ y: 273, label: "February" },
-					{ y: 525, label: "March" },
-					{ y: 1118, label: "April" },
-					{ y: 243, label: "May" },
-					{ y: 273, label: "June" },
-					{ y: 525, label: "July" },
-					{ y: 1118, label: "August" },
-					{ y: 243, label: "September" },
-					{ y: 273, label: "October" },
-					{ y: 525, label: "November" },
-					{ y: 1118, label: "December" }
-                ],
-
-                //You can add dynamic data from the controller as shown below. Check the controller and uncomment the line which generates dataPoints.
-                //dataPoints: @Html.Raw(ViewBag.DataPoints),
-            },
-            {
-                type: "bar",
-                showInLegend: true,
-                name: "Gazebo",
-                color: "Red",
-                dataPoints: [
-					{ y: 243, label: "January" },
-					{ y: 273, label: "February" },
-					{ y: 525, label: "March" },
-					{ y: 1118, label: "April" },
-					{ y: 243, label: "May" },
-					{ y: 273, label: "June" },
-					{ y: 525, label: "July" },
-					{ y: 1118, label: "August" },
-					{ y: 243, label: "September" },
-					{ y: 273, label: "October" },
-					{ y: 525, label: "November" },
-					{ y: 1118, label: "December" }
-                ],
-
-                //You can add dynamic data from the controller as shown below. Check the controller and uncomment the line which generates dataPoints.
-                //dataPoints: @Html.Raw(ViewBag.DataPoints),
-            }
-
-            ]
-        });
-
-        chart.render();
-    });
-
+ 
+      
+	
+ 
 		$('#btnCloseImageProfile').click(function () {
 
 			$('#updateprofilepicture').hide();
