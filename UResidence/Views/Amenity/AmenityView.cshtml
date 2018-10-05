@@ -57,13 +57,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
+					<label>Amenity Image</label>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<table id="viewImage" class="table table-bordered"></table>
+					<center><img height="250px" src="" width="250px" id="amenv"></center>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" id="btnAddModal" name="btnAddModal" data-dismiss="modal">Add Image</button>
 					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -142,7 +142,7 @@
                         @Html.DisplayFor(model => a.Rate)
                     </td>
                     <td>
-                        <a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set(@a.Id)" aria-hidden="true">View Image</a>
+                        <a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set1('@a.Url')" aria-hidden="true">View Image</a>
                     </td>
                     <td>
                         @Html.DisplayFor(model => a.Location)
@@ -314,10 +314,10 @@
 	var iid = 0;
 	var uid = 0;
 	var mid = 0;
-	function Set(id) {
-		mid = id;
-		ViewImage();
-	}
+	//function Set(id) {
+	//	mid = id;
+	//	ViewImage();
+	//}
 
 	function AddImage() {
 		var file = $("#image").get(0).files;
@@ -344,37 +344,37 @@
 		});
 	}
 
-	function ViewImage() {
-		var id = mid;
-		$('#viewImage').empty();
-		var data = {
-			Id: id
-		};
-		iid = id;
-		$.ajax({
-			type: "POST",
-			url: "/Amenity/ViewImage/",
-			data: data,
-			success: function (data) {
-				trHTML = '<tr><th>Image</th> <th>Action</th></tr>';
+	//function ViewImage() {
+	//	var id = mid;
+	//	$('#viewImage').empty();
+	//	var data = {
+	//		Id: id
+	//	};
+	//	iid = id;
+	//	$.ajax({
+	//		type: "POST",
+	//		url: "/Amenity/ViewImage/",
+	//		data: data,
+	//		success: function (data) {
+	//			trHTML = '<tr><th>Image</th> <th>Action</th></tr>';
 
-				$.each(data, function (i, v) {
+	//			$.each(data, function (i, v) {
 
-					var fullpath = (v.URL).toString();
-					var filename = fullpath.replace(/^.*[\\\/]/, '');
-					var path = "../Content/AmenityImages/" + filename;
-					trHTML += '<tr><td><img id="amenpic" src="' + path + '" height="200px" width="200px"></td> <td><button id="btnEdit" name="btnEdit" class="btn btn-info" data-dismiss="modal" onclick="SetText(' + v.Id + ')"><i class="glyphicon glyphicon-edit"></i>Edit Image</button>    <button class="btn btn-danger" id="btndelete" name="btnDelete" onclick="Delete(' + v.Id + ', \'' + filename + '\')"><i class="glyphicon glyphicon-trash"></i>Delete</button></td></tr>';
-				});
-				$('#viewImage').append(trHTML);
+	//				var fullpath = (v.URL).toString();
+	//				var filename = fullpath.replace(/^.*[\\\/]/, '');
+	//				var path = "../Content/AmenityImages/" + filename;
+	//				trHTML += '<tr><td><img id="amenpic" src="' + path + '" height="200px" width="200px"></td> <td><button id="btnEdit" name="btnEdit" class="btn btn-info" data-dismiss="modal" onclick="SetText(' + v.Id + ')"><i class="glyphicon glyphicon-edit"></i>Edit Image</button>    <button class="btn btn-danger" id="btndelete" name="btnDelete" onclick="Delete(' + v.Id + ', \'' + filename + '\')"><i class="glyphicon glyphicon-trash"></i>Delete</button></td></tr>';
+	//			});
+	//			$('#viewImage').append(trHTML);
 
 
-			},
-			error: function (error) {
-				alert(error);
-			}
-		});
-		$('#viewImageModal').modal();
-	}
+	//		},
+	//		error: function (error) {
+	//			alert(error);
+	//		}
+	//	});
+	//	$('#viewImageModal').modal();
+	//}
 	function Delete(id, name) {
 		alert(name);
 		var data = {
@@ -428,13 +428,26 @@
 			}
 		});
 	}
+
+
+		function Set1(amenity) {
+			am = amenity;
+			var fullpath = (am).toString();
+			var filename = fullpath.replace(/^.*[\\\/]/, '');
+			var path = "../Content/AmenityImages/" + filename;
+
+			document.getElementById('amenv').setAttribute('src', path)
+
+			$('#viewImageModal').modal();
+		}
+	
 	$('#btnAddModal').click(function () {
 		$('#addImageModal').modal();
 
 	});
 	$('#btnViewImage').click(function () {
-		//  $('#viewImageModal').modal();
-		//  alert('go');
+		 //$('#viewImageModal').modal();
+		
 	});
 
 	$('#btnCloseImage').click(function () {

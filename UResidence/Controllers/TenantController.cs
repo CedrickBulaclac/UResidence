@@ -97,6 +97,47 @@ namespace UResidence.Controllers
                 throw;
             }
         }
+        //public JsonResult InsertMoving1(Tenant tenant)
+        //{
+        //    int id = tenant.Id;
+        //    var image1 = tenant.Image1;
+        //    bool status = false;
+        //    if (image1 != null)
+        //    {
+        //        if (image1.ContentLength > 0)
+        //        {
+        //            string imagefileName = Path.GetFileName(image1.FileName);
+        //            string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+        //            string folderpath1 = "~/Content/TenantImages/" + imagefileName;
+        //            if (System.IO.File.Exists(folderPath))
+        //            {
+        //                System.IO.File.Delete(folderPath);
+        //                image1.SaveAs(folderPath);
+        //            }
+        //            else
+        //            {
+        //                image1.SaveAs(folderPath);
+        //            }
+        //            Tenant a = new Tenant()
+        //            {
+        //                Id = id,
+        //                MovingIn = folderpath1,
+        //            };
+        //            status = UResidence.TenantController.UpdateImage1(a);
+        //        }
+
+        //    }
+        //    return new JsonResult
+        //    {
+        //        Data = status,
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
+
+
+
+
+
         public JsonResult InsertMoving1(Tenant tenant)
         {
             int id = tenant.Id;
@@ -106,22 +147,33 @@ namespace UResidence.Controllers
             {
                 if (image1.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileNameWithoutExtension(image1.FileName);
+                    var extension = Path.GetExtension(image1.FileName);
                     string imagefileName = Path.GetFileName(image1.FileName);
                     string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
-                    string folderpath1 = "~/Content/TenantImages/" + imagefileName;
+                    string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        System.IO.File.Delete(folderPath);
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/TenantImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
                         image1.SaveAs(folderPath);
                     }
                     else
                     {
+                        string folderpath1 = "~/Content/TenantImages/" + fileName + extension;
+                        finalpath = folderpath1;
                         image1.SaveAs(folderPath);
                     }
+
                     Tenant a = new Tenant()
                     {
                         Id = id,
-                        MovingIn = folderpath1,
+                        MovingIn = finalpath,
                     };
                     status = UResidence.TenantController.UpdateImage1(a);
                 }
@@ -132,47 +184,110 @@ namespace UResidence.Controllers
                 Data = status,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+
         }
+
+
+
+
 
         public JsonResult InsertMoving2(Tenant tenant)
         {
             int id = tenant.Id;
             var image2 = tenant.Image2;
             bool status = false;
-
             if (image2 != null)
             {
                 if (image2.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileNameWithoutExtension(image2.FileName);
+                    var extension = Path.GetExtension(image2.FileName);
                     string imagefileName = Path.GetFileName(image2.FileName);
                     string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
-                    string folderpath2 = "~/Content/TenantImages/" + imagefileName;
+                    string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        System.IO.File.Delete(folderPath);
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/TenantImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
                         image2.SaveAs(folderPath);
                     }
                     else
                     {
+                        string folderpath1 = "~/Content/TenantImages/" + fileName + extension;
+                        finalpath = folderpath1;
                         image2.SaveAs(folderPath);
                     }
+
                     Tenant a = new Tenant()
                     {
                         Id = id,
-                        MovingOut = folderpath2
+                        MovingOut = finalpath,
                     };
                     status = UResidence.TenantController.UpdateImage2(a);
                 }
 
             }
-         
-
             return new JsonResult
             {
                 Data = status,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+
         }
+
+
+
+
+
+
+
+
+
+
+        //public JsonResult InsertMoving2(Tenant tenant)
+        //{
+        //    int id = tenant.Id;
+        //    var image2 = tenant.Image2;
+        //    bool status = false;
+
+        //    if (image2 != null)
+        //    {
+        //        if (image2.ContentLength > 0)
+        //        {
+        //            string imagefileName = Path.GetFileName(image2.FileName);
+        //            string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
+        //            string folderpath2 = "~/Content/TenantImages/" + imagefileName;
+        //            if (System.IO.File.Exists(folderPath))
+        //            {
+        //                System.IO.File.Delete(folderPath);
+        //                image2.SaveAs(folderPath);
+        //            }
+        //            else
+        //            {
+        //                image2.SaveAs(folderPath);
+        //            }
+        //            Tenant a = new Tenant()
+        //            {
+        //                Id = id,
+        //                MovingOut = folderpath2
+        //            };
+        //            status = UResidence.TenantController.UpdateImage2(a);
+        //        }
+
+        //    }
+         
+
+        //    return new JsonResult
+        //    {
+        //        Data = status,
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
 
         [HttpPost]
