@@ -102,8 +102,30 @@ namespace UResidence.Controllers
             var final = data.ToList();
             return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+        public JsonResult GetQuarterYear(int year,int start,int end)
+        {
+            double total = 0;
+            double compute = 0;
+            List<Dashboard> ret = default(List<Dashboard>);
+            ret = DashboardController.GetAllqy(year,start,end);
+            List<object> data = new List<object>();
+            for (int i = 0; i <= ret.Count - 1; i++)
+            {
+                total += ret[i].Number;
+            }
+            for (int i = 0; i <= ret.Count - 1; i++)
+            {
+                compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
+                object[] d = { ret[i].AmenityName, compute };
+                data.AddRange(d);
 
-            public JsonResult UpdateImage(Admin adm)
+            }
+            var final = data.ToList();
+
+            return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult UpdateImage(Admin adm)
         {
             var image = adm.Image;
             bool status = false;

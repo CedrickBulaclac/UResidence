@@ -284,7 +284,8 @@
 	var rate1=@ViewBag.Message;
 	var rateA;
 	var statuset="Valid";
-	var statusst="Valid";
+    var statusst = "Valid";
+  
 	function ValidateDate() {
 		var x = $('#sd').val();
 		var y = $('#et').val();
@@ -333,7 +334,7 @@
 				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
 				if (startDate < MyDateString)
 				{
-					alert("the input is earlier than today");
+					alert("Your chosen date is earlier than today");
 					document.getElementById('sd').value = null;
 					document.getElementById('ed').value = null;
 				}
