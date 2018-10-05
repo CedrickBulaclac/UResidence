@@ -98,29 +98,30 @@
 							<div class="w3-container">
 								<div class="w3-card-4 w3-dark-grey" style="width:100%">
 
-									<div class="w3-container w3-center">
-										<h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-										<img src="@Url.Content(amn.Url)" style="width:90%" />
-										<p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										@if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
-										{
-											<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-											<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										}
-										else
-										{
-											<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										}
-										<div class="w3-section">
-											<button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
-										</div>
-									</div>
+                                    <div class="w3-container w3-center">
+                                        <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                        <img src="@Url.Content(amn.Url)" style="width:90%" />
+                                        <p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        @if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
+                                        {
+                                            <p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                            <p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        }
+                                        else
+                                        {
+                                            <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                            <br />
+                                        }
+                                        <div class="w3-section">
+                                            <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
+                                        </div>
+                                    </div>
 
 								</div>
 							</div>
 						</div>
-
+                      
 
 					}
 
@@ -135,24 +136,26 @@
 									<div class="w3-container">
 										<div class="w3-card-4 w3-dark-grey" style="width:50%">
 
-											<div class="w3-container w3-center">
-												<h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-												<img src="@Url.Content(amn.Url)" style="width:80%" />
-												<p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-												<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-												@if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
-												{
-													<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-													<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-												}
-												else
-												{
-													<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-												}
-												<div class="w3-section">
-													<button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
-												</div>
-											</div>
+                                            <div class="w3-container w3-center">
+                                                <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                                <img src="@Url.Content(amn.Url)" style="width:80%" />
+                                                <p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                <p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                @if (amn.AmenityName.ToUpper() == "SWIMMING POOL")
+                                                {
+                                                    <p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                    <p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                                    <br />
+                                                }
+                                        
+                                                <div class="w3-section">
+                                                    <button class="w3-button w3-green" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
+                                                </div>
+                                            </div>
 
 										</div>
 									</div>
