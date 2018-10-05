@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace UResidence
 {
-    public class DashResult : BaseProperty<DashResult>
+    public class Year : BaseProperty<Year>
     {
         public string AmenityName { get; set; }
-        public int Number { get; set; }
-
-        public DashResult CreateObject(SqlDataReader reader)
+        public int Number { get; set; }       
+        public Year CreateObject(SqlDataReader reader)
         {
-            DashResult ret = new DashResult();
+            Year ret = new Year();
             ret.AmenityName = reader.GetString(0);
-            ret.Number = reader.GetInt32(1);
+            ret.Number = reader.GetInt32(1);        
             return ret;
         }
 

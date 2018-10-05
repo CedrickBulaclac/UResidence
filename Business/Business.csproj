@@ -56,8 +56,8 @@
     <Compile Include="CheckSwimmingController.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="ContactController.cs" />
-    <Compile Include="DashResult.cs" />
-    <Compile Include="DashResultController.cs" />
+    <Compile Include="Month.cs" />
+    <Compile Include="MonthController.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentController.cs" />
     <Compile Include="EquipReservation.cs" />
@@ -97,6 +97,8 @@
     <Compile Include="UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserLoginController.cs" />
+    <Compile Include="Year.cs" />
+    <Compile Include="YearController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">

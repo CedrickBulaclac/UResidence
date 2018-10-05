@@ -7,6 +7,7 @@ using System.IO;
 
 namespace UResidence.Controllers
 {
+
     public class BossManagerController : Controller
     {
         public JsonResult AmenityCount()
@@ -57,15 +58,14 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
         public JsonResult GetMonthly(int month,int year)
         {
             double total=0;
             double compute = 0 ;
-            List<DashResult> ret = default(List<DashResult>);
-            ret = DashResultController.GetAll(month,year);
-            List<object> data1 = new List<object>();
-            object[][] data = new object[ret.Count][];
-
+            List<Month> ret = default(List<Month>);
+            ret = MonthController.GetAll(month,year);
+            List<object> data = new List<object>();         
             for (int i = 0; i <= ret.Count - 1; i++)
             {                           
                 total += ret[i].Number;
@@ -74,13 +74,36 @@ namespace UResidence.Controllers
             {
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
                 object[] d = { ret[i].AmenityName, compute };
-                data1.AddRange(d);
+                data.AddRange(d);
                
             }
-            var final=data1.ToList();
+            var final=data.ToList();
+
             return new JsonResult { Data=final,JsonRequestBehavior=JsonRequestBehavior.AllowGet };
         }
-        public JsonResult UpdateImage(Admin adm)
+        public JsonResult GetYearly(int year)
+        {
+            double total = 0;
+            double compute = 0;
+            List<Year> ret = default(List<Year>);
+            ret = YearController.GetAll(year);
+            List<object> data = new List<object>();
+            for (int i = 0; i <= ret.Count - 1; i++)
+            {
+                total += ret[i].Number;
+            }
+            for (int i = 0; i <= ret.Count - 1; i++)
+            {
+                compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
+                object[] d = { ret[i].AmenityName, compute };
+                data.AddRange(d);
+
+            }
+            var final = data.ToList();
+            return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+            public JsonResult UpdateImage(Admin adm)
         {
             var image = adm.Image;
             bool status = false;
