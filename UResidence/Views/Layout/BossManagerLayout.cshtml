@@ -735,6 +735,7 @@
 </head>
 
 <body>
+
     <div class="navbar1">
         <img src="~/Content/logo.png" width="190" height="85" />
 
@@ -756,7 +757,7 @@
         <center>
             @*<ul class="nav navbar-nav ">*@
 
-            <ul class="social-icon pull-right list-inline" style="z-index:1;">
+            <ul class="social-icon pull-right list-inline" style="z-index:2;">
 
 
                 <li class="dropdown">
@@ -811,7 +812,7 @@
                 </nav>
             </div>
         </div>
-       
+
         <div id="maincontent">
             <div class="col-lg-12" style="margin-left:300px;">
                 <div class="page-title">
@@ -819,106 +820,106 @@
                     <ol class="breadcrumb">
                         <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
                         @*<li class="pull-right">
-                        <div id="reportrange" class="btn btn-green btn-square date-picker">
-                            <i class="fa fa-calendar"></i>
-                            <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
-                        </div>
-                    </li>*@
+                                <div id="reportrange" class="btn btn-green btn-square date-picker">
+                                    <i class="fa fa-calendar"></i>
+                                    <span class="date-range">September 14 , 2018 - September 22, 2018</span> <i class="fa fa-caret-down"></i>
+                                </div>
+                            </li>*@
                     </ol>
                 </div>
             </div>
             @*</div>*@
             <div class="main">
 
-            <br />
-            <center>
-                <!--Employee-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowAdmin()">
-                            <div class="circle-tile-heading dark-blue">
-                                <i class="fa fa-users fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content dark-blue">
-                            <div class="circle-tile-description text-faded">
-                                Employees
-                            </div>
-                            <div class="circle-tile-number text-faded" id="AdminCount">
+                <br />
+                <center>
+                    <!--Employee-->
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="circle-tile">
+                            <a href="#" onclick="ShowAdmin()">
+                                <div class="circle-tile-heading dark-blue">
+                                    <i class="fa fa-users fa-fw fa-3x"></i>
+                                </div>
+                            </a>
+                            <div class="circle-tile-content dark-blue">
+                                <div class="circle-tile-description text-faded">
+                                    Employees
+                                </div>
+                                <div class="circle-tile-number text-faded" id="AdminCount">
 
-                                <span id="sparklineA"></span>
+                                    <span id="sparklineA"></span>
+                                </div>
+                                <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
-                            <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
-                </div>
 
 
-                <!--Owner-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowOwner()">
-                            <div class="circle-tile-heading green">
-                                <i class="fa fa-id-card fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content green">
-                            <div class="circle-tile-description text-faded">
-                                Owner
-                            </div>
-                            <div class="circle-tile-number text-faded" id="OwnerCount">
+                    <!--Owner-->
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="circle-tile">
+                            <a href="#" onclick="ShowOwner()">
+                                <div class="circle-tile-heading green">
+                                    <i class="fa fa-id-card fa-fw fa-3x"></i>
+                                </div>
+                            </a>
+                            <div class="circle-tile-content green">
+                                <div class="circle-tile-description text-faded">
+                                    Owner
+                                </div>
+                                <div class="circle-tile-number text-faded" id="OwnerCount">
 
+                                </div>
+                                <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
-                            <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
-                </div>
 
 
-                <!--Tenant-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowTenant()">
-                            <div class="circle-tile-heading orange">
-                                <i class="fa fa-id-card-o fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content orange">
-                            <div class="circle-tile-description text-faded">
-                                Tenant
-                            </div>
-                            <div class="circle-tile-number text-faded" id="TenantCount">
+                    <!--Tenant-->
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="circle-tile">
+                            <a href="#" onclick="ShowTenant()">
+                                <div class="circle-tile-heading orange">
+                                    <i class="fa fa-id-card-o fa-fw fa-3x"></i>
+                                </div>
+                            </a>
+                            <div class="circle-tile-content orange">
+                                <div class="circle-tile-description text-faded">
+                                    Tenant
+                                </div>
+                                <div class="circle-tile-number text-faded" id="TenantCount">
 
+                                </div>
+                                <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
-                            <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
-                </div>
 
 
-                <!--Amenity List-->
-                <div class="col-lg-2 col-sm-6">
-                    <div class="circle-tile">
-                        <a href="#" onclick="ShowAmenity()">
-                            <div class="circle-tile-heading purple">
-                                <i class="fa fa-building-o fa-fw fa-3x"></i>
-                            </div>
-                        </a>
-                        <div class="circle-tile-content purple">
-                            <div class="circle-tile-description text-faded">
-                                Amenity
-                            </div>
-                            <div class="circle-tile-number text-faded" id="AmenityCount">
+                    <!--Amenity List-->
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="circle-tile">
+                            <a href="#" onclick="ShowAmenity()">
+                                <div class="circle-tile-heading purple">
+                                    <i class="fa fa-building-o fa-fw fa-3x"></i>
+                                </div>
+                            </a>
+                            <div class="circle-tile-content purple">
+                                <div class="circle-tile-description text-faded">
+                                    Amenity
+                                </div>
+                                <div class="circle-tile-number text-faded" id="AmenityCount">
 
-                                <span id="sparklineD"></span>
+                                    <span id="sparklineD"></span>
+                                </div>
+                                <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                             </div>
-                            <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
-                </div>
-            </center>
-        </div>
+                </center>
             </div>
+        </div>
         <br />
 
 
@@ -929,135 +930,136 @@
 
         <!--Reservation List-->
         @*<div class="col-lg-2 col-sm-6">
-            <div class="circle-tile">
-                <a href="~/ReservationRecord/Record">
-                    <div class="circle-tile-heading blue">
-                        <i class="fa fa-calendar fa-fw fa-3x"></i>
+                <div class="circle-tile">
+                    <a href="~/ReservationRecord/Record">
+                        <div class="circle-tile-heading blue">
+                            <i class="fa fa-calendar fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content blue">
+                        <div class="circle-tile-description text-faded">
+                            Reservation List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            100
+                            <span id="sparklineB"></span>
+                        </div>
+                        <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                     </div>
-                </a>
-                <div class="circle-tile-content blue">
-                    <div class="circle-tile-description text-faded">
-                        Reservation List
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        100
-                        <span id="sparklineB"></span>
-                    </div>
-                    <a href="~/ReservationRecord/Record" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
 
         <!---Reversal List-->
         @*<div class="col-lg-2 col-sm-6">
-            <div class="circle-tile">
-                <a href="~/ReversalRecord/Records">
-                    <div class="circle-tile-heading red">
-                        <i class="fa fa-money fa-fw fa-3x"></i>
+                <div class="circle-tile">
+                    <a href="~/ReversalRecord/Records">
+                        <div class="circle-tile-heading red">
+                            <i class="fa fa-money fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content red">
+                        <div class="circle-tile-description text-faded">
+                            Reversal List
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            24
+                            <span id="sparklineC"></span>
+                        </div>
+                        <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                     </div>
-                </a>
-                <div class="circle-tile-content red">
-                    <div class="circle-tile-description text-faded">
-                        Reversal List
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        24
-                        <span id="sparklineC"></span>
-                    </div>
-                    <a href="~/ReversalRecord/Records" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
     </div>
 
-        <!---chart-->
-        <div id="containerChart">
-            <div class="row main">
-                <div class="col-lg-12">
-                    <center>
-                        <b>Year :</b>
-                        <select id="textyear" name="textyear" onchange="Change()">
-                            <option value="2018">2018</option>
-                        </select>
-                    </center>
-                </div>
+    <!---chart-->
+    <div id="containerChart">
+        <div class="row main">
+            <div class="col-lg-12">
+                <center>
+                    <b>Year :</b>
+                    <select class="form-control" id="textyear" name="textyear" onchange="Change()">
+                        <option value="2018">2018</option>
+                    </select>
+                </center>
+            </div>
+            <br />
+            <br />
+            <div class="col-lg-8" id="chart1">
+                <center>
+                    <b style=" margin-left: 230px;">Month :</b> <select  id="month" name="month" onchange="ValueChange()">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </center>
+                <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
+                <div id="chartContainerYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
                 <br />
-                <div class="col-lg-8" id="chart1">
-                    <center>
-                        <b style=" margin-left: 230px;">Month :</b> <select id="month" name="month" onchange="ValueChange()">
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                    </center>
-                    <div id="chartContainer1" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
-                    <div id="chartContainerYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
-                    <br />
-                    <center>
-                        <b style=" margin-left: 230px;">Month :</b> <select id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
-                            <option value="1">January - June</option>
-                            <option value="2">July - December</option>
+                <center>
+                    <b style=" margin-left: 230px;">Quarter :</b> <select id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
+                        <option value="1">January - June</option>
+                        <option value="2">July - December</option>
 
-                        </select>
-                    </center>
-                    <div id="chartContainerQuarterYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
-                </div>
-
+                    </select>
+                </center>
+                <div id="chartContainerQuarterYear" style="width: 49%; height: 300px;display: inline-block;margin-left:400px;"></div>
             </div>
 
         </div>
 
-
-        <div id="maincontent1" class="col-lg-10 main">
-
-        </div>
-        <div id="contentAmenity" class="col-lg-8 main">
-            <center><h3>Amenity</h3></center>
-            <br />
-            <table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
-        </div>
-        <div id="contentAdmin" class="col-lg-8 main">
-            <center><h3>Admin</h3></center>
-            <br />
-            <table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
-        </div>
-
-        <div id="contentOwner" class="col-lg-8 main">
-            <center><h3>Owner</h3></center>
-            <br />
-            <table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
-        </div>
-        <div id="contentTenant" class="col-lg-8 main">
-            <center><h3>Tenant</h3></center>
-            <br />
-            <table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
-        </div>
-
-        @RenderBody()
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    </div>
 
 
+    <div id="maincontent1" class="col-lg-10 main">
 
-        <script src="js/jquery-3.1.1.js"></script>
-        <script src="js/bootstrap.js"></script>
+    </div>
+    <div id="contentAmenity" class="col-lg-8 main">
+        <center><h3>Amenity</h3></center>
+        <br />
+        <table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
+    </div>
+    <div id="contentAdmin" class="col-lg-8 main">
+        <center><h3>Admin</h3></center>
+        <br />
+        <table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
+    </div>
 
-        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-        <script>
-            $(document).ready(function () {
+    <div id="contentOwner" class="col-lg-8 main">
+        <center><h3>Owner</h3></center>
+        <br />
+        <table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
+    </div>
+    <div id="contentTenant" class="col-lg-8 main">
+        <center><h3>Tenant</h3></center>
+        <br />
+        <table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
+    </div>
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script>
+       $(document).ready(function () {
                 document.getElementById('contentAmenity').hidden = true;
                 document.getElementById('contentAdmin').hidden = true;
                 document.getElementById('contentTenant').hidden = true;
@@ -1120,8 +1122,7 @@
                     type: 'POST',
                     url: '/BossManager/GetMonthly',
                     data: { month: month, year: year1 },
-                    success: function (data1) {
-                        console.log(data1.length);
+                    success: function (data1) {                     
                         for (var i = 0; i <= data1.length - 1; i += 2) {
                             datapoints.push({ y: data1[i + 1], label: data1[i] });
                         }
@@ -1152,7 +1153,69 @@
 
                 });
                 ValueYearChange();
-                ValueQuarterYearChange();
+           
+           console.log(month);
+           var quarter = 0;
+           if (month >= 1 && month <= 6) {
+               quarter = 1;
+           }
+           else {
+               quarter = 2;
+           }
+           console.log(quarter);
+           var s = 0;
+           var e = 0;
+           var period = "";
+           switch (quarter) {
+               case 1:
+                   s = 1;
+                   e = 6;
+                   period = "January - June";
+               document.getElementById('quarter').value=1;
+                   break;
+               case 2:
+                   s = 7;
+                   e = 12;
+                   period = "July - December"
+               document.getElementById('quarter').value=2;
+                   break;
+           }
+           var datapoints1 = [];
+           $.ajax({
+               type: 'POST',
+               url: '/BossManager/GetQuarterYear',
+               data: { year: year1, start: s, end: e },
+               success: function (data2) {
+                   console.log(data2);
+                   for (var i = 0; i <= data2.length - 1; i += 2) {
+                       datapoints1.push({ y: data2[i + 1], label: data2[i] });
+                   }
+                   var options1 = {
+                       title: {
+                           text: "Amenity Usage"
+                       },
+                       subtitles: [{
+                           text: period + ' , ' + year1
+                       }],
+                       animationEnabled: true,
+                       data: [{
+                           type: "pie",
+                           startAngle: 40,
+                           toolTipContent: "<b>{label}</b>: {y}%",
+                           showInLegend: "true",
+                           legendText: "{label}",
+                           indexLabelFontSize: 16,
+                           indexLabel: "{label} - {y}%",
+                           dataPoints: datapoints1
+                       }]
+                   };
+                   $("#chartContainerQuarterYear").CanvasJSChart(options1);
+               },
+               error: function (data) {
+                   alert('Failed');
+               }
+
+           });
             });
         function ShowAmenity() {
             document.getElementById('contentAmenity').hidden = false;
@@ -1345,15 +1408,14 @@
 
             });
         }
-        function ValueYearChange() {                          
-                var year1 = document.getElementById('textyear').value;               
-                var datapoints = [];              
+        function ValueYearChange() {
+                var year1 = document.getElementById('textyear').value;
+                var datapoints = [];
                 $.ajax({
                     type: 'POST',
                     url: '/BossManager/GetYearly',
                     data: {  year: year1 },
-                    success: function (data1) {
-                        console.log(data1.length);
+                    success: function (data1) {                      
                         for (var i = 0; i <= data1.length - 1; i += 2) {
                             datapoints.push({ y: data1[i + 1], label: data1[i] });
                         }
@@ -1384,7 +1446,7 @@
 
                 });
             }
-            function ValueQuarterYearChange() {
+        function ValueQuarterYearChange() {
 
             var year1 = document.getElementById('textyear').value;
                 var quarter = document.getElementById('quarter').value;
@@ -1440,7 +1502,6 @@
 
                 });
             }
-		
         function AmenityCount() {
             $.ajax({
                 type: 'GET',
@@ -1491,7 +1552,8 @@
         }
 
 
-		function UpdateProfilePic() {
+            function UpdateProfilePic()
+            {
 			var id = @Session["UID"];
 
 			var file = $("#image").get(0).files;
@@ -1516,7 +1578,7 @@
 					alert(error);
 				}
 			});
-		}
+		    }
 
 
 		$('#btnCloseImageProfile').click(function () {
@@ -1532,16 +1594,7 @@
 		}
 		);
 
-
-
-
-
-
-
-
-
-
-        </script>
+    </script>
 
 
 
