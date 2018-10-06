@@ -103,7 +103,7 @@
 										<img src="@Url.Content(amn.Url)" style="width:90%" />
 										<p> @Html.DisplayFor(model => amn.Location, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 										<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
+										@if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
 										{
 											<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 											<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
@@ -141,7 +141,7 @@
 												<img src="@Url.Content(amn.Url)" style="width:80%" />
 												<p> @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 												<p> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-												@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
+												@if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
 												{
 													<p>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 													<p>Child Rate:   @Html.DisplayFor(model => amn.Child, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
