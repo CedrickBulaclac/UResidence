@@ -176,6 +176,7 @@
 					selectedEvent = calEvent;
 					$('#myModal #eventTitle').html('<b>Date: </b>' + calEvent.start.format("DD/MMM/YYYY"))
 					var $description = $('<div/>');
+					$description.append($('<p/>').html('<b>Reference Number: </b>' + calEvent.rf));
 					$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
 					$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
 					$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));

@@ -573,8 +573,9 @@
                     if (data != null) {
                         document.getElementById('searchId').value='';
                         if (data[0].AName == 'SwimmingPool') {
-                            $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + data[0].AName);
-                            var $description = $('<div/>');
+							$('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
+							var $description = $('<div/>');
+							$description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
                             $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
                             $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
                             $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
@@ -615,8 +616,9 @@
 
                         else {
                             document.getElementById('searchId').value = '';
-                            $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + data[0].AName);
-                            var $description = $('<div/>');
+							$('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
+							var $description = $('<div/>');
+							$description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
                             $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
                             $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
                             $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
@@ -739,8 +741,9 @@
 
 							if (calEvent.title == 'SwimmingPool') {
 								selectedEvent = calEvent;
-								$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+								$('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
 								var $description = $('<div/>');
+								$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
 								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
 								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
 								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
@@ -788,8 +791,9 @@
 							else
 							{
 								selectedEvent = calEvent;
-								$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+								$('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
 								var $description = $('<div/>');
+								$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
 								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
 								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
 								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));

@@ -118,7 +118,7 @@
 
 				<div class="row">
 					<div class="col-25">
-						@if (Model.AmenityName.ToUpper() == "SWIMMING POOL")
+						@if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
 						{
 							<p>
 								<label>Adult Rate :</label>
@@ -135,7 +135,7 @@
 					</div>
 
 					<div class="col-75">
-						@if (Model.AmenityName.ToUpper() == "SWIMMING POOL")
+						@if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
 						{
 							@Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 							@Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })

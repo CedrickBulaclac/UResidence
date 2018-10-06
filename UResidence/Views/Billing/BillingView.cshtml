@@ -1,7 +1,14 @@
 ﻿@model List<BillingList>
 
 @{
-    Layout = "~/Views/Layout/LayoutHome.cshtml";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/LayoutHome.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
 }
 <br />
 <br />
@@ -133,8 +140,8 @@
                     $('#rowtotalCost').empty();
                     var totalc = 0;
                     totalc = data[0].Rate + data[0].ChairCost + data[0].TableCost + data[0].Charge;
-                    var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
-                    trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Rate + '</td ></tr>';
+					var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
+					trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Rate + '</td ></tr>';
 
                     trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" > Chair Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].ChairCost + '</td></tr>';                     
                     trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Table Cost</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].TableCost + '</td></tr>';

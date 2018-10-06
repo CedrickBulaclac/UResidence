@@ -56,6 +56,14 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration()
         {
+
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public ActionResult Home()
@@ -148,6 +156,13 @@ namespace UResidence.Controllers
         }
         public ActionResult AdminView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Admin> adminList = UResidence.AdminController.GetAll();
             return View(adminList);
         }
@@ -170,11 +185,19 @@ namespace UResidence.Controllers
         }
         public ActionResult AdminEdit()
         {
+         
             return View();
         }
         [HttpGet]
         public ActionResult AdminEdit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if (ModelState.IsValid)
             {

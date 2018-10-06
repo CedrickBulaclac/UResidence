@@ -21,7 +21,7 @@ namespace UResidence
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Capacity { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         [StringLength(30, ErrorMessage = "Amenity Name cannot be longer than 30 characters.")]
         public string AmenityName { get; set; }
         public string Url { get; set; }
@@ -33,7 +33,7 @@ namespace UResidence
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
         [StringLength(50, ErrorMessage = "Unit Number cannot be longer than 50 characters.")]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string Location { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }

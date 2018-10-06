@@ -238,8 +238,7 @@ namespace UResidence.Controllers
         }
         [HttpGet]
         public ActionResult AmenityEdit(int id)
-        {
-            
+        {          
             Amenity amn = default(Amenity);
             amn = UResidence.AmenityController.GetbyId(id);
             return View(amn);
@@ -394,7 +393,7 @@ namespace UResidence.Controllers
         public ActionResult AmenityEdit(Amenity amen, HttpPostedFileBase image)
         {
             string[] err = new string[] { };
-            if (amen.AmenityName.ToUpper() == "SWIMMING POOL")
+            if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
             {
 
                 SwimmingRate sr = new SwimmingRate()
@@ -470,17 +469,49 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult AmenityAddPool(Amenity amen)
+        public ActionResult AmenityAddPool(Amenity amen, HttpPostedFileBase Image)
         {
             string[] err = new string[] { };
+            int amenID;
+            string finalpath = "";
+            var image = Image;
+            bool status = false;
+            if (image != null)
+            {
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), imagefileName);
 
-            string folderpath = "~/Content/AmenityImages/noimage.jpeg";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/AmenityImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/AmenityImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+                        string folderpath1 = "~/Content/AmenityImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+
+
+                    }
+                }
+            }
 
 
             Amenity a = new Amenity()
             {
                 AmenityName = amen.AmenityName,
-                Url = folderpath,
+                Url = finalpath,
                 Capacity = amen.Capacity,
                 Description = amen.Description,
                 Rate = 0,
@@ -490,21 +521,65 @@ namespace UResidence.Controllers
 
             if (amen.Validate(out err))
             {
-
-                ViewBag.Message = UResidence.AmenityController.Insert(a);
-                string amenityname = amen.AmenityName;
-                Amenity amm = UResidence.AmenityController.GetbyAmenityName(amenityname);
-                SwimmingRate sr = new SwimmingRate()
+                if (image != null)
                 {
-                    AmenityId = amm.Id,
-                    Adult=amen.Adult,
-                    Child =amen.Child
-                };
-                ViewBag.Message = UResidence.SwimmingRateController.Insert(sr);
-                status = true;
-                ViewBag.AddMessage = status;
-                AmenityView();
-                return View("AmenityView");
+                    Amenity aa = new Amenity()
+                    {
+                        AmenityName = amen.AmenityName,
+                        Url = finalpath,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate,
+                        Color = amen.Color,
+                        Location = amen.Location
+                    };
+                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                     amenID = amen.Id;
+                    string amenityname = amen.AmenityName;
+                    Amenity amm = UResidence.AmenityController.GetbyAmenityName(amenityname);
+                    SwimmingRate sr = new SwimmingRate()
+                    {
+                        AmenityId = amm.Id,
+                        Adult = amen.Adult,
+                        Child = amen.Child
+                    };
+                    ViewBag.Message = UResidence.SwimmingRateController.Insert(sr);
+                    status = true;
+                    ViewBag.AddMessage = status;
+                    AmenityView();
+                    return View("AmenityView");
+                }
+                else
+                {
+                    Amenity aa = new Amenity()
+                    {
+                        AmenityName = amen.AmenityName,
+                        Url = "~/Content/AmenityImages/noimage.jpeg",
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate,
+                        Color = amen.Color,
+                        Location = amen.Location
+                    };
+                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                    amenID = amen.Id;
+                    string amenityname = amen.AmenityName;
+                    Amenity amm = UResidence.AmenityController.GetbyAmenityName(amenityname);
+                    SwimmingRate sr = new SwimmingRate()
+                    {
+                        AmenityId = amm.Id,
+                        Adult = amen.Adult,
+                        Child = amen.Child
+                    };
+                    ViewBag.Message = UResidence.SwimmingRateController.Insert(sr);
+                    status = true;
+                    ViewBag.AddMessage = status;
+                    AmenityView();
+                    return View("AmenityView");
+                }
+                
+               
+             
             }
             else
             {

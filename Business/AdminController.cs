@@ -78,7 +78,7 @@ namespace UResidence
 
         public static Admin GetEmailAdmin(string email)
         {
-            const string GET_RECORD = @"SSELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,case Level when 0 then 'Super Admin'  when 1 then 'Manager' when 2 then 'Finance' when 3 then 'Cashier' when 4 then 'Reservation Admin' when 5 then 'Registration' when 6 then 'OIC Security Guard' when 7 then 'Security Guard' end as Role, Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday FROM [tbAdmin] a inner join tbLogin l on l.AdminId=a.Id WHERE Email = @Email order by Role asc";
+            const string GET_RECORD = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,case ISNULL(Level,0) when 0 then 'Super Admin'  when 1 then 'Manager' when 2 then 'Finance' when 3 then 'Cashier' when 4 then 'Reservation Admin' when 5 then 'Registration' when 6 then 'OIC Security Guard' when 7 then 'Security Guard' end as Role, Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday FROM [tbAdmin] a full join tbLogin l on l.AdminId=a.Id WHERE Email = @Email order by Role asc";
            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Email", email));
@@ -86,6 +86,8 @@ namespace UResidence
 
             return ret;
         }
+
+      
 
 
         public static bool Update(Admin adm)

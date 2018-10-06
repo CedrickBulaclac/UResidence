@@ -3,132 +3,135 @@
 	ViewBag.Title = "LogBook";
 	Layout = "/Views/Layout/OICLayout.cshtml";
 }
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <br />
 <br />
 <center>
-   Search: <input type="date" id="txtdate" name="txtdate"/> <button class="btn btn-success" onclick="Search()">Search</button>
+	Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
 </center>
 <br />
 <br />
 <div class="container">
-    <table class="table table-bordered table-striped" id="tableLog"></table>
-  
-   
-  
+	<table class="table table-bordered table-striped" id="tableLog"></table>
+
+
+
 </div>
 <script>
-    $(document).ready(Set());
-    var value;
-    function Set() {
-        $('#tableLog').empty();
-        $.ajax({
-            type: "GET",
-            url: "/LogBook/GetEvents",
-            success: function (data) {
-                var trHTML = '';
+	$(document).ready(Set());
+	var value;
+	function Set() {
+		$('#tableLog').empty();
+		$.ajax({
+			type: "GET",
+			url: "/LogBook/GetEvents",
+			success: function (data) {
+				var trHTML = '';
 
-                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
-                $.each(data, function (i, v) {
+				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+				$.each(data, function (i, v) {
 
-                    if (v.sTimeout == '00:00:00') {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
+					if (v.sTimeout == '00:00:00') {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
 
-                    }
-                    else {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+					}
+					else {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
 
-                    }
-                });
-                $('#tableLog').append(trHTML);
+					}
+				});
+				$('#tableLog').append(trHTML);
 
-                var now = new Date();
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
-                var ti = new Date().toLocaleTimeString();
+				var now = new Date();
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var today = now.getFullYear() + "-" + (month) + "-" + (day);
+				var ti = new Date().toLocaleTimeString();
 
-                document.getElementById('date').value = today;
+				document.getElementById('date').value = today;
 
-             
-            },
-            error: function(error){
-                alert('Failed to retrieve the record');
-            }
-        });
 
-    }
+			},
+			error: function (error) {
+				alert('Failed to retrieve the record');
+			}
+		});
 
-    function Update(id) {
-   
-        var d = new Date(),
-            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-        var timenow = h + ':' + m;
+	}
 
-        var data = {
-            Id: id,
-            TimeOut: timenow
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/LogBook/Update',
-            data: data,
-            success: function (data) {
-               
-                Set();
-                window.location.reload();
-            },
-            error: function (error) {
-                alert('Failed to update record');
-            }
-        });
-    }
+	function Update(id) {
 
-    function Search() {
-        $('#tableLog').empty();
-        var datee = document.getElementById('txtdate').value;
-        value = datee;
-        var data = {
-            date: datee
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/LogBook/Search',
-            data:data,
-            success: function (data) {
-                var trHTML = '';
+		var d = new Date(),
+			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+		var timenow = h + ':' + m;
 
-                trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
-                $.each(data, function (i, v) {
+		var data = {
+			Id: id,
+			TimeOut: timenow
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/LogBook/Update',
+			data: data,
+			success: function (data) {
 
-                    if (v.sTimeout == '00:00:00') {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
+				Set();
+				window.location.reload();
+			},
+			error: function (error) {
+				alert('Failed to update record');
+			}
+		});
+	}
 
-                    }
-                    else {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+	function Search() {
+		$('#tableLog').empty();
+		var datee = document.getElementById('txtdate').value;
+		value = datee;
+		var data = {
+			date: datee
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/LogBook/Search',
+			data: data,
+			success: function (data) {
+				var trHTML = '';
 
-                    }
-                });
-               
-                $('#tableLog').append(trHTML);
+				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+				$.each(data, function (i, v) {
 
-                var now = new Date();
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
-                var ti = new Date().toLocaleTimeString();
+					if (v.sTimeout == '00:00:00') {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
 
-                document.getElementById('date').value = today;
+					}
+					else {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
 
-            },
-            error: function (data) {
-                alert('Failed to retrieve record');
-            }
+					}
+				});
 
-        });
-    }
+				$('#tableLog').append(trHTML);
 
-  
+				var now = new Date();
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var today = now.getFullYear() + "-" + (month) + "-" + (day);
+				var ti = new Date().toLocaleTimeString();
+
+				document.getElementById('date').value = today;
+
+			},
+			error: function (data) {
+				alert('Failed to retrieve record');
+			}
+
+		});
+	}
+
+
 </script>
 

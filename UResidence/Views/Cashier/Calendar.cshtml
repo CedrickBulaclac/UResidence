@@ -142,7 +142,8 @@
                             cc: v.ChairCost,
                             amt: v.Amount,
                             cq: v.ChairQuantity,
-                            tq: v.TableQuantity
+							tq: v.TableQuantity,
+							
                         });
                     })
                     GenerateCalendar(events);
@@ -293,8 +294,9 @@
 
                     if (calEvent.title == 'SwimmingPool') {
                         selectedEvent = calEvent;
-                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-                        var $description = $('<div/>');
+                        $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
+						var $description = $('<div/>');
+						$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
                         $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
                         $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
                         $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
@@ -322,8 +324,9 @@
 
                     else {
                         selectedEvent = calEvent;
-                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
-                        var $description = $('<div/>');
+						$('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
+						var $description = $('<div/>');
+						$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
                         $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
                         $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
                         $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));

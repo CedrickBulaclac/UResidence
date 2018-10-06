@@ -121,7 +121,7 @@
 
 					<div class="align">
 						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Capacity persons</li>
-						@if (a.AmenityName.ToUpper() == "SWIMMING POOL")
+						@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
 						{
 							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: @a.Adult </li>
 							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: @a.Child </li>
