@@ -211,6 +211,12 @@
       <DependentUpon>ReserveSwimmingO.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Report\ReversalList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReversalList.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Report\TenantList.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -416,6 +422,10 @@
     <EmbeddedResource Include="Views\Report\ReserveSwimmingO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReserveSwimmingO.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReversalList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ReversalList.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\TenantList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

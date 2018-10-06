@@ -39,8 +39,41 @@
 <br /><br />
 <div class="panel panel-default">
     <div class="container">
+        <center>
+           <b>Category</b> <select class="form-control" id="cboType" onchange="ChangeBy()">
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+            </select>
+        </center>
+        <br />
+        <center>
+            <b>Year :</b>
+            <select id="textyear" name="textyear" onchange="ChangeBy()">
+                <option value="2018">2018</option>
+            </select>
+            <b>Month :</b><select id="monthly" onchange="ChangeBy()">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+
+        </center>
         <div class="pull-left">
             <label id="caption" name="caption"></label>
+            <br />
+            <div id="btndownload" name="btndownload">
+
+            </div>
+            <br />
         </div>
         <div class="pull-right">
             <div class="btn-group">
@@ -62,13 +95,46 @@
 </div>
 
 <script>
-	$(document).ready(SetP());
+    var global='';
+
+    $(document).ready(function () {
+      
+       
+        var date = new Date();
+        var year = date.getFullYear();
+        for (var i = year; i > 2018; i--) {
+            $('#textyear').append('<option value="' + i + '">' + i + '</option>');
+        }
+        SetP();
+
+    });
+    function ChangeBy() {
+        if (global == "Pending") {
+            SetP();
+        }
+        else if (global == "Approved") {
+            SetA();
+        }
+        else if (global == "Denied") {
+            SetD();
+        }
+        else {
+            SetC();
+        }
+    }
     function SetP() {
         var s = 'Pending';
+        var tp = document.getElementById('cboType').value;
+        var textyear = document.getElementById('textyear').value;
+        var monthly = document.getElementById('monthly').value;
+        global = s;
+        document.getElementById('btndownload').innerHTML = "";
         document.getElementById('caption').innerHTML = 'List of ' + s;
-		$.ajax({
-			type: 'POST',
-			url: '/ReversalRecord/GetP',
+       
+        $.ajax({
+            type: 'POST',
+            url: '/ReversalRecord/GetP',
+            data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
 				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
@@ -86,11 +152,17 @@
 			}
 		});
 	}
-	function SetA() {
-
+    function SetA() {
+        var s = 'Approved';
+        var tp = document.getElementById('cboType').value;
+        var textyear = document.getElementById('textyear').value;
+        var monthly = document.getElementById('monthly').value;
+        global = s;
+        document.getElementById('btndownload').innerHTML = ""; 
 		$.ajax({
 			type: 'POST',
-			url: '/ReversalRecord/GetA',
+            url: '/ReversalRecord/GetA',
+            data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
 				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
@@ -107,11 +179,17 @@
 			}
 		});
 	}
-	function SetC() {
-
+    function SetC() {
+        var s = 'Completed';
+        var tp = document.getElementById('cboType').value;
+        var textyear = document.getElementById('textyear').value;
+        var monthly = document.getElementById('monthly').value;
+        global = s;
+        document.getElementById('btndownload').innerHTML = "";   
 		$.ajax({
 			type: 'POST',
-			url: '/ReversalRecord/GetC',
+            url: '/ReversalRecord/GetC',
+            data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
 				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
@@ -120,19 +198,26 @@
 
 				});
 				$('#tableReversalList').append(trHTML);
-				trHTML = '';
-
+                trHTML = '';
+                $('#btndownload').append('<a class="btn btn-default" id="btndownload" href="@Url.Action("Download","ReversalRecord")">Download</a>');
 			},
 			error: function (error) {
 				alert('Failed to retrieve record');
 			}
 		});
 	}
-	function SetD() {
+    function SetD() {
+        var s = 'Denied';
+        var tp = document.getElementById('cboType').value;
+        var textyear = document.getElementById('textyear').value;
+        var monthly = document.getElementById('monthly').value;
+        global = s;
+        document.getElementById('btndownload').innerHTML = "";
 
 		$.ajax({
 			type: 'POST',
-			url: '/ReversalRecord/GetD',
+            url: '/ReversalRecord/GetD',
+            data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
 				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';

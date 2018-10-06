@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +11,7 @@ namespace UResidence.Controllers
 {
     public class ReversalRecordController : Controller
     {
+        
         // GET: ReversalRecord
         public ActionResult Record()
         {
@@ -42,42 +46,164 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
             };
         }
+       
+        public ActionResult Download()
+        {
+            string my;
+            string monthly="";
+            string type1= Session["type"].ToString();
+            int month1= (int) Session["month"];
+            int year1=(int)Session["year"];
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReversalList.rpt"));
+            List<ReversalList> revlist = default(List<ReversalList>);
+            if (type1.ToUpper() == "MONTHLY")
+            {
+                revlist = ReversalListController.GET_ALLC(month1, year1);
+                switch (month1)
+                {
+                    case 1:
+                        monthly = "January";
+                    break;
+                    case 2:
+                        monthly = "February";
+                        break;
+                    case 3:
+                        monthly = "March";
+                        break;
+                    case 4:
+                        monthly = "April";
+                        break;
+                    case 5:
+                        monthly = "May";
+                        break;
+                    case 6:
+                        monthly = "June";
+                        break;
+                    case 7:
+                        monthly = "July";
+                        break;
+                    case 8:
+                        monthly = "August";
+                        break;
+                    case 9:
+                        monthly = "September";
+                        break;
+                    case 10:
+                        monthly = "October";
+                        break;
+                    case 11:
+                        monthly = "November";
+                        break;
+                    case 12:
+                        monthly = "December";
+                        break;
+                }
+                my = monthly + " ," + year1;
+            }
+            else
+            {
+                revlist = ReversalListController.GET_ALLCY(year1);
+                my = year1.ToString();
+            }
+           
+            TextObject text = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text11"];
+            text.Text = "("+type1+")";
+            TextObject text1 = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text12"];
+            text1.Text = my;
+            rd.SetDataSource(revlist.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
 
+            try
+            {
+                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                rd.Close();
+                rd.Dispose();
 
-        public JsonResult GetP()
+                return File(stream, "application/pdf", "ReversalList.pdf");
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public JsonResult GetP(string type,int month,int year)
         {
             List<ReversalList> revlist = default(List<ReversalList>);
-            revlist = ReversalListController.GET_ALLP();
+            if (type.ToUpper() == "MONTHLY")
+            {
+                revlist = ReversalListController.GET_ALLP(month, year);
+               
+            }
+            else
+            {
+                revlist = ReversalListController.GET_ALLPY(year);
+            
+            }
             return new JsonResult
             {
                 Data = revlist,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        public JsonResult GetA()
+        public JsonResult GetA(string type, int month, int year)
         {
+           
             List<ReversalList> revlist = default(List<ReversalList>);
-            revlist = ReversalListController.GET_ALLA();
+            if (type.ToUpper() == "MONTHLY")
+            {
+                revlist = ReversalListController.GET_ALLA(month, year);
+               
+            }
+            else
+            {
+                revlist = ReversalListController.GET_ALLAY(year);
+         
+            }
             return new JsonResult
             {
                 Data = revlist,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        public JsonResult GetD()
+        public JsonResult GetD(string type, int month, int year)
         {
             List<ReversalList> revlist = default(List<ReversalList>);
-            revlist = ReversalListController.GET_ALLD();
+            if (type.ToUpper() == "MONTHLY")
+            {
+                revlist = ReversalListController.GET_ALLD(month, year);
+  
+            }
+            else
+            {
+                revlist = ReversalListController.GET_ALLDY(year);
+               
+            }
             return new JsonResult
             {
                 Data = revlist,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        public JsonResult GetC()
+        public JsonResult GetC(string type, int month, int year)
         {
+            Session["type"] = type;
+            Session["month"] = month;
+            Session["year"] = year;
             List<ReversalList> revlist = default(List<ReversalList>);
-            revlist = ReversalListController.GET_ALLC();
+            if (type.ToUpper() == "MONTHLY")
+            {
+                revlist = ReversalListController.GET_ALLC(month, year);              
+            }
+            else
+            {
+                revlist = ReversalListController.GET_ALLCY(year);
+                            
+            }
             return new JsonResult
             {
                 Data = revlist,
