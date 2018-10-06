@@ -112,7 +112,30 @@
             font-size: 18px;
             cursor: pointer;
         }
+        .sample {
+            :: -webkit-scrollbar
 
+        {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: white;
+            }
+        }
         /*span.count {
             background-color: #fa3e3e;
             border-radius: 2px;
@@ -178,7 +201,7 @@
 
                             <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span id="bellspan"></span></a>
 
-                            <ul class="dropdown-menu" id="hello" style="height: 300px;width: 300px;overflow: auto;"></ul>
+                            <ul class="dropdown-menu sample" id="hello" style="height: 300px;width: 300px;overflow: auto; "></ul>
 
                         </li>
                        
