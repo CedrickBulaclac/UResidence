@@ -112,21 +112,49 @@ namespace UResidence.Controllers
         {
             bool status = false;
             string name = (Session["Fullname"]).ToString();
-            Reversal reversal = new Reversal
+            if (data.Description != null && data.Description != "")
             {
-                RefNo=data.RefNo,
-                Amount=data.Amount,
-                Description=data.Description,
-                Status=data.Status,
-                CreatedBy=name,
-                ApprovedBy="None"
-            };
-            status = ReversalController.Insert(reversal);
-            return new JsonResult
+                List<Reversal> re = default(List<Reversal>);
+                re = UResidence.ReversalController.GET_ALL(data.RefNo);
+                if (re.Count == 0)
+                {
+                    Reversal reversal = new Reversal
+                    {
+                        RefNo = data.RefNo,
+                        Amount = data.Amount,
+                        Description = data.Description,
+                        Status = data.Status,
+                        CreatedBy = name,
+                        ApprovedBy = "None"
+                    };
+                    status = ReversalController.Insert(reversal);
+                    Reservation rese = new Reservation
+                    {
+                        Status = "Cancelled",
+                        Id=data.RefNo
+                    };
+                    status = ReservationController.Update(rese);
+                    return new JsonResult
+                    {
+                        Data = status,
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                    };
+                }
+                else
+                {
+                    string b = "failed";
+                    return new JsonResult
+                    {
+                        Data = b,
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                    };
+                }
+            }
+            else
             {
-                Data = status,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
+                 status = false;
+                return new JsonResult { Data = status };
+            }
 
         }
         public JsonResult SwimmingInfo(int refno1)
@@ -156,6 +184,13 @@ namespace UResidence.Controllers
         // GET: Calendar
         public ActionResult CalendarView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }

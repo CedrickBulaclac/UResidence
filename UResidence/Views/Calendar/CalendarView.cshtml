@@ -137,7 +137,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <b>Total Payment:</b> <label id="tpr" name="tpr"></label>
+                            <b>Total Payment: </b> <label id="tpr" name="tpr"></label>
                             <br /><br />
                             <b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0" required />
                             <br /><br />
@@ -323,7 +323,7 @@
                 var refno = document.getElementById('rfid').value;
                 var payment = document.getElementById('dp').value;
                 var q = new Date();
-                var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+                var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
                 var description = document.getElementById('pdescription').value;
                 var name = "@Session["Fullname"]";
 
@@ -565,102 +565,112 @@
             var data = {               
                 RFId:rfid
             }            
-            $.ajax({
-                type: "GET",
-                url: "/calendar/Search",
-                data: data,
-                success: function (data) {
-                    if (data != null) {
-                        document.getElementById('searchId').value='';
-                        if (data[0].AName == 'SwimmingPool') {
+			$.ajax({
+				type: "GET",
+				url: "/calendar/Search",
+				data: data,
+				success: function (data) {
+					if (data != null) {
+						document.getElementById('searchId').value = '';
+						if (data[0].AName == 'SwimmingPool') {
 							$('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
 							var $description = $('<div/>');
 							$description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
-                            $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
-                            $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
-                            $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
-                            $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<button type="button" class="btn btn-link" id="viewDetails" name="viewDetails" data-dismiss="modal" onclick="View(' + data[0].SRId + ')">View Details</button>'));
-                            $description.append($('<p/>').html('<b>Table Quantity: </b>' + data[0].TableQuantity));
-                            $description.append($('<p/>').html('<b>Table Cost: </b>' + data[0].TableCost));
-                            $description.append($('<p/>').html('<b>Chair Quantity: </b>' + data[0].ChairQuantity));
-                            $description.append($('<p/>').html('<b>Chair Cost: </b>' + data[0].ChairCost));
-                            $description.append($('<p/>').html('<b>Charge: </b>' + data[0].Charge));
-                            $description.append($('<p/>').html('<b>Total Cost: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge))));
-                            $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (data[0].Amount)));
-                            $description.append($('<p/>').html('<b>Total Payment: </b>' + (data[0].Total - data[0].Amount)));
-                            $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge) - (data[0].Total - data[0].Amount))));
-                            $description.append($('<p/>').html('<b>Status: </b>' + data[0].Status));
-                            document.getElementById('mySelect').value = data[0].Status;
-                            document.getElementById('rid').value = data[0].RId;
-                            document.getElementById('rfid').value = data[0].RFId;
-                            document.getElementById('cg').innerHTML = data[0].Chage;
-                            document.getElementById('cg').innerHTML = data[0].Charge;
+							$description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
+							$description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
+							$description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
+							$description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<button type="button" class="btn btn-link" id="viewDetails" name="viewDetails" data-dismiss="modal" onclick="View(' + data[0].SRId + ')">View Details</button>'));
+							$description.append($('<p/>').html('<b>Table Quantity: </b>' + data[0].TableQuantity));
+							$description.append($('<p/>').html('<b>Table Cost: </b>' + data[0].TableCost));
+							$description.append($('<p/>').html('<b>Chair Quantity: </b>' + data[0].ChairQuantity));
+							$description.append($('<p/>').html('<b>Chair Cost: </b>' + data[0].ChairCost));
+							$description.append($('<p/>').html('<b>Charge: </b>' + data[0].Charge));
+							$description.append($('<p/>').html('<b>Total Cost: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge))));
+							$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (data[0].Amount)));
+							$description.append($('<p/>').html('<b>Total PaymentPayment: </b>' + (data[0].Total - data[0].Amount)));
+							var outstanding1 = ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge) - (data[0].Total - data[0].Amount));
+							if (outstanding1 < 0) {
+								outstanding1 *= -1;
+							}
 
-                            if (data[0].typeResident == "Owner") {
-                                document.getElementById('oid').value = data[0].OwnerId;
+							$description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
+							$description.append($('<p/>').html('<b>Status: </b>' + data[0].Status));
+							document.getElementById('mySelect').value = data[0].Status;
+							document.getElementById('rid').value = data[0].RId;
+							document.getElementById('rfid').value = data[0].RFId;
+							document.getElementById('cg').innerHTML = data[0].Chage;
+							document.getElementById('cg').innerHTML = data[0].Charge;
 
-                            }
-                            else {
-                                document.getElementById('oid').value = data[0].TenantId;
+							if (data[0].typeResident == "Owner") {
+								document.getElementById('oid').value = data[0].OwnerId;
 
-                            }
-                            document.getElementById('typeid').value = data[0].typeResident;
-                            totalpay = data[0].Total;
-                            document.getElementById('tpr').innerHTML = data[0].Total;
-                            $('#myModal #pDetails').empty().html($description);
+							}
+							else {
+								document.getElementById('oid').value = data[0].TenantId;
 
-                            $('#myModal').modal();
-                        }
+							}
+							document.getElementById('typeid').value = data[0].typeResident;
+							totalpay = data[0].Total;
+							document.getElementById('tpr').innerHTML = data[0].Total;
+							$('#myModal #pDetails').empty().html($description);
+							downp = outstanding1;
+							$('#myModal').modal();
+						}
 
-                        else {
-                            document.getElementById('searchId').value = '';
+						else {
+							document.getElementById('searchId').value = '';
 							$('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
 							var $description = $('<div/>');
 							$description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
-                            $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
-                            $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
-                            $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
-                            $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate));
-                            $description.append($('<p/>').html('<b>Table Quantity: </b>' + data[0].TableQuantity));
-                            $description.append($('<p/>').html('<b>Table Cost: </b>' + data[0].TableCost));
-                            $description.append($('<p/>').html('<b>Chair Quantity: </b>' + data[0].ChairQuantity));
-                            $description.append($('<p/>').html('<b>Chair Cost: </b>' + data[0].ChairCost));
-                            $description.append($('<p/>').html('<b>Charge: </b>' + data[0].Charge));
-                            $description.append($('<p/>').html('<b>Total Cost: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge))));
-                            $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (data[0].Amount)));
-                            $description.append($('<p/>').html('<b>Total Payment: </b>' + (data[0].Total - data[0].Amount)));
-                            $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge) - (data[0].Total - data[0].Amount))));
-                            $description.append($('<p/>').html('<b>Status: </b>' + data[0].Status));
-                            document.getElementById('mySelect').value = data[0].Status;
-                            document.getElementById('rid').value = data[0].RId;
-                            document.getElementById('rfid').value = data[0].RFId;
-                            document.getElementById('cg').innerHTML = data[0].Chage;
-                            document.getElementById('cg').innerHTML = data[0].Charge;
-                            totalpay = data[0].Total;
+							$description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
+							$description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
+							$description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
+							$description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
+							$description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate));
+							$description.append($('<p/>').html('<b>Table Quantity: </b>' + data[0].TableQuantity));
+							$description.append($('<p/>').html('<b>Table Cost: </b>' + data[0].TableCost));
+							$description.append($('<p/>').html('<b>Chair Quantity: </b>' + data[0].ChairQuantity));
+							$description.append($('<p/>').html('<b>Chair Cost: </b>' + data[0].ChairCost));
+							$description.append($('<p/>').html('<b>Charge: </b>' + data[0].Charge));
+							$description.append($('<p/>').html('<b>Total Cost: </b>' + ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge))));
+							$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (data[0].Amount)));
+							$description.append($('<p/>').html('<b>Total Payment: </b>' + (data[0].Total - data[0].Amount)));
+							var outstanding1 = ((data[0].Rate + data[0].TableCost + data[0].ChairCost + data[0].Charge) - (data[0].Total - data[0].Amount));
+							if (outstanding1 < 0) {
+								outstanding1 *= -1;
+							}
+							$description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
+							$description.append($('<p/>').html('<b>Status: </b>' + data[0].Status));
+							document.getElementById('mySelect').value = data[0].Status;
+							document.getElementById('rid').value = data[0].RId;
+							document.getElementById('rfid').value = data[0].RFId;
+							document.getElementById('cg').innerHTML = data[0].Chage;
+							document.getElementById('cg').innerHTML = data[0].Charge;
+							totalpay = data[0].Total;
 
-                            if (data[0].typeResident == "Owner") {
-                                document.getElementById('oid').value = data[0].OwnerId;
+							if (data[0].typeResident == "Owner") {
+								document.getElementById('oid').value = data[0].OwnerId;
 
-                            }
-                            else {
-                                document.getElementById('oid').value = data[0].TenantId;
+							}
+							else {
+								document.getElementById('oid').value = data[0].TenantId;
 
-                            }
-                            document.getElementById('typeid').value = data[0].typeResident;
-                            totalpay = data[0].Total;
-                            document.getElementById('tpr').innerHTML = data[0].Total;
-                            $('#myModal #pDetails').empty().html($description);
+							}
+							downp = outstanding1;
+							document.getElementById('typeid').value = data[0].typeResident;
+							totalpay = data[0].Total;
+							document.getElementById('tpr').innerHTML = data[0].Total;
+							$('#myModal #pDetails').empty().html($description);
 
-                            $('#myModal').modal();
-                        }
-                    }
+							$('#myModal').modal();
+						}
+					}
                     else {
-                        alert("No Record Found");
-                    }
+					alert("No Record Found");
+				}	
                 },
                 error: function (error) {
                     alert('failed');
@@ -758,7 +768,11 @@
 								$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
 								$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
 								$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
-								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
+								var outstanding1 = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								if (outstanding1 < 0) {
+									outstanding1 *= -1;
+								}
+								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
 								$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
 								//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
 								document.getElementById('mySelect').value = calEvent.status;
@@ -768,7 +782,7 @@
                                 document.getElementById('cg').innerHTML = calEvent.cg;
                                 document.getElementById('cg').innerHTML = calEvent.cg;
 
-								 downp = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								 downp = outstanding1;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
 
@@ -808,7 +822,11 @@
 								$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
 								$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
 								$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
-								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
+								var outstanding1 = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								if (outstanding1 < 0) {
+									outstanding1 *= -1;
+								}
+								$description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
 								$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
 								//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
 								document.getElementById('mySelect').value = calEvent.status;
@@ -817,7 +835,7 @@
 								document.getElementById('rfid').value = calEvent.rf;
 								document.getElementById('cg').innerHTML = calEvent.cg;
 
-								 downp = ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt));
+								downp = outstanding1;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
 
@@ -843,39 +861,52 @@
 
             function AddReversal() {
                 var refno = document.getElementById('rfid').value;
-                var ar = document.getElementById('atr').value;
+				var ar = document.getElementById('atr').value;
+				var tp =document.getElementById('tpr').value;
                 var desc = document.getElementById('rdescription').value;
-                var select = 'Pending';
+				var select = 'Pending';
+					if (ar == totalpay) {
+						var data = {
+							RefNo: refno,
+							Description: desc,
+							Status: select,
+							Amount: ar,
+							
+						}
+						$.ajax({
+							type: 'POST',
+							url: '/Calendar/AddReversal',
+							data: data,
+							success: function (data) {
+								if (data == true) {
+									RefreshCalendar();
+									alert('Success');
+									window.location.reload();
+									$('#myModal').modal();
+								}
+								else if (data == "failed")
+								{
+									alert("There is an Existing Process. \nReversal on this account is in the process.");
+								}
+								else {
+									alert("Description is blank");
+								}
+							
+							},
+							error: function (error) {
+								alert("Failed to Insert Record");
+							}
 
-                    if (ar <= totalpay) {
-                        var data = {
-                            RefNo: refno,
-                            Description: desc,
-                            Status: select,
-                            Amount: ar
-                        }
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Calendar/AddReversal',
-                            data: data,
-                            success: function (data) {
-                                RefreshCalendar();
-                                alert('Success');
-                                window.location.reload();
-                                $('#myModal').modal();
-                            },
-                            error: function (error) {
-                                alert("Failed to Insert Record");
-                            }
 
 
+						});
+					}
 
-                        });
-                    }
-
-                else {
-                    alert('Amount to Return should be Less than or Equal of the Total payment')
-                }
+					else
+					{
+						alert('Amount to Return should be Equal of the Total payment')
+					}
+				
 
 
             }
@@ -986,6 +1017,7 @@
 				&& e.keyCode != 8
 			) {
 				e.preventDefault();
+				
 				document.getElementById('dp').setAttribute('max', downp);
 				$(this).val(downp);
 			}

@@ -108,6 +108,13 @@ namespace UResidence.Controllers
 
         public ActionResult SuperAdminView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Admin> adminList = UResidence.AdminController.GetAll();
             return View(adminList);
         }
@@ -115,6 +122,13 @@ namespace UResidence.Controllers
 
         public ActionResult SuperAdminAdd()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
 
@@ -197,6 +211,13 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult SuperAdminEdit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if (ModelState.IsValid)
             {

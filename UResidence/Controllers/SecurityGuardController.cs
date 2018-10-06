@@ -46,10 +46,24 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public ActionResult Home()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public static string Hash(string p)
@@ -128,6 +142,13 @@ namespace UResidence.Controllers
         }
         public ActionResult SecurityGuardView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Admin> adminList = UResidence.AdminController.GetAllSecurity();
             return View(adminList);
         }
@@ -155,6 +176,13 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if (ModelState.IsValid)
             {

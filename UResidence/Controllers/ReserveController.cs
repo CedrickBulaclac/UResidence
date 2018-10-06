@@ -81,10 +81,26 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
+            
+           
+
             int balance = 0;
             List<Billing> billing = new List<Billing>();
             int uid = Convert.ToInt32(Session["UID"]);
             string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             if (type == "Owner")
             {
                 billing = UResidence.BillingController.GetOwner(uid);
@@ -122,7 +138,7 @@ namespace UResidence.Controllers
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
-            if(aname.ToUpper()=="SWIMMING POOL")
+            if (aname.ToUpper().Contains("SWIMMING"))
             {
                 int child = Convert.ToInt32(fc["ratec"]);
                 int adult = Convert.ToInt32(fc["rateaa"]);
@@ -138,6 +154,20 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;              
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;             
+            }
             Session["aa"] = 1;
             ViewBag.Amenity=(Session["NAME"]).ToString();
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -145,6 +175,20 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Date()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
@@ -163,7 +207,7 @@ namespace UResidence.Controllers
                 Session["drate"] = drate;
                 int aid = Convert.ToInt32(Session["ID"]);
 
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
@@ -186,7 +230,7 @@ namespace UResidence.Controllers
                 Session["drate"] = drate;
                 int aid = Convert.ToInt32(Session["ID"]);
 
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
@@ -202,8 +246,22 @@ namespace UResidence.Controllers
             }           
         }
         public ActionResult Choose_Equipment()
-        {        
-                ViewBag.Amenity = (Session["NAME"]).ToString();
+        {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
+            ViewBag.Amenity = (Session["NAME"]).ToString();
                 int[] eqpid;
                 List<int> qid = new List<int>();
                 string sd = (string)Session["sd"];
@@ -249,6 +307,20 @@ namespace UResidence.Controllers
         }
         public ActionResult Summary()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
@@ -308,7 +380,7 @@ namespace UResidence.Controllers
                 string tor = (string)Session["TOR"];
                 int UserId = (int)Session["UID"];         
                 string fullname = "";
-                if (amenityname == "Swimming Pool" || amenityname == "SWIMMING POOL")
+                if (amenityname.ToUpper().Contains("SWIMMING"))
                 {
                     Swimming swim = new Swimming
                     {
@@ -416,6 +488,20 @@ namespace UResidence.Controllers
 
         public ActionResult Swimming()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
         }
@@ -466,6 +552,20 @@ namespace UResidence.Controllers
 
         public ActionResult CalendarViewOT()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             Session["aa"] = 1;
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
@@ -478,7 +578,7 @@ namespace UResidence.Controllers
             ReportDocument rd = new ReportDocument();
             if (data[0].TypeResident == "Owner")
             {
-                if ((data[0].AmenityName).ToUpper() == "SWIMMING POOL")
+                if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
                 {
                     rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReserveSwimmingO.rpt"));
                 }

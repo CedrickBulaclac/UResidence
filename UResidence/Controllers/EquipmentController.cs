@@ -14,6 +14,14 @@ namespace UResidence.Controllers
         // GET: Equipment
         public ActionResult Registration()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
 
@@ -168,6 +176,14 @@ namespace UResidence.Controllers
 
         public ActionResult EquipmentView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Equipment> equipmentList = UResidence.EquipmentController.GetAll();
             return View(equipmentList);
         }
@@ -195,9 +211,17 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult EquipmentEdit(int eno)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             //if (ModelState.IsValid)
             //{
-                Equipment equipmentList = default(Equipment);
+            Equipment equipmentList = default(Equipment);
                 equipmentList = UResidence.EquipmentController.GetbyId(eno);
                 return View(equipmentList);
             //}

@@ -18,6 +18,19 @@ namespace UResidence.Controllers
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
+                Owner a = new Owner();
+                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
+            if (type == "Owner")
+            {
                 billing = UResidence.BillingController.GetOwner(uid);
                 ret = UResidence.BillingListController.GetAllO(uid);
             }

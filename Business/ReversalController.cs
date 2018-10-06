@@ -48,7 +48,7 @@ namespace UResidence
         }
         public static bool Insert(Reversal ret)
         {
-            const string GET_INSERT = @"insert [tbReversal] (RefNo,Description,Status,CreatedBy,Amount,ApprovedBy) values (@RefNo,@Description,@Status,@CreatedBy,@Amount,@ApprovedBy) ";
+            const string GET_INSERT = @"insert [tbReversal] (RefNo,Description,Status,CreatedBy,Amount,ApprovedBy,Date) values (@RefNo,@Description,@Status,@CreatedBy,@Amount,@ApprovedBy,GETDATE()) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@RefNo", ret.RefNo));

@@ -14,6 +14,13 @@ namespace UResidence.Controllers
         // GET: ReservationRecord
         public ActionResult Record()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public string RemoveWhitespace(string str)

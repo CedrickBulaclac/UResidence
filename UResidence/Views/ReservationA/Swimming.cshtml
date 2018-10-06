@@ -143,7 +143,7 @@
 						</div>
 						<div class="w3-half">
 							<label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
-							<input type="text" class="w3-input" name="rateadult" id="rateadult" readonly>
+							<input type="text" class="w3-input" name="rateadult" id="rateadult"  readonly>
 						</div>
 					</div>
 
@@ -240,8 +240,8 @@
 	var rateA;
 	var statuset="Valid";
     var statusst = "Valid";
-    document.getElementById('rateadult').value = 100;
-    document.getElementById('ratechild').value = 75;
+    document.getElementById('rateadult').value = @Session["adult"];
+    document.getElementById('ratechild').value = @Session["child"];
 
 
 	function ValidateDate() {

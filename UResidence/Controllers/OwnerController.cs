@@ -22,6 +22,14 @@ namespace UResidence.Controllers
         // GET: Owner
         public ActionResult OwnerAdd()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         private void SendEmail(string email1, string pass)
@@ -254,6 +262,14 @@ namespace UResidence.Controllers
         }
         public ActionResult OwnerView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Owner> ownerList = UResidence.OwnerController.GetAll();
             return View(ownerList);
         }
@@ -285,6 +301,14 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult OwnerEdit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if (ModelState.IsValid)
             {

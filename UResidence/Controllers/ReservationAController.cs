@@ -13,6 +13,14 @@ namespace UResidence.Controllers
         private bool status = false;
         public ActionResult SelectAmenity()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
             List<Equipment> equipList = UResidence.EquipmentController.GetAll();
@@ -53,7 +61,15 @@ namespace UResidence.Controllers
             //}
             //else
             //{
-                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
                 return View(amenityList);
             //}
         }
@@ -69,7 +85,7 @@ namespace UResidence.Controllers
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["NAME"] = aname;
-            if (aname.ToUpper() == "SWIMMING POOL")
+            if (aname.ToUpper().Contains("SWIMMING"))
             {
                 int child = Convert.ToInt32(fc["ratec"]);
                 int adult = Convert.ToInt32(fc["rateaa"]);
@@ -88,6 +104,14 @@ namespace UResidence.Controllers
 
         public ActionResult Calendar()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);         
@@ -96,6 +120,14 @@ namespace UResidence.Controllers
 
         public ActionResult Choose_Date()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
@@ -157,6 +189,14 @@ namespace UResidence.Controllers
 
         public ActionResult Choose_Equipment()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             ViewBag.Amenity = (Session["NAME"]).ToString();
             int[] eqpid;
             List<int> qid = new List<int>();
@@ -207,6 +247,14 @@ namespace UResidence.Controllers
 
         public ActionResult Summary()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
@@ -267,7 +315,7 @@ namespace UResidence.Controllers
                 string tor = (string)Session["TORA"];
                 int UserId = (int)Session["UIDA"];
                 string fullname = "";
-                if (amenityname == "Swimming Pool" || amenityname == "SWIMMING POOL")
+                if (amenityname.ToUpper().Contains("SWIMMING"))
                 {
                     Swimming swim = new Swimming
                     {
@@ -358,6 +406,14 @@ namespace UResidence.Controllers
 
         public ActionResult Swimming()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
             return View();
         }
@@ -410,6 +466,14 @@ namespace UResidence.Controllers
 
         public ActionResult SelectOT()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
@@ -555,6 +619,14 @@ namespace UResidence.Controllers
 
 
         public ActionResult CalendarReservationAdmin() {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }

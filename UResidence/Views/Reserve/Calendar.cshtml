@@ -130,25 +130,25 @@
 </div>
 <br />
 <div id="next" class="container">
-    @if (ViewBag.Amenity == "Swimming Pool" || ViewBag.Amenity == "SWIMMING POOL")
-    {
-        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
-    }
-    else
-    {
-        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
-    }
-    <label><b>Legends</b></label>
-    @foreach (Amenity amn in Model)
-    {
-        <div class='my-legend'>
-            <div class='legend-scale'>
-                <ul class='legend-labels'>
-                    <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-                </ul>
-            </div>
-        </div>
-    }
+	@if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
+	{
+		<font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
+	}
+	else
+	{
+		<font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
+	}
+	<label><b>Legends</b></label>
+	@foreach (Amenity amn in Model)
+	{
+		<div class='my-legend'>
+			<div class='legend-scale'>
+				<ul class='legend-labels'>
+					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+				</ul>
+			</div>
+		</div>
+	}
 </div>
 <div id="calendar" class="container">
 

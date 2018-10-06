@@ -45,6 +45,13 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration_Cashier()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
         public static string Hash(string p)
@@ -123,6 +130,13 @@ namespace UResidence.Controllers
         }
         public ActionResult ViewCashier()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Admin> adminList = UResidence.AdminController.GetAllCashier();
             return View(adminList);
         }
@@ -151,6 +165,13 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult CashierEdit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if (ModelState.IsValid)
             {

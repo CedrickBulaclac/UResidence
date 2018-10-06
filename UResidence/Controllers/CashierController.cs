@@ -11,6 +11,13 @@ namespace UResidence.Controllers
         // GET: Cashier
         public ActionResult Calendar()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }

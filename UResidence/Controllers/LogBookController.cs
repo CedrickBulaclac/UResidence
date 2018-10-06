@@ -13,6 +13,13 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = UResidence.LogbookController.GET_ALL();
             return View(logbookList);
@@ -78,6 +85,13 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Logbook> log = new List<Logbook>();
             log = UResidence.LogbookController.GET_ALL();
             return View(log);

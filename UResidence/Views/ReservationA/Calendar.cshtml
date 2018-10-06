@@ -123,7 +123,7 @@
 </div>
 <br />
 <div id="next" class="container">
-	@if (ViewBag.Amenity == "Swimming Pool" || ViewBag.Amenity == "SWIMMING POOL")
+	@if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
 	{
 		<font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "ReservationA")">NEXT</a></font>
 	}

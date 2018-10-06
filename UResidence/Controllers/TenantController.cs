@@ -21,6 +21,14 @@ namespace UResidence.Controllers
         // GET: Tenant
         public ActionResult TenantAdd()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
 
@@ -496,6 +504,14 @@ namespace UResidence.Controllers
         
         public ActionResult TenantView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Tenant> tenantList = UResidence.TenantController.GetAll();
             return View(tenantList);      
         }
@@ -528,6 +544,14 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult TenantEdit(int id)
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             string i = id.ToString();
             if(ModelState.IsValid)
             {

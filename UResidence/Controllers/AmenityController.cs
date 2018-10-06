@@ -14,6 +14,14 @@ namespace UResidence.Controllers
         // GET: Amenity
         public ActionResult AmenityAdd()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
 
@@ -182,6 +190,14 @@ namespace UResidence.Controllers
 
         public ActionResult AmenityView()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
@@ -238,7 +254,15 @@ namespace UResidence.Controllers
         }
         [HttpGet]
         public ActionResult AmenityEdit(int id)
-        {          
+        {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             Amenity amn = default(Amenity);
             amn = UResidence.AmenityController.GetbyId(id);
             return View(amn);
@@ -465,6 +489,14 @@ namespace UResidence.Controllers
 
 
         public ActionResult AmenityAddPool() {
+            int level = Convert.ToInt32(Session["Level"]);
+
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
             return View();
         }
 

@@ -12,6 +12,13 @@ namespace UResidence.Controllers
         // GET: AccountSetting
         public ActionResult AdminAccountSetting()
         {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin c = new Admin();
+                c = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = c.URL;
+            }
             string pass =(string) Session["pass"];
             
             string RType =(string) Session["TOR"];
@@ -155,7 +162,21 @@ namespace UResidence.Controllers
         }
 
             public ActionResult OwnerAccountSetting()
-        {
+            {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner b = new Owner();
+                b = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = b.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             Session["aa"] = 1;
             string RType = (string)Session["TOR"];
             ViewBag.Type = RType;
@@ -227,6 +248,20 @@ namespace UResidence.Controllers
         }
             public ActionResult TenantAccountSetting()
         {
+            string type = (Session["TOR"]).ToString();
+            if (type == "Owner")
+            {
+                Owner b = new Owner();
+                b = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                Session["URLL"] = b.URL;
+            }
+
+            else
+            {
+                Tenant t = new Tenant();
+                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                Session["URLL"] = t.URL;
+            }
             Session["aa"] = 1;
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
