@@ -199,50 +199,68 @@ namespace UResidence.Controllers
             string nameamenity = (Session["NAME"]).ToString();
             if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
-                string sd = Convert.ToString(fc["stime"]);
-                string ed = Convert.ToString(fc["etime"]);
-                Session["sd"] = sd;
-                Session["ed"] = ed;
-                string drate = fc["tratee"];
-                Session["drate"] = drate;
-                int aid = Convert.ToInt32(Session["ID"]);
-
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
-                if (schedList.Count > 0)
+                string result = Convert.ToString(fc["result"]);
+                if (result != "1")
                 {
-                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    return View();
+                    string sd = Convert.ToString(fc["stime"]);
+                    string ed = Convert.ToString(fc["etime"]);
+                    Session["sd"] = sd;
+                    Session["ed"] = ed;
+                    string drate = fc["tratee"];
+                    Session["drate"] = drate;
+                    int aid = Convert.ToInt32(Session["ID"]);
+
+                    List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
+                    if (schedList.Count > 0)
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                        return View();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Choose_Equipment", "Reserve");
+                    }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Successful')</script>");
-                    return RedirectToAction("Choose_Equipment", "Reserve");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
                 }
             }
             else
             {
-                string sd = Convert.ToString(fc["stime"]);
-                string ed = Convert.ToString(fc["etime"]);
-                Session["sd"] = sd;
-                Session["ed"] = ed;
-                string drate = fc["tratee"];
-                Session["drate"] = drate;
-                int aid = Convert.ToInt32(Session["ID"]);
-
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
-                if (schedList.Count > 0)
+                string result = Convert.ToString(fc["result"]);
+                if (result != "1")
                 {
-                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    return View();
+                    string sd = Convert.ToString(fc["stime"]);
+                    string ed = Convert.ToString(fc["etime"]);
+                    Session["sd"] = sd;
+                    Session["ed"] = ed;
+                    string drate = fc["tratee"];
+                    Session["drate"] = drate;
+                    int aid = Convert.ToInt32(Session["ID"]);
+
+                    List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
+                    if (schedList.Count > 0)
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                        return View();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Summary", "Reserve");
+                    }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Successful')</script>");
-                    return RedirectToAction("Summary", "Reserve");
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
                 }
-               
+
             }           
         }
         public ActionResult Choose_Equipment()

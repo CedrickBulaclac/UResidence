@@ -50,7 +50,7 @@ namespace UResidence
             ret.Status = RemoveWhitespace(reader.GetString(10));
             ret.Color = RemoveWhitespace(reader.GetString(11));
             ret.AId = reader.GetInt32(12);
-            ret.AName = RemoveWhitespace(reader.GetString(13));
+            ret.AName =reader.GetString(13);
             ret.BldgNo = RemoveWhitespace(reader.GetString(14));
             ret.UnitNo = RemoveWhitespace(reader.GetString(15));         
             ret.ChairCost= reader.GetInt32(16);

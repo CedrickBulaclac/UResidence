@@ -140,7 +140,10 @@ namespace UResidence.Controllers
             string nameamenity = (Session["NAME"]).ToString();
             if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
-                string sd = fc["stime"];
+                string result = Convert.ToString(fc["result"]);
+                if (result != "1")
+                {
+                    string sd = fc["stime"];
                 string ed = fc["etime"];
                 Session["sd"] = sd;
                 Session["ed"] = ed;
@@ -148,7 +151,7 @@ namespace UResidence.Controllers
                 Session["drate"] = drate;
                 int aid = Convert.ToInt32(Session["ID"]);
 
-                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll(sd, ed, aid);
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllChoose(sd, ed, aid);
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
@@ -157,13 +160,22 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    Response.Write("<script>alert('Successful')</script>");
+                    Response.Write("<scripxt>alert('Successful')</script>");
                     return RedirectToAction("Choose_Equipment", "ReservationA");
+                }
+                 }
+                else
+                {
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
                 }
             }
             else
             {
-                string sd = Convert.ToString(fc["stime"]);
+                string result = Convert.ToString(fc["result"]);
+                if (result != "1")
+                {
+                    string sd = Convert.ToString(fc["stime"]);
                 string ed = Convert.ToString(fc["etime"]);
                 Session["sd"] = sd;
                 Session["ed"] = ed;
@@ -182,6 +194,12 @@ namespace UResidence.Controllers
                 {
                     Response.Write("<script>alert('Successful')</script>");
                     return RedirectToAction("Summary", "ReservationA");
+                }
+                }
+                else
+                {
+                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    return View();
                 }
             }
         }

@@ -33,25 +33,45 @@ namespace UResidence.Controllers
         {
             if (receipt.Description != null && receipt.Description != "")
             {
-
-                bool status = false;
-                status = ReceiptController.Insert(receipt);
-                if (status == true)
+                Amenity amen = new Amenity();
+                amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
+                List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                if (schedList.Count == 0)
                 {
+                    bool status = false;
+                    status = ReceiptController.Insert(receipt);
+                    if (status == true)
+                    {
+
+                        Reservation reservation = new Reservation
+                        {
+                            Status = "Reserved",
+                            Id = receipt.RefNo,
+                        };
+                        status = ReservationController.Update(reservation);
+                    }
+                    return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+                else
+                {
+
                     Reservation reservation = new Reservation
                     {
-                        Status = "Reserved",
+                        Status = "Cancelled",
                         Id = receipt.RefNo,
                     };
-                    status = ReservationController.Update(reservation);
+                    bool status = ReservationController.Update(reservation);
+                    string b = "failed";
+                    return new JsonResult { Data = b };
                 }
-                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            }
-            else
-            {
+
+            }      
+             else
+                {
                 bool status = false;
-                return new JsonResult { Data = status};
+                return new JsonResult { Data = status };
             }
+
         }
         public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc,Notification data)
         {
@@ -146,7 +166,7 @@ namespace UResidence.Controllers
                     return new JsonResult
                     {
                         Data = b,
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                        
                     };
                 }
             }

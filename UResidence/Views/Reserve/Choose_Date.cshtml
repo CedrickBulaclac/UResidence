@@ -203,15 +203,16 @@
                             <div class="w3-half w3-margin-bottom">
                                 <label> <i class="glyphicon glyphicon-ruble"> </i> Rate :</label>
 
-                                <font color="black">
-                                    <input type="text" id="rate" class="w3-input" disabled="disabled" />
+								<font color="black">
+									<input type="text" id="rate" class="w3-input" disabled="disabled" />
 
-                                    <input type="hidden" id="stime" name="stime" />
-                                    <input type="hidden" id="etime" name="etime" />
-                                    <input type="hidden" id="tratee" name="tratee" />
-                                    <input type="hidden" id="qwe" name="qwe" />
-                                    <input type="hidden" id="abc" name="abc" />
-                                </font>
+									<input type="hidden" id="stime" name="stime" />
+									<input type="hidden" id="etime" name="etime" />
+									<input type="hidden" id="tratee" name="tratee" />
+									<input type="hidden" id="result" name="result" />
+									<input type="hidden" id="qwe" name="qwe" />
+									<input type="hidden" id="abc" name="abc" />
+								</font>
                             </div>
                         </div>
 
@@ -274,7 +275,7 @@
 
 
 <script type="text/javascript">
-	var startTime;
+	var F;
 	var endTime;
 	var selectedValue;
 	var startT;
@@ -284,7 +285,10 @@
 	var rate1=@ViewBag.Message;
 	var rateA;
 	var statuset="Valid";
-    var statusst = "Valid";
+	var statusst = "Valid";
+
+
+	
   
 	function ValidateDate() {
 		var x = $('#sd').val();
@@ -325,6 +329,11 @@
 	}
 	$(document).ready(
 		function () {
+			document.getElementById('ed').value = "";
+			document.getElementById('sd').value = "";
+			document.getElementById('st').value = "";
+			document.getElementById('et').value = "";
+			document.getElementById('rate').value = "";
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
 				document.getElementById('ed').value = selectedValue;
@@ -358,36 +367,45 @@
 
             var startHours = parseInt(selectedValue.split(':')[0], 10);            
             if (startHours >= 8 && startHours <= 20) {
-                if (startHours == 17 && fhours == 18) {
-                    alert('5pm-6pm is not Available');
-                    document.getElementById('st').value = '';
-                    document.getElementById('et').value = '';
-                    document.getElementById('rate').value = 0;
-                }
-                else if (startHours >= 8 && startHours <= 17) {
+                //if (startHours == 17 && fhours == 18) {
+                //    alert('5pm-6pm is not Available');
+                //    document.getElementById('st').value = '';
+                //    document.getElementById('et').value = '';
+                //    document.getElementById('rate').value = 0;
+                //}
+               /* else*/ if (startHours >= 8 && startHours <= 17) { //8am to 5pm
                     var hourDiff = fhours - startHours;
                     rateA = rate1 * hourDiff;
                     document.getElementById('rate').value = rateA;
                 }
-                else if (startHours >= 18 && startHours <= 20) {
-
-                    var hourDiff = fhours - startHours;
-                    rateA = ((rate1 * 2) * hourDiff);
-                    document.getElementById('rate').value = rateA;
-                }
-                else {
-                    alert('5pm-6pm is not Available');
-                    document.getElementById('st').value = '';
-                    document.getElementById('et').value = '';
-                    document.getElementById('rate').value = 0;
-                }
+                else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
+					var hourDiff = fhours - startHours;
+					//100  *  2 = 200 * 6 = 1200
+						rateA = ((rate1 * 2) * hourDiff);
+						document.getElementById('rate').value = rateA;
+					
+                 
+				}
+				//else if (startHours <= 17 && endTime >= 18) {    //<=5pm && >=6pm
+				//	alert('hi');
+				//	var hourDiff = fhours - startHours;
+				//	rateA = (((rate1 * 2) + ((rate1 * hourDiff) - (rate1 * hourDiff))));
+				//			//rateA = ((rate1 * 2) + (rate1 * diff));
+				//	document.getElementById('rate').value = rateA;
+				//}
+                //else {
+                //    alert('5pm-6pm is not Available');
+                //    document.getElementById('st').value = '';
+                //    document.getElementById('et').value = '';
+                //    document.getElementById('rate').value = 0;
+                //}
             }
-            else {
-                alert("Reservation period is 8am-5pm and 6pm-9pm only");
-                document.getElementById('st').value = '';
-                document.getElementById('et').value = '';
-                document.getElementById('rate').value = 0;
-            }
+            //else {
+            //    alert("Reservation period is 8am-5pm and 6pm-9pm only");
+            //    document.getElementById('st').value = '';
+            //    document.getElementById('et').value = '';
+            //    document.getElementById('rate').value = 0;
+            //}
 
         });
     });
@@ -404,28 +422,71 @@
             var eh = parseInt(endHours.split(':')[0], 10);
             var diff = eh - sh;
             if (eh >= 9 && eh <= 21) {
-                if (sh == 17 && eh == 18) {
-                    alert('Unavailable Time');
-                    document.getElementById('st').value = '';
-                    document.getElementById('et').value = '';
-                    document.getElementById('rate').value = 0;
-                }
-                else if (eh >= 9 && eh <= 17  ) {                 
+                //if (sh == 17 && eh == 18) {
+                //    alert('Unavailable Time');
+                //    document.getElementById('st').value = '';
+                //    document.getElementById('et').value = '';
+                //    document.getElementById('rate').value = 0;
+                //}
+				/*else*/ if (eh >= 9 && eh <= 18) {                 
                     rateA = rate1 * diff;
                     document.getElementById('rate').value = rateA;
                 }
                 else if (eh >= 18 && eh <= 21) {
-                  
-                    rateA = ((rate1 * 2) * diff);
-                    document.getElementById('rate').value = rateA;
-                }            
-            }
-            else {
-                alert("Reservation period is 8am-5pm and 6pm-9pm only");
-                document.getElementById('st').value = '';
-                document.getElementById('et').value = '';
-                document.getElementById('rate').value = 0;
-            }
+					//rateA = ((rate1 * 2) * diff);
+					//document.getElementById('rate').value = rateA;
+
+
+
+					if (sh < 18) {
+			
+						if (eh == 20) {
+				
+							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
+							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100 = 400
+							rateA = (((rate1 * 2) * diff / 2 + (rate1 * 2)));
+							document.getElementById('rate').value = rateA;
+						}
+						else if (eh == 21) {
+				
+							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
+							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100*2 = 500
+							//100  *  2 =	200 * 4 = 800 / 2 = 400 + 100*3 = 700
+							rateA = (((rate1 * 2) * diff / 2 + (rate1 * 3)));
+							document.getElementById('rate').value = rateA;
+						}
+						else {
+						
+							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
+							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100 = 400
+							rateA = (((rate1 * 2) * diff / 2 + rate1));
+							document.getElementById('rate').value = rateA;
+						}
+					}
+					else {
+			
+						//100  *  2 = 200 * 6 = 1200
+						rateA = ((rate1 * 2) * diff);
+						document.getElementById('rate').value = rateA;
+					}
+				
+				}
+				//else if (sh <= 17 && eh >= 18) {    //<=5pm && >=6pm
+				//	alert('hi');
+				//	rateA = (((rate1 * 2) + ((rate1 * diff) - (rate1 * diff))));
+				//	//rateA = ((rate1 * 2) + (rate1 * diff));
+				//	document.getElementById('rate').value = rateA;
+				//}
+				
+			}
+
+			//else {
+			//	alert("Reservation period is 8am-5pm and 6pm-9pm only");
+			//	document.getElementById('st').value = '';
+			//	document.getElementById('et').value = '';
+			//	document.getElementById('rate').value = 0;
+			//}
+           
         });
     });
 
@@ -439,17 +500,49 @@
 
 
 	function Check() {
-		if (statusst == 'Valid' && statuset == 'Valid') {
-			var stconcat = startDate + " " + startTime;
-			var etconcat = endDate + " " + endTime;
-			var cdrate = rateA;
-			document.getElementById('stime').value = stconcat;
-			document.getElementById('etime').value = etconcat;
-			document.getElementById('tratee').value = cdrate;
+		if (startTime > endTime)
+		{
+			alert('Incorrect set of time');
+			document.getElementById('result').value = '1';
 		}
-		else {
-			alert('Invalid');
+		else if (startTime < 8 && startTime > 20)  //8am to 8pm
+		{
+			alert('Start of reserveration period is from 8am to 8pm only');
+			document.getElementById('result').value = '1';
 		}
+		else if (endTime < 9 && endTime > 21)  //9am to 9pm
+		{
+			alert('End of reserveration period is from 9am to 9pm only');
+			document.getElementById('result').value = '1';
+		}
+		else
+		{
+			if (statusst == 'Valid' && statuset == 'Valid') {
+				var stconcat = startDate + " " + startTime;
+				var etconcat = endDate + " " + endTime;
+				var cdrate = rateA;
+				document.getElementById('stime').value = stconcat;
+				document.getElementById('etime').value = etconcat;
+				document.getElementById('tratee').value = cdrate;
+			}
+			else {
+				alert('Invalid');
+			}
+			//alert('Success');
+		}
+
+
+
+		//else if (startTime == 17 && endTime == 18)
+		//{
+		//	alert('5pm to 6pm is not Available');
+		//}
+		
+
+
+
+
+
 	};
 
 

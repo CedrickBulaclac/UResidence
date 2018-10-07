@@ -319,20 +319,25 @@
 
 	<script>
 		var downp;
+		var startT;
+		var endT;
+		var an;
 		function AddPayment() {
                 var refno = document.getElementById('rfid').value;
                 var payment = document.getElementById('dp').value;
                 var q = new Date();
                 var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
                 var description = document.getElementById('pdescription').value;
-                var name = "@Session["Fullname"]";
-
+			var name = "@Session["Fullname"]";
                 var data1 = {
                     RefNo: refno,
                     Totalpayment: payment,
                     Date: MyDateString,
                     Description: description,
-                    CreatedBy: name
+					CreatedBy: name,
+					st: startT,
+					et: endT,
+					amen:an
                 };
 
 
@@ -349,7 +354,15 @@
 							//window.location.href = window.location.href + "?rnd=" + Math.random();
 							$('#myModal').modal();
 						}
-						else if (data == false) {
+						else if (data == "failed")
+						{
+
+							alert("There is an Exisiting Reservation");
+							RefreshCalendar();
+							window.location.reload();
+						}
+						else
+						{
 							alert("Description is blank");
 						}
 
@@ -602,7 +615,9 @@
 							document.getElementById('rfid').value = data[0].RFId;
 							document.getElementById('cg').innerHTML = data[0].Chage;
 							document.getElementById('cg').innerHTML = data[0].Charge;
-
+							startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
+							endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
+							an = data[0].AName;
 							if (data[0].typeResident == "Owner") {
 								document.getElementById('oid').value = data[0].OwnerId;
 
@@ -650,7 +665,9 @@
 							document.getElementById('cg').innerHTML = data[0].Chage;
 							document.getElementById('cg').innerHTML = data[0].Charge;
 							totalpay = data[0].Total;
-
+							startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
+							endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
+							an = data[0].AName;
 							if (data[0].typeResident == "Owner") {
 								document.getElementById('oid').value = data[0].OwnerId;
 
@@ -780,8 +797,10 @@
 								document.getElementById('rid').value = calEvent.r;
 								document.getElementById('rfid').value = calEvent.rf;
                                 document.getElementById('cg').innerHTML = calEvent.cg;
-                                document.getElementById('cg').innerHTML = calEvent.cg;
-
+								document.getElementById('cg').innerHTML = calEvent.cg;
+								startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
+								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
+								an = calEvent.title;
 								 downp = outstanding1;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
@@ -834,7 +853,9 @@
 								document.getElementById('rid').value = calEvent.r;
 								document.getElementById('rfid').value = calEvent.rf;
 								document.getElementById('cg').innerHTML = calEvent.cg;
-
+								startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
+								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
+								an = calEvent.title;
 								downp = outstanding1;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
