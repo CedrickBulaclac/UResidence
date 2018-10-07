@@ -128,7 +128,8 @@ namespace UResidence.Controllers
             }
             catch (Exception)
             {
-                throw;
+                Response.Write("<script>alert('No List');</script>");
+                return View("Record");
             }
         }
         public JsonResult GetP(string type,int month,int year)

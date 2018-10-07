@@ -18,6 +18,8 @@ namespace UResidence
         public DateTime st { get; set; }
         public DateTime et { get; set; }
         public string amen { get; set; }
+        public string status { get; set; }
+
         public void Reset()
         {
             this.ORNo = 0;

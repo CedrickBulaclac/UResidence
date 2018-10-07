@@ -444,7 +444,7 @@ namespace UResidence.Controllers
                         for (int i = 0; i <= equantity.Count() - 1; i++)
                         {
 
-                            if (Convert.ToInt32(equantity[i]) != 0)
+                            if (Convert.ToInt32(equantity[i]) != 0 || Convert.ToInt32(equantity[i]) == 0)
                             {
                                 EquipReservation er = new EquipReservation
                                 {

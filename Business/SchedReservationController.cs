@@ -50,7 +50,7 @@ namespace UResidence
         public static List<SchedReservation> GetAllC(DateTime sd, DateTime ed, int aid)
         {
             const string GET_ALL = @"SELECT sr.Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] sr inner join tbReservationForm rf on rf.SchedId=sr.Id  where Status='Reserved' and EndTime between @sd and @ed and AmenityId=@id";
-
+             
 
             List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_ALL);

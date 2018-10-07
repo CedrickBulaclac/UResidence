@@ -31,7 +31,18 @@ namespace UResidence
             return ret;
         }
 
-      
+        public static List<EquipReservation> Getr(int refno)
+        {
+            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM [tbEquipReservation] WHERE RefNo = @refno  order by EquipmentId";
+
+            List<EquipReservation> ret = default(List<EquipReservation>);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@refno", refno));
+            ret = SqlManager.Select<EquipReservation>(com);
+
+            return ret;
+        }
+
 
         public static bool Update(EquipReservation eqp)
         {

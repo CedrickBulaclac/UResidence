@@ -322,6 +322,7 @@
 		var startT;
 		var endT;
 		var an;
+		var status11;
 		function AddPayment() {
                 var refno = document.getElementById('rfid').value;
                 var payment = document.getElementById('dp').value;
@@ -337,10 +338,11 @@
 					CreatedBy: name,
 					st: startT,
 					et: endT,
-					amen:an
+					amen: an,
+					status: status11
                 };
 
-
+			
                 $.ajax({
                     type: "POST",
                     url: "/calendar/InsertPayment",
@@ -360,6 +362,10 @@
 							alert("There is an Exisiting Reservation");
 							RefreshCalendar();
 							window.location.reload();
+						}
+						else if (data == "a")
+						{
+							alert("Insufficient Equipment Stock");
 						}
 						else
 						{
@@ -618,6 +624,7 @@
 							startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
 							endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
 							an = data[0].AName;
+							status11 = data[0].Status
 							if (data[0].typeResident == "Owner") {
 								document.getElementById('oid').value = data[0].OwnerId;
 
@@ -668,6 +675,7 @@
 							startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
 							endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
 							an = data[0].AName;
+							status11 = data[0].Status
 							if (data[0].typeResident == "Owner") {
 								document.getElementById('oid').value = data[0].OwnerId;
 
@@ -735,7 +743,8 @@
                                     chi: v.Child,
                                     oid: v.OwnerId,
                                     tid: v.TenantId,
-                                    typeR: v.typeResident
+									typeR: v.typeResident,
+									AID:v.AId
                                 });
                             })
                             GenerateCalendar(events);
@@ -801,7 +810,8 @@
 								startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
 								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
 								an = calEvent.title;
-								 downp = outstanding1;
+								downp = outstanding1;
+								status11 = calEvent.status;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
 
@@ -857,6 +867,7 @@
 								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
 								an = calEvent.title;
 								downp = outstanding1;
+								status11 = calEvent.status;
 								//alert(downp);
 								//document.getElementById('dp').setAttribute('max', downp);
 

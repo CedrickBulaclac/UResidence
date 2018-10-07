@@ -151,9 +151,10 @@ namespace UResidence.Controllers
             }
             catch (Exception)
             {
-             TempData["msg"] = "<script>alert('No List');</script>";
+              Response.Write("<script>alert('No List');</script>");
+                return View("Record");        
             }
-            return RedirectToAction("Record", "ReservationRecord");
+           
         }
     }
 }

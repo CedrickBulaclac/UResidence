@@ -17,8 +17,8 @@ namespace UResidence
             EquipReservation ret = new EquipReservation();
             ret.EquipId = reader.GetInt32(0);
             ret.Quantity = reader.GetInt32(1);
-            ret.RefNo = reader.GetInt32(3);
-            ret.Rate = reader.GetInt32(4);
+            ret.RefNo = reader.GetInt32(2);
+            ret.Rate = reader.GetInt32(3);
             return ret;
         }
         public void Reset()
