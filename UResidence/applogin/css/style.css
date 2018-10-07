@@ -106,13 +106,13 @@ html, body {
 }
 
 input {
-  position: absolute;
-  width: 195px;
-  height: 30px;
-  margin: 5px 0;
-  background: transparent;
-  text-decoration-color: aliceblue;
-  border: none;
+    position: absolute;
+    width: 195px;
+    height: 30px;
+    margin: 5px 0;
+    background: transparent;
+    text-decoration-color: aliceblue;
+    border: none;
 }
 
 input:focus,
@@ -142,7 +142,6 @@ button {
   height: 40px;
   padding: 0;
   margin: 10px 20px 10px;
-  
   font-weight: 700;
   color: #fff;
   background-color: #22c08a;
@@ -155,9 +154,11 @@ button {
   user-select:none;
 }
 
+
 button:hover {
   background-color: #26d69a;
 }
+  
 
 button:active {
   background-color: #1eaa7a;

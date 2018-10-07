@@ -1130,7 +1130,7 @@
                     data: { month: month, year: year1 },
                     success: function (data1) {
                         for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
                         }
                         var options = {
                             title: {
@@ -1194,7 +1194,7 @@
                success: function (data2) {
                    console.log(data2);
                    for (var i = 0; i <= data2.length - 1; i += 2) {
-                       datapoints1.push({ y: data2[i + 1], label: data2[i] });
+                       datapoints1.push({ y: data2[i + 1].toFixed(2), label: data2[i] });
                    }
                    var options1 = {
                        title: {
@@ -1385,7 +1385,7 @@
                 success: function (data1) {
                     console.log(data1.length);
                     for (var i = 0; i <= data1.length - 1; i += 2) {
-                        datapoints.push({ y: data1[i + 1], label: data1[i] });
+                        datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
                     }
                     var options = {
                         title: {
@@ -1423,7 +1423,7 @@
                     data: {  year: year1 },
                     success: function (data1) {
                         for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
                         }
                         var options = {
                             title: {
@@ -1479,7 +1479,7 @@
                     success: function (data1) {
                         console.log(data1.length);
                         for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1], label: data1[i] });
+                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
                         }
                         var options = {
                             title: {
