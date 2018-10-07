@@ -1,9 +1,9 @@
 ﻿@{
-	string pending = "Pending";
-	string approved = "Approved";
-	string denied = "Denied";
-	string completed = "Completed";
-	Layout = "~/Views/Layout/FinanceLayout.cshtml";
+    string pending = "Pending";
+    string approved = "Approved";
+    string denied = "Denied";
+    string completed = "Completed";
+    Layout = "~/Views/Layout/FinanceLayout.cshtml";
 }
 
 @*Scripts for dropdown*@
@@ -11,36 +11,38 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div class="container">
-	<div class="modal fade" id="updateModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><span id="eventTitle"></span></h4>
-				</div>
-				<div class="modal-body">
-					<input type="hidden" id="txtid" name="txtid" />
-					<b>Amount :</b> <input type="text" class="form-control" name="amount" id="amount" required />
-					<br /><br />
-					<b>Description :</b>  <textarea type="text" class="form-control" name="description" id="description" required></textarea>
-					<br /><br />
+    <div class="modal fade" id="updateModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="txtid" name="txtid" />
+                    <b>Amount :</b> <input type="text" class="form-control" name="amount" id="amount" required />
+                    <br /><br />
+                    <b>Description :</b>  <textarea type="text" class="form-control" name="description" id="description" required></textarea>
+                    <br /><br />
 
 
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="Update()" data-dismiss="modal">Save Changes</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="Update()" data-dismiss="modal">Save Changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <br /><br />
+<center><h2>Reversal List</h2></center>
+<br />
 <div class="panel panel-default">
     <div class="container">
         <center>
-           <b>Category</b> <select class="form-control" id="cboType" onchange="ChangeBy()">
+            <b>Category</b> <select class="form-control" id="cboType" onchange="ChangeBy()">
                 <option value="Monthly">Monthly</option>
                 <option value="Yearly">Yearly</option>
             </select>
@@ -65,7 +67,6 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-
         </center>
         <div class="pull-left">
             <label id="caption" name="caption"></label>
@@ -98,8 +99,8 @@
     var global='';
 
     $(document).ready(function () {
-      
-       
+
+
         var date = new Date();
         var year = date.getFullYear();
         for (var i = year; i > 2018; i--) {
@@ -130,7 +131,7 @@
         global = s;
         document.getElementById('btndownload').innerHTML = "";
         document.getElementById('caption').innerHTML = 'List of ' + s;
-       
+
         $.ajax({
             type: 'POST',
             url: '/ReversalRecord/GetP',
@@ -158,7 +159,7 @@
         var textyear = document.getElementById('textyear').value;
         var monthly = document.getElementById('monthly').value;
         global = s;
-        document.getElementById('btndownload').innerHTML = ""; 
+        document.getElementById('btndownload').innerHTML = "";
 		$.ajax({
 			type: 'POST',
             url: '/ReversalRecord/GetA',
@@ -185,7 +186,7 @@
         var textyear = document.getElementById('textyear').value;
         var monthly = document.getElementById('monthly').value;
         global = s;
-        document.getElementById('btndownload').innerHTML = "";   
+        document.getElementById('btndownload').innerHTML = "";
 		$.ajax({
 			type: 'POST',
             url: '/ReversalRecord/GetC',
