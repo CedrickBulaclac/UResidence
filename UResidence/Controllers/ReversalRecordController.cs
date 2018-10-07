@@ -234,7 +234,6 @@ namespace UResidence.Controllers
             string fullname = (Session["Fullname"]).ToString();
             Reversal rev = new Reversal
             {
-                
                 Id = data.Id,
                 Status = data.Status,
                 ApprovedBy= fullname

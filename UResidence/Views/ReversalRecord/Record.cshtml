@@ -81,7 +81,7 @@
 
                 <button type="button" class="btn btn-primary btn-filter " value="Approved" onclick="Set('@approved')">Approved</button>
                 <button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="Set('@pending')">Pending</button>
-                <button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="Set('@denied')">Cancelled</button>
+                <button type="button" class="btn btn-danger btn-filter" value="Denied" onclick="Set('@denied')">Denied</button>
                 <button type="button" class="btn btn-success btn-filter" value="Completed" onclick="Set('@completed')">Completed</button>
 
             </div>
@@ -256,6 +256,7 @@
 	}
 
 	function Update() {
+		
 		if (confirm('Are you sure?')) {
 			var desc = document.getElementById('description').value;
 			var amt = document.getElementById('amount').value;
@@ -285,6 +286,7 @@
 		}
 	}
 	function UpdateStatus(id) {
+		
 		if (confirm('Are you sure?')) {
 			var status = document.getElementById('rstatus').value;
 			var data = {
