@@ -133,7 +133,7 @@
                         trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
                         $.each(data, function (i, v) {
 
-                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Approved</option><option>Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="'+v.Status+'" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                         });
                         $('#tableReversalList').append(trHTML);
@@ -161,7 +161,7 @@
                         trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
                         $.each(data, function (i, v) {
 
-                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Approved</option><option>Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="' + v.Status + '" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                         });
                         $('#tableReversalList').append(trHTML);
@@ -188,7 +188,7 @@
                         trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
                         $.each(data, function (i, v) {
 
-                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Approved</option><option>Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="' + v.Status + '" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                         });
                         $('#tableReversalList').append(trHTML);
@@ -215,7 +215,7 @@
                         trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
                         $.each(data, function (i, v) {
 
-                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Approved</option><option>Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="' + v.Status + '" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
                         });
                         $('#tableReversalList').append(trHTML);
