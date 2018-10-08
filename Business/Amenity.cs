@@ -37,6 +37,8 @@ namespace UResidence
         public string Location { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
+        public int EveRate { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -50,6 +52,7 @@ namespace UResidence
             ret.Location = reader.GetString(7);
             ret.Adult = reader.GetInt32(8);
             ret.Child = reader.GetInt32(9);
+            ret.EveRate = reader.GetInt32(10);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -97,6 +100,7 @@ namespace UResidence
             this.Rate = 0;
             this.Color = string.Empty;
             this.Location = string.Empty;
+            this.EveRate = 0;
         }
        
     }

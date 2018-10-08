@@ -131,6 +131,10 @@
 							<p>
 								<label>Rate :</label>
 							</p>
+							<p>
+								<label>Evening Rate :</label>
+							</p>
+
 						}
 					</div>
 
@@ -148,6 +152,9 @@
 						{
 							@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 							@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+							<br />
+							@Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							@Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
 						}
 					</div>
 				</div>

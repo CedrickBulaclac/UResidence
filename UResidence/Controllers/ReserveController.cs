@@ -133,10 +133,11 @@ namespace UResidence.Controllers
             int aid = Convert.ToInt32(fc["ida"]);
             int arate = Convert.ToInt32(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-
+            int everate= Convert.ToInt32(fc["eve"]);
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
+            Session["EVERATE"] = everate;
             Session["NAME"] = aname;
             if (aname.ToUpper().Contains("SWIMMING"))
             {
@@ -191,6 +192,7 @@ namespace UResidence.Controllers
             }
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+            ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
             return View();
         }
         [HttpPost]

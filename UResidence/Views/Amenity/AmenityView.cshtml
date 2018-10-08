@@ -99,7 +99,7 @@
 			<thead>
 				<tr>
 					<th>
-						AmenityNo
+						AmenityName
 					</th>
 					<th>
 						Description
@@ -109,11 +109,11 @@
 					</th>
 					<th>
 						Rate
-					</th>
+					</th>				
 					<th>
 						Image
 					</th>
-                    <th>
+					<th>
 						Location
 					</th>
 					<th>
@@ -140,9 +140,10 @@
 					</td>
 					@if (a.Rate != 0)
 					{
-						<td>
-							@Html.DisplayFor(model => a.Rate)
-						</td>
+					<td>
+						<b>Rate:</b>	@Html.DisplayFor(model => a.Rate) 	<b>Evening Rate:</b> @Html.DisplayFor(model => a.EveRate)
+					</td>					
+						
 					}
 					else
 					{

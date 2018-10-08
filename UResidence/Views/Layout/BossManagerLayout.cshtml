@@ -761,30 +761,6 @@
             <ul class="social-icon pull-right list-inline" style="z-index:2;">
 
 
-                <li class="dropdown">
-                    <a class="user-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="glyphicon glyphicon-user"></span>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-
-
-
-                        <li>
-                            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-                                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-
-                            </a>
-                        </li>
-
-
-                        <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
-
-                        <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
-
-                    </ul>
-
-                </li>
 
 
             </ul>
@@ -801,21 +777,46 @@
                 <nav class="navbar navbar-default" role="navigation">
                     <!-- Main Menu -->
                     <div class="side-menu-container">
-                        <ul class="nav navbar-nav">
-                            <li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-                            <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
-                            <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
+						<ul class="nav navbar-nav">
+							<li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
+							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
 
-                        </ul>
+							<li class="dropdown">
+								<a class="user-link dropdown-toggle" data-toggle="dropdown" href="#">
+									<span class="glyphicon glyphicon-user"></span> My Profile
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+
+
+
+									<li>
+										<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+											<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+										</a>
+									</li>
+
+
+									<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+
+									<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+
+								</ul>
+
+							</li>
+						</ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
             </div>
         </div>
-
+		
         <div class="col-sm-10">
             <div class="row">
                 <div id="maincontent" style="margin-left:150px">
                     <div class="page-title">
+						<br /><br />
                         <h2>Dashboard</h2>
                         <ol class="breadcrumb">
                             <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>

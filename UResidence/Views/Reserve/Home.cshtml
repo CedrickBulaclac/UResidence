@@ -20,6 +20,7 @@
 	.third {
 	}
 
+
 	.card {
 		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 		transition: 0.3s;
@@ -50,13 +51,317 @@
 			-webkit-transform: scale(1.1);
 			background: #20d14f;
 		}
-    .modal {
-        position: absolute;
-        float: left;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
+
+	#photosphere {
+		height: 400px;
+		width: 540px;
+		margin: 0 auto;
+		/*background-image: url(../../Content/HomeImages/header1.jpg)*/
+	}
+
+
+
+	/*html, body {
+		background-color: hsl(50, 33%, 25%);
+	}*/
+
+	#container {
+		height: 600px;
+		width: 1450px;
+		margin: 0 auto;
+	}
+
+
+	.fade-carousel {
+		position: relative;
+		height: 100vh;
+	}
+
+		.fade-carousel .carousel-inner .item {
+			height: 100vh;
+		}
+
+		.fade-carousel .carousel-indicators > li {
+			margin: 0 2px;
+			background-color: #f39c12;
+			border-color: #f39c12;
+			opacity: .7;
+		}
+
+			.fade-carousel .carousel-indicators > li.active {
+				width: 10px;
+				height: 10px;
+				opacity: 1;
+			}
+
+	/********************************/
+	/*          Hero Headers        */
+	/********************************/
+	.hero {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		z-index: 3;
+		color: #fff;
+		text-align: center;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+		-webkit-transform: translate3d(-50%,-50%,0);
+		-moz-transform: translate3d(-50%,-50%,0);
+		-ms-transform: translate3d(-50%,-50%,0);
+		-o-transform: translate3d(-50%,-50%,0);
+		transform: translate3d(-50%,-50%,0);
+	}
+
+		.hero h1 {
+			font-size: 6em;
+			font-weight: bold;
+			margin: 0;
+			padding: 0;
+		}
+
+	.fade-carousel .carousel-inner .item .hero {
+		opacity: 0;
+		-webkit-transition: 2s all ease-in-out .1s;
+		-moz-transition: 2s all ease-in-out .1s;
+		-ms-transition: 2s all ease-in-out .1s;
+		-o-transition: 2s all ease-in-out .1s;
+		transition: 2s all ease-in-out .1s;
+	}
+
+	.fade-carousel .carousel-inner .item.active .hero {
+		opacity: 1;
+		-webkit-transition: 2s all ease-in-out .1s;
+		-moz-transition: 2s all ease-in-out .1s;
+		-ms-transition: 2s all ease-in-out .1s;
+		-o-transition: 2s all ease-in-out .1s;
+		transition: 2s all ease-in-out .1s;
+	}
+
+	/********************************/
+	/*            Overlay           */
+	/********************************/
+	.overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		background-color: #080d15;
+		opacity: .7;
+	}
+
+	/********************************/
+	/*          Custom Buttons      */
+	/********************************/
+	.btn.btn-lg {
+		padding: 10px 40px;
+	}
+
+	.btn.btn-hero,
+	.btn.btn-hero:hover,
+	.btn.btn-hero:focus {
+		color: #f5f5f5;
+		background-color: #1abc9c;
+		border-color: #1abc9c;
+		outline: none;
+		margin: 20px auto;
+	}
+
+	/********************************/
+	/*       Slides backgrounds     */
+	/********************************/
+	.fade-carousel .slides .slide-1,
+	.fade-carousel .slides .slide-2,
+	.fade-carousel .slides .slide-3 {
+		height: 100vh;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
+
+	.fade-carousel .slides .slide-1 {
+		background-image: url('/Content/WebImages/swimming.jpg');
+	}
+
+	.fade-carousel .slides .slide-2 {
+		background-image: url('/Content/WebImages/carousel1.jpg');
+	}
+
+	.fade-carousel .slides .slide-3 {
+		background-image: url('/Content/WebImages/carousel3.jpg');
+	}
+
+	/********************************/
+	/*          Media Queries       */
+	/********************************/
+	@@media screen and (min-width: 980px) {
+		.hero {
+			width: 980px;
+		}
+	}
+
+	@@media screen and (max-width: 640px) {
+		.hero h1 {
+			font-size: 4em;
+		}
+	}
+
+	.about {
+		background-color: #dcedc8;
+	}
+
+	.amenity {
+		background-color: #c5e1a5;
+	}
+
+	.headera {
+		background-color: #9e9d24;
+	}
+
+
+	body {
+		background: url(../../Content/HomeImages/bg5.png) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+
+	.heading-title {
+		margin-bottom: 100px;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.heading-title h3 {
+		margin-bottom: 0;
+		letter-spacing: 2px;
+		font-weight: normal;
+	}
+
+	.p-top-30 {
+		padding-top: 30px;
+	}
+
+	.half-txt {
+		width: 60%;
+		margin: 0 auto;
+		display: inline-block;
+		line-height: 25px;
+		color: #7e7e7e;
+	}
+
+	.text-uppercase {
+		text-transform: uppercase;
+	}
+
+	.team-member, .team-member .team-img {
+		position: relative;
+	}
+
+	.team-member {
+		overflow: hidden;
+	}
+
+		.team-member, .team-member .team-img {
+			position: relative;
+		}
+
+	.team-hover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: 0;
+		border: 20px solid rgba(0, 0, 0, 0.1);
+		background-color: rgba(255, 255, 255, 0.90);
+		opacity: 0;
+		-webkit-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+
+	.team-member:hover .team-hover .desk {
+		top: 35%;
+	}
+
+	.team-member:hover .team-hover, .team-member:hover .team-hover .desk, .team-member:hover .team-hover .s-link {
+		opacity: 1;
+	}
+
+	.team-hover .desk {
+		position: absolute;
+		top: 0%;
+		width: 100%;
+		opacity: 0;
+		-webkit-transform: translateY(-55%);
+		-ms-transform: translateY(-55%);
+		transform: translateY(-55%);
+		-webkit-transition: all 0.3s 0.2s;
+		transition: all 0.3s 0.2s;
+		padding: 0 20px;
+	}
+
+	.desk, .desk h4, .team-hover .s-link a {
+		text-align: center;
+		color: #222;
+	}
+
+	.team-member:hover .team-hover .s-link {
+		bottom: 10%;
+	}
+
+	.team-member:hover .team-hover, .team-member:hover .team-hover .desk, .team-member:hover .team-hover .s-link {
+		opacity: 1;
+	}
+
+	.team-hover .s-link {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		opacity: 0;
+		text-align: center;
+		-webkit-transform: translateY(45%);
+		-ms-transform: translateY(45%);
+		transform: translateY(45%);
+		-webkit-transition: all 0.3s 0.2s;
+		transition: all 0.3s 0.2s;
+		font-size: 35px;
+	}
+
+		.desk, .desk h4, .team-hover .s-link a {
+			text-align: center;
+			color: #222;
+		}
+
+	.team-member .s-link a {
+		margin: 0 10px;
+		color: #333;
+		font-size: 16px;
+	}
+
+	.team-title {
+		position: static;
+		padding: 20px 0;
+		display: inline-block;
+		letter-spacing: 2px;
+		width: 100%;
+	}
+
+		.team-title h5 {
+			margin-bottom: 0px;
+			display: block;
+			text-transform: uppercase;
+		}
+
+		.team-title span {
+			font-size: 12px;
+			text-transform: uppercase;
+			color: #a5a5a5;
+			letter-spacing: 1px;
+		}
 </style>
 
 
@@ -68,22 +373,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
-
-<img class="w3-image" src="~/Content/HomeImages/Palmdale3.jpg" alt="Palmdale Heights" width="1600" height="300">
-<div class="w3-display-middle w3-margin-top w3-center">
-
-	<h1 class="w3-jumbo w3-text-white" style="font-family:'Palatino Linotype'">
-		<br/> <br/> <br/>
-		<span class="w3-padding w3-black w3-opacity-min"><b>Palmdale Heights</b></span> <br />
-	</h1>
-
-
-
-	<br />
-	<hr class="w3-border-white" style="margin:auto;width:80%" />
-	<br />
-	<p class="" style="font-family:'Monotype Corsiva'; font-size:30px; "> Elegantly Designed Living Spaces </p>
-</div>
+@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <div class="container">
 	<div class="modal fade" id="myModal" role="dialog">
@@ -94,7 +386,7 @@
 
 				</div>
 				<div class="modal-body">
-                    <strong>You have an Outstanding Balance of ₱ @ViewBag.Bal</strong>
+					<strong>Please settle your account before you can reserve.</strong>
 				</div>
 
 				<div class="modal-footer">
@@ -105,38 +397,173 @@
 	</div>
 </div>
 
-<!-- AMENITY TOH -->
-<div class="w3-padding-64 w3-center w3-dark-gray">
-	<h1 class="w3-jumbo"><b>Amenities</b></h1>
-	<p class="w3-large">Choose the Amenity that fits your needs.</p>
+<br />
+
+<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+	<!-- Overlay -->
+	<div class="overlay"></div>
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+		<li data-target="#bs-carousel" data-slide-to="1"></li>
+		<li data-target="#bs-carousel" data-slide-to="2"></li>
+	</ol>
+
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<div class="item slides active">
+			<div class="slide-1"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Great Experience Living Spaces</h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+		<div class="item slides">
+			<div class="slide-2"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Modern Amenities Awaits</h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+		<div class="item slides">
+			<div class="slide-3"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Limitless Style and Service </h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- About Us -->
+
+<div class="second">
+
+
+
+	<div class="about">
+		<div class="row">
+			<div class="heading-title text-center">
+				<br />
+				<h2 class="text-uppercase">WELCOME TO PALMDALE HEIGHTS CONDOMINIUM</h2>
+				<p class="p-top-30 half-txt ">
+					Palmdale Heights, Pasig City that has 828 units development for its first two phases that have been completed and 85% or 703 units have been sold at the end of September 2013. Palmdale Heights is a project of Keppel Bank of Singapore (formerly GE Money and now BDO) and Buena Homes; managed by CBRE. There six 10-storey condo buildings.
+					Palmdale Heights is a perfect escape for homeowners that allows you experience a hustle and bustle of city life into elegantly design with beautiful landscaping and fully equipped recreational facilities including swimming pool, clubhouse and children’s playground
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/entrance.jpg" alt="team member" class="img-responsive">
+					</div>
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Entrance and Exit</h4>
+							<p>Area</p>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/about1e.jpg" alt="team member" class="img-responsive">
+					</div>
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Condominium Buildings</h4>
+							<p>Area</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/bg.png" alt="team member" class="img-responsive">
+					</div>
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Trellis</h4>
+							<p>Area</p>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+
+
+
+
+
+<!-- Amenities -->
+
+
+<div class="w3-padding-64 w3-center amenity">
+	<h2 class="text-uppercase">OUR AMENITIES</h2>
+	@*<h1 class="w3-xxlarge"><b>OUR AMENITIES</b></h1>*@
+	<p class="p-top-30 half-txt ">The Amenities that fits your needs.</p>
 	<div class="w3-row-padding" style="margin-top:64px">
 		@foreach (var a in Model)
 		{
-			<div class="w3-half w3-section">
+			<div class="w3-third w3-section">
 				<ul class="w3-ul w3-card w3-hover-shadow">
 
 
-					<li class="w3-green w3-xlarge w3-padding-32">@a.AmenityName</li>
+					<li class="headera w3-large w3-text-white w3-padding-16">@a.AmenityName</li>
 					<img src="@Url.Content(a.Url)" width="100%;" height="50%" />
 
-					<div class="align">
-						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Capacity persons</li>
+					<div class="align left">
+						<li class="w3-padding-16">Capacity: @a.Capacity persons</li>
+
 						@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
 						{
 							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: @a.Adult </li>
 							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: @a.Child </li>
+							<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
+							<li class="w3-padding-16">Description: @a.Description</li>
+							<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
 						}
 						else
 						{
 							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Rate per hour</li>
+							<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
+							<li class="w3-padding-16">Description: @a.Description</li>
+							<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
+							<br/>
 						}
 
-						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Not available for Overnight use ( strictly until 9:00 pm only)</li>
-						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Location</li>
-						<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Additional charges may vary upon extension of time and damage </li>
+
 					</div>
 
-					<li class="w3-green w3-padding-24">
+					<li class="headera w3-padding-24">
 
 					</li>
 				</ul>
@@ -151,70 +578,10 @@
 </div>
 
 
-<!-- About Us -->
-@*<br />
-	<br />
-	<br />*@
-<div class="second">
-	<div class="w3-row-padding w3-padding-64 w3-light-grey" id="work">
-
-		<div class="w3-quarter">
-			<div class="w3-padding-16"><span class="w3-xlarge w3-border-green w3-bottombar">About Us</span></div>
-			@*<h2>About Us</h2>*@
-			<br />
-			<p>
-				<font size="3">
-					Palmdale Heights, Pasig City that has 828 units development for its first two phases that have been completed and 85% or 703 units have been sold at the end of September 2013. Palmdale Heights is a project of Keppel Bank of Singapore (formerly GE Money and now BDO) and Buena Homes; managed by CBRE. There six 10-storey condo buildings.
-					@*This suburban middle-income residential development is conveniently located between the major commercial districts of Makati and Ortigas. Palmdale Heights offers homeowners an escape from the hustle and bustle of city life into elegantly designed living spaces with beautiful landscaping, and fully equipped with recreational facilities including a swimming pool, clubhouse and children's playground.*@
-				</font>
-			</p>
-
-			<button class="btn-change" onclick="@Url.Action("AboutUs","Reserve")">Read More</button>
-		</div>
-
-
-
-		<br />
-		<div class="w3-quarter">
-			<div class="w3-card w3-dark-gray">
-				<img src="~/Content/WebImages/jumbo1.jpg" alt="jumbo1" style="width:100%; height:40%">
-				<div class="w3-container">
-
-					<h4>Entrance and Exit Area</h4>
-
-				</div>
-			</div>
-		</div>
-
-
-
-		<div class="w3-quarter">
-			<div class="w3-card w3-dark-gray">
-				<img src="~/Content/WebImages/jumbo2.jpg" alt="jumbo1" style="width:100%; height:40% ">
-				<div class="w3-container">
-
-					<h4>Swimming Pool Area</h4>
-				</div>
-			</div>
-		</div>
 
 
 
 
-
-		<div class="w3-quarter">
-			<div class="w3-card w3-dark-gray">
-				<img src="~/Content/WebImages/jumbo3.jpg" alt="jumbo1" style="width:100%; height:40%">
-				<div class="w3-container">
-
-					<h4>Playground Area</h4>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
-</div>
 
 <div class="third">
 	@*<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>*@
@@ -235,20 +602,18 @@
 
 
 <script type="text/javascript">
-   
+    @*$(document).ready(
+        function () {
+
+            if (@ViewBag.Status == true) {
+                $('#myModal').modal();
+            }
+
+        }
+    );*@
 </script>
 
 <script>
-     $(document).ready(
-        function () {
-            var visit = @Convert.ToInt32(Session["aa"]);           
-            if ('@ViewBag.s' == 'True') {
-                if (visit == 0) {
-                    $('#myModal').modal();
-                }
-        
-             }
-         });
 	$("#btnAbout").click(function () {
 		$('html,body').animate({
 			scrollTop: $(".second").offset().top
@@ -262,4 +627,30 @@
 		},
 			'slow');
 	});
+
+
+
+	var div = document.getElementById('container');
+	var PSV = new PhotoSphereViewer({
+		panorama: '/Content/HomeImages/header2.jpg',
+		container: div,
+		time_anim: 3000,
+		navbar: true,
+		navbar_style: {
+			backgroundColor: 'rgba(58, 67, 77, 0.7)'
+		},
+	});
+
+
+
+
+
+
+								//$(document).ready(function () {
+								//    $(".fancybox").fancybox({
+								//        openEffect: "none",
+								//        closeEffect: "none"
+								//    });
+								//});
+
 </script>

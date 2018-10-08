@@ -139,7 +139,8 @@ namespace UResidence.Controllers
                     Description = amen.Description,
                     Rate = amen.Rate,
                     Color = amen.Color,
-                    Location = amen.Location
+                    Location = amen.Location,
+                    EveRate = amen.EveRate
                 };
        
             if (amen.Validate(out err))
@@ -155,7 +156,8 @@ namespace UResidence.Controllers
                         Description = amen.Description,
                         Rate = amen.Rate,
                         Color = amen.Color,
-                        Location = amen.Location
+                        Location = amen.Location,
+                        EveRate = amen.EveRate
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                 }
@@ -169,7 +171,8 @@ namespace UResidence.Controllers
                         Description = amen.Description,
                         Rate = amen.Rate,
                         Color = amen.Color,
-                        Location = amen.Location
+                        Location = amen.Location,
+                        EveRate = amen.EveRate
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                 }
@@ -435,7 +438,8 @@ namespace UResidence.Controllers
                     Description = amen.Description,
                     Rate = 0,
                     Color = amen.Color,
-                    Location= amen.Location
+                    Location= amen.Location,
+                    EveRate=amen.EveRate
                 };
                 if (a.Validate(out err))
                 {
@@ -464,7 +468,8 @@ namespace UResidence.Controllers
                     Description = amen.Description,
                     Rate = amen.Rate,
                     Color = amen.Color,
-                    Location = amen.Location
+                    Location = amen.Location,
+                    EveRate = amen.EveRate
                 };
                 if (a.Validate(out err))
                 {
@@ -548,7 +553,8 @@ namespace UResidence.Controllers
                 Description = amen.Description,
                 Rate = 0,
                 Color = amen.Color,
-                Location = amen.Location
+                Location = amen.Location,
+                EveRate = 0
             };
 
             if (amen.Validate(out err))
@@ -563,7 +569,8 @@ namespace UResidence.Controllers
                         Description = amen.Description,
                         Rate = amen.Rate,
                         Color = amen.Color,
-                        Location = amen.Location
+                        Location = amen.Location,
+                        EveRate = amen.EveRate
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                      amenID = amen.Id;
@@ -591,7 +598,8 @@ namespace UResidence.Controllers
                         Description = amen.Description,
                         Rate = amen.Rate,
                         Color = amen.Color,
-                        Location = amen.Location
+                        Location = amen.Location,
+                        EveRate = amen.EveRate
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                     amenID = amen.Id;
