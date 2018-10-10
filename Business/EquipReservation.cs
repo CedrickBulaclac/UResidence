@@ -12,6 +12,7 @@ namespace UResidence
        public int Quantity  { get; set; }
        public int RefNo { get; set; }
         public int Rate { get; set; }
+        public string EquipmentName { get; set; }
         public EquipReservation CreateObject(SqlDataReader reader)
         {
             EquipReservation ret = new EquipReservation();
@@ -19,6 +20,7 @@ namespace UResidence
             ret.Quantity = reader.GetInt32(1);
             ret.RefNo = reader.GetInt32(2);
             ret.Rate = reader.GetInt32(3);
+            ret.EquipmentName = reader.GetString(4);
             return ret;
         }
         public void Reset()

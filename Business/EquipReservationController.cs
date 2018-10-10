@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<EquipReservation> GetAll()
         {
-            const string GET_ALL = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipId";
+            const string GET_ALL = @"SELECT EquipmentId,Quantity,RefNo,Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Idorder by EquipmentId";
 
 
             List<EquipReservation> ret = default(List<EquipReservation>);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static EquipReservation Get(string eno)
         {
-            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM[tbEquipReservation] order by EquipId WHERE EquipNo = @EquipNo";
+            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id WHERE EquipmentId = @EquipNo order by EquipmentId ";
 
             EquipReservation ret = default(EquipReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -33,7 +33,8 @@ namespace UResidence
 
         public static List<EquipReservation> Getr(int refno)
         {
-            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM [tbEquipReservation] WHERE RefNo = @refno  order by EquipmentId";
+            //const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM [tbEquipReservation] WHERE RefNo = @refno  order by EquipmentId";
+            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,er.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id  WHERE RefNo = @refno order by EquipmentId";
 
             List<EquipReservation> ret = default(List<EquipReservation>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -46,7 +47,7 @@ namespace UResidence
 
         public static bool Update(EquipReservation eqp)
         {
-            const string GET_UPDATE = @"update [tbEquipReservation] set EquipmentId= @EquipId, Quantity= @Quantity, RefNo= @RefNo WHERE EquipNo = @EquipNo";
+            const string GET_UPDATE = @"update [tbEquipReservation] set EquipmentId= @EquipId, Quantity= @Quantity, RefNo= @RefNo WHERE EquipmentId = @EquipId";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipId));

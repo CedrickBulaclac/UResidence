@@ -52,13 +52,15 @@ namespace UResidence
             ret.AId = reader.GetInt32(12);
             ret.AName =reader.GetString(13);
             ret.BldgNo = RemoveWhitespace(reader.GetString(14));
-            ret.UnitNo = RemoveWhitespace(reader.GetString(15));         
-            ret.ChairCost= reader.GetInt32(16);
-            ret.TableCost = reader.GetInt32(17);
-            ret.Total = reader.GetInt32(18);
-            ret.Amount = reader.GetInt32(19);
-            ret.ChairQuantity = reader.GetInt32(20);
-            ret.TableQuantity = reader.GetInt32(21);
+            ret.UnitNo = RemoveWhitespace(reader.GetString(15));
+            ret.Total = reader.GetInt32(16);
+            ret.Amount = reader.GetInt32(17);
+            //ret.ChairCost= reader.GetInt32(16);
+            //ret.TableCost = reader.GetInt32(17);
+            //ret.Total = reader.GetInt32(18);
+            //ret.Amount = reader.GetInt32(19);
+            //ret.ChairQuantity = reader.GetInt32(20);
+            //ret.TableQuantity = reader.GetInt32(21);
             return ret;
         }
 
