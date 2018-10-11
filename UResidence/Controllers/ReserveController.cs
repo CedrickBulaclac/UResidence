@@ -217,6 +217,7 @@ namespace UResidence.Controllers
                     {
                         Response.Write("<script>alert('Your chosen date and time is not available')</script>");
                         ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                        ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
                         return View();
                     }
                     else
@@ -228,6 +229,7 @@ namespace UResidence.Controllers
                 else
                 {
                     ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
                     return View();
                 }
             }
@@ -249,6 +251,7 @@ namespace UResidence.Controllers
                     {
                         Response.Write("<script>alert('Your chosen date and time is not available')</script>");
                         ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                        ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
                         return View();
                     }
                     else
@@ -260,6 +263,7 @@ namespace UResidence.Controllers
                 else
                 {
                     ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
                     return View();
                 }
 
