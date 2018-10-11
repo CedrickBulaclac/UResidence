@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<EquipReservation> GetAll()
         {
-            const string GET_ALL = @"SELECT EquipmentId,Quantity,RefNo,Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Idorder by EquipmentId";
+            const string GET_ALL = @"SELECT er.EquipmentId,er.Quantity,er.RefNo,e.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id order by er.RefNo";
 
 
             List<EquipReservation> ret = default(List<EquipReservation>);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static EquipReservation Get(string eno)
         {
-            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id WHERE EquipmentId = @EquipNo order by EquipmentId ";
+            const string GET_RECORD = @"SELECT er.EquipmentId,er.Quantity,er.RefNo,e.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id WHERE EquipmentId = @EquipNo order by er.RefNo ";
 
             EquipReservation ret = default(EquipReservation);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -34,7 +34,7 @@ namespace UResidence
         public static List<EquipReservation> Getr(int refno)
         {
             //const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM [tbEquipReservation] WHERE RefNo = @refno  order by EquipmentId";
-            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,er.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id  WHERE RefNo = @refno order by EquipmentId";
+            const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,e.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id  WHERE RefNo = @refno order by er.RefNo";
 
             List<EquipReservation> ret = default(List<EquipReservation>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -66,15 +66,7 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-        /*
-        public static bool Modify(Equipment eqp)
-        {
-            if (eqp.EquipmentNo == 0)
-                return Insert(eqp);
-            else
-                return Update(eqp);
-        }
-        */
+        
         public static bool Insert(EquipReservation eqp)
         {
             const string GET_INSERT = @"insert [tbEquipReservation] (EquipmentId,Quantity,RefNo,Rate) values (@EquipId, @Quantity, @RefNo,@Rate)";

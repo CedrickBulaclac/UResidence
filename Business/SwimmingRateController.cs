@@ -9,7 +9,9 @@ namespace UResidence
 {
     public class SwimmingRateController
     {
-            public static bool Insert(SwimmingRate swm)
+       
+
+        public static bool Insert(SwimmingRate swm)
             {
                 const string GET_INSERT = "Insert into [tbSwimmingPool] (AmenityId,AdultRate,ChildRate) values (@AmenityId,@AdultRate,@ChildRate)";
                 SqlCommand com = new SqlCommand(GET_INSERT);
@@ -27,5 +29,6 @@ namespace UResidence
                 com.Parameters.Add(new SqlParameter("@ChildRate", swm.Child));
                 return SqlManager.ExecuteNonQuery(com);
             }
+
     }
 }

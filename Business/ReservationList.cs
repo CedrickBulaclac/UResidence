@@ -22,8 +22,6 @@ namespace UResidence
         public string AmenityName { get; set; }
         public int Rate { get; set; }
         public int Charge { get; set; }
-        public int ChairCost { get; set; }
-        public int TableCost { get; set; }
         public int TotalPayment { get; set; }
         public int RefNo { get; set; }
         public int Outstanding { get; set; }
@@ -47,13 +45,11 @@ namespace UResidence
             ret.AmenityName = reader.GetString(11);
             ret.Rate = reader.GetInt32(12);
             ret.Charge = reader.GetInt32(13);
-            ret.ChairCost = reader.GetInt32(14);
-            ret.TableCost = reader.GetInt32(15);
-            ret.TotalPayment = reader.GetInt32(16);           
-            ret.BldgNo = reader.GetString(17);
-            ret.UnitNo = reader.GetString(18);
-            ret.ReservedBy = reader.GetString(19);
-            ret.Outstanding = reader.GetInt32(20);
+            ret.TotalPayment = reader.GetInt32(14);           
+            ret.BldgNo = reader.GetString(15);
+            ret.UnitNo = reader.GetString(16);
+            ret.ReservedBy = reader.GetString(17);
+            ret.Outstanding = reader.GetInt32(18);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -74,8 +70,6 @@ namespace UResidence
             this.AmenityName = string.Empty;
             this.Rate = 0;
             this.Charge = 0;
-            this.ChairCost = 0;
-            this.TableCost = 0;
             this.TotalPayment = 0;
             this.Outstanding = 0;
         }

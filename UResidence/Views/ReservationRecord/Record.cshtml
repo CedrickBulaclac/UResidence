@@ -119,32 +119,61 @@
 				success: function (Data) {
 					var trHTML = '';
 					var name = '';
-					var ob = 0;
-                    console.log(Data);
+                    var ob = 0;
+                    var ob1 = 0;
+                    var ob2 = 0;
+                    var list = [];
+                    var cref = 0;
+                    var data1 = Data.Data.Reservation;
+                    var data2 = Data.Data.Equipment;
 					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-					$.each(Data, function (i, v) {
 
-						if (v.Outstanding == 0) {
-							if (v.typeResident == "Owner") {
+                    $.each(data1, function (i, v) {                       
+                        var tob = v.Outstanding;
+                        $.each(data2, function (i, c) {
+                            if (c.RefNo == v.RefNo) {
+                                tob += (c.Quantity * c.Rate);
+                                cref = c.RefNo;
+                            }
+
+                        });                                                  
+                        if (v.Outstanding < 0) {
+                            ob2 *= -1;
+                        }
+                        else {
+                            ob2 = v.Outstanding;
+                        }
+                                       
+                        if (cref == v.RefNo) {
+                           
+                            ob1 = ob2 + tob;
+                        }
+                        else {
+                            ob1 = ob2;
+                        }
+						if (ob1 == 0) {
+                            if (v.typeResident == "Owner") {
+                               
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
 							}
 						}
 						else {
 							if (v.typeResident == "Owner") {
 								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 							}
 							else {
 								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
 							}
-						}
+                        }
+                        tob = 0;
 					});
 					$('#tbReservationList').append(trHTML);
 				},
@@ -153,52 +182,6 @@
 				}
 			});
 		}
-
-		//function GetT() {
-		//	$('#tbReservationList').empty();
-		//	$.ajax({
-		//		type: "POST",
-		//		url: "/ReservationRecord/GetT",
-		//		dataType: 'json',
-		//		success: function (Data) {
-		//			var trHTML = '';
-		//			var name = '';
-		//			var ob = 0;
-
-		//			trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-		//			$.each(Data, function (i, v) {
-
-
-		//				ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-		//				if (ob == 0) {
-		//					if (v.typeResident == "Owner") {
-		//						name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-		//					}
-		//					else {
-		//						name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-		//					}
-		//				}
-		//				else {
-		//					if (v.typeResident == "Owner") {
-		//						name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-		//					}
-		//					else {
-		//						name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-  //                              trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-
-		//					}
-		//				}
-		//			});
-		//			$('#tbReservationList').append(trHTML);
-		//		},
-		//		error: function (error) {
-		//			alert('Failed to retrieve the record');
-		//		}
-		//	});
-		//}
 		function GetD() {
             $('#tbReservationList').empty();
              $('#Download').empty();
@@ -209,31 +192,65 @@
 				url: "/ReservationRecord/GetD",
 				dataType: 'json',
 				success: function (Data) {
-					var trHTML = '';
-					var name = '';
-					var ob = 0;
+                    var trHTML = '';
+                    var name = '';
+                    var ob = 0;
+                    var ob1 = 0;
+                    var ob2 = 0;
+                    var list = [];
+                    var cref = 0;
+                    var data1 = Data.Data.Reservation;
+                    var data2 = Data.Data.Equipment;
+                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
 
-					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-					$.each(Data, function (i, v) {
+                    $.each(data1, function (i, v) {
+                        var tob = v.Outstanding;
+                        $.each(data2, function (i, c) {
+                            if (c.RefNo == v.RefNo) {
+                                tob += (c.Quantity * c.Rate);
+                                cref = c.RefNo;
+                            }
 
+                        });
+                        if (v.Outstanding < 0) {
+                            ob2 *= -1;
+                        }
+                        else {
+                            ob2 = v.Outstanding;
+                        }
 
-						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-						if (ob == 0) {
-                            trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-						}
-						else {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                        if (cref == v.RefNo) {
 
-							}
-						}
-					});
-					$('#tbReservationList').append(trHTML);
+                            ob1 = ob2 + tob;
+                        }
+                        else {
+                            ob1 = ob2;
+                        }
+                        if (ob1 == 0) {
+                            if (v.typeResident == "Owner") {
+
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                        }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
+                        tob = 0;
+                    });
+                    $('#tbReservationList').append(trHTML);
 				},
 				error: function (error) {
 					alert('Failed to retrieve the record');
@@ -255,38 +272,65 @@
 				dataType: 'json',
 				data: { 'Level': data, 'Search': s },
 				success: function (Data) {
-					var trHTML = '';
-					var name = '';
-					var ob = 0;
+                    var trHTML = '';
+                    var name = '';
+                    var ob = 0;
+                    var ob1 = 0;
+                    var ob2 = 0;
+                    var list = [];
+                    var cref = 0;
+                    var data1 = Data.Data.Reservation;
+                    var data2 = Data.Data.Equipment;
+                    trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
 
-					trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-					$.each(Data, function (i, v) {
+                    $.each(data1, function (i, v) {
+                        var tob = v.Outstanding;
+                        $.each(data2, function (i, c) {
+                            if (c.RefNo == v.RefNo) {
+                                tob += (c.Quantity * c.Rate);
+                                cref = c.RefNo;
+                            }
 
+                        });
+                        if (v.Outstanding < 0) {
+                            ob2 *= -1;
+                        }
+                        else {
+                            ob2 = v.Outstanding;
+                        }
 
-						ob = (v.Rate + v.Charge + v.ChairCost + v.TableCost) - (v.TotalPayment);
-                        if (v.Outstanding == 0) {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-						}
-						else {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + v.Outstanding + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                        if (cref == v.RefNo) {
 
-							}
-						}
-					});
-					$('#tbReservationList').append(trHTML);
+                            ob1 = ob2 + tob;
+                        }
+                        else {
+                            ob1 = ob2;
+                        }
+                        if (ob1 == 0) {
+                            if (v.typeResident == "Owner") {
+
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                        }
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
+                        tob = 0;
+                    });
+                    $('#tbReservationList').append(trHTML);
 				},
 				error: function (error) {
 					alert('Failed to retrieve the record');
@@ -348,27 +392,53 @@
 				type: "POST",
 				url: "/ReservationRecord/GetModal",
 				data: { 'refno': refno },
-				success: function (Data) {
-					$.each(Data, function (i, v) {
+                success: function (Data) {
+                    var data1 = Data.Data.Reservation;
+                    var data2 = Data.Data.Equipment;
+                    var data3 = Data.Data.Swimming
+                    var tots = 0;
+                    var mule = 0;
+                    var stots = 0;
+                    var ftotal = 0;
+                    console.log(data1);
+                    console.log(data2);
+                    console.log(data3);
+					$.each(data1, function (i, v) {
 						var s = moment(v.StartTime);
 						var st = s.format("DD/MMM/YYYY hh:mm a");
 						var e = moment(v.EndTime);
-						var et = e.format("DD/MMM/YYYY hh:mm a");
-						$('#myModal #eventTitle').html('<b>Amenity Name: </b>' + v.AName);
+                        var et = e.format("DD/MMM/YYYY hh:mm a");
+                        $('#myModal #eventTitle').html('<b>Reference Number: </b>' + refno);
 						var $description = $('<div/>');
 						$description.append($('<p/>').html('<b>Reserved By: </b>' + v.ReservedBy));
 						$description.append($('<p/>').html('<b>Building No: </b>' + v.BldgNo));
 						$description.append($('<p/>').html('<b>Unit No: </b>' + v.UnitNo));
 						$description.append($('<p/>').html('<b>StartTime: </b>' + st));
-						$description.append($('<p/>').html('<b>EndTime: </b>' + et));
-						$description.append($('<p/>').html('<b>Amenity Cost: </b>' + v.Rate));
-						$description.append($('<p/>').html('<b>Table Cost: </b>' + v.TableCost));
-						$description.append($('<p/>').html('<b>Chair Cost: </b>' + v.ChairCost));
+                        $description.append($('<p/>').html('<b>EndTime: </b>' + et));                  
+                        $.each(data3, function (i, s) {
+                           
+                            $description.append($('<p/>').html('<b>No. of Adult: </b>' + s.Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/>' + s.AdultRate));
+                            $description.append($('<p/>').html('<b>Adult Cost: </b>' + (s.Adult * s.AdultRate)));
+                            $description.append($('<p/>').html('<b>No. of Children: </b>' + s.Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/>' + s.ChildRate));
+                            $description.append($('<p/>').html('<b> Child Cost: </b>' + (s.Child * s.ChildRate)));
+                        })
+
+                     
+                        $description.append($('<p/>').html('<b>Amenity Cost: </b>' + v.Rate));
+                        $.each(data2, function (i, c) {
+                            mule = c.Quantity * c.Rate;
+                        $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Quantity: </b>' + c.Quantity + '&nbsp;&nbsp;&nbsp; <b>' + c.EquipmentName + ' Rate: <b/>' + c.Rate));
+                        $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Cost: </b>' + mule));
+                            tots += mule ;
+                        });
+                        if (tots > 0) {
+                            $description.append($('<p/>').html('<b>Equipment Cost: </b>' + tots));
+                        }
 						$description.append($('<p/>').html('<b>Charge: </b>' + v.Charge));
-						$description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge))));
+                        $description.append($('<p/>').html('<b>Total Cost: </b>' + ((v.Rate + tots + v.Charge))));
 						$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));
 						$description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total)));
-						$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + v.TableCost + v.ChairCost + v.Charge) - (v.Total))));
+                        $description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((v.Rate + tots + v.Charge) - (v.Total))));
 						$description.append($('<p/>').html('<b>Status: </b>' + v.Status));
 
 						document.getElementById('rid').value = v.SRId;

@@ -37,9 +37,12 @@ namespace UResidence.Controllers
         }
         public JsonResult GetModal(int refno)
         {
-            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(refno);
-            var events = reservationList.ToList();
-
+            List<ReservationProcess> reservationList = new List<ReservationProcess>();
+            List<EquipReservation> er = default(List<EquipReservation>);
+            reservationList = ReservationProcessController.GET_ALL(refno);
+            er = UResidence.EquipReservationController.Getr(refno);
+            List<Swimming> sr = UResidence.SwimmingController.GETR(refno);
+            var events = Json(new { Reservation = reservationList.ToList(), Equipment = er.ToList(), Swimming = sr.ToList() });
             return new JsonResult
             {
                 Data = events,

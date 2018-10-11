@@ -61,6 +61,7 @@
                             <input type="hidden" name="oid" id="oid">
                             <input type="hidden" name="typeid" id="typeid">
                             <p id="pDetails"></p>
+                            <p id="pSwimming"></p>
                             <p id="pAmount"></p>
                              
                             <br /><br />
@@ -77,31 +78,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-        <div class="container">
-            <div class="modal fade" id="viewDetailsModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Swimming Details</span></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p id="sDetails"></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" id="btnCloseS" name="btnCloseS" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
 
         <div class="container">
             <div class="modal fade" id="paymentModal" role="dialog">
@@ -598,85 +574,43 @@
 				success: function (data) {
                     if (data != null) {
                         document.getElementById('searchId').value = '';
-                        if (data[0].AName == 'SwimmingPool') {
-                            
-                            $('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
-                            var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
-                            $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
-                            $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
-                            $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
-                            $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<button type="button" class="btn btn-link" id="viewDetails" name="viewDetails" data-dismiss="modal" onclick="View(' + data[0].SRId + ')">View Details</button>'));
+                        $('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
+                        $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
+                        $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
+                        $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
+                        $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
+                        $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));                       
+                        Swimming(data[0].RFId);
+                        getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
+                        document.getElementById('mySelect').value = data[0].Status;
+                        document.getElementById('rid').value = data[0].RId;
+                        document.getElementById('rfid').value = data[0].RFId;
+                        document.getElementById('cg').innerHTML = data[0].Chage;
+                        document.getElementById('cg').innerHTML = data[0].Charge;
+                        startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
+                        endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
+                        an = data[0].AName;
+                        status11 = data[0].Status
+                        if (data[0].typeResident == "Owner") {
+                            document.getElementById('oid').value = data[0].OwnerId;
 
-                            getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
-
-                            document.getElementById('mySelect').value = data[0].Status;
-                            document.getElementById('rid').value = data[0].RId;
-                            document.getElementById('rfid').value = data[0].RFId;
-                            document.getElementById('cg').innerHTML = data[0].Chage;
-                            document.getElementById('cg').innerHTML = data[0].Charge;
-                            startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
-                            endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
-                            an = data[0].AName;
-                            status11 = data[0].Status
-                            if (data[0].typeResident == "Owner") {
-                                document.getElementById('oid').value = data[0].OwnerId;
-
-                            }
-                            else {
-                                document.getElementById('oid').value = data[0].TenantId;
-
-                            }
-                            document.getElementById('typeid').value = data[0].typeResident;
-                            totalpay = data[0].Total;
-                            document.getElementById('tpr').innerHTML = data[0].Total;
-                            $('#myModal #pDetails').empty().html($description);
-                            downp = outstanding1;
-                            $('#myModal').modal();
                         }
-
                         else {
-                            $('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
-                            var $description = $('<div/>');
-                            $description.append($('<p/>').html('<b>Amenity Name: </b>' + data[0].AName));
-                            $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
-                            $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
-                            $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
-                            $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));
-                            $description.append($('<p/>').html('<b>Amenity Cost: </b>' + data[0].Rate));
-                            getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
+                            document.getElementById('oid').value = data[0].TenantId;
 
-                            document.getElementById('mySelect').value = data[0].Status;
-                            document.getElementById('rid').value = data[0].RId;
-                            document.getElementById('rfid').value = data[0].RFId;
-                            document.getElementById('cg').innerHTML = data[0].Chage;
-                            document.getElementById('cg').innerHTML = data[0].Charge;
-                            startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
-                            endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
-                            an = data[0].AName;
-                            status11 = data[0].Status
-                            if (data[0].typeResident == "Owner") {
-                                document.getElementById('oid').value = data[0].OwnerId;
-
-                            }
-                            else {
-                                document.getElementById('oid').value = data[0].TenantId;
-
-                            }
-                            document.getElementById('typeid').value = data[0].typeResident;
-                            totalpay = data[0].Total;
-                            document.getElementById('tpr').innerHTML = data[0].Total;
-                            $('#myModal #pDetails').empty().html($description);
-                            downp = outstanding1;
-                            $('#myModal').modal();
                         }
+                        document.getElementById('typeid').value = data[0].typeResident;
+                        totalpay = data[0].Total;
+                        document.getElementById('tpr').innerHTML = data[0].Total;
+                        $('#myModal #pDetails').empty().html($description);
+                        downp = outstanding1;
+                        $('#myModal').modal();
                     }
                     else {
-					alert("No Record Found");
-				}	
+                        alert("No Record Found");
+                    }
                 },
                 error: function (error) {
                     alert('failed');
@@ -684,16 +618,40 @@
             });
 
         }
+        function Swimming(refnos) {
+            $('#myModal #pSwimming').empty();
+            $.ajax({  
+                type: "GET",
+                url: "/Calendar/GET_SRESERVE",           
+                data: {"refno":refnos},
+                success: function (data) {
+                    console.log(data);
+               
+                        var $description = $('<div/>');
+                    stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
+                    $description.append($('<p/>').html('<b>No. of Adult: </b>' + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/>' + data[0].AdultRate));
+                    $description.append($('<p/>').html('<b>Adult Cost: </b>' + (data[0].Adult * data[0].AdultRate)));
+                    $description.append($('<p/>').html('<b>No. of Children: </b>' + data[0].Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/>' + data[0].ChildRate));
+                    $description.append($('<p/>').html('<b> Child Cost: </b>' + (data[0].Child * data[0].ChildRate)));
 
+                    if (stots != 0) {
+                        $('#myModal #pSwimming').empty().html($description);
+                    }
+                }
+
+            });
+        }
         function getEquipReversation(refno11, cg, rate, dp, amt, status) {
             var datas = null;
             var tccc = 0;
+            var totals=0
             $.ajax({
                 type:"GET",
                 url:"/Calendar/GET_ERESERVE",
                 data:{ "refno": refno11 },
                 success: function (data) {
                     var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Amenity Cost: </b>' + rate));
                     if (data.length > 0) {                      
                         for (var ctr = 0; ctr <= data.length - 1; ctr++) {
                             $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Quantity: </b>' + data[ctr].Quantity + '&nbsp;&nbsp;&nbsp;<b>' + data[ctr].EquipmentName + ' Rate: <b/>' + data[ctr].Rate));
@@ -701,6 +659,9 @@
                             tccc += (data[ctr].Quantity * data[ctr].Rate);
                         }
                     }
+                    if (data.length > 0) {
+                        $description.append($('<p/>').html('<b>Equipment Cost: </b>' + tccc));
+                    }           
                         $description.append($('<p/>').html('<b>Charge: </b>' + cg));
                         $description.append($('<p/>').html('<b>Total Cost: </b>' + ((rate + tccc + cg))));
                         $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (amt)));
@@ -789,96 +750,41 @@
 
 						eventClick: function (calEvent, jsEvent, view) {
                             
-							if (calEvent.title == 'SwimmingPool') {
-								selectedEvent = calEvent;
-								$('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
-								var $description = $('<div/>');
-								$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
-								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-								$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-								$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-                                $description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate + '&nbsp;&nbsp;&nbsp;&nbsp;' + '<button type="button" class="btn btn-link" id="viewDetails" name="viewDetails" data-dismiss="modal" onclick="View(' + calEvent.sid + ')">View Details</button>'));
+                            selectedEvent = calEvent;
+                            $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
+                            var $description = $('<div/>');
+                            $description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
+                            $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+                            $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                            $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                            $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                            Swimming(calEvent.rf);                         
+                            getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);                         
+                            document.getElementById('mySelect').value = calEvent.status;
+                            document.getElementById('rid').value = calEvent.r;
+                            document.getElementById('rfid').value = calEvent.rf;
+                            document.getElementById('cg').innerHTML = calEvent.cg;
+                            startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
+                            endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
+                            an = calEvent.title;
+                            downp = outstanding1;
+                            status11 = calEvent.status;                         
+                            totalpay = calEvent.dp;
 
-                                getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
-								
-								document.getElementById('mySelect').value = calEvent.status;
-								//document.getElementById('dp').value = calEvent.dp;
-								document.getElementById('rid').value = calEvent.r;
-								document.getElementById('rfid').value = calEvent.rf;
-                                document.getElementById('cg').innerHTML = calEvent.cg;
-								document.getElementById('cg').innerHTML = calEvent.cg;
-								startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
-								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
-								an = calEvent.title;
-								downp = outstanding1;
-								status11 = calEvent.status;
-								//alert(downp);
-								//document.getElementById('dp').setAttribute('max', downp);
+                            if (calEvent.typeR == "Owner") {
+                                document.getElementById('oid').value = calEvent.oid;
 
-                                if (calEvent.typeR == "Owner") {
-                                    document.getElementById('oid').value = calEvent.oid;
-                                   
-                                }
-                                else {
-                                    document.getElementById('oid').value = calEvent.tid;
-                                    
-                                }
-                                document.getElementById('typeid').value = calEvent.typeR;
-								totalpay = calEvent.dp;
-								document.getElementById('tpr').innerHTML = calEvent.dp;
-								$('#myModal #pDetails').empty().html($description);
+                            }
+                            else {
+                                document.getElementById('oid').value = calEvent.tid;
 
-								$('#myModal').modal();
-							}
+                            }
+                            document.getElementById('typeid').value = calEvent.typeR;
+                            document.getElementById('tpr').innerHTML = calEvent.dp;
+                            $('#myModal #pDetails').empty().html($description);
 
-							else
-							{
-								selectedEvent = calEvent;
-								$('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
-								var $description = $('<div/>');
-								$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
-								$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-								$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-								$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-								$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-								$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-								$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
-
-                                getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
-                               
-                            
-								//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
-								document.getElementById('mySelect').value = calEvent.status;
-								//document.getElementById('dp').value = calEvent.dp;
-								document.getElementById('rid').value = calEvent.r;
-								document.getElementById('rfid').value = calEvent.rf;
-								document.getElementById('cg').innerHTML = calEvent.cg;
-								startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
-								endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
-								an = calEvent.title;
-                                downp = outstanding1;
-								status11 = calEvent.status;
-								//alert(downp);
-								//document.getElementById('dp').setAttribute('max', downp);
-
-                                totalpay = calEvent.dp;
-
-                                if (calEvent.typeR == "Owner") {
-                                    document.getElementById('oid').value = calEvent.oid;
-
-                                }
-                                else {
-                                    document.getElementById('oid').value = calEvent.tid;
-
-                                }
-                                document.getElementById('typeid').value = calEvent.typeR;
-								document.getElementById('tpr').innerHTML = calEvent.dp;
-								$('#myModal #pDetails').empty().html($description);
-
-								$('#myModal').modal();
-							}
+                            $('#myModal').modal();
 						}
 					});
                 }
@@ -1002,35 +908,35 @@
 
 			//});
 
-			function View(Id) {
-					var refno = Id;
+			//function View(Id) {
+			//		var refno = Id;
 
-					$.ajax({
-						type: "GET",
-						url: "/calendar/SwimmingInfo",
-						dataType: 'json',
-						data: {
-							'refno1': refno
-						},
-						success: function (data) {
-							$.each(data, function (i, v) {
-								var $description = $('<div/>');
-								$description.append($('<p/>').html('<b>Adult: </b>' + v.Adult));
-								$description.append($('<p/>').html('<b>Child: </b>' + v.Child));
-								$('#viewDetailsModal #sDetails').empty().html($description);
-							})
+			//		$.ajax({
+			//			type: "GET",
+			//			url: "/calendar/SwimmingInfo",
+			//			dataType: 'json',
+			//			data: {
+			//				'refno1': refno
+			//			},
+			//			success: function (data) {
+			//				$.each(data, function (i, v) {
+			//					var $description = $('<div/>');
+			//					$description.append($('<p/>').html('<b>Adult: </b>' + v.Adult));
+			//					$description.append($('<p/>').html('<b>Child: </b>' + v.Child));
+			//					$('#viewDetailsModal #sDetails').empty().html($description);
+			//				})
 
-						},
+			//			},
 
-						error: function (error) {
-							alert('Failed to retrieve the record');
-						}
-					});
+			//			error: function (error) {
+			//				alert('Failed to retrieve the record');
+			//			}
+			//		});
 
 
 
-				$('#viewDetailsModal').modal();
-			}
+			//	$('#viewDetailsModal').modal();
+			//}
 
 
 		$('.dp').on('keyup keydown', function (e) {

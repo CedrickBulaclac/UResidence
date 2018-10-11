@@ -55,16 +55,6 @@ namespace UResidence
             return SqlManager.ExecuteNonQuery(com);
         }
 
-       
-        // public static bool Modify(UserLogin usr)
-        //{
-        //    if (usr.Id == 0)
-        //        return Insert(usr);
-        //    else
-        //        return Update(usr);
-        //}
-      
-
         public static bool Insert(Reservation usr)
         {
             const string GET_INSERT = @"insert [tbReservationForm] (ResidentId,AcknowledgeBy,ReservedBy,Status,TypeResident,SchedId) values (@ResidentId,@AcknowledgeBy,@ReservedBy,@Status,@TypeResident,@SchedId)";

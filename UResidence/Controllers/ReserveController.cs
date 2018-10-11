@@ -404,17 +404,7 @@ namespace UResidence.Controllers
                 string tor = (string)Session["TOR"];
                 int UserId = (int)Session["UID"];         
                 string fullname = "";
-                if (amenityname.ToUpper().Contains("SWIMMING"))
-                {
-                    Swimming swim = new Swimming
-                    {
-                        Adult = Convert.ToInt32(qa),
-                        Child = Convert.ToInt32(qc),
-                        SchedID =sid,
-                    };
-                    UResidence.SwimmingController.Insert(swim);
-
-                }
+           
                 UResidence.Residence reside = new UResidence.Residence();
                 UResidence.Owner own = new UResidence.Owner();
                 UResidence.Tenant ten = new UResidence.Tenant();
@@ -437,6 +427,18 @@ namespace UResidence.Controllers
                     ReservedBy = fullname,
                 };
                 status = UResidence.ReservationController.Insert(r);
+                Reservation rv=ReservationController.GetId(sid);
+                if (amenityname.ToUpper().Contains("SWIMMING"))
+                {
+                    Swimming swim = new Swimming
+                    {
+                        Adult = Convert.ToInt32(qa),
+                        Child = Convert.ToInt32(qc),
+                        RefNo = rv.Id,
+                        AmenityId = a.AmenityId
+                    };
+                    status=UResidence.SwimmingController.Insert(swim);
+                }
                 if (status == true)
                 {
                     UResidence.Reservation reserve = new UResidence.Reservation();
@@ -450,7 +452,7 @@ namespace UResidence.Controllers
                         for (int i = 0; i <= equantity.Count() - 1; i++)
                         {
 
-                            if (Convert.ToInt32(equantity[i]) != 0 || Convert.ToInt32(equantity[i]) == 0)
+                            if (Convert.ToInt32(equantity[i]) != 0)
                             {
                                 EquipReservation er = new EquipReservation
                                 {

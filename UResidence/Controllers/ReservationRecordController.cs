@@ -23,6 +23,13 @@ namespace UResidence.Controllers
             }
             return View();
         }
+        public JsonResult GET_ERESERVE(int refno)
+        {
+            List<EquipReservation> er = default(List<EquipReservation>);
+            er = UResidence.EquipReservationController.Getr(refno);
+            var data = er.ToList();
+            return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public string RemoveWhitespace(string str)
         {
             return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
@@ -61,7 +68,9 @@ namespace UResidence.Controllers
         public JsonResult GetModal(int refno)
         {
             List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(refno);
-            var events = reservationList.ToList();
+            List<EquipReservation> er = UResidence.EquipReservationController.Getr(refno);
+            List<Swimming> sr = UResidence.SwimmingController.GETR(refno);
+            var events = Json(new { Reservation = reservationList.ToList(), Equipment = er.ToList(),Swimming=sr.ToList()});
 
             return new JsonResult
             {
@@ -71,8 +80,13 @@ namespace UResidence.Controllers
         }
         public JsonResult GetEvents()
         {
-            List<ReservationList> reservationList = ReservationListController.GetAllO();            
-            var events = reservationList.ToList();
+            List<object> mo = new List<object>();
+            List<ReservationList> reservationList = ReservationListController.GetAllO();                      
+            List<EquipReservation> er = default(List<EquipReservation>);
+            er = UResidence.EquipReservationController.GetAll();
+
+
+            var events = Json(new { Reservation = reservationList.ToList(),Equipment=er.ToList() });
             return new JsonResult
             {
                 Data=events,
@@ -80,23 +94,28 @@ namespace UResidence.Controllers
             };
         }
         public JsonResult Get(int Level,string Search)
-        {
-           
+        {          
             List<ReservationList> reservationList = default(List<ReservationList>);
+            List<EquipReservation> er = default(List<EquipReservation>);
             if (Level == 0)
             {
-                reservationList = ReservationListController.GetAllA(Search);
+
+                reservationList = ReservationListController.GetAllA(Search);      
+                er = UResidence.EquipReservationController.GetAll();
+               
             }
             else if(Level==1)
             {
                 reservationList = ReservationListController.GetAllByDate(Search);
+                er = UResidence.EquipReservationController.GetAll();
+
             }
             else if (Level==2)
             {
                 reservationList = ReservationListController.GetAllO(Search);
+                er = UResidence.EquipReservationController.GetAll();
             }
-           
-            var events = reservationList.ToList();
+            var events = Json(new { Reservation = reservationList.ToList(), Equipment = er.ToList() });
             return new JsonResult
             {
                 Data = events,
