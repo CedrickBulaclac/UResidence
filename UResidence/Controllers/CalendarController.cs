@@ -11,7 +11,6 @@ namespace UResidence.Controllers
 
         public JsonResult GetEvents()
         {
-            //string status = "Pending";
             List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -22,6 +21,13 @@ namespace UResidence.Controllers
             List<EquipReservation> er = default(List<EquipReservation>);
             er = UResidence.EquipReservationController.Getr(refno);
             var data=er.ToList();
+            return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult GET_SRESERVE(int refno)
+        {
+            List<Swimming> er = default(List<Swimming>);
+            er = UResidence.SwimmingController.GETR(refno);
+            var data = er.ToList();
             return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult GET_EVENTS(ReservationProcess rese)
@@ -302,12 +308,12 @@ namespace UResidence.Controllers
             }
 
         }
-        public JsonResult SwimmingInfo(int refno1)
-        {
-            List<Swimming> swimming = SwimmingController.GETALL(refno1);
-            var events = swimming.ToList();
-            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
+        //public JsonResult SwimmingInfo(int refno1)
+        //{
+        //    List<Swimming> swimming = SwimmingController.GETALL(refno1);
+        //    var events = swimming.ToList();
+        //    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //}
         public JsonResult ReceiptHistory(int refno1)
         {
             List<Receipt> receipt = ReceiptController.GetAll(refno1);
