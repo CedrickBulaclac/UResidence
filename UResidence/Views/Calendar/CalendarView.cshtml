@@ -117,7 +117,7 @@
 
                             <b>Total Payment: </b> <label id="tpr" name="tpr"></label>
                             <br /><br />
-                            <b>Amount to Return: </b><input type="number" name="atr" id="atr" min="0" value="0" required />
+                            <b>Amount to Return: </b><input type="number" class="atr" name="atr" id="atr" min="0" value="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
                             <br /><br />
                             <b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
                             <br /><br />
@@ -298,7 +298,8 @@
 	<script>
         var outstanding1;
         var counter;
-		var downp;
+        var downp;
+        var tprrr;
 		var startT;
 		var endT;
 		var an;
@@ -605,7 +606,7 @@
                         totalpay = data[0].Total;
                         document.getElementById('tpr').innerHTML = data[0].Total;
                         $('#myModal #pDetails').empty().html($description);
-                        downp = outstanding1;
+                       
                         $('#myModal').modal();
                     }
                     else {
@@ -625,9 +626,9 @@
                 url: "/Calendar/GET_SRESERVE",           
                 data: {"refno":refnos},
                 success: function (data) {
-                    console.log(data);
-               
-                        var $description = $('<div/>');
+                    if (data.length != 0) { 
+
+                    var $description = $('<div/>');
                     stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
                     $description.append($('<p/>').html('<b>No. of Adult: </b>' + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/>' + data[0].AdultRate));
                     $description.append($('<p/>').html('<b>Adult Cost: </b>' + (data[0].Adult * data[0].AdultRate)));
@@ -637,6 +638,8 @@
                     if (stots != 0) {
                         $('#myModal #pSwimming').empty().html($description);
                     }
+                }
+                
                 }
 
             });
@@ -669,7 +672,9 @@
                         outstanding1 = ((rate + tccc + cg) - (dp - amt));
                         if (outstanding1 < 0) {
                             outstanding1 *= -1;
-                        }
+                         }
+                    downp = outstanding1;
+                    tprrr = (dp - amt);
                         $description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
                         $description.append($('<p/>').html('<b>Status: </b>' + status));
                         $('#myModal #pAmount').empty().html($description);
@@ -767,8 +772,7 @@
                             document.getElementById('cg').innerHTML = calEvent.cg;
                             startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
                             endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
-                            an = calEvent.title;
-                            downp = outstanding1;
+                            an = calEvent.title;                  
                             status11 = calEvent.status;                         
                             totalpay = calEvent.dp;
 
@@ -791,7 +795,7 @@
             function AddReversal() {
                 var refno = document.getElementById('rfid').value;
 				var ar = document.getElementById('atr').value;
-				var tp =document.getElementById('tpr').value;
+                var tp = document.getElementById('tpr').value;              
                 var desc = document.getElementById('rdescription').value;
 				var select = 'Pending';
 					if (ar == totalpay) {
@@ -940,7 +944,7 @@
 
 
 		$('.dp').on('keyup keydown', function (e) {
-			console.log($(this).val() > downp)
+            console.log($(this).val() > downp);
 			if ($(this).val() > downp
 				&& e.keyCode != 46
 				&& e.keyCode != 8
@@ -950,7 +954,21 @@
 				document.getElementById('dp').setAttribute('max', downp);
 				$(this).val(downp);
 			}
-		});
+        });
+
+        $('.atr').on('keyup keydown', function (e) {
+            console.log($(this).val() > tprrr);
+            console.log(tprrr);
+            if ($(this).val() > tprrr  
+                && e.keyCode != 46
+                && e.keyCode != 8
+            ) {
+                e.preventDefault();
+
+                document.getElementById('atr').setAttribute('max', tprrr);
+                $(this).val(tprrr);
+            }
+        });
 
 	</script>
 
