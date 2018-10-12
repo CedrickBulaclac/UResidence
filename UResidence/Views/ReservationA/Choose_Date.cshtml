@@ -273,7 +273,8 @@
 	var endT;
 	var startDate;
 	var endDate;
-	var rate1=@ViewBag.Message;
+	var rate1 =@ViewBag.Message;
+	var rate2 =@ViewBag.EveRate;
 	var rateA;
 	var statuset="Valid";
 	var statusst = "Valid";
@@ -330,8 +331,21 @@
 				document.getElementById('ed').value = selectedValue;
 				startDate = selectedValue;
 				endDate = selectedValue;
+
+				var date = $('#sd').val().split(",-");
+				console.log(date, $('#sd').val())
+				day = new Date(date);
+				var weekendday = day.getDay();
+				console.log(day.getDay());
 				var q = new Date();
-				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
+				//if()
+				if (weekendday == 6 || weekendday == 0)
+				{
+					alert("Reservations are not available during weekends");
+					document.getElementById('sd').value = null;
+					document.getElementById('ed').value = null;
+				}
 				if (startDate < MyDateString)
 				{
 					alert("Your chosen date is earlier than today");
@@ -371,8 +385,7 @@
                 }
                 else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
 					var hourDiff = fhours - startHours;
-					//100  *  2 = 200 * 6 = 1200
-						rateA = ((rate1 * 2) * hourDiff);
+						rateA = rate2 * hourDiff;
 						document.getElementById('rate').value = rateA;
 
 
@@ -413,55 +426,42 @@
             var eh = parseInt(endHours.split(':')[0], 10);
             var diff = eh - sh;
             if (eh >= 9 && eh <= 21) {
-                //if (sh == 17 && eh == 18) {
-                //    alert('Unavailable Time');
-                //    document.getElementById('st').value = '';
-                //    document.getElementById('et').value = '';
-                //    document.getElementById('rate').value = 0;
-                //}
-				/*else*/ if (eh >= 9 && eh <= 18) {
+                if (sh == 17 && eh == 18) {
+                    alert('Unavailable Time');
+                    document.getElementById('st').value = '';
+                    document.getElementById('et').value = '';
+                    document.getElementById('rate').value = 0;
+                }
+				else if (eh >= 9 && eh <= 18) {
                     rateA = rate1 * diff;
                     document.getElementById('rate').value = rateA;
                 }
-                else if (eh >= 18 && eh <= 21) {
+				else if (eh >= 18 && eh <= 21) {
+					rateA = rate2 * diff;
+					document.getElementById('rate').value = rateA;
 					//rateA = ((rate1 * 2) * diff);
 					//document.getElementById('rate').value = rateA;
-
-
+					//var diff = eh - sh;
+					//rateA = (((rate2) * diff / 2 + (rate2 * )));
+					//document.getElementById('rate').value = rateA;
 
 					if (sh < 18) {
-					
-						if (eh == 20) {
-					
-							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
-							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100 = 400
-							rateA = (((rate1 * 2) * diff / 2 + (rate1 * 2)));
-							document.getElementById('rate').value = rateA;
-						}
-						else if (eh == 21) {
-							
-							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
-							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100*2 = 500
-							//100  *  2 =	200 * 4 = 800 / 2 = 400 + 100*3 = 700
-							rateA = (((rate1 * 2) * diff / 2 + (rate1 * 3)));
-							document.getElementById('rate').value = rateA;
-						}
-						else {
-					
-							//100  *  2 =	200 * 2 = 400 / 2 = 200 + 100 = 300
-							//100  *  2 =	200 * 3 = 600 / 2 = 300 + 100 = 400
-							rateA = (((rate1 * 2) * diff / 2 + rate1));
-							document.getElementById('rate').value = rateA;
-						}
+						var dd = eh - 18;
+						var ed = 18 - sh;
+						rateA = ((rate1 * ed) + (rate2 * dd));
+						document.getElementById('rate').value = rateA;
+
 					}
 					else {
-				
+
 						//100  *  2 = 200 * 6 = 1200
-						rateA = ((rate1 * 2) * diff);
+						rateA = (rate2 * diff);
 						document.getElementById('rate').value = rateA;
 					}
 
 				}
+
+
 				//else if (sh <= 17 && eh >= 18) {    //<=5pm && >=6pm
 				//	alert('hi');
 				//	rateA = (((rate1 * 2) + ((rate1 * diff) - (rate1 * diff))));
