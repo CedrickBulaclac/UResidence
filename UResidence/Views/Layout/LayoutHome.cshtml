@@ -253,12 +253,11 @@
 		var myVar = setInterval(updateNotif, 3000);
 		var list =0;
 		var count=0;
-		var counter=0;
+        var counter = 0;
+        var beforecount = 0;
 		$('#notifBell').click(function () {
-            //$('span.count', this).html('&nbsp;');
             updateVisit();
-			$('.noti-content').hide();
-			//$('#himodal').modal();
+			$('.noti-content').hide();		
 		})
 
 		function getNotif() {
@@ -276,30 +275,49 @@
 		}
 
 		function updateNotif() {
-			$('#hello').empty();
-			$('#hello').append($('<li>Loading...</li>'));
+
 
 			$.ajax({
 				type: 'GET',
 				url: '/Reserve/GetNotificationContacts',
-				success: function (response) {
-
-
-					$('#hello').empty();
-					if (response.length == 0) {
-                        $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
-					}
-                    $.each(response, function (index, value) {
-                        if (value.Visit = 0) {
+                success: function (response) {
+                    if (response.length != beforecount) {
+                       
+                        if (response.length == 0) {
                             $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
-
                         }
-                        else {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+ '<p><hR></li>'));
+                        $.each(response, function (index, value) {
 
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
+
+                            }
+
+                        });
+                    }
+                    else {
+                        $('#hello').empty();
+                        if (response.length == 0) {
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
                         }
-                    });
+                        $.each(response, function (index, value) {
 
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
+
+                            }
+
+                        });
+                    }
+                    beforecount = response.length;
                     getNotif();
 
 				},

@@ -131,6 +131,7 @@
             var data = {
                 RFId:rfid
             };
+            var cref;
             document.getElementById('rfid').value = rfid;
             $.ajax({
                 type: 'POST',
@@ -139,23 +140,38 @@
                 success: function (data) {
                     $('#rowtotalCost').empty();
                     var totalc = 0;
-                    totalc = data[0].Rate + data[0].ChairCost + data[0].TableCost + data[0].Charge;
-					var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
-					trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Rate + '</td ></tr>';
+                    var data1 = data.Data.Reservation;
+                    var data2 = data.Data.Equipment;
+                    var te = 0;
+                    console.log(data1);
+                    $.each(data2, function (i, c) {
+                        if (c.RefNo == data1[0].RFId) {
+                            te += (c.Quantity * c.Rate);
+                            cref = c.RefNo;
+                        }
 
-                    trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" > Chair Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].ChairCost + '</td></tr>';                     
-                    trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Table Cost</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].TableCost + '</td></tr>';
-                    trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Charge</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Charge + '</td></tr>';
+                    });        
+                    totalc = data1[0].Rate + te + data1[0].Charge;
+					var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
+					trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Rate + '</td ></tr>';
+                    $.each(data2, function (i, c) {
+                        if (c.RefNo == data1[0].RFId) {
+                            mule = c.Quantity * c.Rate;
+                            trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >' + c.EquipmentName + 'Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + mule + '</td></tr>';                        
+                        }
+                    });    
+                  
+                    trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Charge</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Charge + '</td></tr>';
                     trHtml += '<tr> <td style="text-align:center; font - size: 10px; font - weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalc + '</td ></tr>';
     
                     $('#rowtotalCost').append(trHtml);
 
                     $('#rowtotalPayment').empty();
                     var totalp = 0;
-                    totalp = data[0].Total - data[0].Amount;
+                    totalp = data1[0].Total - data1[0].Amount;
                     var trHtml1 = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Payment</h5></td></tr>';
-                    trHtml1 += '<tr><td style="text-align:center; font-size: 10px; font-weight: bold;">Total Payment</td><td style = "text-align:center; font-size:10px; font-weight:bold;" >₱' + data[0].Total + '</td ></tr>';
-                    trHtml1 += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >Reversal Amount</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data[0].Amount + '</td></tr>';                     
+                    trHtml1 += '<tr><td style="text-align:center; font-size: 10px; font-weight: bold;">Total Payment</td><td style = "text-align:center; font-size:10px; font-weight:bold;" >₱' + data1[0].Total + '</td ></tr>';
+                    trHtml1 += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >Reversal Amount</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Amount + '</td></tr>';                     
                     trHtml1 += '<tr> <td style="text-align:center; font-size: 10px; font-weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalp + '</td ></tr>';
                     $('#rowtotalPayment').append(trHtml1);
                         $('#myModal').modal();
