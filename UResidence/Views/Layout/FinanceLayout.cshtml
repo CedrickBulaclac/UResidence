@@ -121,8 +121,9 @@
 		.regcontainer2 {
 			padding-left: 50px;
 		}
+
 		.modal-backdrop {
-		display:none;
+			display: none;
 		}
 	</style>
 </head>
@@ -235,47 +236,71 @@
 				</div>
 
 
-				<div class="regcontainer2">
-					<div class="col-lg-2">
-						<div class="panel panel-success ">
-							<div class="panel-heading">
+
+				<div class="col-lg-2">
+					<div class="panel panel-success ">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-calculator fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"></p>
+									<p class="announcement-text"> Reversal</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/ReversalRecord/Record">
+							<div class="panel-footer announcement-bottom">
 								<div class="row">
 									<div class="col-xs-6">
-										<i class="fa fa-calculator fa-5x"></i>
+										Open
 									</div>
 									<div class="col-xs-6 text-right">
-										<p class="announcement-heading"></p>
-										<p class="announcement-text"> Reversal</p>
+										<i class="fa fa-arrow-circle-right"></i>
 									</div>
 								</div>
 							</div>
-							<a href="~/ReversalRecord/Record">
-								<div class="panel-footer announcement-bottom">
-									<div class="row">
-										<div class="col-xs-6">
-											Open
-										</div>
-										<div class="col-xs-6 text-right">
-											<i class="fa fa-arrow-circle-right"></i>
-										</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="panel panel-success ">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-user fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"></p>
+									<p class="announcement-text">Manage Cashier</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Finance/ViewCashier">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
 									</div>
 								</div>
-							</a>
-						</div>
+							</div>
+						</a>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
-
 	@RenderBody()
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
 	@RenderSection("scripts", required: false)
 
 	<script>
-		
+
 
 		function UpdateProfilePic() {
 			var id = @Session["UID"];
@@ -326,3 +351,5 @@
 
 </body>
 </html>
+@*SCRIPT FOR VALIDATIONS*@
+@Scripts.Render("~/bundles/jqueryval")

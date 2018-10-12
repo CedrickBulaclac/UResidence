@@ -32,18 +32,25 @@ namespace UResidence.Controllers
         public JsonResult InsertPayment(Receipt receipt)
         {
             bool status = false;
-            status = ReceiptController.Insert(receipt);
-            if (status == true)
+          
+            if (receipt.Description != null && receipt.Description != "")
             {
-                Reservation reservation = new Reservation
+                status = ReceiptController.Insert(receipt);
+                if (status == true)
                 {
-                    Status = "Reserved",
-                    Id = receipt.RefNo,
-                };
-                status = ReservationController.Update(reservation);
+                    Reservation reservation = new Reservation
+                    {
+                        Status = "Reserved",
+                        Id = receipt.RefNo,
+                    };
+                    status = ReservationController.Update(reservation);
+                }
+                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
+            else {
+                string statuss = "blank";
+                return new JsonResult { Data = statuss, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
         }
         public JsonResult ReceiptHistory(int refno1)
         {

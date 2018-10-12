@@ -640,10 +640,7 @@ namespace UResidence.Controllers
             return View();
         }
 
-       
-
-
-
+      
         public ActionResult CalendarReservationAdmin() {
             int level = Convert.ToInt32(Session["Level"]);
 
@@ -660,12 +657,10 @@ namespace UResidence.Controllers
 
         public JsonResult GetEventsA()
         {
-            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL();
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALLReserved();
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
         }
-
 
         public JsonResult UpdateStatus(int refno1, string rstatus1)
         {
