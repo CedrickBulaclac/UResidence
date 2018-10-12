@@ -64,13 +64,17 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title"><span id="eventTitle"></span></h4>
 				</div>
-				<div class="modal-body">
-					<input type="hidden" name="rid" id="rid" />
-					<input type="hidden" name="rfid" id="rfid" />
-					<p id="pDetails">
-					</p>
-					<br /><br />
-				</div>
+                <div class="modal-body">
+                    <input type="hidden" name="rid" id="rid" />
+                    <input type="hidden" name="rfid" id="rfid" />
+                    <p id="pDetails">
+                    </p>
+                    <p id="pSwimming">
+                    </p>
+                    <p id="pAmount">
+                    </p>
+                    <br /><br />
+                </div>
                 
 				<div class="modal-footer" id="footer">
                    
@@ -141,21 +145,70 @@
 
 		});
         function Download(refno) {
-            $.post("/Reserve/DownloadReservation", { refno1: refno });
-            //$.ajax({
-            //    Url.
-            //    type: 'POST',
-            //    url: '/Reserve/DownloadReservation',
-            //    data:{ 'refno' : refno },
-            //    success: function (data) {
-            //        if (data == false) {
-            //            alert('Please try again later');
-            //        }
-            //    },
-            //    error: function (data) {
+            $.post("/Reserve/DownloadReservation", { refno1: refno });          
+        }
+        function Swimming(refnos) {
+            $('#myModal #pSwimming').empty();
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GET_SRESERVE",
+                data: { "refno": refnos },
+                success: function (data) {
+                    console.log(data);
 
-            //    }
-            //});
+                    var $description = $('<div/>');
+                    stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
+                    $description.append($('<p/>').html('<b>No. of Adult: </b>' + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/>' + data[0].AdultRate));
+                    $description.append($('<p/>').html('<b>Adult Cost: </b>' + (data[0].Adult * data[0].AdultRate)));
+                    $description.append($('<p/>').html('<b>No. of Children: </b>' + data[0].Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/>' + data[0].ChildRate));
+                    $description.append($('<p/>').html('<b> Child Cost: </b>' + (data[0].Child * data[0].ChildRate)));
+
+                    if (stots != 0) {
+                        $('#myModal #pSwimming').empty().html($description);
+                    }
+                }
+
+            });
+        }
+        function getEquipReversation(refno11, cg, rate, dp, amt, status) {
+            var datas = null;
+            var tccc = 0;
+            var totals = 0
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GET_ERESERVE",
+                data: { "refno": refno11 },
+                success: function (data) {
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Amenity Cost: </b>' + rate));
+                    if (data.length > 0) {
+                        for (var ctr = 0; ctr <= data.length - 1; ctr++) {
+                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Quantity: </b>' + data[ctr].Quantity + '&nbsp;&nbsp;&nbsp;<b>' + data[ctr].EquipmentName + ' Rate: <b/>' + data[ctr].Rate));
+                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Cost: </b>' + (data[ctr].Quantity * data[ctr].Rate)));
+                            tccc += (data[ctr].Quantity * data[ctr].Rate);
+                        }
+                    }
+                    if (data.length > 0) {
+                        $description.append($('<p/>').html('<b>Equipment Cost: </b>' + tccc));
+                    }
+                    $description.append($('<p/>').html('<b>Charge: </b>' + cg));
+                    $description.append($('<p/>').html('<b>Total Cost: </b>' + ((rate + tccc + cg))));
+                    $description.append($('<p/>').html('<b>Reversal Amount: </b>' + (amt)));
+                    $description.append($('<p/>').html('<b>Total Payment: </b>' + (dp - amt)));
+                    outstanding1 = ((rate + tccc + cg) - (dp - amt));
+                    if (outstanding1 < 0) {
+                        outstanding1 *= -1;
+                    }
+                    $description.append($('<p/>').html('<b>Outstanding Total: </b>' + outstanding1));
+                    $description.append($('<p/>').html('<b>Status: </b>' + status));
+                    $('#myModal #pAmount').empty().html($description);
+
+                },
+                error: function (data) {
+                    alert('Failed');
+                }
+            });
+
         }
 		function GenerateCalendar(events) {
 			$('#calendar').fullCalendar('destroy');
@@ -174,40 +227,23 @@
 
 				eventClick: function (calEvent, jsEvent, view) {
 					selectedEvent = calEvent;
-					$('#myModal #eventTitle').html('<b>Date: </b>' + calEvent.start.format("DD/MMM/YYYY"))
+                    $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf)
 					var $description = $('<div/>');
-					$description.append($('<p/>').html('<b>Reference Number: </b>' + calEvent.rf));
-					$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-					$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-					$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
-					$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-					$description.append($('<p/>').html('<b>Total Payment: </b>' + (calEvent.dp - calEvent.amt)));
-					$description.append($('<p/>').html('<b>Outstanding Total: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg) - (calEvent.dp - calEvent.amt))));
-					//document.getElementById('mySelect').value = calEvent.status;
-					document.getElementById('rid').value = calEvent.r;
-					document.getElementById('rfid').value = calEvent.rf;
-
-
-					$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-					$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-					//$description.append($('<p/>').html('<b>Amenity Cost: </b>' + calEvent.rate));
-					//$description.append($('<p/>').html('<b>Table Cost: </b>' + calEvent.tc));
-					//$description.append($('<p/>').html('<b>Chair Cost: </b>' + calEvent.cc));
-					//$description.append($('<p/>').html('<b>Charge: </b>' + calEvent.cg));
-					$description.append($('<p/>').html('<b>Total Cost: </b>' + ((calEvent.rate + calEvent.tc + calEvent.cc + calEvent.cg))));
-					//$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (calEvent.amt)));
-					$description.append($('<p/>').html('<b>Status: </b>' + calEvent.status));
-					//+ calEvent.TableCost + calEvent.ChairCost + calEvent.cg) - (calEvent.dp))
-					//document.getElementById('dp').value = calEvent.dp;
-					//document.getElementById('cg').innerHTML = calEvent.cg;
-					//totalpay = calEvent.dp;
-					//document.getElementById('tpr').innerHTML = calEvent.dp;
+                    $description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
+                    $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+                    $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                    $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                    $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+                    $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                    Swimming(calEvent.rf);
+                    getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);                         
+                    document.getElementById('rid').value = calEvent.r;
+                    document.getElementById('rfid').value = calEvent.rf;
                     $('#myModal #pDetails').empty().html($description);
                     $('#footer').empty();
                    
                     if (calEvent.status == "Reserved") {
                      
-                        //$('#footer').append('<a class="btn btn-success" onclick="Download(' + calEvent.rf + ')">Print</a> <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
                         $('#footer').append('<a class="btn btn-success" href="@Url.Action("DownloadReservation","Reserve")?refno1=' + calEvent.rf + '">Print</a><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
                     }
                     else {
