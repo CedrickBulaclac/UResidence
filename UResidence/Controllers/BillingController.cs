@@ -52,8 +52,12 @@ namespace UResidence.Controllers
         public JsonResult GetEvents(ReservationProcess data)
         {
             string uid = (Session["UID"]).ToString();
-            List<ReservationProcess> reservationList = ReservationProcessController.GETById(uid,data.RFId);
-            var events = reservationList.ToList();
+            List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(data.RFId);
+            List<EquipReservation> er = default(List<EquipReservation>);
+            er = UResidence.EquipReservationController.Getr(data.RFId);
+            List<Swimming> sr = default(List<Swimming>);
+            sr = UResidence.SwimmingController.GETR(data.RFId);
+            var events = Json(new { Reservation = reservationList.ToList(), Equipment = er.ToList(), Swimming = sr.ToList() });
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
         }

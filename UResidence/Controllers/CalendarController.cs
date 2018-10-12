@@ -362,10 +362,6 @@ namespace UResidence.Controllers
 
                 if (rid > 0)
                 {
-                    //UPDATE EVENT
-                    //var v = reservationList.Where(a => a.RId ==rid).FirstOrDefault();
-
-
                     Receipt r = new Receipt
                     {
                         ORNo = rid,
