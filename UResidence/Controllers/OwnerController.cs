@@ -178,9 +178,10 @@ namespace UResidence.Controllers
                     Owner owee = UResidence.OwnerController.GetEmailOwner(email);
                     Residence r = new Residence()
                     {
-                        OwnerNo = owee.Id
+                        OwnerNo = owee.Id,
+                        TenantNo = 0
                     };
-                    UResidence.ResidenceController.Insert(r);
+                     status = UResidence.ResidenceController.Insert(r);
                     Owner b = new Owner();
                     b = UResidence.OwnerController.GetEmailOwner(owe.Email.ToString());
                     int ownerid = b.Id;
@@ -200,7 +201,7 @@ namespace UResidence.Controllers
 
 
 
-                    UResidence.UserController.InsertOwnerId(ull);
+                    status = UResidence.UserController.InsertOwnerId(ull);
                     SendEmail(owe.Email,pass);
                     status = true;
                     ViewBag.AddMessage = status;

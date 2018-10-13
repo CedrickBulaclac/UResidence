@@ -13,6 +13,7 @@
 	}
 	int totaleq = 0;
 	int[] stocks =new int[equip.Count()];
+	int eqt = 0;
 }
 
 
@@ -150,15 +151,16 @@
 						{
 							if (eqp.Id == ep1.Id)
 							{
-								totaleq += ep1.Stocks;
+								totaleq = eqp.Stocks - ep1.Stocks;
+							}
+							else
+							{
+								totaleq = eqp.Stocks;
 							}
 
 						}
-						if (totaleq == 0)
-						{
-							totaleq = eqp.Stocks;
-						}
-						
+
+
 						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
 						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
 						<div class="col-md-4">
@@ -194,14 +196,14 @@
 						{
 							if (eqp.Id == ep1.Id)
 							{
-								totaleq += ep1.Stocks;
+								totaleq = eqp.Stocks - ep1.Stocks;
 							}
+							else
+							{
+								totaleq = eqp.Stocks;
+							}
+						}
 
-						}
-						if (totaleq == 0)
-						{
-							totaleq = eqp.Stocks;
-						}
 						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
 						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
 						<div class="col-md-4">
@@ -230,7 +232,7 @@
 				}
 
 			}
-
+	
 			<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
 			<a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
 		}
