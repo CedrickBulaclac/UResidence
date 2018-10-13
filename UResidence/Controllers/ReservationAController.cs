@@ -223,14 +223,44 @@ namespace UResidence.Controllers
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
             int[] eqpid;
+            int oldid = 0;
+            int stock = 0;
             List<int> qid = new List<int>();
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
             List<Equipment> equipList = UResidence.EquipmentController.GetAll(sd, ed);
+            List<object> data = new List<object>();
+            if (equipList.Count > 0)
+            {
+                oldid = equipList[0].Id;
+
+                for (int i = 0; i <= equipList.Count - 1; i++)
+                {
+                    if (equipList[i].Id == oldid)
+                    {
+                        stock += equipList[i].Stocks;
+                        oldid = equipList[i].Id;
+                    }
+                    else
+                    {
+
+                        object[] d = { oldid, stock };
+                        data.AddRange(d);
+                        oldid = equipList[i].Id;
+                        stock = 0;
+                        i--;
+                    }
+                }
+
+                object[] d1 = { oldid, stock };
+                data.AddRange(d1);
+            }
+
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             List<object> model = new List<object>();
-            model.Add(equipList.ToList());
+            model.Add(data.ToList());
             model.Add(equip.ToList());
+
             foreach (Equipment eqp in equip)
             {
                 qid.Add(eqp.Id);
@@ -463,6 +493,13 @@ namespace UResidence.Controllers
             Session["ed"] = ed;
             string drate = fc["rate"];
             Session["drate"] = drate;
+
+
+            if (drate == "" || drate == "0")
+            {
+                return View();
+            }
+
             int aid = Convert.ToInt32(Session["ID"]);
 
 
