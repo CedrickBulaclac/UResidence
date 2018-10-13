@@ -38,93 +38,94 @@
 
 <head>
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-	<title>Palmdale Heights</title>
-	<style>
-
-		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-		.row.content {
-			height: 1000px
-		}
-
-		/* Set gray background color and 100% height */
-		.sidenav {
-			background-color: #c8e6c9;
-			height: 100%;
-			/*text-emphasis-color: aliceblue;*/
-		}
-
-		/* On small screens, set height to 'auto' for the grid */
-		@@media screen and (max-width: 767px) {
-			.row.content {
-				height: auto;
-			}
-		}
-
-		.navbar {
-			background: #37474F;
-			padding: 0.5em 2em;
-			position: absolute;
-			top: 0;
-			width: 100%;
-			padding-bottom: 10px;
-		}
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-		.amenity, .equipment, .admin, .tenant, .owner, .maintenance {
-			margin-top: 70px;
-			margin-bottom: 70px;
-		}
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <style>
 
-		.counter-count {
-			font-size: 18px;
-			background-color: #2e7d32;
-			border-radius: 50%;
-			position: relative;
-			color: #ffffff;
-			text-align: center;
-			line-height: 92px;
-			width: 92px;
-			height: 92px;
-			-webkit-border-radius: 50%;
-			-moz-border-radius: 50%;
-			-ms-border-radius: 50%;
-			-o-border-radius: 50%;
-			display: inline-block;
-		}
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 1000px
+        }
 
-		.amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
-			font-size: 24px;
-			color: #1b5e20;
-			line-height: 34px;
-		}
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #c8e6c9;
+            height: 100%;
+            /*text-emphasis-color: aliceblue;*/
+        }
+
+        /* On small screens, set height to 'auto' for the grid */
+        @@media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .navbar {
+            background: #37474F;
+            padding: 0.5em 2em;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+
+        .amenity, .equipment, .admin, .tenant, .owner, .maintenance {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .counter-count {
+            font-size: 18px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+            position: relative;
+            color: #ffffff;
+            text-align: center;
+            line-height: 92px;
+            width: 92px;
+            height: 92px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            display: inline-block;
+        }
+
+        .amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
+            font-size: 24px;
+            color: #1b5e20;
+            line-height: 34px;
+        }
 
 
 
-		/*.bg.well {
-			background-color: #c8e6c9;
-			font-family: FZShuTi;
-		}*/
+        /*.bg.well {
+            background-color: #c8e6c9;
+            font-family: FZShuTi;
+        }*/
 
-		.regcontainer {
-			/*padding-left: 480px;*/
-			margin-left: 400px;
-		}
+        .regcontainer {
+            /*padding-left: 480px;*/
+            margin-left: 400px;
+        }
 
-		.regcontainer2 {
-			padding-left: 50px;
-		}
-	</style>
+        .regcontainer2 {
+            padding-left: 50px;
+        }
+    </style>
 </head>
 
 

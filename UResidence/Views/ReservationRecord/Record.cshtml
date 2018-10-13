@@ -130,50 +130,29 @@
 
                     $.each(data1, function (i, v) {                       
                         var tob = v.Outstanding;
-                        $.each(data2, function (i, c) {
-                            if (c.RefNo == v.RefNo) {
-                                tob += (c.Quantity * c.Rate);
-                                cref = c.RefNo;
-                            }
-
-                        });                                                  
-                        if (v.Outstanding < 0) {
-                            ob2 *= -1;
-                        }
-                        else {
-                            ob2 = v.Outstanding;
-                        }
-                                       
-                        if (cref == v.RefNo) {
-                           
-                            ob1 = ob2 + tob;
-                        }
-                        else {
-                            ob1 = ob2;
-                        }
-						if (ob1 == 0) {
+                       
+                        if (tob == 0) {
                             if (v.typeResident == "Owner") {
-                               
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
-							}
-						}
-						else {
-							if (v.typeResident == "Owner") {
-								name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
-							}
-							else {
-								name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
-							}
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                            }
                         }
-                        tob = 0;
+                        else {
+                            if (v.typeResident == "Owner") {
+                                name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                            }
+                            else {
+                                name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+
+                            }
+                        }
 					});
 					$('#tbReservationList').append(trHTML);
 				},
@@ -205,50 +184,28 @@
 
                     $.each(data1, function (i, v) {
                         var tob = v.Outstanding;
-                        $.each(data2, function (i, c) {
-                            if (c.RefNo == v.RefNo) {
-                                tob += (c.Quantity * c.Rate);
-                                cref = c.RefNo;
-                            }
-
-                        });
-                        if (v.Outstanding < 0) {
-                            ob2 *= -1;
-                        }
-                        else {
-                            ob2 = v.Outstanding;
-                        }
-
-                        if (cref == v.RefNo) {
-
-                            ob1 = ob2 + tob;
-                        }
-                        else {
-                            ob1 = ob2;
-                        }
-                        if (ob1 == 0) {
+                        if (tob == 0) {
                             if (v.typeResident == "Owner") {
 
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
                             }
                         }
                         else {
                             if (v.typeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
                             }
                         }
-                        tob = 0;
                     });
                     $('#tbReservationList').append(trHTML);
 				},
@@ -279,56 +236,32 @@
                     var ob2 = 0;
                     var list = [];
                     var cref = 0;
-                    var data1 = Data.Data.Reservation;
-                    var data2 = Data.Data.Equipment;
+                    var data1 = Data.Data.Reservation;         
                     trHTML = '<tr><th>Name</th> <th>Date of Reservation</th> <th>Reserved Amenity</th> <th>Outstanding Balance</th> <th>View</th></tr>';
-
                     $.each(data1, function (i, v) {
-                        var tob = v.Outstanding;
-                        $.each(data2, function (i, c) {
-                            if (c.RefNo == v.RefNo) {
-                                tob += (c.Quantity * c.Rate);
-                                cref = c.RefNo;
-                            }
-
-                        });
-                        if (v.Outstanding < 0) {
-                            ob2 *= -1;
-                        }
-                        else {
-                            ob2 = v.Outstanding;
-                        }
-
-                        if (cref == v.RefNo) {
-
-                            ob1 = ob2 + tob;
-                        }
-                        else {
-                            ob1 = ob2;
-                        }
-                        if (ob1 == 0) {
+                        var tob = v.Outstanding;                    
+                        if (tob == 0) {
                             if (v.typeResident == "Owner") {
 
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
                             }
                         }
                         else {
                             if (v.typeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + ob1 + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + ob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>' + tob + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
 
                             }
-                        }
-                        tob = 0;
+                        }            
                     });
                     $('#tbReservationList').append(trHTML);
 				},

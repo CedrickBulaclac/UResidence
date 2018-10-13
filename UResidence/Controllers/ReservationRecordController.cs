@@ -84,8 +84,7 @@ namespace UResidence.Controllers
             List<ReservationList> reservationList = ReservationListController.GetAllO();                      
             List<EquipReservation> er = default(List<EquipReservation>);
             er = UResidence.EquipReservationController.GetAll();
-
-
+            
             var events = Json(new { Reservation = reservationList.ToList(),Equipment=er.ToList() });
             return new JsonResult
             {
@@ -130,8 +129,7 @@ namespace UResidence.Controllers
             if (Level == 3)
             {
                 rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationList.rpt"));
-                data = ReservationListController.GetAllO();
-               
+                data = ReservationListController.GetAllO();           
             }
             else
             {

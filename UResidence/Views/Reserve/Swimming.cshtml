@@ -145,7 +145,7 @@
 					<div class="w3-row-padding" style="margin:8px -16px;">
 						<div class="w3-half w3-margin-bottom">
 							<label><i class="glyphicon glyphicon-user"></i> Adults </label>
-							<input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
+							<input type="number" onselect="myFunction()" class="w3-input" name="adult" id="adult" min="0" required value="0" @*style="float:left; width:350px;"*@>
 						</div>
 						<div class="w3-half">
 							<label><i class="glyphicon glyphicon-ruble"></i> Rate </label>
@@ -158,7 +158,7 @@
 					<div class="w3-row-padding" style="margin:8px -16px;">
 						<div class="w3-half w3-margin-bottom">
 							<label><i class="glyphicon glyphicon-user"></i> Kids </label>
-							<input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0" max="20" required value="0" @*style="float:left; width:350px;"*@>
+							<input type="number" onselect="myFunction()" class="w3-input" name="child" id="child" min="0"  required value="0" @*style="float:left; width:350px;"*@>
 
 							@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
 						</div>
@@ -194,7 +194,7 @@
 
 
 
-					<button class="button" type="submit"><i class="glyphicon glyphicon-circle-arrow-right"></i> Next</button>
+					<button class="button" type="submit" onclick="Check()"><i class="glyphicon glyphicon-circle-arrow-right"></i> Next</button>
 
 
 					@*</form>*@
@@ -209,16 +209,6 @@
 	<br />
 	<br />
 	<br />
-
-
-
-
-	<div class="third">
-		<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>
-
-		<!---Save NATEN TOH AHHKK XDD-->
-		@*<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3150648&x=121.099658&y=14.549327&z=0&item=197607366'> </iframe>*@
-
 		<!-- Footer -->
 		<footer @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
 			<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
@@ -228,7 +218,7 @@
 			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
 		</footer>
-	</div>
+	
 
 
 
@@ -245,7 +235,7 @@
 	var endT;
 	var startDate;
 	var endDate;
-	var rate1=@ViewBag.Message;
+
 	var rateA;
 	var statuset="Valid";
     var statusst = "Valid";
@@ -344,10 +334,19 @@
 
 
 	function Check() {
+        
+
+
 
 		var stconcat = document.getElementById('sd').value;
 		var etconcat = document.getElementById('ed').value
-		var cdrate = document.getElementById('rate').value;
+        var cdrate = document.getElementById('rate').value;
+        if (cdrate == 0 || cdrate == "") {
+
+            alert('Please specify the number of Adult and/or Child');
+            
+        }
+
 		document.getElementById('tratee').value = cdrate;
 
     }

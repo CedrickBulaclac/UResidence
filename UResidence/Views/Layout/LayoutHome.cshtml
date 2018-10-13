@@ -6,9 +6,10 @@
 
 <!DOCTYPE html>
 <html>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Palmdale Heights</title>
 <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
@@ -68,7 +69,9 @@
                 left: 0;
                 right: 0;
             }
-
+            a:hover{
+                background-color:gray;
+            }
         .noti-content {
             position: fixed;
             right: 100px;
@@ -199,7 +202,7 @@
 
                         <li class="dropdown">
 
-                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span id="bellspan"></span></a>
+                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span id="bellspan"></span><span class="caret"></span></a>
 
                             <ul class="dropdown-menu sample" id="hello" style="height: 300px;width: 300px;overflow: auto; "></ul>
 
@@ -222,16 +225,16 @@
 
 
 
-                                <li><a href="~/Reserve/CalendarViewOT" style="text-decoration:none;text-decoration-color:none;color: white;">Schedule</a> </li>
+                                <li><a href="~/Reserve/CalendarViewOT" style="color: white;">Schedule</a> </li>
 
-                                <li><a href="~/Billing/BillingView" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
-
-
+                                <li><a href="~/Billing/BillingView" style="color:white;"> Bills and Payment</a></li>
 
 
-                                <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;color: white;">Account Settings</a> </li>
 
-                                <li><a href=@Url.Action("Index","Login") style="text-decoration:none; text-decoration-color:none;color: white;">Logout </a></li>
+
+                                <li><a href=@Url.Action("OwnerAccountSetting", "AccountSetting") style="color: white;">Account Settings</a> </li>
+
+                                <li><a href=@Url.Action("Index","Login") style="color: white;">Logout </a></li>
                             </ul>
 
                         </li>
