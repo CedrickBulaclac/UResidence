@@ -106,7 +106,7 @@ namespace UResidence
         }
         public static bool Update(string email,string hash)
         {
-            const string GET_UPDATE = @"update [tbLogin] Hash=@hash where Username=@email";
+            const string GET_UPDATE = @"update [tbLogin] set Hash=@hash where Username=@email";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@email", email));
             com.Parameters.Add(new SqlParameter("@hash", hash));
