@@ -28,28 +28,173 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
           
         }
-
-        public JsonResult InsertPayment(Receipt receipt)
+        private bool Try(Receipt receipt)
         {
             bool status = false;
-          
+            status = ReceiptController.Insert(receipt);
+            if (status == true)
+            {
+
+                Reservation reservation = new Reservation
+                {
+                    Status = "Reserved",
+                    Id = receipt.RefNo,
+                };
+                status = ReservationController.Update(reservation);
+            }
+            return status;
+        }
+        public JsonResult InsertPayment(Receipt receipt)
+        {
             if (receipt.Description != null && receipt.Description != "")
             {
-                status = ReceiptController.Insert(receipt);
-                if (status == true)
+                List<EquipReservation> er = new List<EquipReservation>();
+                er = EquipReservationController.Getr(receipt.RefNo);
+                if (er.Count != 0)
                 {
-                    Reservation reservation = new Reservation
+                    List<Stocks> stok = new List<Stocks>();
+                    stok = StockController.GetStocks(receipt.st, receipt.et);
+                    string[] label = new string[stok.Count];
+                    if (stok.Count != 0)
                     {
-                        Status = "Reserved",
-                        Id = receipt.RefNo,
-                    };
-                    status = ReservationController.Update(reservation);
+                        bool status = false;
+                        for (int i = 0; i <= er.Count - 1; i++)
+                        {
+                            int stock = stok[i].EStocks - er[i].Quantity;
+                            if (stock < 0)
+                            {
+                                label[i] = "false";
+                            }
+                            else
+                            {
+                                label[i] = "true";
+                            }
+
+                        }
+                        if (label.Contains("false"))
+                        {
+                            Reservation reservation = new Reservation
+                            {
+                                Status = "Cancelled",
+                                Id = receipt.RefNo,
+                            };
+                            status = ReservationController.Update(reservation);
+                            string stat = "a";
+                            return new JsonResult { Data = stat, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+
+                            Amenity amen = new Amenity();
+                            amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
+                            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                            if (receipt.status == "Reserved")
+                            {
+                                status = Try(receipt);
+                                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                            }
+                            else
+                            {
+                                if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                                {
+                                    status = Try(receipt);
+                                    return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                                }
+                                if (schedList.Count == 0)
+                                {
+                                    status = Try(receipt);
+                                    return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                                }
+                                else
+                                {
+                                    Reservation reservation = new Reservation
+                                    {
+                                        Status = "Cancelled",
+                                        Id = receipt.RefNo,
+                                    };
+                                    status = ReservationController.Update(reservation);
+                                    string b = "failed";
+                                    return new JsonResult { Data = b };
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (receipt.status == "Reserved")
+                        {
+                            bool status = Try(receipt);
+                            return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+                            Amenity amen = new Amenity();
+                            amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
+                            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                            if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                            {
+                                bool status = Try(receipt);
+                                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                            }
+                            if (schedList.Count == 0)
+                            {
+                                bool status = false;
+                                status = Try(receipt);
+                                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                            }
+                            else
+                            {
+                                Reservation reservation = new Reservation
+                                {
+                                    Status = "Cancelled",
+                                    Id = receipt.RefNo,
+                                };
+                                bool status = ReservationController.Update(reservation);
+                                string b = "failed";
+                                return new JsonResult { Data = b };
+                            }
+                        }
+                    }
                 }
-                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                else
+                {
+                    if (receipt.status == "Reserved")
+                    {
+                        bool status = false;
+                        status = Try(receipt);
+                        return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    }
+                    else
+                    {
+                        Amenity amen = new Amenity();
+                        amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
+                        List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                        if (schedList.Count == 0)
+                        {
+                            bool status = false;
+                            status = Try(receipt);
+                            return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+                        else
+                        {
+
+                            Reservation reservation = new Reservation
+                            {
+                                Status = "Cancelled",
+                                Id = receipt.RefNo,
+                            };
+                            bool status = ReservationController.Update(reservation);
+                            string b = "failed";
+                            return new JsonResult { Data = b };
+                        }
+
+                    }
+                }
             }
-            else {
-                string statuss = "blank";
-                return new JsonResult { Data = statuss, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            else
+            {
+                bool status = false;
+                return new JsonResult { Data = status };
             }
         }
         public JsonResult ReceiptHistory(int refno1)

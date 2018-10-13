@@ -426,13 +426,13 @@
             var eh = parseInt(endHours.split(':')[0], 10);
             var diff = eh - sh;
             if (eh >= 9 && eh <= 21) {
-                if (sh == 17 && eh == 18) {
-                    alert('Unavailable Time');
-                    document.getElementById('st').value = '';
-                    document.getElementById('et').value = '';
-                    document.getElementById('rate').value = 0;
-                }
-				else if (eh >= 9 && eh <= 18) {
+                //if (sh == 17 && eh == 18) {
+                //    alert('Unavailable Time');
+                //    document.getElementById('st').value = '';
+                //    document.getElementById('et').value = '';
+                //    document.getElementById('rate').value = 0;
+                //}
+				/*else*/ if (eh >= 9 && eh <= 18) {
                     rateA = rate1 * diff;
                     document.getElementById('rate').value = rateA;
                 }

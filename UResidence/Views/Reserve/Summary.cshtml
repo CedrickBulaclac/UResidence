@@ -1,25 +1,21 @@
 ﻿
 @model List<Equipment>
 @{
-    ViewBag.Title = "Summary";
-    if (Convert.ToInt32(Session["Level"]) == 8)
-    {
-        Layout = "~/Views/Layout/LayoutHome.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 9)
-    {
-        Layout = "~/Views/Layout/TenantLayout.cshtml";
-    }
+	ViewBag.Title = "Summary";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/LayoutHome.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 	<head>
-
-
-
 		<style>
-
 			.input {
 				padding: 12px 20px;
 				margin: 8px 0;
@@ -76,179 +72,175 @@
 				}
 		</style>
 	</head>
-	<body>
-		<br />
-        <br />
-		<center>
-			<div>
-				<div class="progress" style="width:860px; height:40px;">
-					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-						<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-					</div>
 
-
-					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-					</div>
-
-
-					@if (ViewBag.Amenity == "Swimming Pool" || ViewBag.Amenity == "SWIMMING POOL")
-					{
-						<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Swimming","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-					}
-					else
-					{
-						<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Choose_Date","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-					}
-                    @if (ViewBag.Amenity == "Basketball Court" || ViewBag.Amenity == "BASKETBALL COURT")
-                    {
-					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-                    </div>
-                    }
-                    else
-                    {
-                    <div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100">
-                        <a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
-
-                    </div>
-                    }
-					<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-
-					</div>
+	<br />
+	<br />
+	<center>
+		<div>
+			<div class="progress" style="width:860px; height:40px;">
+				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+					<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
 				</div>
 
 
+				<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+				</div>
+
+
+				@if (ViewBag.Amenity == "Swimming Pool" || ViewBag.Amenity == "SWIMMING POOL")
+				{
+					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Swimming","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+					</div>
+				}
+				else
+				{
+					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Choose_Date","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+					</div>
+				}
+				@if (ViewBag.Amenity == "Basketball Court" || ViewBag.Amenity == "BASKETBALL COURT")
+				{
+					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+					</div>
+				}
+				else
+				{
+					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
+
+					</div>
+				}
+				<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+
+				</div>
 			</div>
-		</center>
-
-        <div class="container">
-            <input type="hidden" id="ida" name="ida" />
-            <input type="hidden" id="thm" name="thm" />
-            <br />
-
-            <div class="container">
-                <label for="AmenityName">Amenity Name :</label>
-            </div>
-
-            <div class="container">
-                <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
-            </div>
 
 
-
-            <br />
-
-            <div class="container">
-                <label for="Schedule">Schedule :</label>
-
-            </div>
-
-            <div class="container">
-                <input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" />
-            </div>
+		</div>
+	</center>
 
 
-            <input type="hidden" id="sta" name="sta" />
-            <input type="hidden" id="eta" name="eta" />
-            <br />
+	@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
+	<!------ Include the above in your HEAD tag ---------->
+	<input type="hidden" id="ida" name="ida" />
+	<input type="hidden" id="thm" name="thm" />
 
-            @if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
-            {
-                <div class="container">
+	<div class="container">
+		<div class="row">
+			<div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+				<div class="row">
+					<div class="text-center">
+						<h1>Summary of Reservation</h1>
+					</div>
 
-                    <label>No. of Adult :</label><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"> <label>Rate :</label> <input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled">
-                    <br />
-                    <br />
-                    <label> No. of Children :</label><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"> <label>Rate :</label> <input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled">
-                </div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th class="text-center"></th>
+								<th class="text-center"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-md-9"><h4><em>Amenity Name :</em></h4></td>
+								<td class="col-md-1" style="text-align: center"><input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" /></td>
+							</tr>
+							<tr>
+								<td class="col-md-9"><h4><em>Schedule: </em></h4></td>
+								<td class="col-md-1" style="text-align: center"><input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" /></td>
+							</tr>
+							@if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
+							{
+								<tr>
+									<td class="col-md-9"><h4><em>No. of Adult :</em></h4></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"></td>
+								</tr>
+								<tr>
+									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled"></td>
+								</tr>
+								<tr>
+									<td class="col-md-9"><h4><em>No. of Children :</em></h4></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"></td>
+								</tr>
+								<tr>
+									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled"></td>
+								</tr>
+							}
+							else
+							{
+								<tr>
+									<td class="col-md-9"><h4><em>Price :</em></h4></td>
+									<td class="col-md-1" style="text-align: center"><input type="text" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" /></td>
+								</tr>
+								<input type="hidden" id="ap" name="ap" />
+							}
+							@{
+								int ctr4 = 0;
+								if (ViewBag.quan != null)
+								{
+									foreach (var eqp in Model)
+									{
+										if (ViewBag.quan[ctr4] != 0)
+										{
+											<tr>
+												<td class="col-md-9"><h4><em>@eqp.Name</em></h4></td>
+											</tr>
+											<tr>
+												<td class="col-md-9"><em>Quantity: </em></td>
+												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })</td>
+											</tr>
+											<tr>
+												<td class="col-md-9"><em>Rate: </em></td>
+												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })</td>
+											</tr>
+											<tr>
+												<td class="col-md-9"><em>Sub Total: </em></td>
+												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })</td>
+											</tr>
+										}
+										else if (ViewBag.quan[ctr4] is null)
+										{
 
-            }
-            else
-            {
-                <div class="container">
-                    <label for="Price" name="lprice" id="lprice">Price :</label>
-                </div>
-                <div class="container">
-                    <input type="text" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" />
-                </div>
+										}
+										ctr4++;
+									}
+								}
+							}
+							<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+							<tr>
 
-                <input type="hidden" id="ap" name="ap" />
+								<td class="text-right"><h4><strong>Total Amount: </strong></h4></td>
+								<td class="text-center text-danger"><h4><strong><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly /></strong></h4></td>
+								<td>   </td>
+								<td>   </td>
 
-            }
-            <br />
-            <br />
-
-            @{
-
-
-
-                int ctr4 = 0;
-
-
-                if (ViewBag.quan != null)
-                {
-
-                    foreach (var eqp in Model)
-                    {
-
-                        if (ViewBag.quan[ctr4] != 0)
-                        {
-
-                        <div class="container">
-                            <label class="  text-center">@eqp.Name</label>                 
-                        <br />                      
-                            <label for="Quantity">Quantity :</label> <br />@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })
-                        <br />                 
-                            <label for="Rate">Rate :</label> <br /> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })
-                        <br />
-                            <label for="SubTotal">Sub Total :</label> <br /> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })
-                        </div>
-                        <br />
-                            }
-                            else if (ViewBag.quan[ctr4] is null)
-                            {
-
-                            }
-
-
-                            ctr4++;
-
-                        }
-                    }
-
-                }
-            <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
-
-            <div class="container">
-                <label for="totalamount">Total Amount :</label><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
-            </div>
-
-            <br />
-
-
-            <button id="btnSubmit" name="btnSubmit" class="button" type="submit" style="float:left;">Submit</button>
-
-
-        </div>
-
-
-
-	</body>
-
-
+							</tr>
+						</tbody>
+					</table>
+					<button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success btn-lg btn-block">
+						Reserve Now   <span class="glyphicon glyphicon-chevron-right"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -274,6 +266,7 @@
     });
 
 	</script>
+
 }
 <footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
 	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>

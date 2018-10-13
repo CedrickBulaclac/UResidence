@@ -107,9 +107,17 @@
 										{
 											<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 										}
-										<div class="w3-section">
-											<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
-										</div>
+											<div class="w3-section">
+												@if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
+												{
+													<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName')" name="btnImg">Select</button>
+												}
+												else
+												{
+													<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetIdd('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+
+												}
+											</div>
 									</div>
 
 								</div>
@@ -144,9 +152,17 @@
 												{
 													<p>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
 												}
-												<div class="w3-section">
-													<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate','@amn.Child','@amn.Adult')" name="btnImg">Select</button>
-												</div>
+													<div class="w3-section">
+														@if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
+														{
+															<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName')" name="btnImg">Select</button>
+														}
+														else
+														{
+															<button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetIdd('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+
+														}
+													</div>
 											</div>
 
 										</div>
@@ -172,12 +188,20 @@
 </footer>
 
 <script type="text/javascript">
-	function GetId(id, rate, name, eve, ratechild, rateadult) {
+	function GetIdd(id, rate, name, eve) {
 		document.getElementById('ida').value = id;
 		document.getElementById('ratea').value = rate;
-		document.getElementById('ratec').value = ratechild;
-		document.getElementById('rateaa').value = rateadult;
 		document.getElementById('namea').value = name;
 		document.getElementById('eve').value = eve;
+	}
+
+	function GetId(id, ratea, ratec, name) {
+		document.getElementById('ida').value = id;
+		document.getElementById('rateaa').value = ratea;
+		document.getElementById('ratec').value = ratec;
+		document.getElementById('namea').value = name;
+		document.getElementById('ratea').value = 0;
+		document.getElementById('eve').value = 0;
+
 	}
 </script>

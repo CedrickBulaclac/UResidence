@@ -1,17 +1,18 @@
 ﻿@model IEnumerable<object>
 @{
-    List<UResidence.Equipment> equip1 = Model.ToList()[0] as List<UResidence.Equipment>;
-    List<UResidence.Equipment> equip = Model.ToList()[1] as List<UResidence.Equipment>;
-    ViewBag.Title = "Choose_Equipment";
-    if (Convert.ToInt32(Session["Level"]) == 8)
-    {
-        Layout = "~/Views/Layout/LayoutHome.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 9)
-    {
-        Layout = "~/Views/Layout/TenantLayout.cshtml";
-    }
-
+	List<UResidence.Equipment> equip1 = Model.ToList()[0] as List<UResidence.Equipment>;
+	List<UResidence.Equipment> equip = Model.ToList()[1] as List<UResidence.Equipment>;
+	ViewBag.Title = "Choose_Equipment";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/LayoutHome.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
+	int totaleq = 0;
+	int[] stocks =new int[equip.Count()];
 }
 
 
@@ -84,12 +85,12 @@
 
 <body>
 
-    <br />
-    <br />
+	<br />
+	<br />
 
 
-    <center>
-        <div>
+	<center>
+		<div>
 			<div class="progress" style="width:860px; height:40px;">
 				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
 					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
@@ -130,112 +131,183 @@
 			</div>
 
 
-        </div>
-    </center>
+		</div>
+	</center>
 
 
 
+	<div class="container-fluid">
+		@{int ctr3 = 0;
+			if (equip1 != null)
+			{
+				if (equip.Count > 0)
+				{
+					//Equipment
+					foreach (var eqp in equip)
+					{
+						//ReservEquipment
+						foreach (var ep1 in equip1)
+						{
+							if (eqp.Id == ep1.Id)
+							{
+								totaleq += ep1.Stocks;
+							}
 
-    <div class="container-fluid">
-        @{int ctr3 = 0;
-            if (equip1 != null)
-            {
-                if (equip1.Count > 0)
-                {
-                    foreach (var eqp in equip1)
-                    {
-                        <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                        <div class="col-md-4">
-                            <div class="w3-container">
-                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
+						}
+						if (totaleq == 0)
+						{
+							totaleq = eqp.Stocks;
+						}
+						
+						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+						<div class="col-md-4">
+							<div class="w3-container">
+								<div class="w3-card-4 w3-dark-grey" style="width:100%">
+									<div class="w3-container w3-center">
+										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										<p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })</font></p>
+										<p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1"></font></p>
+										<p> <label for="Rate">Rate :</label> <font color="black">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
 
-                                    <div class="w3-container w3-center">
-                                        <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                        <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-                                        <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <p>  <label for="Quantity">Quantity :</label> <font color="black">   @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } }) </font></p>
-                                        <p>    <label for="Stocks">Stocks :</label> <font color="black">  @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } }) </font></p>
-                                        <p>     <label for="Rate">Rate :</label> <font color="black">   @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
+										<div class="w3-section">
 
-                                        <div class="w3-section">
+										</div>
+									</div>
 
-                                        </div>
-                                    </div>
+								</div>
+							</div>
+						</div>
+						ctr3++;
+						//stocks[ctr3] = totaleq;
+						totaleq = 0;
+					}
 
-                                </div>
-                            </div>
-                        </div> ctr3++;
-                    }
-                }
-                else if (equip.Count > 0)
-                {
-                    foreach (var eqp in equip)
-                    {
-                        <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                        <div class="col-md-4">
-                            <div class="w3-container">
-                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
+				}
+				else if (equip.Count > 0)
+				{
+					foreach (var eqp in equip)
+					{
+						foreach (var ep1 in equip1)
+						{
+							if (eqp.Id == ep1.Id)
+							{
+								totaleq += ep1.Stocks;
+							}
 
-                                    <div class="w3-container w3-center">
-                                        <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                        <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-                                        <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <p><label for="Quantity">Quantity :</label> <font color="black">   @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })</font></p>
-                                        <p><label for="Stocks">Stocks :</label> <font color="black">  @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } }) </font></p>
-                                        <p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
+						}
+						if (totaleq == 0)
+						{
+							totaleq = eqp.Stocks;
+						}
+						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+						<div class="col-md-4">
+							<div class="w3-container">
+								<div class="w3-card-4 w3-dark-grey" style="width:100%">
+									<div class="w3-container w3-center">
+										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										<p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })</font></p>
+										<p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2"></font></p>
+										<p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
 
-                                        <div class="w3-section">
+										<div class="w3-section">
 
-                                        </div>
-                                    </div>
+										</div>
+									</div>
 
-                                </div>
-                            </div>
-                        </div> ctr3++;
-                    }
-                }
-            }
-        }
-        <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-        <a href="@Url.Action("Summary","Reserve")"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
-    </div>
+								</div>
+							</div>
+						</div>
+						ctr3++;
+						//stocks[ctr3] = totaleq;
+						totaleq = 0;
+					}
+				}
 
-    <script type="text/javascript">
-        var id = [null]
-        var rate = [null];
-        var quantity = [null];
-        var total = [null];
-        var ttotal = 0;
-        var txtctr = parseInt($('#txtctr').val());
-        var quane;
+			}
 
+			<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+			<a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
+		}
+	</div>
 
-        function SET() {
-            for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
-                id[pppp] = $('#eid' + pppp).val();
-                quantity[pppp] = $('#txtQuantity' + pppp).val();
-                rate[pppp] = $('#txtRate' + pppp).val();
-                total[pppp] = quantity[pppp] * rate[pppp];
-                var ttotal = ttotal + total[pppp];
-            }
-            $.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
+	<script type="text/javascript">
+		var id = [null]
+		var rate = [null];
+		var quantity = [null];
+		var total = [null];
+		var stot = [null]
+		var ttotal = 0;
+		var txtctr = parseInt($('#txtctr').val());
+		var quane;
+		var test = [null];
+	
+		//$(document).ready(function () {
 
-        }
+		//	var n1 = document.getElementById('stock1').value;
+		//	var n2 = document.getElementById('s1');
+		//	n2.value = n1.value;
+		//});
 
-    </script>
-    <br />
-    <br />
-    <br />
-    <br />
-    <!-- Footer -->
-    <footer @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
-        <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-        <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
-        <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
-        <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
-        <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+		//function get() {
+		//	var n1 = document.getElementById('stocks1').value;
+		//	consoler.log(n1);
+		//	var n2 = document.getElementById('stocks2').value;
+		//	console.log(n2);
+		//}
+		var boo = function (element) {
+			return element == false;
+		}
+		
+		function SET() {
+			for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+				var sto = 0;
+				var quan = 0;
+				id[pppp] = $('#eid' + pppp).val();
+				quantity[pppp] = $('#txtQuantity' + pppp).val();
+				quan = $('#txtQuantity' + pppp).val();
+				sto=document.getElementById('svalue '+pppp).value;
+				if (quan <= sto) {
+					test[pppp] = true;
+				}				
+				else {
+					test[pppp] = false;
+				}
+				console.log(quan > sto);
+				console.log(quan);
+				console.log(sto);
+				rate[pppp] = $('#txtRate' + pppp).val();
+				total[pppp] = quantity[pppp] * rate[pppp];
+				var ttotal = ttotal + total[pppp];
+			}
+			if (test.some(boo)) {
+				alert('Insuficient equipment stock');
+			}
+			else {
+				$.post('/Reserve/Choose_Equipment', $.param({ data: quantity, datar: rate }, true));
+				var url = '@Url.Action("Summary", "Reserve")';
+				window.location.href = url;
+			}
+		}
+	</script>
+	<br />
+	<br />
+	<br />
+	<br />
+	<!-- Footer -->
+	<footer @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+		<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+		<p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+		<p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+		<p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
-    </footer>
+	</footer>
 
 </body>
 </html>

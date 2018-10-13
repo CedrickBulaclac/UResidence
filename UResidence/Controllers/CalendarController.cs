@@ -103,7 +103,7 @@ namespace UResidence.Controllers
                             
                             Amenity amen = new Amenity();
                             amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen); 
-                            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                            List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id); 
                             if (receipt.status == "Reserved")
                             {
                                 status = Try(receipt);
@@ -111,6 +111,11 @@ namespace UResidence.Controllers
                             }
                             else
                             {
+                                if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                                {
+                                    status = Try(receipt);
+                                    return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                                }
                                 if (schedList.Count == 0)
                                 {
                                     status = Try(receipt);
@@ -142,6 +147,11 @@ namespace UResidence.Controllers
                             Amenity amen = new Amenity();
                             amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
                             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
+                            if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                            {
+                                bool status = Try(receipt);
+                                return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                            }
                             if (schedList.Count == 0)
                             {
                                 bool status = false;

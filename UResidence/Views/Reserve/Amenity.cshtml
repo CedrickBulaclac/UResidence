@@ -183,11 +183,11 @@
 
                                                 @if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
                                                 {
-                                                    <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+                                                    <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName')" name="btnImg">Select</button>
                                                 }
                                                 else
                                                 {
-                                                    <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+                                                    <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetIdd('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
 
                                                 }
                                             </div>
@@ -250,11 +250,11 @@
 
                                                         @if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
                                                         {
-                                                            <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+                                                            <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Adult','@amn.Child','@amn.AmenityName')" name="btnImg">Select</button>
                                                         }
                                                         else
                                                         {
-                                                            <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetId('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
+                                                            <button class="w3-button w3-green" style="float:right;" type="submit" id="btnImg" onclick="GetIdd('@amn.Id','@amn.Rate','@amn.AmenityName','@amn.EveRate')" name="btnImg">Select</button>
 
                                                         }
                                                     </div>
@@ -287,19 +287,20 @@
 </footer>
 
 <script type="text/javascript">
-	function GetId(id, rate, name,eve) {
+	function GetIdd(id, rate, name,eve) {
 		document.getElementById('ida').value = id;
 		document.getElementById('ratea').value = rate;
 		document.getElementById('namea').value = name;
 		document.getElementById('eve').value = eve;
     }
 
-    function GetId(id, ratea,ratec, name, eve) {
+    function GetId(id, ratea,ratec, name) {
         document.getElementById('ida').value = id;
-        document.getElementById('ratea').value = 0;
         document.getElementById('rateaa').value = ratea;
         document.getElementById('ratec').value = ratec;
-        document.getElementById('namea').value = name;
-        document.getElementById('eve').value = eve;
+		document.getElementById('namea').value = name;
+		document.getElementById('ratea').value = 0;
+		document.getElementById('eve').value = 0;
+
     }
 </script>

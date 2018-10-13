@@ -180,11 +180,15 @@
                 var name = "@Session["Fullname"]";
 
                 var data1 = {
-                    RefNo: refno,
-                    Totalpayment: payment,
-                    Date: MyDateString,
-                    Description: description,
-                    CreatedBy: name
+					RefNo: refno,
+					Totalpayment: payment,
+					Date: MyDateString,
+					Description: description,
+					CreatedBy: name,
+					st: startT,
+					et: endT,
+					amen: an,
+					status: status11
                 };
 
 
@@ -201,7 +205,18 @@
 							//window.location.href = window.location.href + "?rnd=" + Math.random();
 							$('#myModal').modal();
 						}
-						else if (data == "blank") {
+						else if (data == "failed") {
+
+							alert("The chosen date and time is unavailable");
+							RefreshCalendar();
+							window.location.reload();
+						}
+						else if (data == "a") {
+							alert("Insufficient equipment stock");
+							RefreshCalendar();
+							window.location.reload();
+						}
+						else {
 							alert("Description is blank");
 						}
 
