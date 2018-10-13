@@ -27,14 +27,14 @@
 
 
 			body {
-				background-color: #f1f8e9;
-				/*background: url(/Content/WebImages/swimming.jpg) no-repeat center center fixed;
-				opacity: 0.75;
+				/*background-color: #f1f8e9;*/
+				background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
 				-webkit-background-size: cover;
 				-moz-background-size: cover;
 				-o-background-size: cover;
-				background-size: cover;*/
+				background-size: cover;
 			}
+
 
 			.button {
 				padding: 15px 25px;
@@ -43,12 +43,13 @@
 				cursor: pointer;
 				outline: none;
 				color: #fff;
-				background-color: #09442c;
+				background-color: #43a047;
 				border: none;
 				border-radius: 5px;
-				float: right;
+				/*float: right;*/
 				text-decoration: none;
 				text-decoration-color: none;
+				width: 500px;
 			}
 
 			.submit {
@@ -69,7 +70,7 @@
 
 
 			.button:hover {
-				background-color: #0e6742;
+				background-color: #81c784;
 			}
 
 
@@ -79,6 +80,71 @@
 				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 				padding: 10px;
 			}
+
+
+
+			@@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+			body {
+				padding-top: 50px;
+			}
+
+			.box {
+				border-radius: 3px;
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+				padding: 10px 25px;
+				text-align: right;
+				display: block;
+				margin-top: 60px;
+				background-color: #efebe9;
+			}
+
+			.box-icon {
+				background-color: #57a544;
+				border-radius: 50%;
+				display: table;
+				height: 100px;
+				margin: 0 auto;
+				width: 100px;
+				margin-top: -61px;
+			}
+
+				.box-icon span {
+					color: #fff;
+					display: table-cell;
+					text-align: center;
+					vertical-align: middle;
+				}
+
+			.info h4 {
+				font-size: 26px;
+				letter-spacing: 2px;
+				text-transform: uppercase;
+			}
+
+			.info > p {
+				color: #717171;
+				font-size: 16px;
+				padding-top: 10px;
+				text-align: justify;
+			}
+
+			.info > a {
+				background-color: #03a9f4;
+				border-radius: 2px;
+				box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+				color: #fff;
+				transition: all 0.5s ease 0s;
+			}
+
+				.info > a:hover {
+					background-color: #0288d1;
+					box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+					color: #fff;
+					transition: all 0.5s ease 0s;
+				}
+
+
 		</style>
 
 
@@ -133,85 +199,88 @@
 
 		<div id="main">
 
-			<header class="w3-display-container w3-content" style="max-width:1500px; ">
 
-				@*<center>
-						<p> <strong> REMINDERS </strong></p>
-						<p> <i class="glyphicon glyphicon-exclamation-sign"></i> Kindly settle your full payment within 24 hours.</p>
-						<p> <i class="glyphicon glyphicon-erase"></i> Failure to pay in full will not be considered as Reserved.</p>
-						<p> <i class="glyphicon glyphicon-ban-circle"></i> Non-refundable in all amenities.</p>
-						<p> <i class="glyphicon glyphicon-remove-sign"></i> Additional charges may vary upon extension of time and damage.</p>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="box">
+							<div class="box-icon">
+								<span class="fa fa-3x fa fa-info"></span>
+							</div>
+							<div class="info">
+								<h4 class="text-center">Reminders: </h4>
 
-					</center>*@
+								<p><b> Reservation of Clubhouse </b>  - Weekdays, Saturdays & Sundays (After the Mass).</p>
+								<p> <b> Reservation of Basketball Court</b> - Weekdays Only; NO RESERVATION during weekends (Saturdays,Sundays & Holidays).</p>
+								<p> <b> Cancellation of Reservation </b> - Please inform the Admin Office atleast 3 days before the event.</p>
+								<p>  Reservation in gazebo and trellis may be cancelled 2 hours before the even due to bad weather.</p>
+								<p>  No videoke in Gazebo 1, 2, 3 and Trellis.</p>
+								<p>  <b>Swimming</b> - Please wear Proper Swimming Attire; No cotton shirts/T-shirts, No maong shorts.</p>
+								<p>  Kindly settle your bills upon reservation.</p>
+								<p>  Damaged equipment at cost.</p>
 
 
-				<img class="w3-image" src="~/Content/WebImages/swimming.jpg" width="1500" height="400">
-
-
-				<div class="w3-display-topmiddle w3-padding w3-col l6 m8">
-					<br /> <br />
-					<div class="w3-container w3-light-green">
-
-						<h3><i class="glyphicon glyphicon-tags"></i>   Palmdale Heights Condiminium</h3>
+							</div>
+						</div>
 					</div>
 
-					<div class="w3-container w3-white  w3-padding-16">
-						@*<form action="/action_page.php" target="_blank">*@
-
-						<div class="w3-row-padding" style="margin:0 -16px;">
-							<div class="w3-half w3-margin-bottom">
-								<label><i class="glyphicon glyphicon-calendar"></i> Start Date</label>
-
-								<font color="black">
-									<input type="date" onselect="Set()" class="w3-input" id="sd" name="sd" required @*style="float:left; width:350px;"*@ />
-								</font>
 
 
-								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="box">
+							<div class="box-icon">
+								<span class="fa fa-3x fa fa-calendar"></span>
 							</div>
-							<div class="w3-half">
+							<div class="info">
 
-								<label><i class="glyphicon glyphicon-time"></i> Start Time</label>
+								<h4 class="text-center">Choose your Date and Time</h4>
 
-								<font color="black">
-									<input type="time" onselect="myFunction()" class="w3-input" min="08:00" max="20:00" id="st" name="st" required @*style="float:right; width:350px; padding-bottom:18px;"*@ />
-								</font>
-								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
-							</div>
-						</div>
+								<br />
 
-						<!----EndDate/EndTime-------->
 
-						<div class="w3-row-padding" style="margin:8px -16px;">
-							<div class="w3-half w3-margin-bottom">
-								<label><i class="glyphicon glyphicon-calendar"></i> End Date</label>
 
-								<font color="black">
-									<input type="date" class="w3-input" id="ed" name="ed" readonly="readonly" @*style="float:left; width:350px;"*@ />
-								</font>
 
-								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>*@
-							</div>
-							<div class="w3-half">
 
-								<label><i class="glyphicon glyphicon-time"></i> End Time</label>
+								<p class="form-inline">
+									<label for="start date">Start Date:</label> &nbsp; &nbsp; <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" style="width:300px" required />
 
-								<font color="black">
-									<input type="time" onchange="myFunction()" class="w3-input" min="09:00" max="21:00" id="et" name="et" required @*style="float:right; width:350px; padding-bottom:18px;"*@ />
-								</font>
 
-								@*<input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>*@
-							</div>
-						</div>
+								</p>
 
-						<!---Rate-->
-						<div class="w3-row-padding" style="margin:16px -16px;">
-							<div class="w3-half w3-margin-bottom">
-								<label> <i class="glyphicon glyphicon-ruble"> </i> Rate :</label>
+								<br />
 
-								<font color="black">
-									<input type="text" id="rate" class="w3-input" disabled="disabled" />
 
+								<p class="form-inline">
+									<label for="end date">End Date:</label> &nbsp; &nbsp; &nbsp; <input type="date" class="form-control" id="ed" name="ed" readonly="readonly" style="width:300px" />
+								</p>
+
+
+								<br />
+
+								<p class="form-inline">
+									<label for="start time">Start Time:</label> &nbsp; &nbsp; <input type="time" onselect="myFunction()" class="form-control" min="08:00" max="20:00" id="st" name="st" style="width:300px" required />
+
+								</p>
+
+								<br />
+
+
+								<p class="form-inline">
+									<label for="end time">End Time:</label> &nbsp; &nbsp; &nbsp; <input type="time" onchange="myFunction()" class="form-control" min="09:00" max="21:00" id="et" name="et" style=" width:300px" required />
+
+
+								</p>
+
+								<br />
+
+
+								<p class="form-inline">
+									<label for="rate">Rate:    </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="rate" class="form-control" disabled="disabled" style="width:300px" />
+									<br />
+									<br />
+									<br />
+
+									<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
 
 									<input type="hidden" id="stime" name="stime" />
 									<input type="hidden" id="etime" name="etime" />
@@ -219,44 +288,50 @@
 									<input type="hidden" id="result" name="result" />
 									<input type="hidden" id="qwe" name="qwe" />
 									<input type="hidden" id="abc" name="abc" />
-								</font>
+
+								</p>
+
+								@*<p class="form-inline">
+
+
+								</p>*@
+
+
 							</div>
 						</div>
-
-
-
-
-
-						<!---For Swimming Pool-->
-						@*<div class="w3-row-padding" style="margin:8px -16px;">
-							<div class="w3-half w3-margin-bottom">
-							<label><i class="fa fa-male"></i> Adults</label>
-							<input class="w3-input w3-border" type="number" value="1" name="Adults" min="1" max="6">
-							</div>
-							<div class="w3-half">
-							<label><i class="fa fa-child"></i> Kids</label>
-							<input class="w3-input w3-border" type="number" value="0" name="Kids" min="0" max="6">
-							</div>
-							</div>*@
-
-						<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
-
-
-
-
-
 					</div>
 				</div>
-			</header>
-			<!--Header Ends-->
+			</div>
+
+
+
+
+
+
+
+
 
 		</div>
 
 
 
 
+
+
+		<br /> <br />
+
+
+
+
+
+
+
+
+
+
+
 		@*<div class="third">
-			<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>*@
+		<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3149776&x=121.100670&y=14.550045&z=1&item=197588804'> </iframe>*@
 
 		<!---Save NATEN TOH AHHKK XDD-->
 		@*<iframe frameborder=0 style='width:100%;height:500px' src='//www.zeemaps.com/pub?group=3150648&x=121.099658&y=14.549327&z=0&item=197607366'> </iframe>*@
