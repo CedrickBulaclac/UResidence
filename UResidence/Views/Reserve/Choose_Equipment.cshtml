@@ -29,12 +29,14 @@
 
 
 		body {
-			background: url(../../Content/HomeImages/bg3.jpg) no-repeat center center fixed;
+			/*background-color: #dcedc8;*/
+			background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
 			-webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
 			background-size: cover;
 		}
+
 
 
 		.col-25 {
@@ -81,6 +83,65 @@
 			.button:hover {
 				background-color: #0e6742;
 			}
+
+		.db-pricing-seven {
+			margin-bottom: 30px;
+			margin-top: 30px;
+			text-align: center;
+			border: 1px solid #C5C2C2;
+			background-color: #EDEDED;
+		}
+
+			.db-pricing-seven:hover {
+				margin-top: 5px;
+				-moz-transition: margin-top 0.25s ease 0s;
+				-ms-transition: margin-top 0.25s ease 0s;
+				transition: margin-top 0.25s ease 0s;
+			}
+
+			.db-pricing-seven ul {
+				list-style: none;
+				margin: 0;
+				text-align: center;
+				padding-left: 0px;
+			}
+
+				.db-pricing-seven ul li {
+					border-bottom: solid 1px #D8D8D8;
+					padding-top: 20px;
+					padding-bottom: 20px;
+					cursor: pointer;
+					text-transform: uppercase;
+				}
+
+					.db-pricing-seven ul li.price {
+						background-color: #fff;
+						padding: 40px 20px 20px 20px;
+						font-size: 20px;
+						font-weight: 900;
+						color: #353c3e;
+						font-weight: 900;
+					}
+
+						.db-pricing-seven ul li.price i {
+							padding: 30px;
+							font-size: 50px;
+							display: block;
+						}
+
+
+			.db-pricing-seven .pricing-footer {
+				padding: 20px;
+			}
+
+				.db-pricing-seven .pricing-footer a i {
+					margin: 5px;
+					top: 3px;
+				}
+
+
+
+
 	</style>
 </head>
 
@@ -92,7 +153,7 @@
 
 	<center>
 		<div>
-			<div class="progress" style="width:860px; height:40px;">
+			<div class="progress" style="width:1400px; height:45px;">
 				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
 					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
 					<a href="@Url.Action("Amenity", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
@@ -137,100 +198,186 @@
 
 
 
-    <div class="container-fluid">
-        @{int ctr3 = 0;
-            if (equip1.Count != 0)
-            {
-                if (equip.Count > 0)
-                {
-                    //Equipment
-                    foreach (var eqp in equip)
-                    {
-                        totaleq = eqp.Stocks;
-                        for (int i = 0; i <= equip1.Count - 1; i++)
-                        {
+	<div class="container-fluid">
+		<div class="pricing-table pricing-three-column row">
 
-                            if (eqp.Id == Convert.ToInt32(equip1[i]))
-                            {
-                                i++;
-                                totaleq -= Convert.ToInt32(equip1[i]);
-                                i--;
-                            }
-                        }
-                        if (totaleq < 0)
-                        {
-                            totaleq = 0;
-                        }
-                        <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                        <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+			@{int ctr3 = 0;
+				if (equip1.Count != 0)
+				{
+					if (equip.Count > 0)
+					{
+						//Equipment
+						foreach (var eqp in equip)
+						{
+							totaleq = eqp.Stocks;
+							for (int i = 0; i <= equip1.Count - 1; i++)
+							{
 
-                        <div class="col-md-4">
-                            <div class="w3-container">
-                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
-                                    <div class="w3-container w3-center">
-                                        <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                        <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-                                        <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                        <p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max=totaleq } })</font></p>
-                                        <p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1"readonly></font></p>
-                                        <p> <label for="Rate">Rate :</label> <font color="black">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
-
-                                        <div class="w3-section">
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        ctr3++;
-                        //stocks[ctr3] = totaleq;
-                        totaleq = 0;
-                    }
-
-                }
-            }
-            else if (equip.Count > 0)
-            {
-                foreach (var eqp in equip)
-                {
-
-                    totaleq = eqp.Stocks;
+								if (eqp.Id == Convert.ToInt32(equip1[i]))
+								{
+									i++;
+									totaleq -= Convert.ToInt32(equip1[i]);
+									i--;
+								}
+							}
+							if (totaleq < 0)
+							{
+								totaleq = 0;
+							}
+							<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+							<input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
 
 
-                    <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                    <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-
-                    <div class="col-md-4">
-                        <div class="w3-container">
-                            <div class="w3-card-4 w3-dark-grey" style="width:100%">
-                                <div class="w3-container w3-center">
-                                    <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-                                    <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-                                    <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-                                    <p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
-                                    <p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2" readonly></font></p>
-                                    <p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
-
-                                    <div class="w3-section">
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    ctr3++;
-                    //stocks[ctr3] = totaleq;
-                    totaleq = 0;
-                }
-            }
 
 
-            <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-            <a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
-        }
-    </div>
+
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+								<div class="db-wrapper">
+									<div class="db-pricing-seven">
+										<ul>
+											<li class="price">
+												<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+
+											</li>
+											<li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
+											<li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
+											<li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
+											<li>  <label for="Stocks">Stocks :</label> <font color="black"> <input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly> </font></li>
+
+
+											<li><label for="Rate">Rate :</label> <font color="black">  @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+											<br />
+										</ul>
+
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+
+
+
+
+							@*<div class="col-md-4">
+								<div class="w3-container">
+									<div class="w3-card-4 w3-dark-grey" style="width:100%">
+										<div class="w3-container w3-center">
+											<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+											<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+											<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+											<p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
+											<p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly></font></p>
+											<p> <label for="Rate">Rate :</label> <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
+
+											<div class="w3-section">
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>*@
+
+
+
+
+
+
+
+
+
+
+
+							ctr3++;
+							//stocks[ctr3] = totaleq;
+							totaleq = 0;
+						}
+
+					}
+				}
+				else if (equip.Count > 0)
+				{
+					foreach (var eqp in equip)
+					{
+
+						totaleq = eqp.Stocks;
+
+
+						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+						<input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+
+
+
+
+
+						<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+							<div class="db-wrapper">
+								<div class="db-pricing-seven">
+									<ul>
+										<li class="price">
+											<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+
+										</li>
+										<li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
+										<li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
+										<li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
+										<li>  <label for="Stocks">Stocks :</label> <font color="black"> <input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly> </font></li>
+
+
+										<li><label for="Rate">Rate :</label> <font color="black">  @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+										<br />
+									</ul>
+
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+						@*<div class="col-md-4">
+							<div class="w3-container">
+								<div class="w3-card-4 w3-dark-grey" style="width:100%">
+									<div class="w3-container w3-center">
+										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+										<p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
+										<p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2" readonly></font></p>
+										<p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
+
+										<div class="w3-section">
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>*@
+
+						ctr3++;
+						//stocks[ctr3] = totaleq;
+						totaleq = 0;
+					}
+				}
+
+
+				<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+				<a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
+			}
+		</div>
+	</div>
 
 	<script type="text/javascript">
 		var id = [null]

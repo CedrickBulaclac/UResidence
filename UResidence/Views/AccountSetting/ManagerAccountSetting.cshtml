@@ -86,61 +86,34 @@
 
 
 
-		<h2> Basic Information</h2>
-		<hr />
+		
 		<div class="container">
-			<div class=".col-sm-6">
-
+			<center> 	<h2> Basic Information </h2> </center>
+			<hr />
+		
 				@foreach (var a in admin)
 				{
 					<input type="hidden" name="aid" id="aid" value="@a.Id" />
 
 
 
-					<div class=" row">
 
-
-						<div class="col-25">
-
-							<label>First Name :</label>
-
-						</div>
-
-						<div class="col-75">
+					<div class="container">
+						<div class="col-lg-4">
+							<label>First Name:</label>
+							<br />
 							<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
 						</div>
 
-					</div>
-
-
-					<div class="row">
-						<div class="col-25">
-
-							<label>Middle Name :</label>
-						</div>
-
-						<div class="col-75">
+						<div class="col-lg-4">
+							<label>Middle Name:</label>
+							<br />
 							<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
-
 						</div>
-
-					</div>
-
-
-
-
-
-					<div class="row">
-						<div class="col-25">
-
-							<label>Last Name :</label>
-
-						</div>
-
-						<div class=" col-75">
-
+						<div class="col-lg-4">
+							<label>Last Name:</label>
+							<br />
 							<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
-
 						</div>
 
 					</div>
@@ -153,44 +126,30 @@
 
 					<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
 
+					<div class="container">
+						@*<label class="form-horizontal text-center">Login</label>*@
+						@*<div class="col-lg-4">
+					@*<label>Username</label>
+					<br />
+					<input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
+				</div>*@
+						<div class="col-lg-4">
 
-					<div class="row">
-						<div class="col-25">
-
-							<label>Username :</label>
-
-						</div>
-
-						<div class="col-75">
+							<label> Username </label>
+							<br />
 							<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
 						</div>
-					</div>
 
-
-
-					<div class="row">
-						<div class="col-25">
-
-							<label for="Current Password">Current Password :</label>
-
-						</div>
-
-						<div class="col-75">
+						<div class="col-lg-4">
+							<label>Current Password</label>
+							<br />
 							<input type="password" value="" id="cp" name="cp" class="form-control" />
 						</div>
-					</div>
 
 
-
-
-					<div class="row">
-						<div class="col-25">
-
-							<label for="New Password">New Password :</label>
-
-						</div>
-
-						<div class="col-75">
+						<div class="col-lg-4">
+							<label>New Password</label>
+							<br />
 							<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
 						</div>
 					</div>
@@ -200,13 +159,8 @@
 
 				<input type="submit" class="button" value="Save Changes" />
 
-				<div class=".col-sm-6">
-
-
-
-
-				</div>
-			</div>
+				
+		
 		</div>
 
 
@@ -216,8 +170,8 @@
 		<script type="text/javascript">
             $(document).ready(function () {
                 var content1 = document.getElementById('content1');
-                $('#maincontent1').append(content1);
-
+				$('#maincontent1').append(content1);
+				$('#containerChart').empty();
             });
 			function Check() {
 				var cp = document.getElementById('cp').value;
