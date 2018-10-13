@@ -586,12 +586,14 @@ namespace UResidence.Controllers
         }
         public ActionResult DownloadReservation(int refno1)
         {
-          
-            List<ReportReservation> data = default(List<ReportReservation>);         
-            data = UResidence.ReportReservationAmenityController.GETO(refno1);          
+            string tor = Session["TOR"].ToString();
+            List<ReportReservation> data = default(List<ReportReservation>);
             ReportDocument rd = new ReportDocument();
-            if (data[0].TypeResident == "Owner")
+            if (tor == "Owner")
             {
+               
+                data = UResidence.ReportReservationAmenityController.GETO(refno1);
+
                 if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
                 {
                     rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReserveSwimmingO.rpt"));
@@ -603,6 +605,7 @@ namespace UResidence.Controllers
             }
             else
             {
+                data = UResidence.ReportReservationAmenityController.GETT(refno1);
                 rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
             }          
             rd.SetDataSource(data.ToList());
