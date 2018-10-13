@@ -5,37 +5,39 @@
 @using (Html.BeginForm("CodeVerification", "Login", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-		<style>
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #1eaa7a;
-				border: none;
-				border-radius: 5px;
-			}
+    <style>
+        .button {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #1eaa7a;
+            border: none;
+            border-radius: 5px;
+        }
 
-				.button:active {
-					background-color: #1eaa7a;
-				}
+            .button:active {
+                background-color: #1eaa7a;
+            }
 
-				.button:hover {
-					background-color: #26d69a;
-				}
-		</style>
-
-
+            .button:hover {
+                background-color: #26d69a;
+            }
+    </style>
 
 
-	</head>
+
+
+</head>
 
 
 	<body background="~/Content/Log/loginbg.jpg" style=" background-size:cover; background-repeat: no-repeat; ">

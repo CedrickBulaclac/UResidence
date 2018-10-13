@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<object>
 @{
-	List<UResidence.Equipment> equip1 = Model.ToList()[0] as List<UResidence.Equipment>;
+	List<object> equip1 = Model.ToList()[0] as List<object>;
 	List<UResidence.Equipment> equip = Model.ToList()[1] as List<UResidence.Equipment>;
 	ViewBag.Title = "Choose_Equipment";
 	if (Convert.ToInt32(Session["Level"]) == 8)
@@ -137,106 +137,100 @@
 
 
 
-	<div class="container-fluid">
-		@{int ctr3 = 0;
-			if (equip1 != null)
-			{
-				if (equip.Count > 0)
-				{
-					//Equipment
-					foreach (var eqp in equip)
-					{
-						//ReservEquipment
-						foreach (var ep1 in equip1)
-						{
-							if (eqp.Id == ep1.Id)
-							{
-								totaleq = eqp.Stocks - ep1.Stocks;
-							}
-							else
-							{
-								totaleq = eqp.Stocks;
-							}
+    <div class="container-fluid">
+        @{int ctr3 = 0;
+            if (equip1.Count != 0)
+            {
+                if (equip.Count > 0)
+                {
+                    //Equipment
+                    foreach (var eqp in equip)
+                    {
+                        totaleq = eqp.Stocks;
+                        for (int i = 0; i <= equip1.Count - 1; i++)
+                        {
 
-						}
+                            if (eqp.Id == Convert.ToInt32(equip1[i]))
+                            {
+                                i++;
+                                totaleq -= Convert.ToInt32(equip1[i]);
+                                i--;
+                            }
+                        }
+                        if (totaleq < 0)
+                        {
+                            totaleq = 0;
+                        }
+                        <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+                        <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+
+                        <div class="col-md-4">
+                            <div class="w3-container">
+                                <div class="w3-card-4 w3-dark-grey" style="width:100%">
+                                    <div class="w3-container w3-center">
+                                        <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                        <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+                                        <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                        <p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max=totaleq } })</font></p>
+                                        <p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1"readonly></font></p>
+                                        <p> <label for="Rate">Rate :</label> <font color="black">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
+
+                                        <div class="w3-section">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        ctr3++;
+                        //stocks[ctr3] = totaleq;
+                        totaleq = 0;
+                    }
+
+                }
+            }
+            else if (equip.Count > 0)
+            {
+                foreach (var eqp in equip)
+                {
+
+                    totaleq = eqp.Stocks;
 
 
-						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-						<div class="col-md-4">
-							<div class="w3-container">
-								<div class="w3-card-4 w3-dark-grey" style="width:100%">
-									<div class="w3-container w3-center">
-										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										<p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })</font></p>
-										<p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1"></font></p>
-										<p> <label for="Rate">Rate :</label> <font color="black">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
+                    <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+                    <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
 
-										<div class="w3-section">
+                    <div class="col-md-4">
+                        <div class="w3-container">
+                            <div class="w3-card-4 w3-dark-grey" style="width:100%">
+                                <div class="w3-container w3-center">
+                                    <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
+                                    <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+                                    <p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
+                                    <p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
+                                    <p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2" readonly></font></p>
+                                    <p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
 
-										</div>
-									</div>
+                                    <div class="w3-section">
 
-								</div>
-							</div>
-						</div>
-						ctr3++;
-						//stocks[ctr3] = totaleq;
-						totaleq = 0;
-					}
+                                    </div>
+                                </div>
 
-				}
-				else if (equip.Count > 0)
-				{
-					foreach (var eqp in equip)
-					{
-						foreach (var ep1 in equip1)
-						{
-							if (eqp.Id == ep1.Id)
-							{
-								totaleq = eqp.Stocks - ep1.Stocks;
-							}
-							else
-							{
-								totaleq = eqp.Stocks;
-							}
-						}
+                            </div>
+                        </div>
+                    </div>
+                    ctr3++;
+                    //stocks[ctr3] = totaleq;
+                    totaleq = 0;
+                }
+            }
 
-						<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-						<input type="text" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-						<div class="col-md-4">
-							<div class="w3-container">
-								<div class="w3-card-4 w3-dark-grey" style="width:100%">
-									<div class="w3-container w3-center">
-										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										<p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })</font></p>
-										<p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2"></font></p>
-										<p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
 
-										<div class="w3-section">
-
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						ctr3++;
-						//stocks[ctr3] = totaleq;
-						totaleq = 0;
-					}
-				}
-
-			}
-	
-			<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-			<a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
-		}
-	</div>
+            <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+            <a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
+        }
+    </div>
 
 	<script type="text/javascript">
 		var id = [null]
