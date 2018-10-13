@@ -109,7 +109,7 @@ namespace UResidence.Controllers
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
             }
-            catch (System.Data.SqlTypes.SqlTypeException ex)
+            catch (System.Data.SqlTypes.SqlTypeException)
             {
                 var events = false;
                 return new JsonResult

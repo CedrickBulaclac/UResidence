@@ -629,7 +629,7 @@ namespace UResidence.Controllers
                     }
                 }
                 }
-                catch (InvalidOperationException i)
+                catch (InvalidOperationException)
                 {
                     string data;
                     return Json(data = "Tenant");

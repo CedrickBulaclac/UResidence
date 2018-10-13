@@ -277,8 +277,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
-                int[] eqpid;
-                 object[] IDD=null;
+                int[] eqpid;        
                 int oldid = 0;
                 int stock = 0;
                 List<int> qid = new List<int>();
