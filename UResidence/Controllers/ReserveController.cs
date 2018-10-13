@@ -15,7 +15,6 @@ namespace UResidence.Controllers
        
         public ActionResult SelectAmenity()
         {
-
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
             List<Equipment> equipList = UResidence.EquipmentController.GetAll();
@@ -24,12 +23,9 @@ namespace UResidence.Controllers
             model.Add(schedList.ToList());
             model.Add(equipList.ToList());
             return View(model);
-
-
         }
         public ActionResult Home()
-        {
-          
+        { 
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             int balance = 0;
             List<Billing> billing = new List<Billing>();
@@ -42,10 +38,8 @@ namespace UResidence.Controllers
                 Session["URLL"] = a.URL;
                 billing = UResidence.BillingController.GetOwner(uid);
             }
-
             else
             {
-
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
                 Session["URLL"] = t.URL;
@@ -54,7 +48,6 @@ namespace UResidence.Controllers
 
             for (int i = 0; i <= billing.Count - 1; i++)
             {
-
                 balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
             }
             if (balance > 0)
@@ -63,8 +56,6 @@ namespace UResidence.Controllers
                 ViewBag.Bal = balance;
                 ViewBag.s = ss;
                 Session["status"] = true;
-                //string hrtml = "<script>alert('You have an Outstanding Balance of ₱" + balance + " ')</script>";
-                //Response.Write(hrtml);
                
                 return View(amenityList);
                 
@@ -597,7 +588,7 @@ namespace UResidence.Controllers
         {
           
             List<ReportReservation> data = default(List<ReportReservation>);         
-            data = UResidence.ReportReservationAmenityController.GETO(refno1);
+            data = UResidence.ReportReservationAmenityController.GETO(refno1);          
             ReportDocument rd = new ReportDocument();
             if (data[0].TypeResident == "Owner")
             {
@@ -613,7 +604,7 @@ namespace UResidence.Controllers
             else
             {
                 rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
-            }
+            }          
             rd.SetDataSource(data.ToList());
             Response.Buffer = false;
             Response.ClearContent();
@@ -631,9 +622,7 @@ namespace UResidence.Controllers
             }
           
         }
-    
-
-
+   
         public ActionResult AboutUs()
         {
             Session["aa"] = 1;
