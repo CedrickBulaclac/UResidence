@@ -115,8 +115,11 @@
 
 
 		.regcontainer {
-			padding-left: 150px;
+			/*padding-left: 480px;*/
+			background-color: #81c784;
 		}
+
+
 	</style>
 </head>
 <body>
@@ -143,7 +146,7 @@
 			<font color="white">
 				<ul class="nav navbar-nav navbar-right">
 
-					<li> <a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span>Home</a> </li></li>
+					<li> <a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home </a> </li>
 
 					<li class="dropdown ">
 						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
@@ -178,34 +181,57 @@
 
 
 
-
-
-
-
-
-	<div class="col-sm-12">
-
-
-		<center><h2>Registration Management</h2> </center>
+		<center><h1>Registration Management</h1> </center>
 		<hr />
-	</div>
-
 
 
 	<br />
 
 
-
-
-
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<div class="regcontainer">
-		<div class="container">
+
+	
+		<div class="container ">
 			<div class="row ">
 
 
+
+				@*opacity panel*@
+				<div class="col-lg-1">
+					<div class="panel panel-success" style="opacity:0;">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<i class="fa fa-building-o fa-5x"></i>
+								</div>
+								<div class="col-xs-6 text-right">
+									<p class="announcement-heading"> </p>
+									<p class="announcement-text">Amenity</p>
+								</div>
+							</div>
+						</div>
+						<a href="~/Amenity/AmenityView">
+							<div class="panel-footer announcement-bottom">
+								<div class="row">
+									<div class="col-xs-6">
+										Open
+									</div>
+									<div class="col-xs-6 text-right">
+										<i class="fa fa-arrow-circle-right"></i>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+
+
+
+
+
 				<div class="col-lg-2">
-					<div class="panel panel-success">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -235,7 +261,7 @@
 
 
 				<div class="col-lg-2">
-					<div class="panel panel-success">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -264,7 +290,7 @@
 
 
 				<div class="col-lg-2">
-					<div class="panel panel-success">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -293,7 +319,7 @@
 
 
 				<div class="col-lg-2">
-					<div class="panel panel-success">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -323,7 +349,7 @@
 
 
 				<div class="col-lg-2">
-					<div class="panel panel-success">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -351,14 +377,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
+
 
 	@RenderBody()
-	<hr />
-	<footer>
-		<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-	</footer>
-	</div>
+	
 
 
 

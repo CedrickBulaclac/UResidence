@@ -103,14 +103,13 @@
 			background-color: #c8e6c9;
 			font-family: FZShuTi;
 		}*/
+
 		.regcontainer {
 			/*padding-left: 480px;*/
-			margin-left: 400px;
+			background-color: #81c784;
 		}
 
-		.regcontainer2 {
-			padding-left: 50px;
-		}
+		
 	</style>
 </head>
 
@@ -140,7 +139,7 @@
 			<font color="white">
 				<ul class="nav navbar-nav navbar-right">
 
-
+					<li>  <a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>
 
 					<li class="dropdown">
 						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
@@ -174,12 +173,12 @@
 	</div>
 
 
-	<div class="col-sm-12">
+	
 
 
-		<center><h2>Security Management</h2> </center>
+		<center><h1>Security Management</h1> </center>
 		<hr />
-	</div>
+	
 
 
 
@@ -190,13 +189,13 @@
 
 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<div class="regcontainer">
+	
 		<div class="container">
 			<div class="row ">
 
 
-				<div class="col-lg-2">
-					<div class="panel panel-success">
+				<div class="col-lg-6">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -224,9 +223,9 @@
 				</div>
 
 
-				<div class="regcontainer2">
-					<div class="col-lg-2">
-						<div class="panel panel-success ">
+				
+					<div class="col-lg-6">
+						<div class="panel regcontainer ">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-6">
@@ -255,8 +254,8 @@
 
 				</div>
 			</div>
-		</div>
-	</div>
+		
+	
 
 	@RenderBody()
 	@Scripts.Render("~/bundles/jquery")

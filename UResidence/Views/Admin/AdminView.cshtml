@@ -13,58 +13,63 @@
 	<h2>Admin</h2>
 </center>
 
-<hr />
-<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
+
+
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 
-	<div class="container">
-		<table class=" table table-bordered table-striped">
+<div class="container">
+	<hr />
 
-			<thead>
+	<table class=" table table-bordered table-striped">
+
+		<thead>
+			<tr>
+				<th>Fname</th>
+				<th>Mname</th>
+				<th>Lname</th>
+				<th>Bdate</th>
+				<th>CelNo</th>
+				<th>Email</th>
+				<th>Type of Admin</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Admin a in Model)
+			{
+
 				<tr>
-					<th>Fname</th>
-					<th>Mname</th>
-					<th>Lname</th>
-					<th>Bdate</th>
-					<th>CelNo</th>
-					<th>Email</th>
-                    <th>Type of Admin</th>
-					<th>Actions</th>
+
+					<td>@Html.DisplayFor(model => a.Fname)</td>
+					<td>@Html.DisplayFor(model => a.Mname)</td>
+					<td>@Html.DisplayFor(model => a.Lname)</td>
+					<td>@Html.DisplayFor(model => a.Bdate)</td>
+					<td>@Html.DisplayFor(model => a.CelNo)</td>
+					<td>@Html.DisplayFor(model => a.Email)</td>
+					<td>@Html.DisplayFor(model => a.Role)</td>
+					<td>
+						<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+						<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				@foreach (Admin a in Model)
-				{
-
-                <tr>
-
-                    <td>@Html.DisplayFor(model => a.Fname)</td>
-                    <td>@Html.DisplayFor(model => a.Mname)</td>
-                    <td>@Html.DisplayFor(model => a.Lname)</td>
-                    <td>@Html.DisplayFor(model => a.Bdate)</td>
-                    <td>@Html.DisplayFor(model => a.CelNo)</td>
-                    <td>@Html.DisplayFor(model => a.Email)</td>
-                    <td>@Html.DisplayFor(model => a.Role)</td>
-                    <td>
-                        <a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-                    </td>
-                </tr>
 
 
-				}
-			</tbody>
-		</table>
+			}
+		</tbody>
+	</table>
+
+	<div class="form-inline">
+
+		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
+		<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
 	</div>
 
-	<div class="btn-link">
+	
+</div>
 
-		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" style="margin-left:150px;" class="btn btn-success" /></a>
-
-	</div>
-
+	
 	<div id="auerror" class="alert alert-danger collapse">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>Error!</strong> There is a problem updating the Admin

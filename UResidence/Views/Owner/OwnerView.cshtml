@@ -11,8 +11,6 @@
 	<h2>List of Owner</h2>
 </center>
 
-<hr />
-
 <div class="container">
 	<div class="modal fade" id="formModal" role="dialog">
 		<div class="modal-dialog">
@@ -35,53 +33,53 @@
 </div>
 
 
-<a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owner</a>
+
 @using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
 
-	<div class="container">
-        
-		<table class="table table-bordered table-striped">
-			<tr>
-				<th scope="col">
-					Id
-				</th>
-				<th scope="col">
-					BldgNo
-				</th>
-				<th scope="col">
-					UnitNo
-				</th>
-				<th scope="col">
-					Fname
-				</th>
-				<th scope="col">
-					Mname
-				</th>
-				<th scope="col">
-					Lname
-				</th>
-				<th scope="col">
-					Bdate
-				</th>
-				<th scope="col">
-					CelNo
-				</th>
-				<th scope="col">
-					Email
-				</th>
-				<th scope="col">
-					Form
-				</th>
+<div class="container">
+	<hr />
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th scope="col">
+				Id
+			</th>
+			<th scope="col">
+				BldgNo
+			</th>
+			<th scope="col">
+				UnitNo
+			</th>
+			<th scope="col">
+				Fname
+			</th>
+			<th scope="col">
+				Mname
+			</th>
+			<th scope="col">
+				Lname
+			</th>
+			<th scope="col">
+				Bdate
+			</th>
+			<th scope="col">
+				CelNo
+			</th>
+			<th scope="col">
+				Email
+			</th>
+			<th scope="col">
+				Form
+			</th>
 
-				<th>Actions</th>
-			</tr>
-			@if (Model != null)
-			{
-				<tbody>
-					@foreach (Owner item in Model)
-					{
+			<th>Actions</th>
+		</tr>
+		@if (Model != null)
+		{
+			<tbody>
+				@foreach (Owner item in Model)
+				{
 					<tr scope="row">
 						<td>
 							@Html.DisplayFor(modelItem => item.Id)
@@ -110,26 +108,30 @@
 						<td>
 							@Html.DisplayFor(modelItem => item.Email)
 						</td>
-					
+
 						<td><button type="button" class="btn btn-info" id="btnForm" name="btnForm" data-dismiss="modal" onclick="Set('@item.Form')">View</button></td>
-					
+
 						<td>
 							<a class="btn btn-primary" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
 							<a class="btn btn-danger" href="@Url.Action("Delete", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
 
 						</td>
 					</tr>
-					}
-				</tbody>
-			}
+				}
+			</tbody>
+		}
 
-		</table>
+	</table>
+	<div class="form-inline">
+
+		<a href="@Url.Action("OwnerAdd","Owner")" @*style="margin-left:150px;"*@ class="btn btn-success">ADD NEW OWNER</a>
+		<a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owner</a>
+
 	</div>
-	<div class="btn-link">
+</div>
 
-		<a href="@Url.Action("OwnerAdd","Owner")" style="margin-left:150px;" class="btn btn-success">ADD NEW OWNER</a>
+	
 
-	</div>
 	<div id="auerror" class="alert alert-danger collapse">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>Error!</strong> There is a problem updating the Owner

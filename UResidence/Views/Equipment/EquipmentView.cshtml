@@ -10,7 +10,7 @@
 <center>
 	<h2>Equipment</h2>
 </center>
-	\
+	
 @*Modal for Viewing Image Equipment*@
 <div class="container">
 	<div class="modal fade" id="equipmentModal" role="dialog">
@@ -35,70 +35,72 @@
 @using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
+	
+<div class="container">
 	<hr />
-	<div class="container">
-		<table class="table table-bordered">
-			<thead>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>
+					Stocks
+				</th>
+				<th>
+					Rate
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					Image
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+
+		@foreach (Equipment e in Model)
+		{
+			<tbody>
 				<tr>
-					<th>
-						Stocks
-					</th>
-					<th>
-						Rate
-					</th>
-					<th>
-						Name
-					</th>
-					<th>
-						Image
-					</th>
-					<th>
-						Description
-					</th>
-					<th>
-						Actions
-					</th>
+					<td>
+						@Html.DisplayFor(model => e.Stocks)
+					</td>
+					<td>
+						@Html.DisplayFor(model => e.Rate)
+					</td>
+					<td>
+						@Html.DisplayFor(model => e.Name)
+					</td>
+					<td>
+						<center>
+							<button type="button" class="btn btn-info" id="btnEquipImage" name="btnEquipImage" onclick="Set('@e.Url')">View</button>
+						</center>
+					</td>
+					<td>
+						@Html.DisplayFor(model => e.Description)
+					</td>
+					<td>
+						<a class="btn btn-primary" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+						<a class="btn btn-danger" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+
+					</td>
 				</tr>
-			</thead>
+			</tbody>
+		}
 
-			@foreach (Equipment e in Model)
-			{
-				<tbody>
-					<tr>
-						<td>
-							@Html.DisplayFor(model => e.Stocks)
-						</td>
-						<td>
-							@Html.DisplayFor(model => e.Rate)
-						</td>
-						<td>
-							@Html.DisplayFor(model => e.Name)
-						</td>
-						<td>
-							<center>
-								<button type="button" class="btn btn-info" id="btnEquipImage" name="btnEquipImage" onclick="Set('@e.Url')">View</button>
-							</center>
-						</td>
-						<td>
-							@Html.DisplayFor(model => e.Description)
-						</td>
-						<td>
-							<a class="btn btn-primary" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-							<a class="btn btn-danger" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-
-						</td>
-					</tr>
-				</tbody>
-			}
-
-		</table>
-	</div>
-
+	</table>
 	<div class="btn-link">
 
-		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" style="margin-left:150px;" class="btn btn-success" /></a>
+		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
 
 	</div>
+</div>
+
+	
 
 
 	<div id="auerror" class="alert alert-danger collapse">

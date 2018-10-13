@@ -101,18 +101,19 @@
 	</div>
 	<br />
 	<br />
-	<div id="calendar" class="container"></div>
-	<br />
-	@foreach (Amenity amn in Model)
-	{
-		<div class='my-legend'>
-			<div class='legend-scale'>
-				<ul class='legend-labels'>
-					<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-				</ul>
+	<div id="calendar" class="container">
+		<br />
+		@foreach (Amenity amn in Model)
+		{
+			<div class='my-legend'>
+				<div class='legend-scale'>
+					<ul class='legend-labels'>
+						<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	}
+		}
+	</div>
 </body>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />

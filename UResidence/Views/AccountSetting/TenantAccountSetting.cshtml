@@ -16,56 +16,206 @@
 	<br />
 	<br />
 
+	<div class="container">
+		<center> 	<h2> Basic Information </h2> </center>
+		<hr />
+		<div class=".col-sm-6">
+			@foreach (var a in tenant)
+			{
+				<input type="hidden" name="aid" id="aid" value="@a.Id" />
 
 
-	foreach (var a in tenant)
-	{
-		<input type="hidden" name="aid" id="aid" value="@a.Id" />
-		<div class="container">
-			<label class="form-control text-center">Basic Information</label>
-			<div class="col-lg-4">
-				<label>First Name:</label>
-				<br />
-				<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
-			</div>
-			<div class="col-lg-4">
-				<label>Middle Name:</label>
-				<br />
-				<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
-			</div>
-			<div class="col-lg-4">
-				<label>Last Name:</label>
-				<br />
-				<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
-			</div>
-		</div>
-	}
-	foreach (var l in userlogin)
-	{
-		<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
-		<div class="container">
-			<label class="form-control text-center">Login</label>
-			@*<div class="col-lg-4">
-					@*<label>Username</label>
-					<br />
-					<input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
+
+
+				<div class="container">
+					<div class="col-lg-4">
+						<label>First Name:</label>
+						<br />
+						<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
+					</div>
+
+					<div class="col-lg-4">
+						<label>Middle Name:</label>
+						<br />
+						<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
+					</div>
+					<div class="col-lg-4">
+						<label>Last Name:</label>
+						<br />
+						<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
+					</div>
+
+				</div>
+
+
+
+
+				@*<div class="form-inline">
+
+					<label>First Name :</label>
+
+					&nbsp;
+
+					<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+
+
+					<label>Middle Name :</label>
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+					<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
+
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+
+
+					<label>Last Name :</label>
+
+					&nbsp;
+
+					<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+				</div>
+
+
+				<br />*@
+
+
+
+
+
+				@*<input type="hidden" name="aid" id="aid" value="@a.Id" />
+				<div class="container">
+					<label class="form-control text-center">Basic Information</label>
+					<div class="col-lg-4">
+						<label>First Name:</label>
+						<br />
+						<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
+					</div>
+					<div class="col-lg-4">
+						<label>Middle Name:</label>
+						<br />
+						<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
+					</div>
+					<div class="col-lg-4">
+						<label>Last Name:</label>
+						<br />
+						<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
+					</div>
 				</div>*@
-			<div class="col-lg-4">
-				<input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
 
-				<label>Current Password</label>
 				<br />
-				<input type="password" value="" id="cp" name="cp" class="form-control" />
-			</div>
-			<div class="col-lg-4">
-				<label>New Password</label>
 				<br />
-				<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
-			</div>
+
+			}
+			@foreach (var l in userlogin)
+			{
+
+				<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
+
+
+
+				<div class="container">
+					@*<label class="form-horizontal text-center">Login</label>*@
+					@*<div class="col-lg-4">
+						@*<label>Username</label>
+						<br />
+						<input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
+					</div>*@
+					<div class="col-lg-4">
+
+						<label> Username </label>
+						<br />
+						<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+					</div>
+
+					<div class="col-lg-4">
+						<label>Current Password</label>
+						<br />
+						<input type="password" value="" id="cp" name="cp" class="form-control" />
+					</div>
+
+
+					<div class="col-lg-4">
+						<label>New Password</label>
+						<br />
+						<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
+					</div>
+				</div>
+
+
+
+
+
+				@*<label class="form-control text-center">Login</label>
+				<div class="col-lg-4">
+					<label>Username</label>
+					<br />
+					<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+				</div>*@
+
+
+
+				@*<div class="form-inline">
+
+					<label>Username :</label>
+
+					&nbsp;
+
+					<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+
+
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+					<label for="Current Password">Current Password :</label>
+
+					&nbsp;
+
+					<input type="password" value="" id="cp" name="cp" class="form-control" />
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+
+
+
+					<label for="New Password">New Password :</label>
+
+					&nbsp;
+
+					<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
+
+					&nbsp; &nbsp; &nbsp; &nbsp;
+
+				</div>
+
+				<br />*@
+
+
+
+			}
+
+			<br />
+			<br />
+
+			<input type="submit" class="btn btn-success" value="Save Changes" style="float:right" />
 		</div>
-	}
-	<input type="submit" class="btn-default" value="Save Changes" />
 
+	</div>
 
 
 
