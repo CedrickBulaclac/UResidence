@@ -20,10 +20,7 @@
 
 
 <html>
-
 <head>
-
-
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<style>
 
@@ -184,7 +181,6 @@
                             </div>
                         </div>
                         ctr3++;
-                        //stocks[ctr3] = totaleq;
                         totaleq = 0;
                     }
 
@@ -221,14 +217,11 @@
                         </div>
                     </div>
                     ctr3++;
-                    //stocks[ctr3] = totaleq;
                     totaleq = 0;
                 }
             }
-
-
             <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-            <a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
+            <a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button></a>
         }
     </div>
 
@@ -263,20 +256,20 @@
 		function SET() {
 			for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
 				var sto = 0;
-				var quan = 0;
+                var quan = 0;
+                var tots = 0;
 				id[pppp] = $('#eid' + pppp).val();
 				quantity[pppp] = $('#txtQuantity' + pppp).val();
 				quan = $('#txtQuantity' + pppp).val();
-				sto=document.getElementById('svalue '+pppp).value;
-				if (quan <= sto) {
-					test[pppp] = true;
-				}				
+                sto = document.getElementById('svalue ' + pppp).value;
+                tots = sto - quan;
+                if (tots>=0) {
+                    test[pppp] = true;
+                }              			
 				else {
 					test[pppp] = false;
 				}
-				console.log(quan > sto);
-				console.log(quan);
-				console.log(sto);
+				
 				rate[pppp] = $('#txtRate' + pppp).val();
 				total[pppp] = quantity[pppp] * rate[pppp];
 				var ttotal = ttotal + total[pppp];
