@@ -593,10 +593,9 @@ namespace UResidence.Controllers
             {
                
                 data = UResidence.ReportReservationAmenityController.GETO(refno1);
-
                 if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
                 {
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReserveSwimmingO.rpt"));
+                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormSwimO.rpt"));
                 }
                 else
                 {
@@ -606,7 +605,14 @@ namespace UResidence.Controllers
             else
             {
                 data = UResidence.ReportReservationAmenityController.GETT(refno1);
-                rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
+                if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormSwimT.rpt"));
+                }
+                else
+                {
+                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
+                }
             }          
             rd.SetDataSource(data.ToList());
             Response.Buffer = false;
