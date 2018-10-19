@@ -280,53 +280,7 @@
     <Content Include="Content\HomeImages\Palmdale2.jpg" />
     <Content Include="Content\HomeImages\Palmdale3.jpg" />
     <Content Include="Content\HomeImages\Pamdale4.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_1.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_10.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_11.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_12.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_13.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_14.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_15.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_2.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_3.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_4.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_5.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_6.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_7.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_8.jpg" />
-    <Content Include="Content\LogBookImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_9.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_1.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_10.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_11.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_12.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_13.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_2.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_3.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_4.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_5.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_6.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_7.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_8.jpg" />
-    <Content Include="Content\LogBookImages\iron-man-1920x1080-artwork-hd-8108_9.jpg" />
     <Content Include="Content\LogBookImages\Noimageavailable.jpeg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_1.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_10.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_11.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_12.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_13.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_14.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_15.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_2.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_3.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_4.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_5.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_6.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_7.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_8.jpg" />
-    <Content Include="Content\LogBookImages\the_green_forest-wallpaper-3840x2160_9.jpg" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\Logo\palmdale.png" />
     <Content Include="Content\Log\loginbg.jpg" />
@@ -366,6 +320,7 @@
     <Content Include="Content\WebImages\jumbo2.jpg" />
     <Content Include="Content\WebImages\jumbo3.jpg" />
     <Content Include="Content\WebImages\swimming.jpg" />
+    <Content Include="Content\WebImages\swimmingbg.jpg" />
     <Content Include="Content\WebImages\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -478,12 +433,13 @@
     <Content Include="Views\SuperAdmin\SuperAdminEdit.cshtml" />
     <Content Include="Views\Amenity\AmenityAddPool.cshtml" />
     <Content Include="Views\AccountSetting\ManagerAccountSetting.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Reserve\GuestAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="TempLog\" />
-    <Folder Include="Views\Registration\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
