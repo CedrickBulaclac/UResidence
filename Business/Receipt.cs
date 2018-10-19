@@ -11,7 +11,7 @@ namespace UResidence
     {
         public int ORNo { get; set; }
         public int RefNo { get; set; }
-        public int Totalpayment { get; set; }
+        public decimal Totalpayment { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }
@@ -36,7 +36,7 @@ namespace UResidence
 
             ret.ORNo = reader.GetInt32(0);
             ret.RefNo = reader.GetInt32(1);
-            ret.Totalpayment = reader.GetInt32(2);
+            ret.Totalpayment = reader.GetDecimal(2);
             ret.Date = reader.GetDateTime(3);
             ret.Description = reader.GetString(4);
             ret.CreatedBy = reader.GetString(5);

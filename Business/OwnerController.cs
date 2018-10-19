@@ -86,7 +86,7 @@ namespace UResidence
         public static bool Update(Owner own)
         {
 
-            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname, Lname= @Lname, CelNo=@CelNo,Email=@Email,BldgNo=@BldgNo,UnitNo=@UnitNo  WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname, Lname= @Lname, CelNo=@CelNo,Email=@Email,Bdate=@Bdate,BldgNo=@BldgNo,UnitNo=@UnitNo  WHERE Id = @Id";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Fname", own.Fname));
             com.Parameters.Add(new SqlParameter("@Mname", own.Mname));

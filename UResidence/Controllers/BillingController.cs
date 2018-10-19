@@ -11,7 +11,7 @@ namespace UResidence.Controllers
         // GET: Billing
         public ActionResult BillingView()
         {
-            int balance = 0;
+            decimal balance = 0;
             List<Billing> billing = default(List<Billing>);
             List<BillingList> ret = default(List<BillingList>);
             int uid = Convert.ToInt32(Session["UID"]);

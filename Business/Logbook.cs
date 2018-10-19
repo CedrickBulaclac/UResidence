@@ -22,6 +22,8 @@ namespace UResidence
         public string sDate { get; set; }
         public string URL { get; set; }
         public HttpPostedFileBase Image { get; set; }
+        public string BuildingNo { get; set; }
+        public string UnitNo { get; set; }
 
         public Logbook CreateObject(SqlDataReader reader)
         {
@@ -35,7 +37,8 @@ namespace UResidence
             ret.sTimeout = reader.GetString(5);         
             ret.Purpose = reader.GetString(6);
             ret.URL = reader.GetString(7);
-
+            ret.BuildingNo = reader.GetString(8);
+            ret.UnitNo = reader.GetString(9);
             return ret;
         }
 

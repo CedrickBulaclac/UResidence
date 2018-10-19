@@ -78,9 +78,9 @@ namespace UResidence.Controllers
         public ActionResult Amenity(FormCollection fc)
         {
             int aid = Convert.ToInt32(fc["ida"]);
-            int arate = Convert.ToInt32(fc["ratea"]);
+            decimal arate = Convert.ToInt32(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-            int everate = Convert.ToInt32(fc["eve"]);
+            decimal everate = Convert.ToInt32(fc["eve"]);
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
@@ -130,8 +130,8 @@ namespace UResidence.Controllers
                 Session["URLL"] = a.URL;
             }
             ViewBag.name = (Session["NAME"]).ToString();
-            ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-            ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+            ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+            ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
             return View();
         }
 
@@ -157,8 +157,8 @@ namespace UResidence.Controllers
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
                 else
@@ -169,8 +169,8 @@ namespace UResidence.Controllers
                  }
                 else
                 {
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
             }
@@ -183,7 +183,7 @@ namespace UResidence.Controllers
                 string ed = Convert.ToString(fc["etime"]);
                 Session["sd"] = sd;
                 Session["ed"] = ed;
-                string drate = fc["tratee"];
+                decimal drate = Convert.ToDecimal(fc["tratee"]);
                 Session["drate"] = drate;
                 int aid = Convert.ToInt32(Session["ID"]);
 
@@ -191,8 +191,8 @@ namespace UResidence.Controllers
                 if (schedList.Count > 0)
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                        ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                        ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                         return View();
                 }
                 else
@@ -203,8 +203,8 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
             }
@@ -272,7 +272,7 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public void Choose_Equipment(int[] data, int[] datar)
+        public void Choose_Equipment(int[] data, decimal[] datar)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -284,7 +284,7 @@ namespace UResidence.Controllers
                 int[] quantity = data;
                 Session["quantity"] = quantity;
 
-                int[] ratee = datar;
+                decimal[] ratee = datar;
                 Session["ratee"] = ratee;
 
                 Summary();
@@ -351,8 +351,8 @@ namespace UResidence.Controllers
                 AmenityId = aid,
                 StartTime = Convert.ToDateTime(sd),
                 EndTIme = Convert.ToDateTime(ed),
-                Rate = Convert.ToInt32(rate),
-                Date = Convert.ToDateTime(sdate),
+                Rate = Convert.ToDecimal(rate),
+                Date = date,
 
             };
             status = UResidence.SchedReservationController.Insert(a);
@@ -362,10 +362,10 @@ namespace UResidence.Controllers
                 string amenityname = (Session["NAME"]).ToString();
                 string qa = (string)Session["qa"];
                 string qc = (string)Session["qc"];
-                SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed, Convert.ToDateTime(sdate));
+                List<SchedReservation> b = new List<SchedReservation>();
+                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd.ToString(), ed.ToString(), date);
 
-                int sid = b.Id;
+                int sid = b[0].Id;
                 string tor = (string)Session["TORA"];
                 int UserId = (int)Session["UIDA"];
                 string fullname = "";
@@ -412,7 +412,7 @@ namespace UResidence.Controllers
                     int refno = reserve.Id;
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
-                    int[] ratee = (Int32[])Session["ratee"];
+                    decimal[] ratee = (Decimal[])Session["ratee"];
                     if (equantity != null)
                     {
                         for (int i = 0; i <= equantity.Count() - 1; i++)
@@ -426,7 +426,7 @@ namespace UResidence.Controllers
                                     EquipId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
-                                    Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
+                                    Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),
 
                                 };
 
@@ -470,7 +470,7 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+            ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
             return View();
         }
 
@@ -520,7 +520,7 @@ namespace UResidence.Controllers
                 else
                 {
                     Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
                 }
             }
             return View();
@@ -560,7 +560,7 @@ namespace UResidence.Controllers
                    
 
 
-                    int balance = 0;
+                    decimal balance = 0;
                     List<Billing> billing = new List<Billing>();
                     int uid = Convert.ToInt32(Session["UIDA"]);
                     string type = (Session["TORA"]).ToString();
@@ -580,7 +580,7 @@ namespace UResidence.Controllers
                     {
                         Session["status"] = true;
                         //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
-                        int data;
+                        decimal data;
                         return Json(data = balance );
 
                     }
@@ -636,7 +636,7 @@ namespace UResidence.Controllers
 
                     else
                     { 
-                    int balance = 0;
+                    decimal balance = 0;
                     List<Billing> billing = new List<Billing>();
                     int uid = Convert.ToInt32(Session["UIDA"]);
                     string type = (Session["TORA"]).ToString();
@@ -656,7 +656,7 @@ namespace UResidence.Controllers
                     {
                         Session["status"] = true;
                         //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
-                        int data;
+                        decimal data;
                         return Json(data = balance);
                     }
                     else

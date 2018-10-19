@@ -125,11 +125,6 @@
 		var today = now.getFullYear() + "-" + (month) + "-" + (day);
 		var ti = new Date().toLocaleTimeString();
 		document.getElementById('date').value = today;
-
-
-
-		
-
 	})
 
 	var value;
@@ -234,64 +229,13 @@
 
 	}
 
-
-	//function Search() {
-	//	$('#tableLog').empty();
-	//	var datee = document.getElementById('txtdate').value;
-	//	value = datee;
-	//	var data = {
-	//		date: datee
-	//	};
-	//	$.ajax({
-	//		type: 'POST',
-	//		url: '/LogBook/Search',
-	//		data: data,
-	//		success: function (data) {
-
-	//			if (data == false) {
-	//				alert('No date input');
-	//			}
-	//			else {
-				
-	//			}
-	//		},
-	//		error: function (data) {
-	//			alert('Failed to retrieve record');
-	//		}
-
-	//	});
-	//}
-
-
-
-
-			
-		
-	//function Sample() {
-	//	var file = $("#logbookpic").get(0).files;
-	//	ReadImage(file[0]);
-	//	alert(ReadImage);
-
-	//	//var file = $("#pc").get(0).files;
-	//	//var data = new FormData();
-	//	//data.append("Image", file[0]);
-
-	//}
-
 	function SetText() {
 
 		var date = document.getElementById('date').value;
 		var ResidentName = document.getElementById('residentname').value;
 		var VisitorName = document.getElementById('visitorname').value;
-		var Purpose = document.getElementById('purpose').value;
-
-		//var pic = document.getElementById('logbookpic').src;
-		//var fullpath = (pic).toString();
-		//var filename = fullpath.replace(/^.*[\\\/]/, '');
-		//filei = filename;
-
-
-
+        var Purpose = document.getElementById('purpose').value;
+        
 		var file = $("#logbookpic").get(0).files;
 		var data = new FormData();
 		var m = data.append("Image", file[0]);

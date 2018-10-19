@@ -22,7 +22,8 @@ namespace UResidence
         public int Stocks { get; set; }
 
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
-        public int Rate { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal Rate { get; set; }
         public int Id { get; set; }
         public string Url { get; set; }
 
@@ -39,7 +40,7 @@ namespace UResidence
             ret.Id = reader.GetInt32(0);
             ret.Name = RemoveWhitespace(reader.GetString(1));
             ret.Stocks = reader.GetInt32(2);
-            ret.Rate = reader.GetInt32(3);
+            ret.Rate = reader.GetDecimal(3);
             ret.Url = reader.GetString(4);
             ret.Description = reader.GetString(5);
 

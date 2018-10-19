@@ -13,7 +13,7 @@ namespace UResidence
         public int Refno { get; set; }
         public DateTime Date { get; set; }
         public string CreatedBy { get; set; }
-        public int charge { get; set; }
+        public decimal charge { get; set; }
         public string Description { get; set; }
 
         public Charge CreateObject(SqlDataReader reader)
@@ -23,7 +23,7 @@ namespace UResidence
             ret.Refno = reader.GetInt32(1);
             ret.Date = reader.GetDateTime(2);
             ret.CreatedBy = reader.GetString(3);
-            ret.charge = reader.GetInt32(4);
+            ret.charge = reader.GetDecimal(4);
             ret.Description = reader.GetString(5);
             return ret;
         }

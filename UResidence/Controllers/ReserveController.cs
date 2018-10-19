@@ -25,10 +25,11 @@ namespace UResidence.Controllers
             return View(model);
         }
         public ActionResult Home()
-        { 
+        {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-            int balance = 0;
-            List<Billing> billing = new List<Billing>();
+            decimal balance = 0;
+           
+            List<ReservationList> revlist = new List<ReservationList>();
             int uid = Convert.ToInt32(Session["UID"]);
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
@@ -36,47 +37,48 @@ namespace UResidence.Controllers
                 Owner a = new Owner();
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
-                billing = UResidence.BillingController.GetOwner(uid);
+                revlist = UResidence.ReservationListController.GetAllO(a.Id);
             }
             else
             {
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
                 Session["URLL"] = t.URL;
-                billing = UResidence.BillingController.GetTenant(uid);
+                revlist = UResidence.ReservationListController.GetAllT(t.Id);
             }
-
-            for (int i = 0; i <= billing.Count - 1; i++)
+            if (revlist.Count>0)
             {
-                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
-            }
-            if (balance > 0)
-            {
-                bool ss = true;
-                ViewBag.Bal = balance;
-                ViewBag.s = ss;
-                Session["status"] = true;
-               
-                return View(amenityList);
-                
+                for (int i = 0; i <= revlist.Count - 1; i++)
+                {
+                    balance += revlist[i].Outstanding;
+                }
+                if (balance > 0)
+                {
+                    bool ss = true;
+                    ViewBag.Bal = balance;
+                    ViewBag.s = ss;
+                    Session["status"] = true;
+                }
+                else
+                {
+                    bool ss = false;
+                    ViewBag.Bal = balance;
+                    ViewBag.s = ss;
+                }
             }
             else
             {
                 bool ss = false;
                 ViewBag.Bal = balance;
-                ViewBag.s = ss ;
-                return View(amenityList);
-
+                ViewBag.s = ss;              
             }
+            return View(amenityList);
         }
 
         public ActionResult Amenity()
         {
-            
-           
-
-            int balance = 0;
-            List<Billing> billing = new List<Billing>();
+            decimal balance = 0;
+            List<ReservationList> revlist = new List<ReservationList>();
             int uid = Convert.ToInt32(Session["UID"]);
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
@@ -84,6 +86,7 @@ namespace UResidence.Controllers
                 Owner a = new Owner();
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
+                revlist = UResidence.ReservationListController.GetAllO(a.Id);
             }
 
             else
@@ -91,40 +94,40 @@ namespace UResidence.Controllers
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
                 Session["URLL"] = t.URL;
+                revlist = UResidence.ReservationListController.GetAllO(t.Id);
             }
-            if (type == "Owner")
+         
+            if (revlist.Count>0)
             {
-                billing = UResidence.BillingController.GetOwner(uid);
-            }
-            else
-            {
-                billing = UResidence.BillingController.GetTenant(uid);
-            }
-            for(int i=0;i<=billing.Count-1;i++)
-            {
-                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
-            }
-                if ( balance > 0)
+                for (int i = 0; i <= revlist.Count - 1; i++)
                 {
-                Session["aa"] = 0;
-
-
-                return RedirectToAction("Home", "Reserve");
+                    balance += revlist[i].Outstanding;
+                }
+                if (balance > 0)
+                {
+                    Session["aa"] = 0;
+                    return RedirectToAction("Home", "Reserve");
                 }
                 else
                 {
-                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();                 
+                    List<Amenity> amenityList = UResidence.AmenityController.GetAll();
                     return View(amenityList);
-                }                 
+                }
+            }
+            else
+            {
+                List<Amenity> amenityList = UResidence.AmenityController.GetAll();
+                return View(amenityList);
+            }
         }
 
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
             int aid = Convert.ToInt32(fc["ida"]);
-            int arate = Convert.ToInt32(fc["ratea"]);
+            decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-            int everate= Convert.ToInt32(fc["eve"]);
+            decimal everate= Convert.ToDecimal(fc["eve"]);
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
@@ -182,8 +185,8 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
             }
             ViewBag.name = (Session["NAME"]).ToString();
-            ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-            ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+            ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+            ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
             return View();
         }
         [HttpPost]
@@ -199,7 +202,7 @@ namespace UResidence.Controllers
                     string ed = Convert.ToString(fc["etime"]);
                     Session["sd"] = sd;
                     Session["ed"] = ed;
-                    string drate = fc["tratee"];
+                    decimal drate =Convert.ToDecimal(fc["tratee"]);
                     Session["drate"] = drate;
                     int aid = Convert.ToInt32(Session["ID"]);
 
@@ -207,8 +210,8 @@ namespace UResidence.Controllers
                     if (schedList.Count > 0)
                     {
                         Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                        ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                        ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                        ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                         return View();
                     }
                     else
@@ -219,8 +222,8 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
             }
@@ -233,7 +236,7 @@ namespace UResidence.Controllers
                     string ed = Convert.ToString(fc["etime"]);
                     Session["sd"] = sd;
                     Session["ed"] = ed;
-                    string drate = fc["tratee"];
+                    decimal drate = Convert.ToDecimal(fc["tratee"]);
                     Session["drate"] = drate;
                     int aid = Convert.ToInt32(Session["ID"]);
 
@@ -241,8 +244,8 @@ namespace UResidence.Controllers
                     if (schedList.Count > 0)
                     {
                         Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                        ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                        ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                        ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                         return View();
                     }
                     else
@@ -253,8 +256,8 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
-                    ViewBag.EveRate = Convert.ToInt32(Session["EVERATE"]);
+                    ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
+                    ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
 
@@ -328,7 +331,7 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public void Choose_Equipment(int[] data, int[] datar)
+        public void Choose_Equipment(int[] data, decimal[] datar)
         {
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
@@ -340,7 +343,7 @@ namespace UResidence.Controllers
                 int[] quantity = data;
                 Session["quantity"] = quantity;
 
-                int[] ratee = datar;
+                decimal[] ratee = datar;
                 Session["ratee"] = ratee;
 
                 Summary();
@@ -375,12 +378,12 @@ namespace UResidence.Controllers
             string ed = (string)Session["ed"];
             ViewBag.start = sd;
             ViewBag.end = ed;
-            ViewBag.ratea = Session["drate"];
+            ViewBag.ratea =Session["drate"];
             ViewBag.amenname = Session["NAME"];
 
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
-            ViewBag.QA=Session["qa"] ;
+            ViewBag.QA= Session["qa"] ;
             ViewBag.QC = Session["qc"];
             ViewBag.AR = Session["ar"];
             ViewBag.CR = Session["cr"];
@@ -397,21 +400,24 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
+
             string sd = (string)Session["sd"];
+            sd += ":00.000";
             string ed = (string)Session["ed"];
-            string rate = (string)Session["drate"];
+            ed += ":00.000";
+            decimal rate = Convert.ToDecimal(Session["drate"]);
             int uid = (int)Session["UID"];
             int aid = (int)Session["ID"];
             DateTime date = DateTime.Now;
-           string sdate= String.Format("{0:d/M/yyyy HH:mm:ss}", date);
+            string sdate = date.ToString();
             Session["date"] = sdate;
             SchedReservation a = new SchedReservation
             {
                 AmenityId = aid,
                 StartTime = Convert.ToDateTime(sd),
                 EndTIme = Convert.ToDateTime(ed),
-                Rate = Convert.ToInt32(rate),
-                Date = Convert.ToDateTime(sdate),
+                Rate = Convert.ToDecimal(rate),
+                Date =date,
 
             };
             status = UResidence.SchedReservationController.Insert(a);
@@ -421,10 +427,10 @@ namespace UResidence.Controllers
                 string amenityname = (Session["NAME"]).ToString();
                 string qa = (string)Session["qa"];
                 string qc = (string)Session["qc"];
-                SchedReservation b = new SchedReservation();
-                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(), sd, ed,Convert.ToDateTime(sdate));
+                List<SchedReservation> b = new List<SchedReservation>();
+               b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(),sd.ToString(), ed.ToString(),date);
                 
-                int sid =b.Id;
+                int sid =b[0].Id;
                 string tor = (string)Session["TOR"];
                 int UserId = (int)Session["UID"];         
                 string fullname = "";
@@ -470,7 +476,7 @@ namespace UResidence.Controllers
                     int refno = reserve.Id;
                     int[] equantity = (Int32[])Session["quantity"];
                     int[] eid = (Int32[])Session["eqpid"];
-                    int[] ratee = (Int32[])Session["ratee"];
+                    decimal[] ratee = (Decimal[])Session["ratee"];
                     if (equantity != null)
                     {
                         for (int i = 0; i <= equantity.Count() - 1; i++)
@@ -484,8 +490,7 @@ namespace UResidence.Controllers
                                     EquipId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
-                                    Rate = Convert.ToInt32(ratee[i]) * Convert.ToInt32(equantity[i]),
-
+                                    Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),
                                 };
 
                                 status = UResidence.EquipReservationController.Insert(er);
@@ -504,8 +509,49 @@ namespace UResidence.Controllers
 
         }
 
-
-
+        public ActionResult GuestAdd()
+        {
+            string bn = Convert.ToString(Session["BLDG"]);
+            string un = Convert.ToString(Session["UNO"]);
+            ViewBag.Bldg =bn;
+            ViewBag.UnitNo = un;
+            ViewBag.purp = "";
+            ViewBag.date = DateTime.Now;
+            List<Logbook> list = new List<Logbook>();
+            list = LogbookController.GET_ALL(DateTime.Now,bn,un);
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult GuestAdd(FormCollection fc, HttpPostedFileBase image)
+        {
+            string bn = Convert.ToString(Session["BLDG"]);
+            string un = Convert.ToString(Session["UNO"]);
+            DateTime date = Convert.ToDateTime(fc["gdate"]);
+            string purpose = Convert.ToString(fc["purpose"]);
+            string vname = Convert.ToString(fc["vname"]);
+            bool status = false;
+            string name = Session["FULLNAME"].ToString();
+            Logbook log = new Logbook
+            {
+                date = date,
+                VisitorName = vname,
+                ResidentName = name,
+                Purpose = purpose,
+                BuildingNo = bn,
+                UnitNo = un,
+                Timein = Convert.ToDateTime("00:00:00"),
+                Timeout = Convert.ToDateTime("00:00:00"),
+                URL = "~/Content/LogBookImages/user.png"
+            };
+            status = LogbookController.Insert(log);
+            ViewBag.purp = purpose;
+            ViewBag.date = date;
+            ViewBag.Bldg = bn;
+            ViewBag.UnitNo = un;
+            List<Logbook> list = new List<Logbook>();
+            list = LogbookController.GET_ALL(DateTime.Now, bn, un);
+            return View(list);
+        }
         public JsonResult GetEvents()
         {
             string name = (Session["NAME"]).ToString();
@@ -764,7 +810,43 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
+        public JsonResult AddGuest(Logbook data)
+        {
+            string bn = Convert.ToString(Session["BLDG"]);
+            string un = Convert.ToString(Session["UNO"]);
+            bool status = false;
+            string name = Session["FULLNAME"].ToString();
+            Logbook log = new Logbook
+            {
+                date=data.date,
+                VisitorName = data.VisitorName,
+                ResidentName = name,
+                Purpose=data.Purpose,
+                BuildingNo= bn,
+                UnitNo=un,
+                Timein = Convert.ToDateTime("00:00:00"),
+                Timeout = Convert.ToDateTime("00:00:00"),
+                URL= "~/Content/LogBookImages/user.png"
+            };
+            status = LogbookController.Insert(log);
+            List<Logbook> list = new List<Logbook>();
+            list = LogbookController.GET_ALL(DateTime.Now, bn, un);
+            var data1 = list.ToList();
+            ViewBag.purp = data.Purpose;
+            ViewBag.date = data.date;
+            ViewBag.Bldg = bn;
+            ViewBag.UnitNo = un;
+            return new JsonResult { Data = data1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult ViewGuest(DateTime date)
+        {
+            string bn = Convert.ToString(Session["BLDG"]);
+            string un = Convert.ToString(Session["UNO"]);
+            List<Logbook> list = new List<Logbook>();
+            list = LogbookController.GET_ALL(date, bn, un);
+            var data = list.ToList();
+            return new JsonResult {Data=data,JsonRequestBehavior=JsonRequestBehavior.AllowGet };
+        }
     }
 }    
        

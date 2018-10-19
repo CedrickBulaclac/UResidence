@@ -119,12 +119,10 @@
 
         .regcontainer {
             /*padding-left: 480px;*/
-            margin-left: 400px;
+            background-color: #81c784;
         }
 
-        .regcontainer2 {
-            padding-left: 50px;
-        }
+        
     </style>
 </head>
 
@@ -156,36 +154,38 @@
 		<center>
 			@*<ul class="nav navbar-nav ">*@
 			<font color="white">
-				<ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+
+
+                    <li>  <a href=@Url.Action("Home", "Admin") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-home"></span> Home</a> </li>
+
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+
+                        <ul class="dropdown-menu">
 
 
 
-					<li class="dropdown">
-						<a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+                            <li>
+                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-						<ul class="dropdown-menu">
-
-
-
-							<li>
-								<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-									<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
-
-								</a>
-							</li>
+                                </a>
+                            </li>
 
 
-							<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+                            <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-							<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                            <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-						</ul>
+                        </ul>
 
-					</li>
+                    </li>
 
 
 
-				</ul>
+                </ul>
 			</font>
 		</center>
 
@@ -206,13 +206,13 @@
 
 
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<div class="regcontainer">
+	
 		<div class="container">
 			<div class="row ">
 
 
-				<div class="col-lg-2">
-					<div class="panel panel-success">
+				<div class="col-lg-6">
+					<div class="panel regcontainer">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-6">
@@ -240,9 +240,9 @@
 				</div>
 
 
-				<div class="regcontainer2">
-					<div class="col-lg-2">
-						<div class="panel panel-success ">
+		
+					<div class="col-lg-6">
+						<div class="panel regcontainer ">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-6">
@@ -271,8 +271,7 @@
 
 				</div>
 			</div>
-		</div>
-	</div>
+		
 
 
 

@@ -115,7 +115,7 @@ namespace UResidence
 
         public static bool Update(Tenant usr)
         {
-            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo, MovingIn=@MovingIn, MovingOut=@MovingOut WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@UnitNo", usr.UnitNo));
@@ -126,8 +126,6 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Bdate", usr.Bdate));
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
-            com.Parameters.Add(new SqlParameter("@MovingIn", usr.MovingIn));
-            com.Parameters.Add(new SqlParameter("@@MovingOut", usr.MovingOut));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
 
             return SqlManager.ExecuteNonQuery(com);

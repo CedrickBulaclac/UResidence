@@ -59,6 +59,7 @@ namespace UResidence.Controllers
                     a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
                     Session["BDAY"] = a.Bdate.ToShortDateString();
                     Session["UNO"] = a.UnitNo;
+                    Session["BLDG"] = a.BldgNo;
                     string Fname = RemoveWhitespace(a.Fname);
                     string Mname = RemoveWhitespace(a.Mname);
                     string Lname = RemoveWhitespace(a.Lname);
@@ -94,6 +95,7 @@ namespace UResidence.Controllers
                         Session["FullName"] = Fname + " " + Mname + " " + Lname;
                         Session["BDAY"] = a.Bdate.ToShortDateString();
                         Session["UNO"] = a.UnitNo;
+                        Session["BLDG"] = a.BldgNo;
                         UResidence.UserController.UpdateLog(user.Id);
                         return RedirectToAction("Home", "Reserve");
                     }

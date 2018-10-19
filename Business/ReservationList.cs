@@ -20,11 +20,11 @@ namespace UResidence
         public string tLname { get; set; }
         public string Date { get; set; }
         public string AmenityName { get; set; }
-        public int Rate { get; set; }
-        public int Charge { get; set; }
-        public int TotalPayment { get; set; }
+        public decimal Rate { get; set; }
+        public decimal Charge { get; set; }
+        public decimal TotalPayment { get; set; }
         public int RefNo { get; set; }
-        public int Outstanding { get; set; }
+        public decimal Outstanding { get; set; }
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
         public string ReservedBy { get; set; }
@@ -35,21 +35,21 @@ namespace UResidence
             ret.TenantId = reader.GetInt32(1);
             ret.typeResident = reader.GetString(2);
            ret.RefNo = reader.GetInt32(3);
-            ret.oFname = RemoveWhitespace(reader.GetString(4));
-            ret.oMname = RemoveWhitespace(reader.GetString(5));
-            ret.oLname = RemoveWhitespace(reader.GetString(6));
-            ret.tFname = RemoveWhitespace(reader.GetString(7));
-            ret.tMname = RemoveWhitespace(reader.GetString(8));
-            ret.tLname = RemoveWhitespace(reader.GetString(9));
+            ret.oFname = reader.GetString(4);
+            ret.oMname =reader.GetString(5);
+            ret.oLname = reader.GetString(6);
+            ret.tFname = reader.GetString(7);
+            ret.tMname = reader.GetString(8);
+            ret.tLname = reader.GetString(9);
             ret.Date = reader.GetString(10);
             ret.AmenityName = reader.GetString(11);
-            ret.Rate = reader.GetInt32(12);
-            ret.Charge = reader.GetInt32(13);
-            ret.TotalPayment = reader.GetInt32(14);           
+            ret.Rate = reader.GetDecimal(12);
+            ret.Charge = reader.GetDecimal(13);
+            ret.TotalPayment = reader.GetDecimal(14);           
             ret.BldgNo = reader.GetString(15);
             ret.UnitNo = reader.GetString(16);
             ret.ReservedBy = reader.GetString(17);
-            ret.Outstanding = reader.GetInt32(18);
+            ret.Outstanding = reader.GetDecimal(18);
             return ret;
         }
         public string RemoveWhitespace(string str)

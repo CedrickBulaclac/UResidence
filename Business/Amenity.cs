@@ -26,7 +26,8 @@ namespace UResidence
         public string AmenityName { get; set; }
         public string Url { get; set; }
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
-        public int Rate { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal Rate { get; set; }
 
         [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
         [StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
@@ -35,10 +36,11 @@ namespace UResidence
         [StringLength(50, ErrorMessage = "Unit Number cannot be longer than 50 characters.")]
         [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string Location { get; set; }
-        public int Adult { get; set; }
-        public int Child { get; set; }
+        public decimal Adult { get; set; }
+        public decimal Child { get; set; }
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
-        public int EveRate { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal EveRate { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -47,12 +49,12 @@ namespace UResidence
             ret.Capacity = reader.GetInt32(2);
             ret.AmenityName = reader.GetString(3);
            ret.Url = RemoveWhitespace(reader.GetString(4));
-            ret.Rate = reader.GetInt32(5);
+            ret.Rate = reader.GetDecimal(5);
             ret.Color = RemoveWhitespace(reader.GetString(6));
             ret.Location = reader.GetString(7);
-            ret.Adult = reader.GetInt32(8);
-            ret.Child = reader.GetInt32(9);
-            ret.EveRate = reader.GetInt32(10);
+            ret.Adult = reader.GetDecimal(8);
+            ret.Child = reader.GetDecimal(9);
+            ret.EveRate = reader.GetDecimal(10);
             return ret;
         }
         public string RemoveWhitespace(string str)

@@ -12,7 +12,7 @@ namespace UResidence
         public static List<Notification> GetAll()
         {
             List<Notification> ret = default(List<Notification>);
-            const string GET_ALL = @"SELECT Id,Description,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0) FROM [tbNotification] order by Id Desc";
+            const string GET_ALL = @"SELECT Id,Rate,Refno,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0),Type FROM [tbNotification] order by Id Desc";
             SqlCommand com = new SqlCommand(GET_ALL);
             ret = SqlManager.Select<Notification>(com);
             return ret;
@@ -20,7 +20,7 @@ namespace UResidence
         public static List<Notification> GetAllO(int id)
         {
             List<Notification> ret = default(List<Notification>);
-            const string GET_ALL = @"SELECT Id,Description,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0) FROM [tbNotification]  where OwnerId=@OwnerId order by Id Desc";
+            const string GET_ALL = @"SELECT Id,Rate,Refno,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0),Type FROM [tbNotification]  where OwnerId=@OwnerId order by Id Desc";
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@OwnerId", id));
             ret = SqlManager.Select<Notification>(com);
@@ -29,7 +29,7 @@ namespace UResidence
         public static List<Notification> GetAllT(int id)
         {
             List<Notification> ret = default(List<Notification>);
-            const string GET_ALL = @"SELECT Id,Description,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0) FROM [tbNotification]  where TenantId=@TenantId order by Id Desc";
+            const string GET_ALL = @"SELECT Id,Rate,Refno,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0),Type FROM [tbNotification]  where TenantId=@TenantId order by Id Desc";
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@TenantId", id));
             ret = SqlManager.Select<Notification>(com);
@@ -38,7 +38,7 @@ namespace UResidence
         public static List<Notification> GetCountO(int id)
         {
             List<Notification> ret = default(List<Notification>);
-            const string GET_ALL = @"SELECT Id,Description,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0) FROM [tbNotification] where Visit=0 and OwnerId=@OwnerId";
+            const string GET_ALL = @"SELECT Id,Rate,Refno,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0),Type FROM [tbNotification] where Visit=0 and OwnerId=@OwnerId";
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@OwnerId", id));
             ret = SqlManager.Select<Notification>(com);
@@ -47,7 +47,7 @@ namespace UResidence
         public static List<Notification> GetCountT(int id)
         {
             List<Notification> ret = default(List<Notification>);
-            const string GET_ALL = @"SELECT Id,Description,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0) FROM [tbNotification] where Visit=0 and TenantId=@TenantId";
+            const string GET_ALL = @"SELECT Id,Rate,Refno,Date,Visit,ISNULL(OwnerId,0),ISNULL(TenantId,0),Type FROM [tbNotification] where Visit=0 and TenantId=@TenantId";
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@TenantId", id));
             ret = SqlManager.Select<Notification>(com);
@@ -65,11 +65,12 @@ namespace UResidence
         }
         public static bool InsertO(Notification not)
         {
-            const string GET_INSERT = @"insert [tbNotification] (Description,Date,Visit,OwnerId) values (@Description,@Date,@Visit,@OwnerId) ";
+            const string GET_INSERT = @"insert [tbNotification] (Rate,Refno,Date,Visit,OwnerId,Type) values (@Rate,@Refno,@Date,@Visit,@OwnerId,@Type) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-
-            com.Parameters.Add(new SqlParameter("@Description", not.Description));
+            com.Parameters.Add(new SqlParameter("@Type", not.Type));
+            com.Parameters.Add(new SqlParameter("@Rate", not.Rate));
+            com.Parameters.Add(new SqlParameter("@Refno", not.refno));
             com.Parameters.Add(new SqlParameter("@Date", not.Date));
             com.Parameters.Add(new SqlParameter("@Visit", not.Visit));
             com.Parameters.Add(new SqlParameter("@OwnerId", not.OwnerId));
@@ -78,11 +79,12 @@ namespace UResidence
 
         public static bool InsertT(Notification not)
         {
-            const string GET_INSERT = @"insert [tbNotification] (Description,Date,Visit,TenantId) values (@Description,@Date,@Visit,@TenantId) ";
+            const string GET_INSERT = @"insert [tbNotification] (Rate,Refno,Date,Visit,TenantId,Type) values (@Rate,@Refno,@Date,@Visit,@TenantId,@Type) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-
-            com.Parameters.Add(new SqlParameter("@Description", not.Description));
+            com.Parameters.Add(new SqlParameter("@Type", not.Type));
+            com.Parameters.Add(new SqlParameter("@Rate", not.Rate));
+            com.Parameters.Add(new SqlParameter("@Refno", not.refno));
             com.Parameters.Add(new SqlParameter("@Date", not.Date));
             com.Parameters.Add(new SqlParameter("@Visit", not.Visit));
             com.Parameters.Add(new SqlParameter("@TenantId", not.TenantId));

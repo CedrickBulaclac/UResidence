@@ -115,30 +115,30 @@ namespace UResidence
 
             return ret;
         }
-        public static SchedReservation GetAmenityNo(string ano)
+        public static List<SchedReservation> GetAmenityNo(string ano)
         {
             const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityId = @AmenityId";
 
-            SchedReservation ret = default(SchedReservation);
+            List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@AmenityId", ano));
-            ret = SqlManager.Select<SchedReservation>(com).First();
+            ret = SqlManager.Select<SchedReservation>(com);
 
             return ret;
         }
 
 
-        public static SchedReservation GetAmenityNo(string ano, string sd, string ed,DateTime date)
+        public static List<SchedReservation> GetAmenityNo(string ano, string sd, string ed,DateTime date)
         {
             const string GET_RECORD = @"SELECT Id,AmenityId,StartTime,EndTIme,Rate FROM [tbSchedReservation] WHERE AmenityId = @AmenityId and StartTime = @StartTime and EndTime = @EndTime and Date = @Date";
 
-            SchedReservation ret = default(SchedReservation);
+            List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@AmenityId", ano));
             com.Parameters.Add(new SqlParameter("@StartTime", sd));
             com.Parameters.Add(new SqlParameter("@EndTime", ed));
             com.Parameters.Add(new SqlParameter("@Date", date));
-            ret = SqlManager.Select<SchedReservation>(com).First();
+            ret = SqlManager.Select<SchedReservation>(com);
 
             return ret;
         }

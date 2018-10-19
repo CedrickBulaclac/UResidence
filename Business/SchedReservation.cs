@@ -12,7 +12,7 @@ namespace UResidence
         public int AmenityId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTIme { get; set; }
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
         public int Id { get; set; }
         public string AmenityName { get; set; }
         public string Theme { get; set; }
@@ -42,7 +42,7 @@ namespace UResidence
                 ret.AmenityId = reader.GetInt32(1);
                 ret.StartTime = reader.GetDateTime(2);
                 ret.EndTIme = reader.GetDateTime(3);
-                ret.Rate = reader.GetInt32(4);
+                ret.Rate = reader.GetDecimal(4);
 
 
                 return ret;
@@ -53,7 +53,7 @@ namespace UResidence
                 ret.Id = reader.GetInt32(0);
                 ret.AmenityId = reader.GetInt32(1);
                 ret.AmenityName = RemoveWhitespace(reader.GetString(2));
-                ret.Rate = reader.GetInt32(3);
+                ret.Rate = reader.GetDecimal(3);
                 ret.StartTime = reader.GetDateTime(4);
                 ret.EndTIme = reader.GetDateTime(5);
                 ret.Theme = RemoveWhitespace(reader.GetString(6));

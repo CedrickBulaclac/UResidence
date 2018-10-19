@@ -9,21 +9,21 @@ namespace UResidence
 {
     public class Billing : BaseProperty<Billing>
     {
-        public int Rate { get; set; }
-        public int Charge { get; set; }
-        public int ChairCost { get; set; }
-        public int TableCost { get; set; }
-        public int Totale { get; set; }
-        public int Amount { get; set; }
+        public decimal Rate { get; set; }
+        public decimal Charge { get; set; }
+        public decimal ChairCost { get; set; }
+        public decimal TableCost { get; set; }
+        public decimal Totale { get; set; }
+        public decimal Amount { get; set; }
         public Billing CreateObject(SqlDataReader reader)
         {
             Billing ret = new Billing();
-            ret.Rate = reader.GetInt32(0);
+            ret.Rate = reader.GetDecimal(0);
             ret.Charge = reader.GetInt32(1);
-            ret.ChairCost = reader.GetInt32(2);
-            ret.TableCost = reader.GetInt32(3);
-            ret.Totale = reader.GetInt32(4);
-            ret.Amount = reader.GetInt32(5);
+            ret.ChairCost = reader.GetDecimal(2);
+            ret.TableCost = reader.GetDecimal(3);
+            ret.Totale = reader.GetDecimal(4);
+            ret.Amount = reader.GetDecimal(5);
             return ret;
         }
 

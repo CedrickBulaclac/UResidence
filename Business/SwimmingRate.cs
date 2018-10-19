@@ -10,16 +10,16 @@ namespace UResidence
     {
         public int Id { get; set; }
         public int AmenityId { get; set; }
-        public int Adult { get; set; }
-        public int Child { get; set; }
+        public decimal Adult { get; set; }
+        public decimal Child { get; set; }
 
         public SwimmingRate CreateObject(SqlDataReader reader)
         {
             SwimmingRate ret = new SwimmingRate();
             ret.Id = reader.GetInt32(0);
             ret.AmenityId = reader.GetInt32(1);
-            ret.Adult = reader.GetInt32(2);
-            ret.Child = reader.GetInt32(3);
+            ret.Adult = reader.GetDecimal(2);
+            ret.Child = reader.GetDecimal(3);
 
             return ret;
         }

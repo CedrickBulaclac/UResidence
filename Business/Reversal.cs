@@ -15,7 +15,7 @@ namespace UResidence
         public string Status { get; set; }
         public string CreatedBy { get; set; }
         public string ApprovedBy { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
        public Reversal CreateObject(SqlDataReader reader)
         {
@@ -26,7 +26,7 @@ namespace UResidence
             ret.Status = reader.GetString(3);
             ret.CreatedBy = reader.GetString(4);
             ret.ApprovedBy = reader.GetString(5);
-            ret.Amount = reader.GetInt32(6);
+            ret.Amount = reader.GetDecimal(6);
             return ret;
         }
 

@@ -12,7 +12,7 @@ namespace UResidence
         public string CreatedBy { get; set; }
         public string Fullname { get; set; }
         public string DateofReservation { get; set; }
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
        public string Date { get; set; }
@@ -24,7 +24,7 @@ namespace UResidence
             ret.CreatedBy = reader.GetString(0);
             ret.Fullname = reader.GetString(1);
             ret.DateofReservation = reader.GetString(2);
-            ret.Amount = reader.GetInt32(3);
+            ret.Amount = reader.GetDecimal(3);
             ret.Description = reader.GetString(4);
             ret.Status = reader.GetString(5);
             ret.Date = reader.GetString(6);

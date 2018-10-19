@@ -1,0 +1,99 @@
+﻿@model List<UResidence.Logbook>
+@{
+    Layout = "~/Views/Layout/LayoutHome.cshtml";
+}
+<head>
+    <style>
+        body {
+            /*background-color: #dcedc8;*/
+            background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+</head>
+@using (Html.BeginForm("GuestAdd", "Reserve", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <body>
+        <br />
+        <br />
+        <center>
+            <div class="container">
+                <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate"/>
+                <br />
+                <b>Purpose of Visit:</b><input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" />
+                <br />
+                <table class="table table-borderd table-striped" name="tableguest" id="tableguest">
+                    <tr>
+                        <th>Building No</th>
+                        <th>Unit No</th>
+                        <th>Guest FullName</th>
+                        <th>Image</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.BuildingNo</td>
+                            <td>@data.UnitNo</td>
+                            <td>@data.VisitorName</td>
+                            <td></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>@ViewBag.Bldg</td>
+                        <td>@ViewBag.UnitNo</td>
+                        <td><input type="text" name="vname" id="vname" /></td>
+                        <td><input type="file" name="image" id="image" /></td>
+                        <td><button type="submit">Add Guest</button></td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+
+    </body>
+}
+    <script>
+    var oldate;
+    $(document).ready(
+        function () {
+            var ndate = new Date();
+            var dd = ndate.getDate();
+            var mm = ndate.getMonth() + 1;
+            var yy = ndate.getFullYear();
+            var final = yy + '-' + mm + '-' + dd;
+            document.getElementById('gdate').value = final;
+            olddate = final;
+        });
+    function GenerateTable() {
+        var trhtml = "";
+        alert("g");
+        $('#tableguest').empty();
+        oldate = document.getElementById('gdate').value;
+        trhtml = '<tr><th>Building No</th><th>Unit No</th><th>Guest FullName</th><th>Image</th><th></th></tr>';
+        $.ajax({
+            type: "GET",
+            url: "/Reserve/ViewGuest",
+            data: { date: oldate },
+            success: function (data) {
+                console.log(data);
+                $.each(data, function (i, v) {
+                    trhtml += '<tr><td>'+v.BuildingNo+'</td><td>'+v.UnitNo+'</td><td>'+v.VisitorName+'</td><td></td></tr>';
+                });
+
+            },
+            error: function (data) {
+                alert("No record found");
+            }
+        });
+        trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td>  <td><input type="file" name="image" id="image" /></td><td><button type="submit">Add Guest</button></td></tr>';
+        $('#tableguest').append(trhtml);
+    }
+   
+    </script>
+
+
+

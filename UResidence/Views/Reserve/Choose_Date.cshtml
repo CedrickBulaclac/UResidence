@@ -241,22 +241,12 @@
 
 
 
-								<p class="form-inline">
-									<label for="start date">Start Date:</label> &nbsp; &nbsp; <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" style="width:300px" required />
+                                <p class="form-inline">
+                                    <label for="start date">Date:</label>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" style="width:300px" required />
 
 
-								</p>
-
-								<br />
-
-
-								<p class="form-inline">
-									<label for="end date">End Date:</label> &nbsp; &nbsp; &nbsp; <input type="date" class="form-control" id="ed" name="ed" readonly="readonly" style="width:300px" />
-								</p>
-
-
-								<br />
-
+                                </p>
+                                <br />
 								<p class="form-inline">
 									<label for="start time">Start Time:</label> &nbsp; &nbsp; <input type="time" onselect="myFunction()" class="form-control" min="08:00" max="20:00" id="st" name="st" style="width:300px" required />
 
@@ -274,22 +264,22 @@
 								<br />
 
 
-								<p class="form-inline">
-									<label for="rate">Rate:    </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="rate" class="form-control" disabled="disabled" style="width:300px" />
-									<br />
-									<br />
-									<br />
+                                <p class="form-inline">                                  
+                                    <label for="rate">Rate: </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="rate" class="form-control" disabled="disabled" style="width:300px" />
+                                    <br />
+                                    <br />
+                                    <br />
 
-									<button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
+                                    <button name="submit" type="submit" button class="button" onclick="Check()"> Next</button>
 
-									<input type="hidden" id="stime" name="stime" />
-									<input type="hidden" id="etime" name="etime" />
-									<input type="hidden" id="tratee" name="tratee" />
-									<input type="hidden" id="result" name="result" />
-									<input type="hidden" id="qwe" name="qwe" />
-									<input type="hidden" id="abc" name="abc" />
+                                    <input type="hidden" id="stime" name="stime" />
+                                    <input type="hidden" id="etime" name="etime" />
+                                    <input type="hidden" id="tratee" name="tratee" />
+                                    <input type="hidden" id="result" name="result" />
+                                    <input type="hidden" id="qwe" name="qwe" />
+                                    <input type="hidden" id="abc" name="abc" />
 
-								</p>
+                                </p>
 
 								@*<p class="form-inline">
 
@@ -412,20 +402,19 @@
 		}
 	}
 	$(document).ready(
-		function () {
-			document.getElementById('ed').value = "";
+		function () {			
 			document.getElementById('sd').value = "";
 			document.getElementById('st').value = "";
 			document.getElementById('et').value = "";
 			document.getElementById('rate').value = "";
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
-				document.getElementById('ed').value = selectedValue;
+				
 				startDate = selectedValue;
 				endDate = selectedValue;
 
 				var date = $('#sd').val().split(",-");
-				console.log(date, $('#sd').val())
+				
 				day = new Date(date);
 				var weekendday = day.getDay();
 				console.log(day.getDay());
@@ -436,15 +425,13 @@
 				if (amenityname.toUpperCase().startsWith('BASKETBALL') == true) {
 					if (weekendday == 6 || weekendday == 0) {
 						alert("Reservations are not available during weekends");
-						document.getElementById('sd').value = null;
-						document.getElementById('ed').value = null;
+						document.getElementById('sd').value = null;					
 					}
 				}
 				if (startDate < MyDateString)
 				{
 					alert("Your chosen date is earlier than today");
-					document.getElementById('sd').value = null;
-					document.getElementById('ed').value = null;
+					document.getElementById('sd').value = null;				
 				}
 			});
 
@@ -466,44 +453,19 @@
 
             var startHours = parseInt(selectedValue.split(':')[0], 10);
             if (startHours >= 8 && startHours <= 20) {
-                //if (startHours == 17 && fhours == 18) {
-                //    alert('5pm-6pm is not Available');
-                //    document.getElementById('st').value = '';
-                //    document.getElementById('et').value = '';
-                //    document.getElementById('rate').value = 0;
-                //}
-               /* else*/ if (startHours >= 8 && startHours <= 17) { //8am to 5pm
+                if (startHours >= 8 && startHours <= 17) { //8am to 5pm
                     var hourDiff = fhours - startHours;
                     rateA = rate1 * hourDiff;
-                    document.getElementById('rate').value = rateA;
+                    document.getElementById('rate').value = rateA.toFixed(2);
                 }
                 else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
 					var hourDiff = fhours - startHours;					
-						rateA = rate2 * hourDiff;
-						document.getElementById('rate').value = rateA;
-
-
+                    rateA = rate2 * hourDiff;
+                    document.getElementById('rate').value = rateA.toFixed(2);
 				}
-				//else if (startHours <= 17 && endTime >= 18) {    //<=5pm && >=6pm
-				//	alert('hi');
-				//	var hourDiff = fhours - startHours;
-				//	rateA = (((rate1 * 2) + ((rate1 * hourDiff) - (rate1 * hourDiff))));
-				//			//rateA = ((rate1 * 2) + (rate1 * diff));
-				//	document.getElementById('rate').value = rateA;
-				//}
-                //else {
-                //    alert('5pm-6pm is not Available');
-                //    document.getElementById('st').value = '';
-                //    document.getElementById('et').value = '';
-                //    document.getElementById('rate').value = 0;
-                //}
+				
             }
-            //else {
-            //    alert("Reservation period is 8am-5pm and 6pm-9pm only");
-            //    document.getElementById('st').value = '';
-            //    document.getElementById('et').value = '';
-            //    document.getElementById('rate').value = 0;
-            //}
+           
 
         });
     });
@@ -528,49 +490,32 @@
                 //}
 				/*else*/ if (eh >= 9 && eh <= 18) {
                     rateA = rate1 * diff;
-                    document.getElementById('rate').value = rateA;
+                    document.getElementById('rate').value = rateA.toFixed(2);
                 }
 				else if (eh >= 18 && eh <= 21) {
 					rateA = rate2 * diff;
-					document.getElementById('rate').value = rateA;
-					//rateA = ((rate1 * 2) * diff);
-					//document.getElementById('rate').value = rateA;
-					//var diff = eh - sh;
-					//rateA = (((rate2) * diff / 2 + (rate2 * )));
-					//document.getElementById('rate').value = rateA;
-
+                    document.getElementById('rate').value = rateA.toFixed(2);
+				
 					if (sh < 18) {
 						var dd = eh - 18;
 						var ed = 18 - sh;
 						rateA = ((rate1 * ed) + (rate2 * dd));
-						document.getElementById('rate').value = rateA;
+                        document.getElementById('rate').value = rateA.toFixed(2);
 						
 					}
 					else {
 
 						//100  *  2 = 200 * 6 = 1200
 						rateA = (rate2 * diff);
-						document.getElementById('rate').value = rateA;
+                        document.getElementById('rate').value = rateA.toFixed(2);
 					}
 
 				}
 
 
-				//else if (sh <= 17 && eh >= 18) {    //<=5pm && >=6pm
-				//	alert('hi');
-				//	rateA = (((rate1 * 2) + ((rate1 * diff) - (rate1 * diff))));
-				//	//rateA = ((rate1 * 2) + (rate1 * diff));
-				//	document.getElementById('rate').value = rateA;
-				//}
+			
 
 			}
-
-			//else {
-			//	alert("Reservation period is 8am-5pm and 6pm-9pm only");
-			//	document.getElementById('st').value = '';
-			//	document.getElementById('et').value = '';
-			//	document.getElementById('rate').value = 0;
-			//}
 
         });
     });
@@ -604,8 +549,8 @@
 		{
 			if (statusst == 'Valid' && statuset == 'Valid') {
 				var stconcat = startDate + " " + startTime;
-				var etconcat = endDate + " " + endTime;
-				var cdrate = rateA;
+                var etconcat = endDate + " " + endTime;
+                var cdrate = rateA.toFixed(2);
 				document.getElementById('stime').value = stconcat;
 				document.getElementById('etime').value = etconcat;
 				document.getElementById('tratee').value = cdrate;
@@ -613,15 +558,7 @@
 			else {
 				alert('Invalid');
 			}
-			//alert('Success');
 		}
-
-
-
-		//else if (startTime == 17 && endTime == 18)
-		//{
-		//	alert('5pm to 6pm is not Available');
-		//}
 
 
 

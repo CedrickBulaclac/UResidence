@@ -214,7 +214,7 @@ namespace UResidence.Controllers
             }
 
         }
-        public JsonResult UpdatePayment(int charge1, int refno1, string rstatus1,string desc,Notification data)
+        public JsonResult UpdatePayment(decimal charge1, int refno1, string rstatus1,string desc,Notification data)
         {
             string name = (Session["FullName"]).ToString();
             bool status = false;
@@ -237,14 +237,17 @@ namespace UResidence.Controllers
                 status = ReservationController.Update(reservation);
                 if(status==true)
                 {
-                    if (data.type == "Owner")
+                    if (data.typer == "Owner")
                     {
                         Notification not = new Notification
                         {
                             Description = data.Description,
                             Visit = 0,
                             OwnerId = data.OwnerId,
-                            Date = DateTime.Now
+                            Date = DateTime.Now,
+                            Type = data.Type,
+                            refno=data.refno,
+                            Rate=charge1
                         };
                         status = NotificationController.InsertO(not);
                     }
@@ -255,7 +258,10 @@ namespace UResidence.Controllers
                             Description = data.Description,
                             Visit = 0,
                             TenantId = data.OwnerId,
-                            Date = DateTime.Now
+                            Date = DateTime.Now,
+                            Type = data.Type,
+                            refno = data.refno,
+                            Rate = charge1
                         };
                         status = NotificationController.InsertT(not);
                     }
@@ -356,13 +362,11 @@ namespace UResidence.Controllers
             return View(amenityList);
         }
         [HttpPost]
-        public ActionResult CalendarView(FormCollection fc, string mySelect, int dp)
+        public ActionResult CalendarView(FormCollection fc, string mySelect, decimal dp)
         {
             int rid = Convert.ToInt32(fc["rid"]);
             int rfid = Convert.ToInt32(fc["rfid"]);
-            int down = dp;
-            int fp = Convert.ToInt32(fc["fp"]);
-            int cg = Convert.ToInt32(fc["cg"]);
+            decimal cg = Convert.ToInt32(fc["cg"]);
             string comment = Convert.ToString(fc["description"]);
             string status = mySelect;
 

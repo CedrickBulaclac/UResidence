@@ -6,21 +6,20 @@
 
 <!DOCTYPE html>
 <html>
-<title>Palmdale Heights</title>
-<link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
 <head>
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <style>
         .dropdown-menu {
             background: #2a2a2a;
@@ -69,9 +68,11 @@
                 left: 0;
                 right: 0;
             }
-            a:hover{
-                background-color:gray;
-            }
+
+        a:hover {
+            background-color: gray;
+        }
+
         .noti-content {
             position: fixed;
             right: 100px;
@@ -115,6 +116,7 @@
             font-size: 18px;
             cursor: pointer;
         }
+
         .sample {
             :: -webkit-scrollbar
 
@@ -138,6 +140,7 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: white;
             }
+
         }
         /*span.count {
             background-color: #fa3e3e;
@@ -145,7 +148,7 @@
             color: white;
             padding: 1px 3px;
             font-size: 10px;
-            position: absolute; 
+            position: absolute;
             top: 0;
             right: 0;
         }*/
@@ -198,6 +201,7 @@
                         <li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
                         <li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
                         <li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
+                        <li> <a href="~/Reserve/GuestAdd" class="hvr-underline-from-center" style="text-decoration:none;"> Guest </a></li>
                         <li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
 
                         <li class="dropdown">
@@ -207,7 +211,7 @@
                             <ul class="dropdown-menu sample" id="hello" style="height: 300px;width: 300px;overflow: auto; "></ul>
 
                         </li>
-                       
+
 
 
                         <li class="dropdown">
@@ -260,7 +264,7 @@
         var beforecount = 0;
 		$('#notifBell').click(function () {
             updateVisit();
-			$('.noti-content').hide();		
+			$('.noti-content').hide();
 		})
 
 		function getNotif() {
@@ -285,19 +289,29 @@
 				url: '/Reserve/GetNotificationContacts',
                 success: function (response) {
                     if (response.length != beforecount) {
-                       
+
                         if (response.length == 0) {
                             $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
                         }
                         $.each(response, function (index, value) {
+                            if (value.Type == 'Outstanding') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
-                            if (value.Visit = 0) {
-                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Refrence Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' . <br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
 
+                                }
                             }
-                            else {
-                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
+                            else if (value.Type == 'Charge') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+                                }
                             }
 
                         });
@@ -308,15 +322,27 @@
                             $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
                         }
                         $.each(response, function (index, value) {
+                            if (value.Type =='Outstanding') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
-                            if (value.Visit = 0) {
-                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' . <br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
 
+
+                                }
                             }
-                            else {
-                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
 
-                            }
+                             else if(value.Type == 'Charge') {
+                                  if (value.Visit = 0) {
+                                      $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
+
+                                                          }
+                                  else {
+                                      $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+                                                             }
+                          }
 
                         });
                     }
@@ -340,14 +366,29 @@
                     }
 
                     $.each(response, function (index, value) {
-                        if (value.Visit = 0) {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : ' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+'</p><hr></li>'));
+                        if (value.Type == 'Outstanding') {
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
-                        }
-                        else {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
 
+
+                            }
                         }
+                        else if (value.Type == 'Charge') {
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
+
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+
+
+                            }
+                        }
+
                     });
 
                     getNotif();

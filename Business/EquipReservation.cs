@@ -11,7 +11,7 @@ namespace UResidence
        public int EquipId { get; set; }
        public int Quantity  { get; set; }
        public int RefNo { get; set; }
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
         public string EquipmentName { get; set; }
         public EquipReservation CreateObject(SqlDataReader reader)
         {
@@ -19,7 +19,7 @@ namespace UResidence
             ret.EquipId = reader.GetInt32(0);
             ret.Quantity = reader.GetInt32(1);
             ret.RefNo = reader.GetInt32(2);
-            ret.Rate = reader.GetInt32(3);
+            ret.Rate = reader.GetDecimal(3);
             ret.EquipmentName = reader.GetString(4);
             return ret;
         }

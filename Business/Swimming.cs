@@ -15,8 +15,8 @@ namespace UResidence
         public int RefNo { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }
-        public int AdultRate { get; set; }
-        public int ChildRate { get; set; }
+        public decimal AdultRate { get; set; }
+        public decimal ChildRate { get; set; }
         public int AmenityId { get; set; }
 
         public Swimming CreateObject(SqlDataReader reader)
@@ -26,8 +26,8 @@ namespace UResidence
             ret.RefNo = reader.GetInt32(1);
             ret.Adult = reader.GetInt32(2);
             ret.Child = reader.GetInt32(3);
-            ret.AdultRate = reader.GetInt32(4);
-            ret.ChildRate = reader.GetInt32(5);
+            ret.AdultRate = reader.GetDecimal(4);
+            ret.ChildRate = reader.GetDecimal(5);
             ret.AmenityId = reader.GetInt32(6);
 
             return ret;

@@ -249,47 +249,7 @@
 									</div>
 								</div>
 							</div>
-
-
-
-
-
-
-
-
-
-							@*<div class="col-md-4">
-								<div class="w3-container">
-									<div class="w3-card-4 w3-dark-grey" style="width:100%">
-										<div class="w3-container w3-center">
-											<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-											<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-											<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-											<p> <label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
-											<p> <label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly></font></p>
-											<p> <label for="Rate">Rate :</label> <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font> </p>
-
-											<div class="w3-section">
-
-											</div>
-										</div>
-
-									</div>
-								</div>
-							</div>*@
-
-
-
-
-
-
-
-
-
-
-
-							ctr3++;
-							//stocks[ctr3] = totaleq;
+							ctr3++;					
 							totaleq = 0;
 						}
 
@@ -337,32 +297,6 @@
 
 
 
-
-
-
-
-
-
-						@*<div class="col-md-4">
-							<div class="w3-container">
-								<div class="w3-card-4 w3-dark-grey" style="width:100%">
-									<div class="w3-container w3-center">
-										<h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3>
-										<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-										<p> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</p>
-										<p><label for="Quantity">Quantity :</label> <font color="black">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } })</font></p>
-										<p><label for="Stocks">Stocks :</label> <font color="black"><input type="text" value="@totaleq" id="stocks2" name="stocks2" readonly></font></p>
-										<p><label for="Rate">Rate :</label>  <font color="black"> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) </font> </p>
-
-										<div class="w3-section">
-
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>*@
-
 						ctr3++;
 						//stocks[ctr3] = totaleq;
 						totaleq = 0;
@@ -382,24 +316,11 @@
 		var quantity = [null];
 		var total = [null];
 		var stot = [null]
-		var ttotal = 0;
+		var ttotal = 0.00;
 		var txtctr = parseInt($('#txtctr').val());
 		var quane;
 		var test = [null];
-	
-		//$(document).ready(function () {
 
-		//	var n1 = document.getElementById('stock1').value;
-		//	var n2 = document.getElementById('s1');
-		//	n2.value = n1.value;
-		//});
-
-		//function get() {
-		//	var n1 = document.getElementById('stocks1').value;
-		//	consoler.log(n1);
-		//	var n2 = document.getElementById('stocks2').value;
-		//	console.log(n2);
-		//}
 		var boo = function (element) {
 			return element == false;
 		}

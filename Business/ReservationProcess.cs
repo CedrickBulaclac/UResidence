@@ -16,11 +16,9 @@ namespace UResidence
         public int RFId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public int Rate { get; set; }
-        public int Total { get; set; }
-        public int TableCost { get; set; }
-        public int ChairCost { get; set; }
-        public int Charge { get; set; }
+        public decimal Rate { get; set; }
+        public decimal Total { get; set; }
+        public decimal Charge { get; set; }
         public string CreatedBy { get; set; }
         public string ApprovedBy { get; set; }
         public string ReservedBy { get; set; }
@@ -30,9 +28,8 @@ namespace UResidence
         public string AName { get; set; }
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
-        public int Amount { get; set; }
-        public int ChairQuantity { get; set; }
-        public int TableQuantity { get; set; }
+        public decimal Amount { get; set; }
+
 
         public ReservationProcess CreateObject(SqlDataReader reader)
         {
@@ -44,8 +41,8 @@ namespace UResidence
             ret.RFId = reader.GetInt32(4);
             ret.StartTime = reader.GetDateTime(5);
             ret.EndTime = reader.GetDateTime(6);
-            ret.Rate = reader.GetInt32(7);
-            ret.Charge = reader.GetInt32(8);
+            ret.Rate = reader.GetDecimal(7);
+            ret.Charge = reader.GetDecimal(8);
             ret.ReservedBy = reader.GetString(9);
             ret.Status = RemoveWhitespace(reader.GetString(10));
             ret.Color = RemoveWhitespace(reader.GetString(11));
@@ -53,14 +50,8 @@ namespace UResidence
             ret.AName =reader.GetString(13);
             ret.BldgNo = RemoveWhitespace(reader.GetString(14));
             ret.UnitNo = RemoveWhitespace(reader.GetString(15));
-            ret.Total = reader.GetInt32(16);
-            ret.Amount = reader.GetInt32(17);
-            //ret.ChairCost= reader.GetInt32(16);
-            //ret.TableCost = reader.GetInt32(17);
-            //ret.Total = reader.GetInt32(18);
-            //ret.Amount = reader.GetInt32(19);
-            //ret.ChairQuantity = reader.GetInt32(20);
-            //ret.TableQuantity = reader.GetInt32(21);
+            ret.Total = reader.GetDecimal(16);
+            ret.Amount = reader.GetDecimal(17);
             return ret;
         }
 
@@ -81,8 +72,6 @@ namespace UResidence
             this.StartTime = DateTime.Now;
             this.EndTime = DateTime.Now;
             this.Rate = 0;
-            this.TableCost = 0;
-            this.ChairCost = 0;
             this.Total = 0;
             this.Charge = 0;
             this.Amount = 0;
@@ -95,8 +84,6 @@ namespace UResidence
             this.UnitNo = string.Empty;
             this.CreatedBy = string.Empty;
             this.ApprovedBy = string.Empty;
-            this.TableQuantity = 0;
-            this.ChairCost = 0;
         }
 
         

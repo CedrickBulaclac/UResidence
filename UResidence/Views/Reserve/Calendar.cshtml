@@ -259,7 +259,7 @@
 								if (calEvent.end != null) {
 									$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
 								}
-								$description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
+                                $description.append($('<p/>').html('<b>Rate: </b> ₱' + calEvent.rate.toFixed(2)));
 								$('#myModal #pDetails').empty().html($description);
 								$('#myModal').modal();
 

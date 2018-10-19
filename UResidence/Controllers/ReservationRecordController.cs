@@ -37,14 +37,16 @@ namespace UResidence.Controllers
         public JsonResult InsertNotif(Notification not)
         {
             bool status = false;
-            if (RemoveWhitespace(not.type) == "Owner")
+            if (RemoveWhitespace(not.typer) == "Owner")
             {
                 Notification notilist = new Notification
                 {
-                    Description = not.Description,
+                    Rate=not.Rate,
+                    refno=not.refno,
                     Visit = 0,
                     Date = DateTime.Now,
-                    OwnerId=not.OwnerId
+                    OwnerId=not.OwnerId,
+                    Type = not.Type
                 };
                 status = NotificationController.InsertO(notilist);
             }
@@ -52,10 +54,12 @@ namespace UResidence.Controllers
             {
                 Notification notilist = new Notification
                 {
-                    Description = not.Description,
+                    Rate = not.Rate,
+                    refno = not.refno,                    
                     Visit = 0,
                     Date = DateTime.Now,
-                    TenantId = not.OwnerId
+                    TenantId = not.OwnerId,
+                    Type =not.Type
                 };
                 status = NotificationController.InsertT(notilist);
             }

@@ -133,9 +133,9 @@
 				data: { "type": tp, "month": monthly, "year": textyear },
                 success: function (data) {                               
 					$('#tableReversalList').empty();
-					trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+                    trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
 					$.each(data, function (i, v) {
-						trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱'+ v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
 					});
 					$('#tableReversalList').append(trHTML);
@@ -160,10 +160,10 @@
 				data: { "type": tp, "month": monthly, "year": textyear },
 				success: function (data) {
 					$('#tableReversalList').empty();
-					trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+					trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
 					$.each(data, function (i, v) {
 
-						trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
 					});
 					$('#tableReversalList').append(trHTML);
@@ -187,10 +187,10 @@
 				data: { "type": tp, "month": monthly, "year": textyear },
 				success: function (data) {
 					$('#tableReversalList').empty();
-					trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+                    trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
 					$.each(data, function (i, v) {
 
-						trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 
 					});
 					$('#tableReversalList').append(trHTML);
@@ -214,10 +214,10 @@
 				data: { "type": tp, "month": monthly, "year": textyear },
 				success: function (data) {
 					$('#tableReversalList').empty();
-					trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Description</th><th>Status</th><th>Change Status</th></tr>';
+                    trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
 					$.each(data, function (i, v) {
 
-						trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td>' + v.Amount + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                        trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus' + v.Id + '" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option value="Approved">Approved</option><option value="Denied">Denied</option></select></td><td><button class="btn btn-default" id="btnViewModal" onclick="ViewModal(' + v.RefNo + ')">View Details</button></td></tr>';
 					});
 					$('#tableReversalList').append(trHTML);
 					trHTML = '';
@@ -278,10 +278,10 @@
                         $description.append($('<p/>').html('<b>EndTime: </b>' + et));
                         $.each(data3, function (i, s) {
                             stots = (s.Adult * s.AdultRate) + (s.Child * s.ChildRate);
-                            $description.append($('<p/>').html('<b>No. of Adult: </b>' + s.Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/>' + s.AdultRate));
-                            $description.append($('<p/>').html('<b>Adult Cost: </b>' + (s.Adult * s.AdultRate)));
-                            $description.append($('<p/>').html('<b>No. of Children: </b>' + s.Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/>' + s.ChildRate));
-                            $description.append($('<p/>').html('<b> Child Cost: </b>' + (s.Child * s.ChildRate)));
+                            $description.append($('<p/>').html('<b>No. of Adult: </b>' + s.Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/> ₱' + s.AdultRate.toFixed(2)));
+                            $description.append($('<p/>').html('<b>Adult Cost: </b> ₱' + (s.Adult * s.AdultRate).toFixed(2)));
+                            $description.append($('<p/>').html('<b>No. of Children: </b>' + s.Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/> ₱' + s.ChildRate.toFixed(2)));
+                            $description.append($('<p/>').html('<b> Child Cost: </b> ₱' + (s.Child * s.ChildRate).toFixed(2)));
                         })
 
                         if (stots > 0) {
@@ -290,17 +290,17 @@
                         else {
                             ftotal = v.Rate;
                         }
-						$description.append($('<p/>').html('<b>Amenity Cost: </b>' + ftotal));
+                        $description.append($('<p/>').html('<b>Amenity Cost: </b> ₱' + ftotal.toFixed(2)));
                         $.each(data2, function (i, c) {
                             mule = c.Quantity * c.Rate;
-                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Quantity: </b>' + c.Quantity + '&nbsp;&nbsp;&nbsp; <b>' + c.EquipmentName + ' Rate: <b/>' + c.Rate));
-                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Cost: </b>' + mule));
+                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Quantity: </b>' + c.Quantity + '&nbsp;&nbsp;&nbsp; <b>' + c.EquipmentName + ' Rate: <b/> ₱' + c.Rate.toFixed(2)));
+                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Cost: </b> ₱' + mule.toFixed(2)));
                             tots += mule;
                         });		
-						$description.append($('<p/>').html('<b>Charge: </b>' + v.Charge));
-                        $description.append($('<p/>').html('<b>Total Cost: </b>' + ((ftotal + tots + v.Charge))));
-                        $description.append($('<p/>').html('<b>Total Payment: </b>' + (v.Total - v.Amount)));
-						$description.append($('<p/>').html('<b>Reversal Amount: </b>' + (v.Amount)));						
+                        $description.append($('<p/>').html('<b>Charge: </b> ₱' + v.Charge.toFixed(2)));
+                        $description.append($('<p/>').html('<b>Total Cost: </b> ₱' + ((ftotal + tots + v.Charge).toFixed(2))));
+                        $description.append($('<p/>').html('<b>Total Payment: </b> ₱' + (v.Total - v.Amount).toFixed(2)));
+                        $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱' + (v.Amount).toFixed(2)));						
 						$description.append($('<p/>').html('<b>Status: </b>' + v.Status));
 						document.getElementById('rid').value = v.SRId;
 						document.getElementById('rfid').value = v.RFId;

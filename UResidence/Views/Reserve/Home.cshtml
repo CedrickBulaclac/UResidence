@@ -402,7 +402,7 @@
 
 <br />
 
-	<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+	<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="2000" id="bs-carousel">
 		<!-- Overlay -->
 		<div class="overlay"></div>
 		<!-- Indicators -->
@@ -544,16 +544,16 @@
 
 							@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
 							{
-								<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: @a.Adult </li>
-								<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: @a.Child </li>
+                            <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: ₱@a.Adult </li>
+                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: ₱@a.Child </li>
 								<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
 								<li class="w3-padding-16">Description: @a.Description</li>
 								<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
 							}
 							else
 							{
-								<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.Rate per hour</li>
-								<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> @a.EveRate per hour at night</li>
+                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.Rate per hour</li>
+                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.EveRate per hour at night</li>
 								<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
 								<li class="w3-padding-16">Description: @a.Description</li>
 								<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
