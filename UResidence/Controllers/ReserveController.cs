@@ -516,7 +516,7 @@ namespace UResidence.Controllers
             ViewBag.Bldg =bn;
             ViewBag.UnitNo = un;
             ViewBag.purp = "";
-            ViewBag.date = DateTime.Now;
+            ViewBag.date = DateTime.Now.ToString("yyyy-MM-dd");
             List<Logbook> list = new List<Logbook>();
             list = LogbookController.GET_ALL(DateTime.Now,bn,un);
             return View(list);
@@ -545,11 +545,11 @@ namespace UResidence.Controllers
             };
             status = LogbookController.Insert(log);
             ViewBag.purp = purpose;
-            ViewBag.date = date;
+            ViewBag.date = date.ToString("yyyy-MM-dd");
             ViewBag.Bldg = bn;
             ViewBag.UnitNo = un;
             List<Logbook> list = new List<Logbook>();
-            list = LogbookController.GET_ALL(DateTime.Now, bn, un);
+            list = LogbookController.GET_ALL(date, bn, un);
             return View(list);
         }
         public JsonResult GetEvents()
@@ -846,6 +846,22 @@ namespace UResidence.Controllers
             list = LogbookController.GET_ALL(date, bn, un);
             var data = list.ToList();
             return new JsonResult {Data=data,JsonRequestBehavior=JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult UpdateGuest(Logbook data)
+        {
+            Logbook log = new Logbook
+            {
+               
+                VisitorName = data.VisitorName,
+                Id=data.Id
+            };
+            var data1 = LogbookController.UpdateName(log);
+            return new JsonResult { Data = data1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public JsonResult DeleteGuest(int id)
+        {        
+            var data1 = LogbookController.Delete(id);
+            return new JsonResult { Data = data1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }    

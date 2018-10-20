@@ -48,6 +48,15 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@TimeOut", log.Timeout));
             return SqlManager.ExecuteNonQuery(com);
         }
+        public static bool UpdateName(Logbook log)
+        {
+            const string GET_INSERT = @"update [tbLogbook] set VisitorName=@VisitorName where Id=@Id  ";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Id", log.Id));
+            com.Parameters.Add(new SqlParameter("@VisitorName", log.VisitorName));
+            return SqlManager.ExecuteNonQuery(com);
+        }
 
         public static bool UpdateImage(Logbook log)
         {
@@ -56,6 +65,15 @@ namespace UResidence
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Id", log.Id));
             com.Parameters.Add(new SqlParameter("@URL", log.URL));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool Delete(int id)
+        {
+            const string GET_DELETE = @"delete [tbLogbook] WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_DELETE);
+            com.Parameters.Add(new SqlParameter("@Id", id));
+
             return SqlManager.ExecuteNonQuery(com);
         }
         public static bool Insert(Logbook log)

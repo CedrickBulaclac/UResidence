@@ -22,33 +22,38 @@
         <br />
         <center>
             <div class="container">
-                <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate"/>
+                <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()"/>
                 <br />
                 <b>Purpose of Visit:</b><input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" />
                 <br />
-                <table class="table table-borderd table-striped" name="tableguest" id="tableguest">
+                <table class="table table-bordered table-striped" name="tableguest" id="tableguest">
                     <tr>
                         <th>Building No</th>
                         <th>Unit No</th>
                         <th>Guest FullName</th>
                         <th>Image</th>
-                        <th></th>
+                        <th>Actions</th>
                     </tr>
-                    @foreach (var data in Model)
+                  ` @{int ctr = 0;
+                    foreach (var data in Model)
                     {
+
                         <tr>
                             <td>@data.BuildingNo</td>
                             <td>@data.UnitNo</td>
-                            <td>@data.VisitorName</td>
+                            <td><input type="text" value="@data.VisitorName" id="txtname"+ @ctr.ToString() name="txtname"+ @ctr.ToString() /></td>
                             <td></td>
+                            <td><input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update"/> &nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" /></td>
                         </tr>
+                          ctr++;
+                      }
                     }
                     <tr>
                         <td>@ViewBag.Bldg</td>
                         <td>@ViewBag.UnitNo</td>
                         <td><input type="text" name="vname" id="vname" /></td>
                         <td><input type="file" name="image" id="image" /></td>
-                        <td><button type="submit">Add Guest</button></td>
+                        <td><button class="btn btn-success" type="submit">Add Guest</button></td>
                     </tr>
                 </table>
             </div>
@@ -58,40 +63,58 @@
 }
     <script>
     var oldate;
-    $(document).ready(
-        function () {
-            var ndate = new Date();
-            var dd = ndate.getDate();
-            var mm = ndate.getMonth() + 1;
-            var yy = ndate.getFullYear();
-            var final = yy + '-' + mm + '-' + dd;
-            document.getElementById('gdate').value = final;
-            olddate = final;
-        });
+        var ctr = "0";
     function GenerateTable() {
         var trhtml = "";
-        alert("g");
+        var i = 0;       
         $('#tableguest').empty();
         oldate = document.getElementById('gdate').value;
-        trhtml = '<tr><th>Building No</th><th>Unit No</th><th>Guest FullName</th><th>Image</th><th></th></tr>';
+        trhtml = '<tr><th>Building No</th><th>Unit No</th><th>Guest FullName</th><th>Image</th><th>Actions</th></tr>';
         $.ajax({
             type: "GET",
             url: "/Reserve/ViewGuest",
             data: { date: oldate },
-            success: function (data) {
-                console.log(data);
-                $.each(data, function (i, v) {
-                    trhtml += '<tr><td>'+v.BuildingNo+'</td><td>'+v.UnitNo+'</td><td>'+v.VisitorName+'</td><td></td></tr>';
+            success: function (Data) {              
+                $.each(Data, function (i, v) {    
+                    i++;
+                    trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="txtname' + i + '" name="txtname' + i + '" /></td><td></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i +')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id +')" value="Delete"/>  </td></tr>';
                 });
-
+                trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td> <td><input type="file" name="image" id="image" /></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
+                 $('#tableguest').append(trhtml);
             },
             error: function (data) {
                 alert("No record found");
             }
         });
-        trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td>  <td><input type="file" name="image" id="image" /></td><td><button type="submit">Add Guest</button></td></tr>';
-        $('#tableguest').append(trhtml);
-    }
+       
+        }
+        function Update(id, i) {         
+            var name=document.getElementById('txtname'+i).value;
+           
+            data = {
+                VisitorName: name,
+                Id:id
+            };
+           
+                $.ajax({
+                    type: 'POST',
+                    url: '/Reserve/UpdateGuest',
+                    data: data,
+                    success: function (data) {
+                        GenerateTable();
+                    }
+                });         
+        }
+        function Delete(id) {
+            $.ajax({
+                type: 'POST',
+                url: '/Reserve/DeleteGuest',
+                data: {id:id},
+                success: function (data) {
+                    GenerateTable();
+                }
+            });        
+        }
    
     </script>
 
