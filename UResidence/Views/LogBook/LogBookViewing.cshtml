@@ -1,0 +1,112 @@
+﻿@model List<UResidence.Logbook>
+@{
+    ViewBag.Title = "LogBookViewing";
+    Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm("LogBookViewing", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
+            <div class="col-lg-3"><b>Building No : </b><input  class="form-control" type="text" name="gbldg" id="gbldg"></div>
+            <div class="col-lg-3"><b>Unit No : </b><input  class="form-control" type="text" name="gunit" id="gunit"></div>
+            <div class="col-lg-3"><button class="btn btn-success" type="submit">Search</button></div>
+        </div>
+    }
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Resident Name</th>
+                <th>Guest Name</th>
+                <th>Picture</th>
+                <th>Purpose of Visit</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var a in Model)
+            {
+                if (a.sTimein == "12:00AM")
+                {
+                    <tr>
+                        <td>@a.ResidentName</td>
+                        <td>@a.VisitorName</td>
+                        <td></td>
+                        <td>@a.Purpose</td>
+                        <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
+                    </tr>
+                }
+                else
+                {
+                    if (a.sTimeout == "12:00AM")
+                    {
+                        <tr>
+                            <td>@a.ResidentName</td>
+                            <td>@a.VisitorName</td>
+                            <td></td>
+                            <td>@a.Purpose</td>
+                            <td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@a.ResidentName</td>
+                            <td>@a.VisitorName</td>
+                            <td></td>
+                            <td>@a.Purpose</td>
+                            <td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <b>Time out : @a.sTimeout</b></td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </div>
+
+<script>
+    function UpdateTimein(id) {
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+        var timenow = h + ':' + m + ':' + s;
+
+        var data = {
+            Id: id,
+            Timein: timenow
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/UpdateTimein',
+            data: data,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (error) {
+                alert('Failed to update record');
+            }
+        });
+    }
+    function UpdateTimeout(id) {
+        var d = new Date(),
+            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+        var timenow = h + ':' + m + ':' + s;
+
+        var data = {
+            Id: id,
+            TimeOut: timenow
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/LogBook/Update',
+            data: data,
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (error) {
+                alert('Failed to update record');
+            }
+        });
+    }
+</script>
