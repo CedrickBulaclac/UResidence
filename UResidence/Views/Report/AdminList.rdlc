@@ -627,7 +627,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>AdminList</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Martin\Documents\GitHub\UResidence\UResidence\AdminList.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Thesis\UResidence\UResidence\AdminList.xsd</rd:SchemaPath>
         <rd:TableName>proAdminList</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

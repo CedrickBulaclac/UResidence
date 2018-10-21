@@ -138,10 +138,10 @@
             data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
-				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
+                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th><th>Amenity</th><th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th><th>Action</th></tr>';
 				$.each(data, function (i, v) {
 
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱'+ v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.AmenityName+'</td><td>' + v.DateofReservation + '</td><td> ₱'+ v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
 				});
 				$('#tableReversalList').append(trHTML);
@@ -166,9 +166,9 @@
             data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
-				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
+                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th><th>Amenity</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th><th>Action</th></tr>';
 				$.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.AmenityName +'</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
 				});
 				$('#tableReversalList').append(trHTML);
@@ -193,9 +193,9 @@
             data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
-				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
+                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th><th>Amenity</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th><th>Action</th></tr>';
 				$.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.AmenityName +'</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option><option>Completed</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
 				});
 				$('#tableReversalList').append(trHTML);
@@ -221,9 +221,9 @@
             data: { "type": tp, "month": monthly, "year": textyear },
 			success: function (data) {
 				$('#tableReversalList').empty();
-				trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th></tr>';
+                trHTML = '<tr><th>Date</th> <th>Created By</th> <th>Reserved By</th><th>Amenity</th> <th>Date of Reservation</th> <th>Amount</th><th>Reason</th><th>Status</th><th>Change Status</th><th>Action</th></tr>';
 				$.each(data, function (i, v) {
-                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
+                    trHTML += '<tr><td>' + v.Date + '</td><td>' + v.CreatedBy + '</td><td>' + v.Fullname + '</td><td>' + v.AmenityName +'</td><td>' + v.DateofReservation + '</td><td> ₱' + v.Amount.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.Status + '</td><td><select id="rstatus" onchange="UpdateStatus(' + v.Id + ')"> <option value="" selected disabled hidden>' + v.Status + '</option></select></td><td><button class="btn btn-default" id="btnUpdateModal" onclick="SetModal(\'' + v.Id + '\',\'' + v.Amount + '\',\'' + v.Description + '\')">Update</button></td></tr>';
 
 				});
 				$('#tableReversalList').append(trHTML);

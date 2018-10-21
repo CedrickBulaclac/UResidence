@@ -30,6 +30,7 @@
               <Mapping SourceColumn="Date" DataSetColumn="Date" />
               <Mapping SourceColumn="Id" DataSetColumn="Id" />
               <Mapping SourceColumn="RefNo" DataSetColumn="RefNo" />
+              <Mapping SourceColumn="AmenityName" DataSetColumn="AmenityName" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -89,6 +90,13 @@
               </xs:element>
               <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
               <xs:element name="RefNo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" type="xs:int" />
+              <xs:element name="AmenityName" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAmenityName" msprop:Generator_ColumnPropNameInRow="AmenityName" msprop:Generator_ColumnPropNameInTable="AmenityNameColumn" msprop:Generator_UserColumnName="AmenityName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

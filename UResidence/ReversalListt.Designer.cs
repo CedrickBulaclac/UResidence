@@ -297,6 +297,8 @@ namespace UResidence {
             
             private global::System.Data.DataColumn columnRefNo;
             
+            private global::System.Data.DataColumn columnAmenityName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ReversalListtDataTable() {
@@ -404,6 +406,14 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn AmenityNameColumn {
+                get {
+                    return this.columnAmenityName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,7 +449,7 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReversalListtRow AddReversalListtRow(string CreatedBy, string Fullname, string DateofReservation, decimal Amount, string Description, string Status, string Date) {
+            public ReversalListtRow AddReversalListtRow(string CreatedBy, string Fullname, string DateofReservation, decimal Amount, string Description, string Status, string Date, string AmenityName) {
                 ReversalListtRow rowReversalListtRow = ((ReversalListtRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CreatedBy,
@@ -450,7 +460,8 @@ namespace UResidence {
                         Status,
                         Date,
                         null,
-                        null};
+                        null,
+                        AmenityName};
                 rowReversalListtRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowReversalListtRow);
                 return rowReversalListtRow;
@@ -482,6 +493,7 @@ namespace UResidence {
                 this.columnDate = base.Columns["Date"];
                 this.columnId = base.Columns["Id"];
                 this.columnRefNo = base.Columns["RefNo"];
+                this.columnAmenityName = base.Columns["AmenityName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +517,8 @@ namespace UResidence {
                 base.Columns.Add(this.columnId);
                 this.columnRefNo = new global::System.Data.DataColumn("RefNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRefNo);
+                this.columnAmenityName = new global::System.Data.DataColumn("AmenityName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmenityName);
                 this.columnCreatedBy.AllowDBNull = false;
                 this.columnCreatedBy.MaxLength = 50;
                 this.columnFullname.AllowDBNull = false;
@@ -524,6 +538,8 @@ namespace UResidence {
                 this.columnRefNo.AutoIncrement = true;
                 this.columnRefNo.AllowDBNull = false;
                 this.columnRefNo.ReadOnly = true;
+                this.columnAmenityName.ReadOnly = true;
+                this.columnAmenityName.MaxLength = 50;
                 this.ExtendedProperties.Add("Generator_TablePropName", "_ReversalListt");
                 this.ExtendedProperties.Add("Generator_UserTableName", "ReversalListt");
             }
@@ -777,6 +793,22 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string AmenityName {
+                get {
+                    try {
+                        return ((string)(this[this.tableReversalListt.AmenityNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AmenityName\' in table \'ReversalListt\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReversalListt.AmenityNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsDateofReservationNull() {
                 return this.IsNull(this.tableReversalListt.DateofReservationColumn);
             }
@@ -797,6 +829,18 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetDateNull() {
                 this[this.tableReversalListt.DateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsAmenityNameNull() {
+                return this.IsNull(this.tableReversalListt.AmenityNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetAmenityNameNull() {
+                this[this.tableReversalListt.AmenityNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -968,6 +1012,7 @@ namespace UResidence.ReversalListtTableAdapters {
             tableMapping.ColumnMappings.Add("Date", "Date");
             tableMapping.ColumnMappings.Add("Id", "Id");
             tableMapping.ColumnMappings.Add("RefNo", "RefNo");
+            tableMapping.ColumnMappings.Add("AmenityName", "AmenityName");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
