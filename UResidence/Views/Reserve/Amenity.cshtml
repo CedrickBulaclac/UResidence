@@ -163,7 +163,7 @@
                                         </li>
                                         <li>  <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3> </li>
                                         <li>  @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
-                                        <li> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
+										<li>Capacity: @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
 
                                         @if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
                                         {
@@ -234,7 +234,7 @@
                                                 </li>
                                                 <li>  <h3> @Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })</h3> </li>
                                                 <li>  @Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
-                                                <li> @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
+                                                <li>Capacity: @Html.DisplayFor(model => amn.Capacity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
                                                 @if (amn.AmenityName.ToUpper().Contains("SWIMMING"))
                                                 {
                                                     <li>Adult Rate:   @Html.DisplayFor(model => amn.Adult, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
@@ -242,7 +242,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <li>Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
+													<li>Morning Rate /hr:   @Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
                                                     <li>Evening Rate /hr:   @Html.DisplayFor(model => amn.EveRate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</li>
                                                 }
                                                 <li>

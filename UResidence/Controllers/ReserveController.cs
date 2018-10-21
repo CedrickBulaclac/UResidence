@@ -135,8 +135,8 @@ namespace UResidence.Controllers
             Session["NAME"] = aname;
             if (aname.ToUpper().Contains("SWIMMING"))
             {
-                int child = Convert.ToInt32(fc["ratec"]);
-                int adult = Convert.ToInt32(fc["rateaa"]);
+                decimal child = Convert.ToDecimal(fc["ratec"]);
+                decimal adult = Convert.ToDecimal(fc["rateaa"]);
                 Session["child"] = child;
                 Session["adult"] = adult;
             }
@@ -193,7 +193,7 @@ namespace UResidence.Controllers
         public ActionResult Choose_Date(FormCollection fc)
         {
             string nameamenity = (Session["NAME"]).ToString();
-            if (nameamenity.ToUpper() != "BASKETBALL COURT")
+            if (nameamenity.ToUpper().Contains("BASKETBALL"))
             {
                 string result = Convert.ToString(fc["result"]);
                 if (result != "1")
@@ -202,7 +202,7 @@ namespace UResidence.Controllers
                     string ed = Convert.ToString(fc["etime"]);
                     Session["sd"] = sd;
                     Session["ed"] = ed;
-                    decimal drate =Convert.ToDecimal(fc["tratee"]);
+                    decimal drate = Convert.ToDecimal(fc["tratee"]);
                     Session["drate"] = drate;
                     int aid = Convert.ToInt32(Session["ID"]);
 
@@ -217,7 +217,7 @@ namespace UResidence.Controllers
                     else
                     {
                         Response.Write("<script>alert('Successful')</script>");
-                        return RedirectToAction("Choose_Equipment", "Reserve");
+                        return RedirectToAction("Summary", "Reserve");
                     }
                 }
                 else
@@ -251,7 +251,7 @@ namespace UResidence.Controllers
                     else
                     {
                         Response.Write("<script>alert('Successful')</script>");
-                        return RedirectToAction("Summary", "Reserve");
+                        return RedirectToAction("Choose_Equipment", "Reserve");
                     }
                 }
                 else
@@ -261,7 +261,11 @@ namespace UResidence.Controllers
                     return View();
                 }
 
-            }           
+
+
+
+
+            }
         }
         public ActionResult Choose_Equipment()
         {
@@ -522,7 +526,7 @@ namespace UResidence.Controllers
             return View(list);
         }
         [HttpPost]
-        public ActionResult GuestAdd(FormCollection fc, HttpPostedFileBase image)
+        public ActionResult GuestAdd(FormCollection fc, HttpPostedFileBase logbookpic)
         {
             string bn = Convert.ToString(Session["BLDG"]);
             string un = Convert.ToString(Session["UNO"]);
@@ -531,23 +535,82 @@ namespace UResidence.Controllers
             string vname = Convert.ToString(fc["vname"]);
             bool status = false;
             string name = Session["FULLNAME"].ToString();
-            Logbook log = new Logbook
+
+
+            var image = logbookpic;
+
+            if (image != null)
             {
-                date = date,
-                VisitorName = vname,
-                ResidentName = name,
-                Purpose = purpose,
-                BuildingNo = bn,
-                UnitNo = un,
-                Timein = Convert.ToDateTime("00:00:00"),
-                Timeout = Convert.ToDateTime("00:00:00"),
-                URL = "~/Content/LogBookImages/user.png"
-            };
-            status = LogbookController.Insert(log);
-            ViewBag.purp = purpose;
-            ViewBag.date = date.ToString("yyyy-MM-dd");
-            ViewBag.Bldg = bn;
-            ViewBag.UnitNo = un;
+                if (image.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                    var extension = Path.GetExtension(image.FileName);
+                    string imagefileName = Path.GetFileName(image.FileName);
+                    string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), imagefileName);
+                    string finalpath = "";
+                    if (System.IO.File.Exists(folderPath))
+                    {
+
+                        //System.IO.File.Delete(folderPath);
+                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                        {
+                            folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);
+                            string folderpath1 = "~/Content/LogBookImages/" + fileName + "_" + i.ToString() + extension;
+                            finalpath = folderpath1;
+                        }
+                        image.SaveAs(folderPath);
+                    }
+                    else
+                    {
+
+                        string folderpath1 = "~/Content/LogBookImages/" + fileName + extension;
+                        finalpath = folderpath1;
+                        image.SaveAs(folderPath);
+                    }
+                    status = true;
+
+
+                    Logbook log = new Logbook
+                    {
+                        date = date,
+                        VisitorName = vname,
+                        ResidentName = name,
+                        Purpose = purpose,
+                        BuildingNo = bn,
+                        UnitNo = un,
+                        Timein = Convert.ToDateTime("00:00:00"),
+                        Timeout = Convert.ToDateTime("00:00:00"),
+                        URL = finalpath
+                    };
+                    status = LogbookController.Insert(log);
+                    ViewBag.purp = purpose;
+                    ViewBag.date = date.ToString("yyyy-MM-dd");
+                    ViewBag.Bldg = bn;
+                    ViewBag.UnitNo = un;
+
+                }
+
+            }
+            else
+            {
+                Logbook log = new Logbook
+                {
+                    date = date,
+                    VisitorName = vname,
+                    ResidentName = name,
+                    Purpose = purpose,
+                    BuildingNo = bn,
+                    UnitNo = un,
+                    Timein = Convert.ToDateTime("00:00:00"),
+                    Timeout = Convert.ToDateTime("00:00:00"),
+                    URL = "~/Content/LogBookImages/user.png"
+                };
+                status = LogbookController.Insert(log);
+                ViewBag.purp = purpose;
+                ViewBag.date = date.ToString("yyyy-MM-dd");
+                ViewBag.Bldg = bn;
+                ViewBag.UnitNo = un;
+            }
             List<Logbook> list = new List<Logbook>();
             list = LogbookController.GET_ALL(date, bn, un);
             return View(list);
@@ -628,14 +691,14 @@ namespace UResidence.Controllers
                 cs = CheckSwimmingController.Get(sd, aid);
             if (cs == null)
             {
-                return RedirectToAction("Choose_Equipment", "Reserve");
+                return RedirectToAction("Summary", "Reserve");
             }
             else
             {
                 if (cs.Capacity > 0)
                 {
                     Response.Write("<script>alert('Successful')</script>");
-                    return RedirectToAction("Choose_Equipment", "Reserve");
+                    return RedirectToAction("Summary", "Reserve");
                    
                 }
                 else

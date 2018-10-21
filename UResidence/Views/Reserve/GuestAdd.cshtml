@@ -17,6 +17,28 @@
 @using (Html.BeginForm("GuestAdd", "Reserve", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+
+	<div class="container">
+		<div class="modal fade" id="logbookImageModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<label>Valid ID</label>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<center>
+							<img height="250" width="250" id="log">
+						</center>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
     <body>
         <br />
         <br />
@@ -41,8 +63,8 @@
                         <tr>
                             <td>@data.BuildingNo</td>
                             <td>@data.UnitNo</td>
-                            <td><input type="text" value="@data.VisitorName" id="txtname"+ @ctr.ToString() name="txtname"+ @ctr.ToString() /></td>
-                            <td></td>
+                            <td><input type="text" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() /></td>
+                            <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
                             <td><input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update"/> &nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" /></td>
                         </tr>
                           ctr++;
@@ -52,7 +74,7 @@
                         <td>@ViewBag.Bldg</td>
                         <td>@ViewBag.UnitNo</td>
                         <td><input type="text" name="vname" id="vname" /></td>
-                        <td><input type="file" name="image" id="image" /></td>
+                        <td><input type="file" name="logbookpic" id="logbookpic" /></td>
                         <td><button class="btn btn-success" type="submit">Add Guest</button></td>
                     </tr>
                 </table>
@@ -77,9 +99,10 @@
             success: function (Data) {              
                 $.each(Data, function (i, v) {    
                     i++;
-                    trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="txtname' + i + '" name="txtname' + i + '" /></td><td></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i +')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id +')" value="Delete"/>  </td></tr>';
-                });
-                trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td> <td><input type="file" name="image" id="image" /></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
+					trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="' + i + '" name="' + i + '" /></td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i +')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id +')" value="Delete"/>  </td></tr>';
+				});
+			
+				trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td> <td><input type="file" class="form-control" id="logbookpic" name="logbookpic"/></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
                  $('#tableguest').append(trhtml);
             },
             error: function (data) {
@@ -88,21 +111,26 @@
         });
        
         }
-        function Update(id, i) {         
-            var name=document.getElementById('txtname'+i).value;
-           
-            data = {
-                VisitorName: name,
+		function Update(id, i) {
+			var visitorname = document.getElementById(i).value;
+			
+			data = {
+				VisitorName: visitorname,
                 Id:id
             };
-           
                 $.ajax({
                     type: 'POST',
                     url: '/Reserve/UpdateGuest',
                     data: data,
                     success: function (data) {
-                        GenerateTable();
-                    }
+						GenerateTable();
+						//window.location.reload();
+						window.location.href = '/Reserve/GuestAdd';
+						alert('Successfuly Updated');
+					},
+					error: function (data) {
+						alert("Not Updated! Error!");
+					}
                 });         
         }
         function Delete(id) {
@@ -111,10 +139,29 @@
                 url: '/Reserve/DeleteGuest',
                 data: {id:id},
                 success: function (data) {
-                    GenerateTable();
+					window.location.href = '/Reserve/GuestAdd';
+					alert('Successfuly Deleted');
                 }
             });        
-        }
+		}
+
+		function ViewPIC(data) {
+			var fullpath = (data).toString();
+			var filename = fullpath.replace(/^.*[\\\/]/, '');
+			filei = filename;
+
+			var path = "../Content/LogBookImages/" + filei;
+
+			document.getElementById('log').setAttribute('src', path)
+			$('#logbookImageModal').modal();
+		}
+
+		$('#btnCloseImage').click(function () {
+
+			$('#logbookImageModal').hide();
+		}
+		);
+
    
     </script>
 

@@ -74,6 +74,12 @@ namespace UResidence.Controllers
                     if (stok.Count!=0)
                     {
                         bool status = false;
+                        if (receipt.status == "Reserved")
+                        {
+                            status = Try(receipt);
+                            return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        }
+
                         for (int i=0;i<=er.Count-1;i++)
                         {                       
                             int stock = stok[i].EStocks - er[i].Quantity;
