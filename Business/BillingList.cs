@@ -12,18 +12,18 @@ namespace UResidence
         public int RFID { get; set; }
         public string Date { get; set; }
         public string AmenityName { get; set; }
-        public int TotalRate { get; set; }
-        public int TotalPayment { get; set; }
-        public int OutstandingTotal { get; set; }
+        public decimal TotalRate { get; set; }
+        public decimal TotalPayment { get; set; }
+        public decimal OutstandingTotal { get; set; }
         public BillingList CreateObject(SqlDataReader reader)
         {
             BillingList ret = new BillingList();
             ret.RFID = reader.GetInt32(0);
             ret.Date = reader.GetString(1);
             ret.AmenityName = reader.GetString(2);
-            ret.TotalRate = reader.GetInt32(3);
-            ret.TotalPayment = reader.GetInt32(4);
-            ret.OutstandingTotal = reader.GetInt32(5);
+            ret.TotalRate = reader.GetDecimal(3);
+            ret.TotalPayment = reader.GetDecimal(4);
+            ret.OutstandingTotal = reader.GetDecimal(5);
             return ret;
         }
 

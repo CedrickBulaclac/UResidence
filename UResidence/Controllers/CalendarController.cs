@@ -222,26 +222,30 @@ namespace UResidence.Controllers
         }
         public JsonResult UpdatePayment(decimal charge1, int refno1, string rstatus1,string desc,Notification data)
         {
+            DateTime dete = DateTime.Now;
             string name = (Session["FullName"]).ToString();
             bool status = false;
-            Charge charge = new Charge
+            Reservation reservation = new Reservation
             {
-                charge = charge1,
-                Refno = refno1,
-                Date=DateTime.Now,
-                CreatedBy=name,
-                Description=desc
+                Status = rstatus1,
+                Id = refno1,
             };
-            status = ChargeController.Insert(charge);
-            if (status == true)
+            status = ReservationController.Update(reservation);
+            if (charge1 > 0)
             {
-                Reservation reservation = new Reservation
+                Charge charge = new Charge
                 {
-                    Status = rstatus1,
-                    Id = refno1,
+                    charge = charge1,
+                    Refno = refno1,
+                    Date = dete,
+                    CreatedBy = name,
+                    Description = desc
                 };
-                status = ReservationController.Update(reservation);
-                if(status==true)
+
+                status = ChargeController.Insert(charge);
+                Charge c = new Charge();
+                c = ChargeController.GetRef(refno1,dete);
+               if(status==true)
                 {
                     if (data.typer == "Owner")
                     {
@@ -253,7 +257,8 @@ namespace UResidence.Controllers
                             Date = DateTime.Now,
                             Type = data.Type,
                             refno=data.refno,
-                            Rate=charge1
+                            Rate=charge1,
+                            IdCharge = c.Id
                         };
                         status = NotificationController.InsertO(not);
                     }
@@ -267,13 +272,14 @@ namespace UResidence.Controllers
                             Date = DateTime.Now,
                             Type = data.Type,
                             refno = data.refno,
-                            Rate = charge1
+                            Rate = charge1,
+                            IdCharge = c.Id
                         };
                         status = NotificationController.InsertT(not);
                     }
                 }
-                    
             }
+        
             return new JsonResult
             {
                 Data = status,
@@ -330,6 +336,21 @@ namespace UResidence.Controllers
             }
 
         }
+
+        public JsonResult deletecharge(int id) {
+            bool events = false;
+            Charge c = new Charge
+            {
+                Id = id
+            };          
+            events = ChargeController.Delete(id);
+            if (events == true)
+            {
+                events=NotificationController.Delete(id);
+            }
+            return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         //public JsonResult SwimmingInfo(int refno1)
         //{
         //    List<Swimming> swimming = SwimmingController.GETALL(refno1);

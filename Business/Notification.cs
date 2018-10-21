@@ -21,6 +21,7 @@ namespace UResidence
         public int TenantId { get; set; }
         public string typer { get; set; }
         public string Type { get; set; }
+        public int IdCharge { get; set; }
       
         public Notification CreateObject(SqlDataReader reader)
         {
@@ -33,6 +34,7 @@ namespace UResidence
             ret.OwnerId = reader.GetInt32(5);
             ret.TenantId = reader.GetInt32(6);
             ret.Type = reader.GetString(7);
+            ret.IdCharge = reader.GetInt32(8);
             return ret;
 
         }
@@ -47,6 +49,7 @@ namespace UResidence
             this.TenantId = 0;
             this.Type = string.Empty;
             this.Date = DateTime.Now;
+            this.IdCharge = 0;
         }
     }
 }

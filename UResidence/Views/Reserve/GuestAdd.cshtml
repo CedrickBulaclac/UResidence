@@ -65,7 +65,12 @@
                             <td>@data.UnitNo</td>
                             <td><input type="text" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() /></td>
                             <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
-                            <td><input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update"/> &nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" /></td>
+							<td>
+								@if (data.sTimein == "12:00AM")
+								{
+									<input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update" />    <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" />
+								}
+							</td>
                         </tr>
                           ctr++;
                       }

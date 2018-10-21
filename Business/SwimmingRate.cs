@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+
 namespace UResidence
 {
     public class SwimmingRate : BaseProperty<SwimmingRate>
     {
         public int Id { get; set; }
-        public int AmenityId { get; set; }
+        public int AmenityId { get; set; }     
         public decimal Adult { get; set; }
         public decimal Child { get; set; }
 

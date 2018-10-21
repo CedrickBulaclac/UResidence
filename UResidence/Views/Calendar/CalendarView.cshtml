@@ -385,9 +385,9 @@
                         format: 'yyyy-mm',
 
                                 $('#tbCHistory').empty();
-                            trHTML = '<tr><th>Date</th> <th>Charge</th> <th>Description</th> <th>Created By</th></tr>';
+                            trHTML = '<tr><th>Date</th> <th>Charge</th> <th>Description</th> <th>Created By</th><th>Actions</th></tr>';
                             $.each(data, function (i, v) {
-                                trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td> ₱'+ v.charge.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+								trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td> ₱' + v.charge.toFixed(2) + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td><td><input type="button" id="deletecg" name="deletecg" onclick="Deletecg('+v.Id+')"</td></tr>';
                                 totalp += v.charge;
                             });
                             $('#tbCHistory').append(trHTML);
@@ -400,7 +400,28 @@
                 });
             }
 
-
+		function Deletecg(id) {
+			$.ajax({
+				type: "POST",
+				url: "/calendar/deletecharge",
+				dataType: 'json',
+				data: {
+					'id': id
+				},
+				success: function (data) {
+					if (data == false) {
+						alert("Failed to Delete");
+					}
+					else {
+						alert("Success");
+						window.location.reload();
+					}
+				},
+				error: function (error) {
+					alert('Error');
+				}
+			});
+		}
 
             function ReceiptHistory() {
 				var refno = document.getElementById('rfid').value;
@@ -481,7 +502,9 @@
                 var charge2 = document.getElementById('cg1').value;
                 var id = document.getElementById('oid').value;
                 var typeid = document.getElementById('typeid').value;
-                var charge = charge1 + charge2;
+				var charge = charge1 + charge2;
+				alert(charge1);
+				alert(charge2);
                 var cdescription = document.getElementById('cdescription').value;
 
                 var data = {
@@ -498,7 +521,7 @@
                     dataType: 'json',
                     data: {
                         'rstatus1': rstatus,
-                        'charge1': charge,
+                        'charge1': charge2,
                         'refno1': refno,
                         'desc': cdescription,
                         data

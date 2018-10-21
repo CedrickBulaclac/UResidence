@@ -18,6 +18,18 @@ namespace UResidence
             ret = SqlManager.Select<Charge>(com);
             return ret;
         }
+
+        public static Charge GetRef(int refno,DateTime date)
+        {
+            const string GET_ALL = @"select Id,RefNo,Date,CreatedBy,Charge,Description from tbCharge where RefNo=@refno and Date=@date";
+
+            Charge ret = default(Charge);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@refno", refno));
+            com.Parameters.Add(new SqlParameter("@date", date));
+            ret = SqlManager.Select<Charge>(com).First();
+            return ret;
+        }
         public static bool Insert(Charge charge)
         {
             const string GET_INSERT = @"insert [tbCharge] (Refno,Date,CreatedBy,Charge,Description) values (@Refno,@Date,@CreatedBy,@charge,@Description) ";
@@ -31,5 +43,16 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
+
+        public static bool Delete(int id)
+        {
+            const string GET_DELETE = @"delete [tbCharge] WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_DELETE);
+            com.Parameters.Add(new SqlParameter("@Id", id));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
     }
 }

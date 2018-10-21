@@ -12,7 +12,7 @@ namespace UResidence.Controllers
         public ActionResult BillingView()
         {
             decimal balance = 0;
-            List<Billing> billing = default(List<Billing>);
+            List<ReservationList> revlist = new List<ReservationList>();
             List<BillingList> ret = default(List<BillingList>);
             int uid = Convert.ToInt32(Session["UID"]);
             string type = (Session["TOR"]).ToString();
@@ -21,6 +21,7 @@ namespace UResidence.Controllers
                 Owner a = new Owner();
                 a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
+                ret = UResidence.BillingListController.GetAllO(uid);
             }
 
             else
@@ -28,21 +29,16 @@ namespace UResidence.Controllers
                 Tenant t = new Tenant();
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
                 Session["URLL"] = t.URL;
-            }
-            if (type == "Owner")
-            {
-                billing = UResidence.BillingController.GetOwner(uid);
-                ret = UResidence.BillingListController.GetAllO(uid);
-            }
-            else
-            {
-                billing = UResidence.BillingController.GetTenant(uid);
                 ret = UResidence.BillingListController.GetAllT(uid);
             }
-            for (int i = 0; i <= billing.Count - 1; i++)
+            if (revlist.Count > 0)
             {
-                balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+                for (int i = 0; i <= revlist.Count - 1; i++)
+                {
+                    balance += revlist[i].Outstanding;
+                }              
             }
+
             ViewBag.Balance = balance;
            
             

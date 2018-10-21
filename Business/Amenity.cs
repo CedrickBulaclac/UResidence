@@ -36,7 +36,9 @@ namespace UResidence
         [StringLength(50, ErrorMessage = "Unit Number cannot be longer than 50 characters.")]
         [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string Location { get; set; }
+        [DataType(DataType.Currency)]
         public decimal Adult { get; set; }
+        [DataType(DataType.Currency)]
         public decimal Child { get; set; }
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         [DataType(DataType.Currency)]
