@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.Reporting.WebForms;
 using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
 using CrystalDecisions.Shared;
@@ -245,43 +246,43 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "AdminList.rpt"));
-            List<Admin> data = default(List<Admin>);
-            data = UResidence.AdminController.GetAll();
-            rd.SetDataSource(data.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            try
-            {
-                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "AdminList.pdf");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            //LocalReport localreport = new LocalReport();
-            //localreport.ReportPath = Server.MapPath("~/Views/Report/AdminList.rdlc");
-            //ReportDataSource rd = new ReportDataSource();
+            //ReportDocument rd = new ReportDocument();
+            //rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "AdminList.rpt"));
             //List<Admin> data = default(List<Admin>);
             //data = UResidence.AdminController.GetAll();
-            //rd.Name = "AdminList";
-            //rd.Value = data.ToList();
-            //localreport.DataSources.Add(rd);
-            //string reportType = "PDF";
-            //string mimetype;
-            //string encoding;
-            //string filenameExtension = "pdf";
-            //string[] streams;
-            //Warning[] warnings;
-            //byte[] renderbyte;
-            //string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
-            //renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
-            //Response.AddHeader("content-disposition", "attachment:filename=AdminList.pdf");
-            //return File(renderbyte, filenameExtension);
+            //rd.SetDataSource(data.ToList());
+            //Response.Buffer = false;
+            //Response.ClearContent();
+            //Response.ClearHeaders();
+            //try
+            //{
+            //    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            //    stream.Seek(0, SeekOrigin.Begin);
+            //    return File(stream, "application/pdf", "AdminList.pdf");
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+            List<Admin> data = default(List<Admin>);
+            data = UResidence.AdminController.GetAll();
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/Views/Report/AdminList.rdlc");
+            ReportDataSource rd = new ReportDataSource();
+            rd.Name = "AdminList";
+            rd.Value = data.ToList();
+            localreport.DataSources.Add(rd);
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string filenameExtension = "pdf";
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderbyte;
+            string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
+            renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename=AdminList." + filenameExtension);
+            return File(renderbyte, filenameExtension);
         }
 
      

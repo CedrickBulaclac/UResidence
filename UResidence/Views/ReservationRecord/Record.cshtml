@@ -85,7 +85,7 @@
 
         });
 		function Notify(outstanding, Id, refno,type) {
-			console.log(type);
+			
 
 
 			var data = {
@@ -134,24 +134,24 @@
                         var tob = v.Outstanding;
                        
                         if (tob == 0) {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
 
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                         }
                         else {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.RefNo + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.Refno + ',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.RefNo + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.Refno + ',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
 
                             }
                         }
@@ -187,24 +187,24 @@
                     $.each(data1, function (i, v) {
                         var tob = v.Outstanding;
                         if (tob == 0) {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
 
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2)+ '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2)+ '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                         }
                         else {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.RefNo +',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.Refno +',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.RefNo + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.Refno + ',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
 
                             }
                         }
@@ -243,24 +243,24 @@
                     $.each(data1, function (i, v) {
                         var tob = v.Outstanding;                    
                         if (tob == 0) {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
 
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td> ₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td> ₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                         }
                         else {
-                            if (v.typeResident == "Owner") {
+                            if (v.TypeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.RefNo +',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.Refno +',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
                             }
                             else {
                                 name = v.tFname + ' ' + v.tMname + ' ' + v.tLname;
-                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.RefNo + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.RefNo + ',\'' + v.typeResident + '\')">Notify</button></td></tr>';
+                                trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.TenantId + ',' + v.Refno + ',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
 
                             }
                         }            
@@ -335,9 +335,7 @@
                     var mule = 0;
                     var stots = 0;
                     var ftotal = 0;
-                    console.log(data1);
-                    console.log(data2);
-                    console.log(data3);
+                   
 					$.each(data1, function (i, v) {
 						var s = moment(v.StartTime);
 						var st = s.format("DD/MMM/YYYY hh:mm a");

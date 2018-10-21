@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Mail;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using Microsoft.Reporting.WebForms;
 
 namespace UResidence.Controllers
 {
@@ -78,69 +79,26 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
-
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "TenantList.rpt"));
             List<Tenant> data = default(List<Tenant>);
             data = UResidence.TenantController.GetAll();
-            rd.SetDataSource(data.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-
-            try
-            {
-                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                rd.Close();
-                rd.Dispose();
-
-                return File(stream, "application/pdf", "TenantList.pdf");
-
-
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/Views/Report/TenantList.rdlc");
+            ReportDataSource rd = new ReportDataSource();
+            rd.Name = "TenantList";
+            rd.Value = data.ToList();
+            localreport.DataSources.Add(rd);
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string filenameExtension = "pdf";
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderbyte;
+            string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
+            renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename=TenantList." + filenameExtension);
+            return File(renderbyte, filenameExtension);
         }
-        //public JsonResult InsertMoving1(Tenant tenant)
-        //{
-        //    int id = tenant.Id;
-        //    var image1 = tenant.Image1;
-        //    bool status = false;
-        //    if (image1 != null)
-        //    {
-        //        if (image1.ContentLength > 0)
-        //        {
-        //            string imagefileName = Path.GetFileName(image1.FileName);
-        //            string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
-        //            string folderpath1 = "~/Content/TenantImages/" + imagefileName;
-        //            if (System.IO.File.Exists(folderPath))
-        //            {
-        //                System.IO.File.Delete(folderPath);
-        //                image1.SaveAs(folderPath);
-        //            }
-        //            else
-        //            {
-        //                image1.SaveAs(folderPath);
-        //            }
-        //            Tenant a = new Tenant()
-        //            {
-        //                Id = id,
-        //                MovingIn = folderpath1,
-        //            };
-        //            status = UResidence.TenantController.UpdateImage1(a);
-        //        }
-
-        //    }
-        //    return new JsonResult
-        //    {
-        //        Data = status,
-        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //    };
-        //}
 
 
 

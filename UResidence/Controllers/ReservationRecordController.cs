@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,6 +100,7 @@ namespace UResidence.Controllers
         public JsonResult Get(int Level,string Search)
         {          
             List<ReservationList> reservationList = default(List<ReservationList>);
+
             List<EquipReservation> er = default(List<EquipReservation>);
             if (Level == 0)
             {
@@ -127,55 +129,43 @@ namespace UResidence.Controllers
         }
         public ActionResult Download(int Level, string Search)
         {
-           
-            ReportDocument rd = new ReportDocument();
             List<ReservationList> data = default(List<ReservationList>);
             if (Level == 3)
-            {
-                rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationList.rpt"));
-                data = ReservationListController.GetAllO();           
+            {            
+                data = ReservationListController.GetAllO();
             }
             else
             {
-
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationList.rpt"));
-                    if (Level == 0)
-                    {
-                        data = ReservationListController.GetAllA(Search);
-                    }
-                    else if (Level == 1)
-                    {
-                        data = ReservationListController.GetAllByDate(Search);
-                    }
-                    else if (Level == 2)
-                    {
-                        data = ReservationListController.GetAllO(Search);
-                    }
-             
+                if (Level == 0)
+                {
+                    data = ReservationListController.GetAllA(Search);
+                }
+                else if (Level == 1)
+                {
+                    data = ReservationListController.GetAllByDate(Search);
+                }
+                else if (Level == 2)
+                {
+                    data = ReservationListController.GetAllO(Search);
+                }
             }
-            rd.SetDataSource(data.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-
-            try
-            {
-                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                rd.Close();
-                rd.Dispose();
-
-                return File(stream, "application/pdf", "ReservationList.pdf");
-
-
-
-            }
-            catch (Exception)
-            {
-              Response.Write("<script>alert('No List');</script>");
-                return View("Record");        
-            }
-           
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/Views/Report/ReservationList.rdlc");
+            ReportDataSource rd = new ReportDataSource();
+            rd.Name = "ReservationListt";
+            rd.Value = data.ToList();
+            localreport.DataSources.Add(rd);
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string filenameExtension = "pdf";
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderbyte;
+            string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
+            renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename=ReservationList." + filenameExtension);
+            return File(renderbyte, filenameExtension);           
         }
     }
 }

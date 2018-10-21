@@ -809,29 +809,29 @@
 
 
 							@*<li class=" dropdown">
-								<a class="panel-collapse" data-toggle="collapse" href="#">
-									<span class="glyphicon glyphicon-user"></span> My Profile
-									<span class="caret"></span>
-								</a>
-								<ul class="panel panel-collapse">
+									<a class="panel-collapse" data-toggle="collapse" href="#">
+										<span class="glyphicon glyphicon-user"></span> My Profile
+										<span class="caret"></span>
+									</a>
+									<ul class="panel panel-collapse">
 
 
 
-									<li>
-										<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-											<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+										<li>
+											<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+												<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-										</a>
-									</li>
+											</a>
+										</li>
 
 
-									<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+										<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-									<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+										<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-								</ul>
+									</ul>
 
-							</li>*@
+								</li>*@
 
 
 
@@ -1066,7 +1066,7 @@
 			</div>
 		</div>
 
-	
+
 		<div class="col-sm-10">
 			<div class="row">
 				<div id="maincontent1" style="margin-left:320px;">
@@ -1123,7 +1123,7 @@
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 	<script>
@@ -1233,7 +1233,7 @@
            }
            else {
                quarter = 2;
-           }         
+           }
            var s = 0;
            var e = 0;
            var period = "";
@@ -1440,21 +1440,21 @@
 						drawChart2(result);
 					});
 				}
-			});       
+			});
         }
 		function ValueYearChange() {
-			var year1 = document.getElementById('textyear').value;	
+			var year1 = document.getElementById('textyear').value;
 			alert(year1);
 				$.ajax({
 					type: "POST",
 					url: '/BossManager/GetYearly',
 					data: { year: year1 },
-					success: function (result) {						
+					success: function (result) {
 						google.charts.load('current', {
 							'packages': ['corechart']
 						});
 						google.charts.setOnLoadCallback(function () {
-						
+
 							drawChart(result);
 						});
 					}
@@ -1619,7 +1619,7 @@
 			});
 			console.log(dataArray);
 			data.addRows(dataArray);
-		
+
 			var columnChartOptions = {
 				title: "Amenity Usage",
 				width: 500,

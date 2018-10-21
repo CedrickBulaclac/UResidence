@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,13 +57,11 @@ namespace UResidence.Controllers
             string monthly="";
             string type1= Session["type"].ToString();
             int month1= (int) Session["month"];
-            int year1=(int)Session["year"];
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReversalList.rpt"));
-            List<ReversalList> revlist = default(List<ReversalList>);
+            int year1=(int)Session["year"];          
+            List<ReversalList> data = default(List<ReversalList>);
             if (type1.ToUpper() == "MONTHLY")
             {
-                revlist = ReversalListController.GET_ALLC(month1, year1);
+                data = ReversalListController.GET_ALLC(month1, year1);
                 switch (month1)
                 {
                     case 1:
@@ -106,34 +105,42 @@ namespace UResidence.Controllers
             }
             else
             {
-                revlist = ReversalListController.GET_ALLCY(year1);
+                data = ReversalListController.GET_ALLCY(year1);
                 my = year1.ToString();
             }
-           
-            TextObject text = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text11"];
-            text.Text = "("+type1+")";
-            TextObject text1 = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text12"];
-            text1.Text = my;
-            rd.SetDataSource(revlist.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
+            
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/Views/Report/ReversalListt.rdlc");
+            ReportDataSource rd = new ReportDataSource();
+            rd.Name = "ReversalListt";
+            rd.Value = data.ToList();
+            //ReportParameter[] param = new ReportParameter[]
+            //{
+            //    new ReportParameter("txtType", "CED")
+            //};         
+            //localreport.SetParameters(param);
 
-            try
-            {
-                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                rd.Close();
-                rd.Dispose();
 
-                return File(stream, "application/pdf", "ReversalList.pdf");
+            localreport.DataSources.Add(rd);
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string filenameExtension = "pdf";
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderbyte;
+            string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
+            renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename=ReversalList." + filenameExtension);
+            return File(renderbyte, filenameExtension);
 
-            }
-            catch (Exception)
-            {
-                Response.Write("<script>alert('No List');</script>");
-                return View("Record");
-            }
+
+            //TextObject text = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text11"];
+            //text.Text = "("+type1+")";
+            //TextObject text1 = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text12"];
+            //text1.Text = my;
+
+     
         }
         public JsonResult GetP(string type,int month,int year)
         {

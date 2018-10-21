@@ -10,7 +10,7 @@ namespace UResidence
     {
         public int OwnerId { get; set; }
         public int TenantId { get; set; }
-        public string typeResident { get; set; }
+        public string TypeResident { get; set; }
         public string oFname { get; set; }
         public string oMname { get; set; }
         public string oLname { get; set; }
@@ -23,7 +23,7 @@ namespace UResidence
         public decimal Rate { get; set; }
         public decimal Charge { get; set; }
         public decimal TotalPayment { get; set; }
-        public int RefNo { get; set; }
+        public int Refno { get; set; }
         public decimal Outstanding { get; set; }
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
@@ -33,8 +33,8 @@ namespace UResidence
             ReservationList ret = new ReservationList();
             ret.OwnerId = reader.GetInt32(0);
             ret.TenantId = reader.GetInt32(1);
-            ret.typeResident = reader.GetString(2);
-           ret.RefNo = reader.GetInt32(3);
+            ret.TypeResident = reader.GetString(2);
+           ret.Refno = reader.GetInt32(3);
             ret.oFname = reader.GetString(4);
             ret.oMname =reader.GetString(5);
             ret.oLname = reader.GetString(6);

@@ -53,6 +53,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -142,6 +143,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminList.xsd</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -170,21 +176,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="OwnerList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OwnerList.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
-    <Compile Include="Views\Report\AdminList.cs">
+    <Compile Include="ReservationListt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AdminList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>ReservationListt.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Views\Report\OwnerList.cs">
+    <Compile Include="ReversalListt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OwnerList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>ReversalListt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TenantList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TenantList.xsd</DependentUpon>
     </Compile>
     <Compile Include="Views\Report\ReservationFormO.cs">
       <AutoGen>True</AutoGen>
@@ -227,12 +239,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReversalList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\Report\TenantList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TenantList.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -336,6 +342,50 @@
     <Content Include="applogin\package\README.md" />
     <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108" />
     <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_1" />
+    <Content Include="AdminList.xsc">
+      <DependentUpon>AdminList.xsd</DependentUpon>
+    </Content>
+    <None Include="AdminList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AdminList.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AdminList.xss">
+      <DependentUpon>AdminList.xsd</DependentUpon>
+    </Content>
+    <Content Include="OwnerList.xsc">
+      <DependentUpon>OwnerList.xsd</DependentUpon>
+    </Content>
+    <None Include="OwnerList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OwnerList.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="OwnerList.xss">
+      <DependentUpon>OwnerList.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReservationListt.xsc">
+      <DependentUpon>ReservationListt.xsd</DependentUpon>
+    </Content>
+    <None Include="ReservationListt.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReservationListt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReservationListt.xss">
+      <DependentUpon>ReservationListt.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReversalListt.xsc">
+      <DependentUpon>ReversalListt.xsd</DependentUpon>
+    </Content>
+    <None Include="ReversalListt.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReversalListt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReversalListt.xss">
+      <DependentUpon>ReversalListt.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -347,7 +397,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -436,6 +488,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Reserve\GuestAdd.cshtml" />
     <Content Include="Views\LogBook\LogBookViewing.cshtml" />
+    <Content Include="TenantList.xsc">
+      <DependentUpon>TenantList.xsd</DependentUpon>
+    </Content>
+    <None Include="TenantList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TenantList.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="TenantList.xss">
+      <DependentUpon>TenantList.xsd</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -466,16 +529,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Report\AdminList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>AdminList.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\OwnerList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>OwnerList.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
+    <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationFormO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationFormO.cs</LastGenOutput>
@@ -493,6 +548,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationFormT.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationList.cs</LastGenOutput>
@@ -505,10 +561,8 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReversalList.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\TenantList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TenantList.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />
+    <EmbeddedResource Include="Views\Report\TenantList.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
