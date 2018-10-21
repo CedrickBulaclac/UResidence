@@ -88,6 +88,7 @@
     <Compile Include="SchedReservationController.cs" />
     <Compile Include="StockController.cs" />
     <Compile Include="Stocks.cs" />
+    <Compile Include="Dash.cs" />
     <Compile Include="Swimming.cs" />
     <Compile Include="SwimmingController.cs" />
     <Compile Include="SwimmingRate.cs" />

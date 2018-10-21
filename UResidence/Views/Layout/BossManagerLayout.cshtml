@@ -1,27 +1,27 @@
 ﻿
 @{
-    Layout = "";
+	Layout = "";
 
 }
 
 @*---Modal for Update Profile Picture---*@
 <div class="container">
-    <div class="modal fade" id="updateprofilepicture" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <input type="file" id="image" name="image" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
-                    <button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="updateprofilepicture" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<input type="file" id="image" name="image" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+					<button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!DOCTYPE html>
@@ -44,7 +44,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
 
 
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -735,457 +734,399 @@
 
 <body>
 
-    <div class="navbar1">
-        <img src="~/Content/logo.png" width="190" height="85" />
+	<div class="navbar1">
+		<img src="~/Content/logo.png" width="190" height="85" />
 
-        @*<nav class=" fill">*@
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-        </div>
+		@*<nav class=" fill">*@
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+		</div>
 
-    </div>
+	</div>
 
-    <div class="collapse navbar-collapse" id="myNavbar">
+	<div class="collapse navbar-collapse" id="myNavbar">
 
-        <center>
-            @*<ul class="nav navbar-nav ">*@
+		<center>
+			@*<ul class="nav navbar-nav ">*@
 
-            <ul class="social-icon pull-right list-inline" style="z-index:2;"></ul>
-        </center>
+			<ul class="social-icon pull-right list-inline" style="z-index:2;"></ul>
+		</center>
 
-    </div>
+	</div>
 
 
 
 
-    <div class="row">
-        <div class="col-sm-2">
-            <div class="side-menu">
-                <nav class="navbar navbar-default" role="navigation">
-                    <!-- Main Menu -->
-                    <div class="side-menu-container">
-                        <ul class="nav navbar-nav">
-                            <li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-                            <li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
-                            <li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
+	<div class="row">
+		<div class="col-sm-2">
+			<div class="side-menu">
+				<nav class="navbar navbar-default" role="navigation">
+					<!-- Main Menu -->
+					<div class="side-menu-container">
+						<ul class="nav navbar-nav">
+							<li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
+							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
 
 
 
-                            <!-- Dropdown-->
-                            <li class="panel panel-default" id="dropdown">
-                                <a data-toggle="collapse" href="#dropdown-lvl1">
-                                    <span class="glyphicon glyphicon-user"></span> My Profile <span class="caret"></span>
-                                </a>
-                                <!-- Dropdown level 1 -->
-                                <div id="dropdown-lvl1" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul class="nav navbar-nav">
+							<!-- Dropdown-->
+							<li class="panel panel-default" id="dropdown">
+								<a data-toggle="collapse" href="#dropdown-lvl1">
+									<span class="glyphicon glyphicon-user"></span> My Profile <span class="caret"></span>
+								</a>
+								<!-- Dropdown level 1 -->
+								<div id="dropdown-lvl1" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul class="nav navbar-nav">
 
-                                            <li>
-                                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-                                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+											<li>
+												<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+													<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-                                                </a>
-                                            </li>
+												</a>
+											</li>
 
 
-                                            <li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+											<li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-                                            <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+											<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
 
 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
+										</ul>
+									</div>
+								</div>
+							</li>
 
 
 
 
-                            @*<li class=" dropdown">
-                                    <a class="panel-collapse" data-toggle="collapse" href="#">
-                                        <span class="glyphicon glyphicon-user"></span> My Profile
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="panel panel-collapse">
+							@*<li class=" dropdown">
+								<a class="panel-collapse" data-toggle="collapse" href="#">
+									<span class="glyphicon glyphicon-user"></span> My Profile
+									<span class="caret"></span>
+								</a>
+								<ul class="panel panel-collapse">
 
 
 
-                                        <li>
-                                            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-                                                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+									<li>
+										<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+											<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-                                            </a>
-                                        </li>
+										</a>
+									</li>
 
 
-                                        <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+									<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-                                        <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+									<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-                                    </ul>
+								</ul>
 
-                                </li>*@
+							</li>*@
 
 
 
 
 
 
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-            </div>
-        </div>
-
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="maincontent" style="margin-left:150px">
-                    <div class="page-title">
-                        <br /><br />
-                        <h2>Dashboard</h2>
-                        <ol class="breadcrumb">
-                            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-                        </ol>
-                    </div>
-
-                    <div class="col-sm-2">
-
-                    </div>
-
-                    <div class="col-lg-10 square">
-
-                        <br />
-
-                        <!--Employee-->
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="circle-tile">
-                                <a href="#" onclick="ShowAdmin()">
-                                    <div class="circle-tile-heading dark-blue">
-                                        <i class="fa fa-users fa-fw fa-3x"></i>
-                                    </div>
-                                </a>
-                                <div class="circle-tile-content dark-blue">
-                                    <div class="circle-tile-description text-faded">
-                                        Employees
-                                    </div>
-                                    <div class="circle-tile-number text-faded" id="AdminCount">
-
-                                        <span id="sparklineA"></span>
-                                    </div>
-                                    <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--Owner-->
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="circle-tile">
-                                <a href="#" onclick="ShowOwner()">
-                                    <div class="circle-tile-heading green">
-                                        <i class="fa fa-id-card fa-fw fa-3x"></i>
-                                    </div>
-                                </a>
-                                <div class="circle-tile-content green">
-                                    <div class="circle-tile-description text-faded">
-                                        Owners
-                                    </div>
-                                    <div class="circle-tile-number text-faded" id="OwnerCount">
-
-                                    </div>
-                                    <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--Tenant-->
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="circle-tile">
-                                <a href="#" onclick="ShowTenant()">
-                                    <div class="circle-tile-heading orange">
-                                        <i class="fa fa-id-card-o fa-fw fa-3x"></i>
-                                    </div>
-                                </a>
-                                <div class="circle-tile-content orange">
-                                    <div class="circle-tile-description text-faded">
-                                        Tenants
-                                    </div>
-                                    <div class="circle-tile-number text-faded" id="TenantCount">
-
-                                    </div>
-                                    <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--Amenity List-->
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="circle-tile">
-                                <a href="#" onclick="ShowAmenity()">
-                                    <div class="circle-tile-heading purple">
-                                        <i class="fa fa-building-o fa-fw fa-3x"></i>
-                                    </div>
-                                </a>
-                                <div class="circle-tile-content purple">
-                                    <div class="circle-tile-description text-faded">
-                                        Amenities
-                                    </div>
-                                    <div class="circle-tile-number text-faded" id="AmenityCount">
-
-                                        <span id="sparklineD"></span>
-                                    </div>
-                                    <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div id="containerChart" class="col-sm-10">
-                        <center>
-                            <div class="col-lg-12">
-                                <center>
-                                    <b>Year :</b>
-                                    <select class="form-control" id="textyear" style="text-align:center;" name="textyear" onchange="Change()">
-                                        <option value="2018">2018</option>
-                                    </select>
-                                </center>
-                            </div>
-                        </center>
-
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-
-                        <br />
-                        <br />
-
-                        <div class="col-sm-12" id="chart1">
-                            <div class="col-sm-2">
-
-                            </div>
-                            <div class="col-lg-3 col-sm-3">
-                                <br />
-                                <center>
-                                    <b>Month :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                </center>
-                                <br />
-                                <div id="chartContainer1"></div>
-
-
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-
-
-
-                                <div id="chartContainerYear"></div>
-
-
-                            </div>
-                            <div class="col-sm-2">
-
-                            </div>
-
-                            <div class=" col-lg-3 col-sm-3">
-                                <center>
-                                    <b>Quarter :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
-                                        <option value="1">January - June</option>
-                                        <option value="2">July - December</option>
-                                    </select>
-                                </center>
-                                <br />
-                                <div id="chartContainerQuarterYear"></div>
-                            </div>
-
-
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-
-
-
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="maincontent1" style="margin-left:320px;">
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="contentAmenity" style="margin-left:320px;">
-                    <center><h3>Amenities</h3></center>
-                    <br />
-                    <table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="contentAdmin" style="margin-left:320px;">
-                    <center><h3>Employees</h3></center>
-                    <br />
-                    <table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="contentOwner" style="margin-left:320px;">
-                    <center><h3>Owners</h3></center>
-                    <br />
-                    <table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <div class="row">
-                <div id="contentTenant" style="margin-left:320px;">
-                    <center><h3>Tenants</h3></center>
-                    <br />
-                    <table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var month = d.getMonth() + 1;
-            document.getElementById('month').value = month;
-            var year1 = document.getElementById('textyear').value;
-            var month1 = "";
-            var datapoints = [];
-            switch (month) {
-                case 1:
-                    month1 = "January";
-                    break;
-                case 2:
-                    month1 = "February";
-                    break;
-                case 3:
-                    month1 = "March";
-                    break;
-                case 4:
-                    month1 = "April";
-                    break;
-                case 5:
-                    month1 = "May";
-                    break;
-                case 6:
-                    month1 = "June";
-                    break;
-                case 7:
-                    month1 = "July";
-                    break;
-                case 8:
-                    month1 = "August";
-                    break;
-                case 9:
-                    month1 = "September";
-                    break;
-                case 10:
-                    month1 = "October";
-                    break;
-                case 11:
-                    month1 = "November";
-                    break;
-                case 12:
-                    month1 = "December";
-                    break;
-            }
-            $.ajax({
-                type: 'POST',
-                datatType: 'json',
-                url: '/BossManager/GetMonthly',
-                contentType: 'application/json',
-                data: { month: month, year: year1 },
-                success: function (data) {
-                    google.charts.load('current', { 'packages': ['corechart'] });
-                    google.charts.setOnLoadCallback(function () {
-                        drawchart(data);
-
-                    });
-                }
-                ,
-            });
-
-
-          
-            
-
-        });
-    </script>
-    <script>
+						</ul>
+					</div><!-- /.navbar-collapse -->
+				</nav>
+			</div>
+		</div>
+
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="maincontent" style="margin-left:150px">
+					<div class="page-title">
+						<br /><br />
+						<h2>Dashboard</h2>
+						<ol class="breadcrumb">
+							<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+						</ol>
+					</div>
+
+					<div class="col-sm-2">
+
+					</div>
+
+					<div class="col-lg-10 square">
+
+						<br />
+
+						<!--Employee-->
+						<div class="col-lg-2 col-sm-6">
+							<div class="circle-tile">
+								<a href="#" onclick="ShowAdmin()">
+									<div class="circle-tile-heading dark-blue">
+										<i class="fa fa-users fa-fw fa-3x"></i>
+									</div>
+								</a>
+								<div class="circle-tile-content dark-blue">
+									<div class="circle-tile-description text-faded">
+										Employees
+									</div>
+									<div class="circle-tile-number text-faded" id="AdminCount">
+
+										<span id="sparklineA"></span>
+									</div>
+									<a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+
+
+						<!--Owner-->
+						<div class="col-lg-2 col-sm-6">
+							<div class="circle-tile">
+								<a href="#" onclick="ShowOwner()">
+									<div class="circle-tile-heading green">
+										<i class="fa fa-id-card fa-fw fa-3x"></i>
+									</div>
+								</a>
+								<div class="circle-tile-content green">
+									<div class="circle-tile-description text-faded">
+										Owners
+									</div>
+									<div class="circle-tile-number text-faded" id="OwnerCount">
+
+									</div>
+									<a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+
+
+						<!--Tenant-->
+						<div class="col-lg-2 col-sm-6">
+							<div class="circle-tile">
+								<a href="#" onclick="ShowTenant()">
+									<div class="circle-tile-heading orange">
+										<i class="fa fa-id-card-o fa-fw fa-3x"></i>
+									</div>
+								</a>
+								<div class="circle-tile-content orange">
+									<div class="circle-tile-description text-faded">
+										Tenants
+									</div>
+									<div class="circle-tile-number text-faded" id="TenantCount">
+
+									</div>
+									<a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+
+
+						<!--Amenity List-->
+						<div class="col-lg-2 col-sm-6">
+							<div class="circle-tile">
+								<a href="#" onclick="ShowAmenity()">
+									<div class="circle-tile-heading purple">
+										<i class="fa fa-building-o fa-fw fa-3x"></i>
+									</div>
+								</a>
+								<div class="circle-tile-content purple">
+									<div class="circle-tile-description text-faded">
+										Amenities
+									</div>
+									<div class="circle-tile-number text-faded" id="AmenityCount">
+
+										<span id="sparklineD"></span>
+									</div>
+									<a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div id="containerChart" class="col-sm-10">
+						<center>
+							<div class="col-lg-12">
+								<center>
+									<b>Year :</b>
+									<select class="form-control" id="textyear" style="text-align:center;" name="textyear" onchange="Change()">
+										<option value="2018">2018</option>
+									</select>
+									<br />
+									<div id="chartContainerYear"></div>
+								</center>
+							</div>
+						</center>
+
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+
+						<br />
+						<br />
+
+						<div class="col-sm-12" id="chart1">
+							<div class="col-sm-2">
+
+							</div>
+							<div class="col-lg-3 col-sm-3">
+								<br />
+								<center>
+									<b>Month :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
+										<option value="1">January</option>
+										<option value="2">February</option>
+										<option value="3">March</option>
+										<option value="4">April</option>
+										<option value="5">May</option>
+										<option value="6">June</option>
+										<option value="7">July</option>
+										<option value="8">August</option>
+										<option value="9">September</option>
+										<option value="10">October</option>
+										<option value="11">November</option>
+										<option value="12">December</option>
+									</select>
+								</center>
+								<br />
+								<div id="chartContainer1"></div>
+
+
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+								<br />
+
+
+
+
+								@*<div id="piechart_div"></div>*@
+
+							</div>
+							<div class="col-sm-2">
+
+							</div>
+
+							<div class=" col-lg-3 col-sm-3">
+								<center>
+									<b>Quarter :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
+										<option value="1">January - June</option>
+										<option value="2">July - December</option>
+									</select>
+								</center>
+								<br />
+								<div id="chartContainerQuarterYear"></div>
+
+							</div>
+
+
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+
+
+
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="maincontent1" style="margin-left:320px;">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="contentAmenity" style="margin-left:320px;">
+					<center><h3>Amenities</h3></center>
+					<br />
+					<table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="contentAdmin" style="margin-left:320px;">
+					<center><h3>Employees</h3></center>
+					<br />
+					<table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="contentOwner" style="margin-left:320px;">
+					<center><h3>Owners</h3></center>
+					<br />
+					<table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div id="contentTenant" style="margin-left:320px;">
+					<center><h3>Tenants</h3></center>
+					<br />
+					<table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	@RenderBody()
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+
+
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<script src="js/bootstrap.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+	<script>
 		$(function () {
 			$('.navbar-toggle').click(function () {
 				$('.navbar-nav').toggleClass('slide-in');
@@ -1272,29 +1213,13 @@
                     url: '/BossManager/GetMonthly',
                     data: { month: month, year: year1 },
                     success: function (data1) {
-                        for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
-                        }
-                        var options = {
-                            title: {
-                                text: "Amenity Usage"
-                            },
-                            subtitles: [{
-                                text: month1 + ", " + year1
-                            }],
-                            animationEnabled: true,
-                            data: [{
-                                type: "pie",
-                                startAngle: 40,
-                                toolTipContent: "<b>{label}</b>: {y}%",
-                                showInLegend: "true",
-                                legendText: "{label}",
-                                indexLabelFontSize: 16,
-                                indexLabel: "{label} - {y}%",
-                                dataPoints: datapoints
-                            }]
-                        };
-                        $("#chartContainer1").CanvasJSChart(options);
+						google.charts.load('current', {
+							'packages': ['corechart']
+						});
+						google.charts.setOnLoadCallback(function () {
+
+							drawChart2(data1);
+						});
                     },
                     error: function (data) {
 
@@ -1302,16 +1227,13 @@
 
                 });
                 ValueYearChange();
-
-           console.log(month);
            var quarter = 0;
            if (month >= 1 && month <= 6) {
                quarter = 1;
            }
            else {
                quarter = 2;
-           }
-           console.log(quarter);
+           }         
            var s = 0;
            var e = 0;
            var period = "";
@@ -1335,30 +1257,13 @@
                url: '/BossManager/GetQuarterYear',
                data: { year: year1, start: s, end: e },
                success: function (data2) {
-                   console.log(data2);
-                   for (var i = 0; i <= data2.length - 1; i += 2) {
-                       datapoints1.push({ y: data2[i + 1].toFixed(2), label: data2[i] });
-                   }
-                   var options1 = {
-                       title: {
-                           text: "Amenity Usage"
-                       },
-                       subtitles: [{
-                           text: period + ' , ' + year1
-                       }],
-                       animationEnabled: true,
-                       data: [{
-                           type: "pie",
-                           startAngle: 40,
-                           toolTipContent: "<b>{label}</b>: {y}%",
-                           showInLegend: "true",
-                           legendText: "{label}",
-                           indexLabelFontSize: 16,
-                           indexLabel: "{label} - {y}%",
-                           dataPoints: datapoints1
-                       }]
-                   };
-                   $("#chartContainerQuarterYear").CanvasJSChart(options1);
+				   google.charts.load('current', {
+					   'packages': ['corechart']
+				   });
+				   google.charts.setOnLoadCallback(function () {
+
+					   drawChart1(data2);
+				   });
                },
                error: function (data) {
 
@@ -1520,81 +1425,41 @@
                 case "12":
                     month1 = "December";
                     break;
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/BossManager/GetMonthly',
-                data: { month: month, year: year1 },
-                success: function (data1) {
+			}
 
-                    for (var i = 0; i <= data1.length - 1; i += 2) {
-                        datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
-                    }
-                    var options = {
-                        title: {
-                            text: "Amenity Usage"
-                        },
-                        subtitles: [{
-                            text: month1 + ", "+year1
-                        }],
-                        animationEnabled: true,
-                        data: [{
-                            type: "pie",
-                            startAngle: 40,
-                            toolTipContent: "<b>{label}</b>: {y}%",
-                            showInLegend: "true",
-                            legendText: "{label}",
-                            indexLabelFontSize: 16,
-                            indexLabel: "{label} - {y}%",
-                            dataPoints: datapoints
-                        }]
-                    };
-                    $("#chartContainer1").CanvasJSChart(options);
-                },
-                error: function (data) {
+			$.ajax({
+				type: "POST",
+				url: '/BossManager/GetMonthly',
+				data: { month: month, year: year1 },
+				success: function (result) {
+					google.charts.load('current', {
+						'packages': ['corechart']
+					});
+					google.charts.setOnLoadCallback(function () {
 
-                }
-
-            });
+						drawChart2(result);
+					});
+				}
+			});       
         }
-        function ValueYearChange() {
-                var year1 = document.getElementById('textyear').value;
-                var datapoints = [];
-                $.ajax({
-                    type: 'POST',
-                    url: '/BossManager/GetYearly',
-                    data: {  year: year1 },
-                    success: function (data1) {
-                        for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
-                        }
-                        var options = {
-                            title: {
-                                text: "Amenity Usage for year 2018"
-                            },
-                            subtitles: [{
-                                text: year1
-                            }],
-                            animationEnabled: true,
-                            data: [{
-                                type: "pie",
-                                startAngle: 40,
-                                toolTipContent: "<b>{label}</b>: {y}%",
-                                showInLegend: "true",
-                                legendText: "{label}",
-                                indexLabelFontSize: 16,
-                                indexLabel: "{label} - {y}%",
-                                dataPoints: datapoints
-                            }]
-                        };
-                        $("#chartContainerYear").CanvasJSChart(options);
-                    },
-                    error: function (data) {
-
-                    }
-
-                });
-            }
+		function ValueYearChange() {
+			var year1 = document.getElementById('textyear').value;	
+			alert(year1);
+				$.ajax({
+					type: "POST",
+					url: '/BossManager/GetYearly',
+					data: { year: year1 },
+					success: function (result) {						
+						google.charts.load('current', {
+							'packages': ['corechart']
+						});
+						google.charts.setOnLoadCallback(function () {
+						
+							drawChart(result);
+						});
+					}
+				});
+		}
         function ValueQuarterYearChange() {
 
             var year1 = document.getElementById('textyear').value;
@@ -1614,42 +1479,57 @@
                         period = "July - December"
                         break;
                 }
-                var datapoints = [];
-                $.ajax({
-                    type: 'POST',
-                    url: '/BossManager/GetQuarterYear',
-                    data: { year: year1,start:s,end:e},
-                    success: function (data1) {
-                        console.log(data1.length);
-                        for (var i = 0; i <= data1.length - 1; i += 2) {
-                            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
-                        }
-                        var options = {
-                            title: {
-                                text: "Amenity Usage"
-                            },
-                            subtitles: [{
-                                text: period+' , '+year1
-                            }],
-                            animationEnabled: true,
-                            data: [{
-                                type: "pie",
-                                startAngle: 40,
-                                toolTipContent: "<b>{label}</b>: {y}%",
-                                showInLegend: "true",
-                                legendText: "{label}",
-                                indexLabelFontSize: 16,
-                                indexLabel: "{label} - {y}%",
-                                dataPoints: datapoints
-                            }]
-                        };
-                        $("#chartContainerQuarterYear").CanvasJSChart(options);
-                    },
-                    error: function (data) {
+			var datapoints = [];
 
-                    }
+			$.ajax({
+				type: "POST",
+				url: '/BossManager/GetQuarterYear',
+				data: { year: year1, start: s, end: e},
+				success: function (result) {
+					google.charts.load('current', {
+						'packages': ['corechart']
+					});
+					google.charts.setOnLoadCallback(function () {
 
-                });
+						drawChart1(result);
+					});
+				}
+			});
+                //$.ajax({
+                //    type: 'POST',
+                //    url: '/BossManager/GetQuarterYear',
+                //    data: { year: year1,start:s,end:e},
+                //    success: function (data1) {
+                //        console.log(data1.length);
+                //        for (var i = 0; i <= data1.length - 1; i += 2) {
+                //            datapoints.push({ y: data1[i + 1].toFixed(2), label: data1[i] });
+                //        }
+                //        var options = {
+                //            title: {
+                //                text: "Amenity Usage"
+                //            },
+                //            subtitles: [{
+                //                text: period+' , '+year1
+                //            }],
+                //            animationEnabled: true,
+                //            data: [{
+                //                type: "pie",
+                //                startAngle: 40,
+                //                toolTipContent: "<b>{label}</b>: {y}%",
+                //                showInLegend: "true",
+                //                legendText: "{label}",
+                //                indexLabelFontSize: 16,
+                //                indexLabel: "{label} - {y}%",
+                //                dataPoints: datapoints
+                //            }]
+                //        };
+                //        $("#chartContainerQuarterYear").CanvasJSChart(options);
+                //    },
+                //    error: function (data) {
+
+                //    }
+
+                //});
             }
         function AmenityCount() {
             $.ajax({
@@ -1729,6 +1609,78 @@
 			});
 		    }
 
+		function drawChart(result) {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'AmenityName');
+			data.addColumn('number', 'Value');
+			var dataArray = [];
+			$.each(result, function (i, obj) {
+				dataArray.push([obj.AmenityName, obj.Value]);
+			});
+			console.log(dataArray);
+			data.addRows(dataArray);
+		
+			var columnChartOptions = {
+				title: "Amenity Usage",
+				width: 500,
+				height: 500,
+				bar: { groupWidth: "10%" },
+			};
+
+			var columnChart = new google.visualization.PieChart(document
+				.getElementById('chartContainerYear'));
+
+			columnChart.draw(data, columnChartOptions);
+		}
+
+		function drawChart1(result) {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'AmenityName');
+			data.addColumn('number', 'Value');
+			var dataArray = [];
+			$.each(result, function (i, obj) {
+				dataArray.push([obj.AmenityName, obj.Value]);
+			});
+			console.log(dataArray);
+			data.addRows(dataArray);
+
+			var columnChartOptions = {
+				title: "Amenity Usage",
+				width: 500,
+				height: 500,
+				bar: { groupWidth: "10%" },
+			};
+
+			var columnChart = new google.visualization.PieChart(document
+				.getElementById('chartContainerQuarterYear'));
+
+			columnChart.draw(data, columnChartOptions);
+		}
+
+		function drawChart2(result) {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'AmenityName');
+			data.addColumn('number', 'Value');
+			var dataArray = [];
+			$.each(result, function (i, obj) {
+				dataArray.push([obj.AmenityName, obj.Value]);
+			});
+			console.log(dataArray);
+			data.addRows(dataArray);
+
+			var columnChartOptions = {
+				title: "Amenity Usage",
+				width: 500,
+				height: 500,
+				bar: { groupWidth: "10%" },
+			};
+
+			var columnChart = new google.visualization.PieChart(document
+				.getElementById('chartContainer1'));
+
+			columnChart.draw(data, columnChartOptions);
+		}
+
 
 		$('#btnCloseImageProfile').click(function () {
 
@@ -1743,6 +1695,6 @@
 		}
 		);
 
-    </script>
+	</script>
 </body>
 </html>

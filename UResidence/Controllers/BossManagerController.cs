@@ -73,13 +73,15 @@ namespace UResidence.Controllers
             for (int i=0; i<=ret.Count-1;i++)
             {
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
-                object[] d = { ret[i].AmenityName, compute };
-                data.AddRange(d);
-               
-            }
-            var final=data.ToList();
+                data.Add(new Dash()
+                {
+                    AmenityName = ret[i].AmenityName,
+                    Value = (int)compute
+                });
 
-            return new JsonResult { Data=final,JsonRequestBehavior=JsonRequestBehavior.AllowGet };
+            }
+            var final = data;
+            return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult GetYearly(int year)
         {
@@ -87,7 +89,7 @@ namespace UResidence.Controllers
             double compute = 0;
             List<Dashboard> ret = default(List<Dashboard>);
             ret = DashboardController.GetAlly(year);
-            List<object> data = new List<object>();
+            List<Dash> data = new List<Dash>();
             for (int i = 0; i <= ret.Count - 1; i++)
             {
                 total += ret[i].Number;
@@ -95,11 +97,13 @@ namespace UResidence.Controllers
             for (int i = 0; i <= ret.Count - 1; i++)
             {
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
-                object[] d = { ret[i].AmenityName, compute };
-                data.AddRange(d);
+                data.Add(new Dash() {
+                    AmenityName = ret[i].AmenityName,
+                    Value = (int)compute
+                });
 
             }
-            var final = data.ToList();
+            var final = data;
             return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
         public JsonResult GetQuarterYear(int year,int start,int end)
@@ -116,12 +120,14 @@ namespace UResidence.Controllers
             for (int i = 0; i <= ret.Count - 1; i++)
             {
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
-                object[] d = { ret[i].AmenityName, compute };
-                data.AddRange(d);
+                data.Add(new Dash()
+                {
+                    AmenityName = ret[i].AmenityName,
+                    Value = (int)compute
+                });
 
             }
-            var final = data.ToList();
-
+            var final = data;
             return new JsonResult { Data = final, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
@@ -203,5 +209,10 @@ namespace UResidence.Controllers
             var data = tenant.ToList();
             return new JsonResult { Data = data, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+
+      
+
+
     }
 }
