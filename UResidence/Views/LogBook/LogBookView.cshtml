@@ -38,7 +38,7 @@
 				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
 				$.each(data, function (i, v) {
 
-					if (v.sTimeout == '00:00:00') {
+                    if (v.sTimeout == '12:00AM') {
 						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
 
 					}
@@ -109,7 +109,7 @@
 				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
 				$.each(data, function (i, v) {
 
-					if (v.sTimeout == '00:00:00') {
+                    if (v.sTimeout == '12:00AM') {
 						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
 
 					}

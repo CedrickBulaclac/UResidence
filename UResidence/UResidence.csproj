@@ -435,6 +435,7 @@
     <Content Include="Views\AccountSetting\ManagerAccountSetting.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Reserve\GuestAdd.cshtml" />
+    <Content Include="Views\LogBook\LogBookViewing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

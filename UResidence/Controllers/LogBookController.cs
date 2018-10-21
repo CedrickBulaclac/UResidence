@@ -96,6 +96,29 @@ namespace UResidence.Controllers
             log = UResidence.LogbookController.GET_ALL();
             return View(log);
         }
+
+        public ActionResult LogBookViewing()
+        {
+            int level = Convert.ToInt32(Session["Level"]);
+            if (level <= 7)
+            {
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+            }
+            List<Logbook> logbookList = new List<Logbook>();
+            return View(logbookList);
+        }
+        [HttpPost]
+        public ActionResult LogBookViewing(FormCollection fc)
+        {
+            DateTime date = Convert.ToDateTime(fc["gdate"]);
+            string bn=Convert.ToString(fc["gbldg"]);
+            string un = Convert.ToString(fc["gunit"]);
+            List<Logbook> logbookList = new List<Logbook>();
+            logbookList = LogbookController.GET_ALL(date, bn, un);
+            return View(logbookList);
+        }
         public JsonResult Search(Logbook data)
         {
             try
@@ -240,26 +263,23 @@ namespace UResidence.Controllers
             //        string folderpath1 = "~/Content/LogBookImages/" + data.URL;
             //string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), data.URL);
         }
+        public JsonResult UpdateTimein(Logbook data)
+        {
+            bool status = false;
+            Logbook log = new Logbook
+            {
+                Id = data.Id,
+                Timein = data.Timein
+            };
+            status = UResidence.LogbookController.UpdateTimein(log);
 
 
-
-
-        //public ActionResult Update(FormCollection fc, int id)
-        //{
-
-        //    DateTime date = DateTime.Now;
-
-        //    bool status = false;
-        //    Logbook log = new Logbook
-        //    {
-        //        Id = id,
-        //        Timeout = date
-        //    };
-        //    status = UResidence.LogbookController.Update(log);
-        //    return View("LogBook");
-        //}
-
-
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult Update(Logbook data)
         {
             bool status = false;

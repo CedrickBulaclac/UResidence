@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Logbook> GET_ALL()
         {
-            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,Convert(varchar(15),TimeIn,108),Convert(varchar(15),TimeOut,108),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),GETDATE(),101)";
+            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,RIGHT(Convert(varchar,TimeIn,100),7),RIGHT(Convert(varchar,TimeOut,100),7),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),GETDATE(),101)";
             List<Logbook> ret = default(List<Logbook>);
             SqlCommand com = new SqlCommand(GET_ALL);
             ret = SqlManager.Select<Logbook>(com);
@@ -19,7 +19,7 @@ namespace UResidence
         }
         public static List<Logbook> GET_ALL(DateTime date)
         {
-            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,Convert(varchar(15),TimeIn,108),Convert(varchar(15),TimeOut,108),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),@date,101)";
+            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,RIGHT(Convert(varchar,TimeIn,100),7),RIGHT(Convert(varchar,TimeOut,100),7),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),@date,101)";
             List<Logbook> ret = default(List<Logbook>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@date", date));
@@ -29,7 +29,7 @@ namespace UResidence
         }
         public static List<Logbook> GET_ALL(DateTime date,string bldg, string unitno)
         {
-            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,Convert(varchar(15),TimeIn,108),Convert(varchar(15),TimeOut,108),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),@date,101) and BldgNo=@bldg and UnitNo=@unitno";
+            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,RIGHT(Convert(varchar,TimeIn,100),7),RIGHT(Convert(varchar,TimeOut,100),7),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),@date,101) and BldgNo=@bldg and UnitNo=@unitno";
             List<Logbook> ret = default(List<Logbook>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@date", date));
@@ -46,6 +46,15 @@ namespace UResidence
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Id", log.Id));
             com.Parameters.Add(new SqlParameter("@TimeOut", log.Timeout));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool UpdateTimein(Logbook log)
+        {
+            const string GET_INSERT = @"update [tbLogbook] set TimeIn=@TimeIn where Id=@Id  ";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Id", log.Id));
+            com.Parameters.Add(new SqlParameter("@TimeIn", log.Timein));
             return SqlManager.ExecuteNonQuery(com);
         }
         public static bool UpdateName(Logbook log)
