@@ -246,24 +246,6 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
-            //ReportDocument rd = new ReportDocument();
-            //rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "AdminList.rpt"));
-            //List<Admin> data = default(List<Admin>);
-            //data = UResidence.AdminController.GetAll();
-            //rd.SetDataSource(data.ToList());
-            //Response.Buffer = false;
-            //Response.ClearContent();
-            //Response.ClearHeaders();
-            //try
-            //{
-            //    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            //    stream.Seek(0, SeekOrigin.Begin);
-            //    return File(stream, "application/pdf", "AdminList.pdf");
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
             List<Admin> data = default(List<Admin>);
             data = UResidence.AdminController.GetAll();
             LocalReport localreport = new LocalReport();
