@@ -128,6 +128,18 @@ namespace UResidence.Controllers
             decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
             decimal everate= Convert.ToDecimal(fc["eve"]);
+         
+
+            Amenity amm = UResidence.AmenityController.GetbyId(aid);
+            bool IsE = amm.IsEquipment;
+            bool IsW = amm.IsWeekend;
+
+
+            ViewBag.ise = IsE.ToString();
+            ViewBag.isw = IsW.ToString();
+
+            Session["IsEquipment"] = ViewBag.ise;
+            Session["IsWeekend"] = ViewBag.isw;
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
@@ -187,13 +199,15 @@ namespace UResidence.Controllers
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
             ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
+            ViewBag.isw = (Session["IsWeekend"]).ToString();
             return View();
         }
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-            string nameamenity = (Session["NAME"]).ToString();
-            if (nameamenity.ToUpper().Contains("BASKETBALL"))
+           
+            //string nameamenity = (Session["NAME"]).ToString();
+            if (Session["IsEquipment"].ToString() == "False")
             {
                 string result = Convert.ToString(fc["result"]);
                 if (result != "1")
@@ -284,6 +298,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
+           
                 int[] eqpid;        
                 int oldid = 0;
                 int stock = 0;
@@ -644,6 +659,7 @@ namespace UResidence.Controllers
      
         public ActionResult Swimming()
         {
+            ViewBag.isw = (Session["IsWeekend"]).ToString();
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -686,27 +702,59 @@ namespace UResidence.Controllers
 
             int aid = Convert.ToInt32(Session["ID"]);
 
-            
+            if (Session["IsEquipment"].ToString() == "False")
+            {
                 CheckSwimming cs = new CheckSwimming();
                 cs = CheckSwimmingController.Get(sd, aid);
-            if (cs == null)
-            {
-                return RedirectToAction("Summary", "Reserve");
-            }
-            else
-            {
-                if (cs.Capacity > 0)
+                if (cs == null)
                 {
-                    Response.Write("<script>alert('Successful')</script>");
                     return RedirectToAction("Summary", "Reserve");
-                   
                 }
                 else
                 {
-                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    if (cs.Capacity > 0)
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Summary", "Reserve");
+
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    }
                 }
             }
+            else
+            {
+                CheckSwimming cs = new CheckSwimming();
+                cs = CheckSwimmingController.Get(sd, aid);
+                if (cs == null)
+                {
+                    return RedirectToAction("Choose_Equipment", "Reserve");
+                }
+                else
+                {
+                    if (cs.Capacity > 0)
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Choose_Equipment", "Reserve");
+
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    }
+                }
+            }
+           
+
+
+
+
+
+
             return View();
         }
 

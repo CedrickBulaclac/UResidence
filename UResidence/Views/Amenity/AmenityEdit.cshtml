@@ -138,6 +138,8 @@
 						}
 					</div>
 
+
+
 					<div class="col-75">
 						@if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
 						{
@@ -158,6 +160,38 @@
 						}
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-25">
+						<p>
+							<label>Available for equipment :</label>
+						</p>
+					</div>
+
+					<div class="col-75">
+
+						@Html.EditorFor(model => model.IsEquipment)
+						@Html.ValidationMessageFor(model => model.IsEquipment, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-25">
+						<p>
+							<label>Available for weekends :</label>
+						</p>
+					</div>
+
+					<div class="col-75">
+
+						@Html.EditorFor(model => model.IsWeekend)
+						@Html.ValidationMessageFor(model => model.IsWeekend, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+
+
+
 				<div class="row">
 					<div class="col-25">
 						<p>

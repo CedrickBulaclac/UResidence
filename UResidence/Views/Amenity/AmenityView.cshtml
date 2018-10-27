@@ -98,29 +98,35 @@
 	<hr />
 	<table class="table table-bordered">
 		<thead>
-            <tr>
-                <th>
-                    Amenity Name
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    Capacity
-                </th>
-                <th>
-                    Rate
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
+			<tr>
+				<th>
+					Amenity Name
+				</th>
+				<th>
+					Image
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Location
+				</th>
+				<th>
+					Capacity
+				</th>
+				<th>
+					Rate
+				</th>
+				<th>
+					Equipment
+				</th>
+				<th>
+					Weekends
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
 		</thead>
 		<tbody>
 			@if (Model != null)
@@ -128,44 +134,48 @@
 				foreach (Amenity a in Model)
 				{
 
-            <tr>
+			<tr>
 
-                <td>
-                    @Html.DisplayFor(model => a.AmenityName)
-                </td>
-                <td>
-                    <a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set1('@a.Url')" aria-hidden="true">View Image</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(model => a.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => a.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => a.Capacity)
-                </td>
-                @if (a.Rate != 0)
-                {
-                    <td>
-                        <b>Rate:</b>	@Html.DisplayFor(model => a.Rate) 	<b>Evening Rate:</b> @Html.DisplayFor(model => a.EveRate)
-                    </td>
+				<td>
+					@Html.DisplayFor(model => a.AmenityName)
+				</td>
+				<td>
+					<a class="btn btn-info" id="btnViewImage" name="btnViewImage" onclick="Set1('@a.Url')" aria-hidden="true">View Image</a>
+				</td>
+				<td>
+					@Html.DisplayFor(model => a.Description)
+				</td>
+				<td>
+					@Html.DisplayFor(model => a.Location)
+				</td>
+				<td>
+					@Html.DisplayFor(model => a.Capacity)
+				</td>
+				@if (a.Rate != 0)
+				{
+					<td>
+						<b>Rate:</b>	@Html.DisplayFor(model => a.Rate) 	<b>Evening Rate:</b> @Html.DisplayFor(model => a.EveRate)
+					</td>
 
-                }
-                else
-                {
-                    <td>
-                        <b>Adult:</b> @Html.DisplayFor(model => a.Adult)  <b>Child:</b> @Html.DisplayFor(model => a.Child)
-                    </td>
-                }
+				}
+				else
+				{
+					<td>
+						<b>Adult:</b> @Html.DisplayFor(model => a.Adult)  <b>Child:</b> @Html.DisplayFor(model => a.Child)
+					</td>
+				}
+					<td>
+						@Html.DisplayFor(model => a.IsEquipment)
+					</td>
+					<td>
+						@Html.DisplayFor(model => a.IsWeekend)
+					</td>
+				<td>
+					<a class="btn btn-primary" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+					<a class="btn btn-danger" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+				</td>
 
-
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-                </td>
-
-            </tr>
+			</tr>
 				}
 			}
 		</tbody>

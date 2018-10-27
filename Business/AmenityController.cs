@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color!='Black' order by a.Id ";
+            const string GET_ALL = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color!='Black' order by a.Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -21,7 +21,7 @@ namespace UResidence
         
         public static List<Amenity> GetAllM()
         {
-            const string GET_ALL = @"  select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color='Black' order by a.Id ";
+            const string GET_ALL = @"  select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color='Black' order by a.Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -31,7 +31,7 @@ namespace UResidence
         }
         public static List<Amenity> GetPicById(int id)
         {
-            const string GET_ALL = @"select a.Id,Description,Capacity,AmenityName,ia.URL,Rate,Color,Location,EveningRate from tbAmenity a inner join tbImageAmenity ia on a.Id=ia.AmenityId where a.AmenityId=@Id";
+            const string GET_ALL = @"select a.Id,Description,Capacity,AmenityName,ia.URL,Rate,Color,Location,EveningRate,IsEquipment,IsWeekend from tbAmenity a inner join tbImageAmenity ia on a.Id=ia.AmenityId where a.AmenityId=@Id";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -42,7 +42,7 @@ namespace UResidence
         }
         public static Amenity GetbyAmenityName(string name)
         {
-            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId WHERE a.AmenityName = @AmenityName order by a.AmenityName ";
+            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId WHERE a.AmenityName = @AmenityName order by a.AmenityName ";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -55,7 +55,7 @@ namespace UResidence
 
         public static Amenity GetAmenityImage(int Id)
         {
-            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where a.Id=@Id and Color!='Black' order by Id ";
+            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where a.Id=@Id and Color!='Black' order by Id ";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -67,7 +67,7 @@ namespace UResidence
 
         public static Amenity GetbyId(int id)
         {
-            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId WHERE a.Id = @Id";
+            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId WHERE a.Id = @Id";
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", id));
@@ -77,7 +77,7 @@ namespace UResidence
 
         public static bool Update(Amenity amty)
         {
-            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, Rate=@Rate, Color=@Color , Location=@Location,EveningRate=@EveningRate WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAmenity] set Description= @Description, Capacity= @Capacity, AmenityName= @AmenityName, Rate=@Rate, Color=@Color , Location=@Location,EveningRate=@EveningRate,IsEquipment=@IsEquipment,IsWeekend=@IsWeekend WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
@@ -88,10 +88,12 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
             com.Parameters.Add(new SqlParameter("@Location", amty.Location));
             com.Parameters.Add(new SqlParameter("@EveningRate", amty.EveRate));
+            com.Parameters.Add(new SqlParameter("@IsEquipment", amty.IsEquipment));
+            com.Parameters.Add(new SqlParameter("@IsWeekend", amty.IsWeekend));
             return SqlManager.ExecuteNonQuery(com);
         }
 
-
+        
         public static bool UpdateImage(Amenity amty)
         {
             const string GET_UPDATE = @"update [tbAmenity] set URL=@Url WHERE Id = @Id";
@@ -114,7 +116,7 @@ namespace UResidence
       
         public static bool Insert(Amenity amty)
         {
-            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName,URL,Rate,Color,Location,EveningRate) values (@Description, @Capacity, @AmenityName,@Url,@Rate,@Color,@Location,@EveningRate)";
+            const string GET_INSERT = @"insert [tbAmenity] (Description,Capacity,AmenityName,URL,Rate,Color,Location,EveningRate,IsEquipment,IsWeekend) values (@Description, @Capacity, @AmenityName,@Url,@Rate,@Color,@Location,@EveningRate,@IsEquipment,@IsWeekend)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Description", amty.Description));
@@ -125,7 +127,8 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Color", amty.Color));
             com.Parameters.Add(new SqlParameter("@Location", amty.Location));
             com.Parameters.Add(new SqlParameter("@EveningRate", amty.EveRate));
-
+            com.Parameters.Add(new SqlParameter("@IsEquipment", amty.IsEquipment));
+            com.Parameters.Add(new SqlParameter("@IsWeekend", amty.IsWeekend));
             return SqlManager.ExecuteNonQuery(com);
         }
         public static bool InsertImage(Amenity amty)

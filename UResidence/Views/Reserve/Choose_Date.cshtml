@@ -162,31 +162,53 @@
 
 
 			<div class="progress" style="width:1400px;height:45px;">
-				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-					<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-				</div>
 
 
-				<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<a href="@Url.Action("Calendar","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-				</div>
+				@if (Session["IsEquipment"].ToString() == "True")
+				{
+					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+						<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+					</div>
+					<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+					</div>
 
 
-				<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-				</div>
+					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+					</div>
 
-				<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-				</div>
-				<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-					 aria-valuemin="0" aria-valuemax="100">
-					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-				</div>
+					<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+					</div>
+					<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+					</div>
+				}
+				else
+				{
+					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+						 aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+						<a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+					</div>
+					<div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+					</div>
+					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width:25%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+					</div>
+					<div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+						 aria-valuemin="0" aria-valuemax="100">
+						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+					</div>
+				}
 			</div>
 
 			<!--Progress bar end-->
@@ -346,7 +368,7 @@
 
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 	var F;
 	var endTime;
 	var selectedValue;
@@ -359,7 +381,7 @@
 	var rateA;
 	var statuset="Valid";
 	var statusst = "Valid";
-	
+
 
 
 
@@ -402,36 +424,38 @@
 		}
 	}
 	$(document).ready(
-		function () {			
+		function () {
 			document.getElementById('sd').value = "";
 			document.getElementById('st').value = "";
 			document.getElementById('et').value = "";
 			document.getElementById('rate').value = "";
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
-				
+
 				startDate = selectedValue;
 				endDate = selectedValue;
 
 				var date = $('#sd').val().split(",-");
-				
+
 				day = new Date(date);
 				var weekendday = day.getDay();
 				console.log(day.getDay());
 				var q = new Date();
 				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
 
-				var amenityname = "@ViewBag.name";
-				if (amenityname.toUpperCase().startsWith('BASKETBALL') == true) {
+			
+				var IsWeekend = "@ViewBag.isw";
+
+				if (IsWeekend.toString() == "False") {
 					if (weekendday == 6 || weekendday == 0) {
 						alert("Reservations are not available during weekends");
-						document.getElementById('sd').value = null;					
+						document.getElementById('sd').value = null;
 					}
 				}
 				if (startDate < MyDateString)
 				{
 					alert("Your chosen date is earlier than today");
-					document.getElementById('sd').value = null;				
+					document.getElementById('sd').value = null;
 				}
 			});
 
@@ -459,13 +483,13 @@
                     document.getElementById('rate').value = rateA.toFixed(2);
                 }
                 else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
-					var hourDiff = fhours - startHours;					
+					var hourDiff = fhours - startHours;
                     rateA = rate2 * hourDiff;
                     document.getElementById('rate').value = rateA.toFixed(2);
 				}
-				
+
             }
-           
+
 
         });
     });
@@ -495,13 +519,13 @@
 				else if (eh >= 18 && eh <= 21) {
 					rateA = rate2 * diff;
                     document.getElementById('rate').value = rateA.toFixed(2);
-				
+
 					if (sh < 18) {
 						var dd = eh - 18;
 						var ed = 18 - sh;
 						rateA = ((rate1 * ed) + (rate2 * dd));
                         document.getElementById('rate').value = rateA.toFixed(2);
-						
+
 					}
 					else {
 
@@ -513,7 +537,7 @@
 				}
 
 
-			
+
 
 			}
 
@@ -568,4 +592,4 @@
 	};
 
 
-</script>
+	</script>

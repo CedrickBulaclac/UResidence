@@ -140,7 +140,9 @@ namespace UResidence.Controllers
                     Rate = amen.Rate,
                     Color = amen.Color,
                     Location = amen.Location,
-                    EveRate = amen.EveRate
+                    EveRate = amen.EveRate,
+                    IsEquipment = amen.IsEquipment,
+                    IsWeekend = amen.IsWeekend
                 };
        
             if (amen.Validate(out err))
@@ -157,7 +159,9 @@ namespace UResidence.Controllers
                         Rate = amen.Rate,
                         Color = amen.Color,
                         Location = amen.Location,
-                        EveRate = amen.EveRate
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                 }
@@ -172,7 +176,9 @@ namespace UResidence.Controllers
                         Rate = amen.Rate,
                         Color = amen.Color,
                         Location = amen.Location,
-                        EveRate = amen.EveRate
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                 }
@@ -439,7 +445,9 @@ namespace UResidence.Controllers
                     Rate = 0,
                     Color = amen.Color,
                     Location= amen.Location,
-                    EveRate=amen.EveRate
+                    EveRate=amen.EveRate,
+                    IsEquipment = amen.IsEquipment,
+                    IsWeekend = amen.IsWeekend
                 };
                 if (a.Validate(out err))
                 {
@@ -469,7 +477,9 @@ namespace UResidence.Controllers
                     Rate = amen.Rate,
                     Color = amen.Color,
                     Location = amen.Location,
-                    EveRate = amen.EveRate
+                    EveRate = amen.EveRate,
+                    IsEquipment = amen.IsEquipment,
+                    IsWeekend = amen.IsWeekend
                 };
                 if (a.Validate(out err))
                 {
@@ -554,7 +564,9 @@ namespace UResidence.Controllers
                 Rate = 0,
                 Color = amen.Color,
                 Location = amen.Location,
-                EveRate = 0
+                EveRate = 0,
+                IsEquipment = amen.IsEquipment,
+                IsWeekend = amen.IsWeekend
             };
 
             if (amen.Validate(out err))
@@ -570,7 +582,9 @@ namespace UResidence.Controllers
                         Rate = amen.Rate,
                         Color = amen.Color,
                         Location = amen.Location,
-                        EveRate = amen.EveRate
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                      amenID = amen.Id;
@@ -599,7 +613,9 @@ namespace UResidence.Controllers
                         Rate = amen.Rate,
                         Color = amen.Color,
                         Location = amen.Location,
-                        EveRate = amen.EveRate
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend
                     };
                     ViewBag.Message = UResidence.AmenityController.Insert(aa);
                     amenID = amen.Id;

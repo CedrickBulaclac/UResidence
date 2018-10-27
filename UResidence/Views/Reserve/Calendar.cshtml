@@ -18,31 +18,53 @@
 <div>
 	<center>
 		<div class="progress" style="width:1400px;height:45px;">
-			<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-				 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-				<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-			</div>
 
 
-			<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
-				 aria-valuemin="0" aria-valuemax="100">
-				<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
-			</div>
+			@if (Session["IsEquipment"].ToString() == "True")
+			{
+				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+					 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+					<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+				</div>
+				<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
+				</div>
 
 
-			<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-				 aria-valuemin="0" aria-valuemax="100">
-				<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-			</div>
+				<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+				</div>
 
-			<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-				 aria-valuemin="0" aria-valuemax="100">
-				<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-			</div>
-			<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-				 aria-valuemin="0" aria-valuemax="100">
-				<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-			</div>
+				<div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+				</div>
+				<div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+				</div>
+			}
+			else
+			{
+				<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+					 aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+					<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+				</div>
+				<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:25%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
+				</div>
+				<div class="progress-bar " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+				</div>
+				<div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+					 aria-valuemin="0" aria-valuemax="100">
+					<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+				</div>
+			}
 		</div>
 
 	</center>
