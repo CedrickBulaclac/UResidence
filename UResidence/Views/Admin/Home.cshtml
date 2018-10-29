@@ -8,29 +8,9 @@
 	{
 		Layout = "/Views/Layout/BossManagerLayout.cshtml";
 	}
-	else if (Convert.ToInt32(Session["Level"]) == 2)
+	else
 	{
-		Layout = "/Views/Layout/FinanceLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 3)
-	{
-		Layout = "/Views/Layout/CashierLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 4)
-	{
-		Layout = "/Views/Layout/ReservationLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 5)
-	{
-		Layout = "/Views/Layout/RegistrationLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 6)
-	{
-		Layout = "/Views/Layout/OICLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 7)
-	{
-		Layout = "/Views/Layout/SecurityGuardLayout.cshtml";
+		Layout = "/Views/Layout/AdminLayout.cshtml";
 	}
 
 }

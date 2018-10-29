@@ -19,24 +19,26 @@ namespace UResidence
         public int OwnerId { get; set; }
         public string UnitNo { get; set; }
         public string BldgNo { get; set; }
-        public int Rate { get; set; }
+        public decimal Rate { get; set; }
+        public decimal EveningRate { get; set; }
         public int AmenityHour { get; set; }
-        public int TotalAmenityRate { get; set; }
+        public decimal TotalAmenityRate { get; set; }
         public int RefNo { get; set; }
         public string EquipmentName { get; set; }
-        public int EquipmentRate { get; set; }
+        public decimal EquipmentRate { get; set; }
         public int EquipmentQuantity { get; set; }
-        public int EquipmentCost { get; set; }
+        public decimal EquipmentCost { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }
-        public int Charge { get; set; }
-        public int TotalPayment { get; set; }
+        public decimal Charge { get; set; }
+        public decimal Totalpayment { get; set; }
         public string Description { get; set; }
         public DateTime DateP { get; set; }
-        public int AdultRate { get; set; }
-        public int ChildRate { get; set; }
+        public decimal AdultRate { get; set; }
+        public decimal ChildRate { get; set; }
         public DateTime Starttime{get;set;}
         public DateTime EndTime { get; set; }
+        public decimal TotalEquipmentRate { get; set; }
         public ReportReservation CreateObject(SqlDataReader reader)
         {
             ReportReservation ret = new ReportReservation();
@@ -48,16 +50,17 @@ namespace UResidence
             ret.EndTime = reader.GetDateTime(5);
             ret.DateofReservation = reader.GetString(6);   
             ret.AmenityName = reader.GetString(7);
-            ret.Rate = reader.GetInt32(8);          
-            ret.AmenityHour = reader.GetInt32(9);
-            ret.TotalAmenityRate = reader.GetInt32(10);
-            ret.Date = reader.GetDateTime(11);           
-            ret.TypeResident = reader.GetString(12);        
-            ret.Charge = reader.GetInt32(13);
-            ret.TotalPayment = reader.GetInt32(14);
-            ret.Description = reader.GetString(15);
-            ret.DateP = reader.GetDateTime(16);
-
+            ret.Rate = reader.GetDecimal(8);
+            ret.EveningRate = reader.GetDecimal(9);
+            ret.AmenityHour = reader.GetInt32(10);
+            ret.TotalAmenityRate = reader.GetDecimal(11);
+            ret.Date = reader.GetDateTime(12);           
+            ret.TypeResident = reader.GetString(13);        
+            ret.Charge = reader.GetDecimal(14);
+            ret.Totalpayment = reader.GetDecimal(15);
+            ret.Description = reader.GetString(16);
+            ret.DateP = reader.GetDateTime(17);
+            ret.TotalEquipmentRate = reader.GetDecimal(18);
             return ret;
         }
 

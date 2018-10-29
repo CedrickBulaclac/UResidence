@@ -50,7 +50,7 @@ namespace UResidence
             const string GET_UPDATE = @"update [tbEquipReservation] set EquipmentId= @EquipId, Quantity= @Quantity, RefNo= @RefNo WHERE EquipmentId = @EquipId";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
-            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipId));
+            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipmentId));
             com.Parameters.Add(new SqlParameter("@Quantity", eqp.Quantity));
             com.Parameters.Add(new SqlParameter("@RefNo", eqp.RefNo));
 
@@ -72,7 +72,7 @@ namespace UResidence
             const string GET_INSERT = @"insert [tbEquipReservation] (EquipmentId,Quantity,RefNo,Rate) values (@EquipId, @Quantity, @RefNo,@Rate)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
-            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipId));
+            com.Parameters.Add(new SqlParameter("@EquipId", eqp.EquipmentId));
             com.Parameters.Add(new SqlParameter("@Quantity", eqp.Quantity));
             com.Parameters.Add(new SqlParameter("@RefNo", eqp.RefNo));
             com.Parameters.Add(new SqlParameter("@Rate", eqp.Rate));

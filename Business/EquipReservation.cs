@@ -8,7 +8,7 @@ namespace UResidence
 {
     public class EquipReservation : BaseProperty<EquipReservation>
     {
-       public int EquipId { get; set; }
+       public int EquipmentId { get; set; }
        public int Quantity  { get; set; }
        public int RefNo { get; set; }
         public decimal Rate { get; set; }
@@ -16,7 +16,7 @@ namespace UResidence
         public EquipReservation CreateObject(SqlDataReader reader)
         {
             EquipReservation ret = new EquipReservation();
-            ret.EquipId = reader.GetInt32(0);
+            ret.EquipmentId = reader.GetInt32(0);
             ret.Quantity = reader.GetInt32(1);
             ret.RefNo = reader.GetInt32(2);
             ret.Rate = reader.GetDecimal(3);
@@ -25,7 +25,7 @@ namespace UResidence
         }
         public void Reset()
         {
-            this.EquipId = 0;
+            this.EquipmentId = 0;
             this.Quantity = 0;
             this.RefNo = 0;
             this.Rate = 0;

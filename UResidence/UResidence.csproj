@@ -181,6 +181,11 @@
     <Compile Include="Controllers\BossManagerController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
+    <Compile Include="EquipmentReservation.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquipmentReservation.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,10 +196,20 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ReservationListt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReservationListt.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReservationO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReservationO.xsd</DependentUpon>
     </Compile>
     <Compile Include="ReversalListt.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -231,22 +246,10 @@
       <DependentUpon>ReservationFormT.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Views\Report\ReservationList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationList.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Views\Report\ReserveSwimmingO.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReserveSwimmingO.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\Report\ReversalList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReversalList.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -364,6 +367,17 @@
     <Content Include="OwnerList.xsc">
       <DependentUpon>OwnerList.xsd</DependentUpon>
     </Content>
+    <Content Include="EquipmentReservation.xsc">
+      <DependentUpon>EquipmentReservation.xsd</DependentUpon>
+    </Content>
+    <None Include="EquipmentReservation.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EquipmentReservation.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="EquipmentReservation.xss">
+      <DependentUpon>EquipmentReservation.xsd</DependentUpon>
+    </Content>
     <None Include="OwnerList.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>OwnerList.Designer.cs</LastGenOutput>
@@ -375,6 +389,10 @@
     <Content Include="ReservationListt.xsc">
       <DependentUpon>ReservationListt.xsd</DependentUpon>
     </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="ReservationListt.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReservationListt.Designer.cs</LastGenOutput>
@@ -385,6 +403,17 @@
     </Content>
     <Content Include="ReversalListt.xsc">
       <DependentUpon>ReversalListt.xsd</DependentUpon>
+    </Content>
+    <Content Include="ReservationO.xsc">
+      <DependentUpon>ReservationO.xsd</DependentUpon>
+    </Content>
+    <None Include="ReservationO.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReservationO.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ReservationO.xss">
+      <DependentUpon>ReservationO.xsd</DependentUpon>
     </Content>
     <None Include="ReversalListt.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -541,6 +570,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
     <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
+    <EmbeddedResource Include="Views\Report\ReservationFormO.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationFormO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReservationFormO.cs</LastGenOutput>
@@ -559,17 +589,9 @@
       <LastGenOutput>ReservationFormT.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
-    <EmbeddedResource Include="Views\Report\ReservationList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReservationList.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReserveSwimmingO.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReserveSwimmingO.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\ReversalList.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReversalList.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />
     <EmbeddedResource Include="Views\Report\TenantList.rdlc" />

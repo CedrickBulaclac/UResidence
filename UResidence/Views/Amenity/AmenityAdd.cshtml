@@ -2,7 +2,7 @@
 @model UResidence.Amenity
 
 @{
-	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	Layout = "/Views/Layout/AdminLayout.cshtml";
 	ViewBag.Title = "AmenityAdd";
 
 }
@@ -199,6 +199,41 @@
 
 				</div>
 			</div>
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Amenity Name">Available for weekends :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+					
+
+
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="col-25">
+
+					<label for="Amenity Name">Equipment :</label>
+
+				</div>
+
+				<div class="col-75">
+					@Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+					
+
+
+				</div>
+			</div>
+
+
 
 			<div class="row">
 				<div class="col-25">

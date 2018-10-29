@@ -4,7 +4,7 @@
     string reserved = "Reserved";
     string cancelled = "Cancelled";
     string status = "";
-    Layout = "/Views/Layout/FinanceLayout.cshtml";
+    Layout = "/Views/Layout/AdminLayout.cshtml";
 }
 
 
@@ -68,7 +68,10 @@
 
 							<br /><br />
 							<button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+							@if(Session["ReversalModule"].ToString() == "True")
+							{
 							<button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
+							}
 							<button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
 
 

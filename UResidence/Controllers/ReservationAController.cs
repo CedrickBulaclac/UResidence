@@ -423,7 +423,7 @@ namespace UResidence.Controllers
                                 EquipReservation er = new EquipReservation
                                 {
 
-                                    EquipId = Convert.ToInt32(eid[i]),
+                                    EquipmentId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
                                     Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),
@@ -561,25 +561,27 @@ namespace UResidence.Controllers
 
 
                     decimal balance = 0;
-                    List<Billing> billing = new List<Billing>();
+                    List<ReservationList> revlist = new List<ReservationList>();
                     int uid = Convert.ToInt32(Session["UIDA"]);
                     string type = (Session["TORA"]).ToString();
                     if (type == "Owner")
                     {
-                        billing = UResidence.BillingController.GetOwner(uid);
+                        revlist = UResidence.ReservationListController.GetAllO(uid);
                     }
                     else
                     {
-                        billing = UResidence.BillingController.GetTenant(uid);
+                        revlist = UResidence.ReservationListController.GetAllT(uid);
                     }
-                    for (int i = 0; i <= billing.Count - 1; i++)
+                    if (revlist.Count > 0)
                     {
-                        balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
+                        for (int i = 0; i <= revlist.Count - 1; i++)
+                        {
+                            balance += revlist[i].Outstanding;
+                        }
                     }
-                    if (balance > 0)
+                        if (balance > 0)
                     {
-                        Session["status"] = true;
-                        //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
+                        Session["status"] = true;                 
                         decimal data;
                         return Json(data = balance );
 
@@ -637,22 +639,25 @@ namespace UResidence.Controllers
                     else
                     { 
                     decimal balance = 0;
-                    List<Billing> billing = new List<Billing>();
-                    int uid = Convert.ToInt32(Session["UIDA"]);
+                        List<ReservationList> revlist = new List<ReservationList>();
+                        int uid = Convert.ToInt32(Session["UIDA"]);
                     string type = (Session["TORA"]).ToString();
-                    if (type == "Owner")
-                    {
-                        billing = UResidence.BillingController.GetOwner(uid);
-                    }
-                    else
-                    {
-                        billing = UResidence.BillingController.GetTenant(uid);
-                    }
-                    for (int i = 0; i <= billing.Count - 1; i++)
-                    {
-                        balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
-                    }
-                    if (balance > 0)
+                        if (type == "Owner")
+                        {
+                            revlist = UResidence.ReservationListController.GetAllO(uid);
+                        }
+                        else
+                        {
+                            revlist = UResidence.ReservationListController.GetAllT(uid);
+                        }
+                        if (revlist.Count > 0)
+                        {
+                            for (int i = 0; i <= revlist.Count - 1; i++)
+                            {
+                                balance += revlist[i].Outstanding;
+                            }
+                        }
+                        if (balance > 0)
                     {
                         Session["status"] = true;
                         //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");

@@ -25,7 +25,7 @@ namespace UResidence
         [StringLength(30, ErrorMessage = "Amenity Name cannot be longer than 30 characters.")]
         public string AmenityName { get; set; }
         public string Url { get; set; }
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
+        [RegularExpression("^[0-9 .]*$", ErrorMessage = "Numbers only")]
         [DataType(DataType.Currency)]
         public decimal Rate { get; set; }
 
@@ -40,9 +40,12 @@ namespace UResidence
         public decimal Adult { get; set; }
         [DataType(DataType.Currency)]
         public decimal Child { get; set; }
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
+        [RegularExpression("^[0-9 .]*$", ErrorMessage = "Numbers only")]
         [DataType(DataType.Currency)]
         public decimal EveRate { get; set; }
+
+        public bool IsEquipment { get; set; }
+        public bool IsWeekend { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -57,6 +60,8 @@ namespace UResidence
             ret.Adult = reader.GetDecimal(8);
             ret.Child = reader.GetDecimal(9);
             ret.EveRate = reader.GetDecimal(10);
+            ret.IsEquipment = reader.GetBoolean(11);
+            ret.IsWeekend = reader.GetBoolean(12);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -105,6 +110,8 @@ namespace UResidence
             this.Color = string.Empty;
             this.Location = string.Empty;
             this.EveRate = 0;
+            this.IsEquipment = false;
+            this.IsWeekend = false;
         }
        
     }

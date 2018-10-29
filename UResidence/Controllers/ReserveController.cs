@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using CrystalDecisions.CrystalReports.Engine;
-
+using Microsoft.Reporting.WebForms;
 
 namespace UResidence.Controllers
 {
@@ -128,6 +128,18 @@ namespace UResidence.Controllers
             decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
             decimal everate= Convert.ToDecimal(fc["eve"]);
+         
+
+            Amenity amm = UResidence.AmenityController.GetbyId(aid);
+            bool IsE = amm.IsEquipment;
+            bool IsW = amm.IsWeekend;
+
+
+            ViewBag.ise = IsE.ToString();
+            ViewBag.isw = IsW.ToString();
+
+            Session["IsEquipment"] = ViewBag.ise;
+            Session["IsWeekend"] = ViewBag.isw;
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
@@ -187,13 +199,15 @@ namespace UResidence.Controllers
             ViewBag.name = (Session["NAME"]).ToString();
             ViewBag.Message = Convert.ToDecimal(Session["RATE"]);
             ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
+            ViewBag.isw = (Session["IsWeekend"]).ToString();
             return View();
         }
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-            string nameamenity = (Session["NAME"]).ToString();
-            if (nameamenity.ToUpper().Contains("BASKETBALL"))
+           
+            //string nameamenity = (Session["NAME"]).ToString();
+            if (Session["IsEquipment"].ToString() == "False")
             {
                 string result = Convert.ToString(fc["result"]);
                 if (result != "1")
@@ -284,6 +298,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
+           
                 int[] eqpid;        
                 int oldid = 0;
                 int stock = 0;
@@ -491,7 +506,7 @@ namespace UResidence.Controllers
                                 EquipReservation er = new EquipReservation
                                 {
 
-                                    EquipId = Convert.ToInt32(eid[i]),
+                                    EquipmentId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
                                     Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),
@@ -644,6 +659,7 @@ namespace UResidence.Controllers
      
         public ActionResult Swimming()
         {
+            ViewBag.isw = (Session["IsWeekend"]).ToString();
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -686,27 +702,59 @@ namespace UResidence.Controllers
 
             int aid = Convert.ToInt32(Session["ID"]);
 
-            
+            if (Session["IsEquipment"].ToString() == "False")
+            {
                 CheckSwimming cs = new CheckSwimming();
                 cs = CheckSwimmingController.Get(sd, aid);
-            if (cs == null)
-            {
-                return RedirectToAction("Summary", "Reserve");
-            }
-            else
-            {
-                if (cs.Capacity > 0)
+                if (cs == null)
                 {
-                    Response.Write("<script>alert('Successful')</script>");
                     return RedirectToAction("Summary", "Reserve");
-                   
                 }
                 else
                 {
-                    Response.Write("<script>alert('Your chosen date and time is not available')</script>");
-                    ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    if (cs.Capacity > 0)
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Summary", "Reserve");
+
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    }
                 }
             }
+            else
+            {
+                CheckSwimming cs = new CheckSwimming();
+                cs = CheckSwimmingController.Get(sd, aid);
+                if (cs == null)
+                {
+                    return RedirectToAction("Choose_Equipment", "Reserve");
+                }
+                else
+                {
+                    if (cs.Capacity > 0)
+                    {
+                        Response.Write("<script>alert('Successful')</script>");
+                        return RedirectToAction("Choose_Equipment", "Reserve");
+
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Your chosen date and time is not available')</script>");
+                        ViewBag.Message = Convert.ToInt32(Session["RATE"]);
+                    }
+                }
+            }
+           
+
+
+
+
+
+
             return View();
         }
 
@@ -735,47 +783,43 @@ namespace UResidence.Controllers
         {
             string tor = Session["TOR"].ToString();
             List<ReportReservation> data = default(List<ReportReservation>);
-            ReportDocument rd = new ReportDocument();
+            List<EquipReservation> data1 = default(List<EquipReservation>);
             if (tor == "Owner")
             {
-               
+
                 data = UResidence.ReportReservationAmenityController.GETO(refno1);
-                if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
-                {
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormSwimO.rpt"));
-                }
-                else
-                {
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormO.rpt"));
-                }
+                data1 = UResidence.EquipReservationController.Getr(refno1);
+               
             }
             else
             {
                 data = UResidence.ReportReservationAmenityController.GETT(refno1);
-                if ((data[0].AmenityName).ToUpper().Contains("SWIMMING"))
-                {
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormSwimT.rpt"));
-                }
-                else
-                {
-                    rd.Load(Path.Combine(Server.MapPath("~/Views/Report"), "ReservationFormT.rpt"));
-                }
-            }          
-            rd.SetDataSource(data.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            try
-            {
-                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "Reservation.pdf");
-               
+                data1 = UResidence.EquipReservationController.Getr(refno1);
+              
             }
-            catch (Exception)
-            {
-                throw;              
-            }
+            LocalReport localreport = new LocalReport();
+            localreport.ReportPath = Server.MapPath("~/Views/Report/ReservationFormO.rdlc");
+            ReportDataSource rd1 = new ReportDataSource();
+            ReportDataSource rd2 = new ReportDataSource();
+            ReportDataSource rd = new ReportDataSource();
+
+            rd.Name = "ReservationO";
+            rd.Value = data.ToList();
+            localreport.DataSources.Add(rd);
+            rd1.Name = "EquipmentReservation";
+            rd1.Value = data1.ToList();
+            localreport.DataSources.Add(rd1);      
+            string reportType = "PDF";
+            string mimetype;
+            string encoding;
+            string filenameExtension = "pdf";
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderbyte;
+            string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
+            renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
+            Response.AddHeader("content-disposition", "attachment;filename=ReservationForm." + filenameExtension);
+            return File(renderbyte, filenameExtension);
           
         }
    
