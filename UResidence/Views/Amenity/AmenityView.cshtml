@@ -2,7 +2,7 @@
 
 @{
 	/**/
-	Layout = "/Views/Layout/RegistrationLayout.cshtml";
+	Layout = "/Views/Layout/AdminLayout.cshtml";
 	ViewBag.Title = "AmenityView";
 
 }
@@ -116,13 +116,7 @@
 				</th>
 				<th>
 					Rate
-				</th>
-				<th>
-					Equipment
-				</th>
-				<th>
-					Weekends
-				</th>
+				</th>			
 				<th>
 					Actions
 				</th>
@@ -163,13 +157,7 @@
 					<td>
 						<b>Adult:</b> @Html.DisplayFor(model => a.Adult)  <b>Child:</b> @Html.DisplayFor(model => a.Child)
 					</td>
-				}
-					<td>
-						@Html.DisplayFor(model => a.IsEquipment)
-					</td>
-					<td>
-						@Html.DisplayFor(model => a.IsWeekend)
-					</td>
+				}			
 				<td>
 					<a class="btn btn-primary" href="@Url.Action("AmenityEdit", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
 					<a class="btn btn-danger" href="@Url.Action("Delete", "Amenity", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>

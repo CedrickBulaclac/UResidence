@@ -71,15 +71,20 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
-
-            int level = Convert.ToInt32(Session["Level"]);
-
-            if (level <= 7)
-            {
+            int level = Convert.ToInt32(Session["Level"]);      
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
-            }
+            ViewBag.ReservationModule = a.ReservationModule;
+            ViewBag.RegistrationModule = a.RegistrationModule;
+            ViewBag.LogBookModule = a.LogBookModule;
+            ViewBag.PaymentModule = a.PaymentModule;
+            ViewBag.ReversalModule = a.ReversalModule;
+            Session["ReservationModule"] = ViewBag.ReservationModule;
+            Session["RegistrationModule"] = ViewBag.RegistrationModule;
+            Session["LogBookModule"] = ViewBag.LogBookModule;
+            Session["PaymentModule"] = ViewBag.PaymentModule;
+            Session["ReversalModule"] = ViewBag.ReversalModule;
             return View();
         }
         public static string Hash(string p)
@@ -112,7 +117,12 @@ namespace UResidence.Controllers
                         CelNo = adm.CelNo,
                         Email = adm.Email,
                         Deleted = "0",
-                        URL = "~/Content/AdminImages/user.png"
+                        URL = "~/Content/AdminImages/user.png",
+                        ReservationModule = adm.ReservationModule,
+                        RegistrationModule = adm.RegistrationModule,
+                        PaymentModule = adm.PaymentModule,
+                        ReversalModule = adm.ReversalModule,
+                        LogBookModule = adm.LogBookModule 
                     };
 
                     UResidence.AdminController.Insert(ad);
@@ -160,12 +170,11 @@ namespace UResidence.Controllers
         public ActionResult AdminView()
         {
             int level = Convert.ToInt32(Session["Level"]);
-            if (level <= 7)
-            {
+          
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
-            }
+          
             List<Admin> adminList = UResidence.AdminController.GetAll();
             return View(adminList);
         }

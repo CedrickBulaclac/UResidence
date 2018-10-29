@@ -42,6 +42,14 @@ namespace UResidence
         public string Fullname { get; set; }
         public string Birthday { get; set; }
         public HttpPostedFileBase Image { get; set; }
+        public bool ReservationModule { get; set; }
+        public bool RegistrationModule { get; set; }
+        public bool PaymentModule { get; set; }
+        public bool ReversalModule { get; set; }
+        public bool LogBookModule { get; set; }
+
+
+
         public Admin CreateObject(SqlDataReader reader)
         {
             Admin ret = new Admin();
@@ -57,6 +65,11 @@ namespace UResidence
             ret.Role = reader.GetString(9);
             ret.Fullname = reader.GetString(10);
             ret.Birthday = reader.GetString(11);
+            ret.ReservationModule = reader.GetBoolean(12);
+            ret.RegistrationModule = reader.GetBoolean(13);
+            ret.PaymentModule = reader.GetBoolean(14);
+            ret.ReversalModule = reader.GetBoolean(15);
+            ret.LogBookModule = reader.GetBoolean(16);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -87,6 +100,11 @@ namespace UResidence
             this.Email = string.Empty;
             this.Deleted = string.Empty;
             this.URL = string.Empty;
+            this.ReservationModule = false;
+            this.RegistrationModule = false;
+            this.PaymentModule = false;
+            this.ReversalModule = false;
+            this.LogBookModule = false;
         }
     }
 
