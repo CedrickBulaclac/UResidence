@@ -423,7 +423,7 @@ namespace UResidence.Controllers
                                 EquipReservation er = new EquipReservation
                                 {
 
-                                    EquipId = Convert.ToInt32(eid[i]),
+                                    EquipmentId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
                                     Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),

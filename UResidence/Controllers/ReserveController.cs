@@ -506,7 +506,7 @@ namespace UResidence.Controllers
                                 EquipReservation er = new EquipReservation
                                 {
 
-                                    EquipId = Convert.ToInt32(eid[i]),
+                                    EquipmentId = Convert.ToInt32(eid[i]),
                                     Quantity = Convert.ToInt32(equantity[i]),
                                     RefNo = refno,
                                     Rate = Convert.ToDecimal(ratee[i]) * Convert.ToInt32(equantity[i]),
@@ -783,21 +783,32 @@ namespace UResidence.Controllers
         {
             string tor = Session["TOR"].ToString();
             List<ReportReservation> data = default(List<ReportReservation>);
+            List<EquipReservation> data1 = default(List<EquipReservation>);
             if (tor == "Owner")
             {
 
                 data = UResidence.ReportReservationAmenityController.GETO(refno1);
+                data1 = UResidence.EquipReservationController.Getr(refno1);
+               
             }
             else
             {
                 data = UResidence.ReportReservationAmenityController.GETT(refno1);
+                data1 = UResidence.EquipReservationController.Getr(refno1);
+              
             }
             LocalReport localreport = new LocalReport();
             localreport.ReportPath = Server.MapPath("~/Views/Report/ReservationFormO.rdlc");
+            ReportDataSource rd1 = new ReportDataSource();
+            ReportDataSource rd2 = new ReportDataSource();
             ReportDataSource rd = new ReportDataSource();
+
             rd.Name = "ReservationO";
             rd.Value = data.ToList();
             localreport.DataSources.Add(rd);
+            rd1.Name = "EquipmentReservation";
+            rd1.Value = data1.ToList();
+            localreport.DataSources.Add(rd1);      
             string reportType = "PDF";
             string mimetype;
             string encoding;

@@ -20,17 +20,17 @@ namespace UResidence {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ReservationO")]
+    [global::System.Xml.Serialization.XmlRootAttribute("EquipmentReservation")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ReservationO : global::System.Data.DataSet {
+    public partial class EquipmentReservation : global::System.Data.DataSet {
         
-        private ReservationODataTable tableReservationO;
+        private EquipmentReservationDataTable tableEquipmentReservation;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public ReservationO() {
+        public EquipmentReservation() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace UResidence {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        protected ReservationO(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected EquipmentReservation(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace UResidence {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["ReservationO"] != null)) {
-                    base.Tables.Add(new ReservationODataTable(ds.Tables["ReservationO"]));
+                if ((ds.Tables["EquipmentReservation"] != null)) {
+                    base.Tables.Add(new EquipmentReservationDataTable(ds.Tables["EquipmentReservation"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace UResidence {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ReservationODataTable _ReservationO {
+        public EquipmentReservationDataTable _EquipmentReservation {
             get {
-                return this.tableReservationO;
+                return this.tableEquipmentReservation;
             }
         }
         
@@ -127,7 +127,7 @@ namespace UResidence {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ReservationO cln = ((ReservationO)(base.Clone()));
+            EquipmentReservation cln = ((EquipmentReservation)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace UResidence {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["ReservationO"] != null)) {
-                    base.Tables.Add(new ReservationODataTable(ds.Tables["ReservationO"]));
+                if ((ds.Tables["EquipmentReservation"] != null)) {
+                    base.Tables.Add(new EquipmentReservationDataTable(ds.Tables["EquipmentReservation"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace UResidence {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableReservationO = ((ReservationODataTable)(base.Tables["ReservationO"]));
+            this.tableEquipmentReservation = ((EquipmentReservationDataTable)(base.Tables["EquipmentReservation"]));
             if ((initTable == true)) {
-                if ((this.tableReservationO != null)) {
-                    this.tableReservationO.InitVars();
+                if ((this.tableEquipmentReservation != null)) {
+                    this.tableEquipmentReservation.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace UResidence {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ReservationO";
+            this.DataSetName = "EquipmentReservation";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ReservationO.xsd";
+            this.Namespace = "http://tempuri.org/EquipmentReservation.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableReservationO = new ReservationODataTable();
-            base.Tables.Add(this.tableReservationO);
+            this.tableEquipmentReservation = new EquipmentReservationDataTable();
+            base.Tables.Add(this.tableEquipmentReservation);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private bool ShouldSerialize_ReservationO() {
+        private bool ShouldSerialize_EquipmentReservation() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace UResidence {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ReservationO ds = new ReservationO();
+            EquipmentReservation ds = new EquipmentReservation();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,57 +270,29 @@ namespace UResidence {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public delegate void ReservationORowChangeEventHandler(object sender, ReservationORowChangeEvent e);
+        public delegate void EquipmentReservationRowChangeEventHandler(object sender, EquipmentReservationRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ReservationODataTable : global::System.Data.TypedTableBase<ReservationORow> {
+        public partial class EquipmentReservationDataTable : global::System.Data.TypedTableBase<EquipmentReservationRow> {
             
-            private global::System.Data.DataColumn columnBldgNo;
+            private global::System.Data.DataColumn columnEquipmentId;
             
-            private global::System.Data.DataColumn columnUnitNo;
-            
-            private global::System.Data.DataColumn columnOwnerName;
+            private global::System.Data.DataColumn columnQuantity;
             
             private global::System.Data.DataColumn columnRefNo;
             
-            private global::System.Data.DataColumn columnStartTime;
-            
-            private global::System.Data.DataColumn columnEndTIme;
-            
-            private global::System.Data.DataColumn columnDateofReservation;
-            
-            private global::System.Data.DataColumn columnAmenityName;
-            
             private global::System.Data.DataColumn columnRate;
             
-            private global::System.Data.DataColumn columnEveningRate;
-            
-            private global::System.Data.DataColumn columnAmenityHour;
-            
-            private global::System.Data.DataColumn columnTotalAmenityRate;
-            
-            private global::System.Data.DataColumn columnDate;
-            
-            private global::System.Data.DataColumn columnTypeResident;
-            
-            private global::System.Data.DataColumn columnCharge;
-            
-            private global::System.Data.DataColumn columnTotalpayment;
-            
-            private global::System.Data.DataColumn columnDescription;
-            
-            private global::System.Data.DataColumn columnDateP;
-            
-            private global::System.Data.DataColumn columnTotalEquipmentRate;
+            private global::System.Data.DataColumn columnEquipmentName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationODataTable() {
-                this.TableName = "ReservationO";
+            public EquipmentReservationDataTable() {
+                this.TableName = "EquipmentReservation";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -328,7 +300,7 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal ReservationODataTable(global::System.Data.DataTable table) {
+            internal EquipmentReservationDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -345,32 +317,24 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            protected ReservationODataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected EquipmentReservationDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn BldgNoColumn {
+            public global::System.Data.DataColumn EquipmentIdColumn {
                 get {
-                    return this.columnBldgNo;
+                    return this.columnEquipmentId;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn UnitNoColumn {
+            public global::System.Data.DataColumn QuantityColumn {
                 get {
-                    return this.columnUnitNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn OwnerNameColumn {
-                get {
-                    return this.columnOwnerName;
+                    return this.columnQuantity;
                 }
             }
             
@@ -384,38 +348,6 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn StartTimeColumn {
-                get {
-                    return this.columnStartTime;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn EndTImeColumn {
-                get {
-                    return this.columnEndTIme;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DateofReservationColumn {
-                get {
-                    return this.columnDateofReservation;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn AmenityNameColumn {
-                get {
-                    return this.columnAmenityName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn RateColumn {
                 get {
                     return this.columnRate;
@@ -424,81 +356,9 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn EveningRateColumn {
+            public global::System.Data.DataColumn EquipmentNameColumn {
                 get {
-                    return this.columnEveningRate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn AmenityHourColumn {
-                get {
-                    return this.columnAmenityHour;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn TotalAmenityRateColumn {
-                get {
-                    return this.columnTotalAmenityRate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DateColumn {
-                get {
-                    return this.columnDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn TypeResidentColumn {
-                get {
-                    return this.columnTypeResident;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn ChargeColumn {
-                get {
-                    return this.columnCharge;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn TotalpaymentColumn {
-                get {
-                    return this.columnTotalpayment;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DescriptionColumn {
-                get {
-                    return this.columnDescription;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DatePColumn {
-                get {
-                    return this.columnDateP;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn TotalEquipmentRateColumn {
-                get {
-                    return this.columnTotalEquipmentRate;
+                    return this.columnEquipmentName;
                 }
             }
             
@@ -513,81 +373,49 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationORow this[int index] {
+            public EquipmentReservationRow this[int index] {
                 get {
-                    return ((ReservationORow)(this.Rows[index]));
+                    return ((EquipmentReservationRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event ReservationORowChangeEventHandler ReservationORowChanging;
+            public event EquipmentReservationRowChangeEventHandler EquipmentReservationRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event ReservationORowChangeEventHandler ReservationORowChanged;
+            public event EquipmentReservationRowChangeEventHandler EquipmentReservationRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event ReservationORowChangeEventHandler ReservationORowDeleting;
+            public event EquipmentReservationRowChangeEventHandler EquipmentReservationRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event ReservationORowChangeEventHandler ReservationORowDeleted;
+            public event EquipmentReservationRowChangeEventHandler EquipmentReservationRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void AddReservationORow(ReservationORow row) {
+            public void AddEquipmentReservationRow(EquipmentReservationRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationORow AddReservationORow(
-                        string BldgNo, 
-                        string UnitNo, 
-                        string OwnerName, 
-                        System.DateTime StartTime, 
-                        System.DateTime EndTIme, 
-                        string DateofReservation, 
-                        string AmenityName, 
-                        decimal Rate, 
-                        decimal EveningRate, 
-                        int AmenityHour, 
-                        decimal TotalAmenityRate, 
-                        System.DateTime Date, 
-                        string TypeResident, 
-                        decimal Charge, 
-                        decimal Totalpayment, 
-                        string Description, 
-                        System.DateTime DateP, 
-                        decimal TotalEquipmentRate) {
-                ReservationORow rowReservationORow = ((ReservationORow)(this.NewRow()));
+            public EquipmentReservationRow AddEquipmentReservationRow(int EquipmentId, int Quantity, int RefNo, decimal Rate, string EquipmentName) {
+                EquipmentReservationRow rowEquipmentReservationRow = ((EquipmentReservationRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        BldgNo,
-                        UnitNo,
-                        OwnerName,
-                        null,
-                        StartTime,
-                        EndTIme,
-                        DateofReservation,
-                        AmenityName,
+                        EquipmentId,
+                        Quantity,
+                        RefNo,
                         Rate,
-                        EveningRate,
-                        AmenityHour,
-                        TotalAmenityRate,
-                        Date,
-                        TypeResident,
-                        Charge,
-                        Totalpayment,
-                        Description,
-                        DateP,
-                        TotalEquipmentRate};
-                rowReservationORow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowReservationORow);
-                return rowReservationORow;
+                        EquipmentName};
+                rowEquipmentReservationRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowEquipmentReservationRow);
+                return rowEquipmentReservationRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ReservationODataTable cln = ((ReservationODataTable)(base.Clone()));
+                EquipmentReservationDataTable cln = ((EquipmentReservationDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -595,125 +423,66 @@ namespace UResidence {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ReservationODataTable();
+                return new EquipmentReservationDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnBldgNo = base.Columns["BldgNo"];
-                this.columnUnitNo = base.Columns["UnitNo"];
-                this.columnOwnerName = base.Columns["OwnerName"];
+                this.columnEquipmentId = base.Columns["EquipmentId"];
+                this.columnQuantity = base.Columns["Quantity"];
                 this.columnRefNo = base.Columns["RefNo"];
-                this.columnStartTime = base.Columns["StartTime"];
-                this.columnEndTIme = base.Columns["EndTIme"];
-                this.columnDateofReservation = base.Columns["DateofReservation"];
-                this.columnAmenityName = base.Columns["AmenityName"];
                 this.columnRate = base.Columns["Rate"];
-                this.columnEveningRate = base.Columns["EveningRate"];
-                this.columnAmenityHour = base.Columns["AmenityHour"];
-                this.columnTotalAmenityRate = base.Columns["TotalAmenityRate"];
-                this.columnDate = base.Columns["Date"];
-                this.columnTypeResident = base.Columns["TypeResident"];
-                this.columnCharge = base.Columns["Charge"];
-                this.columnTotalpayment = base.Columns["Totalpayment"];
-                this.columnDescription = base.Columns["Description"];
-                this.columnDateP = base.Columns["DateP"];
-                this.columnTotalEquipmentRate = base.Columns["TotalEquipmentRate"];
+                this.columnEquipmentName = base.Columns["EquipmentName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnBldgNo = new global::System.Data.DataColumn("BldgNo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBldgNo);
-                this.columnUnitNo = new global::System.Data.DataColumn("UnitNo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUnitNo);
-                this.columnOwnerName = new global::System.Data.DataColumn("OwnerName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOwnerName);
+                this.columnEquipmentId = new global::System.Data.DataColumn("EquipmentId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEquipmentId);
+                this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQuantity);
                 this.columnRefNo = new global::System.Data.DataColumn("RefNo", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRefNo);
-                this.columnStartTime = new global::System.Data.DataColumn("StartTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStartTime);
-                this.columnEndTIme = new global::System.Data.DataColumn("EndTIme", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEndTIme);
-                this.columnDateofReservation = new global::System.Data.DataColumn("DateofReservation", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateofReservation);
-                this.columnAmenityName = new global::System.Data.DataColumn("AmenityName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAmenityName);
                 this.columnRate = new global::System.Data.DataColumn("Rate", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRate);
-                this.columnEveningRate = new global::System.Data.DataColumn("EveningRate", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEveningRate);
-                this.columnAmenityHour = new global::System.Data.DataColumn("AmenityHour", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAmenityHour);
-                this.columnTotalAmenityRate = new global::System.Data.DataColumn("TotalAmenityRate", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalAmenityRate);
-                this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDate);
-                this.columnTypeResident = new global::System.Data.DataColumn("TypeResident", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTypeResident);
-                this.columnCharge = new global::System.Data.DataColumn("Charge", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCharge);
-                this.columnTotalpayment = new global::System.Data.DataColumn("Totalpayment", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalpayment);
-                this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDescription);
-                this.columnDateP = new global::System.Data.DataColumn("DateP", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateP);
-                this.columnTotalEquipmentRate = new global::System.Data.DataColumn("TotalEquipmentRate", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTotalEquipmentRate);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnRefNo}, false));
-                this.columnBldgNo.MaxLength = 10;
-                this.columnUnitNo.MaxLength = 10;
-                this.columnOwnerName.ReadOnly = true;
-                this.columnOwnerName.MaxLength = 152;
-                this.columnRefNo.AutoIncrement = true;
-                this.columnRefNo.ReadOnly = true;
-                this.columnRefNo.Unique = true;
-                this.columnDateofReservation.ReadOnly = true;
-                this.columnDateofReservation.MaxLength = 35;
-                this.columnAmenityName.AllowDBNull = false;
-                this.columnAmenityName.MaxLength = 50;
+                this.columnEquipmentName = new global::System.Data.DataColumn("EquipmentName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEquipmentName);
+                this.columnEquipmentId.AllowDBNull = false;
+                this.columnQuantity.AllowDBNull = false;
+                this.columnRefNo.AllowDBNull = false;
                 this.columnRate.AllowDBNull = false;
-                this.columnEveningRate.AllowDBNull = false;
-                this.columnAmenityHour.ReadOnly = true;
-                this.columnTypeResident.MaxLength = 15;
-                this.columnCharge.ReadOnly = true;
-                this.columnTotalpayment.AllowDBNull = false;
-                this.columnDescription.AllowDBNull = false;
-                this.columnDescription.MaxLength = 250;
-                this.columnDateP.AllowDBNull = false;
-                this.columnTotalEquipmentRate.ReadOnly = true;
-                this.ExtendedProperties.Add("Generator_TablePropName", "_ReservationO");
-                this.ExtendedProperties.Add("Generator_UserTableName", "ReservationO");
+                this.columnEquipmentName.AllowDBNull = false;
+                this.columnEquipmentName.MaxLength = 50;
+                this.ExtendedProperties.Add("Generator_TablePropName", "_EquipmentReservation");
+                this.ExtendedProperties.Add("Generator_UserTableName", "EquipmentReservation");
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationORow NewReservationORow() {
-                return ((ReservationORow)(this.NewRow()));
+            public EquipmentReservationRow NewEquipmentReservationRow() {
+                return ((EquipmentReservationRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ReservationORow(builder);
+                return new EquipmentReservationRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ReservationORow);
+                return typeof(EquipmentReservationRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ReservationORowChanged != null)) {
-                    this.ReservationORowChanged(this, new ReservationORowChangeEvent(((ReservationORow)(e.Row)), e.Action));
+                if ((this.EquipmentReservationRowChanged != null)) {
+                    this.EquipmentReservationRowChanged(this, new EquipmentReservationRowChangeEvent(((EquipmentReservationRow)(e.Row)), e.Action));
                 }
             }
             
@@ -721,8 +490,8 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ReservationORowChanging != null)) {
-                    this.ReservationORowChanging(this, new ReservationORowChangeEvent(((ReservationORow)(e.Row)), e.Action));
+                if ((this.EquipmentReservationRowChanging != null)) {
+                    this.EquipmentReservationRowChanging(this, new EquipmentReservationRowChangeEvent(((EquipmentReservationRow)(e.Row)), e.Action));
                 }
             }
             
@@ -730,8 +499,8 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ReservationORowDeleted != null)) {
-                    this.ReservationORowDeleted(this, new ReservationORowChangeEvent(((ReservationORow)(e.Row)), e.Action));
+                if ((this.EquipmentReservationRowDeleted != null)) {
+                    this.EquipmentReservationRowDeleted(this, new EquipmentReservationRowChangeEvent(((EquipmentReservationRow)(e.Row)), e.Action));
                 }
             }
             
@@ -739,14 +508,14 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ReservationORowDeleting != null)) {
-                    this.ReservationORowDeleting(this, new ReservationORowChangeEvent(((ReservationORow)(e.Row)), e.Action));
+                if ((this.EquipmentReservationRowDeleting != null)) {
+                    this.EquipmentReservationRowDeleting(this, new EquipmentReservationRowChangeEvent(((EquipmentReservationRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void RemoveReservationORow(ReservationORow row) {
+            public void RemoveEquipmentReservationRow(EquipmentReservationRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -755,7 +524,7 @@ namespace UResidence {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ReservationO ds = new ReservationO();
+                EquipmentReservation ds = new EquipmentReservation();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -773,7 +542,7 @@ namespace UResidence {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ReservationODataTable";
+                attribute2.FixedValue = "EquipmentReservationDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -817,62 +586,36 @@ namespace UResidence {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ReservationORow : global::System.Data.DataRow {
+        public partial class EquipmentReservationRow : global::System.Data.DataRow {
             
-            private ReservationODataTable tableReservationO;
+            private EquipmentReservationDataTable tableEquipmentReservation;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal ReservationORow(global::System.Data.DataRowBuilder rb) : 
+            internal EquipmentReservationRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableReservationO = ((ReservationODataTable)(this.Table));
+                this.tableEquipmentReservation = ((EquipmentReservationDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string BldgNo {
+            public int EquipmentId {
                 get {
-                    try {
-                        return ((string)(this[this.tableReservationO.BldgNoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'BldgNo\' in table \'ReservationO\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableEquipmentReservation.EquipmentIdColumn]));
                 }
                 set {
-                    this[this.tableReservationO.BldgNoColumn] = value;
+                    this[this.tableEquipmentReservation.EquipmentIdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string UnitNo {
+            public int Quantity {
                 get {
-                    try {
-                        return ((string)(this[this.tableReservationO.UnitNoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'UnitNo\' in table \'ReservationO\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableEquipmentReservation.QuantityColumn]));
                 }
                 set {
-                    this[this.tableReservationO.UnitNoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string OwnerName {
-                get {
-                    try {
-                        return ((string)(this[this.tableReservationO.OwnerNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OwnerName\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.OwnerNameColumn] = value;
+                    this[this.tableEquipmentReservation.QuantityColumn] = value;
                 }
             }
             
@@ -880,74 +623,10 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int RefNo {
                 get {
-                    try {
-                        return ((int)(this[this.tableReservationO.RefNoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'RefNo\' in table \'ReservationO\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableEquipmentReservation.RefNoColumn]));
                 }
                 set {
-                    this[this.tableReservationO.RefNoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public System.DateTime StartTime {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableReservationO.StartTimeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'StartTime\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.StartTimeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public System.DateTime EndTIme {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableReservationO.EndTImeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'EndTIme\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.EndTImeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string DateofReservation {
-                get {
-                    try {
-                        return ((string)(this[this.tableReservationO.DateofReservationColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DateofReservation\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.DateofReservationColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string AmenityName {
-                get {
-                    return ((string)(this[this.tableReservationO.AmenityNameColumn]));
-                }
-                set {
-                    this[this.tableReservationO.AmenityNameColumn] = value;
+                    this[this.tableEquipmentReservation.RefNoColumn] = value;
                 }
             }
             
@@ -955,307 +634,22 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public decimal Rate {
                 get {
-                    return ((decimal)(this[this.tableReservationO.RateColumn]));
+                    return ((decimal)(this[this.tableEquipmentReservation.RateColumn]));
                 }
                 set {
-                    this[this.tableReservationO.RateColumn] = value;
+                    this[this.tableEquipmentReservation.RateColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal EveningRate {
+            public string EquipmentName {
                 get {
-                    return ((decimal)(this[this.tableReservationO.EveningRateColumn]));
+                    return ((string)(this[this.tableEquipmentReservation.EquipmentNameColumn]));
                 }
                 set {
-                    this[this.tableReservationO.EveningRateColumn] = value;
+                    this[this.tableEquipmentReservation.EquipmentNameColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int AmenityHour {
-                get {
-                    try {
-                        return ((int)(this[this.tableReservationO.AmenityHourColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AmenityHour\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.AmenityHourColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal TotalAmenityRate {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReservationO.TotalAmenityRateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalAmenityRate\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.TotalAmenityRateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public System.DateTime Date {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableReservationO.DateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Date\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.DateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string TypeResident {
-                get {
-                    try {
-                        return ((string)(this[this.tableReservationO.TypeResidentColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TypeResident\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.TypeResidentColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal Charge {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReservationO.ChargeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Charge\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.ChargeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal Totalpayment {
-                get {
-                    return ((decimal)(this[this.tableReservationO.TotalpaymentColumn]));
-                }
-                set {
-                    this[this.tableReservationO.TotalpaymentColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string Description {
-                get {
-                    return ((string)(this[this.tableReservationO.DescriptionColumn]));
-                }
-                set {
-                    this[this.tableReservationO.DescriptionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public System.DateTime DateP {
-                get {
-                    return ((global::System.DateTime)(this[this.tableReservationO.DatePColumn]));
-                }
-                set {
-                    this[this.tableReservationO.DatePColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal TotalEquipmentRate {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReservationO.TotalEquipmentRateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TotalEquipmentRate\' in table \'ReservationO\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReservationO.TotalEquipmentRateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsBldgNoNull() {
-                return this.IsNull(this.tableReservationO.BldgNoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetBldgNoNull() {
-                this[this.tableReservationO.BldgNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsUnitNoNull() {
-                return this.IsNull(this.tableReservationO.UnitNoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetUnitNoNull() {
-                this[this.tableReservationO.UnitNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsOwnerNameNull() {
-                return this.IsNull(this.tableReservationO.OwnerNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetOwnerNameNull() {
-                this[this.tableReservationO.OwnerNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsRefNoNull() {
-                return this.IsNull(this.tableReservationO.RefNoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetRefNoNull() {
-                this[this.tableReservationO.RefNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsStartTimeNull() {
-                return this.IsNull(this.tableReservationO.StartTimeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetStartTimeNull() {
-                this[this.tableReservationO.StartTimeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsEndTImeNull() {
-                return this.IsNull(this.tableReservationO.EndTImeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetEndTImeNull() {
-                this[this.tableReservationO.EndTImeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsDateofReservationNull() {
-                return this.IsNull(this.tableReservationO.DateofReservationColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetDateofReservationNull() {
-                this[this.tableReservationO.DateofReservationColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsAmenityHourNull() {
-                return this.IsNull(this.tableReservationO.AmenityHourColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetAmenityHourNull() {
-                this[this.tableReservationO.AmenityHourColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsTotalAmenityRateNull() {
-                return this.IsNull(this.tableReservationO.TotalAmenityRateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetTotalAmenityRateNull() {
-                this[this.tableReservationO.TotalAmenityRateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsDateNull() {
-                return this.IsNull(this.tableReservationO.DateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetDateNull() {
-                this[this.tableReservationO.DateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsTypeResidentNull() {
-                return this.IsNull(this.tableReservationO.TypeResidentColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetTypeResidentNull() {
-                this[this.tableReservationO.TypeResidentColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsChargeNull() {
-                return this.IsNull(this.tableReservationO.ChargeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetChargeNull() {
-                this[this.tableReservationO.ChargeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsTotalEquipmentRateNull() {
-                return this.IsNull(this.tableReservationO.TotalEquipmentRateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetTotalEquipmentRateNull() {
-                this[this.tableReservationO.TotalEquipmentRateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1263,22 +657,22 @@ namespace UResidence {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public class ReservationORowChangeEvent : global::System.EventArgs {
+        public class EquipmentReservationRowChangeEvent : global::System.EventArgs {
             
-            private ReservationORow eventRow;
+            private EquipmentReservationRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationORowChangeEvent(ReservationORow row, global::System.Data.DataRowAction action) {
+            public EquipmentReservationRowChangeEvent(EquipmentReservationRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public ReservationORow Row {
+            public EquipmentReservationRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1294,7 +688,7 @@ namespace UResidence {
         }
     }
 }
-namespace UResidence.ReservationOTableAdapters {
+namespace UResidence.EquipmentReservationTableAdapters {
     
     
     /// <summary>
@@ -1306,7 +700,7 @@ namespace UResidence.ReservationOTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ReservationOTableAdapter : global::System.ComponentModel.Component {
+    public partial class EquipmentReservationTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1320,7 +714,7 @@ namespace UResidence.ReservationOTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public ReservationOTableAdapter() {
+        public EquipmentReservationTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1417,26 +811,12 @@ namespace UResidence.ReservationOTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ReservationO";
-            tableMapping.ColumnMappings.Add("BldgNo", "BldgNo");
-            tableMapping.ColumnMappings.Add("UnitNo", "UnitNo");
-            tableMapping.ColumnMappings.Add("OwnerName", "OwnerName");
+            tableMapping.DataSetTable = "EquipmentReservation";
+            tableMapping.ColumnMappings.Add("EquipmentId", "EquipmentId");
+            tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("RefNo", "RefNo");
-            tableMapping.ColumnMappings.Add("StartTime", "StartTime");
-            tableMapping.ColumnMappings.Add("EndTIme", "EndTIme");
-            tableMapping.ColumnMappings.Add("DateofReservation", "DateofReservation");
-            tableMapping.ColumnMappings.Add("AmenityName", "AmenityName");
             tableMapping.ColumnMappings.Add("Rate", "Rate");
-            tableMapping.ColumnMappings.Add("EveningRate", "EveningRate");
-            tableMapping.ColumnMappings.Add("AmenityHour", "AmenityHour");
-            tableMapping.ColumnMappings.Add("TotalAmenityRate", "TotalAmenityRate");
-            tableMapping.ColumnMappings.Add("Date", "Date");
-            tableMapping.ColumnMappings.Add("TypeResident", "TypeResident");
-            tableMapping.ColumnMappings.Add("Charge", "Charge");
-            tableMapping.ColumnMappings.Add("Totalpayment", "Totalpayment");
-            tableMapping.ColumnMappings.Add("Description", "Description");
-            tableMapping.ColumnMappings.Add("DateP", "DateP");
-            tableMapping.ColumnMappings.Add("TotalEquipmentRate", "TotalEquipmentRate");
+            tableMapping.ColumnMappings.Add("EquipmentName", "EquipmentName");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1453,7 +833,7 @@ namespace UResidence.ReservationOTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "dbo.ReservationO";
+            this._commandCollection[0].CommandText = "dbo.EquipmentReservation";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -1462,7 +842,7 @@ namespace UResidence.ReservationOTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ReservationO.ReservationODataTable dataTable) {
+        public virtual int Fill(EquipmentReservation.EquipmentReservationDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1475,9 +855,9 @@ namespace UResidence.ReservationOTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ReservationO.ReservationODataTable GetData() {
+        public virtual EquipmentReservation.EquipmentReservationDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ReservationO.ReservationODataTable dataTable = new ReservationO.ReservationODataTable();
+            EquipmentReservation.EquipmentReservationDataTable dataTable = new EquipmentReservation.EquipmentReservationDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1551,7 +931,7 @@ namespace UResidence.ReservationOTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateUpdatedRows(ReservationO dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(EquipmentReservation dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1561,7 +941,7 @@ namespace UResidence.ReservationOTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateInsertedRows(ReservationO dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(EquipmentReservation dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             return result;
         }
@@ -1571,7 +951,7 @@ namespace UResidence.ReservationOTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateDeletedRows(ReservationO dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(EquipmentReservation dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             return result;
         }
@@ -1605,7 +985,7 @@ namespace UResidence.ReservationOTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public virtual int UpdateAll(ReservationO dataSet) {
+        public virtual int UpdateAll(EquipmentReservation dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
