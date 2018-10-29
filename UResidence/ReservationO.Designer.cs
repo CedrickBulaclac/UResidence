@@ -315,6 +315,8 @@ namespace UResidence {
             
             private global::System.Data.DataColumn columnDateP;
             
+            private global::System.Data.DataColumn columnTotalEquipmentRate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public ReservationODataTable() {
@@ -494,6 +496,14 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TotalEquipmentRateColumn {
+                get {
+                    return this.columnTotalEquipmentRate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -546,7 +556,8 @@ namespace UResidence {
                         decimal Charge, 
                         decimal Totalpayment, 
                         string Description, 
-                        System.DateTime DateP) {
+                        System.DateTime DateP, 
+                        decimal TotalEquipmentRate) {
                 ReservationORow rowReservationORow = ((ReservationORow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         BldgNo,
@@ -566,7 +577,8 @@ namespace UResidence {
                         Charge,
                         Totalpayment,
                         Description,
-                        DateP};
+                        DateP,
+                        TotalEquipmentRate};
                 rowReservationORow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowReservationORow);
                 return rowReservationORow;
@@ -607,6 +619,7 @@ namespace UResidence {
                 this.columnTotalpayment = base.Columns["Totalpayment"];
                 this.columnDescription = base.Columns["Description"];
                 this.columnDateP = base.Columns["DateP"];
+                this.columnTotalEquipmentRate = base.Columns["TotalEquipmentRate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -648,6 +661,8 @@ namespace UResidence {
                 base.Columns.Add(this.columnDescription);
                 this.columnDateP = new global::System.Data.DataColumn("DateP", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDateP);
+                this.columnTotalEquipmentRate = new global::System.Data.DataColumn("TotalEquipmentRate", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalEquipmentRate);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnRefNo}, false));
                 this.columnBldgNo.MaxLength = 10;
@@ -670,6 +685,7 @@ namespace UResidence {
                 this.columnDescription.AllowDBNull = false;
                 this.columnDescription.MaxLength = 250;
                 this.columnDateP.AllowDBNull = false;
+                this.columnTotalEquipmentRate.ReadOnly = true;
                 this.ExtendedProperties.Add("Generator_TablePropName", "_ReservationO");
                 this.ExtendedProperties.Add("Generator_UserTableName", "ReservationO");
             }
@@ -1072,6 +1088,22 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal TotalEquipmentRate {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableReservationO.TotalEquipmentRateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalEquipmentRate\' in table \'ReservationO\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReservationO.TotalEquipmentRateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsBldgNoNull() {
                 return this.IsNull(this.tableReservationO.BldgNoColumn);
             }
@@ -1212,6 +1244,18 @@ namespace UResidence {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetChargeNull() {
                 this[this.tableReservationO.ChargeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTotalEquipmentRateNull() {
+                return this.IsNull(this.tableReservationO.TotalEquipmentRateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTotalEquipmentRateNull() {
+                this[this.tableReservationO.TotalEquipmentRateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1392,6 +1436,7 @@ namespace UResidence.ReservationOTableAdapters {
             tableMapping.ColumnMappings.Add("Totalpayment", "Totalpayment");
             tableMapping.ColumnMappings.Add("Description", "Description");
             tableMapping.ColumnMappings.Add("DateP", "DateP");
+            tableMapping.ColumnMappings.Add("TotalEquipmentRate", "TotalEquipmentRate");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1399,7 +1444,7 @@ namespace UResidence.ReservationOTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["URESIDENCEConnectionString"].ConnectionString;
+            this._connection.ConnectionString = global::UResidence.Properties.Settings.Default.URESIDENCEConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

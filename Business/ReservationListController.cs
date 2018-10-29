@@ -70,5 +70,15 @@ namespace UResidence
             ret = SqlManager.Select<ReservationList>(com);
             return ret;
         }
+        public static List<ReservationList> GetByRef(int refno)
+        {
+            //const string GET_ALL = @"select distinct o.Id,ISNULL(t.Id,0),TypeResident,RefNo,o.Fname,o.Mname,o.Lname,ISNULL(t.Fname,''),ISNULL(t.Mname,''),ISNULL(t.Lname,''),Convert(varchar(25),StartTime,100)+' - '+Convert(varchar(25),EndTIme,100) as DateofReservation,a.AmenityName,sr.Rate,Charge=(select ISNULL(SUM(Charge),0) from tbCharge where RefNo=rf.Id),ChairCost = (select ISNULL(sum((er.Quantity * er.Rate)),0) from tbEquipReservation er where er.EquipmentId in (select Id from tbEquipment e where e.Name like '%Chair%' )and er.RefNo=rf.Id), TableCost=(select ISNULL(sum((er.Quantity * er.Rate)),0) from tbEquipReservation er where er.EquipmentId in (select Id from tbEquipment e where e.Name like '%Table%' )and er.RefNo=rf.Id),Totale=(select ISNULL(SUM(Totalpayment),0) from tbReceipt r where r.RefNo=rf.Id) from tbOwner o inner join tbResidence r on o.Id=r.OwnerNo inner join tbReservationForm rf on r.Id=rf.ResidentId inner join tbSchedReservation sr on rf.SchedId=sr.Id inner join tbAmenity a on sr.AmenityId=a.Id inner join tbReceipt rc on rf.Id=rc.RefNo full join tbTenant t on t.Id=r.TenantNo where o.Fname+' '+o.Mname+' '+o.Lname like '%'+@Name+'%' and TypeResident='Owner'";
+            const string GET_ALL = @"select b.OwnerId,b.TenantId,b.TypeResident,b.Refno,b.OwnerFname,b.OwnerMname,b.OwnerLname,b.TFname,b.TMname,b.TLname,b.Date,b.AmenityName,b.Rate,b.Charge,b.Totale,b.BldgNo,b.UnitNo,b.ReservedBy,b.Outstanding from(select *,Outstanding =((a.Rate+a.Charge+ISNULL(a.EquipmentCost,0))-Totale) from(select distinct ISNULL(o.Id,0) as OwnerId,ISNULL(t.Id,0) as TenantId,ISNULL(TypeResident,'Tenant') as TypeResident,ISNULL(RefNo,0) as Refno,ISNULL(o.Fname,'') as OwnerFname,ISNULL(o.Mname,'') as OwnerMname ,ISNULL(o.Lname,'') as OwnerLname,ISNULL(t.Fname,'') as TFname,ISNULL(t.Mname,'')as TMname,ISNULL(t.Lname,'') as TLname,ISNULL(Convert(varchar(25),StartTime,100)+' - '+RIGHT(Convert(varchar,EndTIme,100),7),'')  as Date,ISNULL(a.AmenityName,'') as AmenityName,ISNULL(sr.Rate,0) as Rate,Charge=(select ISNULL(SUM(Charge),0)from tbCharge where RefNo=rf.Id),Totale=(select ISNULL(SUM(Totalpayment),0) from tbReceipt r where r.RefNo=rf.Id),o.BldgNo,o.UnitNo,rf.ReservedBy,EquipmentCost=(select SUM(er.Rate) as EquipmentCost from tbEquipReservation er inner join tbEquipment e on  er.EquipmentId=e.Id where RefNo=rf.Id group by RefNo )  from tbOwner o inner join tbResidence r on o.Id=r.OwnerNo inner join tbReservationForm rf on r.Id=rf.ResidentId inner join tbSchedReservation sr on rf.SchedId=sr.Id inner join tbAmenity a on sr.AmenityId=a.Id inner join tbReceipt rc on rf.Id=rc.RefNo full join tbTenant t on t.Id=r.TenantNo)a) b where b.Refno=@refno";
+            List<ReservationList> ret = default(List<ReservationList>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@refno", refno));
+            ret = SqlManager.Select<ReservationList>(com);
+            return ret;
+        }
     }
 }

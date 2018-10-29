@@ -789,22 +789,26 @@ namespace UResidence.Controllers
 
                 data = UResidence.ReportReservationAmenityController.GETO(refno1);
                 data1 = UResidence.EquipReservationController.Getr(refno1);
+               
             }
             else
             {
                 data = UResidence.ReportReservationAmenityController.GETT(refno1);
                 data1 = UResidence.EquipReservationController.Getr(refno1);
+              
             }
             LocalReport localreport = new LocalReport();
             localreport.ReportPath = Server.MapPath("~/Views/Report/ReservationFormO.rdlc");
             ReportDataSource rd1 = new ReportDataSource();
+            ReportDataSource rd2 = new ReportDataSource();
             ReportDataSource rd = new ReportDataSource();
+
             rd.Name = "ReservationO";
             rd.Value = data.ToList();
             localreport.DataSources.Add(rd);
             rd1.Name = "EquipmentReservation";
             rd1.Value = data1.ToList();
-            localreport.DataSources.Add(rd1);
+            localreport.DataSources.Add(rd1);      
             string reportType = "PDF";
             string mimetype;
             string encoding;

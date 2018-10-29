@@ -38,6 +38,7 @@ namespace UResidence
         public decimal ChildRate { get; set; }
         public DateTime Starttime{get;set;}
         public DateTime EndTime { get; set; }
+        public decimal TotalEquipmentRate { get; set; }
         public ReportReservation CreateObject(SqlDataReader reader)
         {
             ReportReservation ret = new ReportReservation();
@@ -59,7 +60,7 @@ namespace UResidence
             ret.Totalpayment = reader.GetDecimal(15);
             ret.Description = reader.GetString(16);
             ret.DateP = reader.GetDateTime(17);
-
+            ret.TotalEquipmentRate = reader.GetDecimal(18);
             return ret;
         }
 
