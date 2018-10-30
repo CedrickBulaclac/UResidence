@@ -54,12 +54,15 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -193,6 +196,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OwnerList.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PersonRate.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PersonRate.xsd</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
@@ -358,6 +366,17 @@
     <Content Include="ReservationListt.xsc">
       <DependentUpon>ReservationListt.xsd</DependentUpon>
     </Content>
+    <Content Include="PersonRate.xsc">
+      <DependentUpon>PersonRate.xsd</DependentUpon>
+    </Content>
+    <None Include="PersonRate.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PersonRate.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="PersonRate.xss">
+      <DependentUpon>PersonRate.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -507,6 +526,7 @@
     <Content Include="TenantList.xss">
       <DependentUpon>TenantList.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Layout\AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

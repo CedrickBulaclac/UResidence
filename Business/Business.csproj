@@ -68,6 +68,11 @@
     <Compile Include="NotificationController.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="OwnerController.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Receipt.cs" />
     <Compile Include="ReceiptController.cs" />
     <Compile Include="ReportReservation.cs" />
@@ -104,6 +109,13 @@
       <Project>{55a95247-ac42-429a-bda0-2518bb4744d5}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
