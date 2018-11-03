@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<object>
 @{
-    List<UResidence.Amenity> amenity = Model.ToList()[0] as List<UResidence.Amenity>;
-    List<UResidence.SchedReservation> sched = Model.ToList()[1] as List<UResidence.SchedReservation>;
-    List<UResidence.Equipment> equip = Model.ToList()[2] as List<UResidence.Equipment>;
-    ViewBag.Title = "SelectAmenity";
-    if (Convert.ToInt32(Session["Level"]) == 8)
-    {
-        Layout = "~/Views/Layout/OwnerLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 9)
-    {
-        Layout = "~/Views/Layout/TenantLayout.cshtml";
-    }
+	List<UResidence.Amenity> amenity = Model.ToList()[0] as List<UResidence.Amenity>;
+	List<UResidence.SchedReservation> sched = Model.ToList()[1] as List<UResidence.SchedReservation>;
+	List<UResidence.Equipment> equip = Model.ToList()[2] as List<UResidence.Equipment>;
+	ViewBag.Title = "SelectAmenity";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/OwnerLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 	}
 
 

@@ -11,6 +11,10 @@
 	{
 		Layout = "~/Views/Layout/TenantLayout.cshtml";
 	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
 
 @using (Html.BeginForm("Amenity", "Reserve", FormMethod.Post))

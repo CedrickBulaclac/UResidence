@@ -10,6 +10,10 @@
 	{
 		Layout = "~/Views/Layout/TenantLayout.cshtml";
 	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {
@@ -228,14 +232,14 @@
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled"></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="₱@ViewBag.CR" disabled="disabled"></td>
 								</tr>
 							}
 							else
 							{
 								<tr>
 									<td class="col-md-9"><h4><em>Price :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="text" id="aprice" name="aprice" disabled="disabled" value="@ViewBag.ratea" /></td>
+									<td class="col-md-1" style="text-align: center"><input type="text" id="aprice" name="aprice" disabled="disabled" value="₱@ViewBag.ratea" /></td>
 								</tr>
 								<input type="hidden" id="ap" name="ap" />
 							}
@@ -256,11 +260,11 @@
 											</tr>
 											<tr>
 												<td class="col-md-9"><em>Rate: </em></td>
-												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = ViewBag.rat[ctr4] } })</td>
+												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = "₱" + ViewBag.rat[ctr4] } })</td>
 											</tr>
 											<tr>
 												<td class="col-md-9"><em>Sub Total: </em></td>
-												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })</td>
+												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = "₱"+ ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })</td>
 											</tr>
 										}
 										else if (ViewBag.quan[ctr4] is null)
@@ -275,7 +279,7 @@
 							<tr>
 
 								<td class="text-right"><h4><strong>Total Amount: </strong></h4></td>
-								<td class="text-center text-danger"><h4><strong><input type="text" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly /></strong></h4></td>
+								<td class="text-center text-danger"><h4><strong><input type="text" class="form-group" id="total2" name="total2" value="₱@ViewBag.ratea" readonly /><input type="hidden" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly /></strong></h4></td>
 								<td>   </td>
 								<td>   </td>
 
@@ -301,7 +305,9 @@
         for (var pppp = 0; pppp <= ctr - 1; pppp++) {
 
             var quantity = $('#quantity' + pppp).val();
-            var rate = $('#rate' + pppp).val()
+            var d = $('#rate' + pppp).val();
+            var rate = parseInt(d.replace("₱", ""));
+
             if (quantity != null) {
                 totale = quantity * rate;
                 total = total + totale;
@@ -311,6 +317,7 @@
 
         }
         document.getElementById('total1').value = total.toFixed(2);
+        document.getElementById('total2').value = "₱"+total.toFixed(2);
     });
 
 	</script>

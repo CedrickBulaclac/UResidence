@@ -11,6 +11,10 @@
 	{
 		Layout = "~/Views/Layout/TenantLayout.cshtml";
 	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 	int totaleq = 0;
 	int[] stocks =new int[equip.Count()];
 	int eqt = 0;
@@ -271,7 +275,7 @@
 
                         <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
                         <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-
+                        @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-control", @Value = eqp.Rate, @id = "txtRate1" + ctr3.ToString(), name = "txtRate1" + ctr3.ToString() , @style = "display: none" } })
 
 
 
@@ -338,6 +342,7 @@
 				var sto = 0;
                 var quan = 0;
                 var tots = 0;
+                var rate1 = 0;
 				id[pppp] = $('#eid' + pppp).val();
 				quantity[pppp] = $('#txtQuantity' + pppp).val();
 				quan = $('#txtQuantity' + pppp).val();
@@ -348,9 +353,9 @@
                 }
 				else {
 					test[pppp] = false;
-				}
-
-				rate[pppp] = $('#txtRate' + pppp).val();
+                }
+             
+                rate[pppp] = $('#txtRate1' + pppp).val();
 				total[pppp] = quantity[pppp] * rate[pppp];
 				var ttotal = ttotal + total[pppp];
 			}

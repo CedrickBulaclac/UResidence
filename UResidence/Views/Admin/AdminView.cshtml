@@ -1,8 +1,15 @@
 ﻿@model List<UResidence.Admin>
 
 @{
-	Layout = "/Views/Layout/AdminLayout.cshtml";
 	ViewBag.Title = "AdminView";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
 
 @*Scripts for dropdown*@
@@ -18,58 +25,64 @@
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
 	@Html.AntiForgeryToken()
+	<script>
+		$(document).ready(function () {
+			$('#maincontent').empty();
+			$('#maincontent1').empty();
+			$('#containerChart').empty();
 
-<div class="container">
-	<hr />
+		});</script>
+	<div class="container">
+		<hr />
 
-	<table class=" table table-bordered table-striped">
+		<table class=" table table-bordered table-striped">
 
-		<thead>
-			<tr>
-				<th>First Name</th>
-				<th>Middle Name</th>
-				<th>Last Name</th>
-				<th>Birthdate</th>
-				<th>Cellphone No</th>
-				<th>Email</th>
-				<th>Role</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (Admin a in Model)
-			{
-
+			<thead>
 				<tr>
-
-					<td>@Html.DisplayFor(model => a.Fname)</td>
-					<td>@Html.DisplayFor(model => a.Mname)</td>
-					<td>@Html.DisplayFor(model => a.Lname)</td>
-					<td>@Html.DisplayFor(model => a.Bdate)</td>
-					<td>@Html.DisplayFor(model => a.CelNo)</td>
-					<td>@Html.DisplayFor(model => a.Email)</td>
-					<td>@Html.DisplayFor(model => a.Role)</td>
-					<td>
-						<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-						<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-					</td>
+					<th>First Name</th>
+					<th>Middle Name</th>
+					<th>Last Name</th>
+					<th>Birthdate</th>
+					<th>Cellphone No</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Actions</th>
 				</tr>
+			</thead>
+			<tbody>
+				@foreach (Admin a in Model)
+				{
+
+					<tr>
+
+						<td>@Html.DisplayFor(model => a.Fname)</td>
+						<td>@Html.DisplayFor(model => a.Mname)</td>
+						<td>@Html.DisplayFor(model => a.Lname)</td>
+						<td>@Html.DisplayFor(model => a.Bdate)</td>
+						<td>@Html.DisplayFor(model => a.CelNo)</td>
+						<td>@Html.DisplayFor(model => a.Email)</td>
+						<td>@Html.DisplayFor(model => a.Role)</td>
+						<td>
+							<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+							<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+						</td>
+					</tr>
 
 
-			}
-		</tbody>
-	</table>
+				}
+			</tbody>
+		</table>
 
-	<div class="form-inline">
+		<div class="form-inline">
 
-		<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
-		<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
+			<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
+			<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
+		</div>
+
+
 	</div>
 
-	
-</div>
 
-	
 	<div id="auerror" class="alert alert-danger collapse">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>Error!</strong> There is a problem updating the Admin
@@ -216,7 +229,7 @@
 	}
 }
 <script>
-    function Download() {
-        $.post("/Admin/Download");
-    }
+	function Download() {
+		$.post("/Admin/Download");
+	}
 </script>
