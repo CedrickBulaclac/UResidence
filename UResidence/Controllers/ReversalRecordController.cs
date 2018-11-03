@@ -114,11 +114,7 @@ namespace UResidence.Controllers
             ReportDataSource rd = new ReportDataSource();
             rd.Name = "ReversalListt";
             rd.Value = data.ToList();
-            //ReportParameter[] param = new ReportParameter[]
-            //{
-            //    new ReportParameter("txtType", "CED")
-            //};         
-            //localreport.SetParameters(param);
+       
 
 
             localreport.DataSources.Add(rd);

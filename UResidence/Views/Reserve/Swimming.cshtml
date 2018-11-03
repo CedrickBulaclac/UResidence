@@ -249,7 +249,7 @@
 
 
 							<p class="form-inline">
-								<label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="width:300px;">
+								<label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult1" id="rateadult1" readonly style="width:300px;">
 
 							</p>
 
@@ -264,31 +264,32 @@
 
 
 							<p class="form-inline">
-								<label for="rate">Rate:    </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="width:300px;">
+								<label for="rate">Rate:    </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild1" id="ratechild1" readonly style="width:300px;">
 
 
 							</p>
 
 
-							<p class="form-inline">
-								<label for="trate">Total Rate:    </label> &nbsp; &nbsp;
+                            <p class="form-inline">
+                                <label for="trate">Total Rate:    </label> &nbsp; &nbsp;
 
 
 
-								<input type="text" id="rate" name="rate" class="form-control" readonly style="width:300px;" />
+                                <input type="text" id="rate" name="rate" class="form-control" readonly style="width:300px;" />
 
-								<input type="hidden" id="tratee" name="tratee" />
+                                <input type="hidden" id="tratee" name="tratee" />
 
 
-								<input type="time" id="startT" name="startT" value="08:00" hidden />
-								<input type="time" id="endT" name="endT" value="21:00" hidden />
-								<input type="datetime" id="stime" name="stime" hidden />
-								<input type="datetime" id="etime" name="etime" hidden />
+                                <input type="time" id="startT" name="startT" value="08:00" hidden />
+                                <input type="time" id="endT" name="endT" value="21:00" hidden />
+                                <input type="datetime" id="stime" name="stime" hidden />
+                                <input type="datetime" id="etime" name="etime" hidden />
+                                <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="width:300px;display:none;">
+                                <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="width:300px;display:none;">
+                                <br />
+                                <br />
 
-								<br />
-								<br />
-
-							</p>
+                            </p>
 
 
 							<p class="form-inline">
@@ -348,9 +349,10 @@
     var statusst = "Valid";
 		var ra =@Session["adult"];
 		 var rc=@Session["child"];
-		document.getElementById('rateadult').value = ra.toFixed(2);
-		document.getElementById('ratechild').value = rc.toFixed(2);
-
+        document.getElementById('rateadult1').value = "₱" + ra.toFixed(2);
+        document.getElementById('ratechild1').value = "₱" + rc.toFixed(2);
+        document.getElementById('rateadult').value =  ra.toFixed(2);
+        document.getElementById('ratechild').value = rc.toFixed(2);
 
 	function ValidateDate() {
 		var x = $('#sd').val();
@@ -419,9 +421,7 @@
 
 			var result = document.getElementById('rate');
 			var tots = parseInt(fTotalA) + parseInt(fTotalC);
-			result.value = tots.toFixed(2);
-
-
+            result.value = "₱" +  tots.toFixed(2);
 		});
 	});
 
@@ -442,7 +442,7 @@
 
             var result = document.getElementById('rate');
 			var tots = parseInt(fTotalA) + parseInt(fTotalC);
-			result.value = tots.toFixed(2);
+            result.value = "₱" +  tots.toFixed(2);
 
 
 		});

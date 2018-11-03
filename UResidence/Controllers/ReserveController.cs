@@ -391,6 +391,7 @@ namespace UResidence.Controllers
                 t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
                 Session["URLL"] = t.URL;
             }
+            
             ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
@@ -693,7 +694,7 @@ namespace UResidence.Controllers
             string ed = fc["etime"];
             Session["sd"] = sd;
             Session["ed"] = ed;
-            string drate = fc["rate"];
+            string drate = (fc["rate"]).Replace("₱", "");
             Session["drate"] = drate;
 
             if (drate == "" || drate == "0") {
@@ -748,13 +749,7 @@ namespace UResidence.Controllers
                     }
                 }
             }
-           
-
-
-
-
-
-
+          
             return View();
         }
 

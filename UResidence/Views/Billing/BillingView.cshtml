@@ -242,11 +242,11 @@
                             $('#tbHistory').empty();
                         trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
                         $.each(data, function (i, v) {
-                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>₱' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
                             totalp += v.Totalpayment;
                         });
                         $('#tbHistory').append(trHTML);
-                        document.getElementById('txtTotalPayment').innerHTML = totalp;
+                        document.getElementById('txtTotalPayment').innerHTML = "₱" + totalp.toFixed(2);
                         trHTML = '';
                     },
                     error: function (error) {

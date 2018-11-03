@@ -208,13 +208,14 @@
 							</tr>
 							@if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
 							{
+                                
 								<tr>
 									<td class="col-md-9"><h4><em>No. of Adult :</em></h4></td>
 									<td class="col-md-1" style="text-align: center"><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled"></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>No. of Children :</em></h4></td>
@@ -222,7 +223,7 @@
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="₱@ViewBag.CR" disabled="disabled"></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" disabled="disabled"></td>
 								</tr>
 							}
 							else
@@ -288,7 +289,9 @@
 
 	<script>
       var ctr = parseInt($('#txtctrr').val());
-    var total = parseInt(@ViewBag.ratea);
+        var total = parseInt(@ViewBag.ratea);
+      
+     var amen = "@ViewBag.amenname";
     var totale=0.00;
     $(document).ready(function () {
 
@@ -302,12 +305,21 @@
                 totale = quantity * rate;
                 total = total + totale;
             }
-
+             
 
 
         }
         document.getElementById('total1').value = total.toFixed(2);
-        document.getElementById('total2').value = "₱"+total.toFixed(2);
+        document.getElementById('total2').value = "₱" + total.toFixed(2);
+        alert(amen);
+        if (amen == "Swimming Pool") {   
+        var childr = parseInt("@ViewBag.CR");
+            var adultr = parseInt("@ViewBag.AR");
+            console.log(childr);
+            console.log(adultr);
+            document.getElementById('ar').value = "₱" + adultr.toFixed(2);
+            document.getElementById('cr').value = "₱" + total.toFixed(2);
+        }
     });
 
 	</script>
