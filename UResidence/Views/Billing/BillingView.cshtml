@@ -1,20 +1,46 @@
 ﻿@model List<BillingList>
 
 @{
-	if (Convert.ToInt32(Session["Level"]) == 8)
-	{
-		Layout = "~/Views/Layout/LayoutHome.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 9)
-	{
-		Layout = "~/Views/Layout/TenantLayout.cshtml";
-	}
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
 }
+
+<style>
+
+    body {
+        /*background-color: #f1f8e9;*/
+        background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+        /*-webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;*/
+        background-size: cover;
+    }
+
+
+    .pcolor {
+        background-color: #fafafa;
+    }
+</style>
+
+
+
 <br />
 <br />
 <br />
 <br />
+
+
 <div class="container">
+
+
+
+
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -22,7 +48,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><span id="eventTitle"></span></h4>
                 </div>
-                <div class="modal-body">      
+                <div class="modal-body">
                     <input type="hidden" name="rfid" id="rfid">
                     <div class="container">
                         <div class="row">
@@ -69,11 +95,14 @@
 </div>
 
 <br />
-<div class="container">
+<br />
+<br />
+<br />
+<div class="container panel panel-default">
     <div class="row">
-        <div class="col-lg-6">
-            <table class="table table-bordered" width="100">
-                <tr><td colspan="2" style="text-align:center; font-size:16px; font-weight:bold; background:#2ba74a; color:#FFF;"><h3>Account Billing</h3></td></tr>
+        <div class="col-md-12">
+            <table class="table table-striped" width="100">
+                <tr><td colspan="2" style="text-align:center; font-size:13px; font-weight:bold; background:#212121; color:#FFF;"><h4>Account Billing</h4></td></tr>
                 <tr>
                     <td style="text-align:center; font-size:16px; font-weight:bold;">Outstanding Total :</td>
                     <td style="text-align:center; font-size:16px; font-weight:bold;">₱@ViewBag.Balance</td>
@@ -86,10 +115,10 @@
         </div>
     </div>
     <br />
- 
 
-    <table class="table table-bordered">
-        <tr><td colspan="7" style="text-align:center; font-size:16px; font-weight:bold; background:#2ba74a; color:#FFF;"><h4>Billing Information</h4></td></tr>
+
+    <table class="table table-striped">
+        <tr><td colspan="7" style="text-align:center; font-size:13px; font-weight:bold; background:#212121; color:#FFF;"><h4>Billing Information</h4></td></tr>
         <tr>
             <td style="text-align:center; font-size:16px; font-weight:bold;">Reservation Form ID</td>
             <td style="text-align:center; font-size:16px; font-weight:bold;">Date of Reservation</td>
@@ -102,23 +131,26 @@
         @foreach (var data in Model)
         {
 
-        <tr>
-            <td style="text-align:center; font-size:16px; ">@data.RFID</td>
-            <td style="text-align:center; font-size:16px; ">@data.Date</td>
-            <td style="text-align:center; font-size:16px;">@data.AmenityName</td>
-            <td style="text-align:center; font-size:16px; ">₱@data.TotalRate</td>
-            <td style="text-align:center; font-size:16px;">₱@data.TotalPayment</td>
-            <td style="text-align:center; font-size:16px; ">₱@data.OutstandingTotal</td>
-            <td style="text-align:center; font-size:16px;"><button class="btn btn-default" onclick="Modal(@data.RFID)">View</button></td>
-        </tr>
+            <tr>
+                <td style="text-align:center; font-size:16px; ">@data.RFID</td>
+                <td style="text-align:center; font-size:16px; ">@data.Date</td>
+                <td style="text-align:center; font-size:16px;">@data.AmenityName</td>
+                <td style="text-align:center; font-size:16px; ">₱@data.TotalRate</td>
+                <td style="text-align:center; font-size:16px;">₱@data.TotalPayment</td>
+                <td style="text-align:center; font-size:16px; ">₱@data.OutstandingTotal</td>
+                <td style="text-align:center; font-size:16px;"><button class="btn btn-default" onclick="Modal(@data.RFID)">View</button></td>
+            </tr>
         }
 
 
     </table>
 
+    <br />
+    <br />
+    <br />
+    <br/>
 
 </div>
-
 
 
 
@@ -127,9 +159,9 @@
 
     <script>
 
-        function Modal(rfid) {          
+        function Modal(rfid) {
             var data = {
-                RFId:rfid
+                RFId: rfid
             };
             var cref;
             document.getElementById('rfid').value = rfid;
@@ -150,20 +182,20 @@
                             cref = c.RefNo;
                         }
 
-                    });        
+                    });
                     totalc = data1[0].Rate + te + data1[0].Charge;
-					var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
-					trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Rate + '</td ></tr>';
+                    var trHtml = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Cost</h5></td></tr>';
+                    trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;">Amenity Rate</td><td style ="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Rate + '</td ></tr>';
                     $.each(data2, function (i, c) {
                         if (c.RefNo == data1[0].RFId) {
                             mule = c.Quantity * c.Rate;
-                            trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >' + c.EquipmentName + 'Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + mule + '</td></tr>';                        
+                            trHtml += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >' + c.EquipmentName + 'Cost</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + mule + '</td></tr>';
                         }
-                    });    
-                  
+                    });
+
                     trHtml += '<tr> <td style="text-align:center; font-size:10px; font-weight:bold;">Charge</td> <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Charge + '</td></tr>';
                     trHtml += '<tr> <td style="text-align:center; font - size: 10px; font - weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalc + '</td ></tr>';
-    
+
                     $('#rowtotalCost').append(trHtml);
 
                     $('#rowtotalPayment').empty();
@@ -171,99 +203,99 @@
                     totalp = data1[0].Total - data1[0].Amount;
                     var trHtml1 = '<tr><td colspan="2" style="text-align:center; font-size:10px; font-weight:bold; background:#2ba74a; color:#FFF;"><h5>Total Payment</h5></td></tr>';
                     trHtml1 += '<tr><td style="text-align:center; font-size: 10px; font-weight: bold;">Total Payment</td><td style = "text-align:center; font-size:10px; font-weight:bold;" >₱' + data1[0].Total + '</td ></tr>';
-                    trHtml1 += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >Reversal Amount</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Amount + '</td></tr>';                     
+                    trHtml1 += '<tr><td style="text-align:center; font-size:10px; font-weight:bold;" >Reversal Amount</td > <td style="text-align:center; font-size:10px; font-weight:bold;">₱' + data1[0].Amount + '</td></tr>';
                     trHtml1 += '<tr> <td style="text-align:center; font-size: 10px; font-weight: bold;"> </td> <td style="text-align:center; font-size:10px; font-weight:bold;" >₱' + totalp + '</td ></tr>';
                     $('#rowtotalPayment').append(trHtml1);
-                        $('#myModal').modal();
-    
-                    },
+                    $('#myModal').modal();
+
+                },
                 error: function (data) {
                     alert('Failed to retrieve the record');
                 }
             });
         }
 
-            //var events = [];
-            //$(document).ready(function () {
-            //    events = [];
-            //    $.ajax({
-            //        type: "GET",
-            //        url: "/Billing/GetEvents",
-            //        success: function (data) {
-            //            $.each(data, function (i, v) {
-            //                events.push({
-            //                    title: v.AName,
-            //                    reserved: v.ReservedBy,
-            //                    start: moment(v.StartTime),
-            //                    end: v.EndTime != null ? moment(v.EndTime) : null,
-            //                    rate: v.Rate,
-            //                    status: v.Status,
-            //                    color: v.Color,
-            //                    dp: v.Total,
-            //                    cg: v.Charge,
-            //                    bn: v.BldgNo,
-            //                    un: v.UnitNo,
-            //                    r: v.RId,
-            //                    rf: v.RFId,
-            //                    tc: v.TableCost,
-            //                    cc: v.ChairCost,
-            //                    amt: v.Amount,
-            //                    cq: v.ChairQuantity,
-            //                    tq: v.TableQuantity
-            //                });
-            //            })
-            //            GenerateCalendar(events);
-            //        },
-            //        error: function (error) {
-            //            alert('failed');
-            //        }
-            //    });
+        //var events = [];
+        //$(document).ready(function () {
+        //    events = [];
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/Billing/GetEvents",
+        //        success: function (data) {
+        //            $.each(data, function (i, v) {
+        //                events.push({
+        //                    title: v.AName,
+        //                    reserved: v.ReservedBy,
+        //                    start: moment(v.StartTime),
+        //                    end: v.EndTime != null ? moment(v.EndTime) : null,
+        //                    rate: v.Rate,
+        //                    status: v.Status,
+        //                    color: v.Color,
+        //                    dp: v.Total,
+        //                    cg: v.Charge,
+        //                    bn: v.BldgNo,
+        //                    un: v.UnitNo,
+        //                    r: v.RId,
+        //                    rf: v.RFId,
+        //                    tc: v.TableCost,
+        //                    cc: v.ChairCost,
+        //                    amt: v.Amount,
+        //                    cq: v.ChairQuantity,
+        //                    tq: v.TableQuantity
+        //                });
+        //            })
+        //            GenerateCalendar(events);
+        //        },
+        //        error: function (error) {
+        //            alert('failed');
+        //        }
+        //    });
 
 
 
-            //});
+        //});
 
-            function ReceiptHistory() {
-                var refno = document.getElementById('rfid').value;
+        function ReceiptHistory() {
+            var refno = document.getElementById('rfid').value;
 
-                $.ajax({
-                    type: "POST",
-                    url: "/Billing/ReceiptHistory",
-                    dataType: 'json',
-                    data: {
-                        'refno1': refno
-                    },
-                    success: function (data) {
-                        var totalp = 0;
-                        var trHTML = '';
-                        format: 'yyyy-mm',
+            $.ajax({
+                type: "POST",
+                url: "/Billing/ReceiptHistory",
+                dataType: 'json',
+                data: {
+                    'refno1': refno
+                },
+                success: function (data) {
+                    var totalp = 0;
+                    var trHTML = '';
+                    format: 'yyyy-mm',
 
 
-                            $('#tbHistory').empty();
-                        trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
-                        $.each(data, function (i, v) {
-                            trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
-                            totalp += v.Totalpayment;
-                        });
-                        $('#tbHistory').append(trHTML);
-                        document.getElementById('txtTotalPayment').innerHTML = totalp;
-                        trHTML = '';
-                    },
-                    error: function (error) {
-                        alert('Failed to retrieve the record');
-                    }
-                });
-            }
-
-            $('#btnHistory').click(function () {
-
-                $('#PaymentHistory').modal();
-
+                        $('#tbHistory').empty();
+                    trHTML = '<tr><th>Date</th> <th>Payment</th> <th>Description</th> <th>Created By</th></tr>';
+                    $.each(data, function (i, v) {
+                        trHTML += '<tr><td>' + moment(v.Date).format("DD/MMM/YYYY hh:mm a") + '</td><td>' + v.Totalpayment + '</td><td>' + v.Description + '</td><td>' + v.CreatedBy + '</td></tr>';
+                        totalp += v.Totalpayment;
+                    });
+                    $('#tbHistory').append(trHTML);
+                    document.getElementById('txtTotalPayment').innerHTML = totalp;
+                    trHTML = '';
+                },
+                error: function (error) {
+                    alert('Failed to retrieve the record');
+                }
             });
+        }
+
+        $('#btnHistory').click(function () {
+
+            $('#PaymentHistory').modal();
+
+        });
         $('#btnClosePH').click(function () {
 
-                $('#myModal').modal();
-            }
-            );
+            $('#myModal').modal();
+        }
+        );
     </script>
 }
