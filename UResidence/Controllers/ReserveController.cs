@@ -79,12 +79,50 @@ namespace UResidence.Controllers
         {
             decimal balance = 0;
             List<ReservationList> revlist = new List<ReservationList>();
-            int uid = Convert.ToInt32(Session["UID"]);
-            string type = (Session["TOR"]).ToString();
+            int uid;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                uid = Convert.ToInt32(Session["UID"]);
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                uid = Convert.ToInt32(Session["UID"]);
+            }
+            else
+            {
+                uid = Convert.ToInt32(Session["UIDA"]);
+            }
+       
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                 type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                 type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                 type = (Session["TORA"]).ToString();
+            }
+        
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
+               
                 Session["URLL"] = a.URL;
                 revlist = UResidence.ReservationListController.GetAllO(a.Id);
             }
@@ -92,7 +130,19 @@ namespace UResidence.Controllers
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
+               
                 Session["URLL"] = t.URL;
                 revlist = UResidence.ReservationListController.GetAllO(t.Id);
             }
@@ -161,18 +211,52 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
-            string type = (Session["TOR"]).ToString();
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                type = (Session["TORA"]).ToString();
+            }
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = a.URL;              
             }
 
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = t.URL;             
             }
             Session["aa"] = 1;
@@ -182,18 +266,52 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Date()
         {
-            string type = (Session["TOR"]).ToString();
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                type = (Session["TORA"]).ToString();
+            }
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = a.URL;
             }
 
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = t.URL;
             }
             ViewBag.name = (Session["NAME"]).ToString();
@@ -283,18 +401,52 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Equipment()
         {
-            string type = (Session["TOR"]).ToString();
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                type = (Session["TORA"]).ToString();
+            }
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = a.URL;
             }
 
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = t.URL;
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
@@ -377,18 +529,52 @@ namespace UResidence.Controllers
         }
         public ActionResult Summary()
         {
-            string type = (Session["TOR"]).ToString();
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                type = (Session["TORA"]).ToString();
+            }
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = a.URL;
             }
 
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = t.URL;
             }
             ViewBag.Amenity = (Session["NAME"]).ToString();
@@ -450,8 +636,24 @@ namespace UResidence.Controllers
                b = UResidence.SchedReservationController.GetAmenityNo(aid.ToString(),sd.ToString(), ed.ToString(),date);
                 
                 int sid =b[0].Id;
-                string tor = (string)Session["TOR"];
-                int UserId = (int)Session["UID"];         
+                string tor;
+                int UserId;
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                     tor = (string)Session["TOR"];
+                     UserId = (int)Session["UID"];
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                     tor = (string)Session["TOR"];
+                     UserId = (int)Session["UID"];
+                }
+                else
+                {
+                     tor = (string)Session["TORA"];
+                     UserId = (int)Session["UIDA"];
+                }
+             
                 string fullname = "";
            
                 UResidence.Residence reside = new UResidence.Residence();
@@ -465,7 +667,21 @@ namespace UResidence.Controllers
                 {                  
                     reside = UResidence.ResidenceController.GetTenantNo(UserId.ToString());
                 }
-                fullname = (Session["Fullname"]).ToString();
+
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    fullname = (Session["Fullname"]).ToString();
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    fullname = (Session["Fullname"]).ToString();
+                }
+                else
+                {
+                    fullname = (Session["FULLN"]).ToString();
+                }
+
+              
                 UResidence.Reservation r = new UResidence.Reservation
                 {
                     Rid = Convert.ToInt32(reside.Id),
@@ -524,7 +740,19 @@ namespace UResidence.Controllers
                     }
                 }
             }
-            return RedirectToAction("Home", "Reserve");
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                return RedirectToAction("Home", "Reserve");
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                return RedirectToAction("Home", "Reserve");
+            }
+            else
+            {
+                return RedirectToAction("Home", "Admin");
+            }
+     
 
         }
 
@@ -660,18 +888,52 @@ namespace UResidence.Controllers
         public ActionResult Swimming()
         {
             ViewBag.isw = (Session["IsWeekend"]).ToString();
-            string type = (Session["TOR"]).ToString();
+            string type;
+            if (Convert.ToInt32(Session["Level"]) == 8)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else if (Convert.ToInt32(Session["Level"]) == 9)
+            {
+                type = (Session["TOR"]).ToString();
+            }
+            else
+            {
+                type = (Session["TORA"]).ToString();
+            }
             if (type == "Owner")
             {
                 Owner a = new Owner();
-                a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UID"].ToString());
+                }
+                else
+                {
+                    a = UResidence.OwnerController.GetIdOwner(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = a.URL;
             }
 
             else
             {
                 Tenant t = new Tenant();
-                t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UID"].ToString());
+                }
+                else
+                {
+                    t = UResidence.TenantController.GetIdTenant(Session["UIDA"].ToString());
+                }
                 Session["URLL"] = t.URL;
             }
 
