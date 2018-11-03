@@ -12,6 +12,18 @@
 }
 
 <style type='text/css'>
+
+    body {
+        /*background-color: #f1f8e9;*/
+        background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+        /*-webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;*/
+        background-size: cover;
+    }
+
+
+
 		.my-legend .legend-scale ul li {
 			font-size: 80%;
 			list-style: none;
@@ -29,6 +41,10 @@
 			margin-left: 0;
 			border: 1px solid #999;
 		}
+    .pcolor {
+        background-color: #fafafa;
+    }
+
 	</style>
 
 
@@ -56,58 +72,76 @@
 		</div>
 	</div>*@
 
+<br/>
+<br/>
+<br/>
+
+
+
 <div class="container">
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><span id="eventTitle"></span></h4>
-				</div>
-                <div class="modal-body">
-                    <input type="hidden" name="rid" id="rid" />
-                    <input type="hidden" name="rfid" id="rfid" />
-                    <p id="pDetails">
-                    </p>
-                    <p id="pSwimming">
-                    </p>
-                    <p id="pAmount">
-                    </p>
-                    <br /><br />
+
+
+    <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+        <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="rid" id="rid" />
+                            <input type="hidden" name="rfid" id="rfid" />
+                            <p id="pDetails">
+                            </p>
+                            <p id="pSwimming">
+                            </p>
+                            <p id="pAmount">
+                            </p>
+                            <br /><br />
+                        </div>
+
+                        <div class="modal-footer" id="footer">
+
+
+                        </div>
+                    </div>
                 </div>
-                
-				<div class="modal-footer" id="footer">
-                   
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<br />
-<br />
-
-<div id="calendar" class="container"></div>
-<br />
-	@foreach (Amenity amn in Model)
-	{
-<div class='my-legend'>
-	<div class='legend-scale'>
-		<ul class='legend-labels'>
-			<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-		</ul>
-	</div>
-</div>
-	}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
-
-@section scripts{
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+            </div>
 
 
-    <script>
+            <br />
+            <br />
+
+            <div id="calendar" class="panel panel-default"></div>
+            <br />
+            @foreach (Amenity amn in Model)
+            {
+                <div class='my-legend'>
+                    <div class='legend-scale'>
+                        <ul class='legend-labels'>
+                            <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        </div>
+    </div>
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+        @section scripts{
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+
+            <script>
 		$(document).ready(function () {
 			var events = [];
 			$.ajax({
@@ -145,7 +179,7 @@
 
 		});
         function Download(refno) {
-            $.post("/Reserve/DownloadReservation", { refno1: refno });          
+            $.post("/Reserve/DownloadReservation", { refno1: refno });
         }
         function Swimming(refnos) {
             $('#myModal #pSwimming').empty();
@@ -154,7 +188,7 @@
                 url: "/Calendar/GET_SRESERVE",
                 data: { "refno": refnos },
                 success: function (data) {
- 
+
                     if (data.length > 0) {
                         var $description = $('<div/>');
                         stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
@@ -237,14 +271,14 @@
                     $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
                     $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
                     Swimming(calEvent.rf);
-                    getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);                         
+                    getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
                     document.getElementById('rid').value = calEvent.r;
                     document.getElementById('rfid').value = calEvent.rf;
                     $('#myModal #pDetails').empty().html($description);
                     $('#footer').empty();
-                   
+
                     if (calEvent.status == "Reserved") {
-                     
+
                         $('#footer').append('<a class="btn btn-success" href="@Url.Action("DownloadReservation","Reserve")?refno1=' + calEvent.rf + '">Print</a><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
                     }
                     else {
@@ -256,8 +290,8 @@
 			})
 		}
 
-    </script>
-}
+            </script>
+        }
 
 
 

@@ -92,6 +92,22 @@ namespace UResidence
 
         public static bool Update(Admin adm)
         {
+            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Bdate=@Bdate, CelNo=@CelNo,Email=@Email WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", adm.Id));
+            com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
+            com.Parameters.Add(new SqlParameter("@Mname", adm.Mname));
+            com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
+            com.Parameters.Add(new SqlParameter("@Bdate", adm.Bdate));
+            com.Parameters.Add(new SqlParameter("@CelNo", adm.CelNo));
+            com.Parameters.Add(new SqlParameter("@Email", adm.Email));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
+        public static bool UpdateBoss(Admin adm)
+        {
             const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Bdate=@Bdate, CelNo=@CelNo,Email=@Email ,ReservationModule=@ReservationModule,RegistrationModule=@RegistrationModule,PaymentModule=@PaymentModule,ReversalModule=@ReversalModule,LogBookModule=@LogBookModule  WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
@@ -109,6 +125,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@LogBookModule", adm.LogBookModule));
             return SqlManager.ExecuteNonQuery(com);
         }
+
         public static bool AUpdate(Admin adm)
         {
             const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
@@ -153,9 +170,9 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-        public static bool Insert(Admin adm)
+        public static bool InsertBoss(Admin adm)
         {
-            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url,@ReservationModule,@RegistrationModule,@PaymentModule,@ReversalModule,@LogBookModule) ";
+            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url,@ReservationModule,@RegistrationModule,@PaymentModule,@ReversalModule,@LogBookModule)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
@@ -171,6 +188,21 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@PaymentModule", adm.PaymentModule));
             com.Parameters.Add(new SqlParameter("@ReversalModule", adm.ReversalModule));
             com.Parameters.Add(new SqlParameter("@LogBookModule", adm.LogBookModule));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool Insert(Admin adm)
+        {
+            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url)";
+
+            SqlCommand com = new SqlCommand(GET_INSERT);
+            com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
+            com.Parameters.Add(new SqlParameter("@Mname", adm.Mname));
+            com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
+            com.Parameters.Add(new SqlParameter("@Bdate", adm.Bdate));
+            com.Parameters.Add(new SqlParameter("@CelNo", adm.CelNo));
+            com.Parameters.Add(new SqlParameter("@Email", adm.Email));
+            com.Parameters.Add(new SqlParameter("@Deleted", adm.Deleted));
+            com.Parameters.Add(new SqlParameter("@Url", adm.URL));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

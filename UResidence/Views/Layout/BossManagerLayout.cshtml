@@ -773,7 +773,8 @@
 							<li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
 							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
 							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
-
+							<li><a href="~/Admin/AdminView"><i class="fa fa-money"></i> Admin List</a></li>
+						
 
 
 							<!-- Dropdown-->
@@ -809,29 +810,29 @@
 
 
 							@*<li class=" dropdown">
-									<a class="panel-collapse" data-toggle="collapse" href="#">
-										<span class="glyphicon glyphicon-user"></span> My Profile
-										<span class="caret"></span>
-									</a>
-									<ul class="panel panel-collapse">
+			<a class="panel-collapse" data-toggle="collapse" href="#">
+				<span class="glyphicon glyphicon-user"></span> My Profile
+				<span class="caret"></span>
+			</a>
+			<ul class="panel panel-collapse">
 
 
 
-										<li>
-											<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-												<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+				<li>
+					<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+						<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-											</a>
-										</li>
+					</a>
+				</li>
 
 
-										<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+				<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-										<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+				<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
-									</ul>
+			</ul>
 
-								</li>*@
+		</li>*@
 
 
 
@@ -1444,7 +1445,7 @@
         }
 		function ValueYearChange() {
 			var year1 = document.getElementById('textyear').value;
-			alert(year1);
+	
 				$.ajax({
 					type: "POST",
 					url: '/BossManager/GetYearly',

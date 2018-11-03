@@ -10,6 +10,10 @@
 	{
 		Layout = "~/Views/Layout/TenantLayout.cshtml";
 	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {
@@ -88,7 +92,7 @@
 	<br />
 	<center>
 		<div>
-			<div class="progress" style="width:1400px; height:45px;">
+			<div class="progress panel panel-default" style="width:1000px; height:45px;">
 
 
 				@if (Session["IsEquipment"].ToString() == "True")
@@ -198,24 +202,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="col-md-9"><h4><em>Amenity Name :</em></h4></td>
-								<td class="col-md-1" style="text-align: center"><input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" /></td>
-							</tr>
+                            <tr>
+                                <td class="col-md-9"><h4><em>Amenity Name :</em></h4></td>
+
+                               
+
+                                <td class="col-md-1" style="text-align: center">
+
+                                    <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
+                                </td>
+                            </tr>
 							<tr>
 								<td class="col-md-9"><h4><em>Schedule: </em></h4></td>
 								<td class="col-md-1" style="text-align: center"><input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" /></td>
 							</tr>
 							@if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
 							{
-                                
 								<tr>
 									<td class="col-md-9"><h4><em>No. of Adult :</em></h4></td>
 									<td class="col-md-1" style="text-align: center"><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" disabled="disabled"></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>No. of Children :</em></h4></td>
@@ -223,7 +232,7 @@
 								</tr>
 								<tr>
 									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" disabled="disabled"></td>
+									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled"></td>
 								</tr>
 							}
 							else
@@ -289,9 +298,7 @@
 
 	<script>
       var ctr = parseInt($('#txtctrr').val());
-        var total = parseInt(@ViewBag.ratea);
-      
-     var amen = "@ViewBag.amenname";
+    var total = parseInt(@ViewBag.ratea);
     var totale=0.00;
     $(document).ready(function () {
 
@@ -305,21 +312,12 @@
                 totale = quantity * rate;
                 total = total + totale;
             }
-             
+
 
 
         }
         document.getElementById('total1').value = total.toFixed(2);
-        document.getElementById('total2').value = "₱" + total.toFixed(2);
-        alert(amen);
-        if (amen == "Swimming Pool") {   
-        var childr = parseInt("@ViewBag.CR");
-            var adultr = parseInt("@ViewBag.AR");
-            console.log(childr);
-            console.log(adultr);
-            document.getElementById('ar').value = "₱" + adultr.toFixed(2);
-            document.getElementById('cr').value = "₱" + total.toFixed(2);
-        }
+        document.getElementById('total2').value = "₱"+total.toFixed(2);
     });
 
 	</script>
