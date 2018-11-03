@@ -249,10 +249,10 @@
                                                 <li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
                                                 <li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
                                                 <li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
-                                                <li>  <label for="Stocks">Stocks :</label> <font color="black"> <input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly> </font></li>
+                                                <li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
 
 
-                                                <li><label for="Rate">Rate :</label> <font color="black">  @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+                                                <li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
                                                 <br />
                                             </ul>
 
@@ -283,20 +283,20 @@
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <div class="db-wrapper">
                                 <div class="db-pricing-seven">
-                                    <ul>
-                                        <li class="price">
-                                            <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+									<ul>
+										<li class="price">
+											<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
 
-                                        </li>
-                                        <li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
-                                        <li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
-                                        <li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
-                                        <li>  <label for="Stocks">Stocks :</label> <font color="black"> <input type="text" value="@totaleq" id="stocks1" name="stocks1" readonly> </font></li>
+										</li>
+										<li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
+										<li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
+										<li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
+										<li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
 
 
-                                        <li><label for="Rate">Rate :</label> <font color="black">  @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
-                                        <br />
-                                    </ul>
+										<li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+										<br />
+									</ul>
 
                                 </div>
                             </div>
