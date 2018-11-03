@@ -229,37 +229,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TenantList.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Views\Report\ReservationFormO.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationFormO.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Views\Report\ReservationFormSwimO.cs">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationFormSwimO.rpt</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Report\ReservationFormSwimT.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationFormSwimT.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\Report\ReservationFormT.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReservationFormT.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\Report\ReserveSwimmingO.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReserveSwimmingO.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="applogin\css\style.css" />
@@ -591,28 +560,7 @@
     <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
     <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationFormO.rdlc" />
-    <EmbeddedResource Include="Views\Report\ReservationFormO.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReservationFormO.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\ReservationFormSwimO.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReservationFormSwimO.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\ReservationFormSwimT.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReservationFormSwimT.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Report\ReservationFormT.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReservationFormT.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
-    <EmbeddedResource Include="Views\Report\ReserveSwimmingO.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ReserveSwimmingO.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />
     <EmbeddedResource Include="Views\Report\TenantList.rdlc" />
   </ItemGroup>
