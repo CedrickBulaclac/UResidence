@@ -480,12 +480,12 @@
                 if (startHours >= 8 && startHours <= 17) { //8am to 5pm
                     var hourDiff = fhours - startHours;
                     rateA = rate1 * hourDiff;
-                    document.getElementById('rate').value = rateA.toFixed(2);
+                    document.getElementById('rate').value = "₱" + rateA.toFixed(2);
                 }
                 else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
 					var hourDiff = fhours - startHours;
                     rateA = rate2 * hourDiff;
-                    document.getElementById('rate').value = rateA.toFixed(2);
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
 				}
 
             }
@@ -514,24 +514,24 @@
                 //}
 				/*else*/ if (eh >= 9 && eh <= 18) {
                     rateA = rate1 * diff;
-                    document.getElementById('rate').value = rateA.toFixed(2);
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
                 }
 				else if (eh >= 18 && eh <= 21) {
 					rateA = rate2 * diff;
-                    document.getElementById('rate').value = rateA.toFixed(2);
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
 
 					if (sh < 18) {
 						var dd = eh - 18;
 						var ed = 18 - sh;
 						rateA = ((rate1 * ed) + (rate2 * dd));
-                        document.getElementById('rate').value = rateA.toFixed(2);
+                        document.getElementById('rate').value = "₱" + rateA.toFixed(2);
 
 					}
 					else {
 
 						//100  *  2 = 200 * 6 = 1200
 						rateA = (rate2 * diff);
-                        document.getElementById('rate').value = rateA.toFixed(2);
+                        document.getElementById('rate').value = "₱" + rateA.toFixed(2);
 					}
 
 				}
