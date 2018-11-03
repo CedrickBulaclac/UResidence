@@ -1046,18 +1046,19 @@ namespace UResidence.Controllers
             string tor = Session["TOR"].ToString();
             List<ReportReservation> data = default(List<ReportReservation>);
             List<EquipReservation> data1 = default(List<EquipReservation>);
+            List<Swimming> data2 = default(List<Swimming>);
             if (tor == "Owner")
             {
 
                 data = UResidence.ReportReservationAmenityController.GETO(refno1);
                 data1 = UResidence.EquipReservationController.Getr(refno1);
-               
+                data2 = SwimmingController.GETR(refno1); 
             }
             else
             {
                 data = UResidence.ReportReservationAmenityController.GETT(refno1);
                 data1 = UResidence.EquipReservationController.Getr(refno1);
-              
+                data2 = SwimmingController.GETR(refno1);
             }
             LocalReport localreport = new LocalReport();
             localreport.ReportPath = Server.MapPath("~/Views/Report/ReservationFormO.rdlc");
@@ -1070,7 +1071,10 @@ namespace UResidence.Controllers
             localreport.DataSources.Add(rd);
             rd1.Name = "EquipmentReservation";
             rd1.Value = data1.ToList();
-            localreport.DataSources.Add(rd1);      
+            localreport.DataSources.Add(rd1);
+            rd2.Name = "PersonRate";
+            rd2.Value = data2.ToList();
+            localreport.DataSources.Add(rd2);
             string reportType = "PDF";
             string mimetype;
             string encoding;
