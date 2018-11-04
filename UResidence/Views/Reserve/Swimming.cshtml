@@ -262,7 +262,7 @@
 
 
                                     <p class="form-inline">
-                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="width:300px;">
+                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult1" id="rateadult1" readonly style="width:300px;">
 
                                     </p>
 
@@ -277,7 +277,7 @@
 
 
                                     <p class="form-inline">
-                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="width:300px;">
+                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild1" id="ratechild1" readonly style="width:300px;">
 
 
                                     </p>
@@ -297,7 +297,8 @@
                                         <input type="time" id="endT" name="endT" value="21:00" hidden />
                                         <input type="datetime" id="stime" name="stime" hidden />
                                         <input type="datetime" id="etime" name="etime" hidden />
-
+                                        <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="display:none;">
+                                        <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="display:none;">
                                         <br />
                                         <br />
 
@@ -363,7 +364,8 @@
 		 var rc=@Session["child"];
 		document.getElementById('rateadult').value = ra.toFixed(2);
 		document.getElementById('ratechild').value = rc.toFixed(2);
-
+        document.getElementById('rateadult1').value = "₱"+ ra.toFixed(2);
+        document.getElementById('ratechild1').value = "₱" +rc.toFixed(2);
 
 	function ValidateDate() {
 		var x = $('#sd').val();
@@ -432,7 +434,7 @@
 
 			var result = document.getElementById('rate');
 			var tots = parseInt(fTotalA) + parseInt(fTotalC);
-			result.value = tots.toFixed(2);
+            result.value = "₱" + tots.toFixed(2);
 
 
 		});
@@ -455,7 +457,7 @@
 
             var result = document.getElementById('rate');
 			var tots = parseInt(fTotalA) + parseInt(fTotalC);
-			result.value = tots.toFixed(2);
+            result.value = "₱" + tots.toFixed(2);
 
 
 		});

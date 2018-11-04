@@ -559,6 +559,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
     <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
+    <EmbeddedResource Include="Views\Report\ReversalListtY.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationFormO.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />

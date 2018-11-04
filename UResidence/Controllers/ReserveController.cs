@@ -586,14 +586,25 @@ namespace UResidence.Controllers
             ViewBag.end = ed;
             ViewBag.ratea =Session["drate"];
             ViewBag.amenname = Session["NAME"];
-
+            decimal totalamenityrate =(decimal)Session["drate"];
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
             ViewBag.QA= Session["qa"] ;
             ViewBag.QC = Session["qc"];
-            ViewBag.AR = Session["ar"];
-            ViewBag.CR = Session["cr"];
+            ViewBag.AR = "₱" + Session["ar"];
+            ViewBag.CR = "₱" + Session["cr"];
+            int[] equantity = (Int32[])Session["quantity"];
+            decimal[] ratee = (Decimal[])Session["ratee"];
 
+            if (Session["quantity"]!=null)
+            {
+                for(int i=0;i<=equip.Count-1;i++)
+                {
+                    totalamenityrate += (equantity[i]*ratee[i]);
+                }               
+            }    
+                ViewBag.Overall = totalamenityrate;
+            
             return View(equip);
         }
 
@@ -957,7 +968,8 @@ namespace UResidence.Controllers
             Session["sd"] = sd;
             Session["ed"] = ed;
             string drate = (fc["rate"]).Replace("₱", "");
-            Session["drate"] = drate;
+            decimal drate1 = Convert.ToDecimal(drate);
+            Session["drate"] = drate1;
 
             if (drate == "" || drate == "0") {
                 return View();
