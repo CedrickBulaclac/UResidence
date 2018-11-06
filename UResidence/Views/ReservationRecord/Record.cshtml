@@ -39,37 +39,50 @@
                 </div>
             </div>
         </div>
-            <div class="container"  >
-               <center><h2>Reservation with Outstanding Balance</h2></center>
-				<br />
-                    <div class="col-md-1">
-                        <b>Search</b>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
-                        <input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
-                    </div>
-                    <div class="col-md-1">
-                        <b>Category</b>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="form-control" id="category" onchange="Setfield()">
-                            <option value="0">By Amenity</option>
-                            <option value="1">By Date</option>
-                            <option value="2">By Owner</option>
 
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-success" onclick="Search();">Search</button>
-                    </div>
+        <br /><br /> <br />
+
+
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:  #1C2331">
+                    <font color="white"> <h2 class="panel-title"> Reservation with Outstanding Balance</h2></font>
                 </div>
 
+
+                @*<center><h2>Reservation with Outstanding Balance</h2></center>*@
                 <br />
+                <div class="col-md-1">
+                    <b><h5>Search </h5></b>
+                </div>
+                <div class="col-md-4">
+                    <input type="date" id="txtdate" name="txtdate" class="form-control" style="display:none;" />
+                    <input type="search" id="txtsearch" name="txtsearch" class="form-control" onkeyup="Setfield()" />
+                </div>
+                <div class="col-md-1">
+                    <b><h5>Category </h5></b>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control" id="category" onchange="Setfield()">
+                        <option value="0">By Amenity</option>
+                        <option value="1">By Date</option>
+                        <option value="2">By Owner</option>
+
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success" onclick="Search();">Search</button>
+                </div>
+
+
+                <br /> <br /> <br />
                 <div id="Download"></div>
                 <br /><br />
                 <table id="tbReservationList" name="tbReservationList" class="table table-bordered table-striped"></table>
+            </div>
         </div>
+    </div>
 
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
