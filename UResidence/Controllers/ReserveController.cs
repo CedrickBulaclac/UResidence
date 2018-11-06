@@ -12,7 +12,7 @@ namespace UResidence.Controllers
     public class ReserveController : Controller
     {
         private bool status = false;
-       
+        bool sessmodal = false;
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -46,6 +46,17 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
                 revlist = UResidence.ReservationListController.GetAllT(t.Id);
             }
+            //bool successModal = false;
+            try
+            {
+                bool m = (bool)Session["sessmodal"];
+                ViewBag.successModal = m ;
+            }
+                catch(Exception)
+            {
+                ViewBag.successModal = false;
+            }
+         
             if (revlist.Count>0)
             {
                 for (int i = 0; i <= revlist.Count - 1; i++)
@@ -146,7 +157,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
                 revlist = UResidence.ReservationListController.GetAllO(t.Id);
             }
-         
+            
             if (revlist.Count>0)
             {
                 for (int i = 0; i <= revlist.Count - 1; i++)
@@ -623,6 +634,7 @@ namespace UResidence.Controllers
                 EndTIme = Convert.ToDateTime(ed),
                 Rate = Convert.ToDecimal(rate),
                 Date =date,
+                Deleted=0
 
             };
             status = UResidence.SchedReservationController.Insert(a);
@@ -732,16 +744,18 @@ namespace UResidence.Controllers
                             }
 
                         }
-                        if (status == true)
-                        {
-                            Response.Write("<script>alert('You can proceed to the Admin Office to give the Downpayment')</script>");
-
-                        }
+                     
                     }
                 }
             }
+            if(status==true)
+            {
+                Session["sessmodal"] = true;
+
+            }
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
+
                 return RedirectToAction("Home", "Reserve");
             }
             else if (Convert.ToInt32(Session["Level"]) == 9)
@@ -749,7 +763,7 @@ namespace UResidence.Controllers
                 return RedirectToAction("Home", "Reserve");
             }
             else
-            {
+            { 
                 return RedirectToAction("Home", "Admin");
             }
      
