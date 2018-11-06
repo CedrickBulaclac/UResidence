@@ -213,55 +213,55 @@
 		}
 	}
 
-    .about {
-        background-color: #dcedc8 ;
-    }
+	.about {
+		background-color: #dcedc8;
+	}
 
-    .amenity {
-        background-color: #c5e1a5;
-    }
+	.amenity {
+		background-color: #c5e1a5;
+	}
 
-    .contact {
-        background-color: #dcedc8;
-    }
-   
-
-
-    .fa {
-        padding: 20px;
-        font-size: 30px;
-        width: 65px;
-        text-align: center;
-        text-decoration: none;
-        margin: 5px 2px;
-        border-radius: 50%;
-    }
-
-        .fa:hover {
-            opacity: 0.7;
-        }
+	.contact {
+		background-color: #dcedc8;
+	}
 
 
-    .fa-facebook {
-        background: #3B5998;
-        color: white;
-    }
 
-    .fa-twitter {
-        background: #55ACEE;
-        color: white;
-    }
+	.fa {
+		padding: 20px;
+		font-size: 30px;
+		width: 65px;
+		text-align: center;
+		text-decoration: none;
+		margin: 5px 2px;
+		border-radius: 50%;
+	}
 
-    .fa-google {
-        background: #dd4b39;
-        color: white;
-    }
+		.fa:hover {
+			opacity: 0.7;
+		}
 
 
-    .fa-instagram {
-        background: #125688;
-        color: white;
-    }
+	.fa-facebook {
+		background: #3B5998;
+		color: white;
+	}
+
+	.fa-twitter {
+		background: #55ACEE;
+		color: white;
+	}
+
+	.fa-google {
+		background: #dd4b39;
+		color: white;
+	}
+
+
+	.fa-instagram {
+		background: #125688;
+		color: white;
+	}
 
 
 
@@ -402,6 +402,82 @@
 			color: #a5a5a5;
 			letter-spacing: 1px;
 		}
+		@*SUCCESS MODAL STYLE*@
+			
+		.modal-confirm {		
+		color: #636363;
+		width: 325px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;   
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px; 
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}	
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}	
+	.modal-confirm .icon-box {
+		color: #fff;		
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
 </style>
 
 
@@ -412,7 +488,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <div class="container">
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -433,52 +509,76 @@
 	</div>
 </div>
 
-<br />
 
-	<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="3000" id="bs-carousel">
-		<!-- Overlay -->
-		<div class="overlay"></div>
-		<!-- Indicators -->
-		<ol class="carousel-indicators">
-			<li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
-			<li data-target="#bs-carousel" data-slide-to="1"></li>
-			<li data-target="#bs-carousel" data-slide-to="2"></li>
-		</ol>
-
-		<!-- Wrapper for slides -->
-		<div class="carousel-inner">
-			<div class="item slides active">
-				<div class="slide-1"></div>
-				<div class="hero">
-					<hgroup>
-						<h1>Great Experience Living Spaces</h1>
-
-					</hgroup>
-
+<!-- Modal HTML -->
+<div id="myModalSucess" class="modal fade">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE876;</i>
 				</div>
+				<h4 class="modal-title">Reservation successfully submitted.</h4>
 			</div>
-			<div class="item slides">
-				<div class="slide-2"></div>
-				<div class="hero">
-					<hgroup>
-						<h1>Modern Amenities Awaits</h1>
-
-					</hgroup>
-
-				</div>
+			<div class="modal-body">
+				<p class="text-center">
+					NOTE: This is just pencil booking reservation,
+					Kindly settle your payment within 48 hours to confirm your reservation.
+				</p>
 			</div>
-			<div class="item slides">
-				<div class="slide-3"></div>
-				<div class="hero">
-					<hgroup>
-						<h1>Limitless Style and Service </h1>
-
-					</hgroup>
-
-				</div>
+			<div class="modal-footer">
+				<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
 			</div>
 		</div>
 	</div>
+</div>
+
+<br />
+
+<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="3000" id="bs-carousel">
+	<!-- Overlay -->
+	<div class="overlay"></div>
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+		<li data-target="#bs-carousel" data-slide-to="1"></li>
+		<li data-target="#bs-carousel" data-slide-to="2"></li>
+	</ol>
+
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<div class="item slides active">
+			<div class="slide-1"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Great Experience Living Spaces</h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+		<div class="item slides">
+			<div class="slide-2"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Modern Amenities Awaits</h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+		<div class="item slides">
+			<div class="slide-3"></div>
+			<div class="hero">
+				<hgroup>
+					<h1>Limitless Style and Service </h1>
+
+				</hgroup>
+
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
@@ -488,221 +588,221 @@
 
 
 
-	<!-- About Us -->
+<!-- About Us -->
 
-	<div class="second">
+<div class="second">
 
 
 
-		<div class="about">
-			<div class="row">
-				<div class="heading-title text-center">
-					<br /> <br/> <br/>
-					<h1 class="text-uppercase">WELCOME TO PALMDALE HEIGHTS CONDOMINIUM</h1>
-					<p class="p-top-30 half-txt ">
-                        <font color="black"> 
+	<div class="about">
+		<div class="row">
+			<div class="heading-title text-center">
+				<br /> <br /> <br />
+				<h1 class="text-uppercase">WELCOME TO PALMDALE HEIGHTS CONDOMINIUM</h1>
+				<p class="p-top-30 half-txt ">
+					<font color="black">
 						Palmdale Heights, Pasig City that has 828 units development for its first two phases that have been completed and 85% or 703 units have been sold at the end of September 2013. Palmdale Heights is a project of Keppel Bank of Singapore (formerly GE Money and now BDO) and Buena Homes; managed by CBRE. There six 10-storey condo buildings.
 						Palmdale Heights is a perfect escape for homeowners that allows you experience a hustle and bustle of city life into elegantly design with beautiful landscaping and fully equipped recreational facilities including swimming pool, clubhouse and children’s playground
 					</font>
-                            </p>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="team-member">
-						<div class="team-img">
-							<img src="~/Content/WebImages/entrance.jpg" alt="team member" class="img-responsive">
-						</div>
-						<div class="team-hover">
-							<div class="desk">
-								<h4>Entrance and Exit</h4>
-								<p>Area</p>
-							</div>
-
-						</div>
+				</p>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/entrance.jpg" alt="team member" class="img-responsive">
 					</div>
-
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="team-member">
-						<div class="team-img">
-							<img src="~/Content/WebImages/about1e.jpg" alt="team member" class="img-responsive">
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Entrance and Exit</h4>
+							<p>Area</p>
 						</div>
-						<div class="team-hover">
-							<div class="desk">
-								<h4>Condominium Buildings</h4>
-								<p>Area</p>
-							</div>
 
-						</div>
 					</div>
 				</div>
 
-				<div class="col-md-4 col-sm-4">
-					<div class="team-member">
-						<div class="team-img">
-							<img src="~/Content/WebImages/bg.png" alt="team member" class="img-responsive">
-						</div>
-						<div class="team-hover">
-							<div class="desk">
-								<h4>Trellis</h4>
-								<p>Area</p>
-							</div>
-
-						</div>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/about1e.jpg" alt="team member" class="img-responsive">
 					</div>
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Condominium Buildings</h4>
+							<p>Area</p>
+						</div>
 
+					</div>
 				</div>
 			</div>
-			<br /> <br/> <br/>
-		</div>
-	</div>
 
-
-	<!-- Amenities -->
-
-
-	<div class="w3-padding-64 w3-center amenity">
-		<h1 class="text-uppercase">OUR AMENITIES</h1>
-		@*<h1 class="w3-xxlarge"><b>OUR AMENITIES</b></h1>*@
-        
-        <font color="black">
-            <p class="p-top-30 half-txt ">The Amenities that fits your needs.</p>
-        </font>
-
-		<div class="w3-row-padding" style="margin-top:64px">
-			@foreach (var a in Model)
-			{
-				<div class="w3-third w3-section">
-					<ul class="w3-ul w3-card contact w3-hover-shadow">
-
-
-						<li class="headera w3-large w3-text-black w3-padding-16">@a.AmenityName</li>
-						<img src="@Url.Content(a.Url)" width="100%;" height="50%" />
-
-						<div class="align left">
-							<li class="w3-padding-16">Capacity: @a.Capacity persons</li>
-
-							@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
-							{
-                            <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: ₱@a.Adult </li>
-                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: ₱@a.Child </li>
-								<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
-								<li class="w3-padding-16">Description: @a.Description</li>
-								<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
-							}
-							else
-							{
-                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.Rate per hour</li>
-                                <li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.EveRate per hour at night</li>
-								<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
-								<li class="w3-padding-16">Description: @a.Description</li>
-								<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
-
-							}
-
-
+			<div class="col-md-4 col-sm-4">
+				<div class="team-member">
+					<div class="team-img">
+						<img src="~/Content/WebImages/bg.png" alt="team member" class="img-responsive">
+					</div>
+					<div class="team-hover">
+						<div class="desk">
+							<h4>Trellis</h4>
+							<p>Area</p>
 						</div>
 
-						
-					</ul>
+					</div>
 				</div>
-			}
+
+			</div>
+		</div>
+		<br /> <br /> <br />
+	</div>
+</div>
+
+
+<!-- Amenities -->
+
+
+<div class="w3-padding-64 w3-center amenity">
+	<h1 class="text-uppercase">OUR AMENITIES</h1>
+	@*<h1 class="w3-xxlarge"><b>OUR AMENITIES</b></h1>*@
+
+	<font color="black">
+		<p class="p-top-30 half-txt ">The Amenities that fits your needs.</p>
+	</font>
+
+	<div class="w3-row-padding" style="margin-top:64px">
+		@foreach (var a in Model)
+		{
+			<div class="w3-third w3-section">
+				<ul class="w3-ul w3-card contact w3-hover-shadow">
+
+
+					<li class="headera w3-large w3-text-black w3-padding-16">@a.AmenityName</li>
+					<img src="@Url.Content(a.Url)" width="100%;" height="50%" />
+
+					<div class="align left">
+						<li class="w3-padding-16">Capacity: @a.Capacity persons</li>
+
+						@if (a.AmenityName.ToUpper().Contains("SWIMMING"))
+						{
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Adult Rate: ₱@a.Adult </li>
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> Child Rate: ₱@a.Child </li>
+							<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
+							<li class="w3-padding-16">Description: @a.Description</li>
+							<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
+						}
+						else
+						{
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.Rate per hour</li>
+							<li class="w3-padding-16"><b><i class="glyphicon glyphicon-grain"></i></b> ₱@a.EveRate per hour at night</li>
+							<li class="w3-padding-16"> Not available for Overnight use ( strictly until 9:00 pm only)</li>
+							<li class="w3-padding-16">Description: @a.Description</li>
+							<li class="w3-padding-16">Additional charges may vary upon extension of time and damage </li>
+
+						}
+
+
+					</div>
+
+
+				</ul>
+			</div>
+		}
 
 
 
+
+	</div>
+	<br>
+</div>
+
+
+<div class="third">
+
+	<div class="contact">
+
+		<div class="container">
+
+			<br /> <br /> <br />
+
+			<h1 class="text-center text-uppercase"> <b>contact us </b></h1>
+
+			<font color="black">
+				<p class="text-center p-top-30 ">We are glad to assist you</p>
+			</font>
+
+			<br /> <br />
+
+			<center>
+
+				<div class="col-lg-4 ">
+
+
+					<i class="fa fa-phone fa-5x " aria-hidden="true"></i>
+					<h4 class="text-uppercase ">contact number</h4>
+					<p> (632) 571-2347, (632) 571-0966</p>
+
+
+
+				</div>
+
+
+
+
+				<div class="col-lg-4">
+
+
+					<i class="fa fa-map-marker fa-5x " aria-hidden="true"></i>
+					<h4 class="text-uppercase ">office location</h4>
+					<address> 8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</address>
+
+
+
+				</div>
+
+
+
+
+
+				<div class="col-lg-4">
+
+
+					<i class="fa fa-globe fa-5x " aria-hidden="true"></i>
+					<h4 class="text-uppercase ">email address</h4>
+					<p> palmdalecondominium@yahoo.com</p>
+
+
+
+				</div>
+
+
+
+			</center>
 
 		</div>
-		<br>
+
+
+		<br /> <br /> <br />
+
 	</div>
 
-
-    <div class="third">
-
-        <div class="contact">
-
-            <div class="container">
-
-                <br /> <br /> <br />
-
-                <h1 class="text-center text-uppercase"> <b>contact us </b></h1>
-                
-                <font color="black">
-                    <p class="text-center p-top-30 ">We are glad to assist you</p>
-                </font>
-
-                <br /> <br /> 
-
-                       <center>
-
-                           <div class="col-lg-4 ">
-
-
-                               <i class="fa fa-phone fa-5x " aria-hidden="true"></i>
-                               <h4 class="text-uppercase ">contact number</h4>
-                               <p> (632) 571-2347, (632) 571-0966</p>
-
-
-
-                           </div>
-
-
-
-
-                           <div class="col-lg-4">
-
-
-                               <i class="fa fa-map-marker fa-5x " aria-hidden="true"></i>
-                               <h4 class="text-uppercase ">office location</h4>
-                               <address> 8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</address>
-
-
-
-                           </div>
+</div>
 
 
 
 
 
-                           <div class="col-lg-4">
+<!-- Footer -->
+<footer class="col-lg-12" @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white; position:absolute; width:100%;">
+	<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+	<a href="#" class="fa fa-facebook fa-2x"></a>
+	<a href="#" class="fa fa-twitter  fa-2x "></a>
+	<a href="#" class="fa fa-instagram fa-2x"></a>
+	<a href="#" class="fa fa-google fa-2x"></a>
 
 
-                               <i class="fa fa-globe fa-5x " aria-hidden="true"></i>
-                               <h4 class="text-uppercase ">email address</h4>
-                               <p> palmdalecondominium@yahoo.com</p>
+	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
+</footer>
 
-
-                           </div>
-
-
-
-                       </center>
-
-                </div>
-
-                
-                        <br /> <br /> <br/>
-
-            </div>
-
-        </div>
-
-        
-
-  
-
-		<!-- Footer -->
-    <footer  class="col-lg-12"@*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white; position:absolute; width:100%;">
-        <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-        <a href="#" class="fa fa-facebook fa-2x"></a>
-        <a href="#" class="fa fa-twitter  fa-2x "></a>
-        <a href="#" class="fa fa-instagram fa-2x"></a>
-        <a href="#" class="fa fa-google fa-2x"></a>
-
-
-        <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-
-    </footer>
-	
 <script>
      $(document).ready(
         function () {
@@ -712,8 +812,15 @@
                     $('#myModal').modal();
                 }
 
+			}
+
+			var a = '@ViewBag.successModal';
+			if (a == 'True') {
+				$('#myModalSucess').modal();
+				a = false;
              }
-         });
+		});
+
 	$("#btnAbout").click(function () {
 		$('html,body').animate({
 			scrollTop: $(".second").offset().top
