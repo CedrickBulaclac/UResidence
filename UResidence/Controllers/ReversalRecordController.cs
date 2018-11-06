@@ -1,5 +1,4 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
+﻿
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -59,66 +58,28 @@ namespace UResidence.Controllers
             int month1= (int) Session["month"];
             int year1=(int)Session["year"];          
             List<ReversalList> data = default(List<ReversalList>);
+            LocalReport localreport = new LocalReport();
+            ReportDataSource rd = new ReportDataSource();
             if (type1.ToUpper() == "MONTHLY")
             {
-                data = ReversalListController.GET_ALLC(month1, year1);
-                switch (month1)
-                {
-                    case 1:
-                        monthly = "January";
-                    break;
-                    case 2:
-                        monthly = "February";
-                        break;
-                    case 3:
-                        monthly = "March";
-                        break;
-                    case 4:
-                        monthly = "April";
-                        break;
-                    case 5:
-                        monthly = "May";
-                        break;
-                    case 6:
-                        monthly = "June";
-                        break;
-                    case 7:
-                        monthly = "July";
-                        break;
-                    case 8:
-                        monthly = "August";
-                        break;
-                    case 9:
-                        monthly = "September";
-                        break;
-                    case 10:
-                        monthly = "October";
-                        break;
-                    case 11:
-                        monthly = "November";
-                        break;
-                    case 12:
-                        monthly = "December";
-                        break;
-                }
-                my = monthly + " ," + year1;
+                data = ReversalListController.GET_ALLC(month1, year1);       
+                localreport.ReportPath = Server.MapPath("~/Views/Report/ReversalListt.rdlc");
+
+                rd.Name = "ReversalListt";
+                rd.Value = data.ToList();
             }
             else
             {
                 data = ReversalListController.GET_ALLCY(year1);
-                my = year1.ToString();
+                localreport.ReportPath = Server.MapPath("~/Views/Report/ReversalListtY.rdlc");
+
+                rd.Name = "ReversalListt2";
+                rd.Value = data.ToList();
             }
             
-            LocalReport localreport = new LocalReport();
-            localreport.ReportPath = Server.MapPath("~/Views/Report/ReversalListt.rdlc");
-            ReportDataSource rd = new ReportDataSource();
-            rd.Name = "ReversalListt";
-            rd.Value = data.ToList();
-            //ReportParameter[] param = new ReportParameter[]
-            //{
-            //    new ReportParameter("txtType", "CED")
-            //};         
-            //localreport.SetParameters(param);
+           
+          
+       
 
 
             localreport.DataSources.Add(rd);
@@ -131,16 +92,15 @@ namespace UResidence.Controllers
             byte[] renderbyte;
             string deviceInfo = "<DeviceInfo><OutputFormat>PDF</OutputFormat><PageWidth>8.5in</PageWidth><PageHeight>11in</PageHeight><MarginTop>0.5in</MarginTop><MarginLeft>11in</MarginLeft><MarginRight>11in</MarginRight><MarginBottom>0.5in</MarginBottom></DeviceInfo>";
             renderbyte = localreport.Render(reportType, deviceInfo, out mimetype, out encoding, out filenameExtension, out streams, out warnings);
-            Response.AddHeader("content-disposition", "attachment;filename=ReversalList." + filenameExtension);
+            if (type1.ToUpper() == "MONTHLY")
+            {
+                Response.AddHeader("content-disposition", "attachment;filename=ReversalList-"+month1+"-"+year1+"." + filenameExtension);
+            }
+            else
+            {
+                Response.AddHeader("content-disposition", "attachment;filename=ReversalList" + year1 + "." + filenameExtension);
+            }
             return File(renderbyte, filenameExtension);
-
-
-            //TextObject text = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text11"];
-            //text.Text = "("+type1+")";
-            //TextObject text1 = (TextObject)rd.ReportDefinition.Sections["Section1"].ReportObjects["Text12"];
-            //text1.Text = my;
-
-     
         }
         public JsonResult GetP(string type,int month,int year)
         {

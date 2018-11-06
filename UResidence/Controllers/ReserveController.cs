@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using CrystalDecisions.CrystalReports.Engine;
 using Microsoft.Reporting.WebForms;
 
 namespace UResidence.Controllers
@@ -588,6 +587,7 @@ namespace UResidence.Controllers
                 }
                 Session["URLL"] = t.URL;
             }
+            
             ViewBag.Amenity = (Session["NAME"]).ToString();
             List<Equipment> equip = UResidence.EquipmentController.GetAll();
             string sd = (string)Session["sd"];
@@ -596,14 +596,25 @@ namespace UResidence.Controllers
             ViewBag.end = ed;
             ViewBag.ratea =Session["drate"];
             ViewBag.amenname = Session["NAME"];
-
+            decimal totalamenityrate =(decimal)Session["drate"];
             ViewBag.quan = Session["quantity"];
             ViewBag.rat = Session["ratee"];
             ViewBag.QA= Session["qa"] ;
             ViewBag.QC = Session["qc"];
-            ViewBag.AR = Session["ar"];
-            ViewBag.CR = Session["cr"];
+            ViewBag.AR = "₱" + Session["ar"];
+            ViewBag.CR = "₱" + Session["cr"];
+            int[] equantity = (Int32[])Session["quantity"];
+            decimal[] ratee = (Decimal[])Session["ratee"];
 
+            if (Session["quantity"]!=null)
+            {
+                for(int i=0;i<=equip.Count-1;i++)
+                {
+                    totalamenityrate += (equantity[i]*ratee[i]);
+                }               
+            }    
+                ViewBag.Overall = totalamenityrate;
+            
             return View(equip);
         }
 
@@ -969,8 +980,9 @@ namespace UResidence.Controllers
             string ed = fc["etime"];
             Session["sd"] = sd;
             Session["ed"] = ed;
-            string drate = fc["rate"];
-            Session["drate"] = drate;
+            string drate = (fc["rate"]).Replace("₱", "");
+            decimal drate1 = Convert.ToDecimal(drate);
+            Session["drate"] = drate1;
 
             if (drate == "" || drate == "0") {
                 return View();
@@ -1024,13 +1036,7 @@ namespace UResidence.Controllers
                     }
                 }
             }
-           
-
-
-
-
-
-
+          
             return View();
         }
 

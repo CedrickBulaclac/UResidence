@@ -1,335 +1,324 @@
 ﻿
 @model List<Equipment>
 @{
-	ViewBag.Title = "Summary";
-	if (Convert.ToInt32(Session["Level"]) == 8)
-	{
-		Layout = "~/Views/Layout/LayoutHome.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 9)
-	{
-		Layout = "~/Views/Layout/TenantLayout.cshtml";
-	}
-	else
-	{
-		Layout = "/Views/Layout/AdminLayout.cshtml";
-	}
+                /**/
+
+                ViewBag.Title = "Summary";
+                if (Convert.ToInt32(Session["Level"]) == 8)
+                {
+                    Layout = "~/Views/Layout/LayoutHome.cshtml";
+                }
+                else if (Convert.ToInt32(Session["Level"]) == 9)
+                {
+                    Layout = "~/Views/Layout/TenantLayout.cshtml";
+                }
+                else
+                {
+                    Layout = "/Views/Layout/AdminLayout.cshtml";
+                }
 }
 @using (Html.BeginForm("Summary", "Reserve", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
-	<head>
-		<style>
+    @Html.AntiForgeryToken()
+    <head>
+        <style>
 
-			body {
-				/*background-color: #f1f8e9;*/
-				background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
-			}
-
-
-			.input {
-				padding: 12px 20px;
-				margin: 8px 0;
-				display: inline-block;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				box-sizing: border-box;
-				width: 10%;
-			}
+            body {
+                /*background-color: #f1f8e9;*/
+                background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
 
 
-			.col-25 {
-				float: left;
-				width: 25%;
-				margin-top: 6px;
-			}
+            .input {
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                width: 10%;
+            }
 
 
-			.col-75 {
-				float: left;
-				margin-top: 6px;
-			}
-
-			label {
-				padding: 12px 12px 12px 0;
-				display: inline-block;
-			}
-
-			.row:after {
-				content: "";
-				display: table;
-				clear: both;
-			}
-
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #18ac6f;
-				border: none;
-				border-radius: 5px;
-				float: right;
-				text-decoration: none;
-				text-decoration-color: none;
-			}
+            .col-25 {
+                float: left;
+                width: 25%;
+                margin-top: 6px;
+            }
 
 
+            .col-75 {
+                float: left;
+                margin-top: 6px;
+            }
 
-				.button:hover {
-					background-color: #46bc8b;
-				}
-		</style>
-	</head>
+            label {
+                padding: 12px 12px 12px 0;
+                display: inline-block;
+            }
 
-	<br />
-	<br />
-	<center>
-		<div>
-			<div class="progress panel panel-default" style="width:1000px; height:45px;">
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
 
-
-				@if (Session["IsEquipment"].ToString() == "True")
-				{
-					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-						 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-						<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-					</div>
-					<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-					</div>
-
-
-					if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
-					{
-						<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Swimming", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-						<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
-						</div>
-					}
-					else
-					{
-						<div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Choose_Date", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-						<div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
-						</div>
-					}
-					<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-					</div>
-				}
-
-
-
-				else
-				{
-					<div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-						 aria-valuemin="0" aria-valuemax="100" style="width:25%;">
-						<a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-					</div>
-					<div class="progress-bar progress-bar-success " style="width:25%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-					</div>
-
-
-					if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
-					{
-						<div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Swimming", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-
-					}
-					else
-					{
-						<div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
-							 aria-valuemin="0" aria-valuemax="100">
-							<a href="@Url.Action("Choose_Date", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
-						</div>
-					}
-					<div class="progress-bar progress-bar-success progress-bar-striped active " style="width:25%;" role="progressbar" aria-valuenow="0"
-						 aria-valuemin="0" aria-valuemax="100">
-						<p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-
-					</div>
-				}
-			</div>
-
-
-		</div>
-	</center>
-
-
-	@*<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
-	<!------ Include the above in your HEAD tag ---------->
-	<input type="hidden" id="ida" name="ida" />
-	<input type="hidden" id="thm" name="thm" />
-
-	<div class="container">
-		<div class="row">
-			<div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-				<div class="row">
-					<div class="text-center">
-						<h1>Summary of Reservation</h1>
-					</div>
-
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-								<th class="text-center"></th>
-								<th class="text-center"></th>
-							</tr>
-						</thead>
-						<tbody>
-                            <tr>
-                                <td class="col-md-9"><h4><em>Amenity Name :</em></h4></td>
-
-                               
-
-                                <td class="col-md-1" style="text-align: center">
-
-                                    <input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />
-                                </td>
-                            </tr>
-							<tr>
-								<td class="col-md-9"><h4><em>Schedule: </em></h4></td>
-								<td class="col-md-1" style="text-align: center"><input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" /></td>
-							</tr>
-							@if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
-							{
-								<tr>
-									<td class="col-md-9"><h4><em>No. of Adult :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<td class="col-md-9"><h4><em>No. of Children :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<td class="col-md-9"><h4><em>Rate :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="number" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled"></td>
-								</tr>
-							}
-							else
-							{
-								<tr>
-									<td class="col-md-9"><h4><em>Price :</em></h4></td>
-									<td class="col-md-1" style="text-align: center"><input type="text" id="aprice" name="aprice" disabled="disabled" value="₱@ViewBag.ratea" /></td>
-								</tr>
-								<input type="hidden" id="ap" name="ap" />
-							}
-							@{
-								int ctr4 = 0;
-								if (ViewBag.quan != null)
-								{
-									foreach (var eqp in Model)
-									{
-										if (ViewBag.quan[ctr4] != 0)
-										{
-											<tr>
-												<td class="col-md-9"><h4><em>@eqp.Name</em></h4></td>
-											</tr>
-											<tr>
-												<td class="col-md-9"><em>Quantity: </em></td>
-												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = ViewBag.quan[ctr4], @disabled = "true" } })</td>
-											</tr>
-											<tr>
-												<td class="col-md-9"><em>Rate: </em></td>
-												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = "₱" + ViewBag.rat[ctr4] } })</td>
-											</tr>
-											<tr>
-												<td class="col-md-9"><em>Sub Total: </em></td>
-												<td class="col-md-1" style="text-align: center">@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = "₱"+ ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })</td>
-											</tr>
-										}
-										else if (ViewBag.quan[ctr4] is null)
-										{
-
-										}
-										ctr4++;
-									}
-								}
-							}
-							<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
-							<tr>
-
-								<td class="text-right"><h4><strong>Total Amount: </strong></h4></td>
-								<td class="text-center text-danger"><h4><strong><input type="text" class="form-group" id="total2" name="total2" value="₱@ViewBag.ratea" readonly /><input type="hidden" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly /></strong></h4></td>
-								<td>   </td>
-								<td>   </td>
-
-							</tr>
-						</tbody>
-					</table>
-					<button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success btn-lg btn-block">
-						Reserve Now   <span class="glyphicon glyphicon-chevron-right"></span>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<script>
-      var ctr = parseInt($('#txtctrr').val());
-    var total = parseInt(@ViewBag.ratea);
-    var totale=0.00;
-    $(document).ready(function () {
-
-        for (var pppp = 0; pppp <= ctr - 1; pppp++) {
-
-            var quantity = $('#quantity' + pppp).val();
-            var d = $('#rate' + pppp).val();
-            var rate = parseInt(d.replace("₱", ""));
-
-            if (quantity != null) {
-                totale = quantity * rate;
-                total = total + totale;
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #18ac6f;
+                border: none;
+                border-radius: 5px;
+                float: right;
+                text-decoration: none;
+                text-decoration-color: none;
             }
 
 
 
-        }
-        document.getElementById('total1').value = total.toFixed(2);
-        document.getElementById('total2').value = "₱"+total.toFixed(2);
-    });
+                .button:hover {
+                    background-color: #46bc8b;
+                }
+        </style>
+    </head>
 
-	</script>
+    <br />
+    <br />
+    <center>
+        <div>
+            <div class="progress panel panel-default" style="width:1000px; height:45px;">
+
+
+                @if (Session["IsEquipment"].ToString() == "True")
+                {
+                    <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                         aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                        <a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                    </div>
+                    <div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                    </div>
+
+
+                    if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
+                    {
+                        <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Swimming", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Choose_Date", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success " style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Choose_Equipment", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font></p></a>
+                        </div>
+                    }
+                    <div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                    </div>
+                }
+
+
+
+                else
+                {
+                    <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                         aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+                        <a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                    </div>
+                    <div class="progress-bar progress-bar-success " style="width:25%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                    </div>
+
+
+                    if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
+                    {
+                        <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Swimming", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Choose_Date", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p></a>
+                        </div>
+                    }
+                    <div class="progress-bar progress-bar-success progress-bar-striped active " style="width:25%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+
+                    </div>
+                }
+            </div>
+
+
+        </div>
+    </center>
+
+
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
+    <!------ Include the above in your HEAD tag ---------->
+    <input type="hidden" id="ida" name="ida" />
+    <input type="hidden" id="thm" name="thm" />
+    <input type="hidden" class="form-group" id="total1" name="total1" value="@ViewBag.ratea" readonly />
+    <div class="container">
+        <div class="row">
+            <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>Summary of Reservation</h1>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center"></th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-md-9"><h4><em>Amenity Name :</em></h4></td>
+
+
+
+                                <td class="col-md-1" style="text-align: center">
+
+                                    @*<input type="text" id="amname" name="amname" disabled="disabled" value="@ViewBag.amenname" />*@
+                                    <label id="amname" name="amname">@ViewBag.amenname</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-9"><h4><em>Schedule: </em></h4></td>
+                                @*<td class="col-md-1" style="text-align: center"><input type="datetime" id="stime" name="stime" disabled="disabled" value="@ViewBag.start" /> - <input type="datetime" id="etime" name="etime" disabled="disabled" value="@ViewBag.end" /></td>*@
+                                <td class="col-md-1" style="text-align: center"><label id="stime" name="stime">@ViewBag.start</label>  - <label id="etime" name="etime">@ViewBag.end</label> </td>
+                            </tr>
+                            @if (ViewBag.amenname == "Swimming Pool" || ViewBag.amenname == "SWIMMING POOL")
+                            {
+                                <tr>
+                                    <td class="col-md-9"><h4><em>No. of Adult :</em></h4></td>
+                                    @*<td class="col-md-1" style="text-align: center"><input type="number" id="qa" name="qa" value="@ViewBag.QA" disabled="disabled"></td>*@
+                                    <td class="col-md-1" style="text-align: center"><label id="qa" name="qa" disabled="disabled">@ViewBag.QA</label></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-9"><h4><em>Rate :</em></h4></td>
+                                    @*<td class="col-md-1" style="text-align: center"><input type="text" id="ar" name="ar" value="@ViewBag.AR" disabled="disabled"></td>*@
+                                    <td class="col-md-1" style="text-align: center"><label id="ar" name="ar" disabled="disabled">@ViewBag.AR</label></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-9"><h4><em>No. of Children :</em></h4></td>
+                                    @*<td class="col-md-1" style="text-align: center"><input type="number" id="qc" name="qc" value="@ViewBag.QC" disabled="disabled"></td>*@
+                                    <td class="col-md-1" style="text-align: center"><label id="qc" name="qc" disabled="disabled">@ViewBag.QC</label></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-9"><h4><em>Rate :</em></h4></td>
+                                    @*<td class="col-md-1" style="text-align: center"><input type="text" id="cr" name="cr" value="@ViewBag.CR" disabled="disabled"></td>*@
+                                    <td class="col-md-1" style="text-align: center"><label id="cr" name="cr" disabled="disabled">@ViewBag.CR</label></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="col-md-9"><h4><em>Price :</em></h4></td>
+                                    @*<td class="col-md-1" style="text-align: center"><input type="text" id="aprice" name="aprice" disabled="disabled" value="₱@ViewBag.ratea" /></td>*@
+                                    <td class="col-md-1" style="text-align: center"><label id="aprice" name="aprice" disabled="disabled">₱@ViewBag.ratea </label></td>
+                                </tr>
+                                <input type="hidden" id="ap" name="ap" />
+                            }
+                            @{
+                                int ctr4 = 0;
+                                if (ViewBag.quan != null)
+                                {
+                                    foreach (var eqp in Model)
+                                    {
+                                        if (ViewBag.quan[ctr4] != 0)
+                                        {
+                                            <tr>
+                                                <td class="col-md-9"><h4><em>@eqp.Name</em></h4></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-9"><em>Quantity: </em></td>
+                                                @*<td class="col-md-1" style="text-align: center">@Html.DisplayFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), value = ViewBag.quan[ctr4], @disabled = "true" } })</td>*@
+                                                <td class="col-md-1" style="text-align: center"><label id = "quantity @ctr4.ToString()"   name = "quantity @ctr4.ToString()">@ViewBag.quan[ctr4]</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-9"><em>Rate: </em></td>
+                                                @*<td class="col-md-1" style="text-align: center">@Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), value = "₱" + ViewBag.rat[ctr4] } })</td>*@
+                                                <td class="col-md-1" style="text-align: center"><label id = "rate @ctr4.ToString()" name = "rate @ctr4.ToString()">₱@ViewBag.rat[ctr4]</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md-9"><em>Sub Total: </em></td>
+                                                @*<td class="col-md-1" style="text-align: center">@Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), value = "₱" + ViewBag.quan[ctr4] * ViewBag.rat[ctr4] } })</td>*@
+                                                <td class="col-md-1" style="text-align: center"><label id = "stotal" + @ctr4.ToString() name = "stotal" +@ctr4.ToString()>₱@(ViewBag.quan[ctr4] * ViewBag.rat[ctr4])</label></td>
+                                            </tr>
+                                        }
+                                        else if (ViewBag.quan[ctr4] is null)
+                                        {
+
+                                        }
+                                        ctr4++;
+                                    }
+                                }
+                            }
+                            <input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+                            <tr>
+
+                                <td class="text-right"><h4><strong>Total Amount: </strong></h4></td>
+                                @*<td class="text-center text-danger"><h4><strong><input type="text" class="form-group" id="total2" name="total2" readonly /></strong></h4></td>*@
+                                <td class="text-center text-danger"><h4><strong><label id="total2" name="total2">₱@ViewBag.Overall</label></strong></h4></td>
+
+                                <td>   </td>
+                                <td>   </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success btn-lg btn-block">
+                        Reserve Now   <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 }
 
 <!-- Footer -->
 @*<footer style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
-	<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-	<p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
-	<p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
-	<p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
-	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+        <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+        <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+        <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+        <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+        <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
-</footer>*@
+    </footer>*@
