@@ -9,9 +9,8 @@ using System.Text;
 using System.Net;
 using System.Net.Mail;
 using Microsoft.Reporting.WebForms;
-using CrystalDecisions.CrystalReports.Engine;
 using System.IO;
-using CrystalDecisions.Shared;
+
 
 
 namespace UResidence.Controllers

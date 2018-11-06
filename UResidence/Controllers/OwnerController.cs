@@ -9,9 +9,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using CrystalDecisions.CrystalReports.Engine;
 using Microsoft.Reporting.WebForms;
-using CrystalDecisions.Shared;
 
 namespace UResidence.Controllers
 {

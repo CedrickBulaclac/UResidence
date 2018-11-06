@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
-using CrystalDecisions.CrystalReports.Engine;
 using Microsoft.Reporting.WebForms;
 
 namespace UResidence.Controllers
