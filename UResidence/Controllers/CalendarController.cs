@@ -32,6 +32,49 @@ namespace UResidence.Controllers
         }
         public JsonResult GET_EVENTS(ReservationProcess rese)
         {
+            bool status = false;
+            List<ReservationProcess> rplist = new List<ReservationProcess>();
+            rplist = UResidence.ReservationProcessController.GET_ALLD();
+            if(rplist.Count>0)
+            {
+                for (int i = 0; i <= rplist.Count - 1; i++)
+                {
+                    SchedReservation sched = new SchedReservation
+                    {
+                        Id = rplist[i].SRId,
+                        Deleted = 1
+                    };
+                    status = SchedReservationController.UpdateDelete(sched);
+                }
+            }
+          
+            //ReservationProcess sr = ReservationProcessController.GetMaxId();
+            //int max = sr.SRId;
+
+            //for (int i = 0; i <= max; i++)
+            //{
+            //    try
+            //    {
+            //        ReservationProcess srr = ReservationProcessController.GetSpecificId(i);
+            //        DateTime startT = srr.StartTime;
+            //        string stat = srr.Status.ToString();
+            //        bool status = false;
+            //        if (startT == DateTime.Now && stat == "Pending")
+            //        {
+            //            SchedReservation sched = new SchedReservation
+            //            {
+            //                Id=srr.SRId,
+            //                Deleted = 1
+            //            };
+            //            status = SchedReservationController.UpdateDelete(sched);
+            //        }
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //    }
+            //}
+
             List<ReservationProcess> reservationList = ReservationProcessController.GETALL(rese.Status);
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };

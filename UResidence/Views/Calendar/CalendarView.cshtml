@@ -44,257 +44,255 @@
 
 
 
-	<body>
-		<br />
-		
-        <div class="Payment">
+    <body>
+        <br />
 
-            <center><h2>Calendar</h2></center>
-            <div class="container">
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="rid" id="rid" />
-                                <input type="hidden" name="rfid" id="rfid" />
-                                <input type="hidden" name="oid" id="oid">
-                                <input type="hidden" name="typeid" id="typeid">
-                                <p id="pDetails"></p>
-                                <p id="pSwimming"></p>
-                                <p id="pAmount"></p>
-
-                                <br /><br />
-                                <button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
-                                @if (Session["ReversalModule"].ToString() == "True")
-                        {
-                            <button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
-                }
-                                <button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
+        <input type="datetime-local" />
+        <center><h2>Calendar</h2></center>
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="rid" id="rid" />
+                            <input type="hidden" name="rfid" id="rfid" />
+                            <input type="hidden" name="oid" id="oid">
+                            <input type="hidden" name="typeid" id="typeid">
+                            <p id="pDetails"></p>
+                            <p id="pSwimming"></p>
+                            <p id="pAmount"></p>
 
-            <div class="container">
-                <div class="modal fade" id="paymentModal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span>Payment</span></h4>
-                            </div>
-                            <div class="modal-body">
-                                @*///////////////////////////////////////////////////////////////////////////////////*@
-                                <b>Payment: </b><input type="number" class="dp" name="dp" id="dp" min="0" value="0" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" />
+                            <br /><br />
+                            <button type="button" class="btn btn-primary" id="btnPayment" name="btnPayment" data-dismiss="modal">Record Payment</button>
+                            @if (Session["ReversalModule"].ToString() == "True")
+                            {
+                                <button type="button" class="btn btn-default" id="btnReversal" name="btnReversal" data-dismiss="modal">Add Reversal</button>
+                            }
+                            <button type="button" class="btn btn-success" id="btnCModal" name="btnCModal" data-dismiss="modal">Update Status</button>
 
-                                <br /><br />
-                                <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
-                                <br /><br />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
-                                <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
-                                <button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="modal fade" id="reversalModal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span>Reversal</span></h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <b>Total Payment: </b> ₱<label id="tpr" name="tpr"></label>
-                                <br /><br />
-                                <b>Amount to Return: </b><input type="number" class="atr" name="atr" id="atr" min="0" value="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-                                <br /><br />
-                                <b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
-                                <br /><br />
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="btnAddReversal" name="btnAddReversal" onclick="AddReversal()">Add Reversal</button>
-                                <button type="button" class="btn btn-default" id="btnHistoryReversal" name="btnHistoryReversal" onclick="ReversalHistory()" data-dismiss="modal">Reversal History</button>
-                                <button type="button" class="btn btn-danger" id="btnCloseR" name="btnCloseR" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="modal fade" id="UpdateModal" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <b>Status: </b><select id="mySelect" name="mySelect">
-                                    <option value="Pending">Pending</option>
-                                    <option value="Reserved">Reserved</option>
-                                    <option value="Cancelled">Cancelled</option>
-                                </select>
-                                <br /><br />
-                                <b>Current Charge: </b>₱<label name="cg" id="cg" min="0"></label>
-                                <br /><br />
-                                <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
-                                <br /><br />
-                                <b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
-                                <button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
-                                <button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="modal fade" id="PaymentHistory" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span>Payment History</span></h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                                <b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-            <div class="container">
-                <div class="modal fade" id="ReversalHistory" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span>Reversal History</span></h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                                <b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="btnCloseRevH" name="btnCloseRevH" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="modal fade" id="ChargeHistory" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"><span>Charge History</span></h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
-                                <b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id="btnCloseCH" name="btnCloseCH" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <center>
-                    <div class="row">
-                        <div class="col-sm-2">
 
                         </div>
-                        <div class="col-sm-2">
-                            <b>Search :</b>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="text" id="searchId" name="searchId" placeholder="Reservation Form ID" />
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-success" onclick="Search()">Search</button>
-                        </div>
-                    </div>
-
-
-                </center>
-                <br />
-                <br />
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="pull-left">
-                            <label id="caption" name="caption"></label>
-                        </div>
-                        <div class="pull-right">
-                            <div class="btn-group">
-
-                                <button type="button" class="btn btn-success btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
-                                <button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
-                                <button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
-                                @*<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>*@
-
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <div id="calendar">
-                            <br />
-
-                            <label><b>Legends</b></label>
-                            @foreach (Amenity amn in Model)
-                    {
-                        <div class='my-legend'>
-                            <div class='legend-scale'>
-                                <ul class='legend-labels'>
-                                    <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-                                </ul>
-                            </div>
-                        </div>
-            }
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-	</body>
+
+        <div class="container">
+            <div class="modal fade" id="paymentModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span>Payment</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            @*///////////////////////////////////////////////////////////////////////////////////*@
+                            <b>Payment: </b><input type="number" class="dp" name="dp" id="dp" min="0" value="0" onkeypress="return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)" />
+
+                            <br /><br />
+                            <b>Description: </b><textarea class="form-control" id="pdescription" name="pdescription"></textarea>
+                            <br /><br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnAddPayment" name="btnAddPayment" onclick="AddPayment()">Add Payment</button>
+                            <button type="button" class="btn btn-info" id="btnHistory" name="btnHistory" data-dismiss="modal" onclick="ReceiptHistory()">Payment History</button>
+                            <button type="button" class="btn btn-danger" id="btnCloseP" name="btnCloseP" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade" id="reversalModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span>Reversal</span></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <b>Total Payment: </b> ₱<label id="tpr" name="tpr"></label>
+                            <br /><br />
+                            <b>Amount to Return: </b><input type="number" class="atr" name="atr" id="atr" min="0" value="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                            <br /><br />
+                            <b>Description: </b><textarea class="form-control" id="rdescription" name="rdescription" required></textarea>
+                            <br /><br />
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btnAddReversal" name="btnAddReversal" onclick="AddReversal()">Add Reversal</button>
+                            <button type="button" class="btn btn-default" id="btnHistoryReversal" name="btnHistoryReversal" onclick="ReversalHistory()" data-dismiss="modal">Reversal History</button>
+                            <button type="button" class="btn btn-danger" id="btnCloseR" name="btnCloseR" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade" id="UpdateModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <b>Status: </b><select id="mySelect" name="mySelect">
+                                <option value="Pending">Pending</option>
+                                <option value="Reserved">Reserved</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <br /><br />
+                            <b>Current Charge: </b>₱<label name="cg" id="cg" min="0"></label>
+                            <br /><br />
+                            <b>Add Charge: </b><input type="number" name="cg1" id="cg1" min="0" value="0" required />
+                            <br /><br />
+                            <b>Description: </b><textarea name="cdescription" id="cdescription" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateStatus()">Save Changes</button>
+                            <button type="button" class="btn btn-info" id="btnCHistory" name="btnCHistory" onclick="ChargeHistory()">Charge History</button>
+                            <button type="button" class="btn btn-danger" id="btnCloseU" name="btnCloseU" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade" id="PaymentHistory" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span>Payment History</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-striped" name="tbHistory" id="tbHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+                            <b>Total Payment :</b><label id="txtTotalPayment" name="txtTotalPayment"></label>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnCloseRH" name="btnCloseRH" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="container">
+            <div class="modal fade" id="ReversalHistory" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span>Reversal History</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-striped" name="tbRevHistory" id="tbRevHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+                            <b>Total Reversal :</b><label id="txtTotalReversal" name="txtTotalReversal"></label>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnCloseRevH" name="btnCloseRevH" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade" id="ChargeHistory" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span>Charge History</span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-striped" name="tbCHistory" id="tbCHistory" style="overflow-y:scroll;height:200px;display:block;"></table>
+                            <b>Total Charge :</b><label id="txtCharge" name="txtCharge"></label>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnCloseCH" name="btnCloseCH" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <center>
+                <div class="row">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <b>Search :</b>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" id="searchId" name="searchId" placeholder="Reservation Form ID" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-success" onclick="Search()">Search</button>
+                    </div>
+                </div>
+
+
+            </center>
+            <br />
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-left">
+                        <label id="caption" name="caption"></label>
+                    </div>
+                    <div class="pull-right">
+                        <div class="btn-group">
+
+                            <button type="button" class="btn btn-success btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
+                            <button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
+                            <button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
+                            @*<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>*@
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div id="calendar">
+                        <br />
+
+                        <label><b>Legends</b></label>
+                        @foreach (Amenity amn in Model)
+                        {
+                            <div class='my-legend'>
+                                <div class='legend-scale'>
+                                    <ul class='legend-labels'>
+                                        <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
 	<br />
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
@@ -1011,6 +1009,5 @@
         });
 
 	</script>
-
 
 }

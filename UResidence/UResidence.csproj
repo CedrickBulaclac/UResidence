@@ -46,9 +46,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -176,7 +173,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReservationAController.cs" />
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
@@ -204,11 +200,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
     <Compile Include="ReservationListt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -238,32 +229,20 @@
     <Content Include="applogin\package\velocity.min.js" />
     <Content Include="applogin\package\velocity.ui.js" />
     <Content Include="applogin\package\velocity.ui.min.js" />
-    <Content Include="Content\AdminImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\AdminImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
+    <Content Include="Content\AdminImages\noimage.jpeg" />
+    <Content Include="Content\AdminImages\Noimageavailable.jpeg" />
     <Content Include="Content\AdminImages\user.png" />
-    <Content Include="Content\AmenityImages\baskteballcourt.jpeg" />
-    <Content Include="Content\AmenityImages\baskteballcourtM.jpg" />
-    <Content Include="Content\AmenityImages\c.jpg" />
-    <Content Include="Content\AmenityImages\Gazebo.jpeg" />
-    <Content Include="Content\AmenityImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\AmenityImages\planet_earth_2-1920x1080.jpg" />
-    <Content Include="Content\AmenityImages\received_233134183897688.jpeg" />
-    <Content Include="Content\AmenityImages\swimmingpool2M.jpg" />
+    <Content Include="Content\AmenityImages\noimage.jpeg" />
+    <Content Include="Content\AmenityImages\Noimageavailable.jpeg" />
+    <Content Include="Content\AmenityImages\user.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\CashierImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\EquipmentImages\baskteballcourtM.jpg" />
-    <Content Include="Content\EquipmentImages\chairs.jpg" />
-    <Content Include="Content\EquipmentImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\EquipmentImages\planet_earth_2-1920x1080.jpg" />
-    <Content Include="Content\EquipmentImages\table.jpg" />
-    <Content Include="Content\FinanceImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_1.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_2.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_3.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_4.jpg" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_5.jpg" />
+    <Content Include="Content\CashierImages\noimage.jpeg" />
+    <Content Include="Content\CashierImages\Noimageavailable.jpeg" />
+    <Content Include="Content\CashierImages\user.png" />
+    <Content Include="Content\EquipmentImages\noimage.jpeg" />
+    <Content Include="Content\EquipmentImages\Noimageavailable.jpeg" />
+    <Content Include="Content\EquipmentImages\user.png" />
     <Content Include="Content\FinanceImages\user.png" />
     <Content Include="Content\HomeImages\bg1.jpg" />
     <Content Include="Content\HomeImages\bg2.jpg" />
@@ -274,35 +253,34 @@
     <Content Include="Content\HomeImages\Palmdale2.jpg" />
     <Content Include="Content\HomeImages\Palmdale3.jpg" />
     <Content Include="Content\HomeImages\Pamdale4.jpg" />
+    <Content Include="Content\LogBookImages\noimage.jpeg" />
     <Content Include="Content\LogBookImages\Noimageavailable.jpeg" />
+    <Content Include="Content\LogBookImages\user.png" />
     <Content Include="Content\logo.png" />
+    <Content Include="Content\Logo\logo.png" />
     <Content Include="Content\Logo\palmdale.png" />
     <Content Include="Content\Log\loginbg.jpg" />
-    <Content Include="Content\OICImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\OwnerImages\c.jpg" />
-    <Content Include="Content\OwnerImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\OwnerImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_1.jpg" />
-    <Content Include="Content\OwnerImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_2.jpg" />
-    <Content Include="Content\OwnerImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_3.jpg" />
-    <Content Include="Content\OwnerImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\OwnerImages\iron-man-1920x1080-artwork-hd-8108_1.jpg" />
-    <Content Include="Content\RegistrationImages\baskteballcourt.jpeg" />
-    <Content Include="Content\RegistrationImages\c.jpg" />
-    <Content Include="Content\RegistrationImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\RegistrationImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_1.jpg" />
-    <Content Include="Content\RegistrationImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_2.jpg" />
-    <Content Include="Content\RegistrationImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\RegistrationImages\iron-man-1920x1080-artwork-hd-8108_1.jpg" />
-    <Content Include="Content\ReservationAImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\ReservationAImages\iron-man-1920x1080-artwork-hd-8108_1.jpg" />
-    <Content Include="Content\SecuGuardImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\SecuGuardImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
-    <Content Include="Content\SuperAdminImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\TenantImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046.jpg" />
-    <Content Include="Content\TenantImages\geforce-gtx-10-series-1920x1080-graphics-card-4k-8046_1.jpg" />
-    <Content Include="Content\TenantImages\iron-man-1920x1080-artwork-hd-8108.jpg" />
+    <Content Include="Content\OICImages\noimage.jpeg" />
+    <Content Include="Content\OICImages\Noimageavailable.jpeg" />
+    <Content Include="Content\OICImages\user.png" />
+    <Content Include="Content\OwnerImages\noimage.jpeg" />
+    <Content Include="Content\OwnerImages\Noimageavailable.jpeg" />
+    <Content Include="Content\OwnerImages\user.png" />
+    <Content Include="Content\OwnerImages\user_1.png" />
+    <Content Include="Content\RegistrationImages\noimage.jpeg" />
+    <Content Include="Content\RegistrationImages\Noimageavailable.jpeg" />
+    <Content Include="Content\RegistrationImages\user.png" />
+    <Content Include="Content\ReservationAImages\noimage.jpeg" />
+    <Content Include="Content\ReservationAImages\Noimageavailable.jpeg" />
+    <Content Include="Content\ReservationAImages\user.png" />
+    <Content Include="Content\SecuGuardImages\noimage.jpeg" />
+    <Content Include="Content\SecuGuardImages\Noimageavailable.jpeg" />
+    <Content Include="Content\SecuGuardImages\user.png" />
+    <Content Include="Content\SuperAdminImages\noimage.jpeg" />
+    <Content Include="Content\SuperAdminImages\Noimageavailable.jpeg" />
+    <Content Include="Content\SuperAdminImages\user.png" />
+    <Content Include="Content\TenantImages\noimage.jpeg" />
     <Content Include="Content\TenantImages\Noimageavailable.jpeg" />
-    <Content Include="Content\TenantImages\planet_earth_2-1920x1080.jpg" />
     <Content Include="Content\TenantImages\user.png" />
     <Content Include="Content\WebImages\about1e.jpg" />
     <Content Include="Content\WebImages\bg.png" />
@@ -328,8 +306,6 @@
     <Content Include="applogin\package\LICENSE.md" />
     <Content Include="applogin\package\package.json" />
     <Content Include="applogin\package\README.md" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108" />
-    <Content Include="Content\FinanceImages\iron-man-1920x1080-artwork-hd-8108_1" />
     <Content Include="AdminList.xsc">
       <DependentUpon>AdminList.xsd</DependentUpon>
     </Content>
@@ -377,10 +353,7 @@
     <Content Include="PersonRate.xss">
       <DependentUpon>PersonRate.xsd</DependentUpon>
     </Content>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="ReservationListt.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReservationListt.Designer.cs</LastGenOutput>
@@ -462,7 +435,6 @@
     <Content Include="Views\Reserve\Choose_Equipment.cshtml" />
     <Content Include="Views\Reserve\Summary.cshtml" />
     <Content Include="Views\Reserve\Swimming.cshtml" />
-    <Content Include="Views\Reserve\SummarySwimming.cshtml" />
     <Content Include="Views\AccountSetting\AdminAccountSetting.cshtml" />
     <Content Include="Views\AccountSetting\OwnerAccountSetting.cshtml" />
     <Content Include="Views\AccountSetting\TenantAccountSetting.cshtml" />
@@ -559,6 +531,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
     <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
+    <EmbeddedResource Include="Views\Report\ReversalListtY.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationFormO.rdlc" />
     <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />

@@ -10,8 +10,6 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
 using Microsoft.Reporting.WebForms;
 
 namespace UResidence.Controllers

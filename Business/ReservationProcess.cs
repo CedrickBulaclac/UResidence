@@ -29,6 +29,7 @@ namespace UResidence
         public string BldgNo { get; set; }
         public string UnitNo { get; set; }
         public decimal Amount { get; set; }
+        public int Deleted { get; set; }
 
 
         public ReservationProcess CreateObject(SqlDataReader reader)

@@ -17,6 +17,7 @@ namespace UResidence
         public string AmenityName { get; set; }
         public string Theme { get; set; }
         public DateTime Date { get; set; }
+        public int Deleted { get; set; }
         public List<Amenity> amenityList{get; set;}
 
         public void Reset()
@@ -28,6 +29,7 @@ namespace UResidence
             this.Id = 0;
             this.Date = DateTime.Now;
             this.Theme = "Default";
+            this.Deleted = 0;
         }
         public string RemoveWhitespace(string str)
         {
@@ -35,7 +37,7 @@ namespace UResidence
         }
         public SchedReservation CreateObject(SqlDataReader reader)
         {
-            if (reader.FieldCount == 5)
+            if (reader.FieldCount == 6)
             {
                 SchedReservation ret = new SchedReservation();
                 ret.Id = reader.GetInt32(0);
@@ -43,6 +45,7 @@ namespace UResidence
                 ret.StartTime = reader.GetDateTime(2);
                 ret.EndTIme = reader.GetDateTime(3);
                 ret.Rate = reader.GetDecimal(4);
+                ret.Deleted = reader.GetInt32(5);
 
 
                 return ret;
@@ -57,6 +60,7 @@ namespace UResidence
                 ret.StartTime = reader.GetDateTime(4);
                 ret.EndTIme = reader.GetDateTime(5);
                 ret.Theme = RemoveWhitespace(reader.GetString(6));
+                ret.Deleted = reader.GetInt32(7);
                 return ret;
             }
         }
