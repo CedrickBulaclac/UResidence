@@ -110,6 +110,9 @@
 
 			@if (Convert.ToInt32(Session["Level"]) == 1)
 			{
+                <br />
+                <br />
+            <br />
 				<script>
 					$(document).ready(function () {
 						$('#maincontent').empty();
@@ -531,11 +534,11 @@
 
 <script>
 
-	//$(document).ready(function () {
-	//	var regis = document.getElementById('regis');
-	//	$('#maincontent1').append(regis);
+	$(document).ready(function () {
+		var regis = document.getElementById('regis');
+		$('#maincontent1').append(regis);
 
-	//});
+	});
 
 	$("form").submit(function () {
 		var reservation = document.getElementById("reservation");
