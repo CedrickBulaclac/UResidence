@@ -31,705 +31,711 @@
 
 <head>
 
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<title>Palmdale Heights</title>
-	<link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
-
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-	<script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
-	<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<style>
-
-		/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-		.row.content {
-			height: 1000px
-		}
-
-		/* Set gray background color and 100% height */
-		.sidenav {
-			background-color: #c8e6c9;
-			height: 100%;
-			/*text-emphasis-color: aliceblue;*/
-		}
-
-		/* On small screens, set height to 'auto' for the grid */
-		@@media screen and (max-width: 767px) {
-			.row.content {
-				height: auto;
-				z-index: 1;
-			}
-		}
-
-		.navbar1 {
-			z-index: 1;
-			background: #37474F;
-			padding: 0.5em 2em;
-			position: fixed;
-			top: 0;
-			width: 100%;
-			padding-bottom: 10px;
-		}
-
-
-		.amenity, .equipment, .admin, .tenant, .owner, .maintenance {
-			margin-top: 70px;
-			margin-bottom: 70px;
-		}
-
-		.counter-count {
-			font-size: 18px;
-			background-color: #2e7d32;
-			border-radius: 50%;
-			position: relative;
-			color: #ffffff;
-			text-align: center;
-			line-height: 92px;
-			width: 92px;
-			height: 92px;
-			-webkit-border-radius: 50%;
-			-moz-border-radius: 50%;
-			-ms-border-radius: 50%;
-			-o-border-radius: 50%;
-			display: inline-block;
-		}
-
-		.amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
-			font-size: 24px;
-			color: #1b5e20;
-			line-height: 34px;
-		}
-
-
-
-		/*.bg.well {
-			background-color: #c8e6c9;
-			font-family: FZShuTi;
-		}*/
-
-		.regcontainer {
-			/*padding-left: 480px;*/
-			margin-left: 400px;
-		}
-
-		.regcontainer2 {
-			padding-left: 50px;
-		}
-
-		.modal-backdrop {
-			display: none;
-		}
-
-
-
-
-
-
-
-		/*sidebar-toggle=============*/
-		.sidebar-toggle:hover, .sidebar-toggle:focus {
-			color: #fff;
-			text-decoration: underline;
-		}
-
-
-		/*sidr-NAVBAR=======START========*/
-		.navbar-nav-1 {
-			width: 100%;
-			background-color: #C0C0C0;
-			height: auto;
-			overflow: hidden;
-			z-index: 1020;
-			position: relative;
-		}
-
-		.side-user {
-			display: block;
-			width: 100%;
-			padding: 15px;
-			border-top: none !important;
-			border-bottom: 1px solid #C0C0C0;
-			text-align: center;
-		}
-
-		.close-btn {
-			position: absolute;
-			z-index: 99;
-			color: #fff;
-			font-size: 31px;
-			top: 0px;
-			left: 223px;
-			display: none;
-			padding: 0px;
-			cursor: pointer;
-		}
-
-			.close-btn .fa-window-close {
-				color: #fff;
-				font-size: 25px;
-			}
-
-		.welcome {
-			margin: 0;
-			font-style: italic;
-			color: #9aa4af;
-		}
-
-		.name {
-			margin: 0;
-			font-family: "Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif;
-			font-size: 20px;
-			font-weight: 300;
-			color: #ccd1d7;
-		}
-
-		.side-user a {
-			color: #fff;
-		}
-
-		.nav-search {
-			border-top: 1px solid #54677a;
-		}
-
-			.nav-search .form-control {
-				border: 1px solid #000;
-				border-radius: 0px;
-			}
-
-			.nav-search .btn {
-				border: 1px solid #000;
-				border-radius: 0px;
-			}
-
-		.dashboard > a {
-			color: #fff;
-		}
-
-		.side-nav li {
-			border-top: 1px solid #54677a;
-			border-bottom: 1px solid #142638;
-		}
-
-		.side-nav > li > a:active {
-			text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-			outline: none;
-			color: #fff;
-			background-color: #34495e;
-		}
-
-		.panel {
-			margin-bottom: 0;
-			border: none;
-			border-radius: 0;
-			background-color: transparent;
-			box-shadow: none;
-		}
-
-			.panel > a {
-				position: relative;
-				display: block;
-				padding: 10px 15px;
-				color: #fff;
-			}
-
-			.panel > ul > li > a {
-				position: relative;
-				display: block;
-				padding: 10px 15px;
-				color: darkcyan;
-				background: black;
-			}
-
-		.nav > li > a:hover, .nav > li > a:focus {
-			text-decoration: none;
-			background-color: #3d566e;
-		}
-
-
-		/*sidr-NAVBAR=======END========*/
-
-
-
-
-
-
-
-		@@media (min-width: 768px) {
-
-			#page-wrapper {
-				padding: 0 30px;
-				min-height: 1300px;
-				border-left: 1px solid #2c3e50;
-			}
-		}
-
-		#page-wrapper {
-			padding: 0 15px;
-			border: none;
-		}
-
-		.date-picker {
-			border-color: #138871;
-			color: #fff;
-			background-color: #149077;
-			margin-top: -7px;
-			border-radius: 0px;
-			margin-right: -15px;
-		}
-
-		#page-wrapper .breadcrumb {
-			padding: 8px 15px;
-			margin-bottom: 20px;
-			list-style: none;
-			background-color: #e0e7e8;
-			border-radius: 0px;
-		}
-
-
-
-
-		@@media (min-width: 768px) {
-			.circle-tile {
-				margin-bottom: 30px;
-			}
-		}
-
-		.circle-tile {
-			margin-bottom: 15px;
-			text-align: center;
-		}
-
-		.circle-tile-heading {
-			position: relative;
-			width: 80px;
-			height: 80px;
-			margin: 0 auto -40px;
-			border: 3px solid rgba(255,255,255,0.3);
-			border-radius: 100%;
-			color: #fff;
-			transition: all ease-in-out .3s;
-		}
-
-		/* -- Background Helper Classes */
-
-		/* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
-
-		.dark-blue {
-			background-color: #34495e;
-		}
-
-		.green {
-			background-color: #16a085;
-		}
-
-		.blue {
-			background-color: #2980b9;
-		}
-
-		.orange {
-			background-color: #f39c12;
-		}
-
-		.red {
-			background-color: #e74c3c;
-		}
-
-		.purple {
-			background-color: #8e44ad;
-		}
-
-		.dark-gray {
-			background-color: #7f8c8d;
-		}
-
-		.gray {
-			background-color: #95a5a6;
-		}
-
-		.light-gray {
-			background-color: #bdc3c7;
-		}
-
-		.yellow {
-			background-color: #f1c40f;
-		}
-
-		/* -- Text Color Helper Classes */
-
-		.text-dark-blue {
-			color: #34495e;
-		}
-
-		.text-green {
-			color: #16a085;
-		}
-
-		.text-blue {
-			color: #2980b9;
-		}
-
-		.text-orange {
-			color: #f39c12;
-		}
-
-		.text-red {
-			color: #e74c3c;
-		}
-
-		.text-purple {
-			color: #8e44ad;
-		}
-
-		.text-faded {
-			color: rgba(255,255,255,0.7);
-		}
-
-
-
-		.circle-tile-heading .fa {
-			line-height: 80px;
-		}
-
-		.circle-tile-content {
-			padding-top: 50px;
-		}
-
-		.circle-tile-description {
-			text-transform: uppercase;
-		}
-
-		.text-faded {
-			color: rgba(255,255,255,0.7);
-		}
-
-		.circle-tile-number {
-			padding: 5px 0 15px;
-			font-size: 26px;
-			font-weight: 700;
-			line-height: 1;
-		}
-
-		.circle-tile-footer {
-			display: block;
-			padding: 5px;
-			color: rgba(255,255,255,0.5);
-			background-color: rgba(0,0,0,0.1);
-			transition: all ease-in-out .3s;
-		}
-
-			.circle-tile-footer:hover {
-				text-decoration: none;
-				color: rgba(255,255,255,0.5);
-				background-color: rgba(0,0,0,0.2);
-			}
-
-
-		.morning {
-			/*background: url(https://lh3.googleusercontent.com/-1YbV7nsVnX8/WMugaq-6BEI/AAAAAAAADSg/0wPfQ84vMUcCle_SkgiUDOumUKscMaA8QCL0B/w530-d-h353-p-rw/widget-bg-morning.jpg) center bottom no-repeat;*/
-			background-size: cover;
-		}
-
-		.time-widget {
-			margin-top: 5px;
-			overflow: hidden;
-			text-align: center;
-			font-size: 1.75em;
-		}
-
-		.time-widget-heading {
-			text-transform: uppercase;
-			font-size: .5em;
-			font-weight: 400;
-			color: #fff;
-		}
-
-		#datetime {
-			color: #fff;
-		}
-
-		.tile-img {
-			text-shadow: 2px 2px 3px rgba(0,0,0,0.9);
-		}
-
-		.tile {
-			margin-bottom: 15px;
-			padding: 15px;
-			overflow: hidden;
-			color: #fff;
-		}
-
-
-
-
-		.side-menu {
-			position: fixed;
-			top: 14%;
-			left: 0;
-			overflow-x: hidden;
-			width: 300px;
-			height: 100%;
-			background-color: #f8f8f8;
-			border-right: 1px solid #e7e7e7;
-			z-index: 1;
-		}
-
-		.main {
-			margin-left: 500px;
-		}
-
-		.side-menu .navbar {
-			border: none;
-		}
-
-		.side-menu .navbar-header {
-			width: 100%;
-			border-bottom: 1px solid #e7e7e7;
-		}
-
-		.side-menu .navbar-nav .active a {
-			background-color: transparent;
-			margin-right: -1px;
-			border-right: 5px solid #e7e7e7;
-		}
-
-		.side-menu .navbar-nav li {
-			display: block;
-			width: 100%;
-			border-bottom: 1px solid #e7e7e7;
-		}
-
-			.side-menu .navbar-nav li a {
-				padding: 15px;
-			}
-
-				.side-menu .navbar-nav li a .glyphicon {
-					padding-right: 10px;
-				}
-
-
-
-		.side-menu .brand-name-wrapper {
-			min-height: 50px;
-		}
-
-			.side-menu .brand-name-wrapper .navbar-brand {
-				display: block;
-			}
-
-
-		/* Main body section */
-		.side-body {
-			margin-left: 310px;
-		}
-		/* small screen */
-		@@media (max-width: 768px) {
-			.side-menu {
-				position: relative;
-				width: 100%;
-				height: 0;
-				border-right: 0;
-			}
-
-				.side-menu .navbar {
-					z-index: 999;
-					position: relative;
-					height: 0;
-					min-height: 0;
-					background-color: none !important;
-					border-color: none !important;
-				}
-
-				.side-menu .brand-name-wrapper .navbar-brand {
-					display: inline-block;
-				}
-			/* Slide in animation */
-			@@-moz-keyframes slidein {
-				0% {
-					left: -300px;
-				}
-
-				100% {
-					left: 10px;
-				}
-			}
-
-			@@-webkit-keyframes slidein {
-				0% {
-					left: -300px;
-				}
-
-				100% {
-					left: 10px;
-				}
-			}
-
-			@@keyframes slidein {
-				0% {
-					left: -300px;
-				}
-
-				100% {
-					left: 10px;
-				}
-			}
-
-			@@-moz-keyframes slideout {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: -300px;
-				}
-			}
-
-			@@-webkit-keyframes slideout {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: -300px;
-				}
-			}
-
-			@@keyframes slideout {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: -300px;
-				}
-			}
-			/* Slide side menu*/
-			/* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
-			.side-menu-container > .navbar-nav.slide-in {
-				-moz-animation: slidein 300ms forwards;
-				-o-animation: slidein 300ms forwards;
-				-webkit-animation: slidein 300ms forwards;
-				animation: slidein 300ms forwards;
-				-webkit-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-			}
-
-			.side-menu-container > .navbar-nav {
-				/* Add position:absolute for scrollable menu -> see top comment */
-				position: fixed;
-				left: -300px;
-				width: 300px;
-				top: 43px;
-				height: 100%;
-				border-right: 1px solid #e7e7e7;
-				background-color: #f8f8f8;
-				overflow: auto;
-				-moz-animation: slideout 300ms forwards;
-				-o-animation: slideout 300ms forwards;
-				-webkit-animation: slideout 300ms forwards;
-				animation: slideout 300ms forwards;
-				-webkit-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-			}
-
-			@@-moz-keyframes bodyslidein {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: 300px;
-				}
-			}
-
-			@@-webkit-keyframes bodyslidein {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: 300px;
-				}
-			}
-
-			@@keyframes bodyslidein {
-				0% {
-					left: 0;
-				}
-
-				100% {
-					left: 300px;
-				}
-			}
-
-			@@-moz-keyframes bodyslideout {
-				0% {
-					left: 300px;
-				}
-
-				100% {
-					left: 0;
-				}
-			}
-
-			@@-webkit-keyframes bodyslideout {
-				0% {
-					left: 300px;
-				}
-
-				100% {
-					left: 0;
-				}
-			}
-
-			@@keyframes bodyslideout {
-				0% {
-					left: 300px;
-				}
-
-				100% {
-					left: 0;
-				}
-			}
-			/* Slide side body*/
-			.side-body {
-				margin-left: 5px;
-				margin-top: 70px;
-				position: relative;
-				-moz-animation: bodyslideout 300ms forwards;
-				-o-animation: bodyslideout 300ms forwards;
-				-webkit-animation: bodyslideout 300ms forwards;
-				animation: bodyslideout 300ms forwards;
-				-webkit-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-			}
-
-			.body-slide-in {
-				-moz-animation: bodyslidein 300ms forwards;
-				-o-animation: bodyslidein 300ms forwards;
-				-webkit-animation: bodyslidein 300ms forwards;
-				animation: bodyslidein 300ms forwards;
-				-webkit-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-			}
-
-			.navbar-default {
-				color: #C0C0C0;
-			}
-		}
-	</style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+
+    @*Scripts for dropdown*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <style>
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 1000px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #c8e6c9;
+            height: 100%;
+            /*text-emphasis-color: aliceblue;*/
+        }
+
+        /* On small screens, set height to 'auto' for the grid */
+        @@media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+                z-index: 1;
+            }
+        }
+
+        .navbar1 {
+            z-index: 1;
+            background: #37474F;
+            padding: 0.5em 2em;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+
+        .amenity, .equipment, .admin, .tenant, .owner, .maintenance {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .counter-count {
+            font-size: 18px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+            position: relative;
+            color: #ffffff;
+            text-align: center;
+            line-height: 92px;
+            width: 92px;
+            height: 92px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            display: inline-block;
+        }
+
+        .amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
+            font-size: 24px;
+            color: #1b5e20;
+            line-height: 34px;
+        }
+
+
+
+        /*.bg.well {
+            background-color: #c8e6c9;
+            font-family: FZShuTi;
+        }*/
+
+        .regcontainer {
+            /*padding-left: 480px;*/
+            margin-left: 400px;
+        }
+
+        .regcontainer2 {
+            padding-left: 50px;
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+
+
+
+
+
+
+        /*sidebar-toggle=============*/
+        .sidebar-toggle:hover, .sidebar-toggle:focus {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+
+        /*sidr-NAVBAR=======START========*/
+        .navbar-nav-1 {
+            width: 100%;
+            background-color: #C0C0C0;
+            height: auto;
+            overflow: hidden;
+            z-index: 1020;
+            position: relative;
+        }
+
+        .side-user {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-top: none !important;
+            border-bottom: 1px solid #C0C0C0;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            z-index: 99;
+            color: #fff;
+            font-size: 31px;
+            top: 0px;
+            left: 223px;
+            display: none;
+            padding: 0px;
+            cursor: pointer;
+        }
+
+            .close-btn .fa-window-close {
+                color: #fff;
+                font-size: 25px;
+            }
+
+        .welcome {
+            margin: 0;
+            font-style: italic;
+            color: #9aa4af;
+        }
+
+        .name {
+            margin: 0;
+            font-family: "Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 20px;
+            font-weight: 300;
+            color: #ccd1d7;
+        }
+
+        .side-user a {
+            color: #fff;
+        }
+
+        .nav-search {
+            border-top: 1px solid #54677a;
+        }
+
+            .nav-search .form-control {
+                border: 1px solid #000;
+                border-radius: 0px;
+            }
+
+            .nav-search .btn {
+                border: 1px solid #000;
+                border-radius: 0px;
+            }
+
+        .dashboard > a {
+            color: #fff;
+        }
+
+        .side-nav li {
+            border-top: 1px solid #54677a;
+            border-bottom: 1px solid #142638;
+        }
+
+        .side-nav > li > a:active {
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+            outline: none;
+            color: #fff;
+            background-color: #34495e;
+        }
+
+        .panel {
+            margin-bottom: 0;
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+            .panel > a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+                color: #fff;
+            }
+
+            .panel > ul > li > a {
+                position: relative;
+                display: block;
+                padding: 10px 15px;
+                color: darkcyan;
+                background: black;
+            }
+
+        .nav > li > a:hover, .nav > li > a:focus {
+            text-decoration: none;
+            background-color: #3d566e;
+        }
+
+
+        /*sidr-NAVBAR=======END========*/
+
+
+
+
+
+
+
+        @@media (min-width: 768px) {
+
+            #page-wrapper {
+                padding: 0 30px;
+                min-height: 1300px;
+                border-left: 1px solid #2c3e50;
+            }
+        }
+
+        #page-wrapper {
+            padding: 0 15px;
+            border: none;
+        }
+
+        .date-picker {
+            border-color: #138871;
+            color: #fff;
+            background-color: #149077;
+            margin-top: -7px;
+            border-radius: 0px;
+            margin-right: -15px;
+        }
+
+        #page-wrapper .breadcrumb {
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            list-style: none;
+            background-color: #e0e7e8;
+            border-radius: 0px;
+        }
+
+
+
+
+        @@media (min-width: 768px) {
+            .circle-tile {
+                margin-bottom: 30px;
+            }
+        }
+
+        .circle-tile {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .circle-tile-heading {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto -40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 100%;
+            color: #fff;
+            transition: all ease-in-out .3s;
+        }
+
+        /* -- Background Helper Classes */
+
+        /* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
+
+        .dark-blue {
+            background-color: #34495e;
+        }
+
+        .green {
+            background-color: #16a085;
+        }
+
+        .blue {
+            background-color: #2980b9;
+        }
+
+        .orange {
+            background-color: #f39c12;
+        }
+
+        .red {
+            background-color: #e74c3c;
+        }
+
+        .purple {
+            background-color: #8e44ad;
+        }
+
+        .dark-gray {
+            background-color: #7f8c8d;
+        }
+
+        .gray {
+            background-color: #95a5a6;
+        }
+
+        .light-gray {
+            background-color: #bdc3c7;
+        }
+
+        .yellow {
+            background-color: #f1c40f;
+        }
+
+        /* -- Text Color Helper Classes */
+
+        .text-dark-blue {
+            color: #34495e;
+        }
+
+        .text-green {
+            color: #16a085;
+        }
+
+        .text-blue {
+            color: #2980b9;
+        }
+
+        .text-orange {
+            color: #f39c12;
+        }
+
+        .text-red {
+            color: #e74c3c;
+        }
+
+        .text-purple {
+            color: #8e44ad;
+        }
+
+        .text-faded {
+            color: rgba(255,255,255,0.7);
+        }
+
+
+
+        .circle-tile-heading .fa {
+            line-height: 80px;
+        }
+
+        .circle-tile-content {
+            padding-top: 50px;
+        }
+
+        .circle-tile-description {
+            text-transform: uppercase;
+        }
+
+        .text-faded {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .circle-tile-number {
+            padding: 5px 0 15px;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .circle-tile-footer {
+            display: block;
+            padding: 5px;
+            color: rgba(255,255,255,0.5);
+            background-color: rgba(0,0,0,0.1);
+            transition: all ease-in-out .3s;
+        }
+
+            .circle-tile-footer:hover {
+                text-decoration: none;
+                color: rgba(255,255,255,0.5);
+                background-color: rgba(0,0,0,0.2);
+            }
+
+
+        .morning {
+            /*background: url(https://lh3.googleusercontent.com/-1YbV7nsVnX8/WMugaq-6BEI/AAAAAAAADSg/0wPfQ84vMUcCle_SkgiUDOumUKscMaA8QCL0B/w530-d-h353-p-rw/widget-bg-morning.jpg) center bottom no-repeat;*/
+            background-size: cover;
+        }
+
+        .time-widget {
+            margin-top: 5px;
+            overflow: hidden;
+            text-align: center;
+            font-size: 1.75em;
+        }
+
+        .time-widget-heading {
+            text-transform: uppercase;
+            font-size: .5em;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        #datetime {
+            color: #fff;
+        }
+
+        .tile-img {
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.9);
+        }
+
+        .tile {
+            margin-bottom: 15px;
+            padding: 15px;
+            overflow: hidden;
+            color: #fff;
+        }
+
+
+
+
+        .side-menu {
+            position: fixed;
+            top: 14%;
+            left: 0;
+            overflow-x: hidden;
+            width: 300px;
+            height: 100%;
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+            z-index: 1;
+        }
+
+        .main {
+            margin-left: 500px;
+        }
+
+        .side-menu .navbar {
+            border: none;
+        }
+
+        .side-menu .navbar-header {
+            width: 100%;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .side-menu .navbar-nav .active a {
+            background-color: transparent;
+            margin-right: -1px;
+            border-right: 5px solid #e7e7e7;
+        }
+
+        .side-menu .navbar-nav li {
+            display: block;
+            width: 100%;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+            .side-menu .navbar-nav li a {
+                padding: 15px;
+            }
+
+                .side-menu .navbar-nav li a .glyphicon {
+                    padding-right: 10px;
+                }
+
+
+
+        .side-menu .brand-name-wrapper {
+            min-height: 50px;
+        }
+
+            .side-menu .brand-name-wrapper .navbar-brand {
+                display: block;
+            }
+
+
+        /* Main body section */
+        .side-body {
+            margin-left: 310px;
+        }
+        /* small screen */
+        @@media (max-width: 768px) {
+            .side-menu {
+                position: relative;
+                width: 100%;
+                height: 0;
+                border-right: 0;
+            }
+
+                .side-menu .navbar {
+                    z-index: 999;
+                    position: relative;
+                    height: 0;
+                    min-height: 0;
+                    background-color: none !important;
+                    border-color: none !important;
+                }
+
+                .side-menu .brand-name-wrapper .navbar-brand {
+                    display: inline-block;
+                }
+            /* Slide in animation */
+            @@-moz-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-webkit-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-moz-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@-webkit-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+            /* Slide side menu*/
+            /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
+            .side-menu-container > .navbar-nav.slide-in {
+                -moz-animation: slidein 300ms forwards;
+                -o-animation: slidein 300ms forwards;
+                -webkit-animation: slidein 300ms forwards;
+                animation: slidein 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .side-menu-container > .navbar-nav {
+                /* Add position:absolute for scrollable menu -> see top comment */
+                position: fixed;
+                left: -300px;
+                width: 300px;
+                top: 43px;
+                height: 100%;
+                border-right: 1px solid #e7e7e7;
+                background-color: #f8f8f8;
+                overflow: auto;
+                -moz-animation: slideout 300ms forwards;
+                -o-animation: slideout 300ms forwards;
+                -webkit-animation: slideout 300ms forwards;
+                animation: slideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            @@-moz-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-webkit-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-moz-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@-webkit-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+            /* Slide side body*/
+            .side-body {
+                margin-left: 5px;
+                margin-top: 70px;
+                position: relative;
+                -moz-animation: bodyslideout 300ms forwards;
+                -o-animation: bodyslideout 300ms forwards;
+                -webkit-animation: bodyslideout 300ms forwards;
+                animation: bodyslideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .body-slide-in {
+                -moz-animation: bodyslidein 300ms forwards;
+                -o-animation: bodyslidein 300ms forwards;
+                -webkit-animation: bodyslidein 300ms forwards;
+                animation: bodyslidein 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .navbar-default {
+                color: #C0C0C0;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -768,351 +774,437 @@
 			<div class="side-menu">
 				<nav class="navbar navbar-default" role="navigation">
 					<!-- Main Menu -->
-					<div class="side-menu-container">
-						<ul class="nav navbar-nav">
-							<li><a href="~/Admin/Home"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-							<li><a href="~/ReservationRecord/Record"><i class="fa fa-calendar "></i> Reservation List </a></li>
-							<li><a href="~/ReversalRecord/Records"><i class="fa fa-money"></i> Reversal List</a></li>
-							<li><a href="~/Admin/AdminView"><i class="fa fa-money"></i> Admin List</a></li>
-						
+                    <div class="side-menu-container">
 
 
-							<!-- Dropdown-->
-							<li class="panel panel-default" id="dropdown">
-								<a data-toggle="collapse" href="#dropdown-lvl1">
-									<span class="glyphicon glyphicon-user"></span> My Profile <span class="caret"></span>
-								</a>
-								<!-- Dropdown level 1 -->
-								<div id="dropdown-lvl1" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul class="nav navbar-nav">
+                        
 
-											<li>
-												<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-													<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+                            <li>
+                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
 
-												</a>
-											</li>
+                                </a>
+                                <br/>
+                                <h3 class="text-center"> @Session["Fullname"].ToString() </h3>
+                                <h4 class="text-center"> Administrator </h4>
+                            </li>
+                       
+
+                        <!-- Dropdown-->
+                       
+                            <li class="panel panel-default " id="dropdown">
+                                <a data-toggle="collapse" href="#dropdown-lvl1">
+                                    <font color="black">  <span class="glyphicon glyphicon-user"></span> My Profile <span class="caret"></span></font>
+                                </a>
+                                <!-- Dropdown level 1 -->
+                                <div id="dropdown-lvl1" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+
+                                            @*<li>
+                                <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                    <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+                                </a>
+                            </li>*@
 
 
-											<li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+                                            <li><a href=@Url.Action("ManagerAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
 
-											<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
-
-
-
-										</ul>
-									</div>
-								</div>
-							</li>
-
-
-
-
-							@*<li class=" dropdown">
-			<a class="panel-collapse" data-toggle="collapse" href="#">
-				<span class="glyphicon glyphicon-user"></span> My Profile
-				<span class="caret"></span>
-			</a>
-			<ul class="panel panel-collapse">
+                                            <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
 
 
 
-				<li>
-					<a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
-						<p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                           
 
-					</a>
-				</li>
+
+                            <hr />
 
 
-				<li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
-
-				<li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
-
-			</ul>
-
-		</li>*@
+                            <ul class="nav navbar-nav">
+                                <li><a href="~/Admin/Home"><span class="fa fa-area-chart"></span> Dashboard</a></li>
+                                <li><a href="~/ReservationRecord/Record"><span class="fa fa-calendar "></span> Reservation List </a></li>
+                                <li><a href="~/ReversalRecord/Records"><span class="fa fa-money"></span> Reversal List</a></li>
+                                <li><a href="~/Admin/AdminView"><span class="fa fa-users"></span> Users List</a></li>
 
 
 
 
 
 
-						</ul>
-					</div><!-- /.navbar-collapse -->
+
+
+                                @*<li class=" dropdown">
+                    <a class="panel-collapse" data-toggle="collapse" href="#">
+                        <span class="glyphicon glyphicon-user"></span> My Profile
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="panel panel-collapse">
+
+
+
+                        <li>
+                            <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+
+                            </a>
+                        </li>
+
+
+                        <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+
+                        <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+
+                    </ul>
+
+                </li>*@
+
+
+
+
+
+
+                            </ul>
+                    </div><!-- /.navbar-collapse -->
 				</nav>
 			</div>
 		</div>
 
 		<div class="col-sm-10">
-			<div class="row">
-				<div id="maincontent" style="margin-left:150px">
-					<div class="page-title">
-						<br /><br />
-						<h2>Dashboard</h2>
-						<ol class="breadcrumb">
-							<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
-						</ol>
-					</div>
+            <div class="row">
+                <div id="maincontent" >
+                    <div class="page-title" style="margin-left:100px">
+                        <br /><br />
+                        <h2>Dashboard</h2>
+                        <ol class="breadcrumb">
+                            <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+                        </ol>
+                    </div>
 
-					<div class="col-sm-2">
+                    @*<div class="col-sm-2">
 
-					</div>
+            </div>*@
 
-					<div class="col-lg-10 square">
+                    <div class="col-lg-10 square">
 
-						<br />
-
-						<!--Employee-->
-						<div class="col-lg-2 col-sm-6">
-							<div class="circle-tile">
-								<a href="#" onclick="ShowAdmin()">
-									<div class="circle-tile-heading dark-blue">
-										<i class="fa fa-users fa-fw fa-3x"></i>
-									</div>
-								</a>
-								<div class="circle-tile-content dark-blue">
-									<div class="circle-tile-description text-faded">
-										Employees
-									</div>
-									<div class="circle-tile-number text-faded" id="AdminCount">
-
-										<span id="sparklineA"></span>
-									</div>
-									<a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-								</div>
-							</div>
-						</div>
+                        <br />
 
 
-						<!--Owner-->
-						<div class="col-lg-2 col-sm-6">
-							<div class="circle-tile">
-								<a href="#" onclick="ShowOwner()">
-									<div class="circle-tile-heading green">
-										<i class="fa fa-id-card fa-fw fa-3x"></i>
-									</div>
-								</a>
-								<div class="circle-tile-content green">
-									<div class="circle-tile-description text-faded">
-										Owners
-									</div>
-									<div class="circle-tile-number text-faded" id="OwnerCount">
+                        @*///////////////////////////////////////*@
 
-									</div>
-									<a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-								</div>
-							</div>
-						</div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default" style="margin-left:160px">
+                                <div class="panel-heading" style="background-color:  #1C2331">
+                                    <font color="white"> <h3 class="panel-title"> Registration Overview </h3></font>
+                                </div>
 
 
-						<!--Tenant-->
-						<div class="col-lg-2 col-sm-6">
-							<div class="circle-tile">
-								<a href="#" onclick="ShowTenant()">
-									<div class="circle-tile-heading orange">
-										<i class="fa fa-id-card-o fa-fw fa-3x"></i>
-									</div>
-								</a>
-								<div class="circle-tile-content orange">
-									<div class="circle-tile-description text-faded">
-										Tenants
-									</div>
-									<div class="circle-tile-number text-faded" id="TenantCount">
 
-									</div>
-									<a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-								</div>
-							</div>
-						</div>
+                                <!--Employee-->
+                                <div class=" panel-body">
+                                    <div class="col-md-3">
+                                        <div class="circle-tile">
+                                            <a href="#" onclick="ShowAdmin()">
+                                                <div class="circle-tile-heading dark-blue">
+                                                    <i class="fa fa-users fa-fw fa-3x"></i>
+                                                </div>
+                                            </a>
+                                            <div class="circle-tile-content dark-blue">
+                                                <div class="circle-tile-description text-faded">
+                                                    Employees
+                                                </div>
+                                                <div class="circle-tile-number text-faded" id="AdminCount">
 
-
-						<!--Amenity List-->
-						<div class="col-lg-2 col-sm-6">
-							<div class="circle-tile">
-								<a href="#" onclick="ShowAmenity()">
-									<div class="circle-tile-heading purple">
-										<i class="fa fa-building-o fa-fw fa-3x"></i>
-									</div>
-								</a>
-								<div class="circle-tile-content purple">
-									<div class="circle-tile-description text-faded">
-										Amenities
-									</div>
-									<div class="circle-tile-number text-faded" id="AmenityCount">
-
-										<span id="sparklineD"></span>
-									</div>
-									<a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
+                                                    <span id="sparklineA"></span>
+                                                </div>
+                                                <a href="#" onclick="ShowAdmin()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-				<div class="row">
-					<div id="containerChart" class="col-sm-10">
-						<center>
-							<div class="col-lg-12">
-								<center>
-									<b>Year :</b>
-									<select class="form-control" id="textyear" style="text-align:center;" name="textyear" onchange="Change()">
-										<option value="2018">2018</option>
-									</select>
-									<br />
-									<div id="chartContainerYear"></div>
-								</center>
-							</div>
-						</center>
+                                    <!--Owner-->
+                                    <div class="col-md-3">
+                                        <div class="circle-tile">
+                                            <a href="#" onclick="ShowOwner()">
+                                                <div class="circle-tile-heading green">
+                                                    <i class="fa fa-id-card fa-fw fa-3x"></i>
+                                                </div>
+                                            </a>
+                                            <div class="circle-tile-content green">
+                                                <div class="circle-tile-description text-faded">
+                                                    Owners
+                                                </div>
+                                                <div class="circle-tile-number text-faded" id="OwnerCount">
 
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-
-						<br />
-						<br />
-
-						<div class="col-sm-12" id="chart1">
-							<div class="col-sm-2">
-
-							</div>
-							<div class="col-lg-3 col-sm-3">
-								<br />
-								<center>
-									<b>Month :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
-										<option value="1">January</option>
-										<option value="2">February</option>
-										<option value="3">March</option>
-										<option value="4">April</option>
-										<option value="5">May</option>
-										<option value="6">June</option>
-										<option value="7">July</option>
-										<option value="8">August</option>
-										<option value="9">September</option>
-										<option value="10">October</option>
-										<option value="11">November</option>
-										<option value="12">December</option>
-									</select>
-								</center>
-								<br />
-								<div id="chartContainer1"></div>
+                                                </div>
+                                                <a href="#" onclick="ShowOwner()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
+                                    <!--Tenant-->
+                                    <div class="col-md-3">
+                                        <div class="circle-tile">
+                                            <a href="#" onclick="ShowTenant()">
+                                                <div class="circle-tile-heading orange">
+                                                    <i class="fa fa-id-card-o fa-fw fa-3x"></i>
+                                                </div>
+                                            </a>
+                                            <div class="circle-tile-content orange">
+                                                <div class="circle-tile-description text-faded">
+                                                    Tenants
+                                                </div>
+                                                <div class="circle-tile-number text-faded" id="TenantCount">
+
+                                                </div>
+                                                <a href="#" onclick="ShowTenant()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Amenity List-->
+                                    <div class="col-md-3">
+                                        <div class="circle-tile">
+                                            <a href="#" onclick="ShowAmenity()">
+                                                <div class="circle-tile-heading purple">
+                                                    <i class="fa fa-building-o fa-fw fa-3x"></i>
+                                                </div>
+                                            </a>
+                                            <div class="circle-tile-content purple">
+                                                <div class="circle-tile-description text-faded">
+                                                    Amenities
+                                                </div>
+                                                <div class="circle-tile-number text-faded" id="AmenityCount">
+
+                                                    <span id="sparklineD"></span>
+                                                </div>
+                                                <a href="#" onclick="ShowAmenity()" class="circle-tile-footer">View Details <i class="fa fa-chevron-circle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*For panel*@
+                    </div>
+                </div>
 
 
 
 
-								@*<div id="piechart_div"></div>*@
 
-							</div>
-							<div class="col-sm-2">
-
-							</div>
-
-							<div class=" col-lg-3 col-sm-3">
-								<center>
-									<b>Quarter :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
-										<option value="1">January - June</option>
-										<option value="2">July - December</option>
-									</select>
-								</center>
-								<br />
-								<div id="chartContainerQuarterYear"></div>
-
-							</div>
+                @*//// ETO CHART NG YEAR ////*@
 
 
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
+                <div class="row">
+        <div id="containerChart" style="margin-left:100px;">
+          
+
+                @*<div class="col-md-2"></div>*@
+
+
+                
+
+
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="background-color:  #1C2331">
+                                <font color="white"> <h3 class="panel-title"> Usage of Amenities Overview </h3></font>
+                            </div>
 
 
 
-						</div>
 
 
-					</div>
-				</div>
+                            <div class="panel-body">
 
-			</div>
-		</div>
+                                @*<div class="col-lg-3 col-sm-3">*@
+                                <div class="col-sm-3">
+                                    <center>
+                                        <b>Year :</b>
+                                        <select class="form-control" id="textyear" style="text-align:center;" name="textyear" onchange="Change()">
+                                            <option value="2018">2018</option>
+                                        </select>
+                                        <br />
+                                        <div id="chartContainerYear" ></div>
+                                    </center>
+                                </div>
+                                @*</center>*@
 
+                                @*<br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <br />
+        <br />*@
+
+
+                                @*//// ETO CHART NG MONTH ////*@
+
+
+
+
+                                @*<div class="col-md-12" id="chart1">*@
+                                <div class="col-sm-1">
+
+                                </div>
+
+                                @*<div class="col-lg-3 col-sm-3" id="chart1">*@
+                                <div class="col-sm-3">
+
+                                    <center>
+                                        <b>Month :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </center>
+                                    <br />
+                                    <div id="chartContainer1"></div>
+
+
+                                    @*<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />*@
+
+
+
+
+                                    @*<div id="piechart_div"></div>*@
+
+                                </div>
+                                <div class="col-sm-1">
+
+                                </div>
+
+
+
+
+
+
+                                @*//// ETO CHART NG QUARTER ////*@
+
+                                @*<div class=" col-lg-3 col-sm-3">*@
+                                <div class="col-sm-3">
+                                    <center>
+                                        <b>Quarter :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
+                                            <option value="1">January - June</option>
+                                            <option value="2">July - December</option>
+                                        </select>
+                                    </center>
+                                    <br />
+                                    <div id="chartContainerQuarterYear" ></div>
+
+                                </div>
+
+
+                                @*<br />
+        <br />
+        <br />
+        <br />
+        <br />*@
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+        </div>
 
 		<div class="col-sm-10">
 			<div class="row">
-				<div id="maincontent1" style="margin-left:320px;">
+				<div id="maincontent1" style="margin-left:160px;">
 
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-10">
 			<div class="row">
-				<div id="contentAmenity" style="margin-left:320px;">
+				<div id="contentAmenity" style="margin-left:130px;">
 					<center><h3>Amenities</h3></center>
 					<br />
-					<table class="table table-bordered table-responsive-lg" id="tbAmenity"></table>
+					<table class="table table-striped table-bordered table-responsive-lg" id="tbAmenity"></table>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-10">
 			<div class="row">
-				<div id="contentAdmin" style="margin-left:320px;">
+				<div id="contentAdmin" style="margin-left:130px;">
 					<center><h3>Employees</h3></center>
 					<br />
-					<table class="table table-bordered table-responsive-lg" id="tbAdmin"></table>
+					<table class="table table-striped table-bordered table-responsive-lg" id="tbAdmin"></table>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-10">
 			<div class="row">
-				<div id="contentOwner" style="margin-left:320px;">
+				<div id="contentOwner" style="margin-left:130px;">
 					<center><h3>Owners</h3></center>
 					<br />
-					<table class="table table-bordered table-responsive-lg" id="tbOwner"></table>
+					<table class="table table-striped table-bordered table-responsive-lg" id="tbOwner"></table>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-10">
 			<div class="row">
-				<div id="contentTenant" style="margin-left:320px;">
+				<div id="contentTenant" style="margin-left:130px;">
 					<center><h3>Tenants</h3></center>
 					<br />
-					<table class="table table-bordered table-responsive-lg" id="tbTenant"></table>
+					<table class="table table-striped table-bordered table-responsive-lg" id="tbTenant"></table>
 				</div>
 
 			</div>
 		</div>
 	</div>
+        </div>
 
 
 	@RenderBody()
@@ -1623,8 +1715,8 @@
 
 			var columnChartOptions = {
 				title: "Amenity Usage",
-				width: 500,
-				height: 500,
+				width: 380,
+                height: 380,
 				bar: { groupWidth: "10%" },
 			};
 
@@ -1647,8 +1739,8 @@
 
 			var columnChartOptions = {
 				title: "Amenity Usage",
-				width: 500,
-				height: 500,
+				width: 380,
+				height: 380,
 				bar: { groupWidth: "10%" },
 			};
 
@@ -1671,8 +1763,8 @@
 
 			var columnChartOptions = {
 				title: "Amenity Usage",
-				width: 500,
-				height: 500,
+				width: 380,
+				height: 380,
 				bar: { groupWidth: "10%" },
 			};
 
