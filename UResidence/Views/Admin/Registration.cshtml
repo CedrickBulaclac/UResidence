@@ -110,9 +110,7 @@
 
 			@if (Convert.ToInt32(Session["Level"]) == 1)
 			{
-                <br />
-                <br />
-            <br />
+                
 				<script>
 					$(document).ready(function () {
 						$('#maincontent').empty();
@@ -120,173 +118,183 @@
 						$('#containerChart').empty();
 
 					});</script>
-				<div id="regis">
 
-					@*<div class="row">*@
-					<div class="col-25">
 
-						<labell for="First Name">First Name :</labell>
 
-					</div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                <div id="regis">
 
 
-					</div>
-					@*</div>*@
+                    <br />
+                    <br />
+                    <br />
 
-			
 
+                    @*<div class="row">*@
+                    <div class="col-25">
 
+                        <labell for="First Name">First Name :</labell>
 
-					@*<div class="row">*@
-					<div class="col-25">
+                    </div>
 
-						<labell for="Middle Name">Middle Name :</labell>
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
 
-					</div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                    </div>
+                    @*</div>*@
 
 
-					</div>
-					@*</div>*@
 
 
-			
 
+                    @*<div class="row">*@
+                    <div class="col-25">
 
-					@*<div class="row">*@
-					<div class="col-25">
+                        <labell for="Middle Name">Middle Name :</labell>
 
-						<labell for="Last Name">Last Name :</labell>
+                    </div>
 
-					</div>
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
 
+                    </div>
+                    @*</div>*@
 
-					</div>
-					@*</div>*@
 
 
 
-					@*<div class="row">*@
-					<div class="col-25">
 
-						<labell for="Bdate">Birthdate :</labell>
+                    @*<div class="row">*@
+                    <div class="col-25">
 
-					</div>
+                        <labell for="Last Name">Last Name :</labell>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                    </div>
 
-					</div>
-					@*</div>*@
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
 
 
+                    </div>
+                    @*</div>*@
 
 
-					@*<div class="row">*@
-					<div class="col-25">
 
-						<labell for="Cel">Cellphone no. :</labell>
+                    @*<div class="row">*@
+                    <div class="col-25">
 
-					</div>
+                        <labell for="Bdate">Birthdate :</labell>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                    </div>
 
-					</div>
-					@*</div>*@
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
+                    </div>
+                    @*</div>*@
 
 
 
 
+                    @*<div class="row">*@
+                    <div class="col-25">
 
-					@*<div class="row">*@
-					<div class="col-25">
+                        <labell for="Cel">Cellphone no. :</labell>
 
-						<labell for="Email">Email :</labell>
+                    </div>
 
-					</div>
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    @*</div>*@
 
 
-					</div>
-					@*</div>*@
 
-					@*<div class="row">*@
-					<div class="col-25">
 
-						<labell for="typeofadmin">Type of Employee:</labell>
 
-					</div>
 
-					<div class="col-75">
-						<select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)">
-							<option>--Select User--</option>
-							<option value="3">Cashier</option>
-							<option value="2">Finance</option>
-							<option value="5">Registration</option>
-							<option value="4">Reservation</option>
-							<option value="6">Security Guard</option>
-						</select>
+                    @*<div class="row">*@
+                    <div class="col-25">
 
+                        <labell for="Email">Email :</labell>
 
-					</div>
-					@*</div>*@
+                    </div>
 
+                    <div class="col-75">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
 
+                    </div>
+                    @*</div>*@
 
-					@*<div class="row">*@
-					<div class="col-25">
-						<h2><labell for="Amenity Name">Module/s Included :</labell></h2>
-					</div>
-					<br />
-					@*<div class="col-75">
-				</div>*@
-					@*</div>*@
+                    @*<div class="row">*@
+                    <div class="col-25">
 
-					@*<div class="row">*@
-					@*<div class="col-25">
-				</div>*@
-					<div class="col-75">
-						@Html.CheckBoxFor(model => model.ReservationModule, new { @id = "reservation", @name = "reservation", htmlAttributes = new { @required = "required" } }) <b>Reservation Module</b>
-						<br />
-						@Html.CheckBoxFor(model => model.ReversalModule, new { @id = "reversal", @name = "reversal", htmlAttributes = new { @required = "required" } }) <b>Reversal Module</b>
-						<br />
-						@Html.CheckBoxFor(model => model.PaymentModule, new { @id = "payment", @name = "payment", htmlAttributes = new { @required = "required" } }) <b>Payment Module</b>
-						<br />
-						@Html.CheckBoxFor(model => model.LogBookModule, new { @id = "logbook", @name = "logbook", htmlAttributes = new { @required = "required" } }) <b>LogBook Module</b>
-						<br />
-						@Html.CheckBoxFor(model => model.RegistrationModule, new { @id = "registration", @name = "registration", htmlAttributes = new { @required = "required" } }) <b>Registration Module</b>
-						<br />
-						<br />
+                        <labell for="typeofadmin">Type of Employee:</labell>
 
+                    </div>
 
+                    <div class="col-75">
+                        <select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)">
+                            <option>--Select User--</option>
+                            <option value="3">Cashier</option>
+                            <option value="2">Finance</option>
+                            <option value="5">Registration</option>
+                            <option value="4">Reservation</option>
+                            <option value="6">Security Guard</option>
+                        </select>
 
-						<input id="btnSave" type="submit" value="Save" class="button" />
-						<a href="AdminView" class="button">Cancel</a>
 
-					</div>
+                    </div>
+                    @*</div>*@
 
-					@*</div>*@
 
-				</div>
+
+
+                    @*<div class="row">*@
+                    <div class="col-25">
+                        <h2><labell for="Amenity Name">Module/s Included :</labell></h2>
+                    </div>
+                    <br />
+                    @*<div class="col-75">
+        </div>*@
+                    @*</div>*@
+
+                    @*<div class="row">*@
+                    @*<div class="col-25">
+        </div>*@
+                    <div class="col-75">
+                        @Html.CheckBoxFor(model => model.ReservationModule, new { @id = "reservation", @name = "reservation", htmlAttributes = new { @required = "required" } }) <b>Reservation Module</b>
+                        <br />
+                        @Html.CheckBoxFor(model => model.ReversalModule, new { @id = "reversal", @name = "reversal", htmlAttributes = new { @required = "required" } }) <b>Reversal Module</b>
+                        <br />
+                        @Html.CheckBoxFor(model => model.PaymentModule, new { @id = "payment", @name = "payment", htmlAttributes = new { @required = "required" } }) <b>Payment Module</b>
+                        <br />
+                        @Html.CheckBoxFor(model => model.LogBookModule, new { @id = "logbook", @name = "logbook", htmlAttributes = new { @required = "required" } }) <b>LogBook Module</b>
+                        <br />
+                        @Html.CheckBoxFor(model => model.RegistrationModule, new { @id = "registration", @name = "registration", htmlAttributes = new { @required = "required" } }) <b>Registration Module</b>
+                        <br />
+                        <br />
+
+
+
+                        <input id="btnSave" type="submit" value="Save" class="button" />
+                        <a href="AdminView" class="button">Cancel</a>
+
+                    </div>
+
+                    @*</div>*@
+
+                </div>
 			}
 			else
 			{
