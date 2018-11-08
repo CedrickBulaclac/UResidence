@@ -156,14 +156,20 @@ namespace UResidence.Controllers
                     }
                     else
                     {
-                        string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                        string script = "<script type = 'text/javascript'>alert('Error.');</script>";
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
                         status = false;
 
                     }
-
                     ViewBag.AddMessage = status;
+                }
+                else
+                {
+                    string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    Response.Write(script);
+                   
+                    status = false;
 
                 }
             }
@@ -220,7 +226,7 @@ namespace UResidence.Controllers
                     }
                     else
                     {
-                        string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                        string script = "<script type = 'text/javascript'>alert('Error.');</script>";
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
                         status = false;
@@ -228,6 +234,14 @@ namespace UResidence.Controllers
                     }
 
                     ViewBag.AddMessage = status;
+
+                }
+                else
+                {
+                    string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    Response.Write(script);
+                   
+                    status = false;
 
                 }
             }
