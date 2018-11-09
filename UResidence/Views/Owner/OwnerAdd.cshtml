@@ -1,8 +1,9 @@
 ﻿@model UResidence.Owner
 
 @{
-	ViewBag.Title = "OwnerAdd";
-	Layout = "/Views/Layout/AdminLayout.cshtml";
+    ViewBag.Title = "OwnerAdd";
+    Layout = "/Views/Layout/AdminLayout.cshtml";
+
 }
 @*Scripts for dropdown*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -76,7 +77,7 @@
 		<h2>New Owner</h2>
 
 		@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
-		{
+        {
 			@Html.AntiForgeryToken()
 
 
@@ -181,8 +182,6 @@
 				</div>
 			</div>
 
-
-
 			<div class="row">
 				<div class="col-25">
 
@@ -190,15 +189,19 @@
 
 				</div>
 
-				<div class="col-75">
-					@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-					@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-
-
-				</div>
+                <div class="col-75">
+                    @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "1", Value="1"},
+                        new SelectListItem() {Text = "2", Value="2"},
+                        new SelectListItem() {Text = "3", Value="3"},
+                        new SelectListItem() {Text = "4", Value="4"},
+                        new SelectListItem() {Text = "5", Value="5"},
+                        new SelectListItem() {Text = "6", Value="6"}
+                     }, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                </div>
 			</div>
-
-
 
 			<div class="row">
 				<div class="col-25">

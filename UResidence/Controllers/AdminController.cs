@@ -52,7 +52,7 @@ namespace UResidence.Controllers
             }
             catch (Exception)
             {
-                string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
+                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
             }
         }

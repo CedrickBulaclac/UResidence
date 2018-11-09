@@ -49,14 +49,8 @@
 				Unit No
 			</th>
 			<th scope="col">
-				First Name
-			</th>
-			<th scope="col">
-				Middle Name
-			</th>
-			<th scope="col">
-				Last Name
-			</th>
+				Full Name
+			</th>		
 			<th scope="col">
 				Birthdate
 			</th>
@@ -77,10 +71,7 @@
 			<tbody>
 				@foreach (Owner item in Model)
 				{
-					<tr scope="row">
-						<td>
-							@Html.DisplayFor(modelItem => item.Id)
-						</td>
+					<tr scope="row">						
 						<td>
 							@Html.DisplayFor(modelItem => item.BldgNo)
 						</td>
@@ -88,14 +79,9 @@
 							@Html.DisplayFor(modelItem => item.UnitNo)
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.Fname)
+							@Html.DisplayFor(modelItem => item.Fullname)
 						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Mname)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Lname)
-						</td>
+						
 						<td>
 							@Html.DisplayFor(modelItem => item.Bdate)
 						</td>
