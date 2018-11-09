@@ -66,6 +66,8 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
+            ViewBag.Level = level;
+
             return View();
         }
         public ActionResult Home()
@@ -94,11 +96,12 @@ namespace UResidence.Controllers
             return hash;
         }
         [HttpPost]
-        public ActionResult Registration(Admin adm, int typeadmin)
+        public ActionResult Registration(Admin adm,int typeadmin)
         {
             string hash;
             string pass = adm.Bdate.ToShortDateString();
-            int typea = typeadmin;
+            //int typea = Convert.ToInt32(fc["a"]);
+            int typea = Convert.ToInt32(typeadmin);
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
 
@@ -278,7 +281,8 @@ namespace UResidence.Controllers
         }
         public ActionResult AdminEdit()
         {
-         
+            int level = Convert.ToInt32(Session["Level"]);
+            ViewBag.Level = level;
             return View();
         }
         [HttpGet]
