@@ -63,7 +63,7 @@ namespace UResidence.Controllers
             }
             catch(Exception)
             {
-                string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
+                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
             }
         }
@@ -109,7 +109,7 @@ namespace UResidence.Controllers
                     string hash;
             string pass = owe.Bdate.ToShortDateString();
             hash = Hash(pass);
-            List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+            List<UserLogin> listUser = UResidence.UserController.GetAllO(owe.Email);
             UserLogin ul = new UserLogin
             {
                 Username = owe.Email,
@@ -181,9 +181,8 @@ namespace UResidence.Controllers
                         TenantNo = 0
                     };
                      status = UResidence.ResidenceController.Insert(r);
-                    Owner b = new Owner();
-                    b = UResidence.OwnerController.GetEmailOwner(owe.Email.ToString());
-                    int ownerid = b.Id;
+                   
+                    int ownerid = owee.Id;
 
                     UserLogin ull = new UserLogin
                     {

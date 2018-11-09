@@ -12,7 +12,7 @@ namespace UResidence
 
         public static List<UserLogin> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] order by Id";
+            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbAdmin a on a.Id=l.AdminId where Deleted!=0 order by Id";
 
 
             List<UserLogin> ret = default(List<UserLogin>);
@@ -22,7 +22,7 @@ namespace UResidence
         }
         public static List<UserLogin> GetAll(string email)
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where Username=@email";
+            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbAdmin a on a.Id=l.AdminId where Username=@email and Deleted=0";
 
 
             List<UserLogin> ret = default(List<UserLogin>);

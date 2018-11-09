@@ -52,8 +52,6 @@ namespace UResidence.Controllers
        
         public ActionResult Download()
         {
-            string my;
-            string monthly="";
             string type1= Session["type"].ToString();
             int month1= (int) Session["month"];
             int year1=(int)Session["year"];          
