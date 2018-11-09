@@ -31,6 +31,28 @@ namespace UResidence
             ret = SqlManager.Select<UserLogin>(com);
             return ret;
         }
+        public static List<UserLogin> GetAllO(string email)
+        {
+            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbOwner a on a.Id=l.OwnerId where Username=@email and Deleted=0";
+
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@email", email));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
+        public static List<UserLogin> GetAllT(string email)
+        {
+            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join Tenant a on a.Id=l.TenantId where Username=@email and Deleted=0";
+
+
+            List<UserLogin> ret = default(List<UserLogin>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@email", email));
+            ret = SqlManager.Select<UserLogin>(com);
+            return ret;
+        }
         public static List<UserLogin> AGetAll(int id)
         {
             const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where AdminId=@Rid";
