@@ -70,7 +70,7 @@ namespace UResidence.Controllers
             }
             catch(Exception)
             {
-                string script = "<script type = 'text/javascript'>alert('Submission Failed');</script>";
+                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
             }
         }
@@ -295,7 +295,7 @@ namespace UResidence.Controllers
             string hash;
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
-            List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
+            List<UserLogin> listUser = UResidence.UserController.GetAllT(ten.Email);
             if (listUser.Count == 0)
             {
                 UserLogin ul = new UserLogin

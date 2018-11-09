@@ -10,8 +10,7 @@ namespace UResidence.Controllers
 {
     public class ReserveController : Controller
     {
-        private bool status = false;
-        bool sessmodal = false;
+        private bool status = false;    
         public ActionResult SelectAmenity()
         {
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
@@ -50,6 +49,7 @@ namespace UResidence.Controllers
             {
                 bool m = (bool)Session["sessmodal"];
                 ViewBag.successModal = m ;
+                Session["sessmodal"] = null;
             }
                 catch(Exception)
             {
@@ -762,7 +762,7 @@ namespace UResidence.Controllers
             if(status==true)
             {
                 Session["sessmodal"] = true;
-
+               
             }
             if (Convert.ToInt32(Session["Level"]) == 8)
             {

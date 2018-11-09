@@ -20,7 +20,7 @@ namespace UResidence
 
         public static Owner GetEmailOwner(string email)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Email = @Email";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Email = @Email and Deleted=0";
 
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -59,7 +59,7 @@ namespace UResidence
 
         public static List<Owner> GetById(string idOwner)
         {
-            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM[tbOwner] where Id=@Id";
+            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM[tbOwner] where Id=@Id and Deleted=0";
 
             List<Owner> ret = default(List<Owner>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -73,7 +73,7 @@ namespace UResidence
 
         public static Owner GetIdOwner(string idOwner)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Id = @Id and Deleted=0";
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", idOwner));

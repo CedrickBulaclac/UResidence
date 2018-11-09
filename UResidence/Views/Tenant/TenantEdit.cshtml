@@ -78,383 +78,342 @@
 
 
 
-			<div class="form-horizontal">
+        <div class="form-horizontal">
 
-				<hr />
+            <hr />
 
 
-				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-				@Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
 
 
-				@*<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.Fname, "First Name")
+            @*<div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fname, "First Name")
 
-							@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
 
-						</div>
+            </div>
 
-					</div>*@
+        </div>*@
 
 
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="First Name">First Name :</label>
+                    <label for="First Name">First Name :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
-					</div>
-				</div>
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
 
-				@*<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.Mname, "Middle Name")
+            @*<div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mname, "Middle Name")
 
-							@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
-						</div>
+            </div>
 
-					</div>*@
+        </div>*@
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="Middle Name">Middle Name :</label>
+                    <label for="Middle Name">Middle Name :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
 
-					</div>
-				</div>
+                </div>
+            </div>
 
 
 
 
-				@*<div class="col-md-4">
-							<div class="form-group">
-								@Html.LabelFor(model => model.Lname, "Last Name")
+            @*<div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Lname, "Last Name")
 
-								@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
-							</div>
-						</div>
+                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-					</div>*@
+        </div>*@
 
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="Last Name">Last Name :</label>
+                    <label for="Last Name">Last Name :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
 
-					</div>
-				</div>
+                </div>
+            </div>
 
 
 
 
 
-				@*<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.Bdate, "Birthdate")
+            @*<div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Bdate, "Birthdate")
 
-							@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
-						</div>
-					</div>*@
+                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="Bdate">Birthdate :</label>
+                    <label for="Bdate">Birthdate :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
-					</div>
-				</div>
+                </div>
+            </div>
 
 
 
-				@*<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.CelNo)
+            @*<div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CelNo)
 
-							@Html.EditorFor(model => model.CelNo, "Cellphone No", new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
-						</div>
-					</div>*@
+                @Html.EditorFor(model => model.CelNo, "Cellphone No", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="Cel">Cellphone no. :</label>
+                    <label for="Cel">Cellphone no. :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                <div class="col-75">
+                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
 
-					</div>
-				</div>
+                </div>
+            </div>
 
 
 
 
-				@*<div class="col-md-4">
-							<div class="form-group">
-								@Html.LabelFor(model => model.Email)
+            @*<div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
 
-								@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-							</div>
-						</div>
-					</div>*@
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
 
 
-				<div class="row">
-					<div class="col-25">
+            <div class="row">
+                <div class="col-25">
 
-						<label for="Email">Email :</label>
+                    <label for="Email">Email :</label>
 
-					</div>
+                </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <div class="col-75">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
-					</div>
-				</div>
+                </div>
+            </div>
 
 
 
 
-				@*<div class="row">
-					<div class="col-md-2">
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.UnitNo, "Unit No", htmlAttributes: new { })
+            @*<div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.UnitNo, "Unit No", htmlAttributes: new { })
 
-							@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-						</div>
-					</div>*@
+                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+            <div class="row">
+                <div class="col-25">
 
+                    <label for="Bldg no.">Building No. :</label>
 
-				<div class="row">
-					<div class="col-25">
+                </div>
 
-						<label for="Unit no.">Unit No. :</label>
+                <div class="col-75">
+                    @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+    {
+                        new SelectListItem() {Text = "1", Value="1"},
+                        new SelectListItem() {Text = "2", Value="2"},
+                        new SelectListItem() {Text = "3", Value="3"},
+                        new SelectListItem() {Text = "4", Value="4"},
+                        new SelectListItem() {Text = "5", Value="5"},
+                        new SelectListItem() {Text = "6", Value="6"}
+    }, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
 
-					</div>
+                </div>
+            </div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-25">
 
-					</div>
-				</div>
+                    <label for="Unit no.">Unit No. :</label>
 
+                </div>
 
+                <div class="col-75">
+                    @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
 
+                </div>
+            </div>
 
-				@*<div class="col-md-4">
-							<div class="form-group">
-								@Html.LabelFor(model => model.LeaseStart, "Lease Start")
 
-								@Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
-							</div>
-						</div>
-						<div class="col-md-2">
-						</div>
-					</div>*@
 
 
-				<div class="row">
-					<div class="col-25">
 
-						<label for="Unit no.">Lease Start :</label>
 
-					</div>
+            <div class="row">
+                <div class="col-25">
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
+                    <label for="Unit no.">Lease Start :</label>
 
-					</div>
-				</div>
+                </div>
 
+                <div class="col-75">
+                    @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
 
+                </div>
+            </div>
 
 
-				@*<div class="row">
-					<div class="col-md-2">
 
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							@Html.LabelFor(model => model.BldgNo, "Building No")
 
-							@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control" } })
-							@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-						</div>
-					</div>*@
+            <div class="row">
+                <div class="col-25">
 
+                    <label for="Unit no.">Lease End :</label>
 
+                </div>
 
-				<div class="row">
-					<div class="col-25">
+                <div class="col-75">
+                    @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
 
-						<label for="Bldg no.">Building No. :</label>
+                </div>
+            </div>
 
-					</div>
 
-					<div class="col-75">
-						@Html.EditorFor(model => model.BldgNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-25">
+                    <p>
+                        <label>Update Moving In :</label>
+                    </p>
+                </div>
+                <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
 
-					</div>
-				</div>
+            </div>
 
 
+            <div class="row">
+                <div class="col-25">
+                    <p>
+                        <label>Update Moving Out :</label>
+                    </p>
+                </div>
+                <button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
 
+            </div>
 
 
-				@*<div class="col-md-4">
-							<div class="form-group">
-								@Html.LabelFor(model => model.LeaseEnd, "Lease End")
+            @*---Modal for Update Amenity Image---*@
+            <div class="container">
+                <div class="modal fade" id="updateImageModal1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <label>Moving In: </label><input type="file" id="image1" name="image1" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
+                                <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-								@Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control" } })
-								@Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
-							</div>
-						</div>
-						<div class="col-md-2">
+            @*---Modal for Update Amenity Image---*@
+            <div class="container">
+                <div class="modal fade" id="updateImageModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <label>Moving Out: </label><input type="file" id="image2" name="image2" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.Id)">Update</button>
+                                <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-						</div>
-					</div>*@
 
 
 
+            <br />
+            <input type="submit" value="Save" class="button" />
+            <a href="@Url.Action("TenantView","Tenant")" class="button">Cancel</a>
 
-
-				<div class="row">
-					<div class="col-25">
-
-						<label for="Unit no.">Lease End :</label>
-
-					</div>
-
-					<div class="col-75">
-						@Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
-
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Update Moving In :</label>
-						</p>
-					</div>
-					<button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
-
-				</div>
-
-
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Update Moving Out :</label>
-						</p>
-					</div>
-					<button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
-
-				</div>
-
-
-				@*---Modal for Update Amenity Image---*@
-				<div class="container">
-					<div class="modal fade" id="updateImageModal1" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<label>Moving In: </label><input type="file" id="image1" name="image1" />
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
-									<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				@*---Modal for Update Amenity Image---*@
-				<div class="container">
-					<div class="modal fade" id="updateImageModal2" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<label>Moving Out: </label><input type="file" id="image2" name="image2" />
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.Id)">Update</button>
-									<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-				<br />
-				<input type="submit" value="Save" class="button" />
-				<a href="@Url.Action("TenantView","Tenant")" class="button">Cancel</a>
-
-			</div>
+        </div>
 		}
 	</div>
 </body>
