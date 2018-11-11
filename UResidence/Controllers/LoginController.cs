@@ -15,97 +15,105 @@ namespace UResidence.Controllers
         string email1;
         public ActionResult Index()
         {
-         
+            Session["Level"] = null;
             return View();
         }
         [HttpPost]
         public ActionResult Index(FormCollection fc)
-        {           
-           
-            string chash;
-            string hash= fc["Hash"];
-            string username;
-            username = fc["Username"];
-            Session["pass"]=hash;
-            chash = Hash(hash);
-            UserLogin user = new UserLogin();
-            user = UResidence.UserController.Get(username, chash);
-            if (user != default(UserLogin))
+        {
+            try
             {
-                if (user.Level <=7)
+                Session["Level"] = null;
+                string chash;
+                string hash = fc["Hash"];
+                string username;
+                username = fc["Username"];
+                Session["pass"] = hash;
+                chash = Hash(hash);
+                UserLogin user = new UserLogin();
+                user = UResidence.UserController.Get(username, chash);
+                if (user != default(UserLogin))
                 {
- 
-                    Session["Level"] = user.Level;
-                    Session["LID"] = user.Id;
-                    Session["UID"] = user.AdminId;
-                    Session["TOR"] = "Admin";
-                    Admin a = new Admin();
-                    a = UResidence.AdminController.GetbyID(user.AdminId);
-                    string Fname = RemoveWhitespace(a.Fname);
-                    string Mname = RemoveWhitespace(a.Mname);
-                    string Lname = RemoveWhitespace(a.Lname);
-                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
-                    UResidence.UserController.UpdateLog(user.Id);
-                    return RedirectToAction("Home", "Admin");
-                }
-                else if (user.Level == 8)
-                {
-                    Session["aa"] = 0;
-                    Session["Level"] = user.Level;
-                    Session["LID"] = user.Id;
-                    Session["UID"] = user.OwnerId;
-                    Session["TOR"] = "Owner";
-                    Owner a = new Owner();
-                    a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
-                    Session["BDAY"] = a.Bdate.ToShortDateString();
-                    Session["UNO"] = a.UnitNo;
-                    Session["BLDG"] = a.BldgNo;
-                    string Fname = RemoveWhitespace(a.Fname);
-                    string Mname = RemoveWhitespace(a.Mname);
-                    string Lname = RemoveWhitespace(a.Lname);
-                    Session["FullName"] = Fname + " " + Mname + " " + Lname;
-                    UResidence.UserController.UpdateLog(user.Id);
-                    return RedirectToAction("Home", "Reserve");
-                }
-                else if (user.Level == 9)
-                {
-                    Session["Level"] = user.Level;
-                    Session["LID"] = user.Id;
-                    Session["UID"] = user.TenantId;
-                    Session["TOR"] = "Tenant";
-                    Tenant a = new Tenant();
-                    a = UResidence.TenantController.GetIdTenant(user.TenantId.ToString());
+                    if (user.Level <= 7)
+                    {
 
-                    if (a.LeaseEnd < DateTime.Now)
-                    {
-                        Tenant t = new Tenant
-                        {
-                            Deleted = "1",
-                            Id = user.TenantId
-                    };
-                        UResidence.TenantController.UpdateDelete(t);
-                        string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
-                        Response.Write(script);
-                    }
-                    else
-                    {
+                        Session["Level"] = user.Level;
+                        Session["LID"] = user.Id;
+                        Session["UID"] = user.AdminId;
+                        Session["TOR"] = "Admin";
+                        Admin a = new Admin();
+                        a = UResidence.AdminController.GetbyID(user.AdminId);
                         string Fname = RemoveWhitespace(a.Fname);
                         string Mname = RemoveWhitespace(a.Mname);
                         string Lname = RemoveWhitespace(a.Lname);
                         Session["FullName"] = Fname + " " + Mname + " " + Lname;
+                        UResidence.UserController.UpdateLog(user.Id);
+                        return RedirectToAction("Home", "Admin");
+                    }
+                    else if (user.Level == 8)
+                    {
+                        Session["aa"] = 0;
+                        Session["Level"] = user.Level;
+                        Session["LID"] = user.Id;
+                        Session["UID"] = user.OwnerId;
+                        Session["TOR"] = "Owner";
+                        Owner a = new Owner();
+                        a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
                         Session["BDAY"] = a.Bdate.ToShortDateString();
                         Session["UNO"] = a.UnitNo;
                         Session["BLDG"] = a.BldgNo;
+                        string Fname = RemoveWhitespace(a.Fname);
+                        string Mname = RemoveWhitespace(a.Mname);
+                        string Lname = RemoveWhitespace(a.Lname);
+                        Session["FullName"] = Fname + " " + Mname + " " + Lname;
                         UResidence.UserController.UpdateLog(user.Id);
                         return RedirectToAction("Home", "Reserve");
                     }
+                    else if (user.Level == 9)
+                    {
+                        Session["Level"] = user.Level;
+                        Session["LID"] = user.Id;
+                        Session["UID"] = user.TenantId;
+                        Session["TOR"] = "Tenant";
+                        Tenant a = new Tenant();
+                        a = UResidence.TenantController.GetIdTenant(user.TenantId.ToString());
+
+                        if (a.LeaseEnd < DateTime.Now)
+                        {
+                            Tenant t = new Tenant
+                            {
+                                Deleted = "1",
+                                Id = user.TenantId
+                            };
+                            UResidence.TenantController.UpdateDelete(t);
+                            string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                            Response.Write(script);
+                        }
+                        else
+                        {
+                            string Fname = RemoveWhitespace(a.Fname);
+                            string Mname = RemoveWhitespace(a.Mname);
+                            string Lname = RemoveWhitespace(a.Lname);
+                            Session["FullName"] = Fname + " " + Mname + " " + Lname;
+                            Session["BDAY"] = a.Bdate.ToShortDateString();
+                            Session["UNO"] = a.UnitNo;
+                            Session["BLDG"] = a.BldgNo;
+                            UResidence.UserController.UpdateLog(user.Id);
+                            return RedirectToAction("Home", "Reserve");
+                        }
+                    }
+                }
+                else
+                {
+                    string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                    Response.Write(script);
+
                 }
             }
-            else
+            catch(Exception)
             {
-              string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                string script = "<script type = 'text/javascript'>alert('Login First');</script>";
                 Response.Write(script);
-
             }
             return View();
         }

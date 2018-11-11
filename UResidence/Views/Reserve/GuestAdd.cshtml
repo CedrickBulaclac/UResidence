@@ -14,122 +14,130 @@
         }
     </style>
 </head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 @using (Html.BeginForm("GuestAdd", "Reserve", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-	<div class="container">
-		<div class="modal fade" id="logbookImageModal" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<label>Valid ID</label>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<center>
-							<img height="250" width="250" id="log">
-						</center>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="modal fade" id="logbookImageModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label>Valid ID</label>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            <img height="250" width="250" id="log">
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <body>
         <br />
         <br />
-        <br/>
+        <br />
         <center>
 
-            <br/>
-            <br/>
-            <div class="container">
+            <div id="main">
 
-                <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
-                    <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+                <br />
+                <br />
+                <div class="container">
 
-                        <br/>
-                        <center>
-                            <h2><b>  Add Expected Visitor </b></h2>
-                        </center>
+                    <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+                        <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
 
-                        <br/>
-                        <p>
-                            <b> NOTE:</b> The visitor enlisted will be directly submitted to the Security Guards. Kindly indicate correct information of the visitor to avoid inconvenience.
-                        </p>
+                            <br />
+                            <center>
+                                <h2><b>  Add Expected Visitor </b></h2>
+                            </center>
 
-                        <br/>
-                        
-                        <div class="col-lg-6 form-inline">
-                            <b>  Date of Visitation:</b>&nbsp;  <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()" />
+                            <br />
+                            <p>
+                                <b> NOTE:</b> The visitor enlisted will be directly submitted to the Security Guards. Kindly indicate correct information of the visitor to avoid inconvenience.
+                            </p>
+
+                            <br />
+
+                            <div class="col-lg-6 form-inline">
+                                <b>  Date of Visitation:</b>&nbsp;  <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()" />
+                            </div>
+
+                            <div class="col-lg-6 form-inline">
+                                <b>Purpose of Visit:</b> &nbsp; <input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" />
+                            </div>
+
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-striped" name="tableguest" id="tableguest">
+                                    <tr>
+                                        <th>Building No</th>
+                                        <th>Unit No</th>
+                                        <th>Guest FullName</th>
+                                        <th>Image</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    @{int ctr = 0;
+                                        foreach (var data in Model)
+                                        {
+
+                                            <tr>
+                                                <td>@data.BuildingNo</td>
+                                                <td>@data.UnitNo</td>
+                                                <td><input type="text" class="form-control" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() /></td>
+                                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
+                                                <td>
+                                                    @if (data.sTimein == "12:00AM")
+                                                    {
+                                                        <input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update" /> <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                            ctr++;
+                                        }
+                                    }
+                                    <tr>
+                                        <td>@ViewBag.Bldg</td>
+                                        <td>@ViewBag.UnitNo</td>
+                                        <td><input type="text" name="vname" id="vname" /></td>
+                                        <td><input type="file" name="logbookpic" id="logbookpic" /></td>
+                                        <td><button class="btn btn-success" type="submit">Add Guest</button></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <br />
+
+
+
                         </div>
-
-                        <div class="col-lg-6 form-inline">
-                            <b>Purpose of Visit:</b> &nbsp; <input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" />
-                        </div>
-
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-
-                        <table class="table table-bordered table-striped" name="tableguest" id="tableguest">
-                            <tr>
-                                <th>Building No</th>
-                                <th>Unit No</th>
-                                <th>Guest FullName</th>
-                                <th>Image</th>
-                                <th>Actions</th>
-                            </tr>
-                            @{int ctr = 0;
-            foreach (var data in Model)
-            {
-
-                    <tr>
-                        <td>@data.BuildingNo</td>
-                        <td>@data.UnitNo</td>
-                        <td><input type="text" class="form-control" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() /></td>
-                        <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
-                        <td>
-                            @if (data.sTimein == "12:00AM")
-        {
-                    <input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update" /> <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" />
-}
-                        </td>
-                    </tr>
-ctr++;
-}
-                            }
-                            <tr>
-                                <td>@ViewBag.Bldg</td>
-                                <td>@ViewBag.UnitNo</td>
-                                <td><input type="text" name="vname" id="vname" /></td>
-                                <td><input type="file" name="logbookpic" id="logbookpic" /></td>
-                                <td><button class="btn btn-success" type="submit">Add Guest</button></td>
-                            </tr>
-                        </table>
-
-                        <br />
-
-
-
-                    </div>
                     </div>
                 </div>
-</center>
+            </div>
+        </center>
 
     </body>
 }
-    <script>
+<script>
     var oldate;
         var ctr = "0";
     function GenerateTable() {
         var trhtml = "";
-        var i = 0;       
+        var i = 0;
         $('#tableguest').empty();
         oldate = document.getElementById('gdate').value;
         trhtml = '<tr><th>Building No</th><th>Unit No</th><th>Guest FullName</th><th>Image</th><th>Actions</th></tr>';
@@ -137,12 +145,12 @@ ctr++;
             type: "GET",
             url: "/Reserve/ViewGuest",
             data: { date: oldate },
-            success: function (Data) {              
-                $.each(Data, function (i, v) {    
+            success: function (Data) {
+                $.each(Data, function (i, v) {
                     i++;
 					trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="' + i + '" name="' + i + '" /></td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i +')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id +')" value="Delete"/>  </td></tr>';
 				});
-			
+
 				trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td> <td><input type="file" class="form-control" id="logbookpic" name="logbookpic"/></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
                  $('#tableguest').append(trhtml);
             },
@@ -150,11 +158,11 @@ ctr++;
                 alert("No record found");
             }
         });
-       
+
         }
 		function Update(id, i) {
 			var visitorname = document.getElementById(i).value;
-			
+
 			data = {
 				VisitorName: visitorname,
                 Id:id
@@ -172,7 +180,7 @@ ctr++;
 					error: function (data) {
 						alert("Not Updated! Error!");
 					}
-                });         
+                });
         }
         function Delete(id) {
             $.ajax({
@@ -183,7 +191,7 @@ ctr++;
 					window.location.href = '/Reserve/GuestAdd';
 					alert('Successfuly Deleted');
                 }
-            });        
+            });
 		}
 
 		function ViewPIC(data) {
@@ -203,8 +211,8 @@ ctr++;
 		}
 		);
 
-   
-    </script>
+
+</script>
 
 
 

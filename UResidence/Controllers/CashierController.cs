@@ -11,6 +11,10 @@ namespace UResidence.Controllers
         // GET: Cashier
         public ActionResult Calendar()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {

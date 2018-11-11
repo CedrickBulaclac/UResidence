@@ -108,6 +108,10 @@ namespace UResidence.Controllers
 
         public ActionResult SuperAdminView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -122,6 +126,10 @@ namespace UResidence.Controllers
 
         public ActionResult SuperAdminAdd()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -136,6 +144,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult SuperAdminAdd(Admin adm, int typeadmin)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string hash;
             string pass = adm.Bdate.ToShortDateString();
             int typea = typeadmin;
@@ -206,11 +218,19 @@ namespace UResidence.Controllers
 
         public ActionResult SuperAdminEdit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult SuperAdminEdit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -230,6 +250,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult SuperAdminEdit(Admin adm)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             if (adm.Validate(out err))
             {
@@ -257,6 +281,10 @@ namespace UResidence.Controllers
 
         public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string delete = "1";
             Admin am = new Admin()
             {
