@@ -77,61 +77,62 @@
 <br/>
 
 
-
-<div class="container">
-
-
-    <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
-        <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
-
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="rid" id="rid" />
-                            <input type="hidden" name="rfid" id="rfid" />
-                            <p id="pDetails">
-                            </p>
-                            <p id="pSwimming">
-                            </p>
-                            <p id="pAmount">
-                            </p>
-                            <br /><br />
-                        </div>
-
-                        <div class="modal-footer" id="footer">
+<div id="main">
+    <div class="container">
 
 
+        <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+            <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="rid" id="rid" />
+                                <input type="hidden" name="rfid" id="rfid" />
+                                <p id="pDetails">
+                                </p>
+                                <p id="pSwimming">
+                                </p>
+                                <p id="pAmount">
+                                </p>
+                                <br /><br />
+                            </div>
+
+                            <div class="modal-footer" id="footer">
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+                <br />
+                <br />
+
+                <div id="calendar" class="panel panel-default container col-lg-12"></div>
+                <br />
+                @foreach (Amenity amn in Model)
+                {
+                    <div class='my-legend'>
+                        <div class='legend-scale'>
+                            <ul class='legend-labels'>
+                                <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+
+
             </div>
-
-
-            <br />
-            <br />
-
-            <div id="calendar" class="panel panel-default"></div>
-            <br />
-            @foreach (Amenity amn in Model)
-            {
-                <div class='my-legend'>
-                    <div class='legend-scale'>
-                        <ul class='legend-labels'>
-                            <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-                        </ul>
-                    </div>
-                </div>
-            }
-
-
-        </div>
         </div>
     </div>
+</div>
 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />

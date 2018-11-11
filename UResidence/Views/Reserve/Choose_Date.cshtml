@@ -1,97 +1,106 @@
 ﻿
 
 @{
-	ViewBag.Title = "Choose_Date";
-	if (Convert.ToInt32(Session["Level"]) == 8)
-	{
-		Layout = "~/Views/Layout/LayoutHome.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 9)
-	{
-		Layout = "~/Views/Layout/TenantLayout.cshtml";
-	}
-	else
-	{
-		Layout = "/Views/Layout/AdminLayout.cshtml";
-	}
+    ViewBag.Title = "Choose_Date";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 @using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
-
-
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-
-		<style>
-
-
-			body {
-				/*background-color: #f1f8e9;*/
-				background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
-			}
-
-
-			.button {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #43a047;
-				border: none;
-				border-radius: 5px;
-				/*float: right;*/
-				text-decoration: none;
-				text-decoration-color: none;
-				/*width: 500px;*/
-			}
-
-			.submit {
-				padding: 15px 25px;
-				font-size: 15px;
-				text-align: center;
-				cursor: pointer;
-				outline: none;
-				color: #fff;
-				background-color: #09442c;
-				border: none;
-				border-radius: 5px;
-				float: right;
-				text-decoration: none;
-				text-decoration-color: none;
-			}
+    @Html.AntiForgeryToken()
 
 
 
-			.button:hover {
-				background-color: #81c784;
-			}
+    if (Convert.ToInt32(Session["Level"]) <= 7)
+    {
+        @*Scripts for dropdown*@
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    }
 
 
-			div.card {
-				width: 700px;
-				height: 450px;
-				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-				padding: 10px;
-			}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+        <style>
+
+
+            body {
+                /*background-color: #f1f8e9;*/
+                background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #43a047;
+                border: none;
+                border-radius: 5px;
+                /*float: right;*/
+                text-decoration: none;
+                text-decoration-color: none;
+                /*width: 500px;*/
+            }
+
+            .submit {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #09442c;
+                border: none;
+                border-radius: 5px;
+                float: right;
+                text-decoration: none;
+                text-decoration-color: none;
+            }
 
 
 
-			@@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+            .button:hover {
+                background-color: #81c784;
+            }
 
-			body {
-				padding-top: 50px;
-			}
+
+            div.card {
+                width: 700px;
+                height: 450px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 10px;
+            }
+
+
+
+            @@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+            body {
+                padding-top: 50px;
+            }
 
             .box {
                 border-radius: 3px;
@@ -103,28 +112,28 @@
                 background-color: #fafafa;
             }
 
-			.box-icon {
-				background-color: #57a544;
-				border-radius: 50%;
-				display: table;
-				height: 100px;
-				margin: 0 auto;
-				width: 100px;
-				margin-top: -61px;
-			}
+            .box-icon {
+                background-color: #57a544;
+                border-radius: 50%;
+                display: table;
+                height: 100px;
+                margin: 0 auto;
+                width: 100px;
+                margin-top: -61px;
+            }
 
-				.box-icon span {
-					color: #fff;
-					display: table-cell;
-					text-align: center;
-					vertical-align: middle;
-				}
+                .box-icon span {
+                    color: #fff;
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                }
 
-			.info h4 {
-				font-size: 26px;
-				letter-spacing: 2px;
-				text-transform: uppercase;
-			}
+            .info h4 {
+                font-size: 26px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
 
             .info > p {
                 color: #212121;
@@ -133,25 +142,24 @@
                 text-align: justify;
             }
 
-			
+
 
             .pcolor {
                 background-color: #fafafa;
             }
-
-		</style>
-
+        </style>
 
 
 
-	</head>
-	<body>
 
-		<br />
-		<br />
+    </head>
+    <body>
+
         <br />
-		<center>
-			<!--Progress bar start-->
+        <br />
+        <br />
+        <center>
+            <!--Progress bar start-->
 
 
             <div class="container">
@@ -159,62 +167,62 @@
 
 
                     @if (Session["IsEquipment"].ToString() == "True")
-        {
-            <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
-                <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-            </div>
-            <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-            </div>
+                    {
+                        <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                             aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                            <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                        </div>
 
 
-            <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-            </div>
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                        </div>
 
-            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
-            </div>
-            <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-            </div>
-}
-else
-{
-            <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
-                 aria-valuemin="0" aria-valuemax="100" style="width:25%;">
-                <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
-            </div>
-            <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
-            </div>
-            <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:25%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
-            </div>
-            <div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100">
-                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
-            </div>
-}
+                        <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                        </div>
+                        <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                             aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+                            <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                        </div>
+                        <div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                        </div>
+                    }
                 </div>
             </div>
 
-			<!--Progress bar end-->
+            <!--Progress bar end-->
 
 
-		</center>
+        </center>
 
 
-		<!-- Header -->
+        <!-- Header -->
 
-		<div id="main">
+        <div id="main">
 
 
             <div class="container">
@@ -294,22 +302,22 @@ else
                                             <br />
                                             <br />
 
-                                            
-                                                <button name="submit" type="submit" button class="button form-inline col-sm-12" onclick="Check()"> Next</button>
-                                            
-                                                <input type="hidden" id="stime" name="stime" />
-                                                <input type="hidden" id="etime" name="etime" />
-                                                <input type="hidden" id="tratee" name="tratee" />
-                                                <input type="hidden" id="result" name="result" />
-                                                <input type="hidden" id="qwe" name="qwe" />
-                                                <input type="hidden" id="abc" name="abc" />
-                                           
+
+                                            <button name="submit" type="submit" button class="button form-inline col-sm-12" onclick="Check()"> Next</button>
+
+                                            <input type="hidden" id="stime" name="stime" />
+                                            <input type="hidden" id="etime" name="etime" />
+                                            <input type="hidden" id="tratee" name="tratee" />
+                                            <input type="hidden" id="result" name="result" />
+                                            <input type="hidden" id="qwe" name="qwe" />
+                                            <input type="hidden" id="abc" name="abc" />
+
                                         </p>
 
                                         @*<p class="form-inline">
 
 
-                                </p>*@
+                                            </p>*@
 
 
                                     </div>
@@ -317,8 +325,8 @@ else
                             </div>
                         </div>
 
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
 
                     </div>
                 </div>
@@ -332,37 +340,37 @@ else
 
 
 
-		</div>
+        </div>
 
 
 
 
 
 
-		<br /> <br />
+        <br /> <br />
 
 
 
 
 
-        <input type="datetime-local"/>
+     
 
 
 
 
 
-		
-		<!-- Footer -->
-		@*<footer  style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
-			<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-			<p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
-			<p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
-			<p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
-			<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
-		</footer>*@
+        <!-- Footer -->
+        @*<footer  style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+                <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+                <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+                <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+                <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+                <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 
-	</body>
+            </footer>*@
+
+    </body>
 
 
 
@@ -372,7 +380,7 @@ else
 
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	var F;
 	var endTime;
 	var selectedValue;
@@ -447,7 +455,7 @@ else
 				var q = new Date();
 				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
 
-			
+
 				var IsWeekend = "@ViewBag.isw";
 
 				if (IsWeekend.toString() == "False") {
@@ -596,4 +604,4 @@ else
 	};
 
 
-	</script>
+</script>
