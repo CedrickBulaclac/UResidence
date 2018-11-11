@@ -78,9 +78,9 @@ namespace UResidence.Controllers
         public ActionResult Amenity(FormCollection fc)
         {
             int aid = Convert.ToInt32(fc["ida"]);
-            decimal arate = Convert.ToInt32(fc["ratea"]);
+            decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-            decimal everate = Convert.ToInt32(fc["eve"]);
+            decimal everate = Convert.ToDecimal(fc["eve"]);
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
