@@ -21,6 +21,10 @@ namespace UResidence.Controllers
         // GET: Owner
         public ActionResult OwnerAdd()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -72,6 +76,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerAdd(Owner owe, HttpPostedFileBase Image1)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string finalpath = "";
             var image = Image1;
             bool status = false;        
@@ -232,7 +240,10 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
-
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<Owner> data = default(List<Owner>);
             data = UResidence.OwnerController.GetAll();
             LocalReport localreport = new LocalReport();
@@ -255,6 +266,10 @@ namespace UResidence.Controllers
         }
         public ActionResult OwnerView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -269,6 +284,10 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string delete = "1";
             Owner ten = new Owner()
             {
@@ -289,11 +308,19 @@ namespace UResidence.Controllers
         }
         public ActionResult OwnerEdit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult OwnerEdit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -313,6 +340,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerEdit(Owner owe)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             if (owe.Validate(out err))
             {

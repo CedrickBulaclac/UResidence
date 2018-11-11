@@ -14,6 +14,10 @@ namespace UResidence.Controllers
         // GET: Equipment
         public ActionResult Registration()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -28,6 +32,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(Equipment eqp, HttpPostedFileBase Image)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             string finalpath = "";
             var image = Image;
@@ -176,6 +184,10 @@ namespace UResidence.Controllers
 
         public ActionResult EquipmentView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -191,6 +203,10 @@ namespace UResidence.Controllers
 
         public ActionResult Delete(int eno)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             Equipment eq = new Equipment
             {
                 Id = eno
@@ -206,11 +222,19 @@ namespace UResidence.Controllers
         
         public ActionResult EquipmentEdit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult EquipmentEdit(int eno)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -230,6 +254,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult EquipmentEdit(Equipment eqp)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
           
                     Equipment eqp1 = new Equipment()

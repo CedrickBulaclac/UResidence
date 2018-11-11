@@ -58,7 +58,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration()
         {
-
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -66,10 +69,16 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
+            ViewBag.Level = level;
+
             return View();
         }
         public ActionResult Home()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);      
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
@@ -94,11 +103,16 @@ namespace UResidence.Controllers
             return hash;
         }
         [HttpPost]
-        public ActionResult Registration(Admin adm, int typeadmin)
+        public ActionResult Registration(Admin adm,int typeadmin)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string hash;
             string pass = adm.Bdate.ToShortDateString();
-            int typea = typeadmin;
+            //int typea = Convert.ToInt32(fc["a"]);
+            int typea = Convert.ToInt32(typeadmin);
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
 
@@ -250,6 +264,10 @@ namespace UResidence.Controllers
         }
         public ActionResult AdminView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
           
                 Admin a = new Admin();
@@ -261,6 +279,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string delete = "1";
             Admin am = new Admin()
             {
@@ -278,12 +300,21 @@ namespace UResidence.Controllers
         }
         public ActionResult AdminEdit()
         {
-         
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
+            int level = Convert.ToInt32(Session["Level"]);
+            ViewBag.Level = level;
             return View();
         }
         [HttpGet]
         public ActionResult AdminEdit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -303,6 +334,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AdminEdit(Admin adm)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             if (adm.Validate(out err))
             {
@@ -344,6 +379,10 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<Admin> data = default(List<Admin>);
             data = UResidence.AdminController.GetAll();
             LocalReport localreport = new LocalReport();

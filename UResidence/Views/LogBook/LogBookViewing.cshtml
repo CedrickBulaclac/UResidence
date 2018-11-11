@@ -7,63 +7,87 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="container">
-    @using (Html.BeginForm("LogBookViewing", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-    <center>
-        <div class="row">
-            <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
-            <div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
-            <div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
-            <div class="col-lg-3"><button class="btn btn-success" type="submit">Search</button></div>
-        </div>
-    </center>
-    }
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>Resident Name</th>
-            <th>Guest Name</th>
-            <th>Picture</th>
-            <th>Purpose of Visit</th>
-            <th>Actions</th>
-        </tr>
-        @foreach (var a in Model)
-        {
-            if (a.sTimein == "12:00AM")
-            {
-                <tr>
-                    <td>@a.ResidentName</td>
-                    <td>@a.VisitorName</td>
-                    <td></td>
-                    <td>@a.Purpose</td>
-                    <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
-                </tr>
-            }
-            else
-            {
-                if (a.sTimeout == "12:00AM")
-                {
-                    <tr>
-                        <td>@a.ResidentName</td>
-                        <td>@a.VisitorName</td>
-                        <td></td>
-                        <td>@a.Purpose</td>
-                        <td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-                    </tr>
-                }
-                else
-                {
-                    <tr>
-                        <td>@a.ResidentName</td>
-                        <td>@a.VisitorName</td>
-                        <td></td>
-                        <td>@a.Purpose</td>
-                        <td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <b>Time out : @a.sTimeout</b></td>
-                    </tr>
-                }
-            }
-        }
-    </table>
+	@using (Html.BeginForm("LogBookViewing", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		@Html.AntiForgeryToken()
+
+
+		<div class="container">
+			<div class="modal fade" id="logbookImageModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<label>Valid ID</label>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<center>
+								<img height="250" width="250" id="log">
+							</center>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<center>
+			<div class="row">
+				<div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
+				<div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
+				<div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
+				<div class="col-lg-3"><button class="btn btn-success" type="submit">Search</button></div>
+			</div>
+		</center>
+	}
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>Resident Name</th>
+			<th>Guest Name</th>
+			<th>Picture</th>
+			<th>Purpose of Visit</th>
+			<th>Actions</th>
+		</tr>
+		@foreach (var a in Model)
+		{
+			if (a.sTimein == "12:00AM")
+			{
+				<tr>
+					<td>@a.ResidentName</td>
+					<td>@a.VisitorName</td>
+					<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+					<td>@a.Purpose</td>
+					<td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
+				</tr>
+			}
+			else
+			{
+				if (a.sTimeout == "12:00AM")
+				{
+					<tr>
+						<td>@a.ResidentName</td>
+						<td>@a.VisitorName</td>
+						<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+						<td>@a.Purpose</td>
+						<td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+					</tr>
+				}
+				else
+				{
+					<tr>
+						<td>@a.ResidentName</td>
+						<td>@a.VisitorName</td>
+						<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+						<td>@a.Purpose</td>
+						<td><b>Time in : @a.sTimein</b> &nbsp;&nbsp;  <b>Time out : @a.sTimeout</b></td>
+					</tr>
+				}
+			}
+		}
+	</table>
 </div>
 
 <script>
@@ -112,5 +136,17 @@
                 alert('Failed to update record');
             }
         });
-    }
+	}
+
+
+	function ViewPIC(data) {
+		var fullpath = (data).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		filei = filename;
+
+		var path = "../Content/LogBookImages/" + filei;
+
+		document.getElementById('log').setAttribute('src', path)
+		$('#logbookImageModal').modal();
+	}
 </script>

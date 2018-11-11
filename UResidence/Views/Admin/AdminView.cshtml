@@ -1,28 +1,16 @@
 ﻿@model List<UResidence.Admin>
 
 @{
-    ViewBag.Title = "AdminView";
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        Layout = "/Views/Layout/BossManagerLayout.cshtml";
-    }
-    else
-    {
-        Layout = "/Views/Layout/AdminLayout.cshtml";
-    }
+	ViewBag.Title = "AdminView";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
-
-
-
-
-<script>
-    $(document).ready(function () {
-        $('#maincontent').empty();
-        $('#maincontent1').empty();
-        $('#containerChart').empty();
-
-    });</script>
-
 
 @*Scripts for dropdown*@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,371 +18,413 @@
 
 
 
-<style>
-
-    table {
-        width: 100%;
-    }
-
-    thead, tbody, tr, td, th {
-        display: block;
-    }
-
-        tr:after {
-            content: ' ';
-            display: block;
-            visibility: hidden;
-            clear: both;
-        }
-
-        thead th {
-            height: 30px;
-            text-align: left;
-        }
-
-    tbody {
-        height: 120px;
-        overflow-y: auto;
-    }
-
-    thead {
-        fallback
-    }
-
-
-        tbody td, thead th {
-            width: 19.2%;
-            float: left;
-        }
-
-
-    /*/////////////////////////////////////////////////*/
-
-
-    .outer {
-        position: relative
-    }
-
-    .inner {
-        overflow-x: auto;
-        overflow-y: visible;
-        margin-left: 120px;
-    }
-
-
-
-    .table-area {
-        position: relative;
-        z-index: 0;
-        margin-top: 50px;
-    }
-
-    table.responsive-table {
-        display: table;
-        /* required for table-layout to be used (not normally necessary; included for completeness) */
-        table-layout: fixed;
-        /* this keeps your columns with fixed with exactly the right width */
-        width: 100%;
-        /* table must have width set for fixed layout to work as expected */
-        height: 150%;
-    }
-
-        table.responsive-table thead {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            right: 0;
-            width: 100%;
-            height: 50px;
-            line-height: 3em;
-            background: #eee;
-            table-layout: fixed;
-            display: table;
-        }
-
-        table.responsive-table th {
-            background: #eee;
-        }
-
-        table.responsive-table td {
-            line-height: 2em;
-        }
-
-        table.responsive-table tr > td,
-        table.responsive-table th {
-            text-align: left;
-        }
-
-
-
-
-
-
-    /*/////////////////////////////////////*/
-
-
-    /*.pane-hScroll {
-        overflow: auto;
-        width: 400px;
-        background: green;
-    }*/
-
-
-
-</style>
-
-
 
 
 @using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+	@Html.AntiForgeryToken()
+
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		<style>
 
-    <script>
-        $(document).ready(function () {
-            $('#maincontent').empty();
-            $('#maincontent1').empty();
-            $('#containerChart').empty();
+					table {
+						width: 100%;
+					}
 
-        });</script>
+					thead, tbody, tr, td, th {
+						display: block;
+					}
 
+						tr:after {
+							content: ' ';
+							display: block;
+							visibility: hidden;
+							clear: both;
+						}
 
-    <div id="content1">
+						thead th {
+							height: 30px;
+							text-align: left;
+						}
 
-        <br /> <br /> <br /> <br />
+					tbody {
+						height: 120px;
+						overflow-y: auto;
+					}
 
-        @*<div class="col-md-12">*@
+					thead {
+						fallback
+					}
 
-        @*<div class="panel panel-default">
-            <div class="panel-heading" style="background-color:  #1C2331">
-                <font color="white"> <h2 class="panel-title"> Users List </h2></font>
-            </div>*@
 
-                             <div class="col-md-12">
+						tbody td, thead th {
+							width: 19.2%;
+							float: left;
+						}
 
-                                 <div class="panel panel-default" >
-                                     <div class="panel-heading" style="background-color:  #1C2331">
-                                         <font color="white"> <h3 class="panel-title"> Users List </h3></font>
-                                     </div>
-                                     <table class=" table table-striped table-bordered" style="height:200px;display:block;" id="sample">
 
-                                         <thead>
-                                             <tr style="height:50px;">
-                                                 <th>Full Name</th>
-                                                 <th>Birthdate</th>
-                                                 <th>Cellphone No</th>
-                                                 <th>Role</th>
-                                                 <th>Actions</th>
-                                             </tr>
-                                         </thead>
-                                         <tbody>
-                                             @foreach (Admin a in Model)
-                {
+					/*/////////////////////////////////////////////////*/
 
-                             <tr>
 
-                                 <td>@Html.DisplayFor(model => a.Fullname)</td>
-                                 <td>@Html.DisplayFor(model => a.Bdate)</td>
-                                 <td style="width:140px;">@Html.DisplayFor(model => a.CelNo)</td>
+					.outer {
+						position: relative
+					}
 
-                                 <td>@Html.DisplayFor(model => a.Role)</td>
-                                 <td>
-                                     <a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-                                     <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-                                 </td>
-                             </tr>
+					.inner {
+						overflow-x: auto;
+						overflow-y: visible;
+						margin-left: 120px;
+					}
 
 
-}
-                                         </tbody>
-                                     </table>
-                                 </div>
 
+					.table-area {
+						position: relative;
+						z-index: 0;
+						margin-top: 50px;
+					}
 
-                                 <div class="form-inline pull-right">
+					table.responsive-table {
+						display: table;
+						/* required for table-layout to be used (not normally necessary; included for completeness) */
+						table-layout: fixed;
+						/* this keeps your columns with fixed with exactly the right width */
+						width: 100%;
+						/* table must have width set for fixed layout to work as expected */
+						height: 100%;
+					}
 
-                                     <a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
-                                     <a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
-                                 </div>
+						table.responsive-table thead {
+							position: fixed;
+							top: 50px;
+							left: 0;
+							right: 0;
+							width: 100%;
+							height: 50px;
+							line-height: 3em;
+							background: #eee;
+							table-layout: fixed;
+							display: table;
+						}
 
+						table.responsive-table th {
+							background: #eee;
+						}
 
-                             </div>
-    </div>
+						table.responsive-table td {
+							line-height: 2em;
+						}
 
+						table.responsive-table tr > td,
+						table.responsive-table th {
+							text-align: left;
+						}
 
-    <div id="auerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem updating the Admin
-    </div>
-    <div id="ausuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully updated the Admin
-    </div>
 
 
-    <div id="aerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem deleting the Admin
-    </div>
-    <div id="asuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully deleted the Admin
-    </div>
 
 
-    <div id="aaerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem submitting your form
-    </div>
-    <div id="aasuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully added a Admin
-    </div>
 
+					/*/////////////////////////////////////*/
 
-    @*</div>*@
-    
 
+					/*.pane-hScroll {
+				overflow: auto;
+				width: 400px;
+				background: green;
+			}*/
 
-    <script>
 
-        $(document).ready(function () {
-            var content1 = document.getElementById('content1');
-            $('#maincontent1').append(content1);
 
-        });
+		</style>
+		<script>
+			$(document).ready(function () {
+				$('#maincontent').empty();
+				$('#maincontent1').empty();
+				$('#containerChart').empty();
 
+			});</script>
 
+		<div id="content1">
 
+			<br /> <br /> <br /> <br />
 
-        $('.pane-hScroll').scroll(function () {
-            $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
-        });
+			@*<div class="col-md-12">*@
 
+			@*<div class="panel panel-default">
+				<div class="panel-heading" style="background-color:  #1C2331">
+					<font color="white"> <h2 class="panel-title"> Users List </h2></font>
+				</div>*@
 
-    </script>
+			<div class="col-md-12">
 
+				<div class="panel panel-default" @*style="margin-left:160px"*@>
+					<div class="panel-heading" style="background-color:  #1C2331">
+						<font color="white"> <h3 class="panel-title"> Users List </h3></font>
+					</div>
+					<table class=" table table-striped table-bordered" style="height:200px;display:block;" id="sample">
 
+						<thead>
+							<tr style="height:50px;">
+								<th>Full Name</th>
+								<th>Birthdate</th>
+								<th>Cellphone No</th>
+								<th>Role</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (Admin a in Model)
+							{
 
-    if (ViewBag.DeleteStatus != null)
-    {
-        if (ViewBag.DeleteStatus == true)
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
+								<tr>
 
-                    $('#asuccess').show('fade');
+									<td>@Html.DisplayFor(model => a.Fullname)</td>
+									<td>@Html.DisplayFor(model => a.Bdate)</td>
+									<td style="width:140px;">@Html.DisplayFor(model => a.CelNo)</td>
 
-                    setTimeout(function () {
-                        $('#asuccess').hide('fade');
-                    }, 2000);
-                });
-            </script>
-        }
+									<td>@Html.DisplayFor(model => a.Role)</td>
+									<td>
+										<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+										<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+									</td>
+								</tr>
 
-        else
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
 
-                    $('#aerror').show('fade');
+							}
+						</tbody>
+					</table>
+				</div>
 
-                    setTimeout(function () {
-                        $('#aerror').hide('fade');
-                    }, 2000);
 
+				<div class="form-inline pull-right">
 
-                });
-            </script>
-        }
-    }
+					<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
+					<a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Admin</a>
+				</div>
 
-    if (ViewBag.UpdateMessage != null)
-    {
-        if (ViewBag.UpdateMessage == true)
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
 
-                    $('#ausuccess').show('fade');
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="container">
+			<hr />
 
-                    setTimeout(function () {
-                        $('#ausuccess').hide('fade');
-                    }, 2000);
+			<table class=" table table-bordered table-striped">
 
+				<thead>
+					<tr>
+						<th>First Name</th>
+						<th>Middle Name</th>
+						<th>Last Name</th>
+						<th>Birthdate</th>
+						<th>Cellphone No</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Admin a in Model)
+					{
 
-                });
-            </script>
-        }
+						<tr>
 
-        else
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
-                $(document).ready(function () {
+							<td>@Html.DisplayFor(model => a.Fname)</td>
+							<td>@Html.DisplayFor(model => a.Mname)</td>
+							<td>@Html.DisplayFor(model => a.Lname)</td>
+							<td>@Html.DisplayFor(model => a.Bdate)</td>
+							<td>@Html.DisplayFor(model => a.CelNo)</td>
+							<td>@Html.DisplayFor(model => a.Email)</td>
+							<td>@Html.DisplayFor(model => a.Role)</td>
+							<td>
+								<a class="btn btn-primary" href="@Url.Action("AdminEdit", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
+								<a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new { id = Convert.ToInt32(a.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
+							</td>
+						</tr>
 
-                    $('#auerror').show('fade');
 
-                    setTimeout(function () {
-                        $('#auerror').hide('fade');
-                    }, 2000);
+					}
+				</tbody>
+			</table>
 
+			<div class="form-inline">
 
-                });
-            </script>
-        }
-    }
+				<a href="@Url.Action("Registration", "Admin")"><input id="btnAdd" type="button" value="ADD NEW ADMIN" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
+				<a class="btn btn-default" href="@Url.Action("Download","Admin")">Download List of Admin</a>
+			</div>
 
-    if (ViewBag.AddMessage != null)
-    {
-        if (ViewBag.AddMessage == true)
-        {
 
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
+		</div>
+	}
 
-                $(document).ready(function () {
 
-                    $('#aasuccess').show('fade');
 
-                    setTimeout(function () {
-                        $('#aasuccess').hide('fade');
-                    }, 20000);
+	<div id="auerror" class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong> There is a problem updating the Admin
+	</div>
+	<div id="ausuccess" class="alert alert-success collapse">
+		<strong>Success!</strong> You have successfully updated the Admin
+	</div>
 
-                });
-            </script>
-        }
 
-        else
-        {
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-            </script>
-            <script type="text/javascript">
+	<div id="aerror" class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong> There is a problem deleting the Admin
+	</div>
+	<div id="asuccess" class="alert alert-success collapse">
+		<strong>Success!</strong> You have successfully deleted the Admin
+	</div>
 
-                $(document).ready(function () {
 
-                    $('#aaerror').show('fade');
+	<div id="aaerror" class="alert alert-danger collapse">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>Error!</strong> There is a problem submitting your form
+	</div>
+	<div id="aasuccess" class="alert alert-success collapse">
+		<strong>Success!</strong> You have successfully added a Admin
+	</div>
 
-                    setTimeout(function () {
-                        $('#aaerror').hide('fade');
-                    }, 2000);
 
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		<script>
+			$(document).ready(function () {
+				var content1 = document.getElementById('content1');
+				$('#maincontent1').append(content1);
+			});
 
-                });
-            </script>
+			$('.pane-hScroll').scroll(function () {
+				$('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
+			});
+		</script>
+	}
 
-        }
+	if (ViewBag.DeleteStatus != null)
+	{
+		if (ViewBag.DeleteStatus == true)
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
 
-    }
+					$('#asuccess').show('fade');
+
+					setTimeout(function () {
+						$('#asuccess').hide('fade');
+					}, 2000);
+				});
+			</script>
+		}
+
+		else
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#aerror').show('fade');
+
+					setTimeout(function () {
+						$('#aerror').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+	}
+
+	if (ViewBag.UpdateMessage != null)
+	{
+		if (ViewBag.UpdateMessage == true)
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#ausuccess').show('fade');
+
+					setTimeout(function () {
+						$('#ausuccess').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+
+		else
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					$('#auerror').show('fade');
+
+					setTimeout(function () {
+						$('#auerror').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+		}
+	}
+
+	if (ViewBag.AddMessage != null)
+	{
+		if (ViewBag.AddMessage == true)
+		{
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+
+				$(document).ready(function () {
+
+					$('#aasuccess').show('fade');
+
+					setTimeout(function () {
+						$('#aasuccess').hide('fade');
+					}, 20000);
+
+				});
+			</script>
+		}
+
+		else
+		{
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+			</script>
+			<script type="text/javascript">
+
+				$(document).ready(function () {
+
+					$('#aaerror').show('fade');
+
+					setTimeout(function () {
+						$('#aaerror').hide('fade');
+					}, 2000);
+
+
+				});
+			</script>
+
+		}
+
+	}
 }
 <script>
-    function Download() {
-        $.post("/Admin/Download");
-    }
-
+	function Download() {
+		$.post("/Admin/Download");
+	}
 </script>

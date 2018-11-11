@@ -12,6 +12,10 @@ namespace UResidence.Controllers
         // GET: AccountSetting
         public ActionResult AdminAccountSetting()
         {
+            if (Session["Level"]==null)
+            {              
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -38,6 +42,10 @@ namespace UResidence.Controllers
         }
         public ActionResult ManagerAccountSetting()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string pass = (string)Session["pass"];
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
@@ -53,6 +61,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult ManagerAccountSetting(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int lid = (int)Session["LID"];
             bool status = false;
             int Aid = (int)Session["UID"];
@@ -108,6 +120,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AdminAccountSetting(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int lid = (int)Session["LID"];
             bool status = false;
             int Aid = (int)Session["UID"];
@@ -163,6 +179,10 @@ namespace UResidence.Controllers
 
             public ActionResult OwnerAccountSetting()
             {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -195,6 +215,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerAccountSetting(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             Session["aa"] = 1;
             int lid = (int)Session["LID"];
             bool status = false;
@@ -248,6 +272,10 @@ namespace UResidence.Controllers
         }
             public ActionResult TenantAccountSetting()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -279,6 +307,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantAccountSetting(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             Session["aa"] = 1;
             int lid = (int)Session["LID"];
             bool status = false;

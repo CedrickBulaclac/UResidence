@@ -13,6 +13,10 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -27,6 +31,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBook(FormCollection fc,HttpPostedFileBase logbookpic)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             DateTime date= Convert.ToDateTime(fc["date"]);
             string visitor = Convert.ToString(fc["visitorname"]);
             string resident = Convert.ToString(fc["residentname"]);
@@ -85,6 +93,10 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -99,6 +111,10 @@ namespace UResidence.Controllers
 
         public ActionResult LogBookViewing()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -112,6 +128,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBookViewing(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             DateTime date = Convert.ToDateTime(fc["gdate"]);
             string bn=Convert.ToString(fc["gbldg"]);
             string un = Convert.ToString(fc["gunit"]);
@@ -161,6 +181,10 @@ namespace UResidence.Controllers
 
         public ActionResult InsertImage(Logbook data)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             bool status=false;
             var image1 = data.Image;
             if (image1 != null)

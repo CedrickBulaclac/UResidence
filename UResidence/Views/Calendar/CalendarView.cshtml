@@ -2,8 +2,7 @@
 @{
     string pending = "Pending";
     string reserved = "Reserved";
-    string cancelled = "Cancelled";
-    string status = "";
+    string cancelled = "Cancelled";  
     Layout = "/Views/Layout/AdminLayout.cshtml";
 }
 
@@ -47,7 +46,7 @@
     <body>
         <br />
 
-        <input type="datetime-local" />
+       
         <center><h2>Calendar</h2></center>
         <div class="container">
             <div class="modal fade" id="myModal" role="dialog">
@@ -496,7 +495,10 @@
 				var dt = new Date(parseFloat(results[1]));
 				return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear() + "-" + dt.getHours() + ":" + dt.getMinutes();
 			}
-
+        function convertUTCDateToLocalDate(date) {
+            var date1 = new Date(date);
+            return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
+        }
 
             function UpdateStatus() {
                 var refno = document.getElementById('rfid').value;
@@ -558,11 +560,16 @@
                     data:data,
                     success: function (data) {
                         $.each(data, function (i, v) {
+
+                            var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                            startTime =startTime.split(' ').slice(1, 5).join(' ');
+                            var endTime = (convertUTCDateToLocalDate(moment(v.EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                            endTime = endTime.split(' ').slice(1, 5).join(' ');
                             events.push({
                                 title: v.AName,
                                 reserved: v.ReservedBy,
-                                start: moment(v.StartTime),
-                                end: v.EndTime != null ? moment(v.EndTime) : null,
+                                start: startTime,
+                                end: v.EndTime != null ? endTime : null,
                                 rate: v.Rate,
                                 status: v.Status,
                                 color: v.Color,
@@ -612,6 +619,12 @@
 				data: data,
 				success: function (data) {
                     if (data != null) {
+                        console.log(data);
+                        var startTime = (convertUTCDateToLocalDate(moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                        startTime = startTime.split(' ').slice(1, 5).join(' ');
+                        var endTime = (convertUTCDateToLocalDate(moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                        endTime = endTime.split(' ').slice(1, 5).join(' ');
+
                         document.getElementById('searchId').value = '';
                         $('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
                         var $description = $('<div/>');
@@ -619,8 +632,8 @@
                         $description.append($('<p/>').html('<b>Reserved By: </b>' + data[0].ReservedBy));
                         $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
                         $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
-                        $description.append($('<p/>').html('<b>StartTime: </b>' + moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a")));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a")));                       
+                        $description.append($('<p/>').html('<b>StartTime: </b>' + startTime));
+                        $description.append($('<p/>').html('<b>EndTime: </b>' + endTime));                       
                         Swimming(data[0].RFId);
                         getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
                         document.getElementById('mySelect').value = data[0].Status;
@@ -628,8 +641,8 @@
                         document.getElementById('rfid').value = data[0].RFId;
                         document.getElementById('cg').innerHTML = data[0].Charge.toFixed(2);
                         document.getElementById('cg').innerHTML = data[0].Charge.toFixed(2);
-                        startT = moment(data[0].StartTime).format("DD/MMM/YYYY hh:mm a");
-                        endT = moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a");
+                        startT = startTime;
+                        endT = endTime ;
                         an = data[0].AName;
                         status11 = data[0].Status;
                         if (data[0].typeResident == "Owner") {
@@ -739,11 +752,15 @@
                         data:data,
                         success: function (data) {
                             $.each(data, function (i, v) {
+                                var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                startTime = startTime.split(' ').slice(1, 5).join(' ');
+                                var endTime = (convertUTCDateToLocalDate(moment(v.EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                endTime = endTime.split(' ').slice(1, 5).join(' ');
                                 events.push({
                                     title: v.AName,
                                     reserved: v.ReservedBy,
-                                    start: moment(v.StartTime),
-                                    end: v.EndTime != null ? moment(v.EndTime) : null,
+                                    start: startTime,
+                                    end: v.EndTime != null ? endTime : null,
                                     rate: v.Rate,
                                     status: v.Status,
                                     color: v.Color,
@@ -781,12 +798,7 @@
 					$('#calendar').fullCalendar({
 						contentHeight: 400,
 						defaultDate: new Date(),
-						timeFormat: 'h(:mm):a',
-						header: {
-							left: 'prev,next today',
-							center: 'title',
-							right: 'month,basicWeek,basicDay,agenda'
-						},
+						timeFormat: 'h(:mm):a',				
 						eventLimit: true,
 						eventColor: '#378006',
 						events: events,
@@ -944,41 +956,6 @@
 
                 $('#reversalModal').modal();
 			});
-			//$('#viewDetails').click(function () {
-			//	alert('tfhd');
-			//
-
-			//});
-
-			//function View(Id) {
-			//		var refno = Id;
-
-			//		$.ajax({
-			//			type: "GET",
-			//			url: "/calendar/SwimmingInfo",
-			//			dataType: 'json',
-			//			data: {
-			//				'refno1': refno
-			//			},
-			//			success: function (data) {
-			//				$.each(data, function (i, v) {
-			//					var $description = $('<div/>');
-			//					$description.append($('<p/>').html('<b>Adult: </b>' + v.Adult));
-			//					$description.append($('<p/>').html('<b>Child: </b>' + v.Child));
-			//					$('#viewDetailsModal #sDetails').empty().html($description);
-			//				})
-
-			//			},
-
-			//			error: function (error) {
-			//				alert('Failed to retrieve the record');
-			//			}
-			//		});
-
-
-
-			//	$('#viewDetailsModal').modal();
-			//}
 
 
 		$('.dp').on('keyup keydown', function (e) {

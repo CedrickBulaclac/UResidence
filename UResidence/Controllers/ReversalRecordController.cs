@@ -15,6 +15,10 @@ namespace UResidence.Controllers
         // GET: ReversalRecord
         public ActionResult Record()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -26,6 +30,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Records()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -52,6 +60,10 @@ namespace UResidence.Controllers
        
         public ActionResult Download()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type1= Session["type"].ToString();
             int month1= (int) Session["month"];
             int year1=(int)Session["year"];          

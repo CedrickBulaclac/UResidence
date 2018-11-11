@@ -46,6 +46,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -57,6 +61,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -76,6 +84,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(Admin adm)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string hash;
             string pass = adm.Bdate.ToShortDateString();
             hash = Hash(pass);
@@ -142,6 +154,10 @@ namespace UResidence.Controllers
         }
         public ActionResult SecurityGuardView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -154,6 +170,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string delete = "1";
             Admin am = new Admin()
             {
@@ -171,11 +191,19 @@ namespace UResidence.Controllers
         }
         public ActionResult Edit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -195,6 +223,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Edit(Admin adm)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             if (adm.Validate(out err))
             {

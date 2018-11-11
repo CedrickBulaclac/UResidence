@@ -46,35 +46,7 @@ namespace UResidence.Controllers
                     };
                     status = SchedReservationController.UpdateDelete(sched);
                 }
-            }
-          
-            //ReservationProcess sr = ReservationProcessController.GetMaxId();
-            //int max = sr.SRId;
-
-            //for (int i = 0; i <= max; i++)
-            //{
-            //    try
-            //    {
-            //        ReservationProcess srr = ReservationProcessController.GetSpecificId(i);
-            //        DateTime startT = srr.StartTime;
-            //        string stat = srr.Status.ToString();
-            //        bool status = false;
-            //        if (startT == DateTime.Now && stat == "Pending")
-            //        {
-            //            SchedReservation sched = new SchedReservation
-            //            {
-            //                Id=srr.SRId,
-            //                Deleted = 1
-            //            };
-            //            status = SchedReservationController.UpdateDelete(sched);
-            //        }
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //    }
-            //}
-
+            }           
             List<ReservationProcess> reservationList = ReservationProcessController.GETALL(rese.Status);
             var events = reservationList.ToList();
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -421,6 +393,10 @@ namespace UResidence.Controllers
         // GET: Calendar
         public ActionResult CalendarView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
           
                 Admin a = new Admin();
@@ -433,6 +409,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult CalendarView(FormCollection fc, string mySelect, decimal dp)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int rid = Convert.ToInt32(fc["rid"]);
             int rfid = Convert.ToInt32(fc["rfid"]);
             decimal cg = Convert.ToInt32(fc["cg"]);
