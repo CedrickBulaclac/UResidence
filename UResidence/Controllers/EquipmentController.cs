@@ -10,10 +10,19 @@ namespace UResidence.Controllers
     public class EquipmentController : Controller
     {
         private bool status;
-
+        public ActionResult GetEquipment()
+        {
+            List<Equipment> ret = new List<Equipment>();
+            ret = UResidence.EquipmentController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Equipment
         public ActionResult Registration()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -28,6 +37,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(Equipment eqp, HttpPostedFileBase Image)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             string finalpath = "";
             var image = Image;
@@ -176,6 +189,10 @@ namespace UResidence.Controllers
 
         public ActionResult EquipmentView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -184,16 +201,21 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Equipment> equipmentList = UResidence.EquipmentController.GetAll();
-            return View(equipmentList);
+            Equipment eqp = new Equipment();
+            eqp.Reset();
+            return View();
         }
 
 
-        public ActionResult Delete(int eno)
+        public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             Equipment eq = new Equipment
             {
-                Id = eno
+                Id = id
             };
             status = UResidence.EquipmentController.Delete(eq);
             if(status == true)
@@ -206,11 +228,19 @@ namespace UResidence.Controllers
         
         public ActionResult EquipmentEdit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
-        public ActionResult EquipmentEdit(int eno)
+        public ActionResult EquipmentEdit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -222,7 +252,7 @@ namespace UResidence.Controllers
             //if (ModelState.IsValid)
             //{
             Equipment equipmentList = default(Equipment);
-                equipmentList = UResidence.EquipmentController.GetbyId(eno);
+                equipmentList = UResidence.EquipmentController.GetbyId(id);
                 return View(equipmentList);
             //}
             //return View("EquipmentView");
@@ -230,6 +260,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult EquipmentEdit(Equipment eqp)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
           
                     Equipment eqp1 = new Equipment()

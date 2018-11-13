@@ -16,6 +16,16 @@
     }
 }
 
+
+
+@if (Convert.ToInt32(Session["Level"]) <= 7)
+	{
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	}
+
+
 <br />
 <br />
 <br />
@@ -163,7 +173,7 @@
 
                 <div class="container">
                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" style="position:initial;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -230,7 +240,10 @@
                     <script>
 
 
-
+                        function convertUTCDateToLocalDate(date) {
+                            var date1 = new Date(date);
+                            return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
+                        }
                         $(document).ready(function () {
                             var events = [];
                             $.ajax({
@@ -238,10 +251,14 @@
                                 url: "/Reserve/GetEvents",
                                 success: function (data) {
                                     $.each(data, function (i, v) {
+                                        var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                        startTime = startTime.split(' ').slice(1, 5).join(' ');
+                                        var endTime = (convertUTCDateToLocalDate(moment(v.EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                        endTime = endTime.split(' ').slice(1, 5).join(' ');
                                         events.push({
                                             title: v.AmenityName,
-                                            start: moment(v.StartTime),
-                                            end: v.EndTIme != null ? moment(v.EndTIme) : null,
+                                            start: startTime,
+                                            end: v.EndTIme != null ? endTime : null,
                                             rate: v.Rate,
                                             color: v.Theme
                                         });
@@ -258,12 +275,7 @@
                                 $('#calendar').fullCalendar({
                                     contentHeight: 400,
                                     defaultDate: new Date(),
-                                    timeFormat: 'h(:mm):a',
-                                    header: {
-                                        left: 'prev,next today',
-                                        center: 'title',
-                                        right: 'month,basicWeek,basicDay,agenda'
-                                    },
+                                    timeFormat: 'h(:mm):a',                                 
                                     eventLimit: true,
                                     eventColor: '#378006',
                                     events: events,

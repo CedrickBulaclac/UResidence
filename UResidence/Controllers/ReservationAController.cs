@@ -13,6 +13,10 @@ namespace UResidence.Controllers
         private bool status = false;
         public ActionResult SelectAmenity()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -35,32 +39,11 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
-            //int balance = 0;
-            //List<Billing> billing = new List<Billing>();
-            //int uid = Convert.ToInt32(Session["UIDA"]);
-            //string type = (Session["TORA"]).ToString();
-            //if (type == "Owner")
-            //{
-            //    billing = UResidence.BillingController.GetOwner(uid);
-            //}
-            //else
-            //{
-            //    billing = UResidence.BillingController.GetTenant(uid);
-            //}
-            //for (int i = 0; i <= billing.Count - 1; i++)
-            //{
-            //    balance += ((billing[i].Rate + billing[i].Charge + billing[i].ChairCost + billing[i].TableCost) - (billing[i].Totale - billing[i].Amount));
-            //}
-            //if (balance > 0)
-            //{
-            //    Session["status"] = true;
-            //    //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
-            //    ViewBag.Message = string.Format("There is still remaining balance of: ₱" + balance);
-            //    return View();
-
-            //}
-            //else
-            //{
+           
+            if (Session["Level"]==null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -77,10 +60,14 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int aid = Convert.ToInt32(fc["ida"]);
-            decimal arate = Convert.ToInt32(fc["ratea"]);
+            decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
-            decimal everate = Convert.ToInt32(fc["eve"]);
+            decimal everate = Convert.ToDecimal(fc["eve"]);
 
             Session["ID"] = aid;
             Session["RATE"] = arate;
@@ -105,6 +92,10 @@ namespace UResidence.Controllers
 
         public ActionResult Calendar()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -121,6 +112,10 @@ namespace UResidence.Controllers
 
         public ActionResult Choose_Date()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -139,6 +134,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string nameamenity = (Session["NAME"]).ToString();
             if (nameamenity.ToUpper() != "BASKETBALL COURT")
             {
@@ -213,6 +212,10 @@ namespace UResidence.Controllers
 
         public ActionResult Choose_Equipment()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -273,7 +276,7 @@ namespace UResidence.Controllers
 
         [HttpPost]
         public void Choose_Equipment(int[] data, decimal[] datar)
-        {
+        {           
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
@@ -301,6 +304,10 @@ namespace UResidence.Controllers
 
         public ActionResult Summary()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -338,6 +345,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
             string rate = (string)Session["drate"];
@@ -462,6 +473,10 @@ namespace UResidence.Controllers
 
         public ActionResult Swimming()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -479,6 +494,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Swimming(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string qa = fc["adult"];
             string qc = fc["child"];
             string ar = fc["rateadult"];
@@ -529,6 +548,10 @@ namespace UResidence.Controllers
 
         public ActionResult SelectOT()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -536,7 +559,18 @@ namespace UResidence.Controllers
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
+                ViewBag.ReservationModule = a.ReservationModule;
+                ViewBag.RegistrationModule = a.RegistrationModule;
+                ViewBag.LogBookModule = a.LogBookModule;
+                ViewBag.PaymentModule = a.PaymentModule;
+                ViewBag.ReversalModule = a.ReversalModule;
+                Session["ReservationModule"] = ViewBag.ReservationModule;
+                Session["RegistrationModule"] = ViewBag.RegistrationModule;
+                Session["LogBookModule"] = ViewBag.LogBookModule;
+                Session["PaymentModule"] = ViewBag.PaymentModule;
+                Session["ReversalModule"] = ViewBag.ReversalModule;
             }
+           
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }
@@ -544,7 +578,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
-         
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             if (level == 4)
             {
                 try
@@ -684,6 +721,10 @@ namespace UResidence.Controllers
 
       
         public ActionResult CalendarReservationAdmin() {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)

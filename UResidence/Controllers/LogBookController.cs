@@ -13,6 +13,10 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -27,6 +31,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBook(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             DateTime date= Convert.ToDateTime(fc["date"]);
             string visitor = Convert.ToString(fc["visitorname"]);
             string resident = Convert.ToString(fc["residentname"]);
@@ -76,12 +84,26 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
+                ViewBag.ReservationModule = a.ReservationModule;
+                ViewBag.RegistrationModule = a.RegistrationModule;
+                ViewBag.LogBookModule = a.LogBookModule;
+                ViewBag.PaymentModule = a.PaymentModule;
+                ViewBag.ReversalModule = a.ReversalModule;
+                Session["ReservationModule"] = ViewBag.ReservationModule;
+                Session["RegistrationModule"] = ViewBag.RegistrationModule;
+                Session["LogBookModule"] = ViewBag.LogBookModule;
+                Session["PaymentModule"] = ViewBag.PaymentModule;
+                Session["ReversalModule"] = ViewBag.ReversalModule;
             }
             List<Logbook> log = new List<Logbook>();
             log = UResidence.LogbookController.GET_ALL();
@@ -90,6 +112,10 @@ namespace UResidence.Controllers
 
         public ActionResult LogBookViewing()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -103,6 +129,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBookViewing(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             DateTime date = Convert.ToDateTime(fc["gdate"]);
             string bn=Convert.ToString(fc["gbldg"]);
             string un = Convert.ToString(fc["gunit"]);
@@ -152,6 +182,10 @@ namespace UResidence.Controllers
 
         public ActionResult InsertImage(Logbook data)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             bool status=false;
             var image1 = data.Image;
             if (image1 != null)

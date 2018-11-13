@@ -46,7 +46,7 @@ namespace UResidence
         [RegularExpression(".+@.+\\..+",ErrorMessage ="Email format seems wrong")]
         [Required(ErrorMessage ="Enter Email")]
         public string Email { get; set; }
-
+        public string FormattedDate => Bdate.ToShortDateString();
 
         public string Deleted { get; set; }
         public string URL { get; set; }

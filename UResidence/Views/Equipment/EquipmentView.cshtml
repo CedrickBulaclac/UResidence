@@ -1,261 +1,341 @@
-﻿@model List<UResidence.Equipment>
+﻿@model UResidence.Equipment
 
 @{
-	Layout = "/Views/Layout/AdminLayout.cshtml";
-	ViewBag.Title = "EquipmentView";
+    Layout = "/Views/Layout/AdminLayout.cshtml";
+    ViewBag.Title = "EquipmentView";
 }
-@*Scripts for dropdown*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 <center>
-	<h2>Equipment</h2>
+    <h2>Equipment</h2>
 </center>
-	
+
 @*Modal for Viewing Image Equipment*@
 <div class="container">
-	<div class="modal fade" id="equipmentModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<label>Equipment Image</label>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<center>
-						<img height="250px" src="" width="250px" id="equip">
-					</center>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="equipmentModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Equipment Image</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img height="250px" src="" width="250px" id="equip">
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-@using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post))
+
+@using (Html.BeginForm("Registration", "Equipment", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
-	
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal fade" id="AddModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Stocks :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Rate :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Description :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Equipment Image :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image" name="Image" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <div class="container">
-	<hr />
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>
-					Name
-				</th>
-				<th>
-					Image
-				</th>
-				<th>
-					Description
-				</th>
-				<th>
-					Stocks
-				</th>
-				<th>
-					Rate
-				</th>
-				<th>
-					Actions
-				</th>
-			</tr>
-		</thead>
+    <hr />
+    <table class="table table-bordered" id="EquipData">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Stocks
+                </th>
+                <th>
+                    Rate
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <div class="btn-link">
 
-		@foreach (Equipment e in Model)
-		{
-			<tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(model => e.Name)
-                    </td>
-                    <td>
-                        <center>
-                            <button type="button" class="btn btn-info" id="btnEquipImage" name="btnEquipImage" onclick="Set('@e.Url')">View</button>
-                        </center>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => e.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => e.Stocks)
-                    </td>
-                    <td>
-                       
-                        @Html.DisplayFor(model => e.Rate)
-                    </td>
-                    <td>
-                        <a class="btn btn-primary" href="@Url.Action("EquipmentEdit", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Equipment", new { eno = Convert.ToInt32(e.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-
-                    </td>
-                </tr>
-			</tbody>
-		}
-
-	</table>
-	<div class="btn-link">
-
-		<a href="Registration"><input id="btnAdd" type="button" value="ADD NEW EQUIPMENT" @*style="margin-left:150px;"*@ class="btn btn-success" /></a>
-
-	</div>
+        <button type="button" id="addbtn" class="btn btn-success">
+            ADD NEW EQUIPMENT
+        </button>
+    </div>
 </div>
 
 
-	<div id="auerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem updating the Equipment
-	</div>
-	<div id="ausuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully updated the Equipment
-	</div>
+<div id="auerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem updating the Equipment
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully updated the Equipment
+</div>
 
-	<div id="aerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem deleting the Equipment
-	</div>
-	<div id="asuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully deleted the Equipment
-	</div>
-	<div id="aaerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem submitting your Equipment
-	</div>
-	<div id="aasuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully added the Equipment
-	</div>
-	if (ViewBag.DeleteStatus != null)
-	{
-		if (ViewBag.DeleteStatus == true)
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
+<div id="aerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem deleting the Equipment
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully deleted the Equipment
+</div>
+<div id="aaerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem submitting your Equipment
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully added the Equipment
+</div>
+@if (ViewBag.DeleteStatus != null)
+{
+    if (ViewBag.DeleteStatus == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-					$('#asuccess').show('fade');
+                $('#asuccess').show('fade');
 
-					setTimeout(function () {
-						$('#asuccess').hide('fade');
-					}, 2000);
-
-
-				});
-			</script>
-		}
-
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
-
-					$('#aerror').show('fade');
-
-					setTimeout(function () {
-						$('#aerror').hide('fade');
-					}, 2000);
+                setTimeout(function () {
+                    $('#asuccess').hide('fade');
+                }, 2000);
 
 
-				});
-			</script>
-		}
-	}
-	if (ViewBag.UpdateMessage != null)
-	{
-		if (ViewBag.UpdateMessage == true)
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
+            });
+        </script>
+    }
 
-					$('#ausuccess').show('fade');
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-					setTimeout(function () {
-						$('#ausuccess').hide('fade');
-					}, 2000);
+                $('#aerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aerror').hide('fade');
+                }, 2000);
 
 
-				});
-			</script>
-		}
+            });
+        </script>
+    }
+}
+@if (ViewBag.UpdateMessage != null)
+{
+    if (ViewBag.UpdateMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
+                $('#ausuccess').show('fade');
 
-					$('#auerror').show('fade');
-
-					setTimeout(function () {
-						$('#auerror').hide('fade');
-					}, 2000);
-
-
-				});
-			</script>
-		}
-	}
-
-	if (ViewBag.AddMessage != null)
-	{
-		if (ViewBag.AddMessage == true)
-		{
-
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-
-				$(document).ready(function () {
-
-					$('#aasuccess').show('fade');
-
-					setTimeout(function () {
-						$('#aasuccess').hide('fade');
-					}, 20000);
-
-				});
-			</script>
-		}
-
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-
-				$(document).ready(function () {
-
-					$('#aaerror').show('fade');
-
-					setTimeout(function () {
-						$('#aaerror').hide('fade');
-					}, 2000);
+                setTimeout(function () {
+                    $('#ausuccess').hide('fade');
+                }, 2000);
 
 
-				});
-			</script>
+            });
+        </script>
+    }
 
-		}
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-	}
+                $('#auerror').show('fade');
+
+                setTimeout(function () {
+                    $('#auerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.AddMessage != null)
+{
+    if (ViewBag.AddMessage == true)
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aasuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#aasuccess').hide('fade');
+                }, 20000);
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aaerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
 
 }
 
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
-	function Set(url) {
-		URL = url;
-		var fullpath = (URL).toString();
-		var filename = fullpath.replace(/^.*[\\\/]/, '');
-		var path = "../Content/EquipmentImages/" + filename;
+    $(document).ready(function () {
+        var table = $('#EquipData').DataTable({
+            "ajax": {
+                "url": '/Equipment/GetEquipment',
+                "type": "GET",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "Name", "autowidth": true },
+                { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
+                { "data": "Description", "autowidth": true },
+                { "data": "Stocks", "autowidth": true },
+                { "data": "Rate", 'render': function (data, type, full, meta) { return '₱'+data }, "autowidth": true },
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Equipment/EquipmentEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Equipment/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+            ]
+        });
+    });
+    function Set(url) {
+        URL = url;
+        var fullpath = (URL).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        var path = "../Content/EquipmentImages/" + filename;
 
-		document.getElementById('equip').setAttribute('src', path)
+        document.getElementById('equip').setAttribute('src', path)
 
-		$('#equipmentModal').modal();
-	}
+        $('#equipmentModal').modal();
+    }
+    $('#addbtn').click(function () {
 
+        $('#AddModal').modal();
+    }
+    );
 </script>

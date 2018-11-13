@@ -13,6 +13,10 @@ namespace UResidence.Controllers
         // GET: ReservationRecord
         public ActionResult Record()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -127,6 +131,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Download(int Level, string Search)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<ReservationList> data = default(List<ReservationList>);
             if (Level == 3)
             {            

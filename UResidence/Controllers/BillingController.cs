@@ -11,6 +11,10 @@ namespace UResidence.Controllers
         // GET: Billing
         public ActionResult BillingView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             decimal balance = 0;
             List<ReservationList> revlist = new List<ReservationList>();
             List<BillingList> ret = default(List<BillingList>);

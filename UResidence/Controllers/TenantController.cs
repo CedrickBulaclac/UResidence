@@ -18,8 +18,18 @@ namespace UResidence.Controllers
     {
         bool status;
         // GET: Tenant
+        public ActionResult GetTenant()
+        {
+            List<Tenant> ret = new List<Tenant>();
+            ret = UResidence.TenantController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult TenantAdd()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -77,6 +87,10 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<Tenant> data = default(List<Tenant>);
             data = UResidence.TenantController.GetAll();
             LocalReport localreport = new LocalReport();
@@ -204,59 +218,14 @@ namespace UResidence.Controllers
 
         }
 
-
-
-
-
-
-
-
-
-
-        //public JsonResult InsertMoving2(Tenant tenant)
-        //{
-        //    int id = tenant.Id;
-        //    var image2 = tenant.Image2;
-        //    bool status = false;
-
-        //    if (image2 != null)
-        //    {
-        //        if (image2.ContentLength > 0)
-        //        {
-        //            string imagefileName = Path.GetFileName(image2.FileName);
-        //            string folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), imagefileName);
-        //            string folderpath2 = "~/Content/TenantImages/" + imagefileName;
-        //            if (System.IO.File.Exists(folderPath))
-        //            {
-        //                System.IO.File.Delete(folderPath);
-        //                image2.SaveAs(folderPath);
-        //            }
-        //            else
-        //            {
-        //                image2.SaveAs(folderPath);
-        //            }
-        //            Tenant a = new Tenant()
-        //            {
-        //                Id = id,
-        //                MovingOut = folderpath2
-        //            };
-        //            status = UResidence.TenantController.UpdateImage2(a);
-        //        }
-
-        //    }
-         
-
-        //    return new JsonResult
-        //    {
-        //        Data = status,
-        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //    };
-        //}
-
-
+       
         [HttpPost]
         public ActionResult TenantAdd(Tenant ten, HttpPostedFileBase Image1)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string finalpath = "";
             var image = Image1;
             bool status = false;
@@ -460,6 +429,10 @@ namespace UResidence.Controllers
         
         public ActionResult TenantView()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -468,12 +441,16 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Tenant> tenantList = UResidence.TenantController.GetAll();
-            return View(tenantList);      
+         
+            return View();      
         }
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string delete = "1";
             Tenant ten = new Tenant()
             {
@@ -495,11 +472,19 @@ namespace UResidence.Controllers
         }
         public ActionResult TenantEdit()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             return View();
         }
         [HttpGet]
         public ActionResult TenantEdit(int id)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
 
             if (level <= 7)
@@ -519,6 +504,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantEdit(Tenant ten)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {

@@ -13,6 +13,10 @@ namespace UResidence.Controllers
         private bool status = false;    
         public ActionResult SelectAmenity()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAll();
             List<Equipment> equipList = UResidence.EquipmentController.GetAll();
@@ -24,6 +28,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             decimal balance = 0;
            
@@ -87,6 +95,10 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             decimal balance = 0;
             List<ReservationList> revlist = new List<ReservationList>();
             int uid;
@@ -184,6 +196,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int aid = Convert.ToInt32(fc["ida"]);
             decimal arate = Convert.ToDecimal(fc["ratea"]);
             string aname = Convert.ToString(fc["namea"]);
@@ -221,6 +237,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -276,6 +296,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Date()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -333,7 +357,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-           
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             //string nameamenity = (Session["NAME"]).ToString();
             if (Session["IsEquipment"].ToString() == "False")
             {
@@ -411,6 +438,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Equipment()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -514,6 +545,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public void Choose_Equipment(int[] data, decimal[] datar)
         {
+           
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
@@ -539,6 +571,10 @@ namespace UResidence.Controllers
         }
         public ActionResult Summary()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -627,7 +663,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
-
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string sd = (string)Session["sd"];
             sd += ":00.000";
             string ed = (string)Session["ed"];
@@ -783,6 +822,10 @@ namespace UResidence.Controllers
 
         public ActionResult GuestAdd()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string bn = Convert.ToString(Session["BLDG"]);
             string un = Convert.ToString(Session["UNO"]);
             ViewBag.Bldg =bn;
@@ -796,6 +839,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult GuestAdd(FormCollection fc, HttpPostedFileBase logbookpic)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string bn = Convert.ToString(Session["BLDG"]);
             string un = Convert.ToString(Session["UNO"]);
             DateTime date = Convert.ToDateTime(fc["gdate"]);
@@ -912,6 +959,10 @@ namespace UResidence.Controllers
      
         public ActionResult Swimming()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             ViewBag.isw = (Session["IsWeekend"]).ToString();
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
@@ -968,6 +1019,10 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Swimming(FormCollection fc)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string qa = fc["adult"];
             string qc = fc["child"];
             string ar= fc["rateadult"];
@@ -1043,6 +1098,10 @@ namespace UResidence.Controllers
 
         public ActionResult CalendarViewOT()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -1063,6 +1122,10 @@ namespace UResidence.Controllers
         }
         public ActionResult DownloadReservation(int refno1)
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             string tor = Session["TOR"].ToString();
             List<ReportReservation> data = default(List<ReportReservation>);
             List<EquipReservation> data1 = default(List<EquipReservation>);
@@ -1111,6 +1174,10 @@ namespace UResidence.Controllers
    
         public ActionResult AboutUs()
         {
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             Session["aa"] = 1;
             return View();
         }
