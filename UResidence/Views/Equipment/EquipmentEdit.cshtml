@@ -1,6 +1,13 @@
 ﻿@model UResidence.Equipment
 @{
-	Layout = "/Views/Layout/AdminLayout.cshtml";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
 <html>
