@@ -6,13 +6,12 @@
 }
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	@*Scripts for dropdown*@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
-	@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
-
 </head>
 
 @using (Html.BeginForm("LogBook", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -71,116 +70,116 @@
 
 	<img id="hid" name="hid" style="" />
 
-	<div class="container">
+    <div class="container">
+        <br /> <br /> <br/>
 
-		<center> <h2> Logbook </h2></center>
-		<hr />
-		<img name="hide" id="hide" hidden />
-		<table class="table table-bordered table-striped" id="tableLog">
-			<tr>
-				<th>Date</th>
-				<th>Visitor Name</th>
-				<th>Resident Name</th>
-				<th>Building Number</th>
-				<th>Unit Number</th>
-				<th>Purpose of Visit</th>
-				<th>Image</th>
-				<th>Time In</th>
-				<th>Time Out</th>
-			</tr>
-			@foreach (var a in Model)
-			{
+        <div class="panel panel-collapse">
+            <div class="panel-heading" style="background-color:  #1C2331">
+                <font color="white"> <h3 class="panel-title"> Logbook </h3></font>
+            </div>
 
-				if (a.sTimeout == "12:00AM")
-				{
-					if (a.URL == "none")
-					{
-			<tr>
-				<td> @a.sDate</td>
-				<td> @a.VisitorName</td>
-				<td>@a.ResidentName </td>
-				<td>@a.BuildingNo </td>
-				<td>@a.UnitNo </td>
-				<td>@a.Purpose </td>
-				<td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-				<td> @a.sTimein </td>
-				<td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-				@*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
-			</tr>
+            @*<center> <h2> Logbook </h2></center>*@
+            <hr />
+            <div class="table-responsive">
+                <img name="hide" id="hide" hidden />
 
-					}
-					else
-					{
-			<tr>
-				<td>@a.sDate</td>
-				<td>@a.VisitorName</td>
-				<td>@a.ResidentName </td>
-				<td>@a.BuildingNo </td>
-				<td>@a.UnitNo </td>
-				<td>@a.Purpose</td>
-				<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-				<td> @a.sTimein</td>
-				<td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-			</tr>
-					}
-				}
-				else
-				{
-			<tr>
-				<td>@a.sDate</td>
-				<td>@a.VisitorName</td>
-				<td>@a.ResidentName </td>
-				<td>@a.BuildingNo </td>
-				<td>@a.UnitNo </td>
-				<td>@a.Purpose</td>
-				<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-				<td> @a.sTimein</td>
-				<td> @a.sTimeout </td>
-			</tr>
-				}
-			}
+                <table class="table table-bordered table-striped" id="tableLog">
+                    <tr>
+                        <th>Date</th>
+                        <th>Visitor Name</th>
+                        <th>Resident Name</th>
+                        <th>Purpose of Visit</th>
+                        <th>Image</th>
+                        <th>Time In</th>
+                        <th>Time Out</th>
+                    </tr>
+                    @foreach (var a in Model)
+                {
 
+                    if (a.sTimeout == "12:00AM")
+                    {
+                        if (a.URL == "none")
+                        {
+                            <tr>
+                                <td> @a.sDate</td>
+                                <td> @a.VisitorName</td>
+                                <td>@a.ResidentName </td>
+                                <td>@a.Purpose </td>
+                                <td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                <td> @a.sTimein </td>
+                                <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                                @*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
+                            </tr>
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@a.sDate</td>
+                            <td>@a.VisitorName</td>
+                            <td>@a.ResidentName </td>
+                            <td>@a.Purpose</td>
+                            <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                            <td> @a.sTimein</td>
+                            <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                        </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>@a.sDate</td>
+                    <td>@a.VisitorName</td>
+                    <td>@a.ResidentName </td>
+                    <td>@a.Purpose</td>
+                    <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                    <td> @a.sTimein</td>
+                    <td> @a.sTimeout </td>
+                </tr>
+        }
+    }
 
 
-			<tr>
-				<td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
-				<td> <input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
-				<td>  <input class="form-control" type="text" id="residentname" name="residentname" required /></td>
-				<td>  <input class="form-control" type="text" id="bldgNo" name="bldgNo" required /></td>
-				<td>  <input class="form-control" type="text" id="unitNo" name="unitNo" required /></td>
-				<td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
-				<td><a href="#" id="OpenModalPic" name="OpenModalPic" data-dismiss="modal">Take Picture</a></td>
-				<td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
-				<td></td>
-			</tr>
-		</table>
-	</div>
-}
-<script>
-	var filei;
-	$(document).ready(function () {
-		var now = new Date();
-		var day = ("0" + now.getDate()).slice(-2);
-		var month = ("0" + (now.getMonth() + 1)).slice(-2);
-		var today = now.getFullYear() + "-" + (month) + "-" + (day);
-		var ti = new Date().toLocaleTimeString();
-		document.getElementById('date').value = today;
-	})
 
-	var value;
+                    <tr>
+                        <td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
+                        <td> <input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
+                        <td>  <input class="form-control" type="text" id="residentname" name="residentname" required /></td>
+                        <td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
+                        <td><input type="file" id="logbookpic" name="logbookpic" required /> </td>
+                        <td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+        }
+        <script>
+            var filei;
+            $(document).ready(function () {
+                var now = new Date();
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                var ti = new Date().toLocaleTimeString();
+                document.getElementById('date').value = today;
+            })
 
-	var ReadImage = function (file) {
-		var reader = new FileReader;
-		var image1 = new Image;
-		reader.readAsDataURL(file);
-		reader.onload = function (_file) {
-			image1.src = file.target.result;
-			image.onload = function () {
-				$("#hid").attr('src', _file.target.result);
-			}
-		}
+            var value;
 
-	};
+            var ReadImage = function (file) {
+                var reader = new FileReader;
+                var image1 = new Image;
+                reader.readAsDataURL(file);
+                reader.onload = function (_file) {
+                    image1.src = file.target.result;
+                    image.onload = function () {
+                        $("#hid").attr('src', _file.target.result);
+                    }
+                }
+
+            };
 
 
 	function ViewPIC(data) {
@@ -202,17 +201,17 @@
 		$('#logbookImageModal').modal();
 	}
 
-	$('#btnCloseImage').click(function () {
+            $('#btnCloseImage').click(function () {
 
-		$('#logbookImageModal').hide();
-	}
-	);
-
-
+                $('#logbookImageModal').hide();
+            }
+            );
 
 
 
-	function Update(id) {
+
+
+            function Update(id) {
 
 		var d = new Date(),
 			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
@@ -220,63 +219,63 @@
 		s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
 		var timenow = h + ':' + m + ':' + s;
 
-		var data = {
-			Id: id,
-			TimeOut: timenow
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Update',
-			data: data,
-			success: function (data) {
-				window.location.href = window.location.href + "?rnd=" + Math.random()
-			},
-			error: function (error) {
-				alert('Failed to update record');
-			}
-		});
-	}
+                var data = {
+                    Id: id,
+                    TimeOut: timenow
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/LogBook/Update',
+                    data: data,
+                    success: function (data) {
+                        window.location.href = window.location.href + "?rnd=" + Math.random()
+                    },
+                    error: function (error) {
+                        alert('Failed to update record');
+                    }
+                });
+            }
 
 
 
 
 
 
-	function Set() {
-		$('#tableLog').empty();
-		$.ajax({
-			type: "GET",
-			url: "/LogBook/GetEvents",
-			success: function (data) {
-				var trHTML = '';
-				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th><th>Image</th><th>Time In</th> <th>Time Out</th></tr>';
-				$.each(data, function (i, v) {
+            function Set() {
+                $('#tableLog').empty();
+                $.ajax({
+                    type: "GET",
+                    url: "/LogBook/GetEvents",
+                    success: function (data) {
+                        var trHTML = '';
+                        trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th><th>Image</th><th>Time In</th> <th>Time Out</th></tr>';
+                        $.each(data, function (i, v) {
 
-					trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
-
-
-				});
-				trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input type="file" class="form-control" id="pc" name="pc" onchange="Sample()" /> </td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
-				$('#tableLog').append(trHTML);
-
-				var now = new Date();
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				var today = now.getFullYear() + "-" + (month) + "-" + (day);
-				var ti = new Date().toLocaleTimeString();
-
-				document.getElementById('date').value = today;
+                            trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
 
 
-			},
-			error: function (error) {
-				alert('Failed to retrieve the record');
-			}
-		});
+                        });
+                        trHTML += '<tr><td><input class="form-control" type="date" id="date" name="date" required/></td><td> <input  class="form-control" type="text" id="visitorname" name="visitorname" required/></td><td>  <input class="form-control"  type="text" id="residentname" name="residentname" required/></td><td><input  class="form-control" type="text" id="purpose" name="purpose" required/></td><td><input type="file" class="form-control" id="pc" name="pc" onchange="Sample()" /> </td><td><button class="btn btn-default" name="btnAdd" id="btnAdd" onclick="SetText()">Timein</button></td><td></td></tr>';
+                        $('#tableLog').append(trHTML);
 
-	}
+                        var now = new Date();
+                        var day = ("0" + now.getDate()).slice(-2);
+                        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                        var ti = new Date().toLocaleTimeString();
 
-	function SetText() {
+                        document.getElementById('date').value = today;
+
+
+                    },
+                    error: function (error) {
+                        alert('Failed to retrieve the record');
+                    }
+                });
+
+            }
+
+            function SetText() {
 
 		var date = document.getElementById('date').value;
 		var ResidentName = document.getElementById('residentname').value;
@@ -289,35 +288,35 @@
 
 
 
-		document.getElementById('hid').setAttribute('src', fullpath);
+                document.getElementById('hid').setAttribute('src', fullpath);
 
-		var d = new Date(),
-			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-		var timenow = h + ':' + m;
+                var d = new Date(),
+                    h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+                    m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+                var timenow = h + ':' + m;
 
-		var data = {
-			Date: date,
-			ResidentName: ResidentName,
-			VisitorName: VisitorName,
-			Purpose: Purpose,
-			Timein: timenow,
-			Image: m
-		}
+                var data = {
+                    Date: date,
+                    ResidentName: ResidentName,
+                    VisitorName: VisitorName,
+                    Purpose: Purpose,
+                    Timein: timenow,
+                    Image: m
+                }
 
 
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Insert',
-			data: data,
-			success: function (data) {
-				if (data == false) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/LogBook/Insert',
+                    data: data,
+                    success: function (data) {
+                        if (data == false) {
 
-					alert("Please input all required Textfield");
-				}
-				else {
-					window.location.reload();
-				}
+                            alert("Please input all required Textfield");
+                        }
+                        else {
+                            window.location.reload();
+                        }
 
 			},
 			error: function (error) {
@@ -398,7 +397,7 @@
 
 	$('#btnViewPic').click(function () {
 
-		$('#logbookImageModal').modal();
-	}
-	);
-</script>
+                $('#logbookImageModal').modal();
+            }
+            );
+        </script>

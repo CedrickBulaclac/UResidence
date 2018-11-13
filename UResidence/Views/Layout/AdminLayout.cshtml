@@ -531,7 +531,7 @@
 
                 <center>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="~/Admin/Home">Home</a></li>
+                        @*<li><a href="~/Admin/Home">Home</a></li>*@
                         @if (Session["PaymentModule"].ToString() == "True")
                         {
                  
@@ -561,7 +561,8 @@
                                 <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> LogBook Module <span class="caret"></span> </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="~/LogBook/LogBook">LogBook Module</a></li>
-                                    <li><a href="~/LogBook/LogBookViewing">LogBookViewing Module</a></li>
+                                    <li><a href="~/LogBook/LogBookViewing">Expected Guest Module</a></li>
+                                    <li><a href="~/LogBook/LogBookView">LogBook Viewing Module</a></li>
                                 </ul>
                             </li>
                         }

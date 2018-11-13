@@ -7,9 +7,6 @@
 @Html.AntiForgeryToken()
 @Html.Raw(TempData["msg"])
 
-@*Scripts for dropdown*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div class="container">
 	<div class="modal fade" id="myModal" role="dialog">
@@ -45,64 +42,67 @@
 
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		.block {
-			display: block;
-			width: 100%;
-			border: none;
-			background-color: #4CAF50;
-			color: white;
-			padding: 100px 100px;
-			font-size: 16px;
-			cursor: pointer;
-			text-align: center;
-		}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        .block {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #1C2331;
+            color: white;
+            padding: 100px 100px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
 
-			.block:hover {
-				background-color: #81c784;
-				color: black;
-			}
+            .block:hover {
+                background-color: #263238;
+                color: black;
+            }
 
-		/*.btn-sq-lg {
-			width: 150px !important;
-			height: 150px !important;
-		}*/
+        /*.btn-sq-lg {
+            width: 150px !important;
+            height: 150px !important;
+        }*/
 
 
 
-	</style>
+    </style>
 </head>
 <body>
 	<input type="hidden" id="ownten" name="ownten" value="0" />
-	<center>
-		<br><br>
+    <center>
 
-		<div class="col-md-6">
-			<a href="#" class="btn btn-sq-lg btn-success block " id="btnOwner" name="btnOwner">
-				<i class="fa fa-id-card fa-5x"></i><br />
-												   <h2>Owner</h2>
-			</a>
-		</div>
+        <br /><br /> <br />
+        <div class="container">
+            <br /><br /> <br />
+            <div class="col-md-6">
+                <a href="#" class="btn btn-sq-lg btn-success block " id="btnOwner" name="btnOwner">
+                    <i class="fa fa-id-card fa-5x"></i><br />
+                    <h2>Owner</h2>
+                </a>
 
-		@*<button class="block" id="btnOwner" name="btnOwner">Owner</button>
-		<br>*@
-
-
-		<div class="col-md-6">
-			<a href="#" class="btn btn-sq-lg btn-success block " id="btnTenant" name="btnTenant">
-				<i class="fa fa-id-card-o fa-5x"></i><br />
-				<h2>
-					Tenant
-				</h2>
-			</a>
-		</div>
+            </div>
 
 
-		@*<button class="block" id="btnTenant" name="btnTenant">Tenant</button>
-		<br />*@
 
-	</center>
+
+            <div class="col-md-6">
+                <a href="#" class="btn btn-sq-lg btn-success block " id="btnTenant" name="btnTenant">
+                    <i class="fa fa-id-card-o fa-5x"></i><br />
+                    <h2>
+                        Tenant
+                    </h2>
+                </a>
+            </div>
+        </div>
+
+
+
+    </center>
 </body>
 </html>
 
