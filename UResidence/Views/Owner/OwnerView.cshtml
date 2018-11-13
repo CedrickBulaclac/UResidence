@@ -398,7 +398,7 @@
                 { "data": "CelNo", "autowidth": true },
                 { "data": "Email", "autowidth": true },
                 { "data": "Form", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
-                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/EditOwner/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+				{ "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/OwnerEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });
     });

@@ -199,7 +199,11 @@
             });
 		}
 
-		function ViewPIC(data) {
+	function ViewPIC(data) {
+		if (data.includes("data:image") == true) {
+			document.getElementById('log').setAttribute('src', data)
+		}
+		else {
 			var fullpath = (data).toString();
 			var filename = fullpath.replace(/^.*[\\\/]/, '');
 			filei = filename;
@@ -207,6 +211,7 @@
 			var path = "../Content/LogBookImages/" + filei;
 
 			document.getElementById('log').setAttribute('src', path)
+		}
 			$('#logbookImageModal').modal();
 		}
 
