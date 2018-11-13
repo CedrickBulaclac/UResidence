@@ -14,45 +14,42 @@
     @Html.AntiForgeryToken()
 
 
-    if (Convert.ToInt32(Session["Level"]) <= 7)
-    {
-        @*Scripts for dropdown*@
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    }
+<head>
 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <head>
-        <style type='text/css'>
-            .my-legend .legend-scale ul li {
-                font-size: 80%;
-                list-style: none;
-                margin-left: 0;
-                line-height: 18px;
-                margin-bottom: 2px;
-            }
+    <style type='text/css'>
+        .my-legend .legend-scale ul li {
+            font-size: 80%;
+            list-style: none;
+            margin-left: 0;
+            line-height: 18px;
+            margin-bottom: 2px;
+        }
 
-            .my-legend ul.legend-labels li span {
-                display: block;
-                float: left;
-                height: 16px;
-                width: 30px;
-                margin-right: 5px;
-                margin-left: 0;
-                border: 1px solid #999;
-            }
-        </style>
-    </head>
+        .my-legend ul.legend-labels li span {
+            display: block;
+            float: left;
+            height: 16px;
+            width: 30px;
+            margin-right: 5px;
+            margin-left: 0;
+            border: 1px solid #999;
+        }
+    </style>
+</head>
     <br />
     <br />
 
 
 
     <body>
-        <br />
+        <br /> <br/>
 
 
-        <center><h2>Calendar</h2></center>
+        <center><h2>Payment Module </h2></center>
+
         <div class="container">
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
