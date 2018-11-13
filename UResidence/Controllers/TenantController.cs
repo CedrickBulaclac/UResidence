@@ -18,6 +18,12 @@ namespace UResidence.Controllers
     {
         bool status;
         // GET: Tenant
+        public ActionResult GetTenant()
+        {
+            List<Tenant> ret = new List<Tenant>();
+            ret = UResidence.TenantController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult TenantAdd()
         {
             if (Session["Level"] == null)
@@ -435,8 +441,8 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Tenant> tenantList = UResidence.TenantController.GetAll();
-            return View(tenantList);      
+         
+            return View();      
         }
         [HttpGet]
         public ActionResult Delete(int id)

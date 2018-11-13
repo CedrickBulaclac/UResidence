@@ -35,6 +35,12 @@ namespace UResidence.Controllers
             }
             return View();
         }
+        public ActionResult GetOwner()
+        {
+            List<Owner> ret = new List<Owner>();
+            ret = UResidence.OwnerController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         private void SendEmail(string email1, string pass)
         {
             try
@@ -278,9 +284,10 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Owner> ownerList = UResidence.OwnerController.GetAll();
-            return View(ownerList);
-        }
+            Admin ad = new Admin();
+            ad.Reset();
+            return View();
+        }      
         [HttpGet]
         public ActionResult Delete(int id)
         {

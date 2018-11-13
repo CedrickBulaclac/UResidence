@@ -402,7 +402,16 @@ namespace UResidence.Controllers
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
-           
+            ViewBag.ReservationModule = a.ReservationModule;
+            ViewBag.RegistrationModule = a.RegistrationModule;
+            ViewBag.LogBookModule = a.LogBookModule;
+            ViewBag.PaymentModule = a.PaymentModule;
+            ViewBag.ReversalModule = a.ReversalModule;
+            Session["ReservationModule"] = ViewBag.ReservationModule;
+            Session["RegistrationModule"] = ViewBag.RegistrationModule;
+            Session["LogBookModule"] = ViewBag.LogBookModule;
+            Session["PaymentModule"] = ViewBag.PaymentModule;
+            Session["ReversalModule"] = ViewBag.ReversalModule;
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             return View(amenityList);
         }

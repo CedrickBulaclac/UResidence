@@ -45,7 +45,7 @@ namespace UResidence
         [RegularExpression(".+@.+\\..+", ErrorMessage = "Email format seems wrong")]
         [Required(ErrorMessage = "Enter Email")]
         public string Email { get; set; }
-
+        public string FormattedDate => Bdate.ToShortDateString();
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

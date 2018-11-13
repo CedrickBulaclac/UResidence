@@ -11,6 +11,12 @@ namespace UResidence.Controllers
     public class AmenityController : Controller
     {
         bool status;
+        public ActionResult GetAmenity()
+        {
+            List<Amenity> ret = new List<Amenity>();
+            ret = UResidence.AmenityController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Amenity
         public ActionResult AmenityAdd()
         {
@@ -80,8 +86,6 @@ namespace UResidence.Controllers
             };
 
         }
-
-
 
 
         [HttpPost]
@@ -208,8 +212,8 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-            return View(amenityList);
+           
+            return View();
         }
         public JsonResult DeleteImage(ImageAmenity ia)
         {

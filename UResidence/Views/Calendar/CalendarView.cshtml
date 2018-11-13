@@ -1,52 +1,57 @@
 ﻿@model List<UResidence.Amenity>
 @{
-    string pending = "Pending";
-    string reserved = "Reserved";
-    string cancelled = "Cancelled";  
-    Layout = "/Views/Layout/AdminLayout.cshtml";
+                /**/
+
+                string pending = "Pending";
+                string reserved = "Reserved";
+                string cancelled = "Cancelled";
+                Layout = "/Views/Layout/AdminLayout.cshtml";
 }
 
 
-@*Scripts for dropdown*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 @using (Html.BeginForm("CalendarView", "Calendar", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 
 
+    if (Convert.ToInt32(Session["Level"]) <= 7)
+    {
+        @*Scripts for dropdown*@
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    }
 
 
-	<head>
-		<style type='text/css'>
-			.my-legend .legend-scale ul li {
-				font-size: 80%;
-				list-style: none;
-				margin-left: 0;
-				line-height: 18px;
-				margin-bottom: 2px;
-			}
+    <head>
+        <style type='text/css'>
+            .my-legend .legend-scale ul li {
+                font-size: 80%;
+                list-style: none;
+                margin-left: 0;
+                line-height: 18px;
+                margin-bottom: 2px;
+            }
 
-			.my-legend ul.legend-labels li span {
-				display: block;
-				float: left;
-				height: 16px;
-				width: 30px;
-				margin-right: 5px;
-				margin-left: 0;
-				border: 1px solid #999;
-			}
-		</style>
-	</head>
-	<br />
-	<br />
+            .my-legend ul.legend-labels li span {
+                display: block;
+                float: left;
+                height: 16px;
+                width: 30px;
+                margin-right: 5px;
+                margin-left: 0;
+                border: 1px solid #999;
+            }
+        </style>
+    </head>
+    <br />
+    <br />
 
 
 
     <body>
         <br />
 
-       
+
         <center><h2>Calendar</h2></center>
         <div class="container">
             <div class="modal fade" id="myModal" role="dialog">
@@ -292,18 +297,18 @@
             </div>
         </div>
     </body>
-	<br />
+    <br />
 
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
 }
 
 @section scripts{
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 
 
-	<script>
+    <script>
         var outstanding1;
         var counter;
         var downp;
@@ -332,7 +337,7 @@
 					status: status11
                 };
 
-			
+
                 $.ajax({
                     type: "POST",
                     url: "/calendar/InsertPayment",
@@ -535,7 +540,7 @@
                         if (data == true) {
                             alert('Success')
                             $('#UpdateModal').modal('hide');
-                           
+
                             RefreshCalendar();
                             window.location.reload();
                             //window.location.href = window.location.href + "?rnd=" + Math.random();
@@ -610,9 +615,9 @@
 
         function Search() {
             var rfid = document.getElementById('searchId').value;
-            var data = {               
+            var data = {
                 RFId:rfid
-            }            
+            }
 			$.ajax({
 				type: "GET",
 				url: "/calendar/Search",
@@ -633,7 +638,7 @@
                         $description.append($('<p/>').html('<b>Building No: </b>' + data[0].BldgNo));
                         $description.append($('<p/>').html('<b>Unit No: </b>' + data[0].UnitNo));
                         $description.append($('<p/>').html('<b>StartTime: </b>' + startTime));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + endTime));                       
+                        $description.append($('<p/>').html('<b>EndTime: </b>' + endTime));
                         Swimming(data[0].RFId);
                         getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
                         document.getElementById('mySelect').value = data[0].Status;
@@ -657,7 +662,7 @@
                         totalpay = data[0].Total;
                         document.getElementById('tpr').innerHTML = data[0].Total;
                         $('#myModal #pDetails').empty().html($description);
-                       
+
                         $('#myModal').modal();
                     }
                     else {
@@ -672,12 +677,12 @@
         }
         function Swimming(refnos) {
             $('#myModal #pSwimming').empty();
-            $.ajax({  
+            $.ajax({
                 type: "GET",
-                url: "/Calendar/GET_SRESERVE",           
+                url: "/Calendar/GET_SRESERVE",
                 data: {"refno":refnos},
                 success: function (data) {
-                    if (data.length != 0) { 
+                    if (data.length != 0) {
 
                         var $description = $('<div/>');
                         stots = (data[0].Adult * data[0].AdultRate).toFixed(2) + (data[0].Child * data[0].ChildRate).toFixed(2);
@@ -690,7 +695,7 @@
                         $('#myModal #pSwimming').empty().html($description);
                     }
                 }
-                
+
                 }
 
             });
@@ -706,7 +711,7 @@
                 success: function (data) {
                     var $description = $('<div/>');
                     $description.append($('<p/>').html('<b>Amenity Cost: </b> ₱'+ rate.toFixed(2)));
-                    if (data.length > 0) {                      
+                    if (data.length > 0) {
                         for (var ctr = 0; ctr <= data.length - 1; ctr++) {
                             $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Quantity: </b>' + data[ctr].Quantity + '&nbsp;&nbsp;&nbsp;<b>' + data[ctr].EquipmentName + ' Rate: <b/> ₱' + data[ctr].Rate.toFixed(2)));
                             $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Cost: </b> ₱' + (data[ctr].Quantity * data[ctr].Rate).toFixed(2)));
@@ -715,7 +720,7 @@
                     }
                     if (data.length > 0) {
                         $description.append($('<p/>').html('<b>Equipment Cost: </b> ₱'+ tccc.toFixed(2)));
-                    }           
+                    }
                     $description.append($('<p/>').html('<b>Charge: </b> ₱'+ cg.toFixed(2)));
                     $description.append($('<p/>').html('<b>Total Cost: </b> ₱'+ ((rate + tccc + cg).toFixed(2))));
                     $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱'+ (amt).toFixed(2)));
@@ -729,13 +734,13 @@
                     $description.append($('<p/>').html('<b>Outstanding Total: </b> ₱'+ outstanding1.toFixed(2)));
                     $description.append($('<p/>').html('<b>Status: </b>'+ status));
                         $('#myModal #pAmount').empty().html($description);
-                                                
+
                 },
                 error: function (data) {
                     alert('Failed');
                 }
             });
-           
+
         }
         function RefreshCalendar(stat) {
             if (stat == null) {
@@ -798,13 +803,13 @@
 					$('#calendar').fullCalendar({
 						contentHeight: 400,
 						defaultDate: new Date(),
-						timeFormat: 'h(:mm):a',				
+						timeFormat: 'h(:mm):a',
 						eventLimit: true,
 						eventColor: '#378006',
 						events: events,
 
 						eventClick: function (calEvent, jsEvent, view) {
-                            
+
                             selectedEvent = calEvent;
                             $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
                             var $description = $('<div/>');
@@ -814,16 +819,16 @@
                             $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
                             $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
                             $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
-                            Swimming(calEvent.rf);                         
-                            getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);                         
+                            Swimming(calEvent.rf);
+                            getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
                             document.getElementById('mySelect').value = calEvent.status;
                             document.getElementById('rid').value = calEvent.r;
                             document.getElementById('rfid').value = calEvent.rf;
                             document.getElementById('cg').innerHTML = calEvent.cg.toFixed(2);
                             startT = calEvent.start.format("DD/MMM/YYYY hh:mm a");
                             endT = calEvent.end.format("DD/MMM/YYYY hh:mm a");
-                            an = calEvent.title;                  
-                            status11 = calEvent.status;                         
+                            an = calEvent.title;
+                            status11 = calEvent.status;
                             totalpay = calEvent.dp;
 
                             if (calEvent.typeR == "Owner") {
@@ -845,7 +850,7 @@
             function AddReversal() {
                 var refno = document.getElementById('rfid').value;
 				var ar = document.getElementById('atr').value;
-                var tp = document.getElementById('tpr').value;              
+                var tp = document.getElementById('tpr').value;
                 var desc = document.getElementById('rdescription').value;
 				var select = 'Pending';
 					if (ar == totalpay) {
@@ -854,7 +859,7 @@
 							Description: desc,
 							Status: select,
 							Amount: ar,
-							
+
 						}
 						$.ajax({
 							type: 'POST',
@@ -874,7 +879,7 @@
 								else {
 									alert("Description is blank");
 								}
-							
+
 							},
 							error: function (error) {
 								alert("Failed to Insert Record");
@@ -889,7 +894,7 @@
 					{
 						alert('Amount to return should be equal of the total payment')
 					}
-				
+
 
 
             }
@@ -965,7 +970,7 @@
 				&& e.keyCode != 8
 			) {
 				e.preventDefault();
-				
+
 				document.getElementById('dp').setAttribute('max', downp);
 				$(this).val(downp);
 			}
@@ -974,7 +979,7 @@
         $('.atr').on('keyup keydown', function (e) {
             console.log($(this).val() > tprrr);
             console.log(tprrr);
-            if ($(this).val() > tprrr  
+            if ($(this).val() > tprrr
                 && e.keyCode != 46
                 && e.keyCode != 8
             ) {
@@ -985,6 +990,6 @@
             }
         });
 
-	</script>
+    </script>
 
 }

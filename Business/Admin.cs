@@ -47,7 +47,7 @@ namespace UResidence
         public bool PaymentModule { get; set; }
         public bool ReversalModule { get; set; }
         public bool LogBookModule { get; set; }
-
+        public string FormattedDate => Bdate.ToShortDateString();
 
 
         public Admin CreateObject(SqlDataReader reader)

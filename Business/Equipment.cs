@@ -24,6 +24,7 @@ namespace UResidence
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         [DataType(DataType.Currency)]
         public decimal Rate { get; set; }
+
         public int Id { get; set; }
         public string Url { get; set; }
 

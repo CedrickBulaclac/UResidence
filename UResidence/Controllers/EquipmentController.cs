@@ -10,7 +10,12 @@ namespace UResidence.Controllers
     public class EquipmentController : Controller
     {
         private bool status;
-
+        public ActionResult GetEquipment()
+        {
+            List<Equipment> ret = new List<Equipment>();
+            ret = UResidence.EquipmentController.GetAll();
+            return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
+        }
         // GET: Equipment
         public ActionResult Registration()
         {
@@ -196,12 +201,13 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            List<Equipment> equipmentList = UResidence.EquipmentController.GetAll();
-            return View(equipmentList);
+            Equipment eqp = new Equipment();
+            eqp.Reset();
+            return View();
         }
 
 
-        public ActionResult Delete(int eno)
+        public ActionResult Delete(int id)
         {
             if (Session["Level"] == null)
             {
@@ -209,7 +215,7 @@ namespace UResidence.Controllers
             }
             Equipment eq = new Equipment
             {
-                Id = eno
+                Id = id
             };
             status = UResidence.EquipmentController.Delete(eq);
             if(status == true)
@@ -229,7 +235,7 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult EquipmentEdit(int eno)
+        public ActionResult EquipmentEdit(int id)
         {
             if (Session["Level"] == null)
             {
@@ -246,7 +252,7 @@ namespace UResidence.Controllers
             //if (ModelState.IsValid)
             //{
             Equipment equipmentList = default(Equipment);
-                equipmentList = UResidence.EquipmentController.GetbyId(eno);
+                equipmentList = UResidence.EquipmentController.GetbyId(id);
                 return View(equipmentList);
             //}
             //return View("EquipmentView");

@@ -1,291 +1,439 @@
-﻿@model List<UResidence.Owner>
+﻿@model UResidence.Owner
 
 @{
-	ViewBag.Title = "OwnerView";
-	Layout = "/Views/Layout/AdminLayout.cshtml";
+    ViewBag.Title = "OwnerView";
+    Layout = "/Views/Layout/AdminLayout.cshtml";
 }
-@*Scripts for dropdown*@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
 <center>
-	<h2>List of Owner</h2>
+    <h2>List of Owner</h2>
 </center>
 
 <div class="container">
-	<div class="modal fade" id="formModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<label>Owner Registration Form</label>
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-				<div class="modal-body">
-					<center>
-						<img height="250px" src="" width="250px" id="oform">
-					</center>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="formModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Owner Registration Form</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img height="250px" src="" width="250px" id="oform">
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
-@using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post))
+@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post))
 {
-	@Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal fade" id="AddModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="First Name">First Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Middle Name">Middle Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Last Name">Last Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Birth Date">Birthdate :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Cel no">Cellphone no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Cel no">Email Address :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Cel no">Building no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                {
+                                    new SelectListItem() {Text = "1", Value="1"},
+                                    new SelectListItem() {Text = "2", Value="2"},
+                                    new SelectListItem() {Text = "3", Value="3"},
+                                    new SelectListItem() {Text = "4", Value="4"},
+                                    new SelectListItem() {Text = "5", Value="5"},
+                                    new SelectListItem() {Text = "6", Value="6"}
+                                 }, new { @class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Cel no">Unit no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Registration Form :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image1" name="Image1" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="container">
-	<hr />
-	<table class="table table-bordered table-striped">
-		<tr>			
-			<th scope="col">
-				Building No
-			</th>
-			<th scope="col">
-				Unit No
-			</th>
-			<th scope="col">
-				Full Name
-			</th>		
-			<th scope="col">
-				Birthdate
-			</th>
-			<th scope="col">
-				Cellphone No
-			</th>
-			<th scope="col">
-				Email
-			</th>
-			<th scope="col">
-				Form
-			</th>
+    <hr />
+    <table class="table table-bordered table-striped" id="OwnerTable">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Building No
+                </th>
+                <th scope="col">
+                    Unit No
+                </th>
+                <th scope="col">
+                    Full Name
+                </th>
+                <th scope="col">
+                    Birthdate
+                </th>
+                <th scope="col">
+                    Cellphone No
+                </th>
+                <th scope="col">
+                    Email
+                </th>
+                <th scope="col">
+                    Form
+                </th>
 
-			<th>Actions</th>
-		</tr>
-		@if (Model != null)
-		{
-			<tbody>
-				@foreach (Owner item in Model)
-				{
-					<tr scope="row">						
-						<td>
-							@Html.DisplayFor(modelItem => item.BldgNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.UnitNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Fullname)
-						</td>
-						
-						<td>
-							@Html.DisplayFor(modelItem => item.Bdate)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.CelNo)
-						</td>
-						<td>
-							@Html.DisplayFor(modelItem => item.Email)
-						</td>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="form-inline">
 
-						<td><button type="button" class="btn btn-info" id="btnForm" name="btnForm" data-dismiss="modal" onclick="Set('@item.Form')">View</button></td>
+        <button type="button" id="addbtn" class="btn btn-success">
+            ADD NEW OWNER
+        </button>
+        <a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owner</a>
 
-						<td>
-							<a class="btn btn-primary" href="@Url.Action("OwnerEdit", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-edit"></i></a>
-							<a class="btn btn-danger" href="@Url.Action("Delete", "Owner", new { id = Convert.ToInt32(item.Id) })"><i class="glyphicon glyphicon-trash"></i> </a>
-
-						</td>
-					</tr>
-				}
-			</tbody>
-		}
-
-	</table>
-	<div class="form-inline">
-
-		<a href="@Url.Action("OwnerAdd","Owner")" @*style="margin-left:150px;"*@ class="btn btn-success">ADD NEW OWNER</a>
-		<a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owner</a>
-
-	</div>
+    </div>
 </div>
 
-	
-
-	<div id="auerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem updating the Owner
-	</div>
-	<div id="ausuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully updated the Owner
-	</div>
-
-	<div id="aerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem deleting the Owner
-	</div>
-	<div id="asuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully deleted the Owner
-	</div>
-	<div id="aaerror" class="alert alert-danger collapse">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>Error!</strong> There is a problem submitting your form
-	</div>
-	<div id="aasuccess" class="alert alert-success collapse">
-		<strong>Success!</strong> You have successfully added a Owner
-	</div>
-	if (ViewBag.DeleteStatus != null)
-	{
-		if (ViewBag.DeleteStatus == true)
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
-
-					$('#asuccess').show('fade');
-
-					setTimeout(function () {
-						$('#asuccess').hide('fade');
-					}, 20000);
 
 
-				});
-			</script>
-		}
+<div id="auerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem updating the Owner
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully updated the Owner
+</div>
 
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
+<div id="aerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem deleting the Owner
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully deleted the Owner
+</div>
+<div id="aaerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem submitting your form
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully added a Owner
+</div>
+@if (ViewBag.DeleteStatus != null)
+{
+    if (ViewBag.DeleteStatus == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-					$('#aerror').show('fade');
+                $('#asuccess').show('fade');
 
-					setTimeout(function () {
-						$('#aerror').hide('fade');
-					}, 20000);
-
-
-				});
-			</script>
-		}
-	}
-	if (ViewBag.UpdateMessage != null)
-	{
-		if (ViewBag.UpdateMessage == true)
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
-
-					$('#ausuccess').show('fade');
-
-					setTimeout(function () {
-						$('#ausuccess').hide('fade');
-					}, 20000);
-
-
-				});
-			</script>
-		}
-
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-				$(document).ready(function () {
-
-					$('#auerror').show('fade');
-
-					setTimeout(function () {
-						$('#auerror').hide('fade');
-					}, 20000);
+                setTimeout(function () {
+                    $('#asuccess').hide('fade');
+                }, 20000);
 
 
-				});
-			</script>
-		}
-	}
+            });
+        </script>
+    }
 
-	if (ViewBag.AddMessage != null)
-	{
-		if (ViewBag.AddMessage == true)
-		{
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
+                $('#aerror').show('fade');
 
-				$(document).ready(function () {
-
-					$('#aasuccess').show('fade');
-
-					setTimeout(function () {
-						$('#aasuccess').hide('fade');
-					}, 20000);
-
-				});
-			</script>
-		}
-
-		else
-		{
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-			</script>
-			<script type="text/javascript">
-
-				$(document).ready(function () {
-
-					$('#aaerror').show('fade');
-
-					setTimeout(function () {
-						$('#aaerror').hide('fade');
-					}, 2000);
+                setTimeout(function () {
+                    $('#aerror').hide('fade');
+                }, 20000);
 
 
-				});
-			</script>
+            });
+        </script>
+    }
+}
+@if (ViewBag.UpdateMessage != null)
+{
+    if (ViewBag.UpdateMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-		}
+                $('#ausuccess').show('fade');
 
-	}
+                setTimeout(function () {
+                    $('#ausuccess').hide('fade');
+                }, 20000);
+
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#auerror').show('fade');
+
+                setTimeout(function () {
+                    $('#auerror').hide('fade');
+                }, 20000);
+
+
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.AddMessage != null)
+{
+    if (ViewBag.AddMessage == true)
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aasuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#aasuccess').hide('fade');
+                }, 20000);
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aaerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
 
 }
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
-	var fr;
+    $(document).ready(function () {
+        var table = $('#OwnerTable').DataTable({
+            "ajax": {
+                "url": '/Owner/GetOwner',
+                "type": "GET",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "BldgNo", "autowidth": true },
+                { "data": "UnitNo", "autowidth": true },
+                { "data": "Fullname", "autowidth": true },
+                { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+                { "data": "CelNo", "autowidth": true },
+                { "data": "Email", "autowidth": true },
+                { "data": "Form", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/EditOwner/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+            ]
+        });
+    });
+    var fr;
     function Download() {
         $.post("/Owner/Download");
     }
 
-	function Set(form) {
-		fr = form;
-		var fullpath = (fr).toString();
-		var filename = fullpath.replace(/^.*[\\\/]/, '');
-		var path = "../Content/OwnerImages/" + filename;
+    function Set(form) {
+        fr = form;
+        var fullpath = (fr).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        var path = "../Content/OwnerImages/" + filename;
 
-		document.getElementById('oform').setAttribute('src', path)
+        document.getElementById('oform').setAttribute('src', path)
 
-		$('#formModal').modal();
-	}
+        $('#formModal').modal();
+    }
 
 
-	$('#btnCloseImage').click(function () {
+    $('#btnCloseImage').click(function () {
 
-		$('#formModal').hide();
-	}
-	);
+        $('#formModal').hide();
+    }
+    );
 
-	//$('#btnForm').click(function () {
+    $('#addbtn').click(function () {
 
-	//	$('#formModal').modal();
-	//}
-	//);
+        $('#AddModal').modal();
+    }
+    );
 
+    $('#btnUpdate').click(function () {
+
+        $('#UpdateModal').modal();
+    }
+    );
 </script>

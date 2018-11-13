@@ -1,34 +1,32 @@
 ﻿﻿@{
-	Layout = "";
-	if (Convert.ToInt32(Session["Level"]) == 0)
-	{
-		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 1)
-	{
-		Layout = "/Views/Layout/BossManagerLayout.cshtml";
-	}
-	else
-	{
-		Layout = "/Views/Layout/AdminLayout.cshtml";
-	}
+    Layout = "";
+    if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 
 }
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewBag.Title - My ASP.NET Application</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
 </head>
 <body>
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
-
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
 
 </body>
 </html>
