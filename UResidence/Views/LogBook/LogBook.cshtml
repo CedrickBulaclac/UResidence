@@ -1,4 +1,5 @@
 ﻿@model List<UResidence.Logbook>
+
 @{
 	ViewBag.Title = "LogBook";
 	Layout = "/Views/Layout/AdminLayout.cshtml";
@@ -8,6 +9,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	@*Scripts for dropdown*@
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 @using (Html.BeginForm("LogBook", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -15,7 +19,33 @@
 	@Html.AntiForgeryToken()
 
 
-	<br/>
+	<br />
+
+	@*---Modal for Take Picture---*@
+	<div class="container">
+		<div class="modal fade" id="takepic" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<video id="video" width="400" height="300" autoplay></video>
+						<br />
+						<b>Captured Image:</b>
+						<br />
+						<canvas id="canvas" width="400" height="300"></canvas>
+						<input type="hidden" id="logbookpictext" name="logbookpictext" />			
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" id="snap">Take Photo</button>
+						<button type="button" class="btn btn-danger" id="btnClosePic" name="btnClosePic" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<div class="container">
 		<div class="modal fade" id="logbookImageModal" role="dialog">
@@ -152,17 +182,24 @@
             };
 
 
-            function ViewPIC(data) {
+	function ViewPIC(data) {
+		console.log(data);
+		if (data.includes("data:image") == true)
+		{
+			document.getElementById('log').setAttribute('src', data)
+		}
+		else
+		{
+			var fullpath = (data).toString();
+			var filename = fullpath.replace(/^.*[\\\/]/, '');
+			filei = filename;
 
-                var fullpath = (data).toString();
-                var filename = fullpath.replace(/^.*[\\\/]/, '');
-                filei = filename;
+			var path = "../Content/LogBookImages/" + filei;
 
-                var path = "../Content/LogBookImages/" + filei;
-
-                document.getElementById('log').setAttribute('src', path)
-                $('#logbookImageModal').modal();
-            }
+			document.getElementById('log').setAttribute('src', path)
+		}
+		$('#logbookImageModal').modal();
+	}
 
             $('#btnCloseImage').click(function () {
 
@@ -176,11 +213,11 @@
 
             function Update(id) {
 
-                var d = new Date(),
-                    h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-                    m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-                s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
-                var timenow = h + ':' + m + ':' + s;
+		var d = new Date(),
+			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+		s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+		var timenow = h + ':' + m + ':' + s;
 
                 var data = {
                     Id: id,
@@ -240,14 +277,14 @@
 
             function SetText() {
 
-                var date = document.getElementById('date').value;
-                var ResidentName = document.getElementById('residentname').value;
-                var VisitorName = document.getElementById('visitorname').value;
-                var Purpose = document.getElementById('purpose').value;
+		var date = document.getElementById('date').value;
+		var ResidentName = document.getElementById('residentname').value;
+		var VisitorName = document.getElementById('visitorname').value;
+		var Purpose = document.getElementById('purpose').value;
 
-                var file = $("#logbookpic").get(0).files;
-                var data = new FormData();
-                var m = data.append("Image", file[0]);
+		var file = $("#logbookpic").get(0).files;
+		var data = new FormData();
+		var m = data.append("Image", file[0]);
 
 
 
@@ -281,16 +318,84 @@
                             window.location.reload();
                         }
 
-                    },
-                    error: function (error) {
-                        alert('Failed to insert a record');
-                    }
-                });
+			},
+			error: function (error) {
+				alert('Failed to insert a record');
+			}
+		});
 
-            }
+	}
 
 
-            $('#btnViewPic').click(function () {
+	var video = document.getElementById('video');
+
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(function (stream) {
+			video.src = window.URL.createObjectURL(stream);
+		});
+
+
+	}
+
+
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+
+
+	document.getElementById('snap').addEventListener('click', function () {
+		context.drawImage(video, 0, 0, 400, 300);
+		canvas.toBlob(function (blob) {
+			var url = canvas.toDataURL();
+			document.getElementById('logbookpictext').value = url;
+			alert("Captured Image");
+			$('#takepic').hide();
+			//console.log(url);
+			//document.getElementById('canvasImg').src = url;
+			//dataURItoBlob(url);
+			//console.log(dataURItoBlob(url));
+			//document.getElementById('logbookpictext').value = dataURItoBlob(url);
+			//saveAs(blob, "GuardPic.jpeg");
+		});
+
+	});
+
+	function dataURItoBlob(dataURI) {
+		// convert base64/URLEncoded data component to raw binary data held in a string
+		var byteString;
+		if (dataURI.split(',')[0].indexOf('base64') >= 0)
+			byteString = atob(dataURI.split(',')[1]);
+		else
+			byteString = unescape(dataURI.split(',')[1]);
+		// separate out the mime component
+		var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		// write the bytes of the string to a typed array
+		var ia = new Uint8Array(byteString.length);
+		for (var i = 0; i < byteString.length; i++) {
+			ia[i] = byteString.charCodeAt(i);
+		}
+		return new Blob([ia], { type: mimeString });
+	}
+
+
+
+
+	$('#btnClosePic').click(function () {
+
+		$('#takepic').hide();
+	}
+	);
+
+
+	$('#OpenModalPic').click(function () {
+
+		$('#takepic').modal();
+	}
+	);
+
+
+
+
+	$('#btnViewPic').click(function () {
 
                 $('#logbookImageModal').modal();
             }

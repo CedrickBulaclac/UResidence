@@ -21,7 +21,7 @@ namespace UResidence
         [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
         public int Stocks { get; set; }
 
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers only")]
+        [RegularExpression("^[0-9 .]*$", ErrorMessage = "Numbers only")]
         [DataType(DataType.Currency)]
         public decimal Rate { get; set; }
 
