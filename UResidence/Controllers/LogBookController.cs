@@ -25,60 +25,51 @@ namespace UResidence.Controllers
             return View(logbookList);
         }
         [HttpPost]
-        public ActionResult LogBook(FormCollection fc,HttpPostedFileBase logbookpic)
+        public ActionResult LogBook(FormCollection fc)
         {
             DateTime date= Convert.ToDateTime(fc["date"]);
             string visitor = Convert.ToString(fc["visitorname"]);
             string resident = Convert.ToString(fc["residentname"]);
             string purpose = Convert.ToString(fc["purpose"]);
+            string buildingNo = Convert.ToString(fc["bldgNo"]);
+            string unitNo = Convert.ToString(fc["unitNo"]);
             DateTime timein = DateTime.Now;
-
+            string url = Convert.ToString(fc["logbookpictext"]);
 
             bool status = false;
-            var image = logbookpic;
-
-            if (image != null)
+            if (url == "")
             {
-                if (image.ContentLength > 0)
+                Logbook log = new Logbook
                 {
-                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
-                    var extension = Path.GetExtension(image.FileName);
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), imagefileName);
-                    string finalpath = "";
-                    if (System.IO.File.Exists(folderPath))
-                    {
-
-                        //System.IO.File.Delete(folderPath);
-                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
-                        {
-                            folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);
-                            string folderpath1 = "~/Content/LogBookImages/" + fileName + "_" + i.ToString() + extension;
-                            finalpath = folderpath1;
-                        }
-                        image.SaveAs(folderPath);
-                    }
-                    else
-                    {
-
-                        string folderpath1 = "~/Content/LogBookImages/" + fileName + extension;
-                        finalpath = folderpath1;
-                        image.SaveAs(folderPath);
-                    }
-                    status = true;
-                    Logbook log = new Logbook
-                    {
-                        date = date,
-                        ResidentName = resident,
-                        VisitorName = visitor,
-                        Purpose =purpose,
-                        Timein =timein,
-                        Timeout = Convert.ToDateTime("00:00:00"),
-                        URL = finalpath
-                    };
-                    status = LogbookController.Insert(log);
-                }
+                    date = date,
+                    VisitorName = visitor,
+                    ResidentName = resident,
+                    Purpose = purpose,
+                    BuildingNo = buildingNo,
+                    UnitNo = unitNo,
+                    Timein = timein,
+                    Timeout = Convert.ToDateTime("00:00:00"),
+                    URL = "~/Content/LogBookImages/user.png"
+                };
+                status = LogbookController.Insert(log);
             }
+            else
+            {
+                Logbook log = new Logbook
+                {
+                    date = date,
+                    VisitorName = visitor,
+                    ResidentName = resident,
+                    Purpose = purpose,
+                    BuildingNo = buildingNo,
+                    UnitNo = unitNo,
+                    Timein = timein,
+                    Timeout = Convert.ToDateTime("00:00:00"),
+                    URL = url
+                };
+                status = LogbookController.Insert(log);
+            }
+
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = UResidence.LogbookController.GET_ALL();
             return View(logbookList);

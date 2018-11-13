@@ -1,4 +1,5 @@
 ﻿@model List<UResidence.Logbook>
+
 @{
 	ViewBag.Title = "LogBook";
 	Layout = "/Views/Layout/AdminLayout.cshtml";
@@ -9,6 +10,9 @@
 	@*Scripts for dropdown*@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	@*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+	@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+
 </head>
 
 @using (Html.BeginForm("LogBook", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -16,7 +20,33 @@
 	@Html.AntiForgeryToken()
 
 
-	<br/>
+	<br />
+
+	@*---Modal for Take Picture---*@
+	<div class="container">
+		<div class="modal fade" id="takepic" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<video id="video" width="400" height="300" autoplay></video>
+						<br />
+						<b>Captured Image:</b>
+						<br />
+						<canvas id="canvas" width="400" height="300"></canvas>
+						<input type="hidden" id="logbookpictext" name="logbookpictext" />			
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" id="snap">Take Photo</button>
+						<button type="button" class="btn btn-danger" id="btnClosePic" name="btnClosePic" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<div class="container">
 		<div class="modal fade" id="logbookImageModal" role="dialog">
@@ -44,13 +74,15 @@
 	<div class="container">
 
 		<center> <h2> Logbook </h2></center>
-		<hr/>
+		<hr />
 		<img name="hide" id="hide" hidden />
 		<table class="table table-bordered table-striped" id="tableLog">
 			<tr>
 				<th>Date</th>
 				<th>Visitor Name</th>
 				<th>Resident Name</th>
+				<th>Building Number</th>
+				<th>Unit Number</th>
 				<th>Purpose of Visit</th>
 				<th>Image</th>
 				<th>Time In</th>
@@ -67,11 +99,13 @@
 				<td> @a.sDate</td>
 				<td> @a.VisitorName</td>
 				<td>@a.ResidentName </td>
+				<td>@a.BuildingNo </td>
+				<td>@a.UnitNo </td>
 				<td>@a.Purpose </td>
 				<td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
 				<td> @a.sTimein </td>
 				<td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-				@*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@			
+				@*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
 			</tr>
 
 					}
@@ -81,6 +115,8 @@
 				<td>@a.sDate</td>
 				<td>@a.VisitorName</td>
 				<td>@a.ResidentName </td>
+				<td>@a.BuildingNo </td>
+				<td>@a.UnitNo </td>
 				<td>@a.Purpose</td>
 				<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
 				<td> @a.sTimein</td>
@@ -89,33 +125,37 @@
 					}
 				}
 				else
-				{		
-						<tr>
-							<td>@a.sDate</td>
-							<td>@a.VisitorName</td>
-							<td>@a.ResidentName </td>
-							<td>@a.Purpose</td>
-							<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-							<td> @a.sTimein</td>
-							<td> @a.sTimeout </td>
-						</tr>
-					}
+				{
+			<tr>
+				<td>@a.sDate</td>
+				<td>@a.VisitorName</td>
+				<td>@a.ResidentName </td>
+				<td>@a.BuildingNo </td>
+				<td>@a.UnitNo </td>
+				<td>@a.Purpose</td>
+				<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+				<td> @a.sTimein</td>
+				<td> @a.sTimeout </td>
+			</tr>
 				}
-			
+			}
+
 
 
 			<tr>
 				<td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
 				<td> <input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
 				<td>  <input class="form-control" type="text" id="residentname" name="residentname" required /></td>
+				<td>  <input class="form-control" type="text" id="bldgNo" name="bldgNo" required /></td>
+				<td>  <input class="form-control" type="text" id="unitNo" name="unitNo" required /></td>
 				<td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
-				<td><input type="file" id="logbookpic" name="logbookpic"  required/> </td>
+				<td><a href="#" id="OpenModalPic" name="OpenModalPic" data-dismiss="modal">Take Picture</a></td>
 				<td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
 				<td></td>
 			</tr>
 		</table>
 	</div>
-			}
+}
 <script>
 	var filei;
 	$(document).ready(function () {
@@ -144,14 +184,21 @@
 
 
 	function ViewPIC(data) {
+		console.log(data);
+		if (data.includes("data:image") == true)
+		{
+			document.getElementById('log').setAttribute('src', data)
+		}
+		else
+		{
+			var fullpath = (data).toString();
+			var filename = fullpath.replace(/^.*[\\\/]/, '');
+			filei = filename;
 
-		var fullpath = (data).toString();
-		var filename = fullpath.replace(/^.*[\\\/]/, '');
-		filei = filename;
+			var path = "../Content/LogBookImages/" + filei;
 
-		var path = "../Content/LogBookImages/" + filei;
-
-		document.getElementById('log').setAttribute('src', path)
+			document.getElementById('log').setAttribute('src', path)
+		}
 		$('#logbookImageModal').modal();
 	}
 
@@ -170,7 +217,7 @@
 		var d = new Date(),
 			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
 			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-			s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+		s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
 		var timenow = h + ':' + m + ':' + s;
 
 		var data = {
@@ -234,8 +281,8 @@
 		var date = document.getElementById('date').value;
 		var ResidentName = document.getElementById('residentname').value;
 		var VisitorName = document.getElementById('visitorname').value;
-        var Purpose = document.getElementById('purpose').value;
-        
+		var Purpose = document.getElementById('purpose').value;
+
 		var file = $("#logbookpic").get(0).files;
 		var data = new FormData();
 		var m = data.append("Image", file[0]);
@@ -268,8 +315,7 @@
 
 					alert("Please input all required Textfield");
 				}
-				else
-				{
+				else {
 					window.location.reload();
 				}
 
@@ -280,6 +326,74 @@
 		});
 
 	}
+
+
+	var video = document.getElementById('video');
+
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(function (stream) {
+			video.src = window.URL.createObjectURL(stream);
+		});
+
+
+	}
+
+
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+
+
+	document.getElementById('snap').addEventListener('click', function () {
+		context.drawImage(video, 0, 0, 400, 300);
+		canvas.toBlob(function (blob) {
+			var url = canvas.toDataURL();
+			document.getElementById('logbookpictext').value = url;
+			alert("Captured Image");
+			$('#takepic').hide();
+			//console.log(url);
+			//document.getElementById('canvasImg').src = url;
+			//dataURItoBlob(url);
+			//console.log(dataURItoBlob(url));
+			//document.getElementById('logbookpictext').value = dataURItoBlob(url);
+			//saveAs(blob, "GuardPic.jpeg");
+		});
+
+	});
+
+	function dataURItoBlob(dataURI) {
+		// convert base64/URLEncoded data component to raw binary data held in a string
+		var byteString;
+		if (dataURI.split(',')[0].indexOf('base64') >= 0)
+			byteString = atob(dataURI.split(',')[1]);
+		else
+			byteString = unescape(dataURI.split(',')[1]);
+		// separate out the mime component
+		var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		// write the bytes of the string to a typed array
+		var ia = new Uint8Array(byteString.length);
+		for (var i = 0; i < byteString.length; i++) {
+			ia[i] = byteString.charCodeAt(i);
+		}
+		return new Blob([ia], { type: mimeString });
+	}
+
+
+
+
+	$('#btnClosePic').click(function () {
+
+		$('#takepic').hide();
+	}
+	);
+
+
+	$('#OpenModalPic').click(function () {
+
+		$('#takepic').modal();
+	}
+	);
+
+
 
 
 	$('#btnViewPic').click(function () {
