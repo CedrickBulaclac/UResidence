@@ -657,17 +657,17 @@
             },
             "columns": [
                 { "data": "AmenityName", "autowidth": true },
-                { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
+                { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set1(\'' + data + '\')">View</button>' } },
                 { "data": "Description", "autowidth": true },
                 { "data": "Location", "autowidth": true },
                 { "data": "Capacity", "autowidth": true },
                 {
                     'render': function (data, type, full, meta) {
                         if (full.Rate != 0) {
-                            return '<b>Morning Rate :</b> ₱' + full.Rate + ' <b>Evening Rate :</b> ₱' + full.EveRate
+                            return '<b>Morning Rate :</b> ₱' + Number(full.Rate).toFixed(2) + ' <b>Evening Rate :</b> ₱' + Number(full.EveRate).toFixed(2)
                         }
                         else {
-                            return '<b>Adult :</b> ₱' + full.Adult + ' <b>Child :</b> ₱' + full.Child
+                            return '<b>Adult :</b> ₱' + Number(full.Adult).toFixed(2) + ' <b>Child :</b> ₱' + Number(full.Child).toFixed(2)
                         }
                     }, "autowidth": true
                 },

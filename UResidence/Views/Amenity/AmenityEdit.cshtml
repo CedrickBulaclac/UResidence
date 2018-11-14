@@ -155,7 +155,7 @@
 
                                     <div class="col-sm-6">
 
-                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
 
 
@@ -172,7 +172,7 @@
 
                                     <div class="col-sm-6">
 
-                                        @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
 
 
@@ -214,57 +214,6 @@
                                 </div>
                             </div>
                         }
-
-
-
-
-                        @*<div class="col-sm-12">
-                                <div class="form-group">
-                                    @if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
-                                    {
-                                        <p>
-                                            <label class="col-sm-4" for="Adult Rate">Adult Rate :</label>
-                                            <br />
-                                            <label class="col-sm-4" for="Child Rate">Child Rate :</label>
-                                        </p>
-                                    }
-                                    else
-                                    {
-                                        <p>
-                                            <label class="col-sm-4" for="Rate">Rate :</label>
-                                        </p>
-                                        <p>
-                                            <label class="col-sm-4" for="Evening Rate">Evening Rate :</label>
-                                        </p>
-
-                                    }
-                                </div>
-
-
-
-                                <div class="col-sm-6">
-                                    @if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
-                                    {
-                                        @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
-                                        <br />
-                                        @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
-
-                                    }
-                                    else
-                                    {
-                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-                                        <br />
-                                        @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
-                                    }
-                                </div>
-                            </div>*@
-
-
-
 
 
 
