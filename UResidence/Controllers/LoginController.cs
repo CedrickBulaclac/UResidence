@@ -21,8 +21,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection fc)
         {
-            try
-            {
+            
                 Session["Level"] = null;
                 string chash;
                 string hash = fc["Hash"];
@@ -128,12 +127,8 @@ namespace UResidence.Controllers
                     Response.Write(script);
 
                 }
-            }
-            catch(Exception)
-            {
-                string script = "<script type = 'text/javascript'>alert('Login First');</script>";
-                Response.Write(script);
-            }
+            
+   
             return View();
         }
         public string RemoveWhitespace(string str)
