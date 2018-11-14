@@ -1,309 +1,444 @@
 ﻿@model UResidence.Amenity
 
 @{
-	Layout = "/Views/Layout/AdminLayout.cshtml";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
 <html>
 <head>
-	<style>
-		.col-25 {
-			float: left;
-			width: 25%;
-			margin-top: 6px;
-		}
 
-		.col-75 {
-			float: left;
-			width: 75%;
-			margin-top: 6px;
-		}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		label {
-			padding: 12px 12px 12px 0;
-			display: inline-block;
-		}
 
-		.row:after {
-			content: "";
-			display: table;
-			clear: both;
-		}
+    <style>
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
 
-		.button {
-			padding: 15px 25px;
-			font-size: 15px;
-			text-align: center;
-			cursor: pointer;
-			outline: none;
-			color: #fff;
-			background-color: #18ac6f;
-			border: none;
-			border-radius: 5px;
-		}
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
 
-			.button:hover {
-				background-color: #46bc8b;
-			}
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
 
-		.containerAdmin {
-			padding-left: 150px;
-		}
-	</style>
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .button {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #18ac6f;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .button:hover {
+                background-color: #46bc8b;
+            }
+
+        /*.containerAdmin {
+            padding-left: 150px;
+        }*/
+    </style>
 </head>
 <body>
-	<br />
-	<br />
-	<br />
+    <br />
+    <br />
+    <br />
 
 
-	<div class="containerAdmin">
-		@using (Html.BeginForm("AmenityEdit", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
-		{
-			@Html.AntiForgeryToken()
-			<input type="hidden" name="aid" id="aid" value="@Model.Id" />
-			<div class="form-horizontal">
-				<h4>Amenity</h4>
-				<hr />
-				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-				<div class="row">
-					<div class="col-25">
-
-						<label for="Amenity Name">Amenity Name :</label>
-
-					</div>
-
-					<div class="col-75">
-						@Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
-
-
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-25">
-
-						<label for="Description">Description :</label>
-
-					</div>
-
-					<div class="col-75">
-
-						@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Capacity :</label>
-						</p>
-					</div>
-
-					<div class="col-75">
-
-						@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col-25">
-						@if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
-						{
-							<p>
-								<label>Adult Rate :</label>
-								<br />
-								<label>Child Rate :</label>
-							</p>
-						}
-						else
-						{
-							<p>
-								<label>Rate :</label>
-							</p>
-							<p>
-								<label>Evening Rate :</label>
-							</p>
-
-						}
-					</div>
+    <div class="containerAdmin">
+        @using (Html.BeginForm("AmenityEdit", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="aid" id="aid" value="@Model.Id" />
+            <div class="form-horizontal">
+                @*<h4>Amenity</h4>*@
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-					<div class="col-75">
-						@if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
-						{
-							@Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-							@Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
-							<br />
-							@Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-							@Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
+                <div class="container">
 
-						}
-						else
-						{
-							@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-							@Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-							<br />
-							@Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-							@Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
-						}
-					</div>
-				</div>
 
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Available for equipment :</label>
-						</p>
-					</div>
+                    <div class="panel panel-collapse">
+                        <div class="panel-heading" style="background-color:  #1C2331">
+                            <font color="white"> <h3 class="panel-title"> Amenity Edit </h3></font>
+                        </div>
 
-					<div class="col-75">
 
-						@Html.EditorFor(model => model.IsEquipment)
-						@Html.ValidationMessageFor(model => model.IsEquipment, "", new { @class = "text-danger" })
-					</div>
-				</div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Available for weekends :</label>
-						</p>
-					</div>
+                                <label class="col-sm-4" for="Amenity Name">Amenity Name :</label>
 
-					<div class="col-75">
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
 
-						@Html.EditorFor(model => model.IsWeekend)
-						@Html.ValidationMessageFor(model => model.IsWeekend, "", new { @class = "text-danger" })
-					</div>
-				</div>
+
+                                </div>
+                            </div>
+                        </div>
 
 
 
 
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Location :</label>
-						</p>
-					</div>
-
-					<div class="col-75">
-						@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-25">
-						<p>
-							<label>Color :</label>
-						</p>
-					</div>
-
-					<div class="col-75">
-						@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-						@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
-					</div>
-				</div>
 
 
-				<div class="row">
-					<div class="col-25">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-						<label for="Image">Image :</label>
+                                <label class="col-sm-4" for="Description">Description :</label>
 
-					</div>
+                                <div class="col-sm-6">
 
-					<div class="col-75">
-						<button type="button" class="btn btn-info" id="btnUpdateImage" name="btnUpdateImage" data-dismiss="modal">Update Image</button>
-					</div>
-				</div>
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
 
-
-				@*---Modal for Update Amenity Image---*@
-				<div class="container">
-					<div class="modal fade" id="updateImageModal" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-									<input type="file" id="imageamen" name="imageamen" />
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)">Update</button>
-									<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-				<input type="submit" value="Save" class="button" />
-				<a href="@Url.Action("AmenityView","Amenity") " class="button">Cancel</a>
-			</div>
+                                </div>
+                            </div>
+                        </div>
 
 
 
 
-		}
-	</div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="Capacity :">Capacity :</label>
+
+                                <div class="col-sm-6">
+
+                                    @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        @if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
+                        {
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Adult Rate">Adult Rate :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Child Rate">Child Rate :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Rate">Rate :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Evening Rate">Evening Rate :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                        @*<div class="col-sm-12">
+                                <div class="form-group">
+                                    @if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
+                                    {
+                                        <p>
+                                            <label class="col-sm-4" for="Adult Rate">Adult Rate :</label>
+                                            <br />
+                                            <label class="col-sm-4" for="Child Rate">Child Rate :</label>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            <label class="col-sm-4" for="Rate">Rate :</label>
+                                        </p>
+                                        <p>
+                                            <label class="col-sm-4" for="Evening Rate">Evening Rate :</label>
+                                        </p>
+
+                                    }
+                                </div>
+
+
+
+                                <div class="col-sm-6">
+                                    @if (Model.AmenityName.ToUpper().Contains("SWIMMING"))
+                                    {
+                                        @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
+                                    }
+                                </div>
+                            </div>*@
+
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4">Available for equipment :</label>
+
+                                <div class="col-sm-6">
+
+                                    @Html.EditorFor(model => model.IsEquipment)
+                                    @Html.ValidationMessageFor(model => model.IsEquipment, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4">Available for weekends :</label>
+
+                                <div class="col-sm-6">
+
+                                    @Html.EditorFor(model => model.IsWeekend)
+                                    @Html.ValidationMessageFor(model => model.IsWeekend, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4">Location :</label>
+
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4">Color :</label>
+
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="Image">Image :</label>
+
+                                <div class="col-sm-6">
+
+                                    <button type="button" class="btn btn-info" id="btnUpdateImage" name="btnUpdateImage" data-dismiss="modal">Update Image</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        @*---Modal for Update Amenity Image---*@
+                        <div class="container">
+                            <div class="modal fade" id="updateImageModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="file" id="imageamen" name="imageamen" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)">Update</button>
+                                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <input type="submit" value="Save" class="button" />
+                        <a href="@Url.Action("AmenityView","Amenity") " class="button">Cancel</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+    </div>
 </body>
 </html>
 
 <script>
-	function UpdateImage(id) {
+    function UpdateImage(id) {
 
-		var Id = id;
+        var Id = id;
 
-		var file = $("#imageamen").get(0).files;
-		var data = new FormData();
-		data.append("Image", file[0]);
-		data.append("Id", Id);
+        var file = $("#imageamen").get(0).files;
+        var data = new FormData();
+        data.append("Image", file[0]);
+        data.append("Id", Id);
 
-		$.ajax({
-			type: "POST",
-			url: "/Amenity/UpdateImage/",
-			data: data,
-			contentType: false,
-			processData: false,
-			success: function (data) {
-				if (data == true) {
-					alert('Success');
-					location.reload();
+        $.ajax({
+            type: "POST",
+            url: "/Amenity/UpdateImage/",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Success');
+                    location.reload();
 
-				}
-			},
-			error: function (error) {
-				alert(error);
-			}
-		});
-	}
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
 
-	$('#btnCloseImage').click(function () {
+    $('#btnCloseImage').click(function () {
 
-		$('#updateImageModal').hide();
-	}
-	);
+        $('#updateImageModal').hide();
+    }
+    );
 
-	$('#btnUpdateImage').click(function () {
+    $('#btnUpdateImage').click(function () {
 
-		$('#updateImageModal').modal();
-	}
-	);
+        $('#updateImageModal').modal();
+    }
+    );
 
 </script>
 

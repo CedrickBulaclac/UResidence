@@ -1,15 +1,29 @@
 ﻿@model UResidence.Equipment
 
 @{
-    Layout = "/Views/Layout/AdminLayout.cshtml";
-    ViewBag.Title = "EquipmentView";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-<center>
-    <h2>Equipment</h2>
-</center>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+
+
+@*<center>
+        <h2>Equipment</h2>
+    </center>*@
 
 @*Modal for Viewing Image Equipment*@
 <div class="container">
@@ -123,32 +137,51 @@
         </div>
     </div>
 }
+<br />
+<br />
+<br />
+
 <div class="container">
     <hr />
-    <table class="table table-bordered" id="EquipData">
-        <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Stocks
-                </th>
-                <th>
-                    Rate
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-        </thead>
-    </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Equipment List </h3></font>
+        </div>
+
+        <div class=" panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="EquipData">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Stocks
+                            </th>
+                            <th>
+                                Rate
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="btn-link">
 
         <button type="button" id="addbtn" class="btn btn-success">
@@ -156,6 +189,7 @@
         </button>
     </div>
 </div>
+<br /> <br />
 
 
 <div id="auerror" class="alert alert-danger collapse">
@@ -318,7 +352,7 @@
                 { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
                 { "data": "Description", "autowidth": true },
                 { "data": "Stocks", "autowidth": true },
-                { "data": "Rate", 'render': function (data, type, full, meta) { return '₱'+data }, "autowidth": true },
+                { "data": "Rate", 'render': function (data, type, full, meta) { return '₱' + data }, "autowidth": true },
                 { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Equipment/EquipmentEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Equipment/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });

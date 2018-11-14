@@ -1,15 +1,29 @@
 ﻿@model UResidence.Tenant
 
 @{
-    ViewBag.Title = "TenantView";
-    Layout = "/Views/Layout/AdminLayout.cshtml";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-<center>
-    <h2>List of Tenant</h2>
-</center>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+
+
+@*<center>
+        <h2>List of Tenant</h2>
+    </center>*@
 
 
 @*Modal for Viewing MovingIn*@
@@ -173,14 +187,14 @@
 
                             <div class="col-75">
                                 @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                    {
-                                    new SelectListItem() {Text = "1", Value="1"},
-                                    new SelectListItem() {Text = "2", Value="2"},
-                                    new SelectListItem() {Text = "3", Value="3"},
-                                    new SelectListItem() {Text = "4", Value="4"},
-                                    new SelectListItem() {Text = "5", Value="5"},
-                                    new SelectListItem() {Text = "6", Value="6"}
-                                     }, new { @class = "form-control"})
+                                                    {
+                                                    new SelectListItem() {Text = "1", Value="1"},
+                                                    new SelectListItem() {Text = "2", Value="2"},
+                                                    new SelectListItem() {Text = "3", Value="3"},
+                                                    new SelectListItem() {Text = "4", Value="4"},
+                                                    new SelectListItem() {Text = "5", Value="5"},
+                                                    new SelectListItem() {Text = "6", Value="6"}
+                                                     }, new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
                                 @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
 
@@ -256,27 +270,42 @@
         </div>
     </div>
 }
+<br />
+<br />
+<br />
 <div class="container">
     <hr />
 
-    <table class="table table-bordered table-striped" id="TenantData">
-        <thead>
-            <tr>
-                <th scope="col">Unit No</th>
-                <th scope="row">Building No</th>
-                <th scope="row">Full Name </th>
-                <th scope="row">Birthdate</th>
-                <th scope="row">Cellphone No.</th>
-                <th scope="row">Email </th>
-                <th scope="row">Lease</th>
-                <th scope="row">Moving In</th>
-                <th scope="row">Moving Out</th>
-                <th scope="row">Actions</th>
-            </tr>
-        </thead>
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Tenant List </h3></font>
+        </div>
+
+        <div class=" panel-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" id="TenantData">
+                    <thead>
+                        <tr>
+                            <th scope="col">Unit No</th>
+                            <th scope="row">Building No</th>
+                            <th scope="row">Full Name </th>
+                            <th scope="row">Birthdate</th>
+                            <th scope="row">Cellphone No.</th>
+                            <th scope="row">Email </th>
+                            <th scope="row">Lease</th>
+                            <th scope="row">Moving In</th>
+                            <th scope="row">Moving Out</th>
+                            <th scope="row">Actions</th>
+                        </tr>
+                    </thead>
 
 
-    </table>
+                </table>
+
+            </div>
+        </div>
+    </div>
 
     <div class="form-inline">
 

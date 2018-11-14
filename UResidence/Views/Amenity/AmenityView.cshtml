@@ -1,21 +1,26 @@
 ﻿@model UResidence.Amenity
 
 @{
-    /**/
-
-    /**/
-    Layout = "/Views/Layout/AdminLayout.cshtml";
-    ViewBag.Title = "AmenityView";
-
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
 
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-<center>
-    <h2>Amenity</h2>
-</center>
+
 
 <div class="collapse navbar-collapse" id="myNavbar">
 
@@ -261,7 +266,7 @@
         </div>
     </div>
 }
-@using (Html.BeginForm("AmenityAddPool", "Amenity", FormMethod.Post ,new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AmenityAddPool", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -425,36 +430,53 @@
         </div>
     </div>
 }
+<br />
+<br />
+<br />
+
 <div class="container">
     <hr />
-    <table class="table table-bordered" id="AmenityData">
-        <thead>
-            <tr>
-                <th>
-                    Amenity Name
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    Capacity
-                </th>
-                <th>
-                    Rate
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Amenity List </h3></font>
+        </div>
+
+        <div class=" panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="AmenityData">
+                    <thead>
+                        <tr>
+                            <th>
+                                Amenity Name
+                            </th>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                Capacity
+                            </th>
+                            <th>
+                                Rate
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
     <div class="btn-link">
         <button type="button" id="addbtn" class="btn btn-success">
             ADD NEW AMENITY BY HOURS
@@ -464,6 +486,9 @@
         </button>
     </div>
 </div>
+
+<br />
+<br />
 
 
 
@@ -646,7 +671,7 @@
                         }
                     }, "autowidth": true
                 },
-               
+
                 { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Amenity/AmenityEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Amenity/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });
