@@ -1,0 +1,684 @@
+﻿@model IEnumerable<object>
+@{
+	List<UResidence.Amenity> amenity = Model.ToList()[0] as List<UResidence.Amenity>;
+	List<UResidence.SchedReservation> sched = Model.ToList()[1] as List<UResidence.SchedReservation>;
+	List<UResidence.Equipment> equip = Model.ToList()[2] as List<UResidence.Equipment>;
+	ViewBag.Title = "SelectAmenity";
+	if (Convert.ToInt32(Session["Level"]) == 8)
+	{
+		Layout = "~/Views/Layout/OwnerLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 9)
+	{
+		Layout = "~/Views/Layout/TenantLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
+	}
+
+
+<style type="text/css">
+	body {
+		margin-top: 40px;
+	}
+
+	.stepwizard-step p {
+		margin-top: 10px;
+	}
+
+	.stepwizard-row {
+		display: table-row;
+	}
+
+	.stepwizard {
+		display: table;
+		width: 50%;
+		position: relative;
+	}
+
+	.stepwizard-step button[disabled] {
+		opacity: 1 !important;
+		filter: alpha(opacity=100) !important;
+	}
+
+	.stepwizard-row:before {
+		top: 14px;
+		bottom: 0;
+		position: absolute;
+		content: " ";
+		width: 100%;
+		height: 1px;
+		background-color: #ccc;
+		z-order: 0;
+	}
+
+	.stepwizard-step {
+		display: table-cell;
+		text-align: center;
+		position: relative;
+	}
+
+	.btn-circle {
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		padding: 6px 0;
+		font-size: 12px;
+		line-height: 1.428571429;
+		border-radius: 15px;
+	}
+
+
+	div {
+		margin-bottom: 10px;
+		position: relative;
+	}
+
+	input[type="number"] {
+		width: 100px;
+	}
+
+	input + span {
+		padding-right: 30px;
+	}
+
+	input:invalid + span:after {
+		position: absolute;
+		content: '✖';
+		padding-left: 5px;
+	}
+
+	input:valid + span:after {
+		position: absolute;
+		content: '✓';
+		padding-left: 5px;
+	}
+
+	legend0 {
+		color: red;
+	}
+
+	legend1 {
+		color: yellow;
+	}
+
+	legend2 {
+		color: violet;
+	}
+
+	legend3 {
+		color: black;
+	}
+</style>
+@using (Html.BeginForm("SelectAmenity", "Reserve", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+
+	<br />
+	<br />
+
+
+	<center>
+		<div class="progress" style="width:860px;height:40px;">
+			<div class="container">
+				<div class="stepwizard">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step">
+							<a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+							<p style="font-family:Arial, Helvetica, sans-serif" size="2">Choose Amenity</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+							<p style="font-family:Arial, Helvetica, sans-serif" size="2"><font color="white">Schedule Amenities</font></p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+							<p>Choose Date</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+							<p>Choose Equipment</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+							<p>Summary</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</center>
+
+
+	@*
+
+		<h3 class="text-center">Choose Amenity</h3>
+
+		 <fieldset>
+
+			 <div class=="display-field">
+			 </div>
+
+		 </fieldset>
+
+	*@
+
+	<div class="row setup-content" id="step-1">
+
+		<h3 class="text-center">Choose Amenity</h3>
+		<div class="form-group">
+
+			<div class="col-md-2 col-lg-offset-2">
+
+
+				<div class=" dl-horizontal">
+					<table>
+						<tr>
+							@{
+
+								int ctr = 0;
+								foreach (var amn in amenity)
+								{
+									ctr++;
+									if (ctr <= 3)
+									{
+										<td>
+											<button class="btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id','@amn.Color')">@Html.Image(amn.Url)  </button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+											<br />
+											@Html.LabelFor(model => amn.AmenityName, "Name")
+											@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+											<br />
+											@Html.LabelFor(model => amn.Description)
+											@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+											<br />
+											@Html.LabelFor(model => amn.Rate)
+											@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+										</td>
+									}
+									else
+									{
+										ctr = 0;
+									<tr>
+										<td>
+											<button class="btn-default nextBtn btn-lg pull-right" type="button" id="btnImg" name="btnImg" onclick="GetId('@amn.AmenityName','@amn.Rate','@amn.Id','@amn.Color')">@Html.Image(amn.Url)  </button> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+											<br />
+											@Html.LabelFor(model => amn.AmenityName, "Name")
+											@Html.DisplayFor(model => amn.AmenityName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } })
+											<br />
+											@Html.LabelFor(model => amn.Description)
+											@Html.DisplayFor(model => amn.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+											<br />
+											@Html.LabelFor(model => amn.Rate)
+											@Html.DisplayFor(model => amn.Rate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+										</td>
+									</tr>
+
+								}
+							}
+							}
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="row setup-content" id="step-2">
+
+			<div id="calendar"></div>
+
+
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+			@section scripts{
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+				<script>
+					$(document).ready(function () {
+						var events = [];
+						$.ajax({
+							type: "GET",
+							url: "/reserve/GetEvents",
+							success: function (data) {
+								$.each(data, function (i, v) {
+									events.push({
+										title: v.AmenityName,
+										start: moment(v.StartTime),
+										end: v.EndTIme != null ? moment(v.EndTIme) : null,
+										rate: v.Rate,
+										color: v.Theme
+									});
+								})
+								GenerateCalendar(events);
+							},
+							error: function (error) {
+								alert('failed');
+							}
+						})
+
+						function GenerateCalendar(events) {
+							$('#calendar').fullCalendar('destroy');
+							$('#calendar').fullCalendar({
+								contentHeight: 400,
+								defaultDate: new Date(),
+								timeFormat: 'h(:mm):a',
+								header: {
+									left: 'prev,next today',
+									center: 'title',
+									right: 'month,basicWeek,basicDay,agenda'
+								},
+								eventLimit: true,
+								eventColor: '#378006',
+								events: events,
+
+								eventClick: function (calEvent, jsEvent, view) {
+									$('#Modal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+									var $description = $('<div/>');
+									$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+									if (calEvent.end != null) {
+										$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+									}
+									$description.append($('<p/>').html('<b>Rate: </b>' + calEvent.rate));
+									$('#Modal #pDetails').empty().html($description);
+									$('#Modal').modal();
+								}
+							})
+						}
+					})
+
+
+
+				</script>
+
+
+			}
+			<legend0><b><u> Basketball Court</u></b></legend0> &nbsp;
+			<legend1><b><u>Swimming Pool</u></b></legend1>  &nbsp;
+			<legend2><b><u>Gazebo</u></b></legend2> &nbsp;
+			<legend3><b><u>Maintenance</u></b></legend3>
+
+			<button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+		</div>
+		<div class="row setup-content" id="step-3">
+			<div class="col-xs-6 col-md-offset-3">
+				<div class="col-md-12">
+					<h3> Choose Date</h3>
+
+
+					<div class="form-group">
+						StartTime : <input type="date" onselect="Set()" class="form-group" id="sd" name="sd" required />
+
+						<input type="time" onselect="myFunction()" class="form-group" min="08:00" max="20:00" id="st" name="st" required />
+						<span class="validity"></span>
+
+						<br />
+						EndTime :  <input type="date" class="form-group" id="ed" name="ed" readonly="readonly" />
+
+						<input type="time" class="form-group" min="09:00" max="21:00" id="et" name="et" required />
+						<span class="validity"></span>
+
+						<br />
+						Rate : <input type="text" id="rate" class="form-group" disabled="disabled" />
+
+						<div id="divResult"></div>
+					</div>
+				</div>
+
+				<button class="btn btn-primary nextBtn btn-lg pull-right" id="btnNext" name="btnNext" type="button" onclick="">Next</button>
+			</div>
+		</div>
+
+		<div class="row setup-content" id="step-4">
+			<div class="col-lg-6 col-md-offset-3">
+				<div class="col-md-12">
+
+					<h3> Choose Equipment</h3>
+					<input type="hidden" id="step" name="step" value="STEP4" />
+
+					@{
+						int ctr3 = 0;
+						foreach (var eqp in equip)
+						{
+
+
+							<label class="form-control text-center">@eqp.Name</label>
+							<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0 } })
+							<label class="form-group">Stocks :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @value = eqp.Stocks, disabled = "disabled" } })
+							<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } }) <label class="form-group"><strong>/pc</strong></label>
+							<br />
+							ctr3++;
+						}
+						<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+					}
+					<button class="btn btn-primary nextBtn btn-lg pull-right" id="gotoSum" name="gotoSum" onclick="SUMMARY()" type="button">Next</button>
+				</div>
+			</div>
+		</div>
+		<form name="summ" onload="SUMMARY()">
+			<div class="row setup-content" id="step-5">
+				<div class="col-xs-6 col-md-offset-3">
+					<div class="col-md-12">
+
+
+						<h3> Summary</h3>
+						<input type="hidden" id="ida" name="ida" />
+						<input type="hidden" id="thm" name="thm" />
+						<br />
+
+						Amenity Name :<input type="text" class="form-group" id="amname" name="amname" disabled="disabled" />
+						<br />
+						Schedule :<input type="datetime" class="form-group" id="stime" name="stime" disabled="disabled" /> - <input type="datetime" class="form-group" id="etime" name="etime" disabled="disabled" />
+
+						<input type="hidden" id="sta" name="sta" />
+						<input type="hidden" id="eta" name="eta" />
+						<br />
+						<div class="col-lg-4 col-lg-offset-7">
+							Price : <input type="text" class="form-group" id="aprice" name="aprice" disabled="disabled" />
+							<input type="hidden" id="ap" name="ap" />
+						</div>
+
+						<br />
+						Equipment :
+						<br />
+
+						@{
+							int ctr4 = 0;
+							foreach (var eqp in equip)
+							{
+								<label class="form-control text-center">@eqp.Name</label>
+								<label class="form-group">Quantity :</label> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @max = eqp.Stocks, @id = "quantity" + ctr4.ToString(), @required = "required", name = "quantity" + ctr4.ToString(), @Value = "", @disabled = "true" } })
+								<label class="form-group">Rate :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "rate" + ctr4.ToString(), name = "rate" + ctr4.ToString(), @Value = "" } })
+								<label class="form-group">Sub Total :</label> @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @id = "stotal" + ctr4.ToString(), name = "stotal" + ctr4.ToString(), @Value = "" } })
+								<br />
+								ctr4++;
+
+							}
+							<input type="hidden" value=@ctr4.ToString() ; id="txtctrr" name="txtctrr" />
+						}
+
+
+
+
+
+						<div class="col-lg-4 col-lg-offset-7">
+							Total Amount :<input type="text" class="form-group" id="total1" name="total1" disabled="disabled" />
+						</div>
+
+
+						<button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			var id1;
+			var rateA;
+			var rate1;
+			var aname;
+			var startTime;
+			var endTime;
+			var selectedValue;
+			var startT;
+			var endT;
+			var themev;
+			var startDate;
+			var endDate;
+
+			$(document).ready(
+
+
+				function () {
+					var navListItems = $('div.setup-panel div a'),
+						allWells = $('.setup-content'),
+						allNextBtn = $('.nextBtn');
+
+					allWells.hide();
+
+					navListItems.click(function (e) {
+						e.preventDefault();
+						var $target = $($(this).attr('href')),
+							$item = $(this);
+
+						if (!$item.hasClass('disabled')) {
+							navListItems.removeClass('btn-primary').addClass('btn-default');
+							$item.addClass('btn-primary');
+							allWells.hide();
+							$target.show();
+							$target.find('input:eq(0)').focus();
+						}
+					});
+
+					allNextBtn.click(
+
+						function () {
+
+							var curStep = $(this).closest(".setup-content"),
+								curStepBtn = curStep.attr("id"),
+								nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+								curInputs = curStep.find("input[type='text'],input[type='url']"),
+								isValid = true;
+
+							$(".form-group").removeClass("has-error");
+							for (var i = 0; i < curInputs.length; i++) {
+								if (!curInputs[i].validity.valid) {
+									isValid = false;
+									$(curInputs[i]).closest(".form-group").addClass("has-error");
+								}
+							}
+
+							if (isValid)
+								nextStepWizard.removeAttr('disabled').trigger('click');
+						});
+
+					$('div.setup-panel div a.btn-primary').trigger('click');
+				});
+			function ValidateDate() {
+				var x = $('#sd').val();
+				var y = $('#et').val();
+				var z = $('#st').val();
+				if (x == " " && y == " " && z == " ") {
+					alert("Please fill up all required fields");
+				}
+			}
+
+			function GetId(name, rate, id, theme) {
+				aname = name;
+				id1 = id;
+				rate1 = rate;
+				themev = theme;
+			}
+			function toStandardTime(value) {
+				if (value !== null && value !== undefined) { //If value is passed in
+					if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { //If time is already in standard time then don't format.
+						return value;
+					}
+					else {
+						if (value.length == 8) { //If value is the expected length for military time then process to standard time.
+							var hour = value.substring(0, 2); //Extract hour
+							var minutes = value.substring(3, 5); //Extract minutes
+							var identifier = 'AM'; //Initialize AM PM identifier
+
+							if (hour == 12) { //If hour is 12 then should set AM PM identifier to PM
+								identifier = 'PM';
+							}
+							if (hour == 0) { //If hour is 0 then set to 12 for standard time 12 AM
+								hour = 12;
+							}
+							if (hour > 12) { //If hour is greater than 12 then convert to standard 12 hour format and set the AM PM identifier to PM
+								hour = hour - 12;
+								identifier = 'PM';
+							}
+							return hour + ':' + minutes + ' '; //Return the constructed standard time
+						}
+						else { //If value is not the expected length than just return the value as is
+							return value;
+						}
+					}
+				}
+			}
+			$(document).ready(
+				function () {
+					$('#sd').change(function () {
+						selectedValue = $(this).val();
+						document.getElementById('ed').value = selectedValue;
+						startDate = selectedValue;
+						endDate = selectedValue;
+
+					});
+
+				});
+
+			$(document).ready(function () {
+				$('#st').change(function myFunction() {
+					selectedValue = $('#st').val();
+
+					var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
+					var fmins = selectedValue.split(':')[1];
+					var f = selectedValue.split(' ')[2];
+					var final = fhours + ":" + fmins;
+					document.getElementById('et').value = final;
+
+					endTime = $('#et').val();
+
+					startTime = $(this).val();
+					startT = parseInt(startTime.split(':')[0], 10);
+					if (startT < 8 && startT > 21) {
+						alert("Start Time is invalid 8:00 AM - 8:00 PM only");
+						document.getElementById('st').value = startTime + ":PM";
+						document.getElementById('rate').value = 0;
+					}
+					if (endTime != null) {
+						var hourDiff =
+							parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+						rateA = rate1 * hourDiff
+						document.getElementById('rate').value = rateA;
+					}
+
+
+
+
+				});
+			});
+			$(document).ready(function () {
+				$('#st').change(function myFunction() {
+				});
+
+				selectedValue = $(this).val();
+				document.getElementById('et').value = selectedValue;
+			});
+			$(document).ready(function () {
+				$('#et').change(function myFunction() {
+					endTime = $(this).val();
+
+					var endT = parseInt(endTime.split(':')[0], 10);
+
+
+					if (endT >= 9 && endT <= 21) {
+						if ((startT >= 8 && startT <= 18) && (endT >= 9 && endT <= 18)) {
+							var hourDiff =
+								parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+							rateA = rate1 * hourDiff
+							document.getElementById('rate').value = rateA;
+
+						}
+						else {
+							alert(startTime + " " + endTime);
+							var hourDiff =
+								parseInt(endTime.split(':')[0], 10) - parseInt(startTime.split(':')[0], 10);
+							rateA = ((rate1 * 2) * hourDiff)
+							document.getElementById('rate').value = rateA;
+
+						}
+					}
+					else {
+						alert("End Time is invalid 9:00 AM - 9:00 PM only");
+						document.getElementById('et').value = "PM";
+						document.getElementById('rate').value = 0;
+					}
+
+
+				});
+			});
+
+
+			function SUMMARY() {
+				rate = [];
+				quantity = [];
+				total = [];
+				var ttotal = rateA;
+				var txtctr = parseInt($('#txtctr').val());
+				var txtctrr = parseInt($('#txtctrr').val());
+				for (var pppp = 0; pppp <= txtctr - 1; pppp++) {
+					quantity[pppp] = $('#txtQuantity' + pppp).val();
+					rate[pppp] = $('#txtRate' + pppp).val();
+					total[pppp] = quantity[pppp] * rate[pppp];
+					var ttotal = ttotal + total[pppp];
+
+
+				}
+				for (var ppppp = 0; ppppp <= txtctr - 1; ppppp++) {
+
+					document.getElementById('quantity' + ppppp).value = quantity[ppppp]
+					document.getElementById('rate' + ppppp).value = rate[ppppp]
+					document.getElementById('stotal' + ppppp).value = total[ppppp]
+				}
+
+				var stconcat = startDate + " " + startTime;
+				var etconcat = endDate + " " + endTime;
+
+
+
+
+
+
+				document.getElementById('total1').value = ttotal;
+				document.getElementById('amname').value = aname;
+				document.getElementById('ida').value = id1;
+				document.getElementById('thm').value = themev;
+
+				document.getElementById('stime').value = stconcat
+				document.getElementById('etime').value = etconcat
+
+
+				document.getElementById('sta').value = stconcat
+				document.getElementById('eta').value = etconcat
+
+				document.getElementById('aprice').value = rateA;
+
+
+				document.getElementById('ap').value = ttotal;
+
+
+			}
+
+		</script>
+
+
+	}
+
+<br />
+<!-- Footer -->
+<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position: absolute; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+</footer>

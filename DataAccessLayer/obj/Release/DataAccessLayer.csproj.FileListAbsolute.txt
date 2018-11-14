@@ -1,0 +1,5 @@
+C:\Thesis\UResidence\DataAccessLayer\bin\Release\DataAccessLayer.dll
+C:\Thesis\UResidence\DataAccessLayer\bin\Release\DataAccessLayer.pdb
+C:\Thesis\UResidence\DataAccessLayer\obj\Release\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Thesis\UResidence\DataAccessLayer\obj\Release\DataAccessLayer.dll
+C:\Thesis\UResidence\DataAccessLayer\obj\Release\DataAccessLayer.pdb

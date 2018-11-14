@@ -1,0 +1,9 @@
+C:\Thesis\UResidence\Business\bin\Release\Business.dll
+C:\Thesis\UResidence\Business\bin\Release\Business.pdb
+C:\Thesis\UResidence\Business\bin\Release\DataAccessLayer.dll
+C:\Thesis\UResidence\Business\bin\Release\DataAccessLayer.pdb
+C:\Thesis\UResidence\Business\obj\Release\Business.csprojAssemblyReference.cache
+C:\Thesis\UResidence\Business\obj\Release\Business.csproj.CoreCompileInputs.cache
+C:\Thesis\UResidence\Business\obj\Release\Business.csproj.CopyComplete
+C:\Thesis\UResidence\Business\obj\Release\Business.dll
+C:\Thesis\UResidence\Business\obj\Release\Business.pdb

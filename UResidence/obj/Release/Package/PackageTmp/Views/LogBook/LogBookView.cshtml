@@ -1,0 +1,158 @@
+﻿
+@{
+	ViewBag.Title = "LogBook";
+	Layout = "/Views/Layout/AdminLayout.cshtml";
+}
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+
+
+
+
+<div class="container">
+    <br /> <br /> <br />   <br /><br /> <br/>
+
+    <div class="panel panel-collapse">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Logbook Viewing </h3></font>
+        </div>
+
+
+
+        @*<h2>Logbook Viewing </h2>*@
+        <hr />
+        <center>
+            Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
+        </center>
+        <br />
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="tableLog"></table>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+	$(document).ready(Set());
+	var value;
+	function Set() {
+		$('#tableLog').empty();
+		$.ajax({
+			type: "GET",
+			url: "/LogBook/GetEvents",
+			success: function (data) {
+				var trHTML = '';
+
+				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+				$.each(data, function (i, v) {
+
+                    if (v.sTimeout == '12:00AM') {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
+
+					}
+					else {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+					}
+				});
+				$('#tableLog').append(trHTML);
+
+				var now = new Date();
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var today = now.getFullYear() + "-" + (month) + "-" + (day);
+				var ti = new Date().toLocaleTimeString();
+
+				document.getElementById('date').value = today;
+
+
+			},
+			error: function (error) {
+				alert('Failed to retrieve the record');
+			}
+		});
+
+	}
+
+	function Update(id) {
+
+		var d = new Date(),
+			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+		var timenow = h + ':' + m;
+
+		var data = {
+			Id: id,
+			TimeOut: timenow
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/LogBook/Update',
+			data: data,
+			success: function (data) {
+
+				Set();
+				window.location.reload();
+			},
+			error: function (error) {
+				alert('Failed to update record');
+			}
+		});
+	}
+
+	function Search() {
+		$('#tableLog').empty();
+		var datee = document.getElementById('txtdate').value;
+		value = datee;
+		var data = {
+			date: datee
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/LogBook/Search',
+			data: data,
+			success: function (data) {
+				var trHTML = '';
+
+				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
+				$.each(data, function (i, v) {
+
+                    if (v.sTimeout == '12:00AM') {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
+
+					}
+					else {
+						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
+
+					}
+				});
+
+				$('#tableLog').append(trHTML);
+
+				var now = new Date();
+				var day = ("0" + now.getDate()).slice(-2);
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var today = now.getFullYear() + "-" + (month) + "-" + (day);
+				var ti = new Date().toLocaleTimeString();
+
+				document.getElementById('date').value = today;
+
+			},
+			error: function (data) {
+				alert('Failed to retrieve record');
+			}
+
+		});
+	}
+
+
+</script>
+

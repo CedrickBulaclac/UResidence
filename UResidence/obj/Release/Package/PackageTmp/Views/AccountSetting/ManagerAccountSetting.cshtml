@@ -1,0 +1,189 @@
+﻿@model IEnumerable<object>
+@{
+	List<Admin> admin = (Model.ToList()[0] as List<Admin>);
+	List<UserLogin> userlogin = (Model.ToList()[1] as List<UserLogin>);
+	
+	
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	
+}
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<head>
+	<style>
+
+		.col-25 {
+			float: left;
+			width: 25%;
+			margin-top: 6px;
+			padding-left: 5em;
+		}
+
+
+		.col-75 {
+			float: left;
+			width: 75%;
+			margin-top: 6px;
+		}
+
+
+
+		label {
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.button {
+			padding: 15px 25px;
+			font-size: 15px;
+			text-align: center;
+			cursor: pointer;
+			outline: none;
+			color: #fff;
+			background-color: #18ac6f;
+			border: none;
+			border-radius: 5px;
+		}
+
+
+		.row1 {
+			padding-bottom: 10em;
+		}
+
+
+		.button:hover {
+			background-color: #46bc8b;
+		}
+	</style>
+</head>
+<script>
+    $(document).ready(function () {
+        $('#maincontent').empty();
+        $('#maincontent1').empty();
+    });</script>
+
+
+
+<div id="content1">
+
+
+	@using (Html.BeginForm("ManagerAccountSetting", "AccountSetting", FormMethod.Post))
+	{
+		@Html.AntiForgeryToken()
+
+		<br />
+
+
+        
+		
+		<div class="container">
+		<br />
+            <center> 	<h2> Basic Information </h2> </center>
+			<hr />
+		
+				@foreach (var a in admin)
+				{
+					<input type="hidden" name="aid" id="aid" value="@a.Id" />
+
+
+
+
+					<div class="container">
+						<div class="col-lg-4">
+							<label>First Name:</label>
+							<br />
+							<input type="text" value="@a.Fname" id="fname" name="fname" class="form-control" />
+						</div>
+
+						<div class="col-lg-4">
+							<label>Middle Name:</label>
+							<br />
+							<input type="text" value="@a.Mname" id="mname" name="mname" class="form-control" />
+						</div>
+						<div class="col-lg-4">
+							<label>Last Name:</label>
+							<br />
+							<input type="text" value="@a.Lname" id="lname" name="lname" class="form-control" />
+						</div>
+
+					</div>
+
+
+				}
+				@foreach (var l in userlogin)
+				{
+
+
+					<input type="hidden" name="ulid" id="ulid" value="@l.Id" />
+
+					<div class="container">
+						@*<label class="form-horizontal text-center">Login</label>*@
+						@*<div class="col-lg-4">
+					@*<label>Username</label>
+					<br />
+					<input type="hidden" value="@l.Username" id="username" name="username" class="form-control" />
+				</div>*@
+						<div class="col-lg-4">
+
+							<label> Username </label>
+							<br />
+							<input type="text" value="@l.Username" id="username" name="username" class="form-control" />
+						</div>
+
+						<div class="col-lg-4">
+							<label>Current Password</label>
+							<br />
+							<input type="password" value="" id="cp" name="cp" class="form-control" />
+						</div>
+
+
+						<div class="col-lg-4">
+							<label>New Password</label>
+							<br />
+							<input type="password" value="" id="np" name="np" oninput="Check()" class="form-control" />
+						</div>
+					</div>
+				}
+            <br />
+
+
+				<input type="submit" class="button" value="Save Changes" />
+
+				
+		
+		</div>
+
+
+
+
+
+		<script type="text/javascript">
+            $(document).ready(function () {
+                var content1 = document.getElementById('content1');
+				$('#maincontent1').append(content1);
+				$('#containerChart').empty();
+            });
+			function Check() {
+				var cp = document.getElementById('cp').value;
+				var np = document.getElementById('np').value;
+				if (cp != "") {
+					if (cp == np) {
+						alert("Current Password and New Password are the same");
+						document.getElementById('np').value = "";
+					}
+				}
+			}
+		</script>
+	}
+</div>

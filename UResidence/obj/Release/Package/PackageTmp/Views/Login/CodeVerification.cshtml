@@ -1,0 +1,100 @@
+﻿@{
+	ViewBag.Title = "CodeVerification";
+	Layout = "";
+}
+@using (Html.BeginForm("CodeVerification", "Login", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+<head>
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <style>
+        .button {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #1eaa7a;
+            border: none;
+            border-radius: 5px;
+        }
+
+            .button:active {
+                background-color: #1eaa7a;
+            }
+
+            .button:hover {
+                background-color: #26d69a;
+            }
+    </style>
+
+
+
+
+</head>
+
+
+	<body background="~/Content/Log/loginbg.jpg" style=" background-size:cover; background-repeat: no-repeat; ">
+
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+
+		<div class=" container ">
+			<div class=" col-md-4"></div>
+
+			<div class="col-md-4 ">
+
+				<center>
+					<div class="jumbotron" style=" box-sizing:content-box; background-color: rgba(10,10,10,.68); max-width:500px; min-height: 290px; margin: 30px auto;">
+
+						<font face="Helvetica">
+							<font color="white">
+
+								<br />
+
+								<p>Code Verification</p>
+
+								<hr />
+
+								<div class="text-center">
+
+									<font color="white">
+
+										<p>Enter the code that has been sent to your email</p>
+
+										<br />
+										<input type="text" placeholder="Enter a code" id="code" name="code" class="form-control"
+											   style="width: 50%;
+												padding: 12px 20px;
+												margin: 8px 0;
+												display: inline-block;
+												border: 1px solid #ccc;
+												border-radius: 4px;
+												box-sizing: border-box;" />
+
+										<br />
+										<br />
+										<input type="submit" button class="button " />
+
+									</font>
+
+								</div>
+							</font>
+						</font>
+					</div>
+				</center>
+			</div>
+
+
+		</div>
+	</body>
+}

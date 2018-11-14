@@ -1,0 +1,551 @@
+﻿@model UResidence.Tenant
+
+@{
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+
+
+@*<center>
+        <h2>List of Tenant</h2>
+    </center>*@
+
+
+@*Modal for Viewing MovingIn*@
+<div class="container">
+    <div class="modal fade" id="movingInModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Moving In Form</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img height="250px" src="" width="250px" id="movin">
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal for Viewing MovingOut*@
+<div class="container">
+    <div class="modal fade" id="movingOutModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Moving Out Form</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <img height="250px" src="" width="250px" id="movout">
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnCloseImagee" name="btnCloseImagee" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post))
+{
+    <div class="container">
+        <div class="modal fade" id="AddModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="First Name">First Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Middle Name">Middle Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Last Name">Last Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Birth Date">Birthdate :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Cel">Cellphone no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Email">Email Address :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Bldg no">Building no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem() {Text = "1", Value="1"},
+                                                    new SelectListItem() {Text = "2", Value="2"},
+                                                    new SelectListItem() {Text = "3", Value="3"},
+                                                    new SelectListItem() {Text = "4", Value="4"},
+                                                    new SelectListItem() {Text = "5", Value="5"},
+                                                    new SelectListItem() {Text = "6", Value="6"}
+                                                     }, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Unit no">Unit no. :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Lease Start">Lease Start :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Bldg no">Lease End :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Moving In Form :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image1" name="Image1" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+<div class="container">
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Tenant List </h3></font>
+        </div>
+
+        <div class=" panel-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" id="TenantData">
+                    <thead>
+                        <tr>
+                            <th scope="col">Unit No</th>
+                            <th scope="row">Building No</th>
+                            <th scope="row">Full Name </th>
+                            <th scope="row">Birthdate</th>
+                            <th scope="row">Cellphone No.</th>
+                            <th scope="row">Email </th>
+                            <th scope="row">Lease</th>
+                            <th scope="row">Moving In</th>
+                            <th scope="row">Moving Out</th>
+                            <th scope="row">Actions</th>
+                        </tr>
+                    </thead>
+
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-inline">
+
+        <button type="button" id="addbtn" class="btn btn-success">
+            ADD NEW TENANT
+        </button>
+        <a class="btn btn-default" href="@Url.Action("Download","Tenant")">Download List of Tenant</a>
+    </div>
+</div>
+
+<div id="auerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem updating a Tenant
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully updated a Tenant
+</div>
+<div id="aerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem deleting your form
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully deleted a Tenant
+</div>
+<div id="aaerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem submitting your form
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully added a Tenant
+</div>
+
+@if (ViewBag.DeleteMessage != null)
+{
+    if (ViewBag.DeleteMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#asuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#asuccess').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#aerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aerror').hide('fade');
+                }, 2000);
+
+
+            });
+
+        </script>
+    }
+}
+
+@if (ViewBag.UpdateMessage != null)
+{
+    if (ViewBag.UpdateMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#ausuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#ausuccess').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#auerror').show('fade');
+
+                setTimeout(function () {
+                    $('#auerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+
+}
+
+
+
+@if (ViewBag.AddMessage != null)
+{
+    if (ViewBag.AddMessage == true)
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aasuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#aasuccess').hide('fade');
+                }, 20000);
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aaerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
+
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#TenantData').DataTable({
+            "ajax": {
+                "url": '/Tenant/GetTenant',
+                "type": "GET",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "UnitNo", "autowidth": true },
+                { "data": "BldgNo", "autowidth": true },
+                { "data": "Fullname", "autowidth": true },
+                { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+                { "data": "CelNo", "autowidth": true },
+                { "data": "Email", "autowidth": true },
+                { "data": "Lease", "autowidth": true },
+                { "data": "MovingIn", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingIn" onclick="Set1(\'' + data + '\')">View</button>' } },
+                { "data": "MovingOut", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingOut" onclick="Set2(\'' + data + '\')">View</button>' } },
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Tenant/TenantEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Tenant/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+            ]
+        });
+    });
+    var mi;
+    function Download() {
+        $.post("/Tenant/Download");
+    }
+
+    function Set1(movingIn) {
+        mi = movingIn;
+        var fullpath = (mi).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        var path = "../Content/TenantImages/" + filename;
+
+        document.getElementById('movin').setAttribute('src', path)
+
+        $('#movingInModal').modal();
+    }
+
+    function Set2(movingout) {
+        mi = movingout;
+        var fullpath = (mi).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        var path = "../Content/TenantImages/" + filename;
+
+        document.getElementById('movout').setAttribute('src', path)
+
+        $('#movingOutModal').modal();
+    }
+
+
+    $('#addbtn').click(function () {
+
+        $('#AddModal').modal();
+    }
+    );
+
+
+    $('#btnCloseImage').click(function () {
+
+        $('#movingInModal').hide();
+    }
+    );
+
+    $('#btnMovingIn').click(function () {
+
+        $('#movingInModal').modal();
+    }
+    );
+
+    $('#btnMovingOut').click(function () {
+
+        $('#movingOutModal').modal();
+    }
+    );
+
+    $('#btnCloseImagee').click(function () {
+
+        $('#movingOutModal').hide();
+    }
+    );
+</script>

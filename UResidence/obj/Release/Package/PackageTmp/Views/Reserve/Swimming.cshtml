@@ -1,0 +1,503 @@
+﻿@model List<Amenity>
+@{
+    ViewBag.Title = "Swimming";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+
+
+
+@using (Html.BeginForm("Swimming", "Reserve", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+
+    if (Convert.ToInt32(Session["Level"]) <= 7)
+    {
+        @*Scripts for dropdown*@
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    }
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <style>
+
+            body {
+                /*background-color: #f1f8e9;*/
+                background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #43a047;
+                border: none;
+                border-radius: 5px;
+                /*float: right;*/
+                text-decoration: none;
+                text-decoration-color: none;
+                /*width: 500px;*/
+            }
+
+
+
+                .button:hover {
+                    background-color: #81c784;
+                }
+
+            div.card {
+                width: 710px;
+                height: 640px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 10px;
+            }
+
+            @@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+            body {
+                padding-top: 50px;
+            }
+
+            .box {
+                border-radius: 3px;
+                /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
+                padding: 10px 25px;
+                text-align: right;
+                display: block;
+                margin-top: 60px;
+                background-color: #fafafa;
+            }
+
+            .box-icon {
+                background-color: #57a544;
+                border-radius: 50%;
+                display: table;
+                height: 100px;
+                margin: 0 auto;
+                width: 100px;
+                margin-top: -61px;
+            }
+
+                .box-icon span {
+                    color: #fff;
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+            .info h4 {
+                font-size: 26px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .info > p {
+                color: #212121;
+                font-size: 13px;
+                padding-top: 10px;
+                text-align: justify;
+            }
+
+            /*.info > a {
+                background-color: #03a9f4;
+                border-radius: 2px;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+                color: #fff;
+                transition: all 0.5s ease 0s;
+            }
+
+                .info > a:hover {
+                    background-color: #0288d1;
+                    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.12);
+                    color: #fff;
+                    transition: all 0.5s ease 0s;
+                }*/
+
+            .pcolor {
+                background-color: #fafafa;
+            }
+        </style>
+
+
+
+
+    </head>
+
+    <br />
+    <br />
+
+    <center>
+        <div class="container">
+            <div class="progress panel panel-default"  style="height:55px;">
+
+
+                @if (Session["IsEquipment"].ToString() == "True")
+                {
+                    <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                         aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                        <a href="@Url.Action("Amenity", "Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                    </div>
+                    <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                    </div>
+
+
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                    </div>
+
+                    <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                    </div>
+                    <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                         aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+                        <a href="@Url.Action("Amenity", "Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                    </div>
+                    <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                    </div>
+
+
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:25%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                    </div>
+                    <div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+                         aria-valuemin="0" aria-valuemax="100">
+                        <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </center>
+
+    <!---Header-->
+    <div id="main">
+
+        <div class="container">
+
+            <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+                <div class="panel-body" style="margin-left: 10px;margin-right: 10px;">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="box">
+                                <div class="box-icon">
+                                    <span class="fa fa-3x fa fa-info"></span>
+                                </div>
+                                <div class="info">
+                                    <h4 class="text-center">Reminders: </h4>
+
+                                    <p><b> Reservation of Clubhouse </b>  - Weekdays, Saturdays & Sundays (After the Mass).</p>
+                                    <p> <b> Reservation of Basketball Court</b> - Weekdays Only; NO RESERVATION during weekends (Saturdays,Sundays & Holidays).</p>
+                                    <p> <b> Cancellation of Reservation </b> - Please inform the Admin Office atleast 3 days before the event.</p>
+                                    <p>  Reservation in gazebo and trellis may be cancelled 2 hours before the even due to bad weather.</p>
+                                    <p>  No videoke in Gazebo 1, 2, 3 and Trellis.</p>
+                                    <p>  <b>Swimming</b> - Please wear Proper Swimming Attire; No cotton shirts/T-shirts, No maong shorts.</p>
+                                    <p>  Kindly settle your bills upon reservation.</p>
+                                    <p>  Damaged equipment at cost.</p>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="box">
+                                <div class="box-icon">
+                                    <span class="fa fa-3x fa fa-calendar"></span>
+                                </div>
+                                <div class="info">
+                                    <h4 class="text-center">Choose your Time and Specify the No. of Guest</h4>
+
+
+
+
+                                    <p class="form-inline">
+
+
+                                        <label for="start time">Date:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" required style="width:270px" />
+
+
+
+                                    </p>
+
+
+
+                                    <p class="form-inline">
+                                        <label for="adult">Adult:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <input type="number" onselect="myFunction()" class="form-control" name="adult" id="adult" min="0" max="20" required value="0" style="width:270px;">
+
+                                    </p>
+
+
+
+                                    <p class="form-inline">
+                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult1" id="rateadult1" readonly style="width:270px;">
+
+                                    </p>
+
+
+
+                                    <p class="form-inline">
+                                        <br />
+                                        <label for="Kids">Kids:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="number" onselect="myFunction()" class="form-control" name="child" id="child" min="0" max="20" required value="0" style="width:270px;">
+
+
+                                    </p>
+
+
+                                    <p class="form-inline">
+                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild1" id="ratechild1" readonly style="width:270px;">
+
+
+                                    </p>
+
+
+                                    <p class="form-inline">
+                                        <label for="trate">Total Rate:    </label> &nbsp; &nbsp;
+
+
+
+                                        <input type="text" id="rate" name="rate" class="form-control" readonly style="width:270px;" />
+
+                                        <input type="hidden" id="tratee" name="tratee" />
+
+
+                                        <input type="time" id="startT" name="startT" value="08:00" hidden />
+                                        <input type="time" id="endT" name="endT" value="21:00" hidden />
+                                        <input type="datetime" id="stime" name="stime" hidden />
+                                        <input type="datetime" id="etime" name="etime" hidden />
+                                        <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="display:none;">
+                                        <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="display:none;">
+                                        <br />
+                                        <br />
+
+                                    </p>
+
+
+                                    <p class="form-inline">
+                                        <button name="submit" type="submit" button class="button col-sm-12" onclick="Check()"> Next</button>
+                                    </p>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <!-- Footer -->
+    @*<footer  style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+            <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+            <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+            <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+            <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+            <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+
+        </footer>*@
+
+
+
+
+
+    @*<footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position:relative; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
+            <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+        </footer>*@
+
+    <script type="text/javascript">
+	var startTime;
+	var endTime;
+	var selectedValue;
+	var startT;
+	var endT;
+	var startDate;
+	var endDate;
+
+	var rateA;
+	var statuset="Valid";
+    var statusst = "Valid";
+		var ra =@Session["adult"];
+		 var rc=@Session["child"];
+		document.getElementById('rateadult').value = ra.toFixed(2);
+		document.getElementById('ratechild').value = rc.toFixed(2);
+        document.getElementById('rateadult1').value = "₱"+ ra.toFixed(2);
+        document.getElementById('ratechild1').value = "₱" +rc.toFixed(2);
+
+	function ValidateDate() {
+		var x = $('#sd').val();
+		var y = $('#adult').val();
+        var z = $('#child').val();
+
+		if (x == " " && y == " " && z == " ") {
+			alert("Please fill up all required fields");
+		}
+	}
+
+
+
+
+	$(document).ready(
+		function () {
+			$('#sd').change(function () {
+				selectedValue = $(this).val();
+				startDate = selectedValue;
+				var q = new Date();
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+				var date = $('#sd').val().split(",-");
+					day = new Date(date);
+				var weekendday = day.getDay();
+				var IsWeekend = "@ViewBag.isw";
+
+				if (IsWeekend.toString() == "False") {
+					if (weekendday == 6 || weekendday == 0) {
+						alert("Reservations are not available during weekends");
+						document.getElementById('sd').value = null;
+					}
+				}
+
+
+
+				if (startDate < MyDateString)
+				{
+					alert("the input is earlier than today");
+					document.getElementById('sd').value = null;
+
+				}
+				var timeS = document.getElementById('startT').value;
+				var dateS = selectedValue;
+				var finaldateTimeS = dateS + " " + timeS;
+				document.getElementById('stime').value = finaldateTimeS;
+
+				var timeE = document.getElementById('endT').value;
+				var dateE = selectedValue;
+				var finaldateTimeE = dateE + " " + timeE;
+				document.getElementById('etime').value = finaldateTimeE;
+			});
+
+		});
+
+	$(document).ready(function () {
+		$('#adult').bind('keyup mouseup',function myFunction() {
+            selectedValue1 = $('#adult').val();
+            var rateAdult = ra;
+			var resulta = document.getElementById('adultR');
+			var fTotalA = rateAdult * selectedValue1;
+
+            selectedValue2 = $('#child').val();
+            var rateChild = rc;
+            var resultc = document.getElementById('childR');
+            var fTotalC = rateChild * selectedValue2;
+
+			var result = document.getElementById('rate');
+			var tots = parseInt(fTotalA) + parseInt(fTotalC);
+            result.value = "₱" + tots.toFixed(2);
+
+
+		});
+	});
+
+
+
+	$(document).ready(function () {
+        $('#child').bind('keyup mouseup', function myFunction() {
+
+            selectedValue1 = $('#adult').val();
+            var rateAdult = ra;
+            var resulta = document.getElementById('adultR');
+            var fTotalA = rateAdult * selectedValue1;
+
+            selectedValue2 = $('#child').val();
+            var rateChild = rc;
+            var resultc = document.getElementById('childR');
+            var fTotalC = rateChild * selectedValue2;
+
+            var result = document.getElementById('rate');
+			var tots = parseInt(fTotalA) + parseInt(fTotalC);
+            result.value = "₱" + tots.toFixed(2);
+
+
+		});
+	});
+
+
+
+
+
+
+
+
+	function Check() {
+
+
+
+
+		var stconcat = document.getElementById('sd').value;
+		var etconcat = document.getElementById('ed').value
+        var cdrate = document.getElementById('rate').value;
+        if (cdrate == 0 || cdrate == "") {
+
+            alert('Please specify the number of Adult and/or Child');
+
+        }
+
+		document.getElementById('tratee').value = cdrate;
+
+    }
+
+
+
+
+    </script>
+
+}

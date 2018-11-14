@@ -1,0 +1,323 @@
+﻿@model List<UResidence.Amenity>
+@{
+    ViewBag.Title = "Calendar";
+
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+
+
+
+@if (Convert.ToInt32(Session["Level"]) <= 7)
+	{
+@*Scripts for dropdown*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	}
+
+
+<br />
+<br />
+<br />
+
+<div class="container">
+    <center>
+        <div class="progress panel-default" style="height:55px;">
+            <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                 aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                <a href="@Url.Action("Amenity","Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+            </div>
+
+
+            <div class="progress-bar progress-bar-success progress-bar-striped active " style="width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p>
+            </div>
+
+
+            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+            </div>
+
+            <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+            </div>
+            <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100">
+                <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+            </div>
+        </div>
+
+    </center>
+
+</div>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            /*background-color: #f1f8e9;*/
+            background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+            --webkit-background-size: cover;
+            --moz-background-size: cover;
+            --o-background-size: cover;
+            background-size: cover;
+        }
+
+        .my-legend .legend-scale ul li {
+            font-size: 80%;
+            list-style: none;
+            margin-left: 0;
+            line-height: 18px;
+            margin-bottom: 2px;
+        }
+
+        .my-legend ul.legend-labels li span {
+            display: block;
+            float: left;
+            height: 16px;
+            width: 30px;
+            margin-right: 5px;
+            margin-left: 0;
+            border: 1px solid #999;
+        }
+
+        .button {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #09442c;
+            border: none;
+            border-radius: 5px;
+            float: right;
+            text-decoration: none;
+            text-decoration-color: none;
+        }
+
+        .submit {
+            padding: 15px 25px;
+            font-size: 15px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            background-color: #09442c;
+            border: none;
+            border-radius: 5px;
+            float: right;
+            text-decoration: none;
+            text-decoration-color: none;
+        }
+
+        .button:hover {
+            background-color: #128153;
+            text-decoration: none;
+            text-decoration-color: none;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            /*background: #4fc4ca;*/
+            width: 100%;
+            height: 100%;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .box {
+            margin: 1em auto;
+            width: 1200px;
+            height: 700px;
+            background: #F4F4F4;
+        }
+
+        .pcolor {
+            background-color: #fafafa;
+        }
+    </style>
+
+</head>
+
+
+
+<div id="main">
+    <div class="container">
+        <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+            <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+
+
+                <br />
+
+                <div id="calendar" class="panel-default"></div>
+
+
+                <div class="container">
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog" style="position:initial;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="pDetails"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div id="next" class="panel-default">
+                    @if (ViewBag.Amenity.ToUpper().Contains("SWIMMING"))
+                    {
+                        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
+                    }
+                    else
+                    {
+                        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
+                    }
+
+                    <div class="panel-default">
+
+                        <p><b> NOTE:</b> The following dates with schedules are already occupied. Please proceed to the next page to indicate your chosen date. </p>
+                    </div>
+
+                    <label><b>Legends</b></label>
+                    @foreach (Amenity amn in Model)
+                    {
+                        <div class='my-legend'>
+                            <div class='legend-scale'>
+                                <ul class='legend-labels'>
+                                    <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                    }
+                </div>
+
+                <div id="calendar" class="panel-default">
+
+
+
+                </div>
+
+
+
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+                @section scripts{
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+                    <script>
+
+
+                        function convertUTCDateToLocalDate(date) {
+                            var date1 = new Date(date);
+                            return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
+                        }
+                        $(document).ready(function () {
+                            var events = [];
+                            $.ajax({
+                                type: "GET",
+                                url: "/Reserve/GetEvents",
+                                success: function (data) {
+                                    $.each(data, function (i, v) {
+                                        var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                        startTime = startTime.split(' ').slice(1, 5).join(' ');
+                                        var endTime = (convertUTCDateToLocalDate(moment(v.EndTIme).format("DD/MMM/YYYY hh:mm a"))).toString();
+                                        endTime = endTime.split(' ').slice(1, 5).join(' ');
+                                        events.push({
+                                            title: v.AmenityName,
+                                            start: startTime,
+                                            end: endTime != null ? endTime : null,
+                                            rate: v.Rate,
+                                            color: v.Theme
+                                        });
+                                    })
+                                    GenerateCalendar(events);
+                                },
+                                error: function (error) {
+                                    alert('failed');
+                                }
+                            })
+
+                            function GenerateCalendar(events) {
+                                $('#calendar').fullCalendar('destroy');
+                                $('#calendar').fullCalendar({
+                                    contentHeight: 400,
+                                    defaultDate: new Date(),
+                                    timeFormat: 'h(:mm):a',                                 
+                                    eventLimit: true,
+                                    eventColor: '#378006',
+                                    events: events,
+
+                                    eventClick: function (calEvent, jsEvent, view) {
+                                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                                        var $description = $('<div/>');
+                                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                                        if (calEvent.end != null) {
+                                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                                        }
+                                        $description.append($('<p/>').html('<b>Rate: </b> ₱' + calEvent.rate.toFixed(2)));
+                                        $('#myModal #pDetails').empty().html($description);
+                                        $('#myModal').modal();
+
+
+                                    },
+
+                                })
+                            }
+                        })
+
+
+
+                    </script>
+
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+
+<div class="third">
+
+</div>
+
+

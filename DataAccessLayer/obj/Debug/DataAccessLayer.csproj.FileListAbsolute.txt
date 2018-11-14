@@ -16,3 +16,9 @@ C:\Users\USER\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\D
 C:\Users\USER\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 C:\Users\USER\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\USER\Documents\GitHub\UResidence\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Thesis\UResidence\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Thesis\UResidence\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Thesis\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Thesis\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Thesis\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Thesis\UResidence\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache

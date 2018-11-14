@@ -1,0 +1,698 @@
+﻿@model UResidence.Admin
+
+@{
+    ViewBag.Title = "AdminView";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+
+
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+</head>
+
+
+@using (Html.BeginForm("Registration", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal fade" id="AddModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @if (Convert.ToInt32(Session["Level"]) == 1)
+                        {
+
+                            <div id="regis" style="padding-left:50%;">
+                                <br /><br /><br /><br />
+
+                                <div class="col-25">
+
+                                    <labell for="First Name">First Name :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                                </div>
+
+
+                                <div class="col-25">
+
+                                    <labell for="Middle Name">Middle Name :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+                                </div>
+
+
+                                <div class="col-25">
+
+                                    <labell for="Last Name">Last Name :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                                </div>
+
+
+                                <div class="col-25">
+
+                                    <labell for="Bdate">Birthdate :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+
+                                <div class="col-25">
+
+                                    <labell for="Cel">Cellphone no. :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+
+                                <div class="col-25">
+
+                                    <labell for="Email">Email :</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                                </div>
+
+
+
+                                <div class="col-25">
+
+                                    <labell for="typeofadmin">Type of Employee:</labell>
+
+                                </div>
+
+                                <div class="col-75">
+                                    <select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)">
+                                        <option>--Select User--</option>
+                                        <option value="3">Cashier</option>
+                                        <option value="2">Finance</option>
+                                        <option value="5">Registration</option>
+                                        <option value="4">Reservation</option>
+                                        <option value="6">Security Guard</option>
+                                    </select>
+
+
+                                </div>
+
+
+
+                                <div class="col-25">
+                                    <h2><labell for="Amenity Name">Module/s Included :</labell></h2>
+                                </div>
+                                <br />
+
+
+
+                                <div class="col-75">
+                                    @Html.CheckBoxFor(model => model.ReservationModule, new { @id = "reservation", @name = "reservation", htmlAttributes = new { @required = "required" } }) <b>Reservation Module</b>
+                                    <br />
+                                    @Html.CheckBoxFor(model => model.ReversalModule, new { @id = "reversal", @name = "reversal", htmlAttributes = new { @required = "required" } }) <b>Reversal Module</b>
+                                    <br />
+                                    @Html.CheckBoxFor(model => model.PaymentModule, new { @id = "payment", @name = "payment", htmlAttributes = new { @required = "required" } }) <b>Payment Module</b>
+                                    <br />
+                                    @Html.CheckBoxFor(model => model.LogBookModule, new { @id = "logbook", @name = "logbook", htmlAttributes = new { @required = "required" } }) <b>LogBook Module</b>
+                                    <br />
+                                    @Html.CheckBoxFor(model => model.RegistrationModule, new { @id = "registration", @name = "registration", htmlAttributes = new { @required = "required" } }) <b>Registration Module</b>
+                                    <br />
+                                    <br />
+
+
+                                </div>
+
+
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="First Name">First Name :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="Middle Name">Middle Name :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="Last Name">Last Name :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="Bdate">Birthdate :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="Cel">Cellphone no. :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="Email">Email :</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-25">
+
+                                    <label for="typeofadmin">Type of Employee:</label>
+
+                                </div>
+
+                                <div class="col-75">
+                                    <select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)">
+                                        <option>--Select User--</option>
+                                        <option value="3">Cashier</option>
+                                        <option value="2">Finance</option>
+                                        <option value="5">Registration</option>
+                                        <option value="4">Reservation</option>
+                                        <option value="6">Security Guard</option>
+                                    </select>
+
+
+                                </div>
+                            </div>
+
+                            @Html.CheckBoxFor(model => model.ReservationModule, new { @id = "reservation", @name = "reservation", @hidden = true, htmlAttributes = new { @required = "required" } })
+
+                            @Html.CheckBoxFor(model => model.ReversalModule, new { @id = "reversal", @name = "reversal", @hidden = true, htmlAttributes = new { @required = "required" } })
+
+                            @Html.CheckBoxFor(model => model.PaymentModule, new { @id = "payment", @name = "payment", @hidden = true, htmlAttributes = new { @required = "required" } })
+
+                            @Html.CheckBoxFor(model => model.LogBookModule, new { @id = "logbook", @name = "logbook", @hidden = true, htmlAttributes = new { @required = "required" } })
+
+                            @Html.CheckBoxFor(model => model.RegistrationModule, new { @id = "registration", @name = "registration", @hidden = true, htmlAttributes = new { @required = "required" } })
+
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Convert.ToInt32(Session["Level"]) == 1)
+{
+
+    <div id="content1">
+
+        <br /> <br /> <br /> <br />
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:  #1C2331">
+                    <font color="white"> <h3 class="panel-title"> Users List </h3></font>
+                </div>
+
+                <div class=" panel-body">
+                    <div class="table-responsive">
+
+                        <table class=" table table-bordered table-striped" id="sample">
+
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Birthdate</th>
+                                    <th>Cellphone No</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-inline pull-right">
+
+                <button type="button" id="addbtn" class="btn btn-success">
+                    ADD NEW EMPLOYEE
+                </button>
+                <a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Admin</a>
+            </div>
+
+
+        </div>
+    </div>
+    <br />
+    <br />
+}
+else
+{
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <hr />
+
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:  #1C2331">
+                <font color="white"> <h3 class="panel-title"> Users List </h3></font>
+            </div>
+
+
+            <div class=" panel-body">
+                <div class="table-responsive">
+                    <table class=" table table-bordered table-striped" id="adminData">
+
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Birthdate</th>
+                                <th>Cellphone No</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-inline">
+            <button type="button" id="addbtn" class="btn btn-success">
+                ADD NEW EMPLOYEE
+            </button>
+            <a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Admin</a>
+        </div>
+
+
+    </div>
+    <br />
+    <br />
+
+}
+
+
+
+<div id="auerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem updating the Admin
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully updated the Admin
+</div>
+
+
+<div id="aerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem deleting the Admin
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully deleted the Admin
+</div>
+
+
+<div id="aaerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem submitting your form
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully added a Admin
+</div>
+
+
+@if (ViewBag.DeleteStatus != null)
+{
+    if (ViewBag.DeleteStatus == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#asuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#asuccess').hide('fade');
+                }, 2000);
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#aerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.UpdateMessage != null)
+{
+    if (ViewBag.UpdateMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#ausuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#ausuccess').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#auerror').show('fade');
+
+                setTimeout(function () {
+                    $('#auerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.AddMessage != null)
+{
+    if (ViewBag.AddMessage == true)
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aasuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#aasuccess').hide('fade');
+                }, 20000);
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aaerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
+
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        if (parseInt(@ViewBag.Level) != 1) {
+            var table1 = $('#adminData').DataTable({
+                "ajax": {
+                    "url": '/Admin/GetAdmin',
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "data": "Fullname", "autowidth": true },
+                    { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+                    { "data": "CelNo", "autowidth": true },
+                    { "data": "Email", "autowidth": true },
+                    { "data": "Role", "autowidth": true },
+                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+                ]
+            });
+        }
+        else {
+            var table1 = $('#sample').DataTable({
+                "ajax": {
+                    "url": '/Admin/GetAdmin',
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "data": "Fullname", "autowidth": true },
+                    { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+                    { "data": "CelNo", "autowidth": true },
+                    { "data": "Email", "autowidth": true },
+                    { "data": "Role", "autowidth": true },
+                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+                ]
+            });
+        }
+    });
+    $("form").submit(function () {
+        var reservation = document.getElementById("reservation");
+        var reversal = document.getElementById("reversal");
+        var payment = document.getElementById("payment");
+        var logbook = document.getElementById("logbook");
+        var registration = document.getElementById("registration");
+        reservation.disabled = false;
+        reversal.disabled = false;
+        payment.disabled = false;
+        logbook.disabled = false;
+        registration.disabled = false;
+    });
+
+    function checkanddisable() {
+        var reservation = document.getElementById("reservation");
+        var reversal = document.getElementById("reversal");
+        var payment = document.getElementById("payment");
+        var logbook = document.getElementById("logbook");
+        var registration = document.getElementById("registration");
+        reservation.checked = false;
+        reversal.checked = false;
+        payment.checked = false;
+        logbook.checked = false;
+        registration.checked = false;
+        reservation.disabled = false;
+        reversal.disabled = false;
+        payment.disabled = false;
+        logbook.disabled = false;
+        registration.disabled = false;
+    }
+
+    function updateCheckBox(toa) {
+        var reservation = document.getElementById("reservation");
+        var reversal = document.getElementById("reversal");
+        var payment = document.getElementById("payment");
+        var logbook = document.getElementById("logbook");
+        var registration = document.getElementById("registration");
+        if (toa.value == 2) {
+            checkanddisable();
+
+
+            reversal.disabled = true;
+            reversal.checked = true;
+            payment.disabled = true;
+            payment.checked = true;
+        }
+        if (toa.value == 5) {
+            checkanddisable();
+
+            registration.checked = true;
+            registration.disabled = true;
+        }
+        else if (toa.value == 4) {
+            checkanddisable();
+
+            reservation.disabled = true;
+            reservation.checked = true;
+        }
+        else if (toa.value == 6) {
+            checkanddisable();
+
+            logbook.disabled = true;
+            logbook.checked = true;
+        }
+        else if (toa.value == 3) {
+            checkanddisable();
+
+            payment.disabled = true;
+            payment.checked = true;
+        }
+    }
+	function Download() {
+		$.post("/Admin/Download");
+    }
+    $('#addbtn').click(function () {
+
+        $('#AddModal').modal();
+    }
+    );
+</script>

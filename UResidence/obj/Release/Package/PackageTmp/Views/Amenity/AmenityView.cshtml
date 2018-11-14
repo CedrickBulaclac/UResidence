@@ -1,0 +1,793 @@
+﻿@model UResidence.Amenity
+
+@{
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+
+
+
+<div class="collapse navbar-collapse" id="myNavbar">
+
+    <center>
+        @*<ul class="nav navbar-nav ">*@
+        <font color="white">
+            <ul class="nav navbar-nav navbar-right"></ul>
+        </font>
+    </center>
+
+</div>
+
+
+
+<div class="container">
+    <div class="modal fade" id="addImageModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="image" name="image" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnAdd" name="btnAdd" data-dismiss="modal" onclick="AddImage()">Insert</button>
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*---Modal for View Amenity Image---*@
+<div class="container">
+    <div class="modal fade" id="viewImageModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Amenity Image</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <center><img height="250px" src="" width="250px" id="amenv"></center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*---Modal for Update Amenity Image---*@
+<div class="container">
+    <div class="modal fade" id="updateImageModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="image1" name="image1" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage()" data-dismiss="modal">Update</button>
+                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("AmenityAdd", "Amenity", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal fade" id="AddModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Amenity Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Description">Description :</label>
+
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Capacity :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Rate :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Evening Rate :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.EveRate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.EveRate, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Available for weekends :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Equipment :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Description">Location :</label>
+
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Color :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Amenity Image :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image" name="Image" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Html.BeginForm("AmenityAddPool", "Amenity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="modal fade" id="AddModal1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Amenity Name :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Description">Description :</label>
+
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Capacity :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Adult Rate :</label>
+                                    <br />
+                                    <label>Child Rate :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
+                                <br />
+                                @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Available for weekends :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+
+
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Equipment :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Description">Location :</label>
+
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Color :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Amenity Image :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image" name="Image" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<br />
+<br />
+
+<div class="container">
+    <hr />
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="background-color:  #1C2331">
+            <font color="white"> <h3 class="panel-title"> Amenity List </h3></font>
+        </div>
+
+        <div class=" panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="AmenityData">
+                    <thead>
+                        <tr>
+                            <th>
+                                Amenity Name
+                            </th>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Location
+                            </th>
+                            <th>
+                                Capacity
+                            </th>
+                            <th>
+                                Rate
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="btn-link">
+        <button type="button" id="addbtn" class="btn btn-success">
+            ADD NEW AMENITY BY HOURS
+        </button>
+        <button type="button" id="addbtn1" class="btn btn-success">
+            ADD NEW AMENITY BY HEAD
+        </button>
+    </div>
+</div>
+
+<br />
+<br />
+
+
+
+
+
+<div id="auerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem updating the Amenity
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully updated the Amenity
+</div>
+
+
+<div id="aerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem deleting the Amenity
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully deleted the Amenity
+</div>
+
+<div id="aaerror" class="alert alert-danger collapse">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> There is a problem submitting your Amenity
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+    <strong>Success!</strong> You have successfully added the Amenity
+</div>
+@if (ViewBag.DeleteStatus != null)
+{
+    if (ViewBag.DeleteStatus == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#asuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#asuccess').hide('fade');
+                }, 2000);
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#aerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+}
+@if (ViewBag.UpdateMessage != null)
+{
+    if (ViewBag.UpdateMessage == true)
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#ausuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#ausuccess').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#auerror').show('fade');
+
+                setTimeout(function () {
+                    $('#auerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+    }
+}
+
+
+@if (ViewBag.AddMessage != null)
+{
+    if (ViewBag.AddMessage == true)
+    {
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aasuccess').show('fade');
+
+                setTimeout(function () {
+                    $('#aasuccess').hide('fade');
+                }, 20000);
+
+            });
+        </script>
+    }
+
+    else
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $('#aaerror').show('fade');
+
+                setTimeout(function () {
+                    $('#aaerror').hide('fade');
+                }, 2000);
+
+
+            });
+        </script>
+
+    }
+
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script>
+    var iid = 0;
+    var uid = 0;
+    var mid = 0;
+    //function Set(id) {
+    //	mid = id;
+    //	ViewImage();
+    //}
+    $(document).ready(function () {
+        var table = $('#AmenityData').DataTable({
+            "ajax": {
+                "url": '/Amenity/GetAmenity',
+                "type": "GET",
+                "datatype": "json",
+            },
+            "columns": [
+                { "data": "AmenityName", "autowidth": true },
+                { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
+                { "data": "Description", "autowidth": true },
+                { "data": "Location", "autowidth": true },
+                { "data": "Capacity", "autowidth": true },
+                {
+                    'render': function (data, type, full, meta) {
+                        if (full.Rate != 0) {
+                            return '<b>Morning Rate :</b> ₱' + full.Rate + ' <b>Evening Rate :</b> ₱' + full.EveRate
+                        }
+                        else {
+                            return '<b>Adult :</b> ₱' + full.Adult + ' <b>Child :</b> ₱' + full.Child
+                        }
+                    }, "autowidth": true
+                },
+
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Amenity/AmenityEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Amenity/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+            ]
+        });
+    });
+    function AddImage() {
+        var file = $("#image").get(0).files;
+        var data = new FormData();
+        data.append("Image", file[0]);
+        data.append("Id", iid);
+
+        $.ajax({
+            type: "POST",
+            url: "/Amenity/InsertImage/",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Success');
+                    window.location.href = window.location.href + "?rnd=" + Math.random()
+
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+
+    function Delete(id, name) {
+        alert(name);
+        var data = {
+            Id: id,
+            URL: name
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Amenity/DeleteImage",
+            data: data,
+            success: function (data) {
+                alert('Deleted Successfully');
+                window.location.reload();
+            },
+            error: function (data) {
+                alert('Failed');
+            },
+
+
+        });
+
+    }
+    function SetText(id) {
+        uid = id;
+        $('#updateImageModal').modal();
+
+    }
+    function UpdateImage() {
+
+
+        var file = $("#image1").get(0).files;
+        var data = new FormData();
+        data.append("Image", file[0]);
+        data.append("Id", uid);
+
+        $.ajax({
+            type: "POST",
+            url: "/Amenity/UpdateImage/",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Success');
+                    window.location.href = window.location.href + "?rnd=" + Math.random()
+
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+    function Set1(amenity) {
+        am = amenity;
+        var fullpath = (am).toString();
+        var filename = fullpath.replace(/^.*[\\\/]/, '');
+        var path = "../Content/AmenityImages/" + filename;
+
+        document.getElementById('amenv').setAttribute('src', path)
+
+        $('#viewImageModal').modal();
+    }
+
+    $('#btnAddModal').click(function () {
+        $('#addImageModal').modal();
+
+    });
+    $('#btnViewImage').click(function () {
+        //$('#viewImageModal').modal();
+
+    });
+
+    $('#btnCloseImage').click(function () {
+
+        $('#updateImageModal').hide();
+    }
+    );
+    $('#addbtn').click(function () {
+
+        $('#AddModal').modal();
+    }
+    );
+    $('#addbtn1').click(function () {
+
+        $('#AddModal1').modal();
+    }
+    );
+</script>
+

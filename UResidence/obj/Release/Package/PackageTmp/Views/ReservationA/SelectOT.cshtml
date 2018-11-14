@@ -1,0 +1,182 @@
+﻿@model List<UResidence.Amenity>
+@{
+	ViewBag.Title = "SelectOT";
+	Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+@Html.Raw(TempData["msg"])
+
+
+<div class="container">
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><span id="eventTitle"></span></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-inline">
+						<label>Building Number : </label> &nbsp; <input type="text" name="bldgno" id="bldgno" />
+					</div>
+					<br />
+
+					<div class="form-inline">
+						<label>Unit Number : </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="unitno" id="unitno" />
+					</div>
+					@*<br />
+						<input type="submit" id="submitId" value="submit" />*@
+					<p id="pDetails"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnSubmit" name="btnSubmit" onclick="SubmitOT()">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+        .block {
+            display: block;
+            width: 100%;
+            border: none;
+            background-color: #1C2331;
+            color: white;
+            padding: 100px 100px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .block:hover {
+                background-color: #263238;
+                color: black;
+            }
+
+        /*.btn-sq-lg {
+            width: 150px !important;
+            height: 150px !important;
+        }*/
+
+
+
+    </style>
+</head>
+<body>
+	<input type="hidden" id="ownten" name="ownten" value="0" />
+    <center>
+
+        <br /><br /> <br />
+        <div class="container">
+            <br /><br /> <br />
+            <div class="col-md-6">
+                <a href="#" class="btn btn-sq-lg btn-success block " id="btnOwner" name="btnOwner">
+                    <i class="fa fa-id-card fa-5x"></i><br />
+                    <h2>Owner</h2>
+                </a>
+
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <a href="#" class="btn btn-sq-lg btn-success block " id="btnTenant" name="btnTenant">
+                    <i class="fa fa-id-card-o fa-5x"></i><br />
+                    <h2>
+                        Tenant
+                    </h2>
+                </a>
+            </div>
+        </div>
+
+
+
+    </center>
+</body>
+</html>
+
+<script>
+
+
+	jQuery(function ($) {
+		$("#btnOwner").click(function () {
+			document.getElementById("ownten").value = "4";
+		});
+
+		$('#btnOwner').click(function () {
+
+			$('#myModal').modal();
+		});
+
+
+		$('#btnTenant').click(function () {
+
+			$('#myModal').modal();
+		});
+
+		$("#btnTenant").click(function () {
+			document.getElementById("ownten").value = "5";
+		});
+	});
+
+
+
+
+
+	function SubmitOT() {
+		var bldgno = document.getElementById('bldgno').value;
+		var unitno = document.getElementById('unitno').value;
+		var level = document.getElementById('ownten').value;
+		$.ajax({
+			type: "POST",
+			url: "/ReservationA/SelectOT",
+			dataType: 'json',
+			data: {
+				'bldgno': bldgno,
+				'unitno': unitno,
+				'level': level,
+
+			},
+			success: function (data) {
+				if (data == true) {
+					window.location.href = "/Reserve/Amenity";
+				}
+				else if (data > 0) {
+					alert("There is still existing balance of: ₱" + data);
+				}
+				else if (data == "Owner") {
+					alert('No Owner Found');
+				}
+				else if (data == "Tenant") {
+					alert('No Tenant Found');
+				}
+			},
+			error: function (error) {
+				alert('Failed');
+
+
+
+			}
+		});
+	}
+
+</script>
+
+
+
+
+
+
+
+

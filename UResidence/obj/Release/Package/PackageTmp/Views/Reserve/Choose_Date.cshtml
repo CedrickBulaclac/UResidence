@@ -1,0 +1,607 @@
+﻿
+
+@{
+    ViewBag.Title = "Choose_Date";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
+}
+@using (Html.BeginForm("Choose_Date", "Reserve", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+
+    if (Convert.ToInt32(Session["Level"]) <= 7)
+    {
+        @*Scripts for dropdown*@
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    }
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
+        <style>
+
+
+            body {
+                /*background-color: #f1f8e9;*/
+                background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+            }
+
+
+            .button {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #43a047;
+                border: none;
+                border-radius: 5px;
+                /*float: right;*/
+                text-decoration: none;
+                text-decoration-color: none;
+                /*width: 500px;*/
+            }
+
+            .submit {
+                padding: 15px 25px;
+                font-size: 15px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #09442c;
+                border: none;
+                border-radius: 5px;
+                float: right;
+                text-decoration: none;
+                text-decoration-color: none;
+            }
+
+
+
+            .button:hover {
+                background-color: #81c784;
+            }
+
+
+            div.card {
+                width: 700px;
+                height: 450px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                padding: 10px;
+            }
+
+
+
+            @@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+            body {
+                padding-top: 50px;
+            }
+
+            .box {
+                border-radius: 3px;
+                /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
+                padding: 10px 25px;
+                text-align: right;
+                display: block;
+                margin-top: 60px;
+                background-color: #fafafa;
+            }
+
+            .box-icon {
+                background-color: #57a544;
+                border-radius: 50%;
+                display: table;
+                height: 100px;
+                margin: 0 auto;
+                width: 100px;
+                margin-top: -61px;
+            }
+
+                .box-icon span {
+                    color: #fff;
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+            .info h4 {
+                font-size: 26px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .info > p {
+                color: #212121;
+                font-size: 13px;
+                padding-top: 10px;
+                text-align: justify;
+            }
+
+
+
+            .pcolor {
+                background-color: #fafafa;
+            }
+        </style>
+
+
+
+
+    </head>
+    <body>
+
+        <br />
+        <br />
+        <br />
+        <center>
+            <!--Progress bar start-->
+
+
+            <div class="container">
+                <div class="progress panel panel-default" style="height:55px;">
+
+
+                    @if (Session["IsEquipment"].ToString() == "True")
+                    {
+                        <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                             aria-valuemin="0" aria-valuemax="100" style="width:20%;">
+                            <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                        </div>
+
+
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                        </div>
+
+                        <div class="progress-bar " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Equipment</font> </p>
+                        </div>
+                        <div class="progress-bar  " style="background-color:#979797; width:20%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="20"
+                             aria-valuemin="0" aria-valuemax="100" style="width:25%;">
+                            <a href="@Url.Action("Amenity","Reserve") " style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif; padding-top:1em"> <font color="white" size="3">Choose Amenity</font></p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <a href="@Url.Action("Calendar", "Reserve")" style="text-decoration:none;"><p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Scheduled Amenity</font> </p></a>
+                        </div>
+                        <div class="progress-bar progress-bar-success progress-bar-striped active" style="width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Choose Date</font> </p>
+                        </div>
+                        <div class="progress-bar  " style="background-color:#979797; width:25%;" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100">
+                            <p style="font-family:Arial, Helvetica, sans-serif;padding-top:1em"> <font color="white" size="3">Summary</font> </p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!--Progress bar end-->
+
+
+        </center>
+
+
+        <!-- Header -->
+
+        <div id="main">
+
+
+            <div class="container">
+
+                <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+                    <div class="panel-body" style="margin-left: 10px;margin-right: 10px;">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="box">
+                                    <div class="box-icon">
+                                        <span class="fa fa-3x fa fa-info"></span>
+                                    </div>
+                                    <div class="info">
+                                        <h4 class="text-center">Reminders: </h4>
+
+                                        <p><b> Reservation of Clubhouse </b>  - Weekdays, Saturdays & Sundays (After the Mass).</p>
+                                        <p> <b> Reservation of Basketball Court</b> - Weekdays Only; NO RESERVATION during weekends (Saturdays,Sundays & Holidays).</p>
+                                        <p> <b> Cancellation of Reservation </b> - Please inform the Admin Office atleast 24 hours before the event.</p>
+                                        <p>  Reservation in gazebo and trellis may be cancelled 2 hours before the even due to bad weather.</p>
+                                        <p>  No videoke in Gazebo 1, 2, 3 and Trellis.</p>
+                                        <p>  <b>Swimming</b> - Please wear Proper Swimming Attire; No cotton shirts/T-shirts, No maong shorts.</p>
+                                        <p>  Kindly settle your bills upon reservation.</p>
+                                        <p>  Damaged equipment at cost.</p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="box">
+                                    <div class="box-icon">
+                                        <span class="fa fa-3x fa fa-calendar"></span>
+                                    </div>
+                                    <div class="info">
+
+                                        <h4 class="text-center">Choose your Date and Time</h4>
+
+                                        <br />
+
+
+
+
+
+                                        <p class="form-inline">
+                                            <label for="start date">Date:</label>&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" style="width:270px" required />
+
+
+                                        </p>
+
+
+
+                                        <br />
+                                        <p class="form-inline">
+                                            <label for="start time">Start Time:</label> &nbsp; &nbsp; <input type="time" onselect="myFunction()" class="form-control" min="08:00" max="20:00" id="st" name="st" style="width:270px" required />
+
+                                        </p>
+
+                                        <br />
+
+
+                                        <p class="form-inline">
+                                            <label for="end time">End Time:</label> &nbsp; &nbsp; &nbsp; <input type="time" onchange="myFunction()" class="form-control" min="09:00" max="21:00" id="et" name="et" style=" width:270px" required />
+
+
+                                        </p>
+
+                                        <br />
+
+
+                                        <p class="form-inline">
+                                            <label for="rate">Rate: </label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="rate" class="form-control" disabled="disabled" style="width:270px" />
+                                            <br />
+                                            <br />
+                                            <br />
+
+
+                                            <button name="submit" type="submit" button class="button form-inline col-sm-12" onclick="Check()"> Next</button>
+
+                                            <input type="hidden" id="stime" name="stime" />
+                                            <input type="hidden" id="etime" name="etime" />
+                                            <input type="hidden" id="tratee" name="tratee" />
+                                            <input type="hidden" id="result" name="result" />
+                                            <input type="hidden" id="qwe" name="qwe" />
+                                            <input type="hidden" id="abc" name="abc" />
+
+                                        </p>
+
+                                        @*<p class="form-inline">
+
+
+                                            </p>*@
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+        <br /> <br />
+
+
+
+
+
+     
+
+
+
+
+
+
+        <!-- Footer -->
+        @*<footer  style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
+                <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
+                <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
+                <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
+                <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
+                <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
+
+            </footer>*@
+
+    </body>
+
+
+
+}
+
+
+
+
+
+<script type="text/javascript">
+	var F;
+	var endTime;
+	var selectedValue;
+	var startT;
+	var endT;
+	var startDate;
+	var endDate;
+	var rate1 =@ViewBag.Message;
+	var rate2=@ViewBag.EveRate;
+	var rateA;
+	var statuset="Valid";
+	var statusst = "Valid";
+
+
+
+
+
+	function ValidateDate() {
+		var x = $('#sd').val();
+		var y = $('#et').val();
+		var z = $('#st').val();
+		if (x == " " && y == " " && z == " ") {
+			alert("Please fill up all required fields");
+		}
+	}
+	function toStandardTime(value) {
+		if (value !== null && value !== undefined) { //If value is passed in
+			if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { //If time is already in standard time then don't format.
+				return value;
+			}
+			else {
+				if (value.length == 8) { //If value is the expected length for military time then process to standard time.
+					var hour = value.substring(0, 2); //Extract hour
+					var minutes = value.substring(3, 5); //Extract minutes
+					var identifier = 'AM'; //Initialize AM PM identifier
+
+					if (hour == 12) { //If hour is 12 then should set AM PM identifier to PM
+						identifier = 'PM';
+					}
+					if (hour == 0) { //If hour is 0 then set to 12 for standard time 12 AM
+						hour = 12;
+					}
+					if (hour > 12) { //If hour is greater than 12 then convert to standard 12 hour format and set the AM PM identifier to PM
+						hour = hour - 12;
+						identifier = 'PM';
+					}
+					return hour + ':' + minutes + ' '; //Return the constructed standard time
+				}
+				else { //If value is not the expected length than just return the value as is
+					return value;
+				}
+			}
+		}
+	}
+	$(document).ready(
+		function () {
+			document.getElementById('sd').value = "";
+			document.getElementById('st').value = "";
+			document.getElementById('et').value = "";
+			document.getElementById('rate').value = "";
+			$('#sd').change(function () {
+				selectedValue = $(this).val();
+
+				startDate = selectedValue;
+				endDate = selectedValue;
+
+				var date = $('#sd').val().split(",-");
+
+				day = new Date(date);
+				var weekendday = day.getDay();
+				console.log(day.getDay());
+				var q = new Date();
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
+
+
+				var IsWeekend = "@ViewBag.isw";
+
+				if (IsWeekend.toString() == "False") {
+					if (weekendday == 6 || weekendday == 0) {
+						alert("Reservations are not available during weekends");
+						document.getElementById('sd').value = null;
+					}
+				}
+				if (startDate < MyDateString)
+				{
+					alert("Your chosen date is earlier than today");
+					document.getElementById('sd').value = null;
+				}
+			});
+
+		});
+
+
+
+    $(document).ready(function () {
+        $('#st').change(function myFunction() {
+            selectedValue = $('#st').val();
+
+            var fhours = parseInt(selectedValue.split(':')[0], 10) + 1;
+            var fmins = selectedValue.split(':')[1];
+            var f = selectedValue.split(' ')[2];
+            var final = fhours + ":" + fmins;
+            document.getElementById('et').value = final;
+            endTime = $('#et').val();
+            startTime = selectedValue;
+
+            var startHours = parseInt(selectedValue.split(':')[0], 10);
+            if (startHours >= 8 && startHours <= 20) {
+                if (startHours >= 8 && startHours <= 17) { //8am to 5pm
+                    var hourDiff = fhours - startHours;
+                    rateA = rate1 * hourDiff;
+                    document.getElementById('rate').value = "₱" + rateA.toFixed(2);
+                }
+                else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
+					var hourDiff = fhours - startHours;
+                    rateA = rate2 * hourDiff;
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
+				}
+
+            }
+
+
+        });
+    });
+
+
+
+
+    $(document).ready(function () {
+        $('#et').change(function myFunction() {
+            endTime = $(this).val();
+            var startHours = document.getElementById('st').value;
+            var endHours = document.getElementById('et').value;
+            var sh = parseInt(startHours.split(':')[0], 10);
+            var eh = parseInt(endHours.split(':')[0], 10);
+            var diff = eh - sh;
+            if (eh >= 9 && eh <= 21) {
+                //if (sh == 17 && eh == 18) {
+                //    alert('Unavailable Time');
+                //    document.getElementById('st').value = '';
+                //    document.getElementById('et').value = '';
+                //    document.getElementById('rate').value = 0;
+                //}
+				/*else*/ if (eh >= 9 && eh <= 18) {
+                    rateA = rate1 * diff;
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
+                }
+				else if (eh >= 18 && eh <= 21) {
+					rateA = rate2 * diff;
+                    document.getElementById('rate').value = "₱" +rateA.toFixed(2);
+
+					if (sh < 18) {
+						var dd = eh - 18;
+						var ed = 18 - sh;
+						rateA = ((rate1 * ed) + (rate2 * dd));
+                        document.getElementById('rate').value = "₱" + rateA.toFixed(2);
+
+					}
+					else {
+
+						//100  *  2 = 200 * 6 = 1200
+						rateA = (rate2 * diff);
+                        document.getElementById('rate').value = "₱" + rateA.toFixed(2);
+					}
+
+				}
+
+
+
+
+			}
+
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+	function Check() {
+		if (startTime > endTime)
+		{
+			alert('Incorrect set of time');
+			document.getElementById('result').value = '1';
+		}
+		else if (startTime < 8 && startTime > 20)  //8am to 8pm
+		{
+			alert('Start of reserveration period is from 8am to 8pm only');
+			document.getElementById('result').value = '1';
+		}
+		else if (endTime < 9 && endTime > 21)  //9am to 9pm
+		{
+			alert('End of reserveration period is from 9am to 9pm only');
+			document.getElementById('result').value = '1';
+		}
+		else
+		{
+			if (statusst == 'Valid' && statuset == 'Valid') {
+				var stconcat = startDate + " " + startTime;
+                var etconcat = endDate + " " + endTime;
+                var cdrate = rateA.toFixed(2);
+				document.getElementById('stime').value = stconcat;
+				document.getElementById('etime').value = etconcat;
+				document.getElementById('tratee').value = cdrate;
+			}
+			else {
+				alert('Invalid');
+			}
+		}
+
+
+
+
+
+
+	};
+
+
+</script>

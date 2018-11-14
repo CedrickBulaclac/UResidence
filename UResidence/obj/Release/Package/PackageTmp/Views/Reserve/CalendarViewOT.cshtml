@@ -1,0 +1,301 @@
+﻿@model List<UResidence.Amenity>
+@{
+    ViewBag.Title = "CalendarViewOT";
+    if (Convert.ToInt32(Session["Level"]) == 8)
+    {
+        Layout = "~/Views/Layout/LayoutHome.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 9)
+    {
+        Layout = "~/Views/Layout/TenantLayout.cshtml";
+    }
+}
+
+<style type='text/css'>
+
+    body {
+        /*background-color: #f1f8e9;*/
+        background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
+        /*-webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;*/
+        background-size: cover;
+    }
+
+
+
+    .my-legend .legend-scale ul li {
+        font-size: 80%;
+        list-style: none;
+        margin-left: 0;
+        line-height: 18px;
+        margin-bottom: 2px;
+    }
+
+    .my-legend ul.legend-labels li span {
+        display: block;
+        float: left;
+        height: 16px;
+        width: 30px;
+        margin-right: 5px;
+        margin-left: 0;
+        border: 1px solid #999;
+    }
+
+    .pcolor {
+        background-color: #fafafa;
+    }
+</style>
+
+
+
+@*<div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="rid" id="rid" />
+                        <input type="hidden" name="rfid" id="rfid" />
+                        <p id="pDetails">
+                        </p>
+                        <br /><br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<br />
+<br />
+<br />
+
+
+
+<div class="container">
+
+
+    <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
+        <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog" style="position:initial;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="rid" id="rid" />
+                            <input type="hidden" name="rfid" id="rfid" />
+                            <p id="pDetails">
+                            </p>
+                            <p id="pSwimming">
+                            </p>
+                            <p id="pAmount">
+                            </p>
+                            <br /><br />
+                        </div>
+
+                        <div class="modal-footer" id="footer">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <br />
+            <br />
+
+            <div id="calendar" class="panel panel-default"></div>
+            <br />
+            @foreach (Amenity amn in Model)
+            {
+                <div class='my-legend'>
+                    <div class='legend-scale'>
+                        <ul class='legend-labels'>
+                            <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
+
+
+    <script>
+		$(document).ready(function () {
+			var events = [];
+			$.ajax({
+				type: "GET",
+				url: "/Reserve/GetEventsA",
+				success: function (data) {
+                    $.each(data, function (i, v) {
+                        var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                        startTime = startTime.split(' ').slice(1, 5).join(' ');
+                        var endTime = (convertUTCDateToLocalDate(moment(v.EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+                        endTime = endTime.split(' ').slice(1, 5).join(' ');
+						events.push({
+							title: v.AName,
+							reserved: v.ReservedBy,
+                            start: startTime,
+                            end: v.EndTime != null ? endTime : null,
+							rate: v.Rate,
+							status: v.Status,
+							color: v.Color,
+							dp: v.Total,
+							cg: v.Charge,
+							bn: v.BldgNo,
+							un: v.UnitNo,
+							r: v.RId,
+							rf: v.RFId,
+							tc: v.TableCost,
+							cc: v.ChairCost,
+							amt: v.Amount
+						});
+					})
+					GenerateCalendar(events);
+				},
+				error: function (error) {
+					alert('failed');
+				}
+			});
+
+
+
+		});
+        function Download(refno) {
+            $.post("/Reserve/DownloadReservation", { refno1: refno });
+        }
+        function Swimming(refnos) {
+            $('#myModal #pSwimming').empty();
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GET_SRESERVE",
+                data: { "refno": refnos },
+                success: function (data) {
+
+                    if (data.length > 0) {
+                        var $description = $('<div/>');
+                        stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
+                        $description.append($('<p/>').html('<b>No. of Adult: </b>' + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/> ₱'+ data[0].AdultRate.toFixed(2)));
+                        $description.append($('<p/>').html('<b>Adult Cost: </b>  ₱' + (data[0].Adult * data[0].AdultRate).toFixed(2)));
+                        $description.append($('<p/>').html('<b>No. of Children: </b>' + data[0].Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/> ₱'+ data[0].ChildRate.toFixed(2)));
+                        $description.append($('<p/>').html('<b> Child Cost: </b>  ₱' + (data[0].Child * data[0].ChildRate).toFixed(2)));
+
+                        if (stots != 0) {
+                            $('#myModal #pSwimming').empty().html($description);
+                        }
+                    }
+                }
+
+            });
+        }
+        function getEquipReversation(refno11, cg, rate, dp, amt, status) {
+            var datas = null;
+            var tccc = 0;
+            var totals = 0
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GET_ERESERVE",
+                data: { "refno": refno11 },
+                success: function (data) {
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Amenity Cost: </b> ₱'+ rate.toFixed(2)));
+                    if (data.length > 0) {
+                        for (var ctr = 0; ctr <= data.length - 1; ctr++) {
+                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Quantity: </b> ' + data[ctr].Quantity + '&nbsp;&nbsp;&nbsp;<b>' + data[ctr].EquipmentName + ' Rate: <b/> ₱' + data[ctr].Rate.toFixed(2)));
+                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Cost: </b> ₱' +(data[ctr].Quantity * data[ctr].Rate).toFixed(2)));
+                            tccc += (data[ctr].Quantity * data[ctr].Rate);
+                        }
+                    }
+                    if (data.length > 0) {
+                        $description.append($('<p/>').html('<b>Equipment Cost: </b> ₱'+ tccc.toFixed(2)));
+                    }
+                    $description.append($('<p/>').html('<b>Charge: </b> ₱' + cg.toFixed(2)));
+                    $description.append($('<p/>').html('<b>Total Cost: </b> ₱' +((rate + tccc + cg).toFixed(2))));
+                    $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱' +(amt).toFixed(2)));
+                    $description.append($('<p/>').html('<b>Total Payment: </b> ₱' + (dp - amt).toFixed(2)));
+                    outstanding1 = ((rate + tccc + cg) - (dp - amt));
+                    if (outstanding1 < 0) {
+                        outstanding1 *= -1;
+                    }
+                    $description.append($('<p/>').html('<b>Outstanding Total: </b> ₱'+ outstanding1.toFixed(2)));
+                    $description.append($('<p/>').html('<b>Status: </b>' + status));
+                    $('#myModal #pAmount').empty().html($description);
+
+                },
+                error: function (data) {
+                    alert('Failed');
+                }
+            });
+
+        }
+        function convertUTCDateToLocalDate(date) {
+            var date1 = new Date(date);
+            return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
+        }
+		function GenerateCalendar(events) {
+			$('#calendar').fullCalendar('destroy');
+			$('#calendar').fullCalendar({
+				contentHeight: 400,
+				defaultDate: new Date(),
+				timeFormat: 'h(:mm):a',
+				eventLimit: true,
+				eventColor: '#378006',
+				events: events,
+
+				eventClick: function (calEvent, jsEvent, view) {
+					selectedEvent = calEvent;
+                    $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf)
+					var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
+                    $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
+                    $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
+                    $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
+                    $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+                    $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                    Swimming(calEvent.rf);
+                    getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
+                    document.getElementById('rid').value = calEvent.r;
+                    document.getElementById('rfid').value = calEvent.rf;
+                    $('#myModal #pDetails').empty().html($description);
+                    $('#footer').empty();
+
+                    if (calEvent.status == "Reserved") {
+
+                        $('#footer').append('<a class="btn btn-success" href="@Url.Action("DownloadReservation","Reserve")?refno1=' + calEvent.rf + '">Print</a><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
+                    }
+                    else {
+                        $('#footer').append('<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>');
+                    }
+					$('#myModal').modal();
+
+				}
+			})
+		}
+
+    </script>
+}
+
+
+
+

@@ -1,0 +1,628 @@
+﻿
+@{
+    Layout = "";
+
+
+}
+@*---Modal for Update Profile Picture---*@
+
+
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+
+    @*Scripts for dropdown*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <style>
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 1000px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #c8e6c9;
+            height: 100%;
+            /*text-emphasis-color: aliceblue;*/
+        }
+
+        /* On small screens, set height to 'auto' for the grid */
+        @@media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .navbar {
+            background: #37474F;
+            padding: 0.5em 2em;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .navbar {
+            padding: 0.5em 2em;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: #2a2a2a;
+            z-index: 5;
+        }
+
+
+        .amenity, .equipment, .admin, .tenant, .owner, .maintenance {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .counter-count {
+            font-size: 18px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+            position: relative;
+            color: #ffffff;
+            text-align: center;
+            line-height: 92px;
+            width: 92px;
+            height: 92px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            display: inline-block;
+        }
+
+        .amenity-p, .equipment-p, .admin-p, .tenant-p, .owner-p, .maintenance-p {
+            font-size: 24px;
+            color: #1b5e20;
+            line-height: 34px;
+        }
+
+
+
+        /*.bg.well {
+            background-color: #c8e6c9;
+            font-family: FZShuTi;
+        }*/
+
+        .regcontainer {
+            /*padding-left: 480px;*/
+            background-color: #81c784;
+        }
+
+
+
+        .modal-backdrop {
+            display: none;
+        }
+
+
+        /*////////////////////////////*/
+
+        :focus {
+            outline: none;
+        }
+
+        .row {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .absolute-wrapper {
+            position: fixed;
+            width: 300px;
+            height: 100%;
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+        }
+
+        .side-menu {
+            position: fixed;
+            width: 300px;
+            height: 100%;
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+        }
+
+            .side-menu .navbar {
+                border: none;
+            }
+
+            .side-menu .navbar-header {
+                width: 100%;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+            .side-menu .navbar-nav .active a {
+                background-color: transparent;
+                margin-right: -1px;
+                border-right: 5px solid #e7e7e7;
+            }
+
+            .side-menu .navbar-nav li {
+                display: block;
+                width: 100%;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+                .side-menu .navbar-nav li a {
+                    padding: 15px;
+                }
+
+                    .side-menu .navbar-nav li a .glyphicon {
+                        padding-right: 10px;
+                    }
+
+            .side-menu #dropdown {
+                border: 0;
+                margin-bottom: 0;
+                border-radius: 0;
+                background-color: transparent;
+                box-shadow: none;
+            }
+
+                .side-menu #dropdown .caret {
+                    float: right;
+                    margin: 9px 5px 0;
+                }
+
+                .side-menu #dropdown .indicator {
+                    float: right;
+                }
+
+                .side-menu #dropdown > a {
+                    border-bottom: 1px solid #e7e7e7;
+                }
+
+                .side-menu #dropdown .panel-body {
+                    padding: 0;
+                    background-color: #f3f3f3;
+                }
+
+                    .side-menu #dropdown .panel-body .navbar-nav {
+                        width: 100%;
+                    }
+
+                        .side-menu #dropdown .panel-body .navbar-nav li {
+                            padding-left: 15px;
+                            border-bottom: 1px solid #e7e7e7;
+                        }
+
+                            .side-menu #dropdown .panel-body .navbar-nav li:last-child {
+                                border-bottom: none;
+                            }
+
+                    .side-menu #dropdown .panel-body .panel > a {
+                        margin-left: -20px;
+                        padding-left: 35px;
+                    }
+
+                    .side-menu #dropdown .panel-body .panel-body {
+                        margin-left: -15px;
+                    }
+
+                        .side-menu #dropdown .panel-body .panel-body li {
+                            padding-left: 30px;
+                        }
+
+                            .side-menu #dropdown .panel-body .panel-body li:last-child {
+                                border-bottom: 1px solid #e7e7e7;
+                            }
+
+            .side-menu #search-trigger {
+                background-color: #f3f3f3;
+                border: 0;
+                border-radius: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 15px 18px;
+            }
+
+            .side-menu .brand-name-wrapper {
+                min-height: 50px;
+            }
+
+                .side-menu .brand-name-wrapper .navbar-brand {
+                    display: block;
+                }
+
+            .side-menu #search {
+                position: relative;
+                z-index: 1000;
+            }
+
+                .side-menu #search .panel-body {
+                    padding: 0;
+                }
+
+                    .side-menu #search .panel-body .navbar-form {
+                        padding: 0;
+                        padding-right: 50px;
+                        width: 100%;
+                        margin: 0;
+                        position: relative;
+                        border-top: 1px solid #e7e7e7;
+                    }
+
+                        .side-menu #search .panel-body .navbar-form .form-group {
+                            width: 100%;
+                            position: relative;
+                        }
+
+                        .side-menu #search .panel-body .navbar-form input {
+                            border: 0;
+                            border-radius: 0;
+                            box-shadow: none;
+                            width: 100%;
+                            height: 50px;
+                        }
+
+                        .side-menu #search .panel-body .navbar-form .btn {
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            border: 0;
+                            border-radius: 0;
+                            background-color: #f3f3f3;
+                            padding: 15px 18px;
+                        }
+        /* Main body section */
+        .side-body {
+            margin-left: 310px;
+        }
+        /* small screen */
+        @@media (max-width: 768px) {
+            .side-menu {
+                position: relative;
+                width: 100%;
+                height: 0;
+                border-right: 0;
+                border-bottom: 1px solid #e7e7e7;
+            }
+
+                .side-menu .brand-name-wrapper .navbar-brand {
+                    display: inline-block;
+                }
+            /* Slide in animation */
+            @@-moz-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-webkit-keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@keyframes slidein {
+                0% {
+                    left: -300px;
+                }
+
+                100% {
+                    left: 10px;
+                }
+            }
+
+            @@-moz-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@-webkit-keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+
+            @@keyframes slideout {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: -300px;
+                }
+            }
+            /* Slide side menu*/
+            /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
+            .side-menu-container > .navbar-nav.slide-in {
+                -moz-animation: slidein 300ms forwards;
+                -o-animation: slidein 300ms forwards;
+                -webkit-animation: slidein 300ms forwards;
+                animation: slidein 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .side-menu-container > .navbar-nav {
+                /* Add position:absolute for scrollable menu -> see top comment */
+                position: fixed;
+                left: -300px;
+                width: 300px;
+                top: 43px;
+                height: 100%;
+                border-right: 1px solid #e7e7e7;
+                background-color: #f8f8f8;
+                -moz-animation: slideout 300ms forwards;
+                -o-animation: slideout 300ms forwards;
+                -webkit-animation: slideout 300ms forwards;
+                animation: slideout 300ms forwards;
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+            /* Uncomment for scrollable menu -> see top comment */
+            .absolute-wrapper {
+                width: 285px;
+                --moz-animation: slideout 300ms forwards;
+                --o-animation: slideout 300ms forwards;
+                --webkit-animation: slideout 300ms forwards;
+                animation: slideout 300ms forwards;
+                --webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            @@-moz-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-webkit-keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@keyframes bodyslidein {
+                0% {
+                    left: 0;
+                }
+
+                100% {
+                    left: 300px;
+                }
+            }
+
+            @@-moz-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@-webkit-keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+
+            @@keyframes bodyslideout {
+                0% {
+                    left: 300px;
+                }
+
+                100% {
+                    left: 0;
+                }
+            }
+            /* Slide side body*/
+            .side-body {
+                margin-left: 5px;
+                margin-top: 70px;
+                position: relative;
+                --moz-animation: bodyslideout 300ms forwards;
+                --o-animation: bodyslideout 300ms forwards;
+                -webkit-animation: bodyslideout 300ms forwards;
+                animation: bodyslideout 300ms forwards;
+                --webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+
+            .body-slide-in {
+                --moz-animation: bodyslidein 300ms forwards;
+                --o-animation: bodyslidein 300ms forwards;
+                --webkit-animation: bodyslidein 300ms forwards;
+                animation: bodyslidein 300ms forwards;
+                --webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+            /* Hamburger */
+            .navbar1-toggle {
+                border: 0;
+                float: left;
+                padding: 18px;
+                margin: 0;
+                border-radius: 0;
+                background-color: #f3f3f3;
+            }
+            /* Dropdown tweek */
+            #dropdown .panel-body .navbar-nav {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="modal fade" id="updateprofilepicture" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" id="image" name="image" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="btnUpdateProfile" name="btnUpdateProfile" onclick="UpdateProfilePic()">Update</button>
+                        <button type="button" class="btn btn-danger" id="btnCloseImageProfile" name="btnCloseImageProfile" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <center><img src="~/Content/logo.png" width="190" height="70" /> </center>
+            </div>
+            <br />
+            <div class="collapse navbar-collapse" id="myNavbar">
+
+                <center>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Admin/Home">Home</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> Registration Module <span class="caret"></span> </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Admin/AdminView">Admin Registration</a></li>
+                                <li><a href="~/Owner/OwnerView">Owner Registration</a></li>
+                                <li><a href="~/Tenant/TenantView">Tenant Registration</a></li>
+                                <li><a href="~/Amenity/AmenityView">Amenity Registration</a></li>
+                                <li><a href="~/Equipment/EquipmentView">Equipment Registration</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" id="OpenModal" name="OpenModal" data-dismiss="modal">
+                                        <p class="w3-center"><img src="@Url.Content(Session["URLL"].ToString())" class="w3-circle" style="height:106px; width:106px" alt="user" /></p>
+                                    </a>
+                                </li>
+                                <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
+                                <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </center>
+
+
+
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+
+
+		function UpdateProfilePic() {
+			var id = @Session["UID"];
+
+			var file = $("#image").get(0).files;
+			var data = new FormData();
+			data.append("Image", file[0]);
+			data.append("Id", id);
+			$.ajax({
+				type: "POST",
+				url: "/finance/UpdateImage/",
+				data: data,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if (data == true) {
+						alert('Success');
+						window.location.reload();
+						window.location.href = window.location.href + "?rnd=" + Math.random()
+
+					}
+				},
+				error: function (error) {
+					alert(error);
+				}
+			});
+		}
+
+
+		$('#btnCloseImageProfile').click(function () {
+
+			$('#updateprofilepicture').hide();
+		}
+		);
+
+
+		$('#OpenModal').click(function () {
+
+			$('#updateprofilepicture').modal();
+		}
+		);
+
+
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
+@*SCRIPT FOR VALIDATIONS*@
+@Scripts.Render("~/bundles/jqueryval")
+
