@@ -117,8 +117,7 @@ namespace UResidence.Controllers
                     int adminid = admi.Id;
 
                     UserLogin ull = new UserLogin
-                    {
-                        AdminId = adminid,
+                    {                      
                         Username = adm.Email,
                         Hash = hash,
                         CreatedBy = "",
@@ -130,7 +129,7 @@ namespace UResidence.Controllers
                     };
 
 
-                    UResidence.UserController.InsertAdminId(ull);
+                    UResidence.UserController.Insert(ull);
                     SendEmail(adm.Email, pass);
                     status = true;
                     ViewBag.AddMessage = status;

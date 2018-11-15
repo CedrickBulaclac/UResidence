@@ -19,9 +19,6 @@ namespace UResidence
         public DateTime DateCreated { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int Level { get; set; }
-        public int AdminId { get; set; }
-        public int OwnerId { get; set; }
-        public int TenantId { get; set; }
         public DateTime LastLogin { get; set; }
 
         public void Reset()
@@ -35,10 +32,7 @@ namespace UResidence
             this.ModifiedDate = DateTime.Today;
             this.LastLogin = DateTime.Today;
             this.Level = 0;
-            this.Hash = string.Empty;
-            this.AdminId = 0;
-            this.OwnerId = 0;
-            this.TenantId = 0;
+            this.Hash = string.Empty;          
         }
         public string RemoveWhitespace(string str)
         {
@@ -58,39 +52,7 @@ namespace UResidence
             ret.Level = Convert.ToInt32(reader.GetValue(7));
             ret.Locked = Convert.ToInt32(reader.GetValue(8));
             ret.LastLogin = reader.GetDateTime(9);
-            try
-            {
-                ret.AdminId = reader.GetInt32(10);
-         
-            }
-            catch (Exception)
-            {
-                ret.AdminId = 0;
-            }
-
-            try
-            {
-
-                ret.OwnerId = reader.GetInt32(11);
-               
-            }
-            catch (Exception)
-            {
-                ret.OwnerId = 0;
-            }
-            try
-            {
-               
-               
-                ret.TenantId = reader.GetInt32(12);
-            }
-            catch (Exception)
-            {
-                ret.TenantId = 0;
-            }
-
-
-
+          
 
 
             return ret;

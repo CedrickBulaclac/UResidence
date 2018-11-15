@@ -123,7 +123,7 @@ namespace UResidence.Controllers
                     string hash;
             string pass = owe.Bdate.ToShortDateString();
             hash = Hash(pass);
-            List<UserLogin> listUser = UResidence.UserController.GetAllO(owe.Email);
+            List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
             UserLogin ul = new UserLogin
             {
                 Username = owe.Email,
@@ -199,8 +199,7 @@ namespace UResidence.Controllers
                     int ownerid = owee.Id;
 
                     UserLogin ull = new UserLogin
-                    {
-                        OwnerId=ownerid,
+                    {                     
                         Username = owe.Email,
                         Hash = hash,
                         CreatedBy = "",
@@ -213,7 +212,17 @@ namespace UResidence.Controllers
 
 
 
-                    status = UResidence.UserController.InsertOwnerId(ull);
+                    status = UResidence.UserController.Insert(ull);
+                    if (status == true)
+                    {
+                        List<UserLogin> ul2 = new List<UserLogin>();
+                        ul2 = UserController.GetAll(owe.Email);
+                        if(ul2.Count>0)
+                        {
+                            status = UResidence.OwnerController.Update(ul2[0].Id, owe.Email);
+                        }
+                       
+                    }
                     SendEmail(owe.Email,pass);
                     status = true;
                     ViewBag.AddMessage = status;
@@ -233,7 +242,8 @@ namespace UResidence.Controllers
             {
                 Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
             }
-            return View();
+            OwnerView();
+            return View("OwnerView");
         }
 
         public static string Hash(string p)
@@ -301,9 +311,16 @@ namespace UResidence.Controllers
                 Id = id,
                 Deleted=delete
             };
-            status = UResidence.OwnerController.UpdateDelete(ten);
+           
+            Owner o = new Owner();
+            o = UResidence.OwnerController.GetIdOwner(id);
+           
+                UserLogin ul = new UserLogin();
+                ul = UResidence.UserController.Get(o.Email);
+                status = UResidence.UserController.UpdateLockout(ul.Id);
             if (status == true)
             {
+                status = UResidence.OwnerController.UpdateDelete(ten);
                 ViewBag.DeleteStatus = status;
                 OwnerView();
             }

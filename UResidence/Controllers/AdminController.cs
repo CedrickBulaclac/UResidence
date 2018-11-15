@@ -117,7 +117,6 @@ namespace UResidence.Controllers
             }
             string hash;
             string pass = adm.Bdate.ToShortDateString();
-            //int typea = Convert.ToInt32(fc["a"]);
             int typea = Convert.ToInt32(typeadmin);
             hash = Hash(pass);
             List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
@@ -155,7 +154,6 @@ namespace UResidence.Controllers
 
                         UserLogin ull = new UserLogin
                         {
-                            AdminId = adminid,
                             Username = adm.Email,
                             Hash = hash,
                             CreatedBy = "",
@@ -165,9 +163,17 @@ namespace UResidence.Controllers
                             Locked = 0,
                             LastLogin = DateTime.Now
                         };
+                        status = UResidence.UserController.Insert(ull);
 
-
-                        UResidence.UserController.InsertAdminId(ull);
+                        if (status == true)
+                        {
+                            List<UserLogin> ul = new List<UserLogin>();
+                            ul = UserController.GetAll(adm.Email);
+                            if (ul.Count > 0)
+                            {
+                                status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
+                            }                      
+                        }
                         SendEmail(adm.Email, pass);
                         status = true;
                         ViewBag.AddMessage = status;
@@ -224,8 +230,7 @@ namespace UResidence.Controllers
                         int adminid = admi.Id;
 
                         UserLogin ull = new UserLogin
-                        {
-                            AdminId = adminid,
+                        {                       
                             Username = adm.Email,
                             Hash = hash,
                             CreatedBy = "",
@@ -237,7 +242,17 @@ namespace UResidence.Controllers
                         };
 
 
-                        UResidence.UserController.InsertAdminId(ull);
+                        status=UResidence.UserController.Insert(ull);
+
+                        if(status==true)
+                        {
+                            List<UserLogin> ul = new List<UserLogin>();
+                            ul = UserController.GetAll(adm.Email);
+                            if (ul.Count > 0)
+                            {
+                                status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
+                            }
+                        }
                         SendEmail(adm.Email, pass);
                         status = true;
                         ViewBag.AddMessage = status;
@@ -305,10 +320,16 @@ namespace UResidence.Controllers
                 Id = id,
                 Deleted = delete
             };
-            status = UResidence.AdminController.UpdateDelete(am);
+           
+            Admin a = new Admin();
+            a = UResidence.AdminController.GetbyID(id);
+          
+                UserLogin ul = new UserLogin();
+                ul = UResidence.UserController.Get(a.Email);
+                status = UResidence.UserController.UpdateLockout(ul.Id);
             if (status == true)
             {
-
+                status = UResidence.AdminController.UpdateDelete(am);
                 AdminView();
             }
             ViewBag.DeleteStatus = status;
@@ -366,7 +387,7 @@ namespace UResidence.Controllers
                 {
                     status = UResidence.AdminController.Update(adm);
                 }
-                    if (status == true)
+                if (status == true)
                 {
                     ViewBag.UpdateMessage = status;
                     AdminView();
@@ -382,7 +403,7 @@ namespace UResidence.Controllers
             {
                 ViewBag.ErrorMessages = FixMessages(err);
             }
-            ViewBag.UpdateMessage = true;
+         
             return View();
         }
 
@@ -419,7 +440,6 @@ namespace UResidence.Controllers
             Response.AddHeader("content-disposition", "attachment;filename=AdminList." + filenameExtension);
             return File(renderbyte, filenameExtension);
         }
-
      
     }
 }

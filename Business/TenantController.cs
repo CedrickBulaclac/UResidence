@@ -143,6 +143,17 @@ namespace UResidence
         }
 
 
+        public static bool Update(int lid, string email)
+        {
+            const string GET_UPDATE = @"update [tbTenant] set LoginId=@lid WHERE Email=@Email";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@lid", lid));
+            com.Parameters.Add(new SqlParameter("@email", email));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+
 
         public static bool UpdateDP(Tenant ten)
         {

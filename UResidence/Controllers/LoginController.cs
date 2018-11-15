@@ -21,7 +21,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection fc)
         {
-            
+            try
+            {
                 Session["Level"] = null;
                 string chash;
                 string hash = fc["Hash"];
@@ -33,21 +34,23 @@ namespace UResidence.Controllers
                 user = UResidence.UserController.Get(username, chash);
                 if (user != default(UserLogin))
                 {
-                    if (user.Level <=7)
+                    if (user.Level <= 7)
                     {
 
                         Session["Level"] = user.Level;
                         Session["LID"] = user.Id;
-                        Session["UID"] = user.AdminId;
+
+
                         Session["TOR"] = "Admin";
                         Admin a = new Admin();
-                        a = UResidence.AdminController.GetbyID(user.AdminId);
+                        a = UResidence.AdminController.GetbyID(user.Id);
+                        Session["UID"] = a.Id;
                         string Fname = RemoveWhitespace(a.Fname);
                         string Mname = RemoveWhitespace(a.Mname);
                         string Lname = RemoveWhitespace(a.Lname);
                         Session["FullName"] = Fname + " " + Mname + " " + Lname;
                         UResidence.UserController.UpdateLog(user.Id);
-                        if (user.Level == 2 || user.Level==3)
+                        if (user.Level == 2 || user.Level == 3)
                         {
                             return RedirectToAction("CalendarView", "Calendar");
                         }
@@ -73,10 +76,11 @@ namespace UResidence.Controllers
                         Session["aa"] = 0;
                         Session["Level"] = user.Level;
                         Session["LID"] = user.Id;
-                        Session["UID"] = user.OwnerId;
+
                         Session["TOR"] = "Owner";
                         Owner a = new Owner();
-                        a = UResidence.OwnerController.GetIdOwner(user.OwnerId.ToString());
+                        a = UResidence.OwnerController.GetEmailOwner(user.Username);
+                        Session["UID"] = a.Id;
                         Session["BDAY"] = a.Bdate.ToShortDateString();
                         Session["UNO"] = a.UnitNo;
                         Session["BLDG"] = a.BldgNo;
@@ -91,17 +95,17 @@ namespace UResidence.Controllers
                     {
                         Session["Level"] = user.Level;
                         Session["LID"] = user.Id;
-                        Session["UID"] = user.TenantId;
+
                         Session["TOR"] = "Tenant";
                         Tenant a = new Tenant();
-                        a = UResidence.TenantController.GetIdTenant(user.TenantId.ToString());
-
+                        a = UResidence.TenantController.GetEmailTenant(user.Username);
+                        Session["UID"] = a.Id;
                         if (a.LeaseEnd < DateTime.Now)
                         {
                             Tenant t = new Tenant
                             {
                                 Deleted = "1",
-                                Id = user.TenantId
+                                Id = a.Id
                             };
                             UResidence.TenantController.UpdateDelete(t);
                             string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
@@ -127,7 +131,12 @@ namespace UResidence.Controllers
                     Response.Write(script);
 
                 }
-            
+            }
+            catch(Exception)
+            {
+                string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                Response.Write(script);
+            }
    
             return View();
         }

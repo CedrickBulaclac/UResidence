@@ -264,7 +264,7 @@ namespace UResidence.Controllers
             string hash;
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
-            List<UserLogin> listUser = UResidence.UserController.GetAllT(ten.Email);
+            List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
             if (listUser.Count == 0)
             {
                 UserLogin ul = new UserLogin
@@ -279,9 +279,7 @@ namespace UResidence.Controllers
                     LastLogin = DateTime.Now
                 };
                 List<Owner> own = new List<Owner>(); ;
-                own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
-                //string MoveIn = Session["MoveIn"].ToString();
-                //string MoveOut = Session["MoveOut"].ToString();
+                own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);             
                  if (own.Count != 0)
                  {
                   
@@ -365,8 +363,7 @@ namespace UResidence.Controllers
                                             int tenandID = b.Id;
 
                                             UserLogin ull = new UserLogin
-                                            {
-                                                TenantId = tenandID,
+                                            {                                             
                                                 Username = ten.Email,
                                                 Hash = hash,
                                                 CreatedBy = "",
@@ -378,15 +375,25 @@ namespace UResidence.Controllers
 
                                             };
 
-                                            UResidence.UserController.InsertTenantId(ull);
+                                           status= UResidence.UserController.Insert(ull);
+                                           if (status == true)
+                                          {
+                                          List<UserLogin> ul2 = new List<UserLogin>();
+                                          ul2 = UserController.GetAll(ten.Email);
+                                         if (ul2.Count > 0)
+                                         {
+                                              status = UResidence.TenantController.Update(ul2[0].Id, ten.Email);
+                                         }
 
-                                            Residence red = new Residence
+                                         }
+                                           Residence red = new Residence
                                             {
                                                 OwnerNo = own[0].Id,
                                                 TenantNo = tenandID
                                             };
 
                                             ResidenceController.Insert(red);
+                                            
                                             SendEmail(ten.Email, pass);
                                             status = true;
                                             ViewBag.AddMessage = status;
@@ -458,9 +465,12 @@ namespace UResidence.Controllers
                 Deleted=delete
                 
             };
-            status=UResidence.TenantController.UpdateDelete(ten);
-            if(status==true)
-            {
+            UserLogin ul = new UserLogin();
+            ul = UResidence.UserController.Get(ten.Email);
+            status = UResidence.UserController.UpdateLockout(ul.Id);
+            if (status == true)
+            {             
+                status = UResidence.TenantController.UpdateDelete(ten);
                 ViewBag.DeleteMessage = status;
                 TenantView();
             }

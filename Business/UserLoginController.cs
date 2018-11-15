@@ -12,9 +12,7 @@ namespace UResidence
 
         public static List<UserLogin> GetAll()
         {
-            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbAdmin a on a.Id=l.AdminId where Deleted!=0 order by Id";
-
-
+            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] l inner join tbAdmin a on a.LoginId=l.Id where Deleted=0 order by Id";
             List<UserLogin> ret = default(List<UserLogin>);
             SqlCommand com = new SqlCommand(GET_ALL);
             ret = SqlManager.Select<UserLogin>(com);
@@ -22,40 +20,26 @@ namespace UResidence
         }
         public static List<UserLogin> GetAll(string email)
         {
-            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbAdmin a on a.Id=l.AdminId where Username=@email and Deleted=0";
-
-
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where Username=@email and Lockout=0";
             List<UserLogin> ret = default(List<UserLogin>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@email", email));
             ret = SqlManager.Select<UserLogin>(com);
             return ret;
         }
-        public static List<UserLogin> GetAllO(string email)
+        public static UserLogin Get(string email)
         {
-            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join tbOwner a on a.Id=l.OwnerId where Username=@email and Deleted=0";
-
-
-            List<UserLogin> ret = default(List<UserLogin>);
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where Username=@email and Lockout=0";
+            UserLogin ret = new UserLogin();
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@email", email));
-            ret = SqlManager.Select<UserLogin>(com);
+            ret = SqlManager.Select<UserLogin>(com).First();
             return ret;
         }
-        public static List<UserLogin> GetAllT(string email)
-        {
-            const string GET_ALL = @"SELECT l.Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] l inner join Tenant a on a.Id=l.TenantId where Username=@email and Deleted=0";
 
-
-            List<UserLogin> ret = default(List<UserLogin>);
-            SqlCommand com = new SqlCommand(GET_ALL);
-            com.Parameters.Add(new SqlParameter("@email", email));
-            ret = SqlManager.Select<UserLogin>(com);
-            return ret;
-        }
-        public static List<UserLogin> AGetAll(int id)
+        public static List<UserLogin> GetAll(int id)
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where AdminId=@Rid";
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where LoginId=@Rid";
 
 
             List<UserLogin> ret = default(List<UserLogin>);
@@ -64,34 +48,13 @@ namespace UResidence
             ret = SqlManager.Select<UserLogin>(com);
             return ret;
         }
-        public static List<UserLogin> OGetAll(int id)
-        {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where OwnerId=@Rid";
-
-
-            List<UserLogin> ret = default(List<UserLogin>);
-            SqlCommand com = new SqlCommand(GET_ALL);
-            com.Parameters.Add(new SqlParameter("@Rid", id));
-            ret = SqlManager.Select<UserLogin>(com);
-            return ret;
-        }
-        public static List<UserLogin> TGetAll(int id)
-        {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] where TenantId=@Rid";
-
-
-            List<UserLogin> ret = default(List<UserLogin>);
-            SqlCommand com = new SqlCommand(GET_ALL);
-            com.Parameters.Add(new SqlParameter("@Rid", id));
-            ret = SqlManager.Select<UserLogin>(com);
-            return ret;
-        }
+     
         public static UserLogin Get(string uid,string uhash)
         {
             UserLogin ret = default(UserLogin);
             try
             {
-                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
+                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
 
                 
                 SqlCommand com = new SqlCommand(GET_RECORD);
@@ -109,7 +72,7 @@ namespace UResidence
 
         public static UserLogin Get(int id)
         {
-            const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin,AdminId,OwnerId,TenantId FROM [tbLogin] WHERE Id = @Id";
+            const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Id = @Id";
 
             UserLogin ret = default(UserLogin);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -121,6 +84,14 @@ namespace UResidence
         public static bool UpdateLog(int id)
         {
             const string GET_UPDATE = @"update [tbLogin] set LastLogin=GETDATE() where Id=@Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Id", id));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+        public static bool UpdateLockout(int id)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set Lockout=1 where Id=@Id";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Id", id));
 
@@ -183,74 +154,6 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-
-
-
-        public static bool InsertOwnerId(UserLogin usr)
-        {
-
-            const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,OwnerId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @OwnerId)";
-
-            SqlCommand com = new SqlCommand(GET_INSERT);
-            com.Parameters.Add(new SqlParameter("@Username", usr.Username));
-            com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
-            com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
-            com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
-            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
-            com.Parameters.Add(new SqlParameter("@Level", usr.Level));
-            com.Parameters.Add(new SqlParameter("@OwnerId", usr.OwnerId));
-
-            return SqlManager.ExecuteNonQuery(com);
-        }
-
-
-        public static bool InsertTenantId(UserLogin usr)
-        {
-            try
-            {
-                const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,TenantId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @TenantId)";
-
-                SqlCommand com = new SqlCommand(GET_INSERT);
-                com.Parameters.Add(new SqlParameter("@Username", usr.Username));
-                com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
-                com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
-                com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
-                com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
-                com.Parameters.Add(new SqlParameter("@Level", usr.Level));
-                com.Parameters.Add(new SqlParameter("@TenantId", usr.TenantId));
-
-                return SqlManager.ExecuteNonQuery(com);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
-        public static bool InsertAdminId(UserLogin usr)
-        {
-            try
-            {
-                const string GET_INSERT = @"insert [tbLogin] (Username,Hash, Lockout, CreatedBy, ModifiedBy, CreatedDate, LastModified,Level,LastLogin,AdminId) values (@Username,@Hash, @Lockout, @CreatedBy, @ModifiedBy, getdate(), getdate(), @Level, getdate(), @AdminId)";
-
-                SqlCommand com = new SqlCommand(GET_INSERT);
-                com.Parameters.Add(new SqlParameter("@Username", usr.Username));
-                com.Parameters.Add(new SqlParameter("@Hash", usr.Hash));
-                com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
-                com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
-                com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
-                com.Parameters.Add(new SqlParameter("@Level", usr.Level));
-                com.Parameters.Add(new SqlParameter("@AdminId", usr.AdminId));
-
-                return SqlManager.ExecuteNonQuery(com);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
 
     }
 }

@@ -27,12 +27,12 @@ namespace UResidence.Controllers
             
             string RType =(string) Session["TOR"];
             int Aid = (int)Session["UID"];
-           
-                List<Admin> a = new List<Admin>();
+            int lid = (int)Session["LID"];
+            List<Admin> a = new List<Admin>();
                 List<UserLogin> ul = new List<UserLogin>();
                 
                 a =UResidence.AdminController.Get(Aid);
-                ul=UResidence.UserController.AGetAll(Aid);
+                ul=UResidence.UserController.GetAll(lid);
                 List<object> model = new List<object>();
                 model.Add(a.ToList());
                 model.Add(ul.ToList());
@@ -49,10 +49,11 @@ namespace UResidence.Controllers
             string pass = (string)Session["pass"];
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
+            int lid = (int)Session["LID"];
             List<Admin> a = new List<Admin>();
             List<UserLogin> ul = new List<UserLogin>();
             a = UResidence.AdminController.Get(Aid);
-            ul = UResidence.UserController.AGetAll(Aid);
+            ul = UResidence.UserController.GetAll(lid);
             List<object> model = new List<object>();
             model.Add(a.ToList());
             model.Add(ul.ToList());
@@ -202,11 +203,12 @@ namespace UResidence.Controllers
             ViewBag.Type = RType;
             int Oid = (int)Session["UID"];
             string i = Oid.ToString();
+            int lid = (int)Session["LID"];
             List<Owner> a = new List<Owner>();
             List<UserLogin> ul = new List<UserLogin>();
 
             a = UResidence.OwnerController.GetById(i);
-            ul = UResidence.UserController.OGetAll(Oid);
+            ul = UResidence.UserController.GetAll(lid);
             List<object> model = new List<object>();
             model.Add(a.ToList());
             model.Add(ul.ToList());
@@ -293,12 +295,12 @@ namespace UResidence.Controllers
             Session["aa"] = 1;
             string RType = (string)Session["TOR"];
             int Aid = (int)Session["UID"];
-
+            int lid = (int)Session["LID"];
             List<Tenant> a = new List<Tenant>();
             List<UserLogin> ul = new List<UserLogin>();
 
             a = UResidence.TenantController.GetId(Aid);
-            ul = UResidence.UserController.TGetAll(Aid);
+            ul = UResidence.UserController.GetAll(lid);
             List<object> model = new List<object>();
             model.Add(a.ToList());
             model.Add(ul.ToList());

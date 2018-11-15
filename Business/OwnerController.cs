@@ -29,6 +29,15 @@ namespace UResidence
 
             return ret;
         }
+        public static bool Update(int lid, string email)
+        {
+            const string GET_UPDATE = @"update [tbOwner] set LoginId=@lid WHERE Email=@Email";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@lid", lid));
+            com.Parameters.Add(new SqlParameter("@email", email));
+            return SqlManager.ExecuteNonQuery(com);
+        }
 
         public static List<Owner> GetOwnerReserve(string bldgno, string unitno)
         {
@@ -81,7 +90,16 @@ namespace UResidence
 
             return ret;
         }
+        public static Owner GetIdOwner(int idOwner)
+        {
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Id = @Id and Deleted=0";
+            Owner ret = default(Owner);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Id", idOwner));
+            ret = SqlManager.Select<Owner>(com).First();
 
+            return ret;
+        }
 
         public static bool Update(Owner own)
         {
