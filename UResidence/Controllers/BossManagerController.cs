@@ -75,7 +75,7 @@ namespace UResidence.Controllers
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
                 data.Add(new Dash()
                 {
-                    AmenityName = ret[i].AmenityName,
+                    AmenityName = ret[i].AmenityName+"("+ ret[i].Number.ToString()+")",
                     Value = (int)compute
                 });
 
@@ -98,7 +98,7 @@ namespace UResidence.Controllers
             {
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
                 data.Add(new Dash() {
-                    AmenityName = ret[i].AmenityName,
+                    AmenityName = ret[i].AmenityName + "(" + ret[i].Number.ToString() + ")",
                     Value = (int)compute
                 });
 
@@ -122,7 +122,7 @@ namespace UResidence.Controllers
                 compute = (Convert.ToDouble(ret[i].Number) / total) * 100;
                 data.Add(new Dash()
                 {
-                    AmenityName = ret[i].AmenityName,
+                    AmenityName = ret[i].AmenityName + "(" + ret[i].Number.ToString() + ")",
                     Value = (int)compute
                 });
 

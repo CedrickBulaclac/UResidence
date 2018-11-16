@@ -428,8 +428,9 @@ namespace UResidence.Controllers
                                 status = false;
                             }
                             ViewBag.AddMessage = status;
-                            return View();
-                           }
+                           TenantView();
+                        return View("TenantView");
+                   }
                    
             
            

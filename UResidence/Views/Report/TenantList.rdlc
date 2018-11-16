@@ -108,7 +108,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Fullname</Value>
+                              <Value>Full Name</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -210,7 +210,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Email</Value>
+                              <Value>Email Address</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -244,7 +244,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Lease </Value>
+                              <Value>Lease Period</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -380,7 +380,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Birthday.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>MMMM dd, yyyy</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -523,7 +525,7 @@
         <Top>0.17639cm</Top>
         <Left>0.2597cm</Left>
         <Height>1.2cm</Height>
-        <Width>20.31312cm</Width>
+        <Width>20.3131cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
