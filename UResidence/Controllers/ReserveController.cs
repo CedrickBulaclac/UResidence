@@ -28,10 +28,18 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+
+
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
+            if (Convert.ToInt32(Session["Level"]) <= 7)
+            {
+                return Redirect("~/ReservationA/SelectOT");
+            }
+
+
             Session["amenity"] = null;
             Session["calendar"] = null;
             Session["choose_date"] = null;

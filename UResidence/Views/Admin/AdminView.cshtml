@@ -91,7 +91,7 @@
                                 </div>
 
                                 <div class="col-75">
-                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                     @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
                                 </div>

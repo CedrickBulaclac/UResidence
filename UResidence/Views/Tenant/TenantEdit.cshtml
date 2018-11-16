@@ -167,7 +167,7 @@
 
 
                             <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                 @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
                             </div>
@@ -273,7 +273,7 @@
 
 
                             <div class="col-sm-6">
-                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                 @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
 
                             </div>
@@ -295,7 +295,7 @@
 
 
                             <div class="col-sm-6">
-                                @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                 @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
 
                             </div>
