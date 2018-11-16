@@ -39,7 +39,7 @@ namespace UResidence
 
         public static List<UserLogin> GetAll(int id)
         {
-            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where LoginId=@Rid";
+            const string GET_ALL = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] where Id=@Rid";
 
 
             List<UserLogin> ret = default(List<UserLogin>);
@@ -54,7 +54,7 @@ namespace UResidence
             UserLogin ret = default(UserLogin);
             try
             {
-                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash";
+                const string GET_RECORD = @"SELECT Id,Username,Hash,CreatedBy,ModifiedBy,CreatedDate,LastModified,Level,Lockout,LastLogin FROM [tbLogin] WHERE Username = @Username and Hash=@Hash and Lockout=0";
 
                 
                 SqlCommand com = new SqlCommand(GET_RECORD);

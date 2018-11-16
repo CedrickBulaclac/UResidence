@@ -207,7 +207,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Email</Value>
+                              <Value>Email Address</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -344,7 +344,7 @@
                             <TextRun>
                               <Value>=Fields!Bdate.Value</Value>
                               <Style>
-                                <Format>d MMMM yyyy</Format>
+                                <Format>MMMM dd, yyyy</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>

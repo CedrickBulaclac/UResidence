@@ -280,7 +280,8 @@ namespace UResidence.Controllers
 
                 }
             }
-            return View();
+            AdminView();
+            return View("AdminView");
 
         }
         public ActionResult AdminView()

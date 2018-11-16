@@ -14,7 +14,7 @@ namespace UResidence
         public int Id { get; set; }
 
         [StringLength(10, ErrorMessage = "Unit Number cannot be longer than 10 characters.")]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Number only is allowed")]
         public string UnitNo { get; set; }
 
         [StringLength(10, ErrorMessage = "Building Number cannot be longer than 10 characters.")]
