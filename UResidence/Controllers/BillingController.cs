@@ -15,6 +15,13 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+
+            Session["amenity"] = null;
+            Session["calendar"] = null;
+            Session["choose_date"] = null;
+            Session["swimming"] = null;
+            Session["choose_equipment"] = null;
+            Session["summary"] = null;
             decimal balance = 0;
             List<ReservationList> revlist = new List<ReservationList>();
             List<BillingList> ret = default(List<BillingList>);

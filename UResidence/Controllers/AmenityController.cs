@@ -89,14 +89,14 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public ActionResult AmenityAdd(Amenity amen, HttpPostedFileBase Image, FormCollection fc)
+        public ActionResult AmenityAdd(Amenity amen, HttpPostedFileBase Image)
         {
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
             string[] err = new string[] { };
-            string color = fc["myColorField"].ToString();
+
             string finalpath = "";
             var image = Image;
             bool status = false;
@@ -139,7 +139,7 @@ namespace UResidence.Controllers
                     Capacity = amen.Capacity,
                     Description = amen.Description,
                     Rate = amen.Rate,
-                    Color = color,
+                    Color = amen.Color,
                     Location = amen.Location,
                     EveRate = amen.EveRate,
                     IsEquipment = amen.IsEquipment,
@@ -158,7 +158,7 @@ namespace UResidence.Controllers
                         Capacity = amen.Capacity,
                         Description = amen.Description,
                         Rate = amen.Rate,
-                        Color = color,
+                        Color = amen.Color,
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
@@ -175,7 +175,7 @@ namespace UResidence.Controllers
                         Capacity = amen.Capacity,
                         Description = amen.Description,
                         Rate = amen.Rate,
-                        Color = color,
+                        Color = amen.Color,
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
@@ -351,7 +351,7 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             string[] err = new string[] { };
-            if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+            if (amen.Rate==0)
             {
 
                 SwimmingRate sr = new SwimmingRate()
