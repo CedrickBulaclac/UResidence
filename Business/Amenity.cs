@@ -29,8 +29,8 @@ namespace UResidence
         [DataType(DataType.Currency)]
         public decimal Rate { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
-        [StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
+        //[RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        //[StringLength(20, ErrorMessage = "The color cannot be longer than 20 characters.")]
         public string Color {get; set;}
         public HttpPostedFileBase Image { get; set; }
         [StringLength(50, ErrorMessage = "Unit Number cannot be longer than 50 characters.")]
