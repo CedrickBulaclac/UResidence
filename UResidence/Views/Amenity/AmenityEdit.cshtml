@@ -283,12 +283,13 @@
 
                                 <label class="col-sm-4">Color :</label>
 
-                                <div class="col-sm-6">
-                                    @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+								<div class="col-sm-6">
+									@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color" ,@class = "form-control", @required = "required" } })
+		@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+									@*<label for="colorpicker">ColorPicker:</label>
+									<input type="color" id="myColorField" name="myColorField"  value= ""/>*@
 
-
-                                </div>
+								</div>
                             </div>
                         </div>
 
