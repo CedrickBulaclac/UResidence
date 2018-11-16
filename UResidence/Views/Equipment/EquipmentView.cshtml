@@ -339,7 +339,7 @@
                 { "data": "Url", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
                 { "data": "Description", "autowidth": true },
                 { "data": "Stocks", "autowidth": true },
-                { "data": "Rate", 'render': function (data, type, full, meta) { return '₱' + data }, "autowidth": true },
+                { "data": "Rate", 'render': function (data, type, full, meta) { return '₱' + Number(data).toFixed(2) }, "autowidth": true },
                 { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Equipment/EquipmentEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Equipment/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });
