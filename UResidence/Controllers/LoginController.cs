@@ -108,6 +108,9 @@ namespace UResidence.Controllers
                                 Id = a.Id
                             };
                             UResidence.TenantController.UpdateDelete(t);
+                            UserLogin l = new UserLogin();
+                            l = UResidence.UserController.Get(user.Username);
+                            UResidence.UserController.UpdateLockout(l.Id);
                             string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                             Response.Write(script);
                         }
