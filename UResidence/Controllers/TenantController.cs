@@ -466,8 +466,11 @@ namespace UResidence.Controllers
                 Deleted=delete
                 
             };
+            Tenant o = new Tenant();
+            o = UResidence.TenantController.GetId(id.ToString());
+
             UserLogin ul = new UserLogin();
-            ul = UResidence.UserController.Get(ten.Email);
+            ul = UResidence.UserController.Get(o.Email);
             status = UResidence.UserController.UpdateLockout(ul.Id);
             if (status == true)
             {             
