@@ -64,7 +64,7 @@ namespace UResidence
 
         public static List<SchedReservation> GetAll(int id)
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where AmenityId=@id and Deleted=0";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where AmenityId=@id and a.Deleted=0";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -75,7 +75,7 @@ namespace UResidence
         }
         public static List<SchedReservation> GetAllA(string name)
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a full join [tbAmenity] b on a.AmenityId=b.Id inner join tbReservationForm c on a.Id=c.SchedId where AmenityName=@name and a.Id is not null and Status='Reserved' and Deleted=0";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a full join [tbAmenity] b on a.AmenityId=b.Id inner join tbReservationForm c on a.Id=c.SchedId where AmenityName=@name and a.Id is not null and Status='Reserved' and a.Deleted=0";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -86,7 +86,7 @@ namespace UResidence
         }
         public static List<SchedReservation> GetAllA()
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where Deleted=0";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where a.Deleted=0";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);
@@ -96,7 +96,7 @@ namespace UResidence
         }
         public static List<SchedReservation> GetAllM()
         {
-            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where Deleted=0";
+            const string GET_ALL = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where a.Deleted=0";
 
 
             List<SchedReservation> ret = default(List<SchedReservation>);

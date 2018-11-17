@@ -46,6 +46,7 @@ namespace UResidence
 
         public bool IsEquipment { get; set; }
         public bool IsWeekend { get; set; }
+        public int Deleted { get; set; }
         public Amenity CreateObject(SqlDataReader reader)
         {
             Amenity ret = new Amenity();
@@ -62,6 +63,7 @@ namespace UResidence
             ret.EveRate = reader.GetDecimal(10);
             ret.IsEquipment = reader.GetBoolean(11);
             ret.IsWeekend = reader.GetBoolean(12);
+            ret.Deleted = reader.GetInt32(13);
             return ret;
         }
         public string RemoveWhitespace(string str)
@@ -112,6 +114,7 @@ namespace UResidence
             this.EveRate = 0;
             this.IsEquipment = false;
             this.IsWeekend = false;
+            this.Deleted = 0;
         }
        
     }
