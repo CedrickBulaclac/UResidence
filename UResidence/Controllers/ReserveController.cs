@@ -28,10 +28,37 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
+
+
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
+            if (Convert.ToInt32(Session["Level"]) <= 7)
+            {
+                return Redirect("~/ReservationA/SelectOT");
+            }
+
+
+            Session["amenity"] = null;
+            Session["calendar"] = null;
+            Session["choose_date"] = null;
+            Session["swimming"] = null;
+            Session["choose_equipment"] = null;
+            Session["summary"] = null;
+
+
+
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             List<Amenity> amenityList = UResidence.AmenityController.GetAll();
             decimal balance = 0;
            
@@ -95,10 +122,17 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
+           
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
+            Session["amenity"] = null;
+            Session["calendar"] = null;
+            Session["choose_date"] = null;
+            Session["swimming"] = null;
+            Session["choose_equipment"] = null;
+            Session["summary"] = null;
             decimal balance = 0;
             List<ReservationList> revlist = new List<ReservationList>();
             int uid;
@@ -216,12 +250,12 @@ namespace UResidence.Controllers
 
             Session["IsEquipment"] = ViewBag.ise;
             Session["IsWeekend"] = ViewBag.isw;
-
+            ViewBag.RateCalendar = arate;
             Session["ID"] = aid;
             Session["RATE"] = arate;
             Session["EVERATE"] = everate;
             Session["NAME"] = aname;
-            if (aname.ToUpper().Contains("SWIMMING"))
+            if (arate == 0)
             {
                 decimal child = Convert.ToDecimal(fc["ratec"]);
                 decimal adult = Convert.ToDecimal(fc["rateaa"]);
@@ -232,6 +266,9 @@ namespace UResidence.Controllers
             string amenitylink = amenity.Url.ToString();
             Session["AmenityURL"] = amenitylink;
 
+            int amenityy = 1;
+            Session["amenity"] = amenityy;
+
             return RedirectToAction("Calendar", "Reserve");
 
         }
@@ -240,7 +277,16 @@ namespace UResidence.Controllers
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
+            }       
+         
+            int calendar = 1;
+            Session["calendar"] = calendar;
+            if (Session["amenity"] == null)
+            {
+                return Redirect("~/Reserve/Amenity");
             }
+
+
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -300,7 +346,25 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
-            string type;
+
+          
+            if (Session["calendar"] == null)
+            {               
+                return Redirect("~/Reserve/Calendar");
+            }
+            if (Session["amenity"] == null)
+            {
+                return Redirect("~/Reserve/Amenity");
+            }
+            if (Convert.ToInt32(Session["RATE"]) != 0)
+            {
+
+            }
+            else
+            {
+                return Redirect("~/Reserve/Swimming");
+            }
+                string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
                 type = (Session["TOR"]).ToString();
@@ -361,6 +425,8 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            int choose_date = 1;
+            Session["choose_date"] = choose_date;
             //string nameamenity = (Session["NAME"]).ToString();
             if (Session["IsEquipment"].ToString() == "False")
             {
@@ -442,6 +508,31 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            if (Convert.ToInt32(Session["RATE"]) != 0)
+            {
+                if (Session["choose_date"] == null)
+                {
+                    return Redirect("~/Reserve/Choose_Date");
+                }
+            }
+            else
+            {
+                if (Session["swimming"] == null)
+                {
+                    return Redirect("~/Reserve/Swimming");
+                }
+            }
+            if (Session["calendar"] == null)
+            {
+                return Redirect("~/Reserve/Calendar");
+            }
+            if (Session["amenity"] == null)
+            {
+                return Redirect("~/Reserve/Amenity");
+            }
+
+
+            
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -549,6 +640,8 @@ namespace UResidence.Controllers
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
+            int choose_equipment = 1;
+            Session["choose_equipment"] = choose_equipment;
 
             if (data != null)
             {
@@ -575,6 +668,45 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            try
+            {
+                if (Session["IsEquipment"].ToString() == "True")
+                {
+                    if (Session["choose_equipment"] == null)
+                    {
+                        return Redirect("~/Reserve/Choose_Equipment");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("~/Reserve/Choose_Equipment");
+            }
+            if (Convert.ToInt32(Session["RATE"]) != 0)
+            {
+                if (Session["choose_date"] == null)
+                {
+                    return Redirect("~/Reserve/Choose_Date");
+                }
+            }
+            else
+            {
+                if (Session["swimming"] == null)
+                {
+                    return Redirect("~/Reserve/Swimming");
+                }
+            }
+            if (Session["calendar"] == null)
+            {
+                return Redirect("~/Reserve/Calendar");
+            }
+            if (Session["amenity"] == null)
+            {
+                return Redirect("~/Reserve/Amenity");
+            }
+
+
+
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
             {
@@ -667,6 +799,8 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            int summary = 1;
+            Session["summary"] = summary;
             string sd = (string)Session["sd"];
             sd += ":00.000";
             string ed = (string)Session["ed"];
@@ -755,7 +889,7 @@ namespace UResidence.Controllers
                 };
                 status = UResidence.ReservationController.Insert(r);
                 Reservation rv=ReservationController.GetId(sid);
-                if (amenityname.ToUpper().Contains("SWIMMING"))
+                if (Convert.ToInt32(Session["RATE"]) == 0)
                 {
                     Swimming swim = new Swimming
                     {
@@ -814,7 +948,7 @@ namespace UResidence.Controllers
             }
             else
             { 
-                return RedirectToAction("Home", "Admin");
+                return RedirectToAction("SelectOT", "ReservationA");
             }
      
 
@@ -826,6 +960,16 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             string bn = Convert.ToString(Session["BLDG"]);
             string un = Convert.ToString(Session["UNO"]);
             ViewBag.Bldg =bn;
@@ -963,6 +1107,24 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            
+            if (Session["calendar"] == null)
+            {
+                return Redirect("~/Reserve/Calendar");
+            }
+            if (Session["amenity"] == null)
+            {
+                return Redirect("~/Reserve/Amenity");
+            }
+            if (Convert.ToInt32(Session["RATE"]) != 0)
+            {
+                return Redirect("~/Reserve/Choose_Equipment");
+            }
+            else
+            {
+               
+            }
+
             ViewBag.isw = (Session["IsWeekend"]).ToString();
             string type;
             if (Convert.ToInt32(Session["Level"]) == 8)
@@ -1023,6 +1185,8 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            int swimming = 1;
+            Session["swimming"] = swimming;
             string qa = fc["adult"];
             string qc = fc["child"];
             string ar= fc["rateadult"];
@@ -1102,6 +1266,24 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+
+            Session["amenity"] = null;
+            Session["calendar"] = null;
+            Session["choose_date"] = null;
+            Session["swimming"] = null;
+            Session["choose_equipment"] = null;
+            Session["summary"] = null;
+
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
@@ -1126,6 +1308,16 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             string tor = Session["TOR"].ToString();
             List<ReportReservation> data = default(List<ReportReservation>);
             List<EquipReservation> data1 = default(List<EquipReservation>);
@@ -1152,7 +1344,7 @@ namespace UResidence.Controllers
             rd.Name = "ReservationO";
             rd.Value = data.ToList();
             localreport.DataSources.Add(rd);
-            rd1.Name = "EquipmentReservation";
+            rd1.Name = "EquipReserve";
             rd1.Value = data1.ToList();
             localreport.DataSources.Add(rd1);
             rd2.Name = "PersonRate";
@@ -1178,6 +1370,16 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             Session["aa"] = 1;
             return View();
         }

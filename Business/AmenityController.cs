@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Amenity> GetAll()
         {
-            const string GET_ALL = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color!='Black' order by a.Id ";
+            const string GET_ALL = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId order by a.Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -21,7 +21,7 @@ namespace UResidence
         
         public static List<Amenity> GetAllM()
         {
-            const string GET_ALL = @"  select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where Color='Black' order by a.Id ";
+            const string GET_ALL = @"  select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId order by a.Id ";
 
 
             List<Amenity> ret = default(List<Amenity>);
@@ -55,7 +55,7 @@ namespace UResidence
 
         public static Amenity GetAmenityImage(int Id)
         {
-            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where a.Id=@Id and Color!='Black' order by Id ";
+            const string GET_RECORD = @" select a.Id,a.Description,a.Capacity,a.AmenityName,a.URL,a.Rate,a.Color,a.Location,ISNULL(sp.AdultRate,0) as AdultRate,ISNULL(sp.ChildRate,0) as ChildRate,a.EveningRate,a.IsEquipment,a.IsWeekend from tbAmenity a full join tbSwimmingPool sp on a.Id=sp.AmenityId where a.Id=@Id  order by Id ";
 
             Amenity ret = default(Amenity);
             SqlCommand com = new SqlCommand(GET_RECORD);

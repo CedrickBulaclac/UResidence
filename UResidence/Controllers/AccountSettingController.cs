@@ -184,6 +184,23 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
+            Session["amenity"] = null;
+            Session["calendar"] = null;
+            Session["choose_date"] = null;
+            Session["swimming"] = null;
+            Session["choose_equipment"] = null;
+            Session["summary"] = null;
+
+            Session["drate"] = null;
+            Session["NAME"] = null;
+            Session["quantity"] = null;
+            Session["ratee"] = null;
+            Session["qa"] = null;
+            Session["qc"] = null;
+            Session["ar"] = null;
+            Session["cr"] = null;
+            Session["sd"] = null;
+            Session["ed"] = null;
             string type = (Session["TOR"]).ToString();
             if (type == "Owner")
             {
