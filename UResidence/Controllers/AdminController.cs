@@ -26,7 +26,7 @@ namespace UResidence.Controllers
             ret = UResidence.AdminController.GetAll();
             return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
         }
-        private void SendEmail(string email1, string pass)
+        private bool SendEmail(string email1, string pass)
         {
             try
             {
@@ -55,11 +55,13 @@ namespace UResidence.Controllers
                     smtp.Send(message);
 
                 }
+                return true;
             }
             catch (Exception)
             {
                 string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
+                return false;
             }
         }
         public ActionResult Registration()
@@ -129,56 +131,67 @@ namespace UResidence.Controllers
                     string[] err = new string[] { };
                     if (adm.Validate(out err))
                     {
-                        Admin ad = new Admin()
-                        {
-                            Fname = adm.Fname,
-                            Mname = adm.Mname,
-                            Lname = adm.Lname,
-                            Bdate = adm.Bdate,
-                            CelNo = adm.CelNo,
-                            Email = adm.Email,
-                            Deleted = "0",
-                            URL = "~/Content/AdminImages/user.png",
-                            ReservationModule = adm.ReservationModule,
-                            RegistrationModule = adm.RegistrationModule,
-                            PaymentModule = adm.PaymentModule,
-                            ReversalModule = adm.ReversalModule,
-                            LogBookModule = adm.LogBookModule
-                        };
-
-                        UResidence.AdminController.InsertBoss(ad);
-
-                        Admin admi = new Admin();
-                        admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
-                        int adminid = admi.Id;
-
-                        UserLogin ull = new UserLogin
-                        {
-                            Username = adm.Email,
-                            Hash = hash,
-                            CreatedBy = "",
-                            ModifyBy = "",
-                            DateCreated = DateTime.Now,
-                            Level = typea,
-                            Locked = 0,
-                            LastLogin = DateTime.Now
-                        };
-                        status = UResidence.UserController.Insert(ull);
-
+                        status = SendEmail(adm.Email, pass);
                         if (status == true)
                         {
-                            List<UserLogin> ul = new List<UserLogin>();
-                            ul = UserController.GetAll(adm.Email);
-                            if (ul.Count > 0)
+                            Admin ad = new Admin()
                             {
-                                status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
-                            }                      
+                                Fname = adm.Fname,
+                                Mname = adm.Mname,
+                                Lname = adm.Lname,
+                                Bdate = adm.Bdate,
+                                CelNo = adm.CelNo,
+                                Email = adm.Email,
+                                Deleted = "0",
+                                URL = "~/Content/AdminImages/user.png",
+                                ReservationModule = adm.ReservationModule,
+                                RegistrationModule = adm.RegistrationModule,
+                                PaymentModule = adm.PaymentModule,
+                                ReversalModule = adm.ReversalModule,
+                                LogBookModule = adm.LogBookModule
+                            };
+
+                            UResidence.AdminController.InsertBoss(ad);
+
+                            Admin admi = new Admin();
+                            admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
+                            int adminid = admi.Id;
+
+                            UserLogin ull = new UserLogin
+                            {
+                                Username = adm.Email,
+                                Hash = hash,
+                                CreatedBy = "",
+                                ModifyBy = "",
+                                DateCreated = DateTime.Now,
+                                Level = typea,
+                                Locked = 0,
+                                LastLogin = DateTime.Now
+                            };
+                            status = UResidence.UserController.Insert(ull);
+
+                            if (status == true)
+                            {
+                                List<UserLogin> ul = new List<UserLogin>();
+                                ul = UserController.GetAll(adm.Email);
+                                if (ul.Count > 0)
+                                {
+                                    status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
+                                }
+                            }
+
+
+
+                            ViewBag.AddMessage = status;
+                            AdminView();
+                            return View("AdminView");
                         }
-                        SendEmail(adm.Email, pass);
-                        status = true;
-                        ViewBag.AddMessage = status;
-                        AdminView();
-                        return View("AdminView");
+                        else
+                        {
+                            string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
+                            Response.Write(script);
+                            
+                        }
                     }
                     else
                     {
@@ -187,8 +200,7 @@ namespace UResidence.Controllers
                         ViewBag.ErrorMessage = FixMessages(err);
                         status = false;
 
-                    }
-                    ViewBag.AddMessage = status;
+                    }                 
                 }
                 else
                 {
@@ -206,58 +218,66 @@ namespace UResidence.Controllers
                     string[] err = new string[] { };
                     if (adm.Validate(out err))
                     {
-                        Admin ad = new Admin()
+                        status=SendEmail(adm.Email, pass);
+                        if (status == true)
                         {
-                            Fname = adm.Fname,
-                            Mname = adm.Mname,
-                            Lname = adm.Lname,
-                            Bdate = adm.Bdate,
-                            CelNo = adm.CelNo,
-                            Email = adm.Email,
-                            Deleted = "0",
-                            URL = "~/Content/AdminImages/user.png",
-                            ReservationModule = adm.ReservationModule,
-                            RegistrationModule = adm.RegistrationModule,
-                            PaymentModule = adm.PaymentModule,
-                            ReversalModule = adm.ReversalModule,
-                            LogBookModule = adm.LogBookModule
-                        };
-
-                        UResidence.AdminController.InsertBoss(ad);
-
-                        Admin admi = new Admin();
-                        admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
-                        int adminid = admi.Id;
-
-                        UserLogin ull = new UserLogin
-                        {                       
-                            Username = adm.Email,
-                            Hash = hash,
-                            CreatedBy = "",
-                            ModifyBy = "",
-                            DateCreated = DateTime.Now,
-                            Level = typea,
-                            Locked = 0,
-                            LastLogin = DateTime.Now
-                        };
-
-
-                        status=UResidence.UserController.Insert(ull);
-
-                        if(status==true)
-                        {
-                            List<UserLogin> ul = new List<UserLogin>();
-                            ul = UserController.GetAll(adm.Email);
-                            if (ul.Count > 0)
+                            Admin ad = new Admin()
                             {
-                                status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
+                                Fname = adm.Fname,
+                                Mname = adm.Mname,
+                                Lname = adm.Lname,
+                                Bdate = adm.Bdate,
+                                CelNo = adm.CelNo,
+                                Email = adm.Email,
+                                Deleted = "0",
+                                URL = "~/Content/AdminImages/user.png",
+                                ReservationModule = adm.ReservationModule,
+                                RegistrationModule = adm.RegistrationModule,
+                                PaymentModule = adm.PaymentModule,
+                                ReversalModule = adm.ReversalModule,
+                                LogBookModule = adm.LogBookModule
+                            };
+
+                            UResidence.AdminController.InsertBoss(ad);
+
+                            Admin admi = new Admin();
+                            admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
+                            int adminid = admi.Id;
+
+                            UserLogin ull = new UserLogin
+                            {
+                                Username = adm.Email,
+                                Hash = hash,
+                                CreatedBy = "",
+                                ModifyBy = "",
+                                DateCreated = DateTime.Now,
+                                Level = typea,
+                                Locked = 0,
+                                LastLogin = DateTime.Now
+                            };
+
+
+                            status = UResidence.UserController.Insert(ull);
+
+                            if (status == true)
+                            {
+                                List<UserLogin> ul = new List<UserLogin>();
+                                ul = UserController.GetAll(adm.Email);
+                                if (ul.Count > 0)
+                                {
+                                    status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
+                                }
                             }
+
+                            ViewBag.AddMessage = status;
+                            AdminView();
+                            return View("AdminView");
                         }
-                        SendEmail(adm.Email, pass);
-                        status = true;
-                        ViewBag.AddMessage = status;
-                        AdminView();
-                        return View("AdminView");
+                        else
+                        {
+                            string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
+                            Response.Write(script);
+                        }
                     }
                     else
                     {

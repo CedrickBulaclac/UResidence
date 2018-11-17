@@ -47,8 +47,6 @@ namespace UResidence.Controllers
             Session["choose_equipment"] = null;
             Session["summary"] = null;
 
-
-
             Session["drate"] = null;
             Session["NAME"] = null;
             Session["quantity"] = null;

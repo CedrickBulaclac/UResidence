@@ -139,7 +139,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Birthday</Value>
+                              <Value>Birthdate</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
