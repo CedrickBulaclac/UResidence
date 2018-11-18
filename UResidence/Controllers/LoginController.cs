@@ -50,7 +50,11 @@ namespace UResidence.Controllers
                         string Lname = RemoveWhitespace(a.Lname);
                         Session["FullName"] = Fname + " " + Mname + " " + Lname;
                         UResidence.UserController.UpdateLog(user.Id);
-                        if (user.Level == 2 || user.Level == 3)
+                        if (user.Level == 0)
+                        {
+                            return RedirectToAction("AdminView", "Admin");
+                        }
+                        else if (user.Level == 2 || user.Level == 3)
                         {
                             return RedirectToAction("CalendarView", "Calendar");
                         }
