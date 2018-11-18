@@ -118,7 +118,14 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-
+        public static bool UpdateEmail(string email, int id)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set Username=@email where Id=@Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@email", email));
+            com.Parameters.Add(new SqlParameter("@Id", id));
+            return SqlManager.ExecuteNonQuery(com);
+        }
         public static bool Delete(UserLogin usr)
         {
             const string GET_DELETE = @"delete [tbLogin] WHERE Id = @Id";

@@ -100,17 +100,16 @@ namespace UResidence.Controllers
                         Tenant a = new Tenant();
                         a = UResidence.TenantController.GetEmailTenant(user.Username);
                         Session["UID"] = a.Id;
-                        if (a.LeaseEnd < DateTime.Now)
+                        if (a.LeaseEnd <= DateTime.Now)
                         {
                             Tenant t = new Tenant
                             {
                                 Deleted = "1",
                                 Id = a.Id
                             };
-                            UResidence.TenantController.UpdateDelete(t);
-                            UserLogin l = new UserLogin();
-                            l = UResidence.UserController.Get(user.Username);
-                            UResidence.UserController.UpdateLockout(l.Id);
+                           UResidence.TenantController.UpdateDelete(t);
+                          
+                           UResidence.UserController.UpdateLockout(user.Id);
                             string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                             Response.Write(script);
                         }
@@ -132,7 +131,6 @@ namespace UResidence.Controllers
                 {
                     string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                     Response.Write(script);
-
                 }
             }
             catch(Exception)
@@ -140,7 +138,7 @@ namespace UResidence.Controllers
                 string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                 Response.Write(script);
             }
-   
+ 
             return View();
         }
         public string RemoveWhitespace(string str)

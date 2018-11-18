@@ -294,8 +294,6 @@ namespace UResidence.Controllers
                             MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
                             MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
                         };
-
-                    
                         List<Tenant> listTen = default(List<Tenant>);
                         listTen = UResidence.TenantController.Check(tenn);
                          if (listTen.Count == 0)
@@ -394,36 +392,36 @@ namespace UResidence.Controllers
                                 return View("TenantView");
                             }
                                                        
-                         }
-                                        else
+                             }
+                          else
                                         {
                                             ViewBag.ErrorMessage = FixMessages(err);
                                             status = false;
                             ViewBag.Alert = true;
                             return View("TenantView");
                         }
-                                    }
+                          }
                          else
-                                    {
-                                        string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
-                                        Response.Write(script);
-                                        status = false;
-                        ViewBag.Alert = true;
-                        return View("TenantView");
-                    }
+                         {
+                          string script = "<script type = 'text/javascript'>alert('The unit number is still occupied. Kindly check your specified details.');</script>";
+                          Response.Write(script);
+                          status = false;
+                          ViewBag.Alert = true;
+                          return View("TenantView");
+                         }
                  }
                  else
-                                {
-                                    string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
-                                    Response.Write(script);
-                                    status = false;
-                    ViewBag.Alert = true;
-                    return View("TenantView");
+                 {
+                 string script = "<script type = 'text/javascript'>alert('Invalid building number and unit number. Kindly check your specified details.');</script>";
+                 Response.Write(script);
+                 status = false;
+                 ViewBag.Alert = true;
+                 return View("TenantView");
                 }
             }
             else
             {
-            string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
+            string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
             Response.Write(script);
             status = false;
                 ViewBag.Alert = true;
@@ -461,6 +459,23 @@ namespace UResidence.Controllers
             {
                 ViewBag.DeleteMessage = Session["DeleteStatus"];
                 Session["DeleteStatus"] = null;
+            }
+            List<Tenant> ten = new List<Tenant>();
+            ten = UResidence.TenantController.GetAll();
+            if(ten.Count>0)
+            {
+                for(int i=0; i <= ten.Count - 1; i++)
+                {
+                    if(ten[i].LeaseEnd <= DateTime.Now)
+                    {
+                        Tenant tenmodel = new Tenant
+                        {
+                            Deleted = "1",
+                            Id=ten[i].Id
+                        };
+                        UResidence.TenantController.UpdateDelete(tenmodel);
+                    }
+                }
             }
             return View();      
         }
@@ -529,17 +544,37 @@ namespace UResidence.Controllers
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {
-                status = UResidence.TenantController.Update(ten);
-                if (status == true)
+                List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
+                if (listUser.Count == 0)
                 {
-                    Session["UpdateMess"] = status;
-                    return RedirectToAction("TenantView", "Tenant");
+                    List<Owner> own = new List<Owner>(); ;
+                    own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
+                    if (own.Count != 0)
+                    {
+                        status = UResidence.TenantController.Update(ten);
+                        if (status == true)
+                        {
+                            status = UResidence.UserController.UpdateEmail(ten.Email, ten.LoginId);
+                            Session["UpdateMess"] = status;
+                            return RedirectToAction("TenantView", "Tenant");
+                        }
+                        else
+                        {
+                            ViewBag.UpdateMessage = status;
+                            return View(ten);
+                        }
+                    }
+                    else
+                    {
+                        string script = "<script type = 'text/javascript'>alert('Invalid building number and unit number. Kindly check your specified details.');</script>";
+                        Response.Write(script);
+                    }
                 }
                 else
                 {
-                    ViewBag.UpdateMessage = status;
-                    return View(ten);
-                }            
+                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+                    Response.Write(script);
+                }
             }
             else
             {
