@@ -1,9 +1,14 @@
 ﻿@model UResidence.Equipment
 
 @{
+    ViewBag.Title = "AdminView";
     if (Convert.ToInt32(Session["Level"]) == 1)
     {
         Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
     }
     else
     {
@@ -139,14 +144,17 @@
 }
 <br />
 <br />
-<br />
+
 
 <div class="container">
-    <hr />
+    <br />
+    <br />
+    <br />
+    <br />
 
     <div class="panel panel-default">
         <div class="panel-heading" style="background-color:  #1C2331">
-            <font color="white"> <h3 class="panel-title"> Equipment List </h3></font>
+            <font color="white"> <h3 class="panel-title"> List of Equipments </h3></font>
         </div>
 
         <div class=" panel-body">

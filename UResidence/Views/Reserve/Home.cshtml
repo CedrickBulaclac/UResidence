@@ -10,6 +10,7 @@
 		Layout = "~/Views/Layout/TenantLayout.cshtml";
 	}
 }
+
 <style>
 	.first {
 	}
@@ -492,6 +493,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
 <div class="container">
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog" style="position:initial;">
@@ -588,9 +591,6 @@
 
 
 
-
-
-
 <!-- About Us -->
 
 <div class="second">
@@ -665,11 +665,15 @@
 
 <div class="w3-padding-64 w3-center amenity">
 	<h1 class="text-uppercase">OUR AMENITIES</h1>
-	@*<h1 class="w3-xxlarge"><b>OUR AMENITIES</b></h1>*@
 
-	<font color="black">
-		<p class="p-top-30 half-txt ">The Amenities that fits your needs.</p>
-	</font>
+
+	
+		<p class="p-top-30 half-txt ">
+            <font color="black">
+                The Amenities that fits your needs.
+            </font>
+        </p>
+	
 
 	<div class="w3-row-padding" style="margin-top:64px">
 		@foreach (var a in Model)
@@ -791,15 +795,13 @@
 
 
 
-
-
 <!-- Footer -->
-<footer class="col-lg-12" @*class="w3-center  w3-dark-gray w3-padding-16 w3-text-white "*@ style=" background-color:#282828; padding: 10px; text-align: center;color: white; position:absolute; width:100%;">
+<footer class="col-lg-12"  style=" background-color:#282828; padding: 10px; text-align: center;color: white; position:absolute; width:100%;">
 	<p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-	<a href="#" class="fa fa-facebook fa-2x"></a>
-	<a href="#" class="fa fa-twitter  fa-2x "></a>
-	<a href="#" class="fa fa-instagram fa-2x"></a>
-	<a href="#" class="fa fa-google fa-2x"></a>
+	<a href="https://www.facebook.com/palmdaleheightscondominium.pinagbuhatan/?ref=br_rs" class="fa fa-facebook fa-2x"></a>
+	<a href="https://twitter.com/condiminium" class="fa fa-twitter  fa-2x "></a>
+	<a href="https://www.instagram.com/palmdaleheightscondocorp/" class="fa fa-instagram fa-2x"></a>
+	@*<a href="#" class="fa fa-google fa-2x"></a>*@
 
 
 	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>

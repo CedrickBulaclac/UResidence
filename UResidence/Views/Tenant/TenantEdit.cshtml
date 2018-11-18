@@ -1,9 +1,14 @@
 ﻿@model UResidence.Tenant
 
 @{
+    ViewBag.Title = "AdminView";
     if (Convert.ToInt32(Session["Level"]) == 1)
     {
         Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
     }
     else
     {
@@ -70,69 +75,72 @@
 
 <body>
 
-	<br />
-	<br />
-	<br />
-	<div class="containerAdmin">
-		
-
-		@using (Html.BeginForm("TenantEdit", "Tenant", FormMethod.Post))
-		{
-			@Html.AntiForgeryToken()
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="containerAdmin">
 
 
-
-
-        <div class="form-horizontal">
-
-            <hr />
-
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
+        @using (Html.BeginForm("TenantEdit", "Tenant", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
 
 
 
-            <div class="container">
 
-
-                <div class="panel panel-collapse">
-                    <div class="panel-heading" style="background-color:  #1C2331">
-                        <font color="white"> <h3 class="panel-title"> Tenant Edit </h3></font>
-                    </div>
+            <div class="form-horizontal">
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
 
-                            <label class="col-sm-4" for="First Name">First Name :</label>
-
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
 
 
+
+                <div class="container">
+
+
+                    <div class="panel panel-collapse">
+                        <div class="panel-heading" style="background-color:  #1C2331">
+                            <font color="white"> <h3 class="panel-title"> Edit Tenant Information </h3></font>
+                        </div>
+
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="First Name">First Name :</label>
+
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Middle Name">Middle Name :</label>
+                                <label class="col-sm-4" for="Middle Name">Middle Name :</label>
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
@@ -140,145 +148,145 @@
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Last Name">Last Name :</label>
-
-
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                                <label class="col-sm-4" for="Last Name">Last Name :</label>
 
 
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Bdate">Birthdate :</label>
+                                <label class="col-sm-4" for="Bdate">Birthdate :</label>
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Cel">Cellphone no. :</label>
+                                <label class="col-sm-4" for="Cel">Cellphone no. :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Email">Email Address :</label>
+                                <label class="col-sm-4" for="Email">Email Address :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Bldg no.">Building No. :</label>
+                                <label class="col-sm-4" for="Bldg no.">Building No. :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                                                {
-                                                                    new SelectListItem() {Text = "1", Value="1"},
-                                                                    new SelectListItem() {Text = "2", Value="2"},
-                                                                    new SelectListItem() {Text = "3", Value="3"},
-                                                                    new SelectListItem() {Text = "4", Value="4"},
-                                                                    new SelectListItem() {Text = "5", Value="5"},
-                                                                    new SelectListItem() {Text = "6", Value="6"}
-                                                                }, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                                                                                    {
+                                                                                        new SelectListItem() {Text = "1", Value="1"},
+                                                                                        new SelectListItem() {Text = "2", Value="2"},
+                                                                                        new SelectListItem() {Text = "3", Value="3"},
+                                                                                        new SelectListItem() {Text = "4", Value="4"},
+                                                                                        new SelectListItem() {Text = "5", Value="5"},
+                                                                                        new SelectListItem() {Text = "6", Value="6"}
+                                                                                    }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Unit no.">Unit No. :</label>
+                                <label class="col-sm-4" for="Unit no.">Unit No. :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Unit no.">Lease Start :</label>
+                                <label class="col-sm-4" for="Unit no.">Lease Start :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                    @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
@@ -287,20 +295,20 @@
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4" for="Unit no.">Lease End :</label>
+                                <label class="col-sm-4" for="Unit no.">Lease End :</label>
 
 
 
-                            <div class="col-sm-6">
-                                @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
+                                <div class="col-sm-6">
+                                    @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                    @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
@@ -310,19 +318,19 @@
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4">Update Moving In :</label>
+                                <label class="col-sm-4">Update Moving In :</label>
 
 
 
-                            <div class="col-sm-6">
-                                <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
@@ -330,74 +338,74 @@
 
 
 
-                    <div class="col-sm-12">
-                        <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                            <label class="col-sm-4">Update Moving Out :</label>
+                                <label class="col-sm-4">Update Moving Out :</label>
 
 
 
-                            <div class="col-sm-6">
-                                <button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    @*---Modal for Update Amenity Image---*@
-                    <div class="container">
-                        <div class="modal fade" id="updateImageModal1" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <label>Moving In: </label><input type="file" id="image1" name="image1" />
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
-                                        <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                        @*---Modal for Update Amenity Image---*@
+                        <div class="container">
+                            <div class="modal fade" id="updateImageModal1" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>Moving In: </label><input type="file" id="image1" name="image1" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
+                                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    @*---Modal for Update Amenity Image---*@
-                    <div class="container">
-                        <div class="modal fade" id="updateImageModal2" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <label>Moving Out: </label><input type="file" id="image2" name="image2" />
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.Id)">Update</button>
-                                        <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                        @*---Modal for Update Amenity Image---*@
+                        <div class="container">
+                            <div class="modal fade" id="updateImageModal2" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label>Moving Out: </label><input type="file" id="image2" name="image2" />
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.Id)">Update</button>
+                                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+
+
+                        <br />
+                        <input type="submit" value="Save" class="button" />
+                        <a href="@Url.Action("TenantView","Tenant")" class="button">Cancel</a>
+
                     </div>
-
-
-
-
-                    <br />
-                    <input type="submit" value="Save" class="button" />
-                    <a href="@Url.Action("TenantView","Tenant")" class="button">Cancel</a>
-
-                </div>
                 </div>
             </div>
 
-                }
-            </div>
+        }
+    </div>
 </body>
 </html>
 

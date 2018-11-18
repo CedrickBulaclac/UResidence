@@ -2,16 +2,19 @@
 
 @{
 
-	ViewBag.Title = "Registration";
-
-	if (Convert.ToInt32(Session["Level"]) == 1)
-	{
-		Layout = "/Views/Layout/BossManagerLayout.cshtml";
-	}
-	else
-	{
-		Layout = "/Views/Layout/AdminLayout.cshtml";
-	}
+    ViewBag.Title = "AdminView";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 }
 
 
