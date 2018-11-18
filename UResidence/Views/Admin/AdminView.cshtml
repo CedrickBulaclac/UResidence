@@ -231,9 +231,9 @@
 
                                 </div>
 
-                                <div class="col-75">
-                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                                                    <div class="col-75">
+                                                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                                        @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
                                 </div>
                             </div>
@@ -521,11 +521,12 @@ else
 
             $(document).ready(function () {
 
+                document.forms[0].reset();
                 $('#aasuccess').show('fade');
 
                 setTimeout(function () {
                     $('#aasuccess').hide('fade');
-                }, 20000);
+                }, 2000);
 
             });
         </script>
@@ -549,6 +550,17 @@ else
 
     }
 
+}
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert==true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+    }
 }
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>

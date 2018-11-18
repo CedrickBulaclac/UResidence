@@ -13,6 +13,7 @@ namespace UResidence
         public int AmenityId { get; set; }     
         public decimal Adult { get; set; }
         public decimal Child { get; set; }
+        public int Deleted { get; set; }
 
         public SwimmingRate CreateObject(SqlDataReader reader)
         {
@@ -21,6 +22,7 @@ namespace UResidence
             ret.AmenityId = reader.GetInt32(1);
             ret.Adult = reader.GetDecimal(2);
             ret.Child = reader.GetDecimal(3);
+            ret.Deleted = reader.GetInt32(4);
 
             return ret;
         }
@@ -31,6 +33,7 @@ namespace UResidence
             this.AmenityId = 0;
             this.Adult = 0;
             this.Child = 0;
+            this.Deleted = 0;
 
         }
 

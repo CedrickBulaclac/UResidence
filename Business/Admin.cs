@@ -48,7 +48,7 @@ namespace UResidence
         public bool ReversalModule { get; set; }
         public bool LogBookModule { get; set; }
         public string FormattedDate => Bdate.ToShortDateString();
-
+        public int LoginId { get; set; }
         public Admin CreateObject(SqlDataReader reader)
         {
             Admin ret = new Admin();
@@ -69,7 +69,7 @@ namespace UResidence
             ret.PaymentModule = reader.GetBoolean(14);
             ret.ReversalModule = reader.GetBoolean(15);
             ret.LogBookModule = reader.GetBoolean(16);
- 
+            ret.LoginId = reader.GetInt32(17);
             return ret;
         }
         public string RemoveWhitespace(string str)

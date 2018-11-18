@@ -86,7 +86,8 @@ namespace UResidence.Controllers
                     Stocks = eqp.Stocks,
                     Rate = eqp.Rate,
                     Url = finalpath,
-                    Description = eqp.Description
+                    Description = eqp.Description,
+                    Deleted=0
                 };
 
                 if (eqp1.Validate(out err))
@@ -94,14 +95,15 @@ namespace UResidence.Controllers
                     UResidence.EquipmentController.Insert(eqp1);
                     status = true;
                     ViewBag.AddMessage = status;
-                    EquipmentView();
-                    return View("EquipmentView");
+                    Session["AddMessage"] = status;
+                    return RedirectToAction("EquipmentView", "Equipment");
                 }
                 else
                 {
                     ViewBag.ErrorMessage = FixMessages(err);
                     ViewBag.Message = false;
-                    return View(eqp);
+                    ViewBag.Alert = true;
+                    return View("EquipmentView");
                 }
             }
             else
@@ -112,7 +114,8 @@ namespace UResidence.Controllers
                     Stocks = eqp.Stocks,
                     Rate = eqp.Rate,
                     Url = "~/Content/EquipmentImages/Noimageavailable.jpeg",
-                    Description = eqp.Description
+                    Description = eqp.Description,
+                    Deleted=0
                 };
 
                 if (eqp1.Validate(out err))
@@ -120,14 +123,15 @@ namespace UResidence.Controllers
                     UResidence.EquipmentController.Insert(eqp1);
                     status = true;
                     ViewBag.AddMessage = status;
-                    EquipmentView();
-                    return View("EquipmentView");
+                    Session["AddMessage"] = status;
+                    return RedirectToAction("EquipmentView", "Equipment");
                 }
                 else
                 {
                     ViewBag.ErrorMessage = FixMessages(err);
                     ViewBag.Message = false;
-                    return View(eqp);
+                    ViewBag.Alert = true;
+                    return View("EquipmentView");
                 }
             }
                 
@@ -201,8 +205,22 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            Equipment eqp = new Equipment();
-            eqp.Reset();
+            if (Session["UpdateMess"] != null)
+            {
+                ViewBag.UpdateMessage = Session["UpdateMess"];
+                Session["UpdateMess"] = null;
+            }
+            if (Session["AddMessage"] != null)
+            {
+                ViewBag.AddMessage = Session["AddMessage"];
+                Session["AddMessage"] = null;
+            }
+            if (Session["DeleteStatus"] != null)
+            {
+                ViewBag.DeleteStatus = Session["DeleteStatus"];
+                Session["DeleteStatus"] = null;
+            }
+
             return View();
         }
 
@@ -217,17 +235,15 @@ namespace UResidence.Controllers
             {
                 Id = id
             };
-            status = UResidence.EquipmentController.Delete(eq);
-            if(status == true)
-            {
-                EquipmentView();
-            }
-            ViewBag.DeleteStatus = true;
-            return View("EquipmentView");
+            status = UResidence.EquipmentController.UpdateDelete(id);
+            ViewBag.DeleteStatus = status;
+            Session["DeleteStatus"] = status;
+            return RedirectToAction("EquipmentView", "Equipment");
         }
         
         public ActionResult EquipmentEdit()
         {
+            Session["UpdateMess"]=null;
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
@@ -265,37 +281,69 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             string[] err = new string[] { };
-          
-                    Equipment eqp1 = new Equipment()
+
+           
+           Equipment ret = new Equipment();
+            ret = UResidence.EquipmentController.GetbyId(eqp.Id);
+
+            if (eqp.Rate != ret.Rate)
+            {
+                status = UResidence.EquipmentController.UpdateDelete(eqp.Id);
+
+                Equipment eqpp = new Equipment()
+                {
+                    Name = eqp.Name,
+                    Stocks = eqp.Stocks,
+                    Rate = eqp.Rate,
+                    Url = ret.Url,
+                    Description = eqp.Description,
+                    Deleted = 0
+                };
+                UResidence.EquipmentController.Insert(eqpp);
+
+                if (status == true)
+                {
+                    ViewBag.UpdateMessage = status;
+                    Session["UpdateMess"] = status;
+                    return RedirectToAction("EquipmentView", "Equipment");
+                }
+                else
+                {
+                    ViewBag.UpdateMessage = status;
+                }
+                ViewBag.ErrorMessages = FixMessages(err);
+            }
+            else
+            {
+                Equipment eqp1 = new Equipment()
+                {
+                    Id = eqp.Id,
+                    Name = eqp.Name,
+                    Stocks = eqp.Stocks,
+                    Rate = eqp.Rate,
+                    Description = eqp.Description,
+                    Deleted = 0
+                };
+                if (eqp1.Validate(out err))
+                {
+                    status = UResidence.EquipmentController.Update(eqp1);
+                    if (status == true)
                     {
-                       Id=eqp.Id,
-                        Name = eqp.Name,              
-                        Stocks = eqp.Stocks,
-                        Rate = eqp.Rate,
-                        Description = eqp.Description
-                    };
-                    if (eqp1.Validate(out err))
+                        ViewBag.UpdateMessage = status;
+                        Session["UpdateMess"] = status;
+                        return RedirectToAction("EquipmentView", "Equipment");
+                    }
+                    else
                     {
-                        status = UResidence.EquipmentController.Update(eqp1);
-                        if (status == true)
-                        {
-                            ViewBag.UpdateMessage = status;
-                            EquipmentView();
-                            return View("EquipmentView");
-                        }
-                        else
-                        {
-                            ViewBag.UpdateMessage = status;
-                        }
-                       ViewBag.ErrorMessages = FixMessages(err);
+                        ViewBag.UpdateMessage = status;
+                    }
+                    ViewBag.ErrorMessages = FixMessages(err);
+                }
             }
             return View(eqp);
         }
             
-         
-             
-        
-
+                        
         public string FixMessages(string[] err)
         {
             string errors = "Please check the following: <br/>";

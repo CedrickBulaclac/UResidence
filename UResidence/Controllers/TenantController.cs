@@ -48,7 +48,7 @@ namespace UResidence.Controllers
             string hash = BitConverter.ToString(sh.ComputeHash(utf8.GetBytes(p.ToString())));
             return hash;
         }
-        private void SendEmail(string email1, string pass)
+        private bool SendEmail(string email1, string pass)
         {
             try
             {
@@ -77,11 +77,13 @@ namespace UResidence.Controllers
                     smtp.Send(message);
 
                 }
+                return true;
             }
             catch(Exception)
             {
                 string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
+                return false;
             }
         }
 
@@ -111,10 +113,6 @@ namespace UResidence.Controllers
             Response.AddHeader("content-disposition", "attachment;filename=TenantList." + filenameExtension);
             return File(renderbyte, filenameExtension);
         }
-
-
-
-
 
         public JsonResult InsertMoving1(Tenant tenant)
         {
@@ -164,10 +162,6 @@ namespace UResidence.Controllers
             };
 
         }
-
-
-
-
 
         public JsonResult InsertMoving2(Tenant tenant)
         {
@@ -260,7 +254,6 @@ namespace UResidence.Controllers
                 }
             }
 
-
             string hash;
             string pass = ten.Bdate.ToShortDateString();
             hash = Hash(pass);
@@ -301,140 +294,143 @@ namespace UResidence.Controllers
                             MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
                             MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
                         };
-
-                    
                         List<Tenant> listTen = default(List<Tenant>);
-                                    listTen = UResidence.TenantController.Check(tenn);
-                                    if (listTen.Count == 0)
-                                    {
-                                        string[] err = new string[] { };
-                                        if (ten.Validate(out err))
-                                        {
-                            if (image != null)
+                        listTen = UResidence.TenantController.Check(tenn);
+                         if (listTen.Count == 0)
+                          {
+                            string[] err = new string[] { };
+                             if (ten.Validate(out err))
+                              {
+                            status=SendEmail(ten.Email, pass);
+                            if (status == true)
                             {
-                                Tenant tennn = new Tenant()
+                                if (image != null)
                                 {
+                                    Tenant tennn = new Tenant()
+                                    {
 
-                                    BldgNo = ten.BldgNo,
-                                    UnitNo = ten.UnitNo,
-                                    Fname = ten.Fname,
-                                    Mname = ten.Mname,
-                                    Lname = ten.Lname,
-                                    Bdate = ten.Bdate,
-                                    CelNo = ten.CelNo,
-                                    Email = ten.Email,
-                                    LeaseStart = ten.LeaseStart,
-                                    LeaseEnd = ten.LeaseEnd,
-                                    Deleted = "0",
-                                    URL = "~/Content/TenantImages/user.png",
-                                    MovingIn = finalpath,
-                                    MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                        BldgNo = ten.BldgNo,
+                                        UnitNo = ten.UnitNo,
+                                        Fname = ten.Fname,
+                                        Mname = ten.Mname,
+                                        Lname = ten.Lname,
+                                        Bdate = ten.Bdate,
+                                        CelNo = ten.CelNo,
+                                        Email = ten.Email,
+                                        LeaseStart = ten.LeaseStart,
+                                        LeaseEnd = ten.LeaseEnd,
+                                        Deleted = "0",
+                                        URL = "~/Content/TenantImages/user.png",
+                                        MovingIn = finalpath,
+                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                    };
+                                    status = UResidence.TenantController.Insert(tennn);
+                                }
+                                else
+                                {
+                                    Tenant tennn = new Tenant()
+                                    {
+
+                                        BldgNo = ten.BldgNo,
+                                        UnitNo = ten.UnitNo,
+                                        Fname = ten.Fname,
+                                        Mname = ten.Mname,
+                                        Lname = ten.Lname,
+                                        Bdate = ten.Bdate,
+                                        CelNo = ten.CelNo,
+                                        Email = ten.Email,
+                                        LeaseStart = ten.LeaseStart,
+                                        LeaseEnd = ten.LeaseEnd,
+                                        Deleted = "0",
+                                        URL = "~/Content/TenantImages/user.png",
+                                        MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
+                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                    };
+                                    status = UResidence.TenantController.Insert(tennn);
+                                }
+                                Tenant b = new Tenant();
+                                b = UResidence.TenantController.GetEmailTenant(ten.Email);
+                                int tenandID = b.Id;
+
+                                UserLogin ull = new UserLogin
+                                {
+                                    Username = ten.Email,
+                                    Hash = hash,
+                                    CreatedBy = "",
+                                    ModifyBy = "",
+                                    DateCreated = DateTime.Now,
+                                    Level = 9,
+                                    Locked = 0,
+                                    LastLogin = DateTime.Now
+
                                 };
-                                status = UResidence.TenantController.Insert(tennn);
+
+                                status = UResidence.UserController.Insert(ull);
+                                if (status == true)
+                                {
+                                    List<UserLogin> ul2 = new List<UserLogin>();
+                                    ul2 = UserController.GetAll(ten.Email);
+                                    if (ul2.Count > 0)
+                                    {
+                                        status = UResidence.TenantController.Update(ul2[0].Id, ten.Email);
+                                    }
+
+                                }
+                                Residence red = new Residence
+                                {
+                                    OwnerNo = own[0].Id,
+                                    TenantNo = tenandID
+                                };
+
+                                status = ResidenceController.Insert(red);
                             }
                             else
                             {
-                                Tenant tennn = new Tenant()
-                                {
-
-                                    BldgNo = ten.BldgNo,
-                                    UnitNo = ten.UnitNo,
-                                    Fname = ten.Fname,
-                                    Mname = ten.Mname,
-                                    Lname = ten.Lname,
-                                    Bdate = ten.Bdate,
-                                    CelNo = ten.CelNo,
-                                    Email = ten.Email,
-                                    LeaseStart = ten.LeaseStart,
-                                    LeaseEnd = ten.LeaseEnd,
-                                    Deleted = "0",
-                                    URL = "~/Content/TenantImages/user.png",
-                                    MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
-                                    MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
-                                };
-                                status = UResidence.TenantController.Insert(tennn);
+                                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
+                                Response.Write(script);
+                                ViewBag.Alert = true;
+                                return View("TenantView");
                             }
-
-
-
-                                           
-                                            Tenant b = new Tenant();
-                                            b = UResidence.TenantController.GetEmailTenant(ten.Email);
-                                            int tenandID = b.Id;
-
-                                            UserLogin ull = new UserLogin
-                                            {                                             
-                                                Username = ten.Email,
-                                                Hash = hash,
-                                                CreatedBy = "",
-                                                ModifyBy = "",
-                                                DateCreated = DateTime.Now,
-                                                Level = 9,
-                                                Locked = 0,
-                                                LastLogin = DateTime.Now
-
-                                            };
-
-                                           status= UResidence.UserController.Insert(ull);
-                                           if (status == true)
-                                          {
-                                          List<UserLogin> ul2 = new List<UserLogin>();
-                                          ul2 = UserController.GetAll(ten.Email);
-                                         if (ul2.Count > 0)
-                                         {
-                                              status = UResidence.TenantController.Update(ul2[0].Id, ten.Email);
-                                         }
-
-                                         }
-                                           Residence red = new Residence
-                                            {
-                                                OwnerNo = own[0].Id,
-                                                TenantNo = tenandID
-                                            };
-
-                                            ResidenceController.Insert(red);
-                                            
-                                            SendEmail(ten.Email, pass);
-                                            status = true;
-                                            ViewBag.AddMessage = status;
-                                            TenantView();
-                                            return View("TenantView");
-                                        }
-                                        else
+                                                       
+                             }
+                          else
                                         {
                                             ViewBag.ErrorMessage = FixMessages(err);
                                             status = false;
-
-                                        }
-                                    }
-                                    else
-                                    {
-                                        string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
-                                        Response.Write(script);
-                                        status = false;
-                                    }
-                                }////////////
-                                else
-                                {
-                                    string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
-                                    Response.Write(script);
-                                    status = false;
-                                }
-                            }
-                            else
-                            {
-                                string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
-                                Response.Write(script);
-                                status = false;
-                            }
-                            ViewBag.AddMessage = status;
-                           TenantView();
-                        return View("TenantView");
-                   }
-                   
-            
-           
-        
+                            ViewBag.Alert = true;
+                            return View("TenantView");
+                        }
+                          }
+                         else
+                         {
+                          string script = "<script type = 'text/javascript'>alert('The unit number is still occupied. Kindly check your specified details.');</script>";
+                          Response.Write(script);
+                          status = false;
+                          ViewBag.Alert = true;
+                          return View("TenantView");
+                         }
+                 }
+                 else
+                 {
+                 string script = "<script type = 'text/javascript'>alert('Invalid building number and unit number. Kindly check your specified details.');</script>";
+                 Response.Write(script);
+                 status = false;
+                 ViewBag.Alert = true;
+                 return View("TenantView");
+                }
+            }
+            else
+            {
+            string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+            Response.Write(script);
+            status = false;
+                ViewBag.Alert = true;
+                return View("TenantView");
+            }
+            Session["AddMessage"] = status;
+            return RedirectToAction("TenantView", "Tenant");
+        }
+    
         public ActionResult TenantView()
         {
             if (Session["Level"] == null)
@@ -449,7 +445,38 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-         
+            if (Session["UpdateMess"] != null)
+            {
+                ViewBag.UpdateMessage = Session["UpdateMess"];
+                Session["UpdateMess"] = null;
+            }
+            if (Session["AddMessage"] != null)
+            {
+                ViewBag.AddMessage = Session["AddMessage"];
+                Session["AddMessage"] = null;
+            }
+            if (Session["DeleteStatus"] != null)
+            {
+                ViewBag.DeleteMessage = Session["DeleteStatus"];
+                Session["DeleteStatus"] = null;
+            }
+            List<Tenant> ten = new List<Tenant>();
+            ten = UResidence.TenantController.GetAll();
+            if(ten.Count>0)
+            {
+                for(int i=0; i <= ten.Count - 1; i++)
+                {
+                    if(ten[i].LeaseEnd <= DateTime.Now)
+                    {
+                        Tenant tenmodel = new Tenant
+                        {
+                            Deleted = "1",
+                            Id=ten[i].Id
+                        };
+                        UResidence.TenantController.UpdateDelete(tenmodel);
+                    }
+                }
+            }
             return View();      
         }
         [HttpGet]
@@ -468,21 +495,13 @@ namespace UResidence.Controllers
             };
             Tenant o = new Tenant();
             o = UResidence.TenantController.GetId(id.ToString());
-
-            UserLogin ul = new UserLogin();
-            ul = UResidence.UserController.Get(o.Email);
-            status = UResidence.UserController.UpdateLockout(ul.Id);
+            status = UResidence.UserController.UpdateLockout(o.LoginId);
             if (status == true)
             {             
-                status = UResidence.TenantController.UpdateDelete(ten);
-                ViewBag.DeleteMessage = status;
-                TenantView();
+                status = UResidence.TenantController.UpdateDelete(ten);                           
             }
-           else
-            {
-                ViewBag.DeleteMessage = status;
-            }
-            return View("TenantView");
+            Session["DeleteStatus"] = status;
+            return RedirectToAction("TenantView", "Tenant");
         }
         public ActionResult TenantEdit()
         {
@@ -525,28 +544,44 @@ namespace UResidence.Controllers
             string[] err = new string[] { };
             if (ten.Validate(out err))
             {
-                status = UResidence.TenantController.Update(ten);
-                if (status == true)
+                List<UserLogin> listUser = UResidence.UserController.GetAll(ten.Email);
+                if (listUser.Count == 0)
                 {
-                    ViewBag.UpdateMessage = status;
-                    TenantView();
-                    return View("TenantView");
+                    List<Owner> own = new List<Owner>(); ;
+                    own = UResidence.OwnerController.GetOwnerReserve(ten.BldgNo, ten.UnitNo);
+                    if (own.Count != 0)
+                    {
+                        status = UResidence.TenantController.Update(ten);
+                        if (status == true)
+                        {
+                            status = UResidence.UserController.UpdateEmail(ten.Email, ten.LoginId);
+                            Session["UpdateMess"] = status;
+                            return RedirectToAction("TenantView", "Tenant");
+                        }
+                        else
+                        {
+                            ViewBag.UpdateMessage = status;
+                            return View(ten);
+                        }
+                    }
+                    else
+                    {
+                        string script = "<script type = 'text/javascript'>alert('Invalid building number and unit number. Kindly check your specified details.');</script>";
+                        Response.Write(script);
+                    }
                 }
                 else
                 {
-                    ViewBag.UpdateMessage = status;
-                    return View();
+                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+                    Response.Write(script);
                 }
-               
             }
             else
             {
                 ViewBag.ErrorMessages = FixMessages(err);
-            }
-           
+            }       
             return View(ten);
         }
-
 
         public JsonResult UpdateImage(Tenant ten)
         {

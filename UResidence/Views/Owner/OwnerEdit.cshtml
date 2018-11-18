@@ -233,14 +233,14 @@
 
                                 <div class="col-sm-6">
                                     @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                                                                                                    {
-                                                                                                                        new SelectListItem() {Text = "1", Value="1"},
-                                                                                                                        new SelectListItem() {Text = "2", Value="2"},
-                                                                                                                        new SelectListItem() {Text = "3", Value="3"},
-                                                                                                                        new SelectListItem() {Text = "4", Value="4"},
-                                                                                                                        new SelectListItem() {Text = "5", Value="5"},
-                                                                                                                        new SelectListItem() {Text = "6", Value="6"}
-                                                                                                                    }, new { @class = "form-control" })
+                                                 {
+                                                   new SelectListItem() {Text = "1A", Value="1A"},
+                                                                                 new SelectListItem() {Text = "1B", Value="1B"},
+                                                                                 new SelectListItem() {Text = "1C", Value="1C"},
+                                                                                 new SelectListItem() {Text = "2A", Value="2A"},
+                                                                                 new SelectListItem() {Text = "2B", Value="2B"},
+                                                                                 new SelectListItem() {Text = "2C", Value="2C"},
+                                                  }, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
                                     @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
 
@@ -353,7 +353,22 @@
                 alert(error);
             }
         });
-    }
+	}
+
+
+	$("form").submit(function (e) {
+		var today = new Date();
+		var bdate = document.getElementById('Bdate').value
+		var date1 = new Date(bdate);
+		var age = today.getFullYear() - date1.getFullYear();
+		var m = today.getMonth() + 1 - date1.getMonth() + 1;
+		var d = today.getDate() - date1.getDate();
+
+		if (age < 18 || m < 0) {
+			alert("18 Years and above only");
+			e.preventDefault();
+		}
+	});
 
     $('#btnUpdateImage1').click(function () {
 

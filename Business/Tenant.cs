@@ -66,6 +66,7 @@ namespace UResidence
         public HttpPostedFileBase Image2 { get; set; }
         public string Fullname { get; set; }
         public string Birthday { get; set; }
+        public int LoginId { get; set; }
         public bool Validate(out string[] errors)
         {
             bool ret = true;
@@ -145,6 +146,7 @@ namespace UResidence
             ret.Fullname = reader.GetString(15);
             ret.Birthday = reader.GetString(16);
             ret.Lease = reader.GetString(17);
+            ret.LoginId = reader.GetInt32(18);
             return ret;
         }
     }

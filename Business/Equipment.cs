@@ -31,6 +31,7 @@ namespace UResidence
         [StringLength(250, ErrorMessage = "Description cannot be longer than 250 characters.")]
         public string Description { get; set; }
 
+        public int Deleted{ get; set; }
         public HttpPostedFileBase Image { get; set; }
 
 
@@ -44,6 +45,7 @@ namespace UResidence
             ret.Rate = reader.GetDecimal(3);
             ret.Url = reader.GetString(4);
             ret.Description = reader.GetString(5);
+            ret.Deleted = reader.GetInt32(6);
 
             return ret;
         }
@@ -85,6 +87,7 @@ namespace UResidence
             this.Id =0;
             this.Url = string.Empty;
             this.Description = string.Empty;
+            this.Deleted = 0;
         }
     }
 }

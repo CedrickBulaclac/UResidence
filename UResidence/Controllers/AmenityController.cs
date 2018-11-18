@@ -32,6 +32,7 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
+           
             return View();
         }      
 
@@ -143,7 +144,8 @@ namespace UResidence.Controllers
                     Location = amen.Location,
                     EveRate = amen.EveRate,
                     IsEquipment = amen.IsEquipment,
-                    IsWeekend = amen.IsWeekend
+                    IsWeekend = amen.IsWeekend,
+                    Deleted = 0
                 };
        
             if (amen.Validate(out err))
@@ -162,9 +164,10 @@ namespace UResidence.Controllers
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
-                        IsWeekend = amen.IsWeekend
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
                     };
-                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                    status = UResidence.AmenityController.Insert(aa);
                 }
                 else
                 {
@@ -179,22 +182,23 @@ namespace UResidence.Controllers
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
-                        IsWeekend = amen.IsWeekend
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
                     };
-                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                   status = UResidence.AmenityController.Insert(aa);
                 }
 
-        
-                status = true;
-                ViewBag.AddMessage = status;
-                AmenityView();
-                return View("AmenityView");
+                Session["AddMessage"] = status;
+                return RedirectToAction("AmenityView", "Amenity");
             }
             else
             {
-                ViewBag.Message = false;
+                status = false;
                 ViewBag.ErrorMessages = FixMessages(err);
-                return View(amen);
+                Session["AddMessage"] = status;
+                ViewBag.Alert = true;
+                ViewBag.Kind = 2;
+                return View("AmenityView");
             }           
         }
 
@@ -212,7 +216,21 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-           
+            if (Session["UpdateMess"] != null)
+            {
+                ViewBag.UpdateMessage = Session["UpdateMess"];
+                Session["UpdateMess"] = null;
+            }
+            if (Session["AddMessage"] != null)
+            {
+                ViewBag.AddMessage = Session["AddMessage"];
+                Session["AddMessage"] = null;
+            }
+            if (Session["DeleteStatus"] != null)
+            {
+                ViewBag.DeleteStatus = Session["DeleteStatus"];
+                Session["DeleteStatus"] = null;
+            }
             return View();
         }
         public JsonResult DeleteImage(ImageAmenity ia)
@@ -254,16 +272,9 @@ namespace UResidence.Controllers
             {
                 Id = id
             };
-            status = UResidence.AmenityController.Delete(am);
-          
-            if (status == true)
-            {
-                AmenityView();
-
-            }
-            ViewBag.DeleteStatus = status;
-            return View("AmenityView");
-
+            status = UResidence.AmenityController.UpdateDelete(id);                  
+            Session["DeleteStatus"] = status;
+            return RedirectToAction("AmenityView", "Amenity");
         }
         public ActionResult AmenityEdit()
         {
@@ -351,79 +362,134 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             string[] err = new string[] { };
+            Amenity ret = new Amenity();
+            ret = UResidence.AmenityController.GetbyId(amen.Id);
             if (amen.Rate==0)
             {
+                if (amen.Adult != ret.Adult || amen.Child != ret.Child)
+                {
+                    status = UResidence.AmenityController.UpdateDelete(amen.Id);
+                    status = UResidence.SwimmingRateController.UpdateDelete(amen.Id);
 
-                SwimmingRate sr = new SwimmingRate()
+                    Amenity a = new Amenity()
+                    {
+                        AmenityName = amen.AmenityName,
+                        Url = ret.Url,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate,
+                        Color = amen.Color,
+                        Location = amen.Location,
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
+                    };
+                    status = UResidence.AmenityController.Insert(a);
+                    Amenity aa = new Amenity();
+                    aa = UResidence.AmenityController.GetId(amen.AmenityName);
+                    SwimmingRate sr = new SwimmingRate()
+                    {
+                        AmenityId = aa.Id,
+                        Adult = amen.Adult,
+                        Child = amen.Child,
+                        Deleted = 0
+                    };
+                    status = UResidence.SwimmingRateController.Insert(sr);
+        
+                    if (status == true)
+                    {                     
+                        Session["UpdateMessage"] = status;
+                        return RedirectToAction("AmenityView", "Amenity");
+                    }
+                }
+                else
                 {
-                    AmenityId = amen.Id,
-                    Adult = amen.Adult,
-                    Child = amen.Child
-                };
+                    SwimmingRate sr = new SwimmingRate()
+                    {
+                        AmenityId = amen.Id,
+                        Adult = amen.Adult,
+                        Child = amen.Child,
+                        Deleted = 0
+                    };
 
-                Amenity a = new Amenity()
-                {
-                    Id = amen.Id,
-                    AmenityName = amen.AmenityName,
-                    Capacity = amen.Capacity,
-                    Description = amen.Description,
-                    Rate = 0,
-                    Color = amen.Color,
-                    Location= amen.Location,
-                    EveRate=amen.EveRate,
-                    IsEquipment = amen.IsEquipment,
-                    IsWeekend = amen.IsWeekend
-                };
-                if (a.Validate(out err))
-                {
+                    Amenity a = new Amenity()
+                    {
+                        Id = amen.Id,
+                        AmenityName = amen.AmenityName,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = 0,
+                        Color = amen.Color,
+                        Location = amen.Location,
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
+                    };
                     status = UResidence.SwimmingRateController.Update(sr);
                     status = UResidence.AmenityController.Update(a);
                     if (status == true)
-                    {
-                        ViewBag.UpdateMessage = status;
-                        AmenityView();
-                        return View("AmenityView");
+                    {                     
+                        Session["UpdateMessage"] = status;
+                        return RedirectToAction("AmenityView", "Amenity");
                     }
-
+                }
+                                   
+            }
+            else
+            {
+                if (amen.Rate != ret.Rate || amen.EveRate != ret.EveRate)
+                {
+                    status = UResidence.AmenityController.UpdateDelete(amen.Id);
+                    Amenity a = new Amenity()
+                    {
+                        AmenityName = amen.AmenityName,
+                        Url = ret.Url,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate,
+                        Color = amen.Color,
+                        Location = amen.Location,
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
+                    };
+                    status = UResidence.AmenityController.Insert(a);
+                    if (status == true)
+                    {                    
+                        Session["UpdateMessage"] = status;
+                        return RedirectToAction("AmenityView", "Amenity");
+                    }
                 }
                 else
                 {
+                    Amenity a = new Amenity()
+                    {
+                        Id = amen.Id,
+                        AmenityName = amen.AmenityName,
+                        Capacity = amen.Capacity,
+                        Description = amen.Description,
+                        Rate = amen.Rate,
+                        Color = amen.Color,
+                        Location = amen.Location,
+                        EveRate = amen.EveRate,
+                        IsEquipment = amen.IsEquipment,
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
+                    };
 
-                    ViewBag.ErrorMessages = FixMessages(err);
-                }
-            }
-            else {
-                Amenity a = new Amenity()
-                {
-                    Id = amen.Id,
-                    AmenityName = amen.AmenityName,
-                    Capacity = amen.Capacity,
-                    Description = amen.Description,
-                    Rate = amen.Rate,
-                    Color = amen.Color,
-                    Location = amen.Location,
-                    EveRate = amen.EveRate,
-                    IsEquipment = amen.IsEquipment,
-                    IsWeekend = amen.IsWeekend
-                };
-                if (a.Validate(out err))
-                {
+
                     status = UResidence.AmenityController.Update(a);
                     if (status == true)
-                    {
-                        ViewBag.UpdateMessage = status;
-                        AmenityView();
-                        return View("AmenityView");
+                    {                       
+                        Session["UpdateMessage"] = status;
+                        return RedirectToAction("AmenityView", "Amenity");
                     }
-
                 }
-                else
-                {
 
-                    ViewBag.ErrorMessages = FixMessages(err);
-                }
             }
-
             return View(amen);
         }
 
@@ -499,9 +565,10 @@ namespace UResidence.Controllers
                 Location = amen.Location,
                 EveRate = 0,
                 IsEquipment = amen.IsEquipment,
-                IsWeekend = amen.IsWeekend
+                IsWeekend = amen.IsWeekend,
+                Deleted = 0
             };
-
+          
             if (amen.Validate(out err))
             {
                 if (image != null)
@@ -517,9 +584,10 @@ namespace UResidence.Controllers
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
-                        IsWeekend = amen.IsWeekend
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
                     };
-                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                   status = UResidence.AmenityController.Insert(aa);
                      amenID = amen.Id;
                     string amenityname = amen.AmenityName;
                     Amenity amm = UResidence.AmenityController.GetbyAmenityName(amenityname);
@@ -527,14 +595,14 @@ namespace UResidence.Controllers
                     {
                         AmenityId = amm.Id,
                         Adult = amen.Adult,
-                        Child = amen.Child
+                        Child = amen.Child,
+                        Deleted = 0
                     };
-                    ViewBag.Message = UResidence.SwimmingRateController.Insert(sr);
-                    status = true;
-                    ViewBag.AddMessage = status;
-                    AmenityView();
-                    return View("AmenityView");
+                   status = UResidence.SwimmingRateController.Insert(sr);                                   
+                    Session["AddMessage"] = status;
+                    return RedirectToAction("AmenityView", "Amenity");
                 }
+
                 else
                 {
                     Amenity aa = new Amenity()
@@ -548,9 +616,10 @@ namespace UResidence.Controllers
                         Location = amen.Location,
                         EveRate = amen.EveRate,
                         IsEquipment = amen.IsEquipment,
-                        IsWeekend = amen.IsWeekend
+                        IsWeekend = amen.IsWeekend,
+                        Deleted = 0
                     };
-                    ViewBag.Message = UResidence.AmenityController.Insert(aa);
+                    status = UResidence.AmenityController.Insert(aa);
                     amenID = amen.Id;
                     string amenityname = amen.AmenityName;
                     Amenity amm = UResidence.AmenityController.GetbyAmenityName(amenityname);
@@ -558,27 +627,22 @@ namespace UResidence.Controllers
                     {
                         AmenityId = amm.Id,
                         Adult = amen.Adult,
-                        Child = amen.Child
+                        Child = amen.Child,
+                        Deleted=0
                     };
-                    ViewBag.Message = UResidence.SwimmingRateController.Insert(sr);
-                    status = true;
-                    ViewBag.AddMessage = status;
-                    AmenityView();
-                    return View("AmenityView");
-                }
-                
-               
-             
+                    status = UResidence.SwimmingRateController.Insert(sr);                                                     
+                }                                       
             }
             else
             {
-                ViewBag.Message = false;
-                ViewBag.ErrorMessages = FixMessages(err);
-                return View("AmenityAddPool");
+                status = false;
+                ViewBag.Alert = true;
+                ViewBag.Kind = 2;
+                return View("AmenityView");
             }
-           
+            Session["AddMessage"] = status;
+            return RedirectToAction("AmenityView", "Amenity");
         }
-
         public string FixMessages(string[] err)
         {
             string errors = "Please check the following: <br />";

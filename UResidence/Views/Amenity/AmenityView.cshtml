@@ -616,13 +616,14 @@
 
         <script type="text/javascript">
 
+            document.forms[0].reset();
             $(document).ready(function () {
 
                 $('#aasuccess').show('fade');
 
                 setTimeout(function () {
                     $('#aasuccess').hide('fade');
-                }, 20000);
+                }, 2000);
 
             });
         </script>
@@ -646,6 +647,28 @@
 
     }
 
+}
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert == true)
+    {
+        if (ViewBag.Kind == 1)
+        {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+        }
+        else
+        {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal1').modal('show');
+            });
+        </script>
+        }
+    }
 }
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

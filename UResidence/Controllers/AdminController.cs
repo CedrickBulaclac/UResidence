@@ -19,6 +19,7 @@ namespace UResidence.Controllers
     {
         
         bool status;
+      
         // GET: Admin
         public ActionResult GetAdmin()
         {
@@ -51,18 +52,17 @@ namespace UResidence.Controllers
                     + "Password :" + pass
                 })
                 {
-
                     smtp.Send(message);
-
                 }
                 return true;
             }
             catch (Exception)
             {
-                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
+                string script = "<script type='text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                 Response.Write(script);
                 return false;
             }
+
         }
         public ActionResult Registration()
         {
@@ -151,7 +151,7 @@ namespace UResidence.Controllers
                                 LogBookModule = adm.LogBookModule
                             };
 
-                            UResidence.AdminController.InsertBoss(ad);
+                            status=UResidence.AdminController.InsertBoss(ad);
 
                             Admin admi = new Admin();
                             admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
@@ -179,18 +179,13 @@ namespace UResidence.Controllers
                                     status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
                                 }
                             }
-
-
-
-                            ViewBag.AddMessage = status;
-                            AdminView();
-                            return View("AdminView");
                         }
                         else
                         {
                             string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                             Response.Write(script);
-                            
+                            ViewBag.Alert = true;
+                            return View("AdminView");
                         }
                     }
                     else
@@ -199,16 +194,17 @@ namespace UResidence.Controllers
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
                         status = false;
-
+                        ViewBag.Alert = true;
+                        return View("AdminView");
                     }                 
                 }
                 else
                 {
-                    string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
-                    Response.Write(script);
-                   
+                    string script = "<script type='text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    Response.Write(script);               
                     status = false;
-
+                    ViewBag.Alert = true;
+                    return View("AdminView");
                 }
             }
             else
@@ -238,10 +234,10 @@ namespace UResidence.Controllers
                                 LogBookModule = adm.LogBookModule
                             };
 
-                            UResidence.AdminController.InsertBoss(ad);
+                            status=UResidence.AdminController.InsertBoss(ad);
 
                             Admin admi = new Admin();
-                            admi = UResidence.AdminController.GetEmailAdmin(adm.Email.ToString());
+                            admi = UResidence.AdminController.GetEmailAdmin(adm.Email);
                             int adminid = admi.Id;
 
                             UserLogin ull = new UserLogin
@@ -255,8 +251,6 @@ namespace UResidence.Controllers
                                 Locked = 0,
                                 LastLogin = DateTime.Now
                             };
-
-
                             status = UResidence.UserController.Insert(ull);
 
                             if (status == true)
@@ -268,41 +262,42 @@ namespace UResidence.Controllers
                                     status = UResidence.AdminController.Update(ul[0].Id, adm.Email);
                                 }
                             }
-
-                            ViewBag.AddMessage = status;
-                            AdminView();
-                            return View("AdminView");
                         }
                         else
                         {
+                           
+                            Session["model"] = adm;
                             string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
-                            Response.Write(script);
+                            Response.Write(script);                          
+                            ViewBag.Alert = true;
+                            return View("AdminView");
                         }
                     }
                     else
                     {
+                       
+                        Session["model"] = adm;
                         string script = "<script type = 'text/javascript'>alert('Error.');</script>";
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
-                        status = false;
-
+                        status = false;                      
+                        ViewBag.Alert = true;
+                        return View("AdminView");
                     }
-
-                    ViewBag.AddMessage = status;
-
                 }
                 else
                 {
+                  
+                    Session["model"] = adm;
                     string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
-                    Response.Write(script);
-                   
-                    status = false;
-
+                    Response.Write(script);               
+                    status = false;                   
+                    ViewBag.Alert = true;
+                    return View("AdminView");
                 }
             }
-            AdminView();
-            return View("AdminView");
-
+            Session["AddMessage"] = status;
+            return RedirectToAction("AdminView", "Admin");
         }
         public ActionResult AdminView()
         {
@@ -326,8 +321,27 @@ namespace UResidence.Controllers
             Session["LogBookModule"] = ViewBag.LogBookModule;
             Session["PaymentModule"] = ViewBag.PaymentModule;
             Session["ReversalModule"] = ViewBag.ReversalModule;
-
-            return View();
+            if (Session["UpdateMess"] != null)
+            {
+                ViewBag.UpdateMessage = Session["UpdateMess"];
+                Session["UpdateMess"] = null;
+            }
+            if (Session["AddMessage"] != null)
+            {
+                ViewBag.AddMessage = Session["AddMessage"];
+                Session["AddMessage"] = null;
+            }
+            if (Session["DeleteStatus"] != null)
+            {
+                ViewBag.DeleteStatus = Session["DeleteStatus"];
+                Session["DeleteStatus"] = null;
+            }
+            if (Session["alert"] !=null)
+            {
+                ViewBag.Alert=Session["alert"];
+                Session["alert"] = null;
+            }
+                return View();       
         }
         public ActionResult Delete(int id)
         {
@@ -343,18 +357,14 @@ namespace UResidence.Controllers
             };
            
             Admin a = new Admin();
-            a = UResidence.AdminController.GetbyID(id);
-          
-                UserLogin ul = new UserLogin();
-                ul = UResidence.UserController.Get(a.Email);
-                status = UResidence.UserController.UpdateLockout(ul.Id);
+            a = UResidence.AdminController.GetIdAdmin(id.ToString());         
+            status = UResidence.UserController.UpdateLockout(a.LoginId);
             if (status == true)
             {
-                status = UResidence.AdminController.UpdateDelete(am);
-                AdminView();
-            }
-            ViewBag.DeleteStatus = status;
-            return View("AdminView");
+                status = UResidence.AdminController.UpdateDelete(am);              
+            }          
+            Session["DeleteStatus"] = status;
+            return RedirectToAction("AdminView", "Admin");
         }
         public ActionResult AdminEdit()
         {
@@ -411,21 +421,20 @@ namespace UResidence.Controllers
                 if (status == true)
                 {
                     ViewBag.UpdateMessage = status;
-                    AdminView();
-                    return View("AdminView");
+                    Session["UpdateMess"] = status;
+                    return RedirectToAction("AdminView", "Admin");
                 }
                 else
-                {
+                {                  
                     ViewBag.UpdateMessage = status;
-                    return View();
+                    return View(adm);
                 }
             }
             else
             {
                 ViewBag.ErrorMessages = FixMessages(err);
-            }
-         
-            return View();
+            }      
+            return View(adm);
         }
 
         public string FixMessages(string[] err)
