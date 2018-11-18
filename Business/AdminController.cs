@@ -74,8 +74,8 @@ namespace UResidence
         }
         public static Admin GetEmailAdmin(string email)
         {
-            const string GET_RECORD = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,case ISNULL(Level,0) when 0 then 'Super Admin'  when 1 then 'Manager' when 2 then 'Finance' when 3 then 'Cashier' when 4 then 'Reservation Admin' when 5 then 'Registration' when 6 then 'OIC Security Guard' when 7 then 'Security Guard' end as Role, Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule FROM [tbAdmin] a inner join tbLogin l on l.Id=a.LoginId WHERE Email = @Email and Deleted=0";
-           Admin ret = default(Admin);
+            const string GET_RECORD = @"SELECT a.Id,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,case ISNULL(Level,0) when 0 then 'Super Admin'  when 1 then 'Manager' when 2 then 'Finance' when 3 then 'Cashier' when 4 then 'Reservation Admin' when 5 then 'Registration' when 6 then 'OIC Security Guard' when 7 then 'Security Guard' end as Role, Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule FROM [tbAdmin] a full join tbLogin l on l.Id=a.LoginId WHERE Email = @Email and Deleted=0";
+            Admin ret = default(Admin);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Email", email));
             ret = SqlManager.Select<Admin>(com).First();
@@ -174,7 +174,7 @@ namespace UResidence
         }
         public static bool InsertBoss(Admin adm)
         {
-            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url,@ReservationModule,@RegistrationModule,@PaymentModule,@ReversalModule,@LogBookModule)";
+            const string GET_INSERT = @"insert [tbAdmin] (Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,Url,ReservationModule,RegistrationModule,PaymentModule,ReversalModule,LogBookModule,LoginId) values (@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@Url,@ReservationModule,@RegistrationModule,@PaymentModule,@ReversalModule,@LogBookModule,0)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
