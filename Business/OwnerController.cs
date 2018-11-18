@@ -10,7 +10,7 @@ namespace UResidence
     {
         public static List<Owner> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] where Deleted=0 order by Id";
+            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] where Deleted=0 order by Id";
 
             List<Owner> ret = default(List<Owner>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -20,7 +20,7 @@ namespace UResidence
 
         public static Owner GetEmailOwner(string email)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Email = @Email and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] WHERE Email = @Email and Deleted=0";
 
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -41,7 +41,7 @@ namespace UResidence
 
         public static List<Owner> GetOwnerReserve(string bldgno, string unitno)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
             List<Owner> ret = default(List<Owner>);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@BldgNo", bldgno));
@@ -53,7 +53,7 @@ namespace UResidence
 
         public static Owner GetOwnerReservee(string bldgno, string unitno)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@BldgNo", bldgno));
@@ -68,7 +68,7 @@ namespace UResidence
 
         public static List<Owner> GetById(string idOwner)
         {
-            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM[tbOwner] where Id=@Id and Deleted=0";
+            const string GET_ALL = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM[tbOwner] where Id=@Id and Deleted=0";
 
             List<Owner> ret = default(List<Owner>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -82,7 +82,7 @@ namespace UResidence
 
         public static Owner GetIdOwner(string idOwner)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Id = @Id and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] WHERE Id = @Id and Deleted=0";
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", idOwner));
@@ -92,7 +92,7 @@ namespace UResidence
         }
         public static Owner GetIdOwner(int idOwner)
         {
-            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form FROM [tbOwner] WHERE Id = @Id and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] WHERE Id = @Id and Deleted=0";
             Owner ret = default(Owner);
             SqlCommand com = new SqlCommand(GET_RECORD);
             com.Parameters.Add(new SqlParameter("@Id", idOwner));
@@ -177,7 +177,7 @@ namespace UResidence
         public static bool Insert(Owner own)
         {
          
-            const string GET_INSERT = @"insert [tbOwner] (BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Form) output inserted.Id values (@BldgNo,@UnitNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@URL,@Form) ";
+            const string GET_INSERT = @"insert [tbOwner] (BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Form,LoginId) output inserted.Id values (@BldgNo,@UnitNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email,@Deleted,@URL,@Form,0) ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@BldgNo", own.BldgNo));

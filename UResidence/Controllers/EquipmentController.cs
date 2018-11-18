@@ -234,12 +234,8 @@ namespace UResidence.Controllers
                 Id = id
             };
             status = UResidence.EquipmentController.UpdateDelete(id);
-            if(status == true)
-            {
-                EquipmentView();
-            }
-            ViewBag.DeleteStatus = true;
-            Session["DeleteStatus"] = true;
+            ViewBag.DeleteStatus = status;
+            Session["DeleteStatus"] = status;
             return RedirectToAction("EquipmentView", "Equipment");
         }
         

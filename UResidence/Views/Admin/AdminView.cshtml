@@ -229,7 +229,7 @@
                                                     </div>
 
                                                     <div class="col-75">
-                                                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                                         @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
                                                     </div>
@@ -513,11 +513,12 @@ else
 
             $(document).ready(function () {
 
+                document.forms[0].reset();
                 $('#aasuccess').show('fade');
 
                 setTimeout(function () {
                     $('#aasuccess').hide('fade');
-                }, 20000);
+                }, 2000);
 
             });
         </script>

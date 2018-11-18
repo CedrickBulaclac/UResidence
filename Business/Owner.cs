@@ -55,7 +55,7 @@ namespace UResidence
         public HttpPostedFileBase Image1 { get; set; }
         public string Fullname { get; set; }
         public string Birthday { get; set; }
-
+        public int LoginId { get; set; }
         public class MinimumAgeAttribute : ValidationAttribute
         {
             int _minimumAge;
@@ -95,6 +95,7 @@ namespace UResidence
             ret.Fullname = reader.GetString(11);
             ret.Birthday = reader.GetString(12);
             ret.Form = reader.GetString(13);
+            ret.LoginId = reader.GetInt32(14);
             return ret;
         }
         public string RemoveWhitespace(string str)
