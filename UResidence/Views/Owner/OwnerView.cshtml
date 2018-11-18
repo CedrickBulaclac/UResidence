@@ -396,6 +396,17 @@
     }
 
 }
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+    }
+}
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
@@ -432,23 +443,21 @@
         document.getElementById('oform').setAttribute('src', path)
 
         $('#formModal').modal();
-	}
+    }
 
+    $("form").submit(function (e) {
+        var today = new Date();
+        var bdate = document.getElementById('Bdate').value
+        var date1 = new Date(bdate);
+        var age = today.getFullYear() - date1.getFullYear();
+        var m = today.getMonth() + 1 - date1.getMonth() + 1;
+        var d = today.getDate() - date1.getDate();
 
-
-	$("form").submit(function (e) {
-		var today = new Date();
-		var bdate = document.getElementById('Bdate').value
-		var date1 = new Date(bdate);
-		var age = today.getFullYear() - date1.getFullYear();
-		var m = today.getMonth() + 1 - date1.getMonth() + 1;
-		var d = today.getDate() - date1.getDate();
-
-		if (age < 18 || m < 0 ) {
-			alert("18 Years and above only");
-			e.preventDefault();
-		}
-	});
+        if (age < 18 || m < 0) {
+            alert("18 Years and above only");
+            e.preventDefault();
+        }
+    });
 
 
     $('#btnCloseImage').click(function () {

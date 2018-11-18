@@ -227,7 +227,7 @@
                             </div>
 
                             <div class="col-75">
-                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control" , @max = "9999-12-31" } })
+                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
                                 @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
 
 
@@ -451,6 +451,18 @@
     }
 
 }
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+    }
+}
+
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -503,34 +515,32 @@
         document.getElementById('movout').setAttribute('src', path)
 
         $('#movingOutModal').modal();
-	}
+    }
 
 
-	$("form").submit(function (e) {
-		var leasestart = document.getElementById('LeaseStart').value
-		var leaseend = document.getElementById('LeaseEnd').value
+    $("form").submit(function (e) {
+        var leasestart = document.getElementById('LeaseStart').value
+        var leaseend = document.getElementById('LeaseEnd').value
 
-		var today = new Date();
-		var bdate = document.getElementById('Bdate').value
-		var date3 = new Date(bdate);
-		var age = today.getFullYear() - date3.getFullYear();
-		var m = today.getMonth()+1 - date3.getMonth()+1;
-		var d = today.getDate() - date3.getDate();
+        var today = new Date();
+        var bdate = document.getElementById('Bdate').value
+        var date3 = new Date(bdate);
+        var age = today.getFullYear() - date3.getFullYear();
+        var m = today.getMonth() + 1 - date3.getMonth() + 1;
+        var d = today.getDate() - date3.getDate();
 
-		var date1 = new Date(leasestart);
-		var date2 = new Date(leaseend);
+        var date1 = new Date(leasestart);
+        var date2 = new Date(leaseend);
 
-		if (date1 > date2)
-		{
-			alert("Invalid Lease Start OR Lease End");
-			e.preventDefault();
-		}
-		if (age<18 || m<0 )
-		{
-			alert("18 Years and above only");
-			e.preventDefault();
-		}
-	});
+        if (date1 > date2) {
+            alert("Invalid Lease Start OR Lease End");
+            e.preventDefault();
+        }
+        if (age < 18 || m < 0) {
+            alert("18 Years and above only");
+            e.preventDefault();
+        }
+    });
 
 
 

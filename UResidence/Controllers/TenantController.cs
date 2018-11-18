@@ -390,6 +390,8 @@ namespace UResidence.Controllers
                             {
                                 string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                                 Response.Write(script);
+                                ViewBag.Alert = true;
+                                return View("TenantView");
                             }
                                                        
                          }
@@ -397,28 +399,35 @@ namespace UResidence.Controllers
                                         {
                                             ViewBag.ErrorMessage = FixMessages(err);
                                             status = false;
-
-                                        }
+                            ViewBag.Alert = true;
+                            return View("TenantView");
+                        }
                                     }
                          else
                                     {
                                         string script = "<script type = 'text/javascript'>alert('There is an Existing Tenant!! Please try Again.Please try Again.');</script>";
                                         Response.Write(script);
                                         status = false;
-                                    }
+                        ViewBag.Alert = true;
+                        return View("TenantView");
+                    }
                  }
                  else
                                 {
                                     string script = "<script type = 'text/javascript'>alert('Wrong Building No or Unit No!! Please try Again.');</script>";
                                     Response.Write(script);
                                     status = false;
-                                }
+                    ViewBag.Alert = true;
+                    return View("TenantView");
+                }
             }
             else
             {
             string script = "<script type = 'text/javascript'>alert('Email is already taken');</script>";
             Response.Write(script);
             status = false;
+                ViewBag.Alert = true;
+                return View("TenantView");
             }
             Session["AddMessage"] = status;
             return RedirectToAction("TenantView", "Tenant");

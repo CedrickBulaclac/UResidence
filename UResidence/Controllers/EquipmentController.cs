@@ -102,7 +102,8 @@ namespace UResidence.Controllers
                 {
                     ViewBag.ErrorMessage = FixMessages(err);
                     ViewBag.Message = false;
-                    return View(eqp);
+                    ViewBag.Alert = true;
+                    return View("EquipmentView");
                 }
             }
             else
@@ -129,7 +130,8 @@ namespace UResidence.Controllers
                 {
                     ViewBag.ErrorMessage = FixMessages(err);
                     ViewBag.Message = false;
-                    return View(eqp);
+                    ViewBag.Alert = true;
+                    return View("EquipmentView");
                 }
             }
                 
@@ -341,10 +343,7 @@ namespace UResidence.Controllers
             return View(eqp);
         }
             
-         
-             
-        
-
+                        
         public string FixMessages(string[] err)
         {
             string errors = "Please check the following: <br/>";

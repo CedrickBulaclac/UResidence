@@ -240,12 +240,12 @@
                                 </p>
                             </div>
 
-							<div class="col-75">
-								@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color", @class = "form-control", @required = "required" } })
-								  @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
-								@*<label for="colorpicker">ColorPicker:</label>
-								<input type="color" id="myColorField" name="myColorField" />*@
-							</div>
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color", @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                                @*<label for="colorpicker">ColorPicker:</label>
+                                    <input type="color" id="myColorField" name="myColorField" />*@
+                            </div>
                         </div>
 
 
@@ -278,162 +278,162 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-					<div class="modal-body">
-						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="modal-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
 
-						<div class="row">
-							<div class="col-25">
+                        <div class="row">
+                            <div class="col-25">
 
-								<label for="Amenity Name">Amenity Name :</label>
+                                <label for="Amenity Name">Amenity Name :</label>
 
-							</div>
+                            </div>
 
-							<div class="col-75">
-								@Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
-
-
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-25">
-
-								<label for="Description">Description :</label>
-
-							</div>
-
-							<div class="col-75">
-
-								@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-							</div>
-						</div>
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.AmenityName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.AmenityName, "", new { @class = "text-danger" })
 
 
+                            </div>
+                        </div>
 
-						<div class="row">
-							<div class="col-25">
-								<p>
-									<label>Capacity :</label>
-								</p>
-							</div>
+                        <div class="row">
+                            <div class="col-25">
 
-							<div class="col-75">
+                                <label for="Description">Description :</label>
 
-								@Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-							</div>
-						</div>
+                            </div>
 
+                            <div class="col-75">
 
-						<div class="row">
-							<div class="col-25">
-					
-									<label>Adult Rate :</label>
-
-							</div>
-							<div class="col-75">
-								@Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
-
-							</div>
-						</div>
-
-
-						<div class="row">
-							<div class="col-25">
-									
-								<label>Child Rate :</label>
-
-								
-							</div>
-							<div class="col-75">
-								@Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
-
-							</div>
-						</div>
-
-						
-						
-						<div class="row">
-							<div class="col-25">
-
-								<label for="Amenity Name">Available for weekends :</label>
-
-							</div>
-
-							<div class="col-75">
-								@Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
 
 
-							</div>
-						</div>
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Capacity :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Adult Rate :</label>
+
+                            </div>
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Adult, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Adult, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label>Child Rate :</label>
+
+
+                            </div>
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Child, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Child, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
 
 
 
-						<div class="row">
-							<div class="col-25">
+                        <div class="row">
+                            <div class="col-25">
 
-								<label for="Amenity Name">Equipment :</label>
+                                <label for="Amenity Name">Available for weekends :</label>
 
-							</div>
+                            </div>
 
-							<div class="col-75">
-								@Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
-
-
-
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-25">
-
-								<label for="Description">Location :</label>
-
-							</div>
-
-							<div class="col-75">
-
-								@Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-							</div>
-						</div>
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
 
 
 
+                            </div>
+                        </div>
 
 
-						<div class="row">
-							<div class="col-25">
-								<p>
-									<label>Color :</label>
-								</p>
-							</div>
 
-							<div class="col-75">
-								@Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color", @class = "form-control", @required = "required" } })
-								@Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
-							</div>
-						</div>
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Amenity Name">Equipment :</label>
+
+                            </div>
+
+                            <div class="col-75">
+                                @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
 
 
-						<div class="row">
-							<div class="col-25">
-								<p>
-									<label>Amenity Image :</label>
-								</p>
-							</div>
-							<input type="file" id="Image" name="Image" />
 
-						</div>
-					</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-25">
+
+                                <label for="Description">Location :</label>
+
+                            </div>
+
+                            <div class="col-75">
+
+                                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Color :</label>
+                                </p>
+                            </div>
+
+                            <div class="col-75">
+                                @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color", @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-25">
+                                <p>
+                                    <label>Amenity Image :</label>
+                                </p>
+                            </div>
+                            <input type="file" id="Image" name="Image" />
+
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
                         <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
@@ -638,6 +638,28 @@
     }
 
 }
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert == true)
+    {
+        if (ViewBag.Kind == 1)
+        {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+        }
+        else
+        {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal1').modal('show');
+            });
+        </script>
+        }
+    }
+}
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
@@ -650,7 +672,7 @@
     //	mid = id;
     //	ViewImage();
     //}
-	$(document).ready(function () {
+    $(document).ready(function () {
         var table = $('#AmenityData').DataTable({
             "ajax": {
                 "url": '/Amenity/GetAmenity',

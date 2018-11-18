@@ -196,7 +196,9 @@ namespace UResidence.Controllers
                 status = false;
                 ViewBag.ErrorMessages = FixMessages(err);
                 Session["AddMessage"] = status;
-                return RedirectToAction("AmenityView", "Amenity");
+                ViewBag.Alert = true;
+                ViewBag.Kind = 2;
+                return View("AmenityView");
             }           
         }
 
@@ -633,7 +635,10 @@ namespace UResidence.Controllers
             }
             else
             {
-                status = false;              
+                status = false;
+                ViewBag.Alert = true;
+                ViewBag.Kind = 2;
+                return View("AmenityView");
             }
             Session["AddMessage"] = status;
             return RedirectToAction("AmenityView", "Amenity");

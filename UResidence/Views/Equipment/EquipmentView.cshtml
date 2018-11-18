@@ -321,7 +321,17 @@
     }
 
 }
-
+@if (ViewBag.Alert != null)
+{
+    if (ViewBag.Alert == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#AddModal').modal('show');
+            });
+        </script>
+    }
+}
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

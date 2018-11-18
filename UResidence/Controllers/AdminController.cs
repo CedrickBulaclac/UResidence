@@ -183,7 +183,9 @@ namespace UResidence.Controllers
                         else
                         {
                             string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
-                            Response.Write(script);                            
+                            Response.Write(script);
+                            ViewBag.Alert = true;
+                            return View("AdminView");
                         }
                     }
                     else
@@ -192,7 +194,8 @@ namespace UResidence.Controllers
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
                         status = false;
-
+                        ViewBag.Alert = true;
+                        return View("AdminView");
                     }                 
                 }
                 else
@@ -200,7 +203,8 @@ namespace UResidence.Controllers
                     string script = "<script type='text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
                     Response.Write(script);               
                     status = false;
-
+                    ViewBag.Alert = true;
+                    return View("AdminView");
                 }
             }
             else
@@ -264,7 +268,9 @@ namespace UResidence.Controllers
                            
                             Session["model"] = adm;
                             string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
-                            Response.Write(script);
+                            Response.Write(script);                          
+                            ViewBag.Alert = true;
+                            return View("AdminView");
                         }
                     }
                     else
@@ -274,7 +280,9 @@ namespace UResidence.Controllers
                         string script = "<script type = 'text/javascript'>alert('Error.');</script>";
                         Response.Write(script);
                         ViewBag.ErrorMessage = FixMessages(err);
-                        status = false;
+                        status = false;                      
+                        ViewBag.Alert = true;
+                        return View("AdminView");
                     }
                 }
                 else
@@ -283,7 +291,9 @@ namespace UResidence.Controllers
                     Session["model"] = adm;
                     string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
                     Response.Write(script);               
-                    status = false;
+                    status = false;                   
+                    ViewBag.Alert = true;
+                    return View("AdminView");
                 }
             }
             Session["AddMessage"] = status;
@@ -325,6 +335,11 @@ namespace UResidence.Controllers
             {
                 ViewBag.DeleteStatus = Session["DeleteStatus"];
                 Session["DeleteStatus"] = null;
+            }
+            if (Session["alert"] !=null)
+            {
+                ViewBag.Alert=Session["alert"];
+                Session["alert"] = null;
             }
                 return View();       
         }

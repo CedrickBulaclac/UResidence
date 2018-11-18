@@ -225,17 +225,23 @@ namespace UResidence.Controllers
                     {
                         string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                         Response.Write(script);
+                        ViewBag.Alert = true;
+                        return View("OwnerView");
                     }
                 }
                 else
                 {
                     ViewBag.ErrorMessage = FixMessages(err);
                     status = false;
+                    ViewBag.Alert = true;
+                    return View("OwnerView");
                 }                     
             }
             else
             {
                 Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
+                ViewBag.Alert = true;
+                return View("OwnerView");
             }
             Session["AddMessage"] = status;
             return RedirectToAction("OwnerView", "Owner");
