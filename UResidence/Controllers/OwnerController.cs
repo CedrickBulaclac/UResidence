@@ -389,6 +389,7 @@ namespace UResidence.Controllers
                         if (status == true)
                         {
                             Session["UpdateMess"] = status;
+                            status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
                             return RedirectToAction("OwnerView", "Owner");
                         }
                         else
