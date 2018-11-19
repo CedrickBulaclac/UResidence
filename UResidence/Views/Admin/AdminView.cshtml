@@ -247,6 +247,8 @@ else
 
 
 
+                                </div>
+                            </div>
 
 
                     <div class="form-group">
@@ -367,7 +369,7 @@ else
     </div>
 }
 
-@if (Convert.ToInt32(Session["Level"]) == 1)
+@if (Convert.ToInt32(Session["Level"]) == 1 || Convert.ToInt32(Session["Level"]) == 0)
 {
 
     <div id="content1">
@@ -623,7 +625,7 @@ else
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        if (parseInt(@ViewBag.Level) != 1) {
+        if (parseInt(@ViewBag.Level) >= 2) {
             var table1 = $('#adminData').DataTable({
                 "ajax": {
                     "url": '/Admin/GetAdmin',
@@ -640,7 +642,7 @@ else
                 ]
             });
         }
-        else {
+        else if(parseInt(@ViewBag.Level) == 1 || parseInt(@ViewBag.Level) ==0) {
             var table1 = $('#sample').DataTable({
                 "ajax": {
                     "url": '/Admin/GetAdmin',
