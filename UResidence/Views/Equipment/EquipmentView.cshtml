@@ -22,13 +22,10 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
 </head>
 
 
-
-@*<center>
-        <h2>Equipment</h2>
-    </center>*@
 
 @*Modal for Viewing Image Equipment*@
 <div class="container">
@@ -59,34 +56,44 @@
         <div class="modal fade" id="AddModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header" style="background-color:#43a047">
+
+
+                        <font color="white">
+                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+                            <div class="text-center" style="font-family:'Agency FB' ; font-size:35px"> Add New Equipment </div>
+                        </font>
+
                     </div>
+
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-25">
 
-                                <label>Name :</label>
 
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Name"> <b>Name : </b></labell>
                             </div>
 
-                            <div class="col-75">
+                            <div class="col-sm-12">
+
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-
                             </div>
                         </div>
 
 
 
-                        <div class="row">
-                            <div class="col-25">
 
-                                <label>Stocks :</label>
 
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Stocks"> <b>Stocks : </b></labell>
                             </div>
 
-                            <div class="col-75">
+                            <div class="col-sm-12">
+
                                 @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
                             </div>
@@ -94,14 +101,16 @@
 
 
 
-                        <div class="row">
-                            <div class="col-25">
 
-                                <label>Rate :</label>
 
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Rate"> <b>Rate : </b></labell>
                             </div>
 
-                            <div class="col-75">
+                            <div class="col-sm-12">
                                 @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                             </div>
@@ -110,33 +119,41 @@
 
 
 
-                        <div class="row">
-                            <div class="col-25">
+                        <div class="form-group">
 
-                                <label>Description :</label>
-
+                            <div class="col-sm-12">
+                                <labell for="Description"> <b>Description : </b></labell>
                             </div>
 
-                            <div class="col-75">
+                            <div class="col-sm-12">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-25">
+
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
                                 <p>
                                     <label>Equipment Image :</label>
                                 </p>
                             </div>
-                            <input type="file" id="Image" name="Image" />
+
+                            <div class="col-sm-12">
+                                <input type="file" id="Image" name="Image" />
+                            </div>
 
                         </div>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    </div>
+
+                    <br />
+                    @*<div class="modal-footer">*@
+                    <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                    <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    @*</div>*@
                 </div>
             </div>
         </div>
