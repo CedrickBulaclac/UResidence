@@ -29,6 +29,16 @@ namespace UResidence
 
             return ret;
         }
+        public static List<Owner> GetEmailOwnerList(string email)
+        {
+            const string GET_RECORD = @"SELECT Id,BldgNo,UnitNo,Fname,Mname,Lname,Bdate,CelNo,Email,Deleted,URL,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Form,LoginId FROM [tbOwner] WHERE Email = @Email and Deleted=0";
+            List<Owner> ret = default(List<Owner>);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Email", email));
+            ret = SqlManager.Select<Owner>(com);
+
+            return ret;
+        }
         public static bool Update(int lid, string email)
         {
             const string GET_UPDATE = @"update [tbOwner] set LoginId=@lid WHERE Email=@Email";

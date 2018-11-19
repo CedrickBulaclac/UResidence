@@ -377,16 +377,47 @@ namespace UResidence.Controllers
             string[] err = new string[] { };
             if (owe.Validate(out err))
             {
-                status = UResidence.OwnerController.Update(owe);
-                if (status == true)
+                Owner owe1 = new Owner();
+                owe1 = UResidence.OwnerController.GetIdOwner(owe.Id);
+                if (owe.Email != owe1.Email)
                 {
-                    Session["UpdateMess"] = status;
-                    return RedirectToAction("OwnerView", "Owner");
+                    List<Owner> own = new List<Owner>();
+                    own = UResidence.OwnerController.GetEmailOwnerList(owe.Email);
+                    if (own.Count == 0)
+                    {
+                        status = UResidence.OwnerController.Update(owe);
+                        if (status == true)
+                        {
+                            Session["UpdateMess"] = status;
+                            return RedirectToAction("OwnerView", "Owner");
+                        }
+                        else
+                        {
+                            ViewBag.UpdateMessage = status;
+                            return View(owe);
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
+                        ViewBag.UpdateMessage = status;
+                        return View(owe);
+                    }
                 }
                 else
                 {
-                    ViewBag.UpdateMessage = status;
-                    return View(owe);
+                    status = UResidence.OwnerController.Update(owe);
+                    if (status == true)
+                    {
+                        status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
+                        Session["UpdateMess"] = status;
+                        return RedirectToAction("OwnerView", "Owner");
+                    }
+                    else
+                    {
+                        ViewBag.UpdateMessage = status;
+                        return View(owe);
+                    }
                 }
             }
             else
