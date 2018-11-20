@@ -111,7 +111,7 @@
 
                         <font color="white">
                             <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:'Agency FB' ; font-size:30px"> Add New Amenity </div>
+                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW AMENITY </div>
                         </font>
 
                     </div>
@@ -205,10 +205,20 @@
 
                             <div class="col-sm-12">
                                 <labell for="Amenity"> <b>Available for weekends  : </b></labell>
+                              
                             </div>
 
-                            <div class="col-sm-12">
-                                @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+                            <div class="form-inline">
+                                <div class="col-sm-1">
+
+                                    @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+
+                                </div>
+
+                                <div class="col-sm-11">
+                                    <p>  If you check this, the amenity will be available for Weekends Reservation. </p>
+
+                                </div>
                             </div>
                         </div>
 
@@ -220,10 +230,18 @@
 
                             <div class="col-sm-12">
                                 <labell for="Equipment"> <b>Equipment  : </b></labell>
+                       
                             </div>
 
-                            <div class="col-sm-12">
-                                @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+                            <div class="form-inline">
+                                <div class="col-sm-1">
+                                    @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+                                   
+                                </div>
+
+                                <div class="col-sm-11">
+                                    <p> If you check this, equipments will be available for this Amenity.  </p>
+                                </div>
                             </div>
                         </div>
 
@@ -305,7 +323,7 @@
 
                         <font color="white">
                             <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:'Agency FB' ; font-size:35px"> Add New Amenity </div>
+                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW AMENITY </div>
                         </font>
 
 
@@ -398,10 +416,20 @@
 
                             <div class="col-sm-12">
                                 <labell for="Amenity"> <b>Available for weekends  : </b></labell>
+
                             </div>
 
-                            <div class="col-sm-12">
-                                @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+                            <div class="form-inline">
+                                <div class="col-sm-1">
+
+                                    @Html.CheckBoxFor(model => model.IsWeekend, new { htmlAttributes = new { @required = "required" } })
+
+                                </div>
+
+                                <div class="col-sm-11">
+                                    <p>  If you check this, the amenity will be available for Weekends Reservation. </p>
+
+                                </div>
                             </div>
                         </div>
 
@@ -413,10 +441,18 @@
 
                             <div class="col-sm-12">
                                 <labell for="Equipment"> <b>Equipment  : </b></labell>
+
                             </div>
 
-                            <div class="col-sm-12">
-                                @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+                            <div class="form-inline">
+                                <div class="col-sm-1">
+                                    @Html.CheckBoxFor(model => model.IsEquipment, new { htmlAttributes = new { @required = "required" } })
+
+                                </div>
+
+                                <div class="col-sm-11">
+                                    <p> If you check this, equipments will be available for this Amenity.  </p>
+                                </div>
                             </div>
                         </div>
 
@@ -522,7 +558,7 @@
                                 Capacity
                             </th>
                             <th>
-                                Rate
+                                Rate per Hour
                             </th>
                             <th>
                                 Actions
