@@ -102,7 +102,7 @@
 
 
 
-@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post))
+@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container">
         <div class="modal fade" id="AddModal" role="dialog">
@@ -561,8 +561,8 @@
 
 
 	$("form").submit(function (e) {
-		var leasestart = document.getElementById('LeaseStart').value
-		var leaseend = document.getElementById('LeaseEnd').value
+		var leasestart = document.getElementById('tenant_LeaseStart').value
+		var leaseend = document.getElementById('tenant_LeaseEnd').value
 
 
 		var date1 = new Date(leasestart);

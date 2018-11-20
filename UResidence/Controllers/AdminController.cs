@@ -410,7 +410,7 @@ namespace UResidence.Controllers
             if (adm.Validate(out err))
             {
                 Admin a = new Admin();
-                a = UResidence.AdminController.GetbyID(adm.Id);
+                a = UResidence.AdminController.GetbyID(adm.LoginId);
                 if (a.Email != adm.Email)
                 {
                     List<Admin> listadmins = new List<Admin>();
@@ -425,6 +425,7 @@ namespace UResidence.Controllers
                         else
                         {
                             status = UResidence.AdminController.Update(adm);
+                            status = UResidence.UserController.UpdateEmail(adm.Email,adm.LoginId);
                         }
                         if (status == true)
                         {
