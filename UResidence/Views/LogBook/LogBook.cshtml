@@ -116,10 +116,10 @@
                 <table class="table table-bordered table-striped" id="tableLog">
                     <tr>
                         <th>Date</th>
-                        <th>Visitor Name</th>
-                        <th>Resident Name</th>
                         <th>Building Number</th>
                         <th>Unit Number</th>
+                        <th>Visitor Name</th>
+                        <th>Resident Name</th>
                         <th>Purpose of Visit</th>
                         <th>Image</th>
                         <th>Time In</th>
@@ -134,48 +134,48 @@
 								{
 									if (a.URL == "none")
 									{
-                                <tr>
-                                    <td> @a.sDate</td>
-                                    <td> @a.VisitorName</td>
-                                    <td>@a.ResidentName </td>
-                                    <td>@a.BuildingNo </td>
-                                    <td>@a.UnitNo </td>
-                                    <td>@a.Purpose </td>
-                                    <td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                                    <td> @a.sTimein </td>
-                                    <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-                                    @*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
-                                </tr>
+                    <tr>
+                        <td> @a.sDate</td>
+                        <td>@a.BuildingNo </td>
+                        <td>@a.UnitNo </td>
+                        <td> @a.VisitorName</td>
+                        <td>@a.ResidentName </td>
+                        <td>@a.Purpose </td>
+                        <td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                        <td> @a.sTimein </td>
+                        <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                        @*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
+                    </tr>
 
 									}
 									else
 									{
-                                <tr>
-                                    <td>@a.sDate</td>
-                                    <td>@a.VisitorName</td>
-                                    <td>@a.ResidentName </td>
-                                    <td>@a.BuildingNo </td>
-                                    <td>@a.UnitNo </td>
-                                    <td>@a.Purpose</td>
-                                    <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                                    <td> @a.sTimein</td>
-                                    <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-                                </tr>
+                    <tr>
+                        <td>@a.sDate</td>
+                        <td>@a.BuildingNo </td>
+                        <td>@a.UnitNo </td>
+                        <td>@a.VisitorName</td>
+                        <td>@a.ResidentName </td>
+                        <td>@a.Purpose</td>
+                        <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                        <td> @a.sTimein</td>
+                        <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                    </tr>
 									}
 								}
 								else
 								{
-                            <tr>
-                                <td>@a.sDate</td>
-                                <td>@a.VisitorName</td>
-                                <td>@a.ResidentName </td>
-                                <td>@a.BuildingNo </td>
-                                <td>@a.UnitNo </td>
-                                <td>@a.Purpose</td>
-                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                                <td> @a.sTimein</td>
-                                <td> @a.sTimeout </td>
-                            </tr>
+                    <tr>
+                        <td>@a.sDate</td>
+                        <td>@a.BuildingNo </td>
+                        <td>@a.UnitNo </td>
+                        <td>@a.VisitorName</td>
+                        <td>@a.ResidentName </td>
+                        <td>@a.Purpose</td>
+                        <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                        <td> @a.sTimein</td>
+                        <td> @a.sTimeout </td>
+                    </tr>
 									}
 								}
 							}
@@ -187,13 +187,11 @@
 
                     <tr>
                         <td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
+                        <td>  @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })</td>
+                        <td>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })</td>
                         <td><input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
                         <td><input class="form-control" type="text" id="residentname" name="residentname" required /></td>
-						<td>  @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control"})</td>
-						@*<td><input class="form-control" type="text" id="bldgNo" name="bldgNo" required /></td>*@
-                        @*<td><input class="form-control" type="text" id="unitNo" name="unitNo" required /></td>*@
-						<td>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control"})</td>
-						<td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
+                        <td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
                         <td><a href="#" id="OpenModalPic" name="OpenModalPic" data-dismiss="modal">Take Picture</a></td>
                         <td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
                         <td></td>

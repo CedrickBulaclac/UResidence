@@ -1,7 +1,39 @@
-﻿@model List<UResidence.Logbook>
+﻿@model TenantOwner
 @{
     ViewBag.Title = "LogBookViewing";
     Layout = "/Views/Layout/AdminLayout.cshtml";
+    List<SelectListItem> listItemsUnit = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.UnitNoList)
+        {
+
+            listItemsUnit.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
+
+
+    List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.BuildingList)
+        {
+
+            listItemsBuilding.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
+
+
 }
 
 
@@ -51,11 +83,9 @@
                  <br/>
                 <div class="container">
                     
-
-
-                    <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
-                    <div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
-                    <div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
+                    <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate" required></div>
+                    <div class="col-lg-3"><b>Building No : </b> @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })</div>
+                    <div class="col-lg-3"><b>Unit No : </b>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })</div>
                     <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>
                 </div>
             </div>
@@ -69,21 +99,6 @@
 
     <div class="container">
 
-
-        @*<div class="panel panel-collapse">
-            <div class="panel-heading" style="background-color:  #1C2331">
-                <font color="white"> <h3 class="panel-title"> Expected Guest </h3></font>
-            </div>
-
-
-
-                <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
-                <div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
-                <div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
-                <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>*@
-
-
-
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tr>
@@ -93,7 +108,7 @@
                     <th>Purpose of Visit</th>
                     <th>Actions</th>
                 </tr>
-                @foreach (var a in Model)
+                @foreach (var a in Model.LogbookList)
 
                 {
                     if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")

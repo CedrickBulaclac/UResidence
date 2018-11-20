@@ -185,21 +185,81 @@ namespace UResidence.Controllers
                 Session["URLL"] = a.URL;
             }
             List<Logbook> logbookList = new List<Logbook>();
-            return View(logbookList);
+            List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            var to = new TenantOwner();
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
+            to.LogbookList = logbookList;
+            return View(to);
         }
         [HttpPost]
-        public ActionResult LogBookViewing(FormCollection fc)
+        public ActionResult LogBookViewing(FormCollection fc, TenantOwner to1)
         {
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
             DateTime date = Convert.ToDateTime(fc["gdate"]);
-            string bn=Convert.ToString(fc["gbldg"]);
-            string un = Convert.ToString(fc["gunit"]);
+            string bn=Convert.ToString(to1.tenant.BldgNo);
+            string un = Convert.ToString(to1.tenant.UnitNo);
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = LogbookController.GET_ALL(date, bn, un);
-            return View(logbookList);
+            List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            var to = new TenantOwner();
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
+            to.LogbookList = logbookList;
+            return View(to);
         }
         public JsonResult Search(Logbook data)
         {
