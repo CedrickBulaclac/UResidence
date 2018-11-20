@@ -136,40 +136,153 @@ namespace UResidence.Controllers
             string username= fc["username"];
             string tor =(string) Session["TOR"];
             int locked= 0;
-            if (pass==cp)
+
+
+            Admin user = UResidence.AdminController.GetbyID(lid);
+            if (user.Email != username)
             {
-                Admin a = new Admin
-                {
-                    Id= Aid,
-                    Fname =Fname,
-                    Mname=Mname,
-                    Lname=Lname,
 
-                };
-                status = UResidence.AdminController.AUpdate(a);
-                if(status==true)
+                List<UserLogin> listUser = UResidence.UserController.GetAll(username);
+                if (listUser.Count == 0)
                 {
-                    UserLogin ul = new UserLogin
+                    if (pass == cp)
                     {
-                        Id=lid,
-                        Username=username,
-                        Hash=npass,
-                        ModifyBy= tor,
-                        Locked=locked,
-                    };
-                    status=UResidence.UserController.Update(ul);
-                    if(status==true)
-                    {
+                        Admin a = new Admin
+                        {
+                            Id = Aid,
+                            Fname = Fname,
+                            Mname = Mname,
+                            Lname = Lname,
+                            Email = username
 
-                        return RedirectToAction("Home", "Admin");
+                        };
+                        status = UResidence.AdminController.AUpdate(a);
+                        if (status == true)
+                        {
+                            if (np != "")
+                            {
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    Hash = npass,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.Update(ul);
+                            }
+                            else
+                            {
+
+                            }
+                            if (status == true)
+                            {
+
+                                if (Convert.ToInt32(Session["Level"]) == 0)
+                                {
+                                    return RedirectToAction("AdminView", "Admin");
+                                }
+                                else if (Convert.ToInt32(Session["Level"]) == 2 || Convert.ToInt32(Session["Level"]) == 3)
+                                {
+                                    return RedirectToAction("CalendarView", "Calendar");
+                                }
+                                else if (Convert.ToInt32(Session["Level"]) == 4)
+                                {
+                                    return RedirectToAction("SelectOT", "ReservationA");
+                                }
+                                else if (Convert.ToInt32(Session["Level"]) == 5)
+                                {
+                                    return RedirectToAction("AdminView", "Admin");
+                                }
+                                else if (Convert.ToInt32(Session["Level"]) == 6 || Convert.ToInt32(Session["Level"]) == 7)
+                                {
+                                    return RedirectToAction("LogBookView", "LogBook");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Home", "Admin");
+                                }
+                                //return RedirectToAction("Home", "Admin");
+                            }
+
+                        }
                     }
 
-                }              
+                    else
+                    {
+                        Response.Write("<script>alert('Current Password is incorrect')</script>");
+
+                    }
+                }
+                else
+                {
+                    Response.Write("<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>");
+                }
+
             }
             else
             {
-                Response.Write("<script>alert('Current Password is incorrect')</script>");
-               
+                if (pass == cp)
+                {
+                    Admin a = new Admin
+                    {
+                        Id = Aid,
+                        Fname = Fname,
+                        Mname = Mname,
+                        Lname = Lname,
+                        Email = username
+
+                    };
+                    status = UResidence.AdminController.AUpdate(a);
+                    if (status == true)
+                    {
+                        UserLogin ul = new UserLogin
+                        {
+                            Id = lid,
+                            Username = username,
+                            Hash = npass,
+                            ModifyBy = tor,
+                            Locked = locked,
+                        };
+                        status = UResidence.UserController.Update(ul);
+                        if (status == true)
+                        {
+
+                            if (Convert.ToInt32(Session["Level"]) == 0)
+                            {
+                                return RedirectToAction("AdminView", "Admin");
+                            }
+                            else if (Convert.ToInt32(Session["Level"]) == 2 || Convert.ToInt32(Session["Level"]) == 3)
+                            {
+                                return RedirectToAction("CalendarView", "Calendar");
+                            }
+                            else if (Convert.ToInt32(Session["Level"]) == 4)
+                            {
+                                return RedirectToAction("SelectOT", "ReservationA");
+                            }
+                            else if (Convert.ToInt32(Session["Level"]) == 5)
+                            {
+                                return RedirectToAction("AdminView", "Admin");
+                            }
+                            else if (Convert.ToInt32(Session["Level"]) == 6 || Convert.ToInt32(Session["Level"]) == 7)
+                            {
+                                return RedirectToAction("LogBookView", "LogBook");
+                            }
+                            else
+                            {
+                                return RedirectToAction("Home", "Admin");
+                            }
+                            //return RedirectToAction("Home", "Admin");
+                        }
+
+                    }
+                }
+
+                else
+                {
+                    Response.Write("<script>alert('Current Password is incorrect')</script>");
+
+                }
             }
             return AdminAccountSetting();
 
@@ -237,8 +350,10 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             Session["aa"] = 1;
+            //tbLogin
             int lid = (int)Session["LID"];
             bool status = false;
+            //tbOwner
             int Aid = (int)Session["UID"];
             string pass = (string)Session["pass"];
             string cp = fc["cp"];
@@ -250,41 +365,113 @@ namespace UResidence.Controllers
             string username = fc["username"];
             string tor = (string)Session["TOR"];
             int locked = 0;
-            if (pass == cp)
+
+
+           
+            Owner user = UResidence.OwnerController.GetIdOwner(Aid);
+            if (user.Email != username)
             {
-                Owner a = new Owner
+                List<UserLogin> listUser = UResidence.UserController.GetAll(username);
+                if (listUser.Count == 0)
                 {
-                    Id = Aid,
-                    Fname = Fname,
-                    Mname = Mname,
-                    Lname = Lname,
-
-                };
-                status = UResidence.OwnerController.OUpdate(a);
-                if (status == true)
-                {
-                    UserLogin ul = new UserLogin
+                    if (pass == cp)
                     {
-                        Id = lid,
-                        Username = username,
-                        Hash = npass,
-                        ModifyBy = tor,
-                        Locked = locked,
-                    };
-                    status = UResidence.UserController.Update(ul);
-                    if (status == true)
-                    {
+                        Owner a = new Owner
+                        {
+                            Id = Aid,
+                            Fname = Fname,
+                            Mname = Mname,
+                            Lname = Lname,
+                            Email = username
 
-                        return RedirectToAction("Home", "Reserve");
+                        };
+                        status = UResidence.OwnerController.OUpdate(a);
+                        if (status == true)
+                        {
+                            if (np != "")
+                            {
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    Hash = npass,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.Update(ul);
+                            }
+                            else
+                            {
+
+                            }
+                            if (status == true)
+                            {
+
+                                return RedirectToAction("Home", "Reserve");
+                            }
+
+                        }
                     }
+                    else
+                    {
+                        Response.Write("<script>alert('Current Password is incorrect')</script>");
 
+                    }
+                }
+                else
+                {
+                    Response.Write("<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>");
                 }
             }
             else
             {
-                Response.Write("<script>alert('Current Password is incorrect')</script>");
-                
+                if (pass == cp)
+                {
+                    Owner a = new Owner
+                    {
+                        Id = Aid,
+                        Fname = Fname,
+                        Mname = Mname,
+                        Lname = Lname,
+                        Email = username
+
+                    };
+                    status = UResidence.OwnerController.OUpdate(a);
+                    if (status == true)
+                    {
+                        if (np != "")
+                        {
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                Hash = npass,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.Update(ul);
+                        }
+                        else
+                        {
+
+                        }
+                        if (status == true)
+                        {
+
+                            return RedirectToAction("Home", "Reserve");
+                        }
+
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Current Password is incorrect')</script>");
+
+                }
             }
+
+
+
             return OwnerAccountSetting();
         }
             public ActionResult TenantAccountSetting()
@@ -342,40 +529,101 @@ namespace UResidence.Controllers
             string username = fc["username"];
             string tor = (string)Session["TOR"];
             int locked = 0;
-            if (pass == cp)
+
+
+            Tenant user = UResidence.TenantController.GetIdTenant(Aid.ToString());
+            if (user.Email != username)
             {
-                Tenant a = new Tenant
-                {
-                    Id = Aid,
-                    Fname = Fname,
-                    Mname = Mname,
-                    Lname = Lname,
 
-                };
-                status = UResidence.TenantController.TUpdate(a);
-                if (status == true)
+                List<UserLogin> listUser = UResidence.UserController.GetAll(username);
+                if (listUser.Count == 0)
                 {
-                    UserLogin ul = new UserLogin
-                    {
-                        Id = lid,
-                        Username = username,
-                        Hash = npass,
-                        ModifyBy = tor,
-                        Locked = locked,
-                    };
-                    status = UResidence.UserController.Update(ul);
-                    if (status == true)
-                    {
 
-                        return RedirectToAction("Home", "Reserve");
+
+                    if (pass == cp)
+                    {
+                        Tenant a = new Tenant
+                        {
+                            Id = Aid,
+                            Fname = Fname,
+                            Mname = Mname,
+                            Lname = Lname,
+                            Email = username
+
+                        };
+                        status = UResidence.TenantController.TUpdate(a);
+                        if (status == true)
+                        {
+                            if (np != "")
+                            {
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    Hash = npass,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.Update(ul);
+                            }
+                            else { }
+                            if (status == true)
+                            {
+
+                                return RedirectToAction("Home", "Reserve");
+                            }
+
+                        }
                     }
+                    else
+                    {
+                        Response.Write("<script>alert('Current Password is incorrect')</script>");
 
+                    }
+                }
+                else
+                {
+                    Response.Write("<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>");
                 }
             }
             else
             {
-                Response.Write("<script>alert('Current Password is incorrect')</script>");
+                if (pass == cp)
+                {
+                    Tenant a = new Tenant
+                    {
+                        Id = Aid,
+                        Fname = Fname,
+                        Mname = Mname,
+                        Lname = Lname,
+                        Email = username
 
+                    };
+                    status = UResidence.TenantController.TUpdate(a);
+                    if (status == true)
+                    {
+                        UserLogin ul = new UserLogin
+                        {
+                            Id = lid,
+                            Username = username,
+                            Hash = npass,
+                            ModifyBy = tor,
+                            Locked = locked,
+                        };
+                        status = UResidence.UserController.Update(ul);
+                        if (status == true)
+                        {
+
+                            return RedirectToAction("Home", "Reserve");
+                        }
+
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Current Password is incorrect')</script>");
+
+                }
             }
             return TenantAccountSetting();
         }

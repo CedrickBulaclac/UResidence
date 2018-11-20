@@ -107,7 +107,7 @@ namespace UResidence
         }
         public static bool Update(UserLogin usr)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Username = @Username";
+            const string GET_UPDATE = @"update [tbLogin] set Username = @Username, Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Username", usr.Username));

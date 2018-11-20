@@ -11,7 +11,11 @@ namespace UResidence
     public class UserLogin : BaseProperty<UserLogin>
     {
         public int Id { get; set; }
+
+        [RegularExpression(".+@.+\\..+", ErrorMessage = "Email format seems wrong")]
+        [Required(ErrorMessage = "Enter Email")]
         public string Username { get; set; }
+
         public string Hash { get; set; }
         public int Locked { get; set; }
         public string CreatedBy { get; set; }

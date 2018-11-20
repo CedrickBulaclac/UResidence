@@ -139,12 +139,13 @@ namespace UResidence
 
         public static bool AUpdate(Admin adm)
         {
-            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbAdmin] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Email=@Email WHERE Id = @Id";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Id", adm.Id));
             com.Parameters.Add(new SqlParameter("@Fname", adm.Fname));
             com.Parameters.Add(new SqlParameter("@Mname", adm.Mname));
             com.Parameters.Add(new SqlParameter("@Lname", adm.Lname));
+            com.Parameters.Add(new SqlParameter("@Email", adm.Email));
             return SqlManager.ExecuteNonQuery(com);
         }
 
