@@ -1,8 +1,39 @@
-﻿@model List<UResidence.Logbook>
+﻿@model UResidence.TenantOwner
 
 @{
-    ViewBag.Title = "LogBook";
-    Layout = "/Views/Layout/AdminLayout.cshtml";
+	ViewBag.Title = "LogBook";
+	Layout = "/Views/Layout/AdminLayout.cshtml";
+	List<SelectListItem> listItemsUnit = new List<SelectListItem>();
+	try
+	{
+		foreach (var i in Model.UnitNoList)
+		{
+
+			listItemsUnit.Add(new SelectListItem
+			{
+				Text = i.ToString(),
+				Value = i.ToString()
+			});
+		}
+	}
+	catch (Exception) { }
+
+
+	List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
+	try
+	{
+		foreach (var i in Model.BuildingList)
+		{
+
+			listItemsBuilding.Add(new SelectListItem
+			{
+				Text = i.ToString(),
+				Value = i.ToString()
+			});
+		}
+	}
+	catch (Exception) { }
+
 }
 
 <head>
@@ -94,13 +125,15 @@
                         <th>Time In</th>
                         <th>Time Out</th>
                     </tr>
-                    @foreach (var a in Model)
-                    {
+					@{ try
+						{
+							foreach (var a in Model.LogbookList)
+							{
 
-                        if (a.sTimeout == "12:00AM")
-                        {
-                            if (a.URL == "none")
-                            {
+								if (a.sTimeout == "12:00AM")
+								{
+									if (a.URL == "none")
+									{
                                 <tr>
                                     <td> @a.sDate</td>
                                     <td> @a.VisitorName</td>
@@ -114,9 +147,9 @@
                                     @*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
                                 </tr>
 
-                            }
-                            else
-                            {
+									}
+									else
+									{
                                 <tr>
                                     <td>@a.sDate</td>
                                     <td>@a.VisitorName</td>
@@ -128,10 +161,10 @@
                                     <td> @a.sTimein</td>
                                     <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
                                 </tr>
-                            }
-                        }
-                        else
-                        {
+									}
+								}
+								else
+								{
                             <tr>
                                 <td>@a.sDate</td>
                                 <td>@a.VisitorName</td>
@@ -143,8 +176,12 @@
                                 <td> @a.sTimein</td>
                                 <td> @a.sTimeout </td>
                             </tr>
-                        }
-                    }
+									}
+								}
+							}
+							catch (Exception) { }
+
+						}
 
 
 
@@ -152,9 +189,11 @@
                         <td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
                         <td><input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
                         <td><input class="form-control" type="text" id="residentname" name="residentname" required /></td>
-                        <td><input class="form-control" type="text" id="bldgNo" name="bldgNo" required /></td>
-                        <td><input class="form-control" type="text" id="unitNo" name="unitNo" required /></td>
-                        <td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
+						<td>  @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control"})</td>
+						@*<td><input class="form-control" type="text" id="bldgNo" name="bldgNo" required /></td>*@
+                        @*<td><input class="form-control" type="text" id="unitNo" name="unitNo" required /></td>*@
+						<td>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control"})</td>
+						<td><input class="form-control" type="text" id="purpose" name="purpose" required /></td>
                         <td><a href="#" id="OpenModalPic" name="OpenModalPic" data-dismiss="modal">Take Picture</a></td>
                         <td><button class="btn btn-default" name="btnAdd" id="btnAdd">Timein</button></td>
                         <td></td>

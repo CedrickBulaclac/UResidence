@@ -26,10 +26,40 @@ namespace UResidence.Controllers
             }
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = UResidence.LogbookController.GET_ALL();
-            return View(logbookList);
+            List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            var to = new TenantOwner();
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
+            to.LogbookList = logbookList;
+            return View(to);
         }
         [HttpPost]
-        public ActionResult LogBook(FormCollection fc)
+        public ActionResult LogBook(FormCollection fc, TenantOwner to)
         {
             if (Session["Level"] == null)
             {
@@ -39,8 +69,8 @@ namespace UResidence.Controllers
             string visitor = Convert.ToString(fc["visitorname"]);
             string resident = Convert.ToString(fc["residentname"]);
             string purpose = Convert.ToString(fc["purpose"]);
-            string buildingNo = Convert.ToString(fc["bldgNo"]);
-            string unitNo = Convert.ToString(fc["unitNo"]);
+            string buildingNo = Convert.ToString(to.tenant.BldgNo);
+            string unitNo = Convert.ToString(to.tenant.UnitNo);
             DateTime timein = DateTime.Now;
             string url = Convert.ToString(fc["logbookpictext"]);
 
@@ -80,7 +110,38 @@ namespace UResidence.Controllers
 
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = UResidence.LogbookController.GET_ALL();
-            return View(logbookList);
+            List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            var to1 = new TenantOwner();
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to1.UnitNoList = unit;
+            to1.BuildingList = building;
+            to1.LogbookList = logbookList;
+            LogBook();
+            return RedirectToAction("LogBook", "LogBook");
         }
         public ActionResult LogBookView()
         {
