@@ -18,6 +18,18 @@ namespace UResidence
             ret = SqlManager.Select<Tenant>(com);
             return ret;
         }
+
+        public static List<Tenant> GetTList(int Id)
+        {
+            const string GET_ALL = @"select t.Id,t.UnitNo,t.BldgNo,t.Fname,t.Mname,t.Lname,t.Bdate,t.CelNo,t.Email,t.LeaseStart,t.LeaseEnd,t.Deleted,t.URL,t.MovingIn,t.MovingOut,t.Fname+' '+t.Mname+' '+t.Lname as Fullname,FORMAT(t.Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),t.LeaseStart,100)+' - '+Convert(varchar(25),t.LeaseEnd,100) as Lease,t.LoginId from tbOwner o inner join tbResidence r on o.Id=r.OwnerNo inner join tbTenant t on t.Id=r.TenantNo where t.Deleted=0 and o.Id=@Id";
+
+            List<Tenant> ret = default(List<Tenant>);
+            SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@Id", Id));
+            ret = SqlManager.Select<Tenant>(com);
+            return ret;
+        }
+
         public static Tenant GetIdTenant(string idTenant)
         {
             const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
@@ -126,6 +138,18 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Bdate", usr.Bdate));
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
+            com.Parameters.Add(new SqlParameter("@Id", usr.Id));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
+        public static bool UpdateBU(Tenant usr)
+        {
+            const string GET_UPDATE = @"update [tbTenant] set BldgNo=@BldgNo,UnitNo=@UnitNo WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@UnitNo", usr.UnitNo));
+            com.Parameters.Add(new SqlParameter("@BldgNo", usr.BldgNo));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
 
             return SqlManager.ExecuteNonQuery(com);

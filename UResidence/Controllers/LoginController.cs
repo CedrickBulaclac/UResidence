@@ -97,6 +97,7 @@ namespace UResidence.Controllers
                     }
                     else if (user.Level == 9)
                     {
+                        
                         Session["Level"] = user.Level;
                         Session["LID"] = user.Id;
 
@@ -104,32 +105,41 @@ namespace UResidence.Controllers
                         Tenant a = new Tenant();
                         a = UResidence.TenantController.GetEmailTenant(user.Username);
                         Session["UID"] = a.Id;
-                        if (a.LeaseEnd <= DateTime.Now)
+                        if (a.LeaseStart > DateTime.Now)
                         {
-                            Tenant t = new Tenant
-                            {
-                                Deleted = "1",
-                                Id = a.Id
-                            };
-                           UResidence.TenantController.UpdateDelete(t);
-                          
-                           UResidence.UserController.UpdateLockout(user.Id);
                             string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                             Response.Write(script);
                         }
                         else
                         {
-                            string Fname = RemoveWhitespace(a.Fname);
-                            string Mname = RemoveWhitespace(a.Mname);
-                            string Lname = RemoveWhitespace(a.Lname);
-                            Session["FullName"] = Fname + " " + Mname + " " + Lname;
-                            Session["BDAY"] = a.Bdate.ToShortDateString();
-                            Session["UNO"] = a.UnitNo;
-                            Session["BLDG"] = a.BldgNo;
-                            UResidence.UserController.UpdateLog(user.Id);
-                            return RedirectToAction("Home", "Reserve");
+                            if (a.LeaseEnd <= DateTime.Now)
+                            {
+                                Tenant t = new Tenant
+                                {
+                                    Deleted = "1",
+                                    Id = a.Id
+                                };
+                                UResidence.TenantController.UpdateDelete(t);
+
+                                UResidence.UserController.UpdateLockout(user.Id);
+                                string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
+                                Response.Write(script);
+                            }
+                            else
+                            {
+                                string Fname = RemoveWhitespace(a.Fname);
+                                string Mname = RemoveWhitespace(a.Mname);
+                                string Lname = RemoveWhitespace(a.Lname);
+                                Session["FullName"] = Fname + " " + Mname + " " + Lname;
+                                Session["BDAY"] = a.Bdate.ToShortDateString();
+                                Session["UNO"] = a.UnitNo;
+                                Session["BLDG"] = a.BldgNo;
+                                UResidence.UserController.UpdateLog(user.Id);
+                                return RedirectToAction("Home", "Reserve");
+                            }
+                         
                         }
-                    }
+                        }
                 }
                 else
                 {
