@@ -132,7 +132,7 @@ namespace UResidence.Controllers
                             }
                             else
                             {
-                                if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                                if (amen.Rate==0)
                                 {
                                     status = Try(receipt);
                                     return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
@@ -168,7 +168,7 @@ namespace UResidence.Controllers
                             Amenity amen = new Amenity();
                             amen = UResidence.AmenityController.GetbyAmenityName(receipt.amen);
                             List<SchedReservation> schedList = UResidence.SchedReservationController.GetAllC(receipt.st, receipt.et, amen.Id);
-                            if (amen.AmenityName.ToUpper().Contains("SWIMMING"))
+                            if (amen.Rate==0)
                             {
                                 bool status = Try(receipt);
                                 return new JsonResult { Data = status, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
