@@ -1342,7 +1342,7 @@ namespace UResidence.Controllers
             rd.Name = "ReservationO";
             rd.Value = data.ToList();
             localreport.DataSources.Add(rd);
-            rd1.Name = "EquipReserve";
+            rd1.Name = "EquipmentReservation";
             rd1.Value = data1.ToList();
             localreport.DataSources.Add(rd1);
             rd2.Name = "PersonRate";
