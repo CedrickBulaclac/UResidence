@@ -87,7 +87,6 @@ namespace UResidence.Controllers
                     Fname = Fname,
                     Mname = Mname,
                     Lname = Lname,
-
                 };
                 status = UResidence.AdminController.AUpdate(a);
                 if (status == true)
@@ -103,7 +102,6 @@ namespace UResidence.Controllers
                     status = UResidence.UserController.Update(ul);
                     if (status == true)
                     {
-
                         return RedirectToAction("Home", "Admin");
                     }
 

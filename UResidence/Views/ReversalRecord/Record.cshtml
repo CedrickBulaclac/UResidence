@@ -103,7 +103,6 @@
 
                  </div>
              </div>
-
 <script>
     var global='';
 
@@ -139,7 +138,7 @@
         var monthly = document.getElementById('monthly').value;
         global = s;
         document.getElementById('btndownload').innerHTML = "";
-        document.getElementById('caption').innerHTML = 'List of ' + s;
+        document.getElementById('caption').innerHTML = 'List of ' + s +' Amenity';
 
         $.ajax({
             type: 'POST',
@@ -318,7 +317,7 @@
 	}
 	function Set(s) {
 		//var s = document.getElementById('select').value;
-        document.getElementById('caption').innerHTML = 'List of ' + s;
+        document.getElementById('caption').innerHTML = 'List of ' + s + ' Amenity';
 		if (s == 'Pending') {
 			SetP();
 		}

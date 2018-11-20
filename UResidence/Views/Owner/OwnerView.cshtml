@@ -64,7 +64,7 @@
                         </font>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body form-horizontal">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -82,11 +82,6 @@
                             </div>
                         </div>
 
-
-
-
-
-
                         <div class="form-group">
 
                             <div class="col-sm-12">
@@ -98,11 +93,6 @@
                                 @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-
-
-
-
 
                         <div class="form-group">
 
@@ -116,11 +106,6 @@
 
                             </div>
                         </div>
-
-
-
-
-
 
                         <div class="form-group">
 
@@ -136,10 +121,6 @@
                             </div>
                         </div>
 
-
-
-
-
                         <div class="form-group">
 
                             <div class="col-sm-12">
@@ -154,14 +135,6 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
                         <div class="form-group">
 
                             <div class="col-sm-12">
@@ -175,8 +148,6 @@
 
                             </div>
                         </div>
-
-
 
                         <div class="form-group">
                             <div class="col-sm-12">
@@ -199,7 +170,6 @@
                             </div>
                         </div>
 
-
                         <div class="form-group">
                             <div class="col-sm-12">
 
@@ -215,8 +185,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="form-group">
                             <div class="col-sm-12">
 
@@ -229,15 +197,12 @@
                             </div>
                         </div>
 
-
                     </div>
-
-
                     <br />
-                    @*<div class="modal-footer">*@
-                    <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()" style="float:right">Save</button>
-                    <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal" style="float:right">Close</button>
-                    @*</div>*@
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -239,8 +239,9 @@ namespace UResidence.Controllers
             }
             else
             {
-                Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
+                string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
                 ViewBag.Alert = true;
+                Response.Write(script);
                 return View("OwnerView");
             }
             Session["AddMessage"] = status;
@@ -400,8 +401,9 @@ namespace UResidence.Controllers
                     }
                     else
                     {
-                        Response.Write("<script type = 'text/javascript'>alert('Email is already exist');</script>");
+                        string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
                         ViewBag.UpdateMessage = status;
+                        Response.Write(script);
                         return View(owe);
                     }
                 }

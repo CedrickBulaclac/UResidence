@@ -277,7 +277,7 @@
                     <div id="calendar">
                         <br />
 
-                        <label><b>Legends</b></label>
+                        <label><b>Legends:</b></label>
                         @foreach (Amenity amn in Model)
                         {
                             <div class='my-legend'>
@@ -555,7 +555,7 @@
                 var data = {
                     Status:status
                 }
-                document.getElementById('caption').innerHTML = 'List of '+ status;
+                document.getElementById('caption').innerHTML = 'List of '+ status +' Amenity';
                 $.ajax({
                     type: "GET",
                     url: "/calendar/GET_EVENTS",
@@ -743,7 +743,7 @@
             if (stat == null) {
                 stat = "Pending";
             }
-            document.getElementById('caption').innerHTML ='List of '+ stat;
+            document.getElementById('caption').innerHTML = 'List of ' + stat + ' Amenity';
                 var data = {
                     Status:stat
                 }

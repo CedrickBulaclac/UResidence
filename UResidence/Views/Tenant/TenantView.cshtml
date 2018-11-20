@@ -14,19 +14,6 @@
 		Layout = "/Views/Layout/AdminLayout.cshtml";
 	}
 
-
-	//List<object> bldg = new List<object>();
-	//		var listItems = new List<ListItem> {
-
-
-
-
-	//for (var i = 0; i <= Model.ownerList.Count - 1; i++)
-	//		{
-	//			new ListItem.Add { Text = Model.ownerList[i].UnitNo, Value=Model.ownerList[i].UnitNo  };
-	//		} };
-
-
 	List<SelectListItem> listItemsUnit = new List<SelectListItem>();
 	try
 	{
@@ -58,9 +45,6 @@
 	}
 	catch (Exception) { }
 
-
-
-
 }
 
 <head>
@@ -70,9 +54,6 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
 	<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 </head>
-
-
-
 
 
 @*Modal for Viewing MovingIn*@
@@ -132,13 +113,13 @@
 
                         <font color="white">
                             <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:'Agency FB' ; font-size:35px"> Add New Owner </div>
+                            <div class="text-center" style="font-family:'Agency FB' ; font-size:35px"> Add New Tenant </div>
                         </font>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-						@Html.HiddenFor(model => model.tenant.LoginId, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.HiddenFor(model => model.tenant.LoginId, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
                         <div class="form-group">
 
@@ -147,8 +128,8 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.tenant.Fname, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -164,8 +145,8 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.tenant.Mname, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -181,8 +162,8 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.tenant.Lname, "", new { @class = "text-danger" })
 
                             </div>
                         </div>
@@ -199,12 +180,12 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                @Html.ValidationMessageFor(model => model.tenant.Bdate, "", new { @class = "text-danger" })
 
 
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
 
@@ -217,8 +198,8 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
 
 
                             </div>
@@ -236,84 +217,84 @@
                             </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
 
 
-							</div>
-						</div>
+                            </div>
+                        </div>
 
-						<div class="row">
-							<div class="col-25">
+                        <div class="row">
+                            <div class="col-25">
 
-								<label for="Bldg no">Building no. :</label>
+                                <label for="Bldg no">Building no. :</label>
 
-							</div>
+                            </div>
 
-							<div class="col-75">
-								@Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
-								@Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
-								@Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
-
-
-							</div>
-						</div>
+                            <div class="col-75">
+                                @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
 
 
-						<div class="row">
-							<div class="col-25">
-
-								<label for="Unit no">Unit no. :</label>
-
-							</div>
-
-							<div class="col-75">
-
-								@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
-								@Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
-								@Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
-
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
-                        <div class="form-group">
-                            <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-25">
 
-								<label for="Lease Start">Lease Start :</label>
+                                <label for="Unit no">Unit no. :</label>
 
-							</div>
+                            </div>
 
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.LeaseStart, "", new { @class = "text-danger" })
+                            <div class="col-75">
 
+                                @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
 
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
                         <div class="form-group">
                             <div class="col-sm-12">
 
-								<label for="Bldg no">Lease End :</label>
+                                <label for="Lease Start">Lease Start :</label>
 
-							</div>
+                            </div>
 
                             <div class="col-sm-12">
-                                @Html.EditorFor(model => model.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.LeaseEnd, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.tenant.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+                                @Html.ValidationMessageFor(model => model.tenant.LeaseStart, "", new { @class = "text-danger" })
 
 
-							</div>
-						</div>
+                            </div>
+                        </div>
 
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                
-                                    <label>Moving In Form :</label>
-                                
+
+                                <label for="Bldg no">Lease End :</label>
+
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.tenant.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+                                @Html.ValidationMessageFor(model => model.tenant.LeaseEnd, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+                                <label>Moving In Form :</label>
+
                             </div>
 
                             <div class="col-sm-12">
@@ -321,11 +302,11 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
-                    @*<div class="modal-footer">*@
+                    <br />
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
                         <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    @*</div>*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -347,18 +328,18 @@
 
 				<table class="table table-bordered table-striped" id="TenantData">
 					<thead>
-						<tr>
-							<th scope="col">Unit No</th>
-							<th scope="row">Building No</th>
-							<th scope="row">Full Name </th>
-							<th scope="row">Birthdate</th>
-							<th scope="row">Cellphone No.</th>
-							<th scope="row">Email Address</th>
-							<th scope="row">Lease Period</th>
-							<th scope="row">Moving In Form</th>
-							<th scope="row">Moving Out Form</th>
-							<th scope="row">Actions</th>
-						</tr>
+                        <tr>
+                            <th scope="row">Building No</th>
+                            <th scope="col">Unit No</th>
+                            <th scope="row">Full Name </th>
+                            <th scope="row">Birthdate</th>
+                            <th scope="row">Cellphone No.</th>
+                            <th scope="row">Email Address</th>
+                            <th scope="row">Lease Period</th>
+                            <th scope="row">Moving In Form</th>
+                            <th scope="row">Moving Out Form</th>
+                            <th scope="row">Actions</th>
+                        </tr>
 					</thead>
 
 
@@ -537,9 +518,9 @@
 				"type": "GET",
 				"datatype": "json",
 			},
-			"columns": [
-				{ "data": "UnitNo", "autowidth": true },
-				{ "data": "BldgNo", "autowidth": true },
+            "columns": [
+                { "data": "BldgNo", "autowidth": true },
+				{ "data": "UnitNo", "autowidth": true },			
 				{ "data": "Fullname", "autowidth": true },
 				{ "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
 				{ "data": "CelNo", "autowidth": true },

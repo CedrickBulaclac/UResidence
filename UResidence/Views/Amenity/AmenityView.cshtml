@@ -107,8 +107,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color:#43a047">
-                       
-                       
+
+
                         <font color="white">
                             <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
                             <div class="text-center" style="font-family:'Agency FB' ; font-size:30px"> Add New Amenity </div>
@@ -116,7 +116,7 @@
 
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
@@ -265,7 +265,7 @@
 
 
                         <div class="form-group">
-                            
+
                             <div class="col-sm-12">
                                 <p>
                                     <label>Amenity Image :</label>
@@ -275,18 +275,18 @@
                             <div class="col-sm-12">
                                 <input type="file" id="Image" name="Image" />
                             </div>
-                            
-                        </div>
-
-
-
 
                         </div>
-                    <br/>
-                    @*<div class="modal-footer">*@
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    @*</div>*@
+
+
+
+
+                    </div>
+                    <br />
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                    <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -311,7 +311,7 @@
 
 
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
@@ -460,9 +460,9 @@
                         <div class="form-group">
 
                             <div class="col-sm-12">
-                               
-                                    <label>Amenity Image :</label>
-                               
+
+                                <label>Amenity Image :</label>
+
                             </div>
 
                             <div class="col-sm-12">
@@ -474,11 +474,11 @@
 
                     </div>
 
-                    <hr/>
-                    @*<div class="modal-footer">*@
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    @*</div>*@
+                    <hr />
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                    <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>

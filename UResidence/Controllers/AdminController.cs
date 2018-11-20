@@ -200,7 +200,7 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    string script = "<script type='text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
                     Response.Write(script);               
                     status = false;
                     ViewBag.Alert = true;
@@ -289,7 +289,7 @@ namespace UResidence.Controllers
                 {
                   
                     Session["model"] = adm;
-                    string script = "<script type = 'text/javascript'>alert('There is an Existing Admin!Please try Again.');</script>";
+                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
                     Response.Write(script);               
                     status = false;                   
                     ViewBag.Alert = true;
@@ -409,25 +409,63 @@ namespace UResidence.Controllers
             string[] err = new string[] { };
             if (adm.Validate(out err))
             {
-                int level = Convert.ToInt32(Session["Level"]);
-                if (level == 1)
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetbyID(adm.Id);
+                if (a.Email != adm.Email)
                 {
-                    status = UResidence.AdminController.UpdateBoss(adm);
+                    List<Admin> listadmins = new List<Admin>();
+                    listadmins = UResidence.AdminController.GetEmailAdminList(adm.Email);
+                    if (listadmins.Count == 0)
+                    {
+                        int level = Convert.ToInt32(Session["Level"]);
+                        if (level == 1)
+                        {
+                            status = UResidence.AdminController.UpdateBoss(adm);
+                        }
+                        else
+                        {
+                            status = UResidence.AdminController.Update(adm);
+                        }
+                        if (status == true)
+                        {
+                            ViewBag.UpdateMessage = status;
+                            Session["UpdateMess"] = status;
+                            return RedirectToAction("AdminView", "Admin");
+                        }
+                        else
+                        {
+                            ViewBag.UpdateMessage = status;
+                            return View(adm);
+                        }
+                    }
+                    else
+                    {
+                        string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+                        Response.Write(script);
+                    }
                 }
                 else
                 {
-                    status = UResidence.AdminController.Update(adm);
-                }
-                if (status == true)
-                {
-                    ViewBag.UpdateMessage = status;
-                    Session["UpdateMess"] = status;
-                    return RedirectToAction("AdminView", "Admin");
-                }
-                else
-                {                  
-                    ViewBag.UpdateMessage = status;
-                    return View(adm);
+                    int level = Convert.ToInt32(Session["Level"]);
+                    if (level == 1)
+                    {
+                        status = UResidence.AdminController.UpdateBoss(adm);
+                    }
+                    else
+                    {
+                        status = UResidence.AdminController.Update(adm);
+                    }
+                    if (status == true)
+                    {
+                        ViewBag.UpdateMessage = status;
+                        Session["UpdateMess"] = status;
+                        return RedirectToAction("AdminView", "Admin");
+                    }
+                    else
+                    {
+                        ViewBag.UpdateMessage = status;
+                        return View(adm);
+                    }
                 }
             }
             else
