@@ -173,7 +173,14 @@ namespace UResidence.Controllers
                             }
                             else
                             {
-
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.UpdateNoPass(ul);
                             }
                             if (status == true)
                             {
@@ -236,15 +243,29 @@ namespace UResidence.Controllers
                     status = UResidence.AdminController.AUpdate(a);
                     if (status == true)
                     {
-                        UserLogin ul = new UserLogin
+                        if (np != "")
                         {
-                            Id = lid,
-                            Username = username,
-                            Hash = npass,
-                            ModifyBy = tor,
-                            Locked = locked,
-                        };
-                        status = UResidence.UserController.Update(ul);
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                Hash = npass,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.Update(ul);
+                        }
+                        else
+                        {
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.UpdateNoPass(ul);
+                        }
                         if (status == true)
                         {
 
@@ -402,7 +423,14 @@ namespace UResidence.Controllers
                             }
                             else
                             {
-
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.UpdateNoPass(ul);
                             }
                             if (status == true)
                             {
@@ -453,7 +481,14 @@ namespace UResidence.Controllers
                         }
                         else
                         {
-
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.UpdateNoPass(ul);
                         }
                         if (status == true)
                         {
@@ -566,7 +601,17 @@ namespace UResidence.Controllers
                                 };
                                 status = UResidence.UserController.Update(ul);
                             }
-                            else { }
+                            else
+                            {
+                                UserLogin ul = new UserLogin
+                                {
+                                    Id = lid,
+                                    Username = username,
+                                    ModifyBy = tor,
+                                    Locked = locked,
+                                };
+                                status = UResidence.UserController.UpdateNoPass(ul);
+                            }
                             if (status == true)
                             {
 
@@ -602,15 +647,29 @@ namespace UResidence.Controllers
                     status = UResidence.TenantController.TUpdate(a);
                     if (status == true)
                     {
-                        UserLogin ul = new UserLogin
+                        if (np != "")
                         {
-                            Id = lid,
-                            Username = username,
-                            Hash = npass,
-                            ModifyBy = tor,
-                            Locked = locked,
-                        };
-                        status = UResidence.UserController.Update(ul);
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                Hash = npass,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.Update(ul);
+                        }
+                        else
+                        {
+                            UserLogin ul = new UserLogin
+                            {
+                                Id = lid,
+                                Username = username,
+                                ModifyBy = tor,
+                                Locked = locked,
+                            };
+                            status = UResidence.UserController.UpdateNoPass(ul);
+                        }
                         if (status == true)
                         {
 
