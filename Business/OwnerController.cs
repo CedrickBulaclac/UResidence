@@ -130,12 +130,13 @@ namespace UResidence
         }
         public static bool OUpdate(Owner own)
         {
-            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname,  Lname= @Lname WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbOwner] set Fname= @Fname, Mname= @Mname,  Lname= @Lname, Email=@Email WHERE Id = @Id";
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Id", own.Id));
             com.Parameters.Add(new SqlParameter("@Fname", own.Fname));
             com.Parameters.Add(new SqlParameter("@Mname", own.Mname));
             com.Parameters.Add(new SqlParameter("@Lname", own.Lname));
+            com.Parameters.Add(new SqlParameter("@Email", own.Email));
             return SqlManager.ExecuteNonQuery(com);
         }
 

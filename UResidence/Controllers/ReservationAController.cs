@@ -35,9 +35,35 @@ namespace UResidence.Controllers
                 Session["PaymentModule"] = ViewBag.PaymentModule;
                 Session["ReversalModule"] = ViewBag.ReversalModule;
             }
-           
-            List<Amenity> amenityList = UResidence.AmenityController.GetAll();
-            return View(amenityList);
+            TenantOwner to = new TenantOwner();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            var ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
+            return View(to);
         }
 
         [HttpPost]

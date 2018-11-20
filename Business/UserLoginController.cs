@@ -107,7 +107,7 @@ namespace UResidence
         }
         public static bool Update(UserLogin usr)
         {
-            const string GET_UPDATE = @"update [tbLogin] set Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Username = @Username";
+            const string GET_UPDATE = @"update [tbLogin] set Username = @Username, Hash = @Hash, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@Username", usr.Username));
@@ -118,6 +118,20 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
+
+        public static bool UpdateNoPass(UserLogin usr)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set Username = @Username, Lockout= @Lockout, ModifiedBy = @ModifiedBy, LastModified = getdate() WHERE Id = @Id";
+
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@Username", usr.Username));
+            com.Parameters.Add(new SqlParameter("@Lockout", usr.Locked));
+            com.Parameters.Add(new SqlParameter("@ModifiedBy", usr.ModifyBy));
+            com.Parameters.Add(new SqlParameter("@Id", usr.Id));
+
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
         public static bool UpdateEmail(string email, int id)
         {
             const string GET_UPDATE = @"update [tbLogin] set Username=@email where Id=@Id";

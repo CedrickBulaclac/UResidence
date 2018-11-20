@@ -211,8 +211,7 @@ namespace UResidence.Controllers
             };
 
         }
-
-       
+     
         [HttpPost]
         public ActionResult TenantAdd(TenantOwner ten, HttpPostedFileBase Image1)
         {
@@ -466,7 +465,9 @@ namespace UResidence.Controllers
                 Session["DeleteStatus"] = null;
             }
             List<Tenant> ten = new List<Tenant>();
-            ten = UResidence.TenantController.GetAll();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
+            ten = UResidence.TenantController.GetAll();          
             if(ten.Count>0)
             {
                 for(int i=0; i <= ten.Count - 1; i++)
@@ -483,8 +484,31 @@ namespace UResidence.Controllers
                 }
             }
             var ownerr = UResidence.OwnerController.GetAll();
-            var to = new TenantOwner();
-            to.ownerList = ownerr;
+            if(ownerr.Count>0)
+            {
+                for(int i=0;i<=ownerr.Count-1;i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            var to = new TenantOwner();          
+            to.UnitNoList = unit;
+            to.BuildingList = building;
             return View(to);      
         }
         [HttpGet]
@@ -534,9 +558,36 @@ namespace UResidence.Controllers
                     }
                 }
             }
-            var ownerr = UResidence.OwnerController.GetAll();
+            List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
             var to = new TenantOwner();
-            to.ownerList = ownerr;
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
+
             return View(to);
         }
         [HttpGet]
@@ -555,12 +606,40 @@ namespace UResidence.Controllers
                 Session["URLL"] = a.URL;
             }
             string i = id.ToString();
-            if(ModelState.IsValid)
+            int ii = 0;
+            if (ModelState.IsValid)
             {
+               
                 Tenant tenantList = UResidence.TenantController.GetId(i);
                 var ownerr = UResidence.OwnerController.GetAll();
-                var to = new TenantOwner();
-                to.ownerList = ownerr;
+                var to = new TenantOwner();             
+                List<object> building = new List<object>();
+                List<object> unit = new List<object>();                
+                ownerr = UResidence.OwnerController.GetAll();
+                if (ownerr.Count > 0)
+                {
+                    for (ii = 0; ii <= ownerr.Count - 1; ii++)
+                    {
+                        if (building.Contains(ownerr[ii].BldgNo))
+                        {
+
+                        }
+                        else
+                        {
+                            building.Add(ownerr[ii].BldgNo);
+                        }
+                        if (unit.Contains(ownerr[ii].UnitNo))
+                        {
+
+                        }
+                        else
+                        {
+                            unit.Add(ownerr[ii].UnitNo);
+                        }
+                    }
+                }
+                to.UnitNoList = unit;
+                to.BuildingList = building;
                 to.tenant = tenantList;
                 return View(to);
                
@@ -572,6 +651,8 @@ namespace UResidence.Controllers
         {
             Tenant ten = ten1.tenant;
             List<Owner> ownerr = new List<Owner>();
+            List<object> building = new List<object>();
+            List<object> unit = new List<object>();
             TenantOwner to = new TenantOwner();
             if (Session["Level"] == null)
             {
@@ -602,8 +683,31 @@ namespace UResidence.Controllers
                             {
 
                                 ViewBag.UpdateMessage = status;                              
-                                ownerr = UResidence.OwnerController.GetAll();                            
-                                to.ownerList = ownerr;
+                                ownerr = UResidence.OwnerController.GetAll();
+                                if (ownerr.Count > 0)
+                                {
+                                    for (int i = 0; i <= ownerr.Count - 1; i++)
+                                    {
+                                        if (building.Contains(ownerr[i].BldgNo))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            building.Add(ownerr[i].BldgNo);
+                                        }
+                                        if (unit.Contains(ownerr[i].UnitNo))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            unit.Add(ownerr[i].UnitNo);
+                                        }
+                                    }
+                                }                               
+                                to.UnitNoList = unit;
+                                to.BuildingList = building;                             
                                 to.tenant = ten;
                                 return View(to);                             
                             }
@@ -636,8 +740,31 @@ namespace UResidence.Controllers
                         else
                         {
                             ViewBag.UpdateMessage = status;
-                            ownerr = UResidence.OwnerController.GetAll();                         
-                            to.ownerList = ownerr;
+                            ownerr = UResidence.OwnerController.GetAll();
+                            if (ownerr.Count > 0)
+                            {
+                                for (int i = 0; i <= ownerr.Count - 1; i++)
+                                {
+                                    if (building.Contains(ownerr[i].BldgNo))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        building.Add(ownerr[i].BldgNo);
+                                    }
+                                    if (unit.Contains(ownerr[i].UnitNo))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        unit.Add(ownerr[i].UnitNo);
+                                    }
+                                }
+                            }
+                            to.UnitNoList = unit;
+                            to.BuildingList = building;
                             to.tenant = ten;
                             return View(to);
                         }
@@ -653,8 +780,31 @@ namespace UResidence.Controllers
             {
                 ViewBag.ErrorMessages = FixMessages(err);
             }
-            ownerr = UResidence.OwnerController.GetAll();           
-            to.ownerList = ownerr;
+            ownerr = UResidence.OwnerController.GetAll();
+            if (ownerr.Count > 0)
+            {
+                for (int i = 0; i <= ownerr.Count - 1; i++)
+                {
+                    if (building.Contains(ownerr[i].BldgNo))
+                    {
+
+                    }
+                    else
+                    {
+                        building.Add(ownerr[i].BldgNo);
+                    }
+                    if (unit.Contains(ownerr[i].UnitNo))
+                    {
+
+                    }
+                    else
+                    {
+                        unit.Add(ownerr[i].UnitNo);
+                    }
+                }
+            }
+            to.UnitNoList = unit;
+            to.BuildingList = building;
             to.tenant = ten;
             return View(to);
         }

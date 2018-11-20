@@ -1,51 +1,51 @@
 ﻿@model UResidence.TenantOwner
 
 @{
-	ViewBag.Title = "AdminView";
-	if (Convert.ToInt32(Session["Level"]) == 1)
-	{
-		Layout = "/Views/Layout/BossManagerLayout.cshtml";
-	}
-	else if (Convert.ToInt32(Session["Level"]) == 0)
-	{
-		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-	}
-	else
-	{
-		Layout = "/Views/Layout/AdminLayout.cshtml";
-	}
+    ViewBag.Title = "AdminView";
+    if (Convert.ToInt32(Session["Level"]) == 1)
+    {
+        Layout = "/Views/Layout/BossManagerLayout.cshtml";
+    }
+    else if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Views/Layout/AdminLayout.cshtml";
+    }
 
 
-	List<SelectListItem> listItemsUnit = new List<SelectListItem>();
-	try
-	{
-		foreach (var i in Model.ownerList)
-		{
+    List<SelectListItem> listItemsUnit = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.UnitNoList)
+        {
 
-			listItemsUnit.Add(new SelectListItem
-			{
-				Text = i.UnitNo,
-				Value = i.UnitNo
-			});
-		}
-	}
-	catch (Exception) { }
+            listItemsUnit.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
 
 
-	List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
-	try
-	{
-		foreach (var i in Model.ownerList)
-		{
+    List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.BuildingList)
+        {
 
-			listItemsBuilding.Add(new SelectListItem
-			{
-				Text = i.BldgNo,
-				Value = i.BldgNo
-			});
-		}
-	}
-	catch (Exception) { }
+            listItemsBuilding.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
 }
 
 <html>

@@ -1,7 +1,37 @@
-﻿@model List<UResidence.Amenity>
+﻿@model TenantOwner
 @{
-	ViewBag.Title = "SelectOT";
-	Layout = "~/Views/Layout/AdminLayout.cshtml";
+    ViewBag.Title = "SelectOT";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    List<SelectListItem> listItemsUnit = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.UnitNoList)
+        {
+
+            listItemsUnit.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
+
+
+    List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
+    try
+    {
+        foreach (var i in Model.BuildingList)
+        {
+
+            listItemsBuilding.Add(new SelectListItem
+            {
+                Text = i.ToString(),
+                Value = i.ToString()
+            });
+        }
+    }
+    catch (Exception) { }
 }
 
 @Html.AntiForgeryToken()
@@ -20,28 +50,33 @@
 				</div>
 				<div class="modal-body">
                     <div class="form-inline">
+                        <div class="form-group">
+                            <div class="col-sm-12">
 
-                        <div class="col-sm-4">
-                            <label>Building Number : </label>
-                        </div>
+                                <label for="Bldg no">Building Number: </label>
+                                @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control", @name = "bldgno", @id = "bldgno" })
+                            </div>
 
-                        <div class="col-sm-8">
-                            <input type="text" name="bldgno" id="bldgno" class="form-control" />
-                        </div>
+                            <div class="col-sm-12">
 
-                        <br />
-
-                        <div class="col-sm-4">
-                            <label>Unit Number : </label>
-                        </div>
-
-                        <div class="col-sm-8">
-
-                            <input type="text" name="unitno" id="unitno" class="form-control" />
-
+                            </div>
                         </div>
                     </div>
-					
+					<br />
+
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+                                <label for="Unit no">Unit Number: </label>
+                                @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control", @name = "unitno", @id = "unitno" })
+                            </div>
+
+                            <div class="col-sm-12">
+
+                            </div>
+                        </div>
+                    </div>
 					@*<br />
 						<input type="submit" id="submitId" value="submit" />*@
 					<p id="pDetails"></p>
