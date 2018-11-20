@@ -240,8 +240,9 @@ namespace UResidence.Controllers
             else
             {
                 string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
-                ViewBag.Alert = true;
                 Response.Write(script);
+                status = false;
+                ViewBag.Alert = true;
                 return View("OwnerView");
             }
             Session["AddMessage"] = status;
@@ -382,9 +383,8 @@ namespace UResidence.Controllers
                 owe1 = UResidence.OwnerController.GetIdOwner(owe.Id);
                 if (owe.Email != owe1.Email)
                 {
-                    List<Owner> own = new List<Owner>();
-                    own = UResidence.OwnerController.GetEmailOwnerList(owe.Email);
-                    if (own.Count == 0)
+                    List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+                    if (listUser.Count == 0)
                     {
                         status = UResidence.OwnerController.Update(owe);
                         if (status == true)

@@ -413,9 +413,8 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetbyID(adm.LoginId);
                 if (a.Email != adm.Email)
                 {
-                    List<Admin> listadmins = new List<Admin>();
-                    listadmins = UResidence.AdminController.GetEmailAdminList(adm.Email);
-                    if (listadmins.Count == 0)
+                    List<UserLogin> listUser = UResidence.UserController.GetAll(adm.Email);
+                    if (listUser.Count == 0)
                     {
                         int level = Convert.ToInt32(Session["Level"]);
                         if (level == 1)
