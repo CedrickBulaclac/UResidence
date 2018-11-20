@@ -11,7 +11,8 @@ namespace UResidence
 {
     public class TenantOwner
     {
-        public List<Owner> ownerList { get; set; }
+        public List<object>  BuildingList{ get; set; }
+        public List<object> UnitNoList { get; set; }
         public Tenant tenant { get; set; }
     }
 }
