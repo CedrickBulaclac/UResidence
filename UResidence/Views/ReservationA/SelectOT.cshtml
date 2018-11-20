@@ -12,22 +12,40 @@
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><span id="eventTitle"></span></h4>
+				<div class="modal-header"style="background-color:#4B515D">
+                    <font color="white">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                    </font>
 				</div>
 				<div class="modal-body">
-					<div class="form-inline">
-						<label>Building Number : </label> &nbsp; <input type="text" name="bldgno" id="bldgno" />
-					</div>
-					<br />
+                    <div class="form-inline">
 
-					<div class="form-inline">
-						<label>Unit Number : </label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="unitno" id="unitno" />
-					</div>
+                        <div class="col-sm-4">
+                            <label>Building Number : </label>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <input type="text" name="bldgno" id="bldgno" class="form-control" />
+                        </div>
+
+                        <br />
+
+                        <div class="col-sm-4">
+                            <label>Unit Number : </label>
+                        </div>
+
+                        <div class="col-sm-8">
+
+                            <input type="text" name="unitno" id="unitno" class="form-control" />
+
+                        </div>
+                    </div>
+					
 					@*<br />
 						<input type="submit" id="submitId" value="submit" />*@
 					<p id="pDetails"></p>
+                    <br/>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" id="btnSubmit" name="btnSubmit" onclick="SubmitOT()">Submit</button>
@@ -44,7 +62,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .block {
             display: block;
@@ -60,9 +79,18 @@
 
             .block:hover {
                 background-color: #263238;
-                color: black;
+                color: white;
             }
 
+
+            .block:active {
+                background-color: #3E4551;
+                color: white;
+            }
+
+        .i {
+            color: white;
+        }
         /*.btn-sq-lg {
             width: 150px !important;
             height: 150px !important;
@@ -80,7 +108,9 @@
         <div class="container">
             <br /><br /> <br />
             <div class="col-md-6">
-                <a href="#" class="btn btn-sq-lg btn-success block " id="btnOwner" name="btnOwner">
+                <a href="#" class="btn btn-sq-lg block " id="btnOwner" name="btnOwner">
+
+                    
                     <i class="fa fa-id-card fa-5x"></i><br />
                     <h2>Owner</h2>
                 </a>
@@ -91,7 +121,7 @@
 
 
             <div class="col-md-6">
-                <a href="#" class="btn btn-sq-lg btn-success block " id="btnTenant" name="btnTenant">
+                <a href="#" class="btn btn-sq-lg  block " id="btnTenant" name="btnTenant">
                     <i class="fa fa-id-card-o fa-5x"></i><br />
                     <h2>
                         Tenant

@@ -41,67 +41,102 @@
         </div>
 
 
+        <br /> <br /> <br /> <br /><br /> <br />
+       
 
-        <center>
+            <div class="panel panel-collapse">
+                <div class="panel-heading" style="background-color:  #1C2331">
+                    <font color="white"> <h3 class="panel-title"> Expected Guest </h3></font>
+                </div>
+                 <br/>
+                <div class="container">
+                    
 
-            <div class="row">
-                <br /> <br /> <br />   <br /><br /> <br />
+
+                    <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
+                    <div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
+                    <div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
+                    <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>
+                </div>
+            </div>
+     
+    }
+
+
+
+
+
+
+    <div class="container">
+
+
+        @*<div class="panel panel-collapse">
+            <div class="panel-heading" style="background-color:  #1C2331">
+                <font color="white"> <h3 class="panel-title"> Expected Guest </h3></font>
+            </div>
+
 
 
                 <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate"></div>
                 <div class="col-lg-3"><b>Building No : </b><input class="form-control" type="text" name="gbldg" id="gbldg"></div>
                 <div class="col-lg-3"><b>Unit No : </b><input class="form-control" type="text" name="gunit" id="gunit"></div>
-                <div class="col-lg-3"><button class="btn btn-success" type="submit">Search</button></div>
-            </div>
-        </center>
-    }
+                <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>*@
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>Resident Name</th>
-                <th>Guest Name</th>
-                <th>Picture</th>
-                <th>Purpose of Visit</th>
-                <th>Actions</th>
-            </tr>
-            @foreach (var a in Model)
-            {
-                if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Resident Name</th>
+                    <th>Guest Name</th>
+                    <th>Picture</th>
+                    <th>Purpose of Visit</th>
+                    <th>Actions</th>
+                </tr>
+                @foreach (var a in Model)
+
                 {
-                    <tr>
-                        <td>@a.ResidentName</td>
-                        <td>@a.VisitorName</td>
-                        <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                        <td>@a.Purpose</td>
-                        <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
-                    </tr>
-                }
-                else
-                {
-                    if (a.sTimeout == "12:00AM")
+                    if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")
                     {
                         <tr>
                             <td>@a.ResidentName</td>
                             <td>@a.VisitorName</td>
                             <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                             <td>@a.Purpose</td>
-                            <td><b>Time in : @Convert.ToDateTime(a.sTimein).ToLocalTime()</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                            <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
                         </tr>
+
                     }
                     else
                     {
-                        <tr>
-                            <td>@a.ResidentName</td>
-                            <td>@a.VisitorName</td>
-                            <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                            <td>@a.Purpose</td>
-                            <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToLocalTime() </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
-                        </tr>
+                        if (a.sTimeout == "12:00AM")
+
+                        {
+                            <tr>
+                                <td>@a.ResidentName</td>
+                                <td>@a.VisitorName</td>
+                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                <td>@a.Purpose</td>
+                                <td><b>Time in : @Convert.ToDateTime(a.sTimein).ToLocalTime()</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@a.ResidentName</td>
+                                <td>@a.VisitorName</td>
+                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                <td>@a.Purpose</td>
+                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToLocalTime() </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
+                            </tr>
+                        }
                     }
                 }
-            }
-        </table>
+            </table>
+
+        </div>
+
+
     </div>
 </div>
 
