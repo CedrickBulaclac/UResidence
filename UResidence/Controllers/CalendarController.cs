@@ -366,12 +366,6 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        //public JsonResult SwimmingInfo(int refno1)
-        //{
-        //    List<Swimming> swimming = SwimmingController.GETALL(refno1);
-        //    var events = swimming.ToList();
-        //    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
         public JsonResult ReceiptHistory(int refno1)
         {
             List<Receipt> receipt = ReceiptController.GetAll(refno1);
@@ -393,13 +387,14 @@ namespace UResidence.Controllers
         // GET: Calendar
         public ActionResult CalendarView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string) Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
-          
-                Admin a = new Admin();
+
+            Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             ViewBag.ReservationModule = a.ReservationModule;
@@ -418,7 +413,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult CalendarView(FormCollection fc, string mySelect, decimal dp)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

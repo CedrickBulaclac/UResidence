@@ -15,7 +15,7 @@ namespace UResidence.Controllers
         string email1;
         public ActionResult Index()
         {
-            Session["Level"] = null;
+            Session["StatusLogin"] = "Logout";
             return View();
         }
         [HttpPost]

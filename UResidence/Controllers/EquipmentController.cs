@@ -19,7 +19,8 @@ namespace UResidence.Controllers
         // GET: Equipment
         public ActionResult Registration()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -37,7 +38,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration(Equipment eqp, HttpPostedFileBase Image)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -193,7 +195,8 @@ namespace UResidence.Controllers
 
         public ActionResult EquipmentView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -227,7 +230,8 @@ namespace UResidence.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -244,7 +248,8 @@ namespace UResidence.Controllers
         public ActionResult EquipmentEdit()
         {
             Session["UpdateMess"]=null;
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -253,7 +258,8 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult EquipmentEdit(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -276,7 +282,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult EquipmentEdit(Equipment eqp)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

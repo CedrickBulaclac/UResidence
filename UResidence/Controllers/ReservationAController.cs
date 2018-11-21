@@ -13,7 +13,8 @@ namespace UResidence.Controllers
 
         public ActionResult SelectOT()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -65,11 +66,11 @@ namespace UResidence.Controllers
             to.BuildingList = building;
             return View(to);
         }
-
         [HttpPost]
         public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -209,9 +210,6 @@ namespace UResidence.Controllers
             }
             return View();
         }
-
-     
-
         public JsonResult UpdateImage(Admin adm)
         {
             var image = adm.Image;
