@@ -20,7 +20,8 @@ namespace UResidence.Controllers
         // GET: Amenity
         public ActionResult AmenityAdd()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -92,7 +93,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityAdd(Amenity amen, HttpPostedFileBase Image)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -204,7 +206,8 @@ namespace UResidence.Controllers
 
         public ActionResult AmenityView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -264,7 +267,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Delete(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -278,7 +282,8 @@ namespace UResidence.Controllers
         }
         public ActionResult AmenityEdit()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -287,7 +292,8 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult AmenityEdit(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -357,7 +363,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityEdit(Amenity amen, HttpPostedFileBase image)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -495,7 +502,8 @@ namespace UResidence.Controllers
 
 
         public ActionResult AmenityAddPool() {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -513,7 +521,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AmenityAddPool(Amenity amen, HttpPostedFileBase Image)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

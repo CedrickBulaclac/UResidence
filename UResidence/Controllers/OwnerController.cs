@@ -21,7 +21,8 @@ namespace UResidence.Controllers
         // GET: Owner
         public ActionResult OwnerAdd()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -80,11 +81,11 @@ namespace UResidence.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult OwnerAdd(Owner owe, HttpPostedFileBase Image1)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -273,7 +274,8 @@ namespace UResidence.Controllers
 
         public ActionResult Download()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -299,7 +301,8 @@ namespace UResidence.Controllers
         }
         public ActionResult OwnerView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -331,7 +334,8 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -354,7 +358,8 @@ namespace UResidence.Controllers
         }
         public ActionResult OwnerEdit()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -363,7 +368,8 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult OwnerEdit(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -386,7 +392,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerEdit(Owner owe)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

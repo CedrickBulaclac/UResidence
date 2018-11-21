@@ -13,7 +13,8 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -61,7 +62,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBook(FormCollection fc, TenantOwner to)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -145,7 +147,8 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -170,10 +173,10 @@ namespace UResidence.Controllers
             log = UResidence.LogbookController.GET_ALL();
             return View(log);
         }
-
         public ActionResult LogBookViewing()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -220,7 +223,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBookViewing(FormCollection fc, TenantOwner to1)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -285,8 +289,6 @@ namespace UResidence.Controllers
 
             }
         }
-
-
         public JsonResult GetEvents()
         {
             List<Logbook> log = new List<Logbook>();
@@ -298,12 +300,10 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
-
-
         public ActionResult InsertImage(Logbook data)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -345,9 +345,6 @@ namespace UResidence.Controllers
             }
             return View("LogBook");
         }
-
-
-
         public JsonResult Insert(Logbook data, HttpPostedFileBase logbookpic)
         {
             bool status = false;

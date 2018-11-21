@@ -45,7 +45,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Registration_Cashier()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -68,7 +69,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Registration_Cashier(Admin adm)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -137,7 +139,8 @@ namespace UResidence.Controllers
         }
         public ActionResult ViewCashier()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -154,7 +157,8 @@ namespace UResidence.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -175,7 +179,8 @@ namespace UResidence.Controllers
         }
         public ActionResult CashierEdit()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -184,7 +189,8 @@ namespace UResidence.Controllers
         [HttpGet]
         public ActionResult CashierEdit(int id)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -207,7 +213,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult CashierEdit(Admin adm)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

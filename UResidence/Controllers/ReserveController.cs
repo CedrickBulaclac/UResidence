@@ -13,7 +13,8 @@ namespace UResidence.Controllers
         private bool status = false;    
         public ActionResult SelectAmenity()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -28,9 +29,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
-
-
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -120,8 +120,8 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
-           
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -228,7 +228,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Amenity(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -272,11 +273,12 @@ namespace UResidence.Controllers
         }
         public ActionResult Calendar()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
-            }       
-         
+            }
+
             int calendar = 1;
             Session["calendar"] = calendar;
             if (Session["amenity"] == null)
@@ -340,12 +342,13 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Date()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
 
-          
+
             if (Session["calendar"] == null)
             {               
                 return Redirect("~/Reserve/Calendar");
@@ -419,7 +422,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Choose_Date(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -502,7 +506,8 @@ namespace UResidence.Controllers
         }
         public ActionResult Choose_Equipment()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -629,12 +634,14 @@ namespace UResidence.Controllers
             return View(model);                     
         }
 
-
-
         [HttpPost]
         public void Choose_Equipment(int[] data, decimal[] datar)
         {
-           
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
+            {
+                return Redirect("~/Login");
+            }
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
@@ -793,7 +800,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Summary(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -954,7 +962,8 @@ namespace UResidence.Controllers
 
         public ActionResult GuestAdd()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -981,7 +990,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult GuestAdd(FormCollection fc, HttpPostedFileBase logbookpic)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -1101,11 +1111,12 @@ namespace UResidence.Controllers
      
         public ActionResult Swimming()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
-            
+
             if (Session["calendar"] == null)
             {
                 return Redirect("~/Reserve/Calendar");
@@ -1179,7 +1190,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult Swimming(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -1260,7 +1272,8 @@ namespace UResidence.Controllers
 
         public ActionResult CalendarViewOT()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -1302,7 +1315,8 @@ namespace UResidence.Controllers
         }
         public ActionResult DownloadReservation(int refno1)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -1364,7 +1378,8 @@ namespace UResidence.Controllers
    
         public ActionResult AboutUs()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

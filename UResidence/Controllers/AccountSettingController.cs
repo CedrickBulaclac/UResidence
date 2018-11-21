@@ -12,8 +12,9 @@ namespace UResidence.Controllers
         // GET: AccountSetting
         public ActionResult AdminAccountSetting()
         {
-            if (Session["Level"]==null)
-            {              
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
+            {
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
@@ -42,7 +43,8 @@ namespace UResidence.Controllers
         }
         public ActionResult ManagerAccountSetting()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -62,7 +64,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult ManagerAccountSetting(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -119,7 +122,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult AdminAccountSetting(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -312,7 +316,8 @@ namespace UResidence.Controllers
 
             public ActionResult OwnerAccountSetting()
             {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -366,7 +371,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult OwnerAccountSetting(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -511,7 +517,8 @@ namespace UResidence.Controllers
         }
             public ActionResult TenantAccountSetting()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -546,7 +553,8 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult TenantAccountSetting(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
@@ -686,8 +694,6 @@ namespace UResidence.Controllers
             }
             return TenantAccountSetting();
         }
-
-
 
         private string Hash(string p)
         {

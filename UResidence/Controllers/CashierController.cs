@@ -11,7 +11,8 @@ namespace UResidence.Controllers
         // GET: Cashier
         public ActionResult Calendar()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }

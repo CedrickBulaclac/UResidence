@@ -11,7 +11,8 @@ namespace UResidence.Controllers
         // GET: Billing
         public ActionResult BillingView()
         {
-            if (Session["Level"] == null)
+            string StatusLogin = (string)Session["StatusLogin"];
+            if (StatusLogin == "Logout")
             {
                 return Redirect("~/Login");
             }
