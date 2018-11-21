@@ -132,7 +132,7 @@
                                 <td>@a.VisitorName</td>
                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                                 <td>@a.Purpose</td>
-                                <td><b>Time in : @Convert.ToDateTime(a.sTimein).ToLocalTime()</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                                <td><b>Time in : @Convert.ToDateTime(a.sTimein)</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
                             </tr>
                         }
                         else
@@ -142,7 +142,7 @@
                                 <td>@a.VisitorName</td>
                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                                 <td>@a.Purpose</td>
-                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToLocalTime() </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
+                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein) </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
                             </tr>
                         }
                     }

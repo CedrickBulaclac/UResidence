@@ -21,7 +21,10 @@ namespace UResidence
         public string BldgNo { get; set; }
         public decimal Rate { get; set; }
         public decimal EveningRate { get; set; }
-        public int AmenityHour { get; set; }
+        public int MorningHour { get; set; }
+        public int MorningToWOEvening { get; set; }
+        public int EveningHour { get; set; }
+        public int woMorningToEvening { get; set; }
         public decimal TotalAmenityRate { get; set; }
         public int RefNo { get; set; }
         public string EquipmentName { get; set; }
@@ -52,15 +55,18 @@ namespace UResidence
             ret.AmenityName = reader.GetString(7);
             ret.Rate = reader.GetDecimal(8);
             ret.EveningRate = reader.GetDecimal(9);
-            ret.AmenityHour = reader.GetInt32(10);
-            ret.TotalAmenityRate = reader.GetDecimal(11);
-            ret.Date = reader.GetDateTime(12);           
-            ret.TypeResident = reader.GetString(13);        
-            ret.Charge = reader.GetDecimal(14);
-            ret.Totalpayment = reader.GetDecimal(15);
-            ret.Description = reader.GetString(16);
-            ret.DateP = reader.GetDateTime(17);
-            ret.TotalEquipmentRate = reader.GetDecimal(18);
+            ret.MorningHour = reader.GetInt32(10);
+            ret.MorningToWOEvening = reader.GetInt32(11);
+            ret.EveningHour = reader.GetInt32(12);
+            ret.woMorningToEvening = reader.GetInt32(13);
+            ret.TotalAmenityRate = reader.GetDecimal(14);
+            ret.Date = reader.GetDateTime(15);           
+            ret.TypeResident = reader.GetString(16);        
+            ret.Charge = reader.GetDecimal(17);
+            ret.Totalpayment = reader.GetDecimal(18);
+            ret.Description = reader.GetString(19);
+            ret.DateP = reader.GetDateTime(20);
+            ret.TotalEquipmentRate = reader.GetDecimal(21);
             return ret;
         }
 
