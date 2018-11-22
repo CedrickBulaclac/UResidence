@@ -387,8 +387,7 @@ namespace UResidence.Controllers
         // GET: Calendar
         public ActionResult CalendarView()
         {
-            string StatusLogin = (string) Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -413,8 +412,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult CalendarView(FormCollection fc, string mySelect, decimal dp)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }

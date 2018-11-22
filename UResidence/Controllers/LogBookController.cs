@@ -13,8 +13,7 @@ namespace UResidence.Controllers
         // GET: LogBook
         public ActionResult LogBook()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -62,8 +61,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBook(FormCollection fc, TenantOwner to)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -147,8 +145,7 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookView()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -175,8 +172,7 @@ namespace UResidence.Controllers
         }
         public ActionResult LogBookViewing()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -223,8 +219,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBookViewing(FormCollection fc, TenantOwner to1)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -302,8 +297,7 @@ namespace UResidence.Controllers
         }
         public ActionResult InsertImage(Logbook data)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }

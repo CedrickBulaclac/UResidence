@@ -14,8 +14,7 @@ namespace UResidence.Controllers
         string i;
         string email1;
         public ActionResult Index()
-        {
-            Session["StatusLogin"] = "Logout";
+        {                        
             return View();
         }
         [HttpPost]
@@ -275,6 +274,12 @@ namespace UResidence.Controllers
             }
 
             return Code;
+        }
+        public ActionResult Logout()
+        {
+            Session["Level"] = null;
+            Session.Abandon();
+            return Redirect("~/Login");
         }
 }
     

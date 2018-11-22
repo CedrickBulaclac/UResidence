@@ -13,8 +13,7 @@ namespace UResidence.Controllers
         // GET: ReservationRecord
         public ActionResult Record()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -132,8 +131,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Download(int Level, string Search)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }

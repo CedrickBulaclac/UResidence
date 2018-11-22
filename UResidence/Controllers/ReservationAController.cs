@@ -13,8 +13,7 @@ namespace UResidence.Controllers
 
         public ActionResult SelectOT()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -69,8 +68,7 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }

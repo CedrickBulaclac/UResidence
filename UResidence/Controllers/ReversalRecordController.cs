@@ -15,8 +15,7 @@ namespace UResidence.Controllers
         // GET: ReversalRecord
         public ActionResult Record()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -31,8 +30,7 @@ namespace UResidence.Controllers
         }
         public ActionResult Records()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
@@ -62,8 +60,7 @@ namespace UResidence.Controllers
        
         public ActionResult Download()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            if (StatusLogin == "Logout")
+            if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
