@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Logbook>
 @{
 	ViewBag.Title = "LogBook";
 	Layout = "/Views/Layout/AdminLayout.cshtml";
@@ -6,153 +6,142 @@
 
 <head>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 
 
-
-
-<div class="container">
-    <br /> <br /> <br />   <br /><br /> <br/>
-
-    <div class="panel panel-collapse">
-        <div class="panel-heading" style="background-color:  #1C2331">
-            <font color="white"> <h3 class="panel-title"> Logbook Viewing  </h3></font>
-        </div>
+@using (Html.BeginForm("LogBookView", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
 
 
 
-        @*<h2>Logbook Viewing </h2>*@
-       <br/>
-        <center>
-            Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
-        </center>
-        <br />
+	<div class="container">
+		<div class="modal fade" id="logbookImageModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<label>Valid ID</label>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<center>
+							<img height="250" width="250" id="log">
+						</center>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="tableLog"></table>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<br /> <br /> <br />   <br /><br /> <br />
+
+											<div class="panel panel-collapse">
+												<div class="panel-heading" style="background-color:  #1C2331">
+													<font color="white"> <h3 class="panel-title"> Logbook Viewing  </h3></font>
+												</div>
+
+
+
+												@*<h2>Logbook Viewing </h2>*@
+												<br />
+												<center>
+													Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
+												</center>
+												<br />
+
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped">
+														<tr>
+															<th>Date</th>
+															<th>Building Number</th>
+															<th>Unit Number</th>
+															<th>Visitor Name</th>
+															<th>Resident Name</th>
+															<th>Purpose of Visit</th>
+															<th>Image</th>
+															<th>Actions</th>
+														</tr>
+														@foreach (var a in Model)
+
+														{
+															if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")
+															{
+																<tr>
+	<td>@a.sDate</td>
+																	<td>@a.BuildingNo </td>
+																	<td>@a.UnitNo </td>
+																	<td>@a.VisitorName</td>
+																	<td>@a.ResidentName </td>
+																	<td>@a.Purpose</td>
+																										
+																	<td><button onclick="UpdateTimein(@a.)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
+																</tr>
+
+															}
+															else
+															{
+																if (a.sTimeout == "12:00AM")
+
+																{
+																<tr>
+																	<td>@a.sDate</td>
+																	<td>@a.BuildingNo </td>
+																	<td>@a.UnitNo </td>
+																	<td>@a.VisitorName</td>
+																	<td>@a.ResidentName </td>
+																	<td>@a.Purpose</td>
+																	<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>													
+																	<td><b>Time in : @Convert.ToDateTime(a.sTimein)</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+																</tr>
+																}
+																else
+																{
+																	<tr>
+																		<td>@a.sDate</td>
+																		<td>@a.BuildingNo </td>
+																		<td>@a.UnitNo </td>
+																		<td>@a.VisitorName</td>
+																		<td>@a.ResidentName </td>
+																		<td>@a.Purpose</td>
+																		<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+																		<td><b>Time in :  @Convert.ToDateTime(a.sTimein) </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
+																	</tr>
+																}
+															}
+														}
+													</table>
+
+												</div>
+											</div>
+	</div>
+}
+
+
 
 
 
 <script>
-	$(document).ready(Set());
-	var value;
-	function Set() {
-		$('#tableLog').empty();
-		$.ajax({
-			type: "GET",
-			url: "/LogBook/GetEvents",
-			success: function (data) {
-				var trHTML = '';
+	function ViewPIC(data) {
+		console.log(data);
+		if (data.includes("data:image") == true) {
+			document.getElementById('log').setAttribute('src', data)
+		}
+		else {
+			var fullpath = (data).toString();
+			var filename = fullpath.replace(/^.*[\\\/]/, '');
+			filei = filename;
 
-				trHTML = '<tr><th>Date</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
-				$.each(data, function (i, v) {
+			var path = "../Content/LogBookImages/" + filei;
 
-                    if (v.sTimeout == '12:00AM') {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
-
-					}
-					else {
-						trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
-
-					}
-				});
-				$('#tableLog').append(trHTML);
-
-				var now = new Date();
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				var today = now.getFullYear() + "-" + (month) + "-" + (day);
-				var ti = new Date().toLocaleTimeString();
-
-				document.getElementById('date').value = today;
-
-
-			},
-			error: function (error) {
-				alert('Failed to retrieve the record');
-			}
-		});
-
+			document.getElementById('log').setAttribute('src', path)
+		}
+		$('#logbookImageModal').modal();
 	}
-
-	function Update(id) {
-
-		var d = new Date(),
-			h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-			m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-		var timenow = h + ':' + m;
-
-		var data = {
-			Id: id,
-			TimeOut: timenow
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Update',
-			data: data,
-			success: function (data) {
-
-				Set();
-				window.location.reload();
-			},
-			error: function (error) {
-				alert('Failed to update record');
-			}
-		});
-	}
-
-	function Search() {
-		$('#tableLog').empty();
-		var datee = document.getElementById('txtdate').value;
-		value = datee;
-		var data = {
-			date: datee
-		};
-		$.ajax({
-			type: 'POST',
-			url: '/LogBook/Search',
-			data: data,
-			success: function (data) {
-				var trHTML = '';
-
-				trHTML = '<tr><th>Date</th><th>Building Number</th><th>Unit Number</th> <th>Visitor Name</th> <th>Resident Name</th><th>Purpose of Visit</th> <th>Time In</th> <th>Time Out</th></tr>';
-				$.each(data, function (i, v) {
-
-                    if (v.sTimeout == '12:00AM') {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.BuildingNo + '</td><td>' + v.UnitNo +'</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td></td></tr>';
-
-					}
-					else {
-                        trHTML += '<tr><td>' + v.sDate + '</td><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td>' + v.VisitorName + '</td><td>' + v.ResidentName + '</td><td>' + v.Purpose + '</td><td>' + v.sTimein + '</td><td>' + v.sTimeout + '</td></tr>';
-
-					}
-				});
-
-				$('#tableLog').append(trHTML);
-
-				var now = new Date();
-				var day = ("0" + now.getDate()).slice(-2);
-				var month = ("0" + (now.getMonth() + 1)).slice(-2);
-				var today = now.getFullYear() + "-" + (month) + "-" + (day);
-				var ti = new Date().toLocaleTimeString();
-
-				document.getElementById('date').value = today;
-
-			},
-			error: function (data) {
-				alert('Failed to retrieve record');
-			}
-
-		});
-	}
-
-
 </script>
-
