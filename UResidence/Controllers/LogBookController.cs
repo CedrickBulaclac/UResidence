@@ -170,12 +170,41 @@ namespace UResidence.Controllers
             log = UResidence.LogbookController.GET_ALL();
             return View(log);
         }
-        public ActionResult LogBookViewing()
+
+        [HttpPost]
+        public ActionResult LogBookView(FormCollection fc)
         {
             if (Session["Level"] == null)
             {
-                return Redirect("~/Login");
+                Admin a = new Admin();
+                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                Session["URLL"] = a.URL;
+                ViewBag.ReservationModule = a.ReservationModule;
+                ViewBag.RegistrationModule = a.RegistrationModule;
+                ViewBag.LogBookModule = a.LogBookModule;
+                ViewBag.PaymentModule = a.PaymentModule;
+                ViewBag.ReversalModule = a.ReversalModule;
+                Session["ReservationModule"] = ViewBag.ReservationModule;
+                Session["RegistrationModule"] = ViewBag.RegistrationModule;
+                Session["LogBookModule"] = ViewBag.LogBookModule;
+                Session["PaymentModule"] = ViewBag.PaymentModule;
+                Session["ReversalModule"] = ViewBag.ReversalModule;
             }
+           
+            DateTime date = Convert.ToDateTime(fc["txtdate"]);
+            List<Logbook> logbookList = new List<Logbook>();
+            logbookList = LogbookController.GET_ALL(date);
+         
+            return View(logbookList);
+        }
+
+        public ActionResult LogBookViewing()
+        {
+            string StatusLogin = (string)Session["StatusLogin"];
+            //if (StatusLogin == "Logout")
+            //{
+            //    return Redirect("~/Login");
+            //}
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -260,6 +289,7 @@ namespace UResidence.Controllers
             to.LogbookList = logbookList;
             return View(to);
         }
+
         public JsonResult Search(Logbook data)
         {
             try
