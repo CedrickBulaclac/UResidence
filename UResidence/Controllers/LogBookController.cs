@@ -71,7 +71,8 @@ namespace UResidence.Controllers
             string purpose = Convert.ToString(fc["purpose"]);
             string buildingNo = Convert.ToString(to.tenant.BldgNo);
             string unitNo = Convert.ToString(to.tenant.UnitNo);
-            DateTime timein = DateTime.Now;
+
+            DateTime timein = DateTime.Now.ToUniversalTime().AddHours(8);
             string url = Convert.ToString(fc["logbookpictext"]);
 
             bool status = false;
@@ -174,7 +175,11 @@ namespace UResidence.Controllers
         [HttpPost]
         public ActionResult LogBookView(FormCollection fc)
         {
-            if (Session["Level"] == null)
+            if (Session["Level"] ==null)
+            {
+                return Redirect("~/Login");              
+            }
+           if(Convert.ToInt32(Session["Level"]) <=7)
             {
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
@@ -190,7 +195,6 @@ namespace UResidence.Controllers
                 Session["PaymentModule"] = ViewBag.PaymentModule;
                 Session["ReversalModule"] = ViewBag.ReversalModule;
             }
-           
             DateTime date = Convert.ToDateTime(fc["txtdate"]);
             List<Logbook> logbookList = new List<Logbook>();
             logbookList = LogbookController.GET_ALL(date);
@@ -200,11 +204,7 @@ namespace UResidence.Controllers
 
         public ActionResult LogBookViewing()
         {
-            string StatusLogin = (string)Session["StatusLogin"];
-            //if (StatusLogin == "Logout")
-            //{
-            //    return Redirect("~/Login");
-            //}
+            
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {
@@ -218,6 +218,7 @@ namespace UResidence.Controllers
             List<object> unit = new List<object>();
             var to = new TenantOwner();
             ownerr = UResidence.OwnerController.GetAll();
+            logbookList = UResidence.LogbookController.GET_ALL();
             if (ownerr.Count > 0)
             {
                 for (int i = 0; i <= ownerr.Count - 1; i++)
@@ -432,11 +433,12 @@ namespace UResidence.Controllers
         }
         public JsonResult UpdateTimein(Logbook data)
         {
+            DateTime date = DateTime.Now.ToUniversalTime().AddHours(8);
             bool status = false;
             Logbook log = new Logbook
             {
                 Id = data.Id,
-                Timein = data.Timein
+                Timein = date
             };
             status = UResidence.LogbookController.UpdateTimein(log);
 
@@ -449,11 +451,12 @@ namespace UResidence.Controllers
         }
         public JsonResult Update(Logbook data)
         {
+            DateTime date = DateTime.Now.ToUniversalTime().AddHours(8);
             bool status = false;
             Logbook log = new Logbook
             {
                 Id = data.Id,
-                Timeout = data.Timeout
+                Timeout = date
             };
             status = UResidence.LogbookController.Update(log);
          

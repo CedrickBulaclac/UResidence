@@ -74,22 +74,22 @@
 
 
         <br /> <br /> <br /> <br /><br /> <br />
-       
 
-            <div class="panel panel-collapse">
-                <div class="panel-heading" style="background-color:  #1C2331">
-                    <font color="white"> <h3 class="panel-title"> Expected Guest </h3></font>
-                </div>
-                 <br/>
-                <div class="container">
-                    
-                    <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate" required></div>
-                    <div class="col-lg-3"><b>Building No : </b> @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })</div>
-                    <div class="col-lg-3"><b>Unit No : </b>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })</div>
-                    <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>
-                </div>
+
+        <div class="panel panel-collapse">
+            <div class="panel-heading" style="background-color:  #1C2331">
+                <font color="white"> <h3 class="panel-title"> Expected Guest </h3></font>
             </div>
-     
+            <br />
+            <div class="container">
+
+                <div class="col-lg-3"><b>Date : </b><input class="form-control" type="date" name="gdate" id="gdate" required></div>
+                <div class="col-lg-3"><b>Building No : </b> @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })</div>
+                <div class="col-lg-3"><b>Unit No : </b>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })</div>
+                <div class="col-lg-3"><button class="btn btn-success" style="height:50px;" type="submit">Search</button></div>
+            </div>
+        </div>
+
     }
 
 
@@ -102,16 +102,18 @@
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <tr>
+                    <th>Date</th>
+                    <th>Building Number</th>
+                    <th>Unit Number</th>
+                    <th>Visitor Name</th>
                     <th>Resident Name</th>
-                    <th>Guest Name</th>
-                    <th>Picture</th>
                     <th>Purpose of Visit</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
                 @foreach (var a in Model.LogbookList)
-
                 {
-                    if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")
+                    if (a.sTimein == "12:00AM")
                     {
                         <tr>
                             <td>@a.ResidentName</td>
@@ -128,21 +130,27 @@
 
                         {
                             <tr>
+                                <td>@a.sDate</td>
+                                <td>@a.BuildingNo </td>
+                                <td>@a.UnitNo </td>
                                 <td>@a.ResidentName</td>
                                 <td>@a.VisitorName</td>
                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                                 <td>@a.Purpose</td>
-                                <td><b>Time in : @Convert.ToDateTime(a.sTimein)</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                                <td><b>Time in : @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
                             </tr>
                         }
                         else
                         {
                             <tr>
+                                <td>@a.sDate</td>
+                                <td>@a.BuildingNo </td>
+                                <td>@a.UnitNo </td>
                                 <td>@a.ResidentName</td>
                                 <td>@a.VisitorName</td>
                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                                 <td>@a.Purpose</td>
-                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein) </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
+                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString() </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout).ToShortTimeString()</b></td>
                             </tr>
                         }
                     }
@@ -154,70 +162,70 @@
 
     </div>
 </div>
+    <script>
 
-<script>
-    function UpdateTimein(id) {
-        var d = new Date(),
-            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-        s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
-        var timenow = h + ':' + m + ':' + s;
-
-        var data = {
-            Id: id,
-            Timein: timenow
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/LogBook/UpdateTimein',
-            data: data,
-            success: function (data) {
-                window.location.reload();
-            },
-            error: function (error) {
-                alert('Failed to update record');
-            }
-        });
-    }
-    function UpdateTimeout(id) {
-        var d = new Date(),
-            h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
-            m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
-        s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
-        var timenow = h + ':' + m + ':' + s;
-
-        var data = {
-            Id: id,
-            TimeOut: timenow
-        };
-        $.ajax({
-            type: 'POST',
-            url: '/LogBook/Update',
-            data: data,
-            success: function (data) {
-                window.location.reload();
-            },
-            error: function (error) {
-                alert('Failed to update record');
-            }
-        });
-    }
-
-
-    function ViewPIC(data) {
-        console.log(data);
-        if (data.includes("data:image") == true) {
-            document.getElementById('log').setAttribute('src', data)
+        function UpdateTimein(id) {
+            var d = new Date(),
+                h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+                m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+            s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+            //var timenow = h + ':' + m + ':' + s;
+            var timenow = d.setUTCHours(15);
+            var data = {
+                Id: id,
+                Timein: timenow
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/LogBook/UpdateTimein',
+                data: data,
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    alert('Failed to update record');
+                }
+            });
         }
-        else {
-            var fullpath = (data).toString();
-            var filename = fullpath.replace(/^.*[\\\/]/, '');
-            filei = filename;
-
-            var path = "../Content/LogBookImages/" + filei;
-
-            document.getElementById('log').setAttribute('src', path)
+        function UpdateTimeout(id) {
+            var d = new Date(),
+                h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+                m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+            s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
+            //var timenow = h + ':' + m + ':' + s;
+            var timenow = d.setUTCHours(15);
+            var data = {
+                Id: id,
+                TimeOut: timenow
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/LogBook/Update',
+                data: data,
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    alert('Failed to update record');
+                }
+            });
         }
-        $('#logbookImageModal').modal();
-    }
-</script>
+
+
+        function ViewPIC(data) {
+            console.log(data);
+            if (data.includes("data:image") == true) {
+                document.getElementById('log').setAttribute('src', data)
+            }
+            else {
+                var fullpath = (data).toString();
+                var filename = fullpath.replace(/^.*[\\\/]/, '');
+                filei = filename;
+
+                var path = "../Content/LogBookImages/" + filei;
+
+                document.getElementById('log').setAttribute('src', path)
+            }
+            $('#logbookImageModal').modal();
+        }
+    </script>

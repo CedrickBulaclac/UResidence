@@ -304,8 +304,9 @@
                                             <br />
                                             <br />
 
-
-                                            <button name="submit" type="submit" button class="button form-inline col-sm-12" onclick="Check()"> Next</button>
+                                            <input type="checkbox" name="chk" id="chk"> <b>I have read and agreed to the Terms and Conditions</b>
+                                            <br /><br />
+                                            <button name="submit" type="submit" button class="button form-inline col-sm-12" id="submit" onclick="Check()"> Next</button>
 
                                             <input type="hidden" id="stime" name="stime" />
                                             <input type="hidden" id="etime" name="etime" />
@@ -398,6 +399,22 @@
 
 
 
+	$("form").submit(function (e) {
+		if (chk.checked != true) {
+			alert("Please read and check our terms and agreements");
+			e.preventDefault();
+		}
+		else {
+			var q = new Date();
+			var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
+
+			if (startDate < MyDateString) {
+				alert("Your chosen date is earlier than today");
+				document.getElementById('sd').value = null;
+				e.preventDefault();
+			}
+		}
+	});
 
 
 	function ValidateDate() {
@@ -449,14 +466,6 @@
 				startDate = selectedValue;
 				endDate = selectedValue;
 
-				var date = $('#sd').val().split(",-");
-
-				day = new Date(date);
-				var weekendday = day.getDay();
-				console.log(day.getDay());
-				var q = new Date();
-				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
-
 
 				var IsWeekend = "@ViewBag.isw";
 
@@ -466,11 +475,7 @@
 						document.getElementById('sd').value = null;
 					}
 				}
-				if (startDate < MyDateString)
-				{
-					alert("Your chosen date is earlier than today");
-					document.getElementById('sd').value = null;
-				}
+
 			});
 
 		});
