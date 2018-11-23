@@ -1,13 +1,13 @@
 ﻿@model List<Logbook>
 @{
-	ViewBag.Title = "LogBook";
-	Layout = "/Views/Layout/AdminLayout.cshtml";
+    ViewBag.Title = "LogBook";
+    Layout = "/Views/Layout/AdminLayout.cshtml";
 }
 
 <head>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
@@ -15,112 +15,94 @@
 
 @using (Html.BeginForm("LogBookView", "LogBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    <div class="container">
+        <div class="modal fade" id="logbookImageModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <label>Valid ID</label>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            <img height="250" width="250" id="log">
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br /> <br /> <br />   <br /><br /> <br />
+
+        <div class="panel panel-collapse">
+            <div class="panel-heading" style="background-color:  #1C2331">
+                <font color="white"> <h3 class="panel-title"> Logbook Viewing  </h3></font>
+            </div>
 
 
 
-	<div class="container">
-		<div class="modal fade" id="logbookImageModal" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<label>Valid ID</label>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<div class="modal-body">
-						<center>
-							<img height="250" width="250" id="log">
-						</center>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            @*<h2>Logbook Viewing </h2>*@
+            <br />
+            <center>
+                Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
+            </center>
+            <br />
 
-	<div class="container">
-		<br /> <br /> <br />   <br /><br /> <br />
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Date</th>
+                        <th>Building Number</th>
+                        <th>Unit Number</th>
+                        <th>Visitor Name</th>
+                        <th>Resident Name</th>
+                        <th>Purpose of Visit</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                    @foreach (var a in Model)
 
-											<div class="panel panel-collapse">
-												<div class="panel-heading" style="background-color:  #1C2331">
-													<font color="white"> <h3 class="panel-title"> Logbook Viewing  </h3></font>
-												</div>
+                    {
 
+                        if (a.sTimeout == "12:00AM")
 
+                        {
+                            <tr>
+                                <td>@a.sDate</td>
+                                <td>@a.BuildingNo </td>
+                                <td>@a.UnitNo </td>
+                                <td>@a.VisitorName</td>
+                                <td>@a.ResidentName </td>
+                                <td>@a.Purpose</td>
+                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <b>Time out :  </b></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@a.sDate</td>
+                                <td>@a.BuildingNo </td>
+                                <td>@a.UnitNo </td>
+                                <td>@a.VisitorName</td>
+                                <td>@a.ResidentName </td>
+                                <td>@a.Purpose</td>
+                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <b>Time out :   @Convert.ToDateTime(a.sTimeout).ToShortTimeString()</b></td>
+                            </tr>
+                        }
 
-												@*<h2>Logbook Viewing </h2>*@
-												<br />
-												<center>
-													Search: <input type="date" id="txtdate" name="txtdate" /> <button class="btn btn-success" onclick="Search()">Search</button>
-												</center>
-												<br />
+                    }
+                </table>
 
-												<div class="table-responsive">
-													<table class="table table-bordered table-striped">
-														<tr>
-															<th>Date</th>
-															<th>Building Number</th>
-															<th>Unit Number</th>
-															<th>Visitor Name</th>
-															<th>Resident Name</th>
-															<th>Purpose of Visit</th>
-															<th>Image</th>
-															<th>Actions</th>
-														</tr>
-														@foreach (var a in Model)
-
-														{
-															if (Convert.ToDateTime(a.sTimein).ToLocalTime().ToShortTimeString() == "12:00AM")
-															{
-																<tr>
-	<td>@a.sDate</td>
-																	<td>@a.BuildingNo </td>
-																	<td>@a.UnitNo </td>
-																	<td>@a.VisitorName</td>
-																	<td>@a.ResidentName </td>
-																	<td>@a.Purpose</td>
-																										
-																	<td><button onclick="UpdateTimein(@a.)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
-																</tr>
-
-															}
-															else
-															{
-																if (a.sTimeout == "12:00AM")
-
-																{
-																<tr>
-																	<td>@a.sDate</td>
-																	<td>@a.BuildingNo </td>
-																	<td>@a.UnitNo </td>
-																	<td>@a.VisitorName</td>
-																	<td>@a.ResidentName </td>
-																	<td>@a.Purpose</td>
-																	<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>													
-																	<td><b>Time in : @Convert.ToDateTime(a.sTimein)</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-																</tr>
-																}
-																else
-																{
-																	<tr>
-																		<td>@a.sDate</td>
-																		<td>@a.BuildingNo </td>
-																		<td>@a.UnitNo </td>
-																		<td>@a.VisitorName</td>
-																		<td>@a.ResidentName </td>
-																		<td>@a.Purpose</td>
-																		<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-																		<td><b>Time in :  @Convert.ToDateTime(a.sTimein) </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout)</b></td>
-																	</tr>
-																}
-															}
-														}
-													</table>
-
-												</div>
-											</div>
-	</div>
+            </div>
+        </div>
+    </div>
 }
 
 
@@ -128,20 +110,19 @@
 
 
 <script>
-	function ViewPIC(data) {
-		console.log(data);
-		if (data.includes("data:image") == true) {
-			document.getElementById('log').setAttribute('src', data)
-		}
-		else {
-			var fullpath = (data).toString();
-			var filename = fullpath.replace(/^.*[\\\/]/, '');
-			filei = filename;
+    function ViewPIC(data) {
+        if (data.includes("data:image") == true) {
+            document.getElementById('log').setAttribute('src', data)
+        }
+        else {
+            var fullpath = (data).toString();
+            var filename = fullpath.replace(/^.*[\\\/]/, '');
+            filei = filename;
 
-			var path = "../Content/LogBookImages/" + filei;
+            var path = "../Content/LogBookImages/" + filei;
 
-			document.getElementById('log').setAttribute('src', path)
-		}
-		$('#logbookImageModal').modal();
-	}
+            document.getElementById('log').setAttribute('src', path)
+        }
+        $('#logbookImageModal').modal();
+    }
 </script>

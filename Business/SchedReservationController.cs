@@ -221,7 +221,7 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@StartTime", usr.StartTime));
             com.Parameters.Add(new SqlParameter("@EndTIme", usr.EndTIme));
             com.Parameters.Add(new SqlParameter("@Rate", usr.Rate));
-            com.Parameters.Add(new SqlParameter("@Date", usr.Date));
+            com.Parameters.Add(new SqlParameter("@Date",usr.Date));
             com.Parameters.Add(new SqlParameter("@Deleted", usr.Deleted));
 
             return SqlManager.ExecuteNonQuery(com);

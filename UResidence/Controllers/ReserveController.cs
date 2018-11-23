@@ -800,7 +800,7 @@ namespace UResidence.Controllers
             decimal rate = Convert.ToDecimal(Session["drate"]);
             int uid = (int)Session["UID"];
             int aid = (int)Session["ID"];
-            DateTime date = DateTime.Now;
+            DateTime date = DateTime.Now.ToUniversalTime().AddHours(8);
             string sdate = date.ToString();
             Session["date"] = sdate;
             SchedReservation a = new SchedReservation
