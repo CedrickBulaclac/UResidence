@@ -28,8 +28,6 @@ namespace UResidence.Controllers
         }
         public ActionResult Home()
         {
-
-
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
@@ -120,7 +118,6 @@ namespace UResidence.Controllers
 
         public ActionResult Amenity()
         {
-           
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
@@ -275,8 +272,8 @@ namespace UResidence.Controllers
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
-            }       
-         
+            }
+
             int calendar = 1;
             Session["calendar"] = calendar;
             if (Session["amenity"] == null)
@@ -345,7 +342,6 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
 
-          
             if (Session["calendar"] == null)
             {               
                 return Redirect("~/Reserve/Calendar");
@@ -629,12 +625,10 @@ namespace UResidence.Controllers
             return View(model);                     
         }
 
-
-
         [HttpPost]
         public void Choose_Equipment(int[] data, decimal[] datar)
         {
-           
+         
             string sd = (string)Session["sd"];
             string ed = (string)Session["ed"];
 
@@ -806,7 +800,7 @@ namespace UResidence.Controllers
             decimal rate = Convert.ToDecimal(Session["drate"]);
             int uid = (int)Session["UID"];
             int aid = (int)Session["ID"];
-            DateTime date = DateTime.Now;
+            DateTime date = DateTime.Now.ToUniversalTime().AddHours(8);
             string sdate = date.ToString();
             Session["date"] = sdate;
             SchedReservation a = new SchedReservation
@@ -1105,7 +1099,6 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
-            
             if (Session["calendar"] == null)
             {
                 return Redirect("~/Reserve/Calendar");
@@ -1264,7 +1257,6 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
-
             Session["amenity"] = null;
             Session["calendar"] = null;
             Session["choose_date"] = null;
@@ -1364,7 +1356,8 @@ namespace UResidence.Controllers
    
         public ActionResult AboutUs()
         {
-            if (Session["Level"] == null)
+            int StatusLogin = (int)Session["Level"];
+            if (StatusLogin == 11)
             {
                 return Redirect("~/Login");
             }

@@ -10,9 +10,10 @@ namespace UResidence
     {
         public static List<Logbook> GET_ALL()
         {
-            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,RIGHT(Convert(varchar,TimeIn,100),7),RIGHT(Convert(varchar,TimeOut,100),7),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),GETDATE(),101)";
+            const string GET_ALL = @"select Id,Convert(varchar(15),Date,101) as Date,VisitorName,ResidentName,RIGHT(Convert(varchar,TimeIn,100),7),RIGHT(Convert(varchar,TimeOut,100),7),Purpose,ISNULL(URL,'none'),BldgNo,UnitNo from [tbLogbook] where Convert(varchar(15),Date,101)=Convert(varchar(15),@date,101)";
             List<Logbook> ret = default(List<Logbook>);
             SqlCommand com = new SqlCommand(GET_ALL);
+            com.Parameters.Add(new SqlParameter("@date", DateTime.Now.ToUniversalTime().AddHours(8)));
             ret = SqlManager.Select<Logbook>(com);
             return ret;
 

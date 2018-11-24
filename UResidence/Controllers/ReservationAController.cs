@@ -65,7 +65,6 @@ namespace UResidence.Controllers
             to.BuildingList = building;
             return View(to);
         }
-
         [HttpPost]
         public ActionResult SelectOT(string bldgno, string unitno, int level)
         {
@@ -209,9 +208,6 @@ namespace UResidence.Controllers
             }
             return View();
         }
-
-     
-
         public JsonResult UpdateImage(Admin adm)
         {
             var image = adm.Image;

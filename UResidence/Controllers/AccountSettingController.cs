@@ -9,11 +9,12 @@ namespace UResidence.Controllers
 {
     public class AccountSettingController : Controller
     {
+       
         // GET: AccountSetting
         public ActionResult AdminAccountSetting()
         {
-            if (Session["Level"]==null)
-            {              
+            if (Session["Level"] == null)
+            {
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
@@ -686,8 +687,6 @@ namespace UResidence.Controllers
             }
             return TenantAccountSetting();
         }
-
-
 
         private string Hash(string p)
         {

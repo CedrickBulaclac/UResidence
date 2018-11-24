@@ -619,7 +619,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Globals!ExecutionTime</Value>
+                  <Value>=Globals!ExecutionTime.ToUniversalTime.AddHours(8)</Value>
                   <Style />
                 </TextRun>
               </TextRuns>

@@ -27,9 +27,9 @@
     {
         @*Scripts for dropdown*@
         @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
-        <br/> <br/>
+        <br /> <br />
     }
 
 
@@ -156,7 +156,7 @@
 
     <center>
         <div class="container">
-            <div class="progress panel panel-default"  style="height:55px;">
+            <div class="progress panel panel-default" style="height:55px;">
 
 
                 @if (Session["IsEquipment"].ToString() == "True")
@@ -255,7 +255,7 @@
                                     <p class="form-inline">
 
 
-                                        <label for="start time">Date:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" required style="width:270px" max="9999-12-31"/>
+                                        <label for="start time">Date:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" required style="width:270px" max="9999-12-31" />
 
 
 
@@ -310,12 +310,13 @@
                                         <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="display:none;">
                                         <br />
                                         <br />
+                                        <input type="checkbox" name="chk" id="chk"> <b>I have read and agreed to the Terms and Conditions</b>
 
                                     </p>
 
 
                                     <p class="form-inline">
-                                        <button name="submit" type="submit" button class="button col-sm-12" onclick="Check()"> Next</button>
+                                        <button name="submit" id="submit" type="submit" button class="button col-sm-12" onclick="Check()"> Next</button>
                                     </p>
 
 
@@ -387,15 +388,29 @@
 	}
 
 
+		$("form").submit(function (e) {
+			if (chk.checked != true) {
+				alert("Please read and check our terms and agreements");
+				e.preventDefault();
+			}
+			else {
+				var q = new Date();
+				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
 
+				if (startDate < MyDateString) {
+					alert("Your chosen date is earlier than today");
+					document.getElementById('sd').value = null;
+					e.preventDefault();
+				}
+			}
+		});
 
 	$(document).ready(
 		function () {
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
 				startDate = selectedValue;
-				var q = new Date();
-				var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);;
+
 				var date = $('#sd').val().split(",-");
 					day = new Date(date);
 				var weekendday = day.getDay();
@@ -410,12 +425,6 @@
 
 
 
-				if (startDate < MyDateString)
-				{
-					alert("the input is earlier than today");
-					document.getElementById('sd').value = null;
-
-				}
 				var timeS = document.getElementById('startT').value;
 				var dateS = selectedValue;
 				var finaldateTimeS = dateS + " " + timeS;

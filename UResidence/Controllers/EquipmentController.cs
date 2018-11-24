@@ -243,7 +243,6 @@ namespace UResidence.Controllers
         
         public ActionResult EquipmentEdit()
         {
-            Session["UpdateMess"]=null;
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");

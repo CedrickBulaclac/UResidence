@@ -531,6 +531,7 @@
                 <center>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="~/Admin/Home">Home</a></li>
+
                         <li class="dropdown">
                             <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> Registration Module <span class="caret"></span> </a>
                             <ul class="dropdown-menu">
@@ -541,6 +542,8 @@
                                 <li><a href="~/Equipment/EquipmentView">Equipment Registration</a></li>
                             </ul>
                         </li>
+                        <li><a href="~/ReversalRecord/Records">Reversal List</a></li>
+                        <li><a href="~/ReservationRecord/Record">Outstanding List</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#"> <span class="glyphicon glyphicon-user"> </span> My Profile <span class="caret"></span> </a>
                             <ul class="dropdown-menu">
@@ -550,7 +553,7 @@
                                     </a>
                                 </li>
                                 <li><a href=@Url.Action("AdminAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-cog"></span> Account Settings</a> </li>
-                                <li><a href=@Url.Action("Index","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                                <li><a href=@Url.Action("Logout","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
                             </ul>
 
                         </li>

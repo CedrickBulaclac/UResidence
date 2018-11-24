@@ -162,10 +162,8 @@
     <Compile Include="Controllers\AccountSettingController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AmenityController.cs" />
-    <Compile Include="Controllers\AmenityMaintenanceController.cs" />
     <Compile Include="Controllers\BillingController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
-    <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\CustomHelper.cs" />
     <Compile Include="Controllers\EquipmentController.cs" />
     <Compile Include="Controllers\FinanceController.cs" />
@@ -176,7 +174,6 @@
     <Compile Include="Controllers\ReservationAController.cs" />
     <Compile Include="Controllers\ReservationRecordController.cs" />
     <Compile Include="Controllers\ReversalRecordController.cs" />
-    <Compile Include="Controllers\SecurityGuardController.cs" />
     <Compile Include="Controllers\BossManagerController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TenantController.cs" />
@@ -200,6 +197,11 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ReserveController.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ReservationListt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -347,6 +349,12 @@
     <Content Include="applogin\package\LICENSE.md" />
     <Content Include="applogin\package\package.json" />
     <Content Include="applogin\package\README.md" />
+    <Content Include="OwnerList.xsc">
+      <DependentUpon>OwnerList.xsd</DependentUpon>
+    </Content>
+    <Content Include="EquipmentReservation.xsc">
+      <DependentUpon>EquipmentReservation.xsd</DependentUpon>
+    </Content>
     <Content Include="AdminList.xsc">
       <DependentUpon>AdminList.xsd</DependentUpon>
     </Content>
@@ -357,12 +365,6 @@
     </None>
     <Content Include="AdminList.xss">
       <DependentUpon>AdminList.xsd</DependentUpon>
-    </Content>
-    <Content Include="OwnerList.xsc">
-      <DependentUpon>OwnerList.xsd</DependentUpon>
-    </Content>
-    <Content Include="EquipmentReservation.xsc">
-      <DependentUpon>EquipmentReservation.xsd</DependentUpon>
     </Content>
     <None Include="EquipmentReservation.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -395,6 +397,10 @@
       <DependentUpon>PersonRate.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="ReservationListt.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ReservationListt.Designer.cs</LastGenOutput>
@@ -472,7 +478,6 @@
     <Content Include="Views\Login\CodeVerification.cshtml" />
     <Content Include="Views\Login\NewPassword.cshtml" />
     <Content Include="Views\Calendar\CalendarView.cshtml" />
-    <Content Include="Views\AmenityMaintenance\AmenityMaintenanceView.cshtml" />
     <Content Include="Views\Reserve\Amenity.cshtml" />
     <Content Include="Views\Reserve\Calendar.cshtml" />
     <Content Include="Views\Reserve\Choose_Date.cshtml" />
@@ -483,39 +488,16 @@
     <Content Include="Views\AccountSetting\OwnerAccountSetting.cshtml" />
     <Content Include="Views\AccountSetting\TenantAccountSetting.cshtml" />
     <Content Include="Views\Billing\BillingView.cshtml" />
-    <Content Include="Views\Layout\FinanceLayout.cshtml" />
     <Content Include="Views\Layout\LayoutHome.cshtml" />
-    <Content Include="Views\Layout\OwnerLayout.cshtml" />
-    <Content Include="Views\Layout\RegistrationLayout.cshtml" />
     <Content Include="Views\Layout\BossManagerLayout.cshtml" />
     <Content Include="Views\ReservationRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Record.cshtml" />
     <Content Include="Views\ReversalRecord\Records.cshtml" />
-    <Content Include="Views\ReservationA\Amenity.cshtml" />
-    <Content Include="Views\ReservationA\Calendar.cshtml" />
-    <Content Include="Views\ReservationA\CalendarReservationAdmin.cshtml" />
-    <Content Include="Views\ReservationA\Choose_Date.cshtml" />
-    <Content Include="Views\ReservationA\Choose_Equipment.cshtml" />
-    <Content Include="Views\ReservationA\ReservationA.cshtml" />
-    <Content Include="Views\ReservationA\SelectAmenity.cshtml" />
     <Content Include="Views\ReservationA\SelectOT.cshtml" />
-    <Content Include="Views\ReservationA\Summary.cshtml" />
-    <Content Include="Views\ReservationA\Swimming.cshtml" />
     <Content Include="Views\LogBook\LogBook.cshtml" />
     <Content Include="Views\Reserve\CalendarViewOT.cshtml" />
-    <Content Include="Views\Layout\ReservationLayout.cshtml" />
     <Content Include="Views\Layout\TenantLayout.cshtml" />
-    <Content Include="Views\Layout\SecurityGuardLayout.cshtml" />
     <Content Include="Views\Admin\Home.cshtml" />
-    <Content Include="Views\Finance\Registration_Cashier.cshtml" />
-    <Content Include="Views\Finance\ViewCashier.cshtml" />
-    <Content Include="Views\Finance\CashierEdit.cshtml" />
-    <Content Include="Views\Cashier\Calendar.cshtml" />
-    <Content Include="Views\Layout\CashierLayout.cshtml" />
-    <Content Include="Views\SecurityGuard\SecurityGuardView.cshtml" />
-    <Content Include="Views\SecurityGuard\Registration.cshtml" />
-    <Content Include="Views\SecurityGuard\Edit.cshtml" />
-    <Content Include="Views\Layout\OICLayout.cshtml" />
     <Content Include="Views\LogBook\LogBookView.cshtml" />
     <Content Include="Views\Tenant\TenantEdit.cshtml" />
     <Content Include="Views\Tenant\TenantAdd.cshtml" />
@@ -575,7 +557,9 @@
     <EmbeddedResource Include="Views\Report\AdminList.rdlc" />
     <EmbeddedResource Include="Views\Report\OwnerList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReversalListtY.rdlc" />
-    <EmbeddedResource Include="Views\Report\ReservationFormO.rdlc" />
+    <Content Include="Views\Report\ReservationFormO.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Views\Report\ReservationList.rdlc" />
     <EmbeddedResource Include="Views\Report\ReversalListt.rdlc" />
     <EmbeddedResource Include="Views\Report\TenantList.rdlc" />

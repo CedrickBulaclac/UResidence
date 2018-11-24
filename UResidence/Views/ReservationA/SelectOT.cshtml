@@ -60,22 +60,21 @@
                         <div class="col-sm-8">
                             @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control", @name = "bldgno", @id = "bldgno" })
                         </div>
+                    </div>
+					<br />
 
+                    
+                        <div class="form-inline">
+                            <div class="col-sm-4">
 
-                        <br />
+                                <label for="Unit no">Unit Number: </label>
+                               
+                            </div>
 
-
-
-                        <div class="col-sm-4">
-
-                            <label for="Unit no">Unit Number: </label>
-
-                        </div>
-
-                        <div class="col-sm-8">
-                            @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control", @name = "unitno", @id = "unitno" })
-                        </div>
-
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control", @name = "unitno", @id = "unitno" })
+                            </div>
+                        
                     </div>
 					@*<br />
 						<input type="submit" id="submitId" value="submit" />*@

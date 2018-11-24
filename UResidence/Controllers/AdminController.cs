@@ -19,7 +19,7 @@ namespace UResidence.Controllers
     {
         
         bool status;
-      
+       
         // GET: Admin
         public ActionResult GetAdmin()
         {

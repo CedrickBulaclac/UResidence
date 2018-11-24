@@ -299,7 +299,13 @@ namespace UResidence {
             
             private global::System.Data.DataColumn columnEveningRate;
             
-            private global::System.Data.DataColumn columnAmenityHour;
+            private global::System.Data.DataColumn columnMorningHour;
+            
+            private global::System.Data.DataColumn columnMorningToWOEvening;
+            
+            private global::System.Data.DataColumn columnEveningHour;
+            
+            private global::System.Data.DataColumn column_woMorningToEvening;
             
             private global::System.Data.DataColumn columnTotalAmenityRate;
             
@@ -432,9 +438,33 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn AmenityHourColumn {
+            public global::System.Data.DataColumn MorningHourColumn {
                 get {
-                    return this.columnAmenityHour;
+                    return this.columnMorningHour;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn MorningToWOEveningColumn {
+                get {
+                    return this.columnMorningToWOEvening;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn EveningHourColumn {
+                get {
+                    return this.columnEveningHour;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn _woMorningToEveningColumn {
+                get {
+                    return this.column_woMorningToEvening;
                 }
             }
             
@@ -549,7 +579,10 @@ namespace UResidence {
                         string AmenityName, 
                         decimal Rate, 
                         decimal EveningRate, 
-                        int AmenityHour, 
+                        int MorningHour, 
+                        int MorningToWOEvening, 
+                        int EveningHour, 
+                        int _woMorningToEvening, 
                         decimal TotalAmenityRate, 
                         System.DateTime Date, 
                         string TypeResident, 
@@ -570,7 +603,10 @@ namespace UResidence {
                         AmenityName,
                         Rate,
                         EveningRate,
-                        AmenityHour,
+                        MorningHour,
+                        MorningToWOEvening,
+                        EveningHour,
+                        _woMorningToEvening,
                         TotalAmenityRate,
                         Date,
                         TypeResident,
@@ -611,7 +647,10 @@ namespace UResidence {
                 this.columnAmenityName = base.Columns["AmenityName"];
                 this.columnRate = base.Columns["Rate"];
                 this.columnEveningRate = base.Columns["EveningRate"];
-                this.columnAmenityHour = base.Columns["AmenityHour"];
+                this.columnMorningHour = base.Columns["MorningHour"];
+                this.columnMorningToWOEvening = base.Columns["MorningToWOEvening"];
+                this.columnEveningHour = base.Columns["EveningHour"];
+                this.column_woMorningToEvening = base.Columns[" woMorningToEvening"];
                 this.columnTotalAmenityRate = base.Columns["TotalAmenityRate"];
                 this.columnDate = base.Columns["Date"];
                 this.columnTypeResident = base.Columns["TypeResident"];
@@ -645,8 +684,14 @@ namespace UResidence {
                 base.Columns.Add(this.columnRate);
                 this.columnEveningRate = new global::System.Data.DataColumn("EveningRate", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEveningRate);
-                this.columnAmenityHour = new global::System.Data.DataColumn("AmenityHour", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAmenityHour);
+                this.columnMorningHour = new global::System.Data.DataColumn("MorningHour", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMorningHour);
+                this.columnMorningToWOEvening = new global::System.Data.DataColumn("MorningToWOEvening", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMorningToWOEvening);
+                this.columnEveningHour = new global::System.Data.DataColumn("EveningHour", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEveningHour);
+                this.column_woMorningToEvening = new global::System.Data.DataColumn(" woMorningToEvening", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.column_woMorningToEvening);
                 this.columnTotalAmenityRate = new global::System.Data.DataColumn("TotalAmenityRate", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalAmenityRate);
                 this.columnDate = new global::System.Data.DataColumn("Date", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -678,7 +723,10 @@ namespace UResidence {
                 this.columnAmenityName.MaxLength = 50;
                 this.columnRate.AllowDBNull = false;
                 this.columnEveningRate.AllowDBNull = false;
-                this.columnAmenityHour.ReadOnly = true;
+                this.columnMorningHour.ReadOnly = true;
+                this.columnMorningToWOEvening.ReadOnly = true;
+                this.columnEveningHour.ReadOnly = true;
+                this.column_woMorningToEvening.ReadOnly = true;
                 this.columnTypeResident.MaxLength = 15;
                 this.columnCharge.ReadOnly = true;
                 this.columnTotalpayment.AllowDBNull = false;
@@ -975,17 +1023,65 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int AmenityHour {
+            public int MorningHour {
                 get {
                     try {
-                        return ((int)(this[this.tableReservationO.AmenityHourColumn]));
+                        return ((int)(this[this.tableReservationO.MorningHourColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AmenityHour\' in table \'ReservationO\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'MorningHour\' in table \'ReservationO\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableReservationO.AmenityHourColumn] = value;
+                    this[this.tableReservationO.MorningHourColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int MorningToWOEvening {
+                get {
+                    try {
+                        return ((int)(this[this.tableReservationO.MorningToWOEveningColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MorningToWOEvening\' in table \'ReservationO\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReservationO.MorningToWOEveningColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int EveningHour {
+                get {
+                    try {
+                        return ((int)(this[this.tableReservationO.EveningHourColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EveningHour\' in table \'ReservationO\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReservationO.EveningHourColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int _woMorningToEvening {
+                get {
+                    try {
+                        return ((int)(this[this.tableReservationO._woMorningToEveningColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \' woMorningToEvening\' in table \'ReservationO\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReservationO._woMorningToEveningColumn] = value;
                 }
             }
             
@@ -1188,14 +1284,50 @@ namespace UResidence {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsAmenityHourNull() {
-                return this.IsNull(this.tableReservationO.AmenityHourColumn);
+            public bool IsMorningHourNull() {
+                return this.IsNull(this.tableReservationO.MorningHourColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetAmenityHourNull() {
-                this[this.tableReservationO.AmenityHourColumn] = global::System.Convert.DBNull;
+            public void SetMorningHourNull() {
+                this[this.tableReservationO.MorningHourColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsMorningToWOEveningNull() {
+                return this.IsNull(this.tableReservationO.MorningToWOEveningColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetMorningToWOEveningNull() {
+                this[this.tableReservationO.MorningToWOEveningColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsEveningHourNull() {
+                return this.IsNull(this.tableReservationO.EveningHourColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetEveningHourNull() {
+                this[this.tableReservationO.EveningHourColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Is_woMorningToEveningNull() {
+                return this.IsNull(this.tableReservationO._woMorningToEveningColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Set_woMorningToEveningNull() {
+                this[this.tableReservationO._woMorningToEveningColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1428,7 +1560,10 @@ namespace UResidence.ReservationOTableAdapters {
             tableMapping.ColumnMappings.Add("AmenityName", "AmenityName");
             tableMapping.ColumnMappings.Add("Rate", "Rate");
             tableMapping.ColumnMappings.Add("EveningRate", "EveningRate");
-            tableMapping.ColumnMappings.Add("AmenityHour", "AmenityHour");
+            tableMapping.ColumnMappings.Add("MorningHour", "MorningHour");
+            tableMapping.ColumnMappings.Add("MorningToWOEvening", "MorningToWOEvening");
+            tableMapping.ColumnMappings.Add("EveningHour", "EveningHour");
+            tableMapping.ColumnMappings.Add(" woMorningToEvening", " woMorningToEvening");
             tableMapping.ColumnMappings.Add("TotalAmenityRate", "TotalAmenityRate");
             tableMapping.ColumnMappings.Add("Date", "Date");
             tableMapping.ColumnMappings.Add("TypeResident", "TypeResident");

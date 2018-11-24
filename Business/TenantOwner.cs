@@ -14,5 +14,6 @@ namespace UResidence
         public List<object>  BuildingList{ get; set; }
         public List<object> UnitNoList { get; set; }
         public Tenant tenant { get; set; }
+        public List<Logbook> LogbookList { get; set; }
     }
 }

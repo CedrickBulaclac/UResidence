@@ -15,7 +15,6 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
-
             Session["amenity"] = null;
             Session["calendar"] = null;
             Session["choose_date"] = null;

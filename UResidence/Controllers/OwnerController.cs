@@ -80,7 +80,6 @@ namespace UResidence.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult OwnerAdd(Owner owe, HttpPostedFileBase Image1)
         {

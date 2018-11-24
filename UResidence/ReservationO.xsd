@@ -4,12 +4,12 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="URESIDENCEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="URESIDENCEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.UResidence.Properties.Settings.GlobalReference.Default.URESIDENCEConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="URESIDENCEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="URESIDENCEConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.URESIDENCEConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReservationOTableAdapter" GeneratorDataComponentClassName="ReservationOTableAdapter" Name="ReservationO" UserDataComponentName="ReservationOTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="URESIDENCEConnectionString (Settings)" DbObjectName="URESIDENCE.dbo.ReservationO" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="URESIDENCEConnectionString (Web.config)" DbObjectName="URESIDENCE.dbo.ReservationO" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.ReservationO</CommandText>
@@ -31,7 +31,10 @@
               <Mapping SourceColumn="AmenityName" DataSetColumn="AmenityName" />
               <Mapping SourceColumn="Rate" DataSetColumn="Rate" />
               <Mapping SourceColumn="EveningRate" DataSetColumn="EveningRate" />
-              <Mapping SourceColumn="AmenityHour" DataSetColumn="AmenityHour" />
+              <Mapping SourceColumn="MorningHour" DataSetColumn="MorningHour" />
+              <Mapping SourceColumn="MorningToWOEvening" DataSetColumn="MorningToWOEvening" />
+              <Mapping SourceColumn="EveningHour" DataSetColumn="EveningHour" />
+              <Mapping SourceColumn=" woMorningToEvening" DataSetColumn=" woMorningToEvening" />
               <Mapping SourceColumn="TotalAmenityRate" DataSetColumn="TotalAmenityRate" />
               <Mapping SourceColumn="Date" DataSetColumn="Date" />
               <Mapping SourceColumn="TypeResident" DataSetColumn="TypeResident" />
@@ -94,7 +97,10 @@
               </xs:element>
               <xs:element name="Rate" msprop:Generator_ColumnVarNameInTable="columnRate" msprop:Generator_ColumnPropNameInRow="Rate" msprop:Generator_ColumnPropNameInTable="RateColumn" msprop:Generator_UserColumnName="Rate" type="xs:decimal" />
               <xs:element name="EveningRate" msprop:Generator_ColumnVarNameInTable="columnEveningRate" msprop:Generator_ColumnPropNameInRow="EveningRate" msprop:Generator_ColumnPropNameInTable="EveningRateColumn" msprop:Generator_UserColumnName="EveningRate" type="xs:decimal" />
-              <xs:element name="AmenityHour" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAmenityHour" msprop:Generator_ColumnPropNameInRow="AmenityHour" msprop:Generator_ColumnPropNameInTable="AmenityHourColumn" msprop:Generator_UserColumnName="AmenityHour" type="xs:int" minOccurs="0" />
+              <xs:element name="MorningHour" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMorningHour" msprop:Generator_ColumnPropNameInRow="MorningHour" msprop:Generator_ColumnPropNameInTable="MorningHourColumn" msprop:Generator_UserColumnName="MorningHour" type="xs:int" minOccurs="0" />
+              <xs:element name="MorningToWOEvening" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnMorningToWOEvening" msprop:Generator_ColumnPropNameInRow="MorningToWOEvening" msprop:Generator_ColumnPropNameInTable="MorningToWOEveningColumn" msprop:Generator_UserColumnName="MorningToWOEvening" type="xs:int" minOccurs="0" />
+              <xs:element name="EveningHour" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnEveningHour" msprop:Generator_ColumnPropNameInRow="EveningHour" msprop:Generator_ColumnPropNameInTable="EveningHourColumn" msprop:Generator_UserColumnName="EveningHour" type="xs:int" minOccurs="0" />
+              <xs:element name="_x0020_woMorningToEvening" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="column_woMorningToEvening" msprop:Generator_ColumnPropNameInRow="_woMorningToEvening" msprop:Generator_ColumnPropNameInTable="_woMorningToEveningColumn" msprop:Generator_UserColumnName=" woMorningToEvening" type="xs:int" minOccurs="0" />
               <xs:element name="TotalAmenityRate" msprop:Generator_ColumnVarNameInTable="columnTotalAmenityRate" msprop:Generator_ColumnPropNameInRow="TotalAmenityRate" msprop:Generator_ColumnPropNameInTable="TotalAmenityRateColumn" msprop:Generator_UserColumnName="TotalAmenityRate" type="xs:decimal" minOccurs="0" />
               <xs:element name="Date" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_UserColumnName="Date" type="xs:dateTime" minOccurs="0" />
               <xs:element name="TypeResident" msprop:Generator_ColumnVarNameInTable="columnTypeResident" msprop:Generator_ColumnPropNameInRow="TypeResident" msprop:Generator_ColumnPropNameInTable="TypeResidentColumn" msprop:Generator_UserColumnName="TypeResident" minOccurs="0">

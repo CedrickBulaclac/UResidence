@@ -366,12 +366,6 @@ namespace UResidence.Controllers
             return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-        //public JsonResult SwimmingInfo(int refno1)
-        //{
-        //    List<Swimming> swimming = SwimmingController.GETALL(refno1);
-        //    var events = swimming.ToList();
-        //    return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        //}
         public JsonResult ReceiptHistory(int refno1)
         {
             List<Receipt> receipt = ReceiptController.GetAll(refno1);
@@ -398,8 +392,8 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
-          
-                Admin a = new Admin();
+
+            Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             ViewBag.ReservationModule = a.ReservationModule;
