@@ -54,9 +54,9 @@ namespace UResidence
             ret.Description = reader.GetString(1);
             ret.Capacity = reader.GetInt32(2);
             ret.AmenityName = reader.GetString(3);
-           ret.Url = RemoveWhitespace(reader.GetString(4));
+           ret.Url =reader.GetString(4);
             ret.Rate = reader.GetDecimal(5);
-            ret.Color = RemoveWhitespace(reader.GetString(6));
+            ret.Color = reader.GetString(6);
             ret.Location = reader.GetString(7);
             ret.Adult = reader.GetDecimal(8);
             ret.Child = reader.GetDecimal(9);
@@ -65,10 +65,6 @@ namespace UResidence
             ret.IsWeekend = reader.GetBoolean(12);
             ret.Deleted = reader.GetInt32(13);
             return ret;
-        }
-        public string RemoveWhitespace(string str)
-        {
-            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
         }
         public bool Validate(out string[] errors)
         {

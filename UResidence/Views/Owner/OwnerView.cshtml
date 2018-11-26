@@ -47,12 +47,197 @@
 </div>
 
 
+@if (Model != null)
+{
+    using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.LoginId)
 
-@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post,new { enctype = "multipart/form-data" }))
+        <div class="modal fade" id="UpdateModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#43a047">
+
+
+                        <font color="white">
+                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE OWNER INFORMATION </div>
+                        </font>
+                    </div>
+
+                    <div class="modal-body form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="First Name"> <b>First Name : </b></labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Middle Name"><b>Middle Name : </b></labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Last Name"><b>Last Name : </b></labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Bdate"><b>Birthdate : </b></labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Cel"><b>Cellphone No. : </b> </labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <labell for="Email"><b>Email Address : </b></labell>
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+                                <label for="Bldg no">Building no. :</label>
+
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                                                            {
+                                                                                new SelectListItem() {Text = "1A", Value="1A"},
+                                                                                new SelectListItem() {Text = "1B", Value="1B"},
+                                                                                new SelectListItem() {Text = "1C", Value="1C"},
+                                                                                new SelectListItem() {Text = "2A", Value="2A"},
+                                                                                new SelectListItem() {Text = "2B", Value="2B"},
+                                                                                new SelectListItem() {Text = "2C", Value="2C"},
+                                                                             }, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+
+                                <label for="Unit no">Unit no. :</label>
+
+                            </div>
+
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4">Registration Form :</label>
+
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Insert Image</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="modal fade" id="updateImageModal1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <label>Registration Form: </label><input type="file" id="image1" name="image1" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
+                            <button type="button" class="btn btn-danger" id="btnCloseImage1" name="btnCloseImage1" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
-     
+
         <div class="modal fade" id="AddModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -209,6 +394,7 @@
         </div>
     </div>
 }
+
 
 <br />
 <br />
@@ -416,6 +602,26 @@
         </script>
     }
 }
+
+@if (ViewBag.ModalView != null)
+{
+    if (ViewBag.ModalView == 1)
+    {
+        <script>
+            $('#UpdateModal').modal();
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#UpdateModal').modal("hide");
+        </script>
+    }
+}
+
+
+
+
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
@@ -434,7 +640,7 @@
                 { "data": "CelNo", "autowidth": true },
                 { "data": "Email", "autowidth": true },
                 { "data": "Form", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
-                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/OwnerEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/OwnerView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });
     });
@@ -467,27 +673,62 @@
     //        e.preventDefault();
     //    }
     //});
+    function UpdateImage1(id) {
+        var tid = id;
+
+        var file1 = $("#image1").get(0).files;
+        var data = new FormData();
+        data.append("Image1", file1[0]);
+        data.append("Id", tid);
+
+        $.ajax({
+            type: "POST",
+            url: "/Owner/UpdateImageForm/",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Success');
+                    window.location.href = window.location.href + "?rnd=" + Math.random()
+
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
     $(document).ready(function () {
         $('[type="date"]').prop('max', function () {
             return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
         });
     });
 
+
     $('#btnCloseImage').click(function () {
 
-        $('#formModal').hide();
+        $('#AddModal').modal();
     }
     );
+    $('#btnCloseImage1').click(function () {
 
+        $('#UpdateModal').modal();
+    }
+    );
     $('#addbtn').click(function () {
 
         $('#AddModal').modal();
     }
     );
-
     $('#btnUpdate').click(function () {
 
         $('#UpdateModal').modal();
+    }
+    );
+    $('#btnUpdateImage1').click(function () {
+
+        $('#updateImageModal1').modal();
     }
     );
 </script>

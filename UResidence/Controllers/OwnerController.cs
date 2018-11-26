@@ -360,7 +360,7 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult OwnerEdit(int id)
+        public ActionResult OwnerView(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -374,16 +374,20 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            string i = id.ToString();
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                Owner ownerList = UResidence.OwnerController.GetIdOwner(i);
-                return View(ownerList);
+                return View();
             }
-            return View("OwnerEdit");
+            else
+            {
+                string i = id.ToString();
+                Owner ownerList = UResidence.OwnerController.GetIdOwner(i);
+                ViewBag.ModalView = 1;
+                return View(ownerList);
+            }           
         }
         [HttpPost]
-        public ActionResult OwnerEdit(Owner owe)
+        public ActionResult OwnerView(Owner owe)
         {
             if (Session["Level"] == null)
             {
@@ -434,7 +438,7 @@ namespace UResidence.Controllers
                                         }
                                     }
 
-                                    return RedirectToAction("OwnerView", "Owner");
+                                    return RedirectToAction("OwnerView", "Owner",new { id=""});
                                 }
                                 else
                                 {
@@ -477,7 +481,7 @@ namespace UResidence.Controllers
                                     }
                                 }
 
-                                return RedirectToAction("OwnerView", "Owner");
+                                return RedirectToAction("OwnerView", "Owner", new { id = "" });
                             }
                             else
                             {
@@ -527,8 +531,8 @@ namespace UResidence.Controllers
                                         }
                                     }
 
-                                    return RedirectToAction("OwnerView", "Owner");
-                                }
+                                return RedirectToAction("OwnerView", "Owner", new { id = "" });
+                            }
                                 else
                                 {
                                     ViewBag.UpdateMessage = status;
@@ -570,8 +574,8 @@ namespace UResidence.Controllers
                                     }
                                 }
 
-                                return RedirectToAction("OwnerView", "Owner");
-                            }
+                            return RedirectToAction("OwnerView", "Owner", new { id = "" });
+                        }
                             else
                             {
                                 ViewBag.UpdateMessage = status;

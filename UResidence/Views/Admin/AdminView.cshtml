@@ -14,6 +14,45 @@
     {
         Layout = "/Views/Layout/AdminLayout.cshtml";
     }
+    List<SelectListItem> listItemsRole = new List<SelectListItem>();
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "---Select Role---",
+        Value = "0"
+    });
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "Cashier",
+        Value = "Cashier"
+    });
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "Finance",
+        Value = "Finance"
+    });
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "Registration",
+        Value = "Registration"
+    });
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "Security Guard",
+        Value = "Security Guard"
+    });
+    listItemsRole.Add(new SelectListItem
+    {
+        Text = "Reservation Admin",
+        Value = "Reservation Admin"
+    });
+    if (Convert.ToInt32(Session["Level"]) == 0)
+    {
+        listItemsRole.Add(new SelectListItem
+        {
+            Text = "Manager",
+            Value = "Manager"
+        });
+    }
 }
 
 
@@ -271,7 +310,7 @@
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)" required>                                      
+                                    <select class="form-control" name="typeadmin" id="typeadmin" onchange="updateCheckBox(this)" required>
                                         <option value="3">Cashier</option>
                                         <option value="2">Finance</option>
                                         <option value="5">Registration</option>
@@ -304,19 +343,293 @@
         </div>
     </div>
 }
+@if (Model != null)
+{
+    using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
+    {
+        <div class="modal fade" id="UpdateModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#43a047">
 
+                        <font color="white">
+                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE EMPLOYEE INFORMATION </div>
+                        </font>
+                    </div>
+                    <div class="modal-body form-horizontal">
+                        @Html.HiddenFor(model => model.LoginId)
+                        @if (Convert.ToInt32(Session["Level"]) == 1)
+                        {
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="First Name">First Name :</label>
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Middle Name">Middle Name :</label>
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Last Name">Last Name :</label>
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Bdate">Birthdate :</label>
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                        @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Cel">Cellphone no. :</label>
+
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Email">Email Address :</label>
+
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                    <label for="typeofadmin"> <b>Type of Employee: </b></label>
+
+                                </div>
+
+                                <div class="col-sm-12">
+                                    @Html.DropDownListFor(model => model.Role, listItemsRole, new { @class = "form-control", @name = "typeadmin", @id = "typeadmin", @onchange = "updateCheckBox(this)" })                  
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <h2>  <label class="col-sm-4" for="Amenity Name">Module/s Included :</label> </h2>
+
+
+                                    <div class="col-sm-8">
+                                        @Html.EditorFor(model => model.ReservationModule)
+                                        @Html.ValidationMessageFor(model => model.ReservationModule, "", new { @id = "reservation", @name = "reservation", @class = "text-danger" }) <b>Reservation Module</b>
+                                        <br />
+                                        @Html.EditorFor(model => model.ReversalModule)
+                                        @Html.ValidationMessageFor(model => model.ReversalModule, "", new { @id = "reversal", @name = "reversal", @class = "text-danger" }) <b>Reversal Module</b>
+                                        <br />
+                                        @Html.EditorFor(model => model.PaymentModule)
+                                        @Html.ValidationMessageFor(model => model.PaymentModule, "", new { @id = "payment", @name = "payment", @class = "text-danger" }) <b>Payment Module</b>
+                                        <br />
+                                        @Html.EditorFor(model => model.LogBookModule)
+                                        @Html.ValidationMessageFor(model => model.LogBookModule, "", new { @id = "logbook", @name = "logbook", @class = "text-danger" }) <b>LogBook Module</b>
+                                        <br />
+                                        @Html.EditorFor(model => model.RegistrationModule)
+                                        @Html.ValidationMessageFor(model => model.RegistrationModule, "", new { @id = "logbook", @name = "logbook", @class = "text-danger" }) <b>Registration Module</b>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(model => model.Role)
+
+                        }
+                        else
+                        {
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="First Name">First Name :</label>
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Middle Name">Middle Name :</label>
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Last Name">Last Name :</label>
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Bdate">Birthdate :</label>
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Cel">Cellphone no. :</label>
+
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Email">Email Address :</label>
+
+
+
+                                    <div class="col-sm-6">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+
+                                    <label for="typeofadmin"> <b>Type of Employee: </b></label>
+
+                                </div>
+
+                                <div class="col-sm-12">
+                                    @Html.DropDownListFor(model => model.Role, listItemsRole, new { @class = "form-control", @name = "typeadmin", @id = "typeadmin", @onchange = "updateCheckBox(this)" })
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+
+
+                                    <div class="col-sm-8">
+                                        @Html.HiddenFor(model => model.ReservationModule)
+                                        @Html.ValidationMessageFor(model => model.ReservationModule, "", new { @id = "reservation", @name = "reservation", @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.ReversalModule)
+                                        @Html.ValidationMessageFor(model => model.ReversalModule, "", new { @id = "reversal", @name = "reversal", @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.PaymentModule)
+                                        @Html.ValidationMessageFor(model => model.PaymentModule, "", new { @id = "payment", @name = "payment", @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.LogBookModule)
+                                        @Html.ValidationMessageFor(model => model.LogBookModule, "", new { @id = "logbook", @name = "logbook", @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.RegistrationModule)
+                                        @Html.ValidationMessageFor(model => model.RegistrationModule, "", new { @id = "logbook", @name = "logbook", @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
 @if (Convert.ToInt32(Session["Level"]) == 1 || Convert.ToInt32(Session["Level"]) == 0)
 {
 
     if (Convert.ToInt32(Session["Level"]) == 1)
     {
-
-        //eto chi
-        <br /> <br /> <br/> @*<br/>*@ 
+        <br /> <br /> <br />
     }
-
-
-
     <div id="content1">
 
         @*eto dapat sa cm3*@
@@ -376,7 +689,6 @@ else
     <br />
     <br />
     <br />
-
     <div class="container">
 
 
@@ -416,7 +728,6 @@ else
     </div>
     <br />
     <br />
-
 }
 
 
@@ -570,6 +881,22 @@ else
         </script>
     }
 }
+@if (ViewBag.ModalView != null)
+{
+    if (ViewBag.ModalView == 1)
+    {
+        <script>
+            $('#UpdateModal').modal();
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#UpdateModal').modal("hide");
+        </script>
+    }
+}
+
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
@@ -587,7 +914,7 @@ else
                     { "data": "CelNo", "autowidth": true },
                     { "data": "Email", "autowidth": true },
                     { "data": "Role", "autowidth": true },
-                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
                 ]
             });
         }
@@ -618,24 +945,24 @@ else
     });
 
     $("form").submit(function () {
-        var reservation = document.getElementById("reservation");
-        var reversal = document.getElementById("reversal");
-        var payment = document.getElementById("payment");
-        var logbook = document.getElementById("logbook");
-        var registration = document.getElementById("registration");
-        reservation.disabled = false;
-        reversal.disabled = false;
-        payment.disabled = false;
-        logbook.disabled = false;
-        registration.disabled = false;
+        //var reservation = document.getElementById("reservation");
+        //var reversal = document.getElementById("reversal");
+        //var payment = document.getElementById("payment");
+        //var logbook = document.getElementById("logbook");
+        //var registration = document.getElementById("registration");
+        //reservation.disabled = false;
+        //reversal.disabled = false;
+        //payment.disabled = false;
+        //logbook.disabled = false;
+        //registration.disabled = false;
     });
 
     function checkanddisable() {
-        var reservation = document.getElementById("reservation");
-        var reversal = document.getElementById("reversal");
-        var payment = document.getElementById("payment");
-        var logbook = document.getElementById("logbook");
-        var registration = document.getElementById("registration");
+        var reservation = document.getElementById("ReservationModule");
+        var reversal = document.getElementById("ReversalModule");
+        var payment = document.getElementById("PaymentModule");
+        var logbook = document.getElementById("LogBookModule");
+        var registration = document.getElementById("RegistrationModule");
         reservation.checked = false;
         reversal.checked = false;
         payment.checked = false;
@@ -649,39 +976,37 @@ else
     }
 
     function updateCheckBox(toa) {
-        var reservation = document.getElementById("reservation");
-        var reversal = document.getElementById("reversal");
-        var payment = document.getElementById("payment");
-        var logbook = document.getElementById("logbook");
-        var registration = document.getElementById("registration");
-        if (toa.value == 2) {
+        alert(toa.value);
+        var reservation = document.getElementById("ReservationModule");
+        var reversal = document.getElementById("ReversalModule");
+        var payment = document.getElementById("PaymentModule");
+        var logbook = document.getElementById("LogBookModule");
+        var registration = document.getElementById("RegistrationModule");
+        if (toa.value == "Finance") {
             checkanddisable();
-
-
             reversal.disabled = true;
             reversal.checked = true;
             payment.disabled = true;
             payment.checked = true;
         }
-        if (toa.value == 5) {
+        if (toa.value == "Registration") {
             checkanddisable();
 
             registration.checked = true;
             registration.disabled = true;
         }
-        else if (toa.value == 4) {
+        else if (toa.value == "Reservation Admin") {
             checkanddisable();
 
             reservation.disabled = true;
             reservation.checked = true;
         }
-        else if (toa.value == 6) {
+        else if (toa.value == "Security Guard") {
             checkanddisable();
-
             logbook.disabled = true;
             logbook.checked = true;
         }
-        else if (toa.value == 3) {
+        else if (toa.value == "Cashier") {
             checkanddisable();
 
             payment.disabled = true;

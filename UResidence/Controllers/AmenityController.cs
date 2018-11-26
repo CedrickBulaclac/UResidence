@@ -233,6 +233,7 @@ namespace UResidence.Controllers
             }
             return View();
         }
+
         public JsonResult DeleteImage(ImageAmenity ia)
         {
             bool status = false;
@@ -285,23 +286,46 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult AmenityEdit(int id)
+        public ActionResult AmenityView(int? id)
         {
+            ViewBag.ModalView = 0;
             if (Session["Level"] == null)
             {
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
-
             if (level <= 7)
             {
                 Admin a = new Admin();
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            Amenity amn = default(Amenity);
-            amn = UResidence.AmenityController.GetbyId(id);
-            return View(amn);
+            if (Session["UpdateMess"] != null)
+            {
+                ViewBag.UpdateMessage = Session["UpdateMess"];
+                Session["UpdateMess"] = null;
+            }
+            if (Session["AddMessage"] != null)
+            {
+                ViewBag.AddMessage = Session["AddMessage"];
+                Session["AddMessage"] = null;
+            }
+            if (Session["DeleteStatus"] != null)
+            {
+                ViewBag.DeleteStatus = Session["DeleteStatus"];
+                Session["DeleteStatus"] = null;
+            }
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                Amenity amn = default(Amenity);
+                amn = UResidence.AmenityController.GetbyId((int)id);
+                ViewBag.ModalView = 1;
+                return View(amn);
+            }
         }
 
         public JsonResult InsertImage(ImageAmenity amenity)
@@ -355,7 +379,7 @@ namespace UResidence.Controllers
 
 
         [HttpPost]
-        public ActionResult AmenityEdit(Amenity amen, HttpPostedFileBase image)
+        public ActionResult AmenityView(Amenity amen, HttpPostedFileBase image)
         {
             if (Session["Level"] == null)
             {
@@ -399,8 +423,9 @@ namespace UResidence.Controllers
         
                     if (status == true)
                     {                     
-                        Session["UpdateMessage"] = status;
-                        return RedirectToAction("AmenityView", "Amenity");
+                        Session["UpdateMess"] = status;
+                        Session["ModalView"]= 3;
+                        return RedirectToAction("AmenityView", "Amenity", new { id = "" });
                     }
                 }
                 else
@@ -431,8 +456,9 @@ namespace UResidence.Controllers
                     status = UResidence.AmenityController.Update(a);
                     if (status == true)
                     {                     
-                        Session["UpdateMessage"] = status;
-                        return RedirectToAction("AmenityView", "Amenity");
+                        Session["UpdateMess"] = status;
+                        Session["ModalView"] = 3;
+                        return RedirectToAction("AmenityView", "Amenity", new { id = "" });
                     }
                 }
                                    
@@ -459,8 +485,9 @@ namespace UResidence.Controllers
                     status = UResidence.AmenityController.Insert(a);
                     if (status == true)
                     {                    
-                        Session["UpdateMessage"] = status;
-                        return RedirectToAction("AmenityView", "Amenity");
+                        Session["UpdateMess"] = status;
+                        Session["ModalView"] = 3;
+                        return RedirectToAction("AmenityView", "Amenity",new {id=""});
                     }
                 }
                 else
@@ -484,8 +511,9 @@ namespace UResidence.Controllers
                     status = UResidence.AmenityController.Update(a);
                     if (status == true)
                     {                       
-                        Session["UpdateMessage"] = status;
-                        return RedirectToAction("AmenityView", "Amenity");
+                        Session["UpdateMess"] = status;
+                        Session["ModalView"] = 3;
+                        return RedirectToAction("AmenityView", "Amenity", new { id = "" });
                     }
                 }
 

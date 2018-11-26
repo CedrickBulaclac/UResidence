@@ -171,7 +171,7 @@
                                 trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button></td></tr>';
                             }
                         }
-                        else {
+                        else if(tob>0) {
                             if (v.TypeResident == "Owner") {
                                 name = v.oFname + ' ' + v.oMname + ' ' + v.oLname;
                                 trHTML += '<tr><td>' + name + '</td><td>' + v.Date + '</td><td>' + v.AmenityName + '</td><td>₱' + tob.toFixed(2) + '</td><td><button class="btn btn-primary" name="btnView" id="btnView" onclick=" toModal(' + v.Refno + ')">View Details</button> &nbsp;&nbsp;<button class="btn btn-success" onclick="Notify(' + tob + ',' + v.OwnerId + ',' + v.Refno + ',\'' + v.TypeResident + '\')">Notify</button></td></tr>';
