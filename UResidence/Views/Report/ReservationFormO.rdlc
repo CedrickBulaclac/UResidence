@@ -243,7 +243,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Totalpayment</rd:DefaultName>
@@ -367,7 +369,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox31</rd:DefaultName>
@@ -425,7 +429,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ReservationO</DataSetName>
-        <Top>13.75215cm</Top>
+        <Top>15.97465cm</Top>
         <Left>0.49953cm</Left>
         <Height>2.38616cm</Height>
         <Width>8.69666cm</Width>
@@ -442,7 +446,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Name of Resident :</Value>
+                <Value>Name of Resident:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -450,10 +454,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>1.26748cm</Top>
-        <Left>0.66866cm</Left>
+        <Top>2.5022cm</Top>
+        <Left>1.11316cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.57666cm</Width>
+        <Width>3.13216cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -480,7 +484,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>2.00859cm</Top>
+        <Top>3.27859cm</Top>
         <Left>0.49953cm</Left>
         <Height>0.6cm</Height>
         <Width>3.74579cm</Width>
@@ -510,7 +514,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>1.26748cm</Top>
+        <Top>2.53748cm</Top>
         <Left>4.47887cm</Left>
         <Height>0.6cm</Height>
         <Width>5.81779cm</Width>
@@ -540,7 +544,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
-        <Top>2.00859cm</Top>
+        <Top>3.27859cm</Top>
         <Left>4.47887cm</Left>
         <Height>0.6cm</Height>
         <Width>5.81779cm</Width>
@@ -570,7 +574,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>2.78498cm</Top>
+        <Top>4.05498cm</Top>
         <Left>1.64253cm</Left>
         <Height>0.6cm</Height>
         <Width>2.60279cm</Width>
@@ -600,7 +604,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>2.78498cm</Top>
+        <Top>4.05498cm</Top>
         <Left>4.47887cm</Left>
         <Height>0.6cm</Height>
         <Width>5.81779cm</Width>
@@ -825,7 +829,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox33</rd:DefaultName>
@@ -855,7 +861,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox34</rd:DefaultName>
@@ -888,7 +896,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox36</rd:DefaultName>
@@ -1021,7 +1031,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox51</rd:DefaultName>
@@ -1051,7 +1063,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox52</rd:DefaultName>
@@ -1084,7 +1098,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox53</rd:DefaultName>
@@ -1216,7 +1232,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox24</rd:DefaultName>
@@ -1243,13 +1261,16 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!MorningHour.Value, "ReservationO")</Value>
-                              <Style>
-                                <Format>'₱'#,0.00;('₱'#,0.00)</Format>
-                              </Style>
+                              <Value>=Switch(
+Fields!MorningHour.Value=0,Fields!MorningToWOEvening.Value
+,Fields!MorningToWOEvening.Value=0,Fields!MorningHour.Value
+)</Value>
+                              <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox26</rd:DefaultName>
@@ -1262,7 +1283,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>en-PH</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -1276,11 +1296,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=(First(Fields!Rate.Value, "ReservationO") * First(Fields!MorningHour.Value, "ReservationO"))</Value>
-                              <Style />
+                              <Value>=Switch(First(Fields!MorningHour.Value)=0,First(Fields!Rate.Value, "ReservationO") * First(Fields!MorningToWOEvening.Value, "ReservationO"),Fields!MorningToWOEvening.Value=0,First(Fields!Rate.Value, "ReservationO") * First(Fields!MorningHour.Value, "ReservationO"))</Value>
+                              <Style>
+                                <Format>'₱'#,0.00;('₱'#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox28</rd:DefaultName>
@@ -1293,6 +1317,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-PH</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -1407,10 +1432,14 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=First(Fields!EveningRate.Value, "ReservationO")</Value>
-                              <Style />
+                              <Style>
+                                <Format>'₱'#,0.00;('₱'#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox25</rd:DefaultName>
@@ -1423,6 +1452,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-PH</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -1436,11 +1466,16 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=First(Fields!EveningHour.Value, "ReservationO")</Value>
+                              <Value>=Switch(
+Fields!EveningHour.Value = 0,Fields!WOMorningToEvening.Value
+,Fields!WOMorningToEvening.Value=0,Fields!EveningHour.Value
+)</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox37</rd:DefaultName>
@@ -1466,11 +1501,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=(First(Fields!EveningRate.Value, "ReservationO")*First(Fields!EveningHour.Value, "ReservationO"))</Value>
-                              <Style />
+                              <Value>=Switch(First(Fields!EveningHour.Value)=0,First(Fields!EveningRate.Value, "ReservationO") * First(Fields!WOMorningToEvening.Value, "ReservationO"),Fields!WOMorningToEvening.Value=0,First(Fields!EveningRate.Value, "ReservationO") * First(Fields!EveningHour.Value, "ReservationO"))</Value>
+                              <Style>
+                                <Format>'₱'#,0.00;('₱'#,0.00)</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox38</rd:DefaultName>
@@ -1483,6 +1522,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>en-PH</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -1516,7 +1556,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Left</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -1584,20 +1624,20 @@
             </TablixMember>
             <TablixMember>
               <Visibility>
-                <Hidden>=iif(Fields!Rate.Value=0,true,false)</Hidden>
+                <Hidden>=iif(Fields!EveningRate.Value=0,true,false)</Hidden>
               </Visibility>
             </TablixMember>
             <TablixMember>
               <Visibility>
-                <Hidden>=iif(Fields!Rate.Value=0,true,false)</Hidden>
+                <Hidden>=iif(Fields!EveningRate.Value=0,true,false)</Hidden>
               </Visibility>
             </TablixMember>
             <TablixMember />
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ReservationO</DataSetName>
-        <Top>3.7581cm</Top>
-        <Left>0.44607cm</Left>
+        <Top>5.30327cm</Top>
+        <Left>4.07104cm</Left>
         <Height>6.95984cm</Height>
         <Width>10.71254cm</Width>
         <ZIndex>7</ZIndex>
@@ -1840,7 +1880,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Rate</rd:DefaultName>
@@ -1871,7 +1913,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Quantity</rd:DefaultName>
@@ -1903,7 +1947,9 @@
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox48</rd:DefaultName>
@@ -2013,8 +2059,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>EquipmentReservation</DataSetName>
-        <Top>10.87232cm</Top>
-        <Left>0.44607cm</Left>
+        <Top>12.75615cm</Top>
+        <Left>2.84398cm</Left>
         <Height>2.59732cm</Height>
         <Width>13.70484cm</Width>
         <ZIndex>8</ZIndex>
@@ -2024,48 +2070,6 @@
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox46">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value> Total Cost : </Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-              <TextRun>
-                <Value>=First(Fields!TotalAmenityRate.Value, "ReservationO") +First(Fields!TotalEquipmentRate.Value, "ReservationO")</Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                  <Format>'₱'#,0.00;('₱'#,0.00)</Format>
-                  <rd:FormatSymbolCulture>en-PH</rd:FormatSymbolCulture>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox46</rd:DefaultName>
-        <Top>13.80126cm</Top>
-        <Left>9.1509cm</Left>
-        <Height>0.6cm</Height>
-        <Width>5cm</Width>
-        <ZIndex>9</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix4">
         <TablixBody>
           <TablixColumns>
@@ -2246,7 +2250,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -2321,7 +2325,7 @@
                             </TextRun>
                           </TextRuns>
                           <Style>
-                            <TextAlign>Center</TextAlign>
+                            <TextAlign>Right</TextAlign>
                           </Style>
                         </Paragraph>
                       </Paragraphs>
@@ -2593,47 +2597,17 @@
         </TablixRowHierarchy>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <DataSetName>ReservationO</DataSetName>
-        <Top>15.29365cm</Top>
+        <Top>15.92865cm</Top>
         <Left>11.76569cm</Left>
         <Height>5.21598cm</Height>
         <Width>8.64448cm</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
-      <Textbox Name="Textbox15">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Date:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>0.74112cm</Top>
-        <Left>14.95701cm</Left>
-        <Height>0.6cm</Height>
-        <Width>1.15914cm</Width>
-        <ZIndex>11</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox16">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -2641,7 +2615,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Reference No.:</Value>
+                <Value>Ref No.:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -2649,11 +2623,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox10</rd:DefaultName>
-        <Top>0.07056cm</Top>
-        <Left>13.38636cm</Left>
+        <Top>0.5128cm</Top>
+        <Left>14.86367cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.72979cm</Width>
-        <ZIndex>12</ZIndex>
+        <Width>1.56562cm</Width>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2681,11 +2655,43 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>0.07056cm</Top>
-        <Left>16.40543cm</Left>
+        <Top>0.54808cm</Top>
+        <Left>16.60568cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.5cm</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Date:</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox10</rd:DefaultName>
+        <Top>1.26748cm</Top>
+        <Left>14.86367cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.15914cm</Width>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2715,11 +2721,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>0.74112cm</Top>
-        <Left>16.40543cm</Left>
+        <Top>1.25391cm</Top>
+        <Left>16.60568cm</Left>
         <Height>0.6cm</Height>
         <Width>4.21791cm</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2866,19 +2872,19 @@
       </ConnectionProperties>
       <rd:DataSourceID>2e249c8c-e6b9-4c72-8e44-ffb241d79cdb</rd:DataSourceID>
     </DataSource>
-    <DataSource Name="ReservationO">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>6be9130b-dc24-4588-83bf-e0ad64523f39</rd:DataSourceID>
-    </DataSource>
     <DataSource Name="EquipmentReservation">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>38d80dd1-fa33-4a64-831a-1722cb8fdd5e</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="ReservationO">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>04b10db5-51ac-43a2-af10-43d14a4810db</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -2924,6 +2930,42 @@
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>PersonRateTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="EquipmentReservation">
+      <Query>
+        <DataSourceName>EquipmentReservation</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="EquipmentId">
+          <DataField>EquipmentId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RefNo">
+          <DataField>RefNo</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Rate">
+          <DataField>Rate</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="EquipmentName">
+          <DataField>EquipmentName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>EquipmentReservation</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Martin\Documents\GitHub\UResidence\UResidence\EquipmentReservation.xsd</rd:SchemaPath>
+        <rd:TableName>EquipmentReservation</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>EquipmentReservationTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="ReservationO">
@@ -2984,8 +3026,8 @@
           <DataField>EveningHour</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name=" woMorningToEvening">
-          <DataField> woMorningToEvening</DataField>
+        <Field Name="WOMorningToEvening">
+          <DataField>WOMorningToEvening</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="TotalAmenityRate">
@@ -3023,47 +3065,11 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReservationO</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Martin\Documents\GitHub\UResidence\UResidence\ReservationO.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Thesis\UResidence\UResidence\ReservationO.xsd</rd:SchemaPath>
         <rd:TableName>ReservationO</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>ReservationOTableAdapter</rd:TableAdapterName>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="EquipmentReservation">
-      <Query>
-        <DataSourceName>EquipmentReservation</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="EquipmentId">
-          <DataField>EquipmentId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="RefNo">
-          <DataField>RefNo</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Rate">
-          <DataField>Rate</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="EquipmentName">
-          <DataField>EquipmentName</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>EquipmentReservation</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Martin\Documents\GitHub\UResidence\UResidence\EquipmentReservation.xsd</rd:SchemaPath>
-        <rd:TableName>EquipmentReservation</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>EquipmentReservationTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

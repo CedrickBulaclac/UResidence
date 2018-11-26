@@ -312,11 +312,11 @@
                                     eventClick: function (calEvent, jsEvent, view) {
                                         $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
                                         var $description = $('<div/>');
-                                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY HH:mm a")));
+                                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
                                         if (calEvent.end != null) {
-                                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY HH:mm a")));
+                                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
                                         }
-                                        $description.append($('<p/>').html('<b>Rate: </b> ₱' + calEvent.rate.toFixed(2)));
+                                      
                                         $('#myModal #pDetails').empty().html($description);
                                         $('#myModal').modal();
 

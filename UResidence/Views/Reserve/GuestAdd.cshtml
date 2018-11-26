@@ -73,11 +73,11 @@
                             <br />
 
                             <div class="col-lg-6 form-inline">
-                                <b>  Date of Visitation:</b>&nbsp;  <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()" />
+                                <b>  Date of Visitation:</b>&nbsp;  <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()" required/>
                             </div>
 
                             <div class="col-lg-6 form-inline">
-                                <b>Purpose of Visit:</b> &nbsp; <input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" />
+                                <b>Purpose of Visit:</b> &nbsp; <input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" required/>
                             </div>
 
                             <br />
@@ -102,7 +102,7 @@
                                             <tr>
                                                 <td>@data.BuildingNo</td>
                                                 <td>@data.UnitNo</td>
-                                                <td><input type="text" class="form-control" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() /></td>
+                                                <td><input type="text" class="form-control" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() required/></td>
                                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
                                                 <td>
                                                     @if (data.sTimein == "12:00AM")
@@ -117,7 +117,7 @@
                                     <tr>
                                         <td>@ViewBag.Bldg</td>
                                         <td>@ViewBag.UnitNo</td>
-                                        <td><input type="text" name="vname" id="vname" /></td>
+                                        <td><input type="text" name="vname" id="vname" class="form-control" required /></td>
                                         <td style="width:50px;"><input type="file" name="logbookpic" id="logbookpic" /></td>
                                         <td><button class="btn btn-success" type="submit">Add Guest</button></td>
                                     </tr>

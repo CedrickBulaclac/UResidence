@@ -467,7 +467,11 @@
     //        e.preventDefault();
     //    }
     //});
-
+    $(document).ready(function () {
+        $('[type="date"]').prop('max', function () {
+            return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+        });
+    });
 
     $('#btnCloseImage').click(function () {
 

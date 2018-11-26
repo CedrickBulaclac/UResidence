@@ -25,18 +25,7 @@
 
     <style>
 
-        .col-25 {
-            float: left;
-            width: 25%;
-            margin-top: 6px;
-        }
-
-
-        .col-75 {
-            float: left;
-            width: 75%;
-            margin-top: 6px;
-        }
+      
 
         label {
             padding: 12px 12px 12px 0;
@@ -210,10 +199,12 @@
 
 
                 </div>
+                <div class="pull-right">
+                    <input type="submit" value="Save Changes" class="button" />
+                    <a href="@Url.Action("EquipmentView","Equipment")"><input id="btnBack" type="button" value="Cancel" class="button" /></a>
+                </div>
 
-                <input type="submit" value="Save Changes" class="button" />
-                <a href="@Url.Action("EquipmentView","Equipment")"><input id="btnBack" type="button" value="Cancel" class="button" /></a>
-
+                <br />
             </div>
         </div>
 
@@ -231,8 +222,8 @@
                             <input type="file" id="imageequip" name="imageequip" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)">Update</button>
-                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)" style="float:right;">Update</button>
+                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal" style="float:right;">Close</button>
                         </div>
                     </div>
                 </div>

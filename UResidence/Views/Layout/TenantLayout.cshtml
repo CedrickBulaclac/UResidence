@@ -1,26 +1,29 @@
 ﻿
 @{
-	Layout = "";
+    Layout = "";
 
 }
 
-<!DOCTYPE html>
+
 <html>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<title>Palmdale Heights</title>
-<link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
-
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
 <head>
+
+    <title>Palmdale Heights</title>
+    <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+
     <style>
         .dropdown-menu {
             background: #2a2a2a;
@@ -32,7 +35,9 @@
             top: 0;
             width: 100%;
             background: #2a2a2a;
+            z-index: 5;
         }
+
 
         /* Underline From Center */
         .hvr-underline-from-center {
@@ -69,6 +74,10 @@
                 left: 0;
                 right: 0;
             }
+
+        a:hover {
+            background-color: gray;
+        }
 
         .noti-content {
             position: fixed;
@@ -114,9 +123,29 @@
             cursor: pointer;
         }
 
-        span.count {
-            position: relative;
-            top: -3px;
+        .sample {
+            :: -webkit-scrollbar
+
+        {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: white;
+            border-radius: 10px;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: white;
+            }
         }
     </style>
 </head>
@@ -125,7 +154,10 @@
     @*---Modal for Update Profile Picture---*@
     <div class="container">
         <div class="modal fade" id="updateprofilepicture" role="dialog">
-            <div class="modal-dialog">
+
+
+
+            <div class="modal-dialog" style="position:initial;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -145,11 +177,11 @@
     <!--NAVBAR TOH-->
 
 
-    <nav class="navbar navbar-inverse ">
-        @*<nav class=" fill">*@
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -164,13 +196,14 @@
                         <li><a href="~/Reserve/Home" class="hvr-underline-from-center" style="text-decoration:none; "> Home </a></li>
                         <li><a class="hvr-underline-from-center" href="#" name="btnAbout" id="btnAbout" style="text-decoration-color:none; text-decoration:none;"> About Us</a></li>
                         <li><a class="hvr-underline-from-center" href="#" name="btnContact" id="btnContact" style="text-decoration-color:none; text-decoration:none;"> Contact Us</a></li>
+                        <li> <a href="~/Reserve/GuestAdd" class="hvr-underline-from-center" style="text-decoration:none;"> Guest </a></li>
                         <li> <a href="~/Reserve/Amenity" class="hvr-underline-from-center" style="text-decoration:none;"> Reserve Now </a></li>
 
                         <li class="dropdown">
 
-                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span class="count">&nbsp;</span> <span class="caret"></span> </a>
+                            <a class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" href="#" id="notifBell"> <span class="glyphicon glyphicon-bell"> </span> Notification<span id="bellspan"></span><span class="caret"></span></a>
 
-                            <ul class="dropdown-menu" id="hello"></ul>
+                            <ul class="dropdown-menu sample" id="hello" style="height: 300px;width: 300px;overflow: auto; "></ul>
 
                         </li>
 
@@ -191,16 +224,16 @@
 
 
 
-                                <li><a href="~/Reserve/CalendarViewOT" style="text-decoration:none;text-decoration-color:none;color: white;">Schedule</a> </li>
+                                <li><a href="~/Reserve/CalendarViewOT" style="color:#9e9e9e "> Reserved Schedules </a> </li>
 
-                                <li><a href="~/Billing/BillingView" style="text-decoration:none;text-decoration-color:none;color: white;"> Bills and Payment</a></li>
-
-
+                                <li><a href="~/Billing/BillingView" style="color:#9e9e9e "> Bills and Payment</a></li>
 
 
-                                <li><a href=@Url.Action("TenantAccountSetting", "AccountSetting") style="text-decoration:none; text-decoration-color:none;color: white;">Account Settings</a> </li>
 
-                                <li><a href=@Url.Action("Logout","Login") class="hvr-underline-from-center" style="text-decoration:none; text-decoration-color:none;"> <span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+
+                                <li><a href=@Url.Action("TenantAccountSetting", "AccountSetting" ) style="color:#9e9e9e"> Account Settings</a> </li>
+
+                                <li><a href=@Url.Action("Logout","Login"   ) style=" color:#9e9e9e"> Logout </a></li>
                             </ul>
 
                         </li>
@@ -213,6 +246,9 @@
         </div>
     </nav>
 
+
+
+
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
@@ -222,12 +258,11 @@
 		var myVar = setInterval(updateNotif, 3000);
 		var list =0;
 		var count=0;
-		var counter=0;
+        var counter = 0;
+        var beforecount = 0;
 		$('#notifBell').click(function () {
-            //$('span.count', this).html('&nbsp;');
             updateVisit();
 			$('.noti-content').hide();
-			//$('#himodal').modal();
 		})
 
 		function getNotif() {
@@ -245,30 +280,75 @@
 		}
 
 		function updateNotif() {
-			$('#hello').empty();
-			$('#hello').append($('<li>Loading...</li>'));
+
 
 			$.ajax({
 				type: 'GET',
 				url: '/Reserve/GetNotificationContacts',
-				success: function (response) {
+                success: function (response) {
+                    if (response == "false") {
+                        var url = "/Login/Index";
+                        window.location.href = url;
+                    }
+                    if (response.length != beforecount) {
 
-
-					$('#hello').empty();
-					if (response.length == 0) {
-                        $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
-					}
-                    $.each(response, function (index, value) {
-                        if (value.Visit = 0) {
+                        if (response.length == 0) {
                             $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
-
                         }
-                        else {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+ '<p><hR></li>'));
+                        $.each(response, function (index, value) {
+                            if (value.Type == 'Outstanding') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Refrence Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' . <br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+
+                                }
+                            }
+                            else if (value.Type == 'Charge') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
+
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+                                }
+                            }
+
+                        });
+                    }
+                    else {
+                        $('#hello').empty();
+                        if (response.length == 0) {
+                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">No data available</li>'));
                         }
-                    });
+                        $.each(response, function (index, value) {
+                            if (value.Type =='Outstanding') {
+                                if (value.Visit = 0) {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
+                                }
+                                else {
+                                    $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' . <br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+
+
+                                }
+                            }
+
+                             else if(value.Type == 'Charge') {
+                                  if (value.Visit = 0) {
+                                      $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
+
+                                                          }
+                                  else {
+                                      $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+                                                             }
+                          }
+
+                        });
+                    }
+                    beforecount = response.length;
                     getNotif();
 
 				},
@@ -288,14 +368,29 @@
                     }
 
                     $.each(response, function (index, value) {
-                        if (value.Visit = 0) {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : ' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a")+'</p><hr></li>'));
+                        if (value.Type == 'Outstanding') {
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
 
-                        }
-                        else {
-                            $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;">' + value.Description + '<p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hR></li>'));
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has an outstanding balance of ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
 
+
+                            }
                         }
+                        else if (value.Type == 'Charge') {
+                            if (value.Visit = 0) {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white; background-color:#a6d1ff;">New : Reference Number: ' + value.refno + ' has added a charge of ₱' + value.Rate.toFixed(2) + '. <br> Kindly settle your account. < p class= "timestamp" > ' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + ' < p > <hr></li>'));
+
+                            }
+                            else {
+                                $('#hello').append($('<li style="text-decoration:none;text-decoration-color:none;color: white;"> Reference Number: ' + value.refno + ' has added a charge of  ₱' + value.Rate.toFixed(2) + ' .<br> Kindly settle your account. <p class="timestamp">' + moment(value.Date).format("DD/MMM/YYYY hh:mm a") + '<p><hr></li>'));
+
+
+                            }
+                        }
+
                     });
 
                     getNotif();
@@ -305,13 +400,18 @@
                 }
             });
         }
-		function updateNotificationCount(count) {
-			if (count == 0) {
-                $('span.count').html('&nbsp;');
+        function updateNotificationCount(count1) {
+            $('#bellspan').empty();
+			if (count1 == 0) {
+                var hrtml = '<span class="count">&nbsp;</span>';
+                $('#bellspan').append(hrtml);
 
 			}
-			else {
-				$('span.count').html(count);
+            else {
+
+                var hrtml = '<span class="count" style=" background-color: #fa3e3e;border-radius: 2px;color: white;padding: 1px 3px;font-size: 10px;position: absolute;top: 0;right: 0;">' + count1 + '</span>';
+                $('#bellspan').append(hrtml);
+				//$('span.count').html(count1);
 			}
 		}
 

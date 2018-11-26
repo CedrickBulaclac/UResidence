@@ -392,9 +392,9 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
-
+            string uid = Session["UID"].ToString();
             Admin a = new Admin();
-                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                a = UResidence.AdminController.GetIdAdmin(uid);
                 Session["URLL"] = a.URL;
             ViewBag.ReservationModule = a.ReservationModule;
             ViewBag.RegistrationModule = a.RegistrationModule;

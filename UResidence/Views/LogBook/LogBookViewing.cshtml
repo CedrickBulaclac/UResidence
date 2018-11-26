@@ -107,21 +107,24 @@
                     <th>Unit Number</th>
                     <th>Visitor Name</th>
                     <th>Resident Name</th>
-                    <th>Purpose of Visit</th>
                     <th>Image</th>
+                    <th>Purpose of Visit</th>
                     <th>Actions</th>
                 </tr>
                 @foreach (var a in Model.LogbookList)
                 {
                     if (a.sTimein == "12:00AM")
                     {
-                        <tr>
-                            <td>@a.ResidentName</td>
-                            <td>@a.VisitorName</td>
-                            <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                            <td>@a.Purpose</td>
-                            <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
-                        </tr>
+                <tr>
+                    <td>@a.sDate</td>
+                    <td>@a.BuildingNo </td>
+                    <td>@a.UnitNo </td>
+                    <td>@a.ResidentName</td>
+                    <td>@a.VisitorName</td>
+                    <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                    <td>@a.Purpose</td>
+                    <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
+                </tr>
 
                     }
                     else

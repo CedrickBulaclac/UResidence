@@ -24,17 +24,7 @@
 
 
     <style>
-        .col-25 {
-            float: left;
-            width: 25%;
-            margin-top: 6px;
-        }
-
-        .col-75 {
-            float: left;
-            width: 75%;
-            margin-top: 6px;
-        }
+      
 
         label {
             padding: 12px 12px 12px 0;
@@ -155,7 +145,7 @@
 
 
 
-                        @if (Model.Rate==0)
+                        @if (Model.Rate == 0)
                         {
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -194,7 +184,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
 
-                                    <label class="col-sm-4" for="Rate">Rate :</label>
+                                    <label class="col-sm-4" for="Rate">Morning Rate :</label>
 
                                     <div class="col-sm-6">
 
@@ -296,7 +286,7 @@
                                     @Html.EditorFor(model => model.Color, new { htmlAttributes = new { @type = "color", @class = "form-control", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.Color, "", new { @class = "text-danger" })
                                     @*<label for="colorpicker">ColorPicker:</label>
-                                        <input type="color" id="myColorField" name="myColorField"  value= ""/>*@
+                    <input type="color" id="myColorField" name="myColorField"  value= ""/>*@
 
                                 </div>
                             </div>
@@ -344,13 +334,14 @@
                         </div>
 
 
-
-                        <input type="submit" value="Save Changes" class="button" />
-                        <a href="@Url.Action("AmenityView","Amenity") " class="button">Cancel</a>
+                        <div class="pull-right">
+                            <input type="submit" value="Save Changes" class="button" />
+                            <a href="@Url.Action("AmenityView","Amenity") " class="button">Cancel</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <br />
 
 
         }

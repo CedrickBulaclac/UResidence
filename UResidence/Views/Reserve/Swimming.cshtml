@@ -264,7 +264,7 @@
 
 
                                     <p class="form-inline">
-                                        <label for="adult">Adult:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <input type="number" onselect="myFunction()" class="form-control" name="adult" id="adult" min="0" max="20" required value="0" style="width:270px;">
+                                        <label for="adult">Adult:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <input type="number" onselect="myFunction()" class="form-control" name="adult" id="adult" min="0"  value="0" style="width:270px;">
 
                                     </p>
 
@@ -279,7 +279,7 @@
 
                                     <p class="form-inline">
                                         <br />
-                                        <label for="Kids">Kids:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="number" onselect="myFunction()" class="form-control" name="child" id="child" min="0" max="20" required value="0" style="width:270px;">
+                                        <label for="Kids">Kids:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="number" onselect="myFunction()" class="form-control" name="child" id="child" min="0"  value="0" style="width:270px;">
 
 
                                     </p>
@@ -401,12 +401,29 @@
 					alert("Your chosen date is earlier than today");
 					document.getElementById('sd').value = null;
 					e.preventDefault();
-				}
+                }
+                var ad = document.getElementById('adult').value;
+                var ch = document.getElementById('child').value
+                if (ad == 0 && ch == 0) {
+                    alert('Please specify the number of Adult and/or Child');
+                    document.getElementById('adult').value = 0;
+                    document.getElementById('child').value = 0;
+                    e.preventDefault();
+                }
+                
+              
 			}
 		});
 
 	$(document).ready(
-		function () {
+        function () {
+
+            $('[type="date"]').prop('min', function () {
+                return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+            });
+
+            
+
 			$('#sd').change(function () {
 				selectedValue = $(this).val();
 				startDate = selectedValue;
@@ -491,19 +508,24 @@
 	function Check() {
 
 
+        var ad = document.getElementById('adult').value;
+        var ch = document.getElementById('child').value
 
-
-		var stconcat = document.getElementById('sd').value;
-		var etconcat = document.getElementById('ed').value
         var cdrate = document.getElementById('rate').value;
         if (cdrate == 0 || cdrate == "") {
 
             alert('Please specify the number of Adult and/or Child');
 
         }
-
+        if (ad == "") {
+            ad = 0;
+        }
+        if (ch == "") {
+            ch = 0;
+        }
+       
 		document.getElementById('tratee').value = cdrate;
-
+        
     }
 
 

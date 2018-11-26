@@ -41,7 +41,7 @@
 
         <div class="panel panel-collapse">
             <div class="panel-heading" style="background-color:  #1C2331">
-                <font color="white"> <h3 class="panel-title"> Logbook Viewing  </h3></font>
+                <font color="white"> <h3 class="panel-title"> Logbook Viewing History  </h3></font>
             </div>
 
 
@@ -61,44 +61,59 @@
                         <th>Unit Number</th>
                         <th>Visitor Name</th>
                         <th>Resident Name</th>
-                        <th>Purpose of Visit</th>
                         <th>Image</th>
+                        <th>Purpose of Visit</th>
                         <th>Actions</th>
                     </tr>
                     @foreach (var a in Model)
 
                     {
-
-                        if (a.sTimeout == "12:00AM")
-
+                        if (a.sTimein == "12:00AM")
                         {
                             <tr>
                                 <td>@a.sDate</td>
                                 <td>@a.BuildingNo </td>
                                 <td>@a.UnitNo </td>
+                                <td>@a.ResidentName</td>
                                 <td>@a.VisitorName</td>
-                                <td>@a.ResidentName </td>
-                                <td>@a.Purpose</td>
                                 <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <b>Time out :  </b></td>
+                                <td>@a.Purpose</td>
+                                <td><button onclick="UpdateTimein(@a.Id)" class="btn btn-default" id="btnTimein" name="btnTimein">Time In</button></td>
                             </tr>
+
                         }
                         else
                         {
-                            <tr>
-                                <td>@a.sDate</td>
-                                <td>@a.BuildingNo </td>
-                                <td>@a.UnitNo </td>
-                                <td>@a.VisitorName</td>
-                                <td>@a.ResidentName </td>
-                                <td>@a.Purpose</td>
-                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
-                                <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <b>Time out :   @Convert.ToDateTime(a.sTimeout).ToShortTimeString()</b></td>
-                            </tr>
-                        }
+                            if (a.sTimeout == "12:00AM")
 
+                            {
+                                <tr>
+                                    <td>@a.sDate</td>
+                                    <td>@a.BuildingNo </td>
+                                    <td>@a.UnitNo </td>
+                                    <td>@a.ResidentName</td>
+                                    <td>@a.VisitorName</td>
+                                    <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                    <td>@a.Purpose</td>
+                                    <td><b>Time in : @Convert.ToDateTime(a.sTimein).ToShortTimeString()</b> &nbsp;&nbsp;  <button onclick="UpdateTimeout(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@a.sDate</td>
+                                    <td>@a.BuildingNo </td>
+                                    <td>@a.UnitNo </td>
+                                    <td>@a.ResidentName</td>
+                                    <td>@a.VisitorName</td>
+                                    <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
+                                    <td>@a.Purpose</td>
+                                    <td><b>Time in :  @Convert.ToDateTime(a.sTimein).ToShortTimeString() </b> &nbsp;&nbsp;  <b>Time out :  @Convert.ToDateTime(a.sTimeout).ToShortTimeString()</b></td>
+                                </tr>
+                            }
+                        }
                     }
-                </table>
+                    </table>
 
             </div>
         </div>

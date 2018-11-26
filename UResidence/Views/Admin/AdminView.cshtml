@@ -147,6 +147,10 @@
                                         <option value="5">Registration</option>
                                         <option value="4">Reservation</option>
                                         <option value="6">Security Guard</option>
+                                        @if (Convert.ToInt32(Session["Level"]) == 0)
+                                        {
+                                            <option value="1">Boss Manager</option>
+                                        }
                                     </select>
 
 
@@ -605,6 +609,14 @@ else
             });
         }
     });
+
+
+    $(document).ready(function () {
+        $('[type="date"]').prop('max', function () {
+            return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+        });
+    });
+
     $("form").submit(function () {
         var reservation = document.getElementById("reservation");
         var reversal = document.getElementById("reversal");
