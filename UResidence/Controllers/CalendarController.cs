@@ -235,17 +235,11 @@ namespace UResidence.Controllers
             }
 
         }
-        public JsonResult UpdatePayment(decimal charge1, int refno1, string rstatus1,string desc,Notification data)
+        public JsonResult UpdatePayment(decimal charge1, int refno1,string desc,Notification data)
         {
             DateTime dete = DateTime.Now;
             string name = (Session["FullName"]).ToString();
             bool status = false;
-            Reservation reservation = new Reservation
-            {
-                Status = rstatus1,
-                Id = refno1,
-            };
-            status = ReservationController.Update(reservation);
             if (charge1 > 0)
             {
                 Charge charge = new Charge
@@ -392,9 +386,9 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             int level = Convert.ToInt32(Session["Level"]);
-
+            string uid = Session["UID"].ToString();
             Admin a = new Admin();
-                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
+                a = UResidence.AdminController.GetIdAdmin(uid);
                 Session["URLL"] = a.URL;
             ViewBag.ReservationModule = a.ReservationModule;
             ViewBag.RegistrationModule = a.RegistrationModule;

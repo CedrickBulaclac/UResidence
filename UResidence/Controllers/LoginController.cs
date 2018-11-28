@@ -104,14 +104,14 @@ namespace UResidence.Controllers
                         Tenant a = new Tenant();
                         a = UResidence.TenantController.GetEmailTenant(user.Username);
                         Session["UID"] = a.Id;
-                        if (a.LeaseStart > DateTime.Now)
+                        if (a.LeaseStart > DateTime.Now.ToUniversalTime().AddHours(8))
                         {
                             string script = "<script type = 'text/javascript'>alert('Wrong Username or Password');</script>";
                             Response.Write(script);
                         }
                         else
                         {
-                            if (a.LeaseEnd <= DateTime.Now)
+                            if (a.LeaseEnd <= DateTime.Now.ToUniversalTime().AddHours(8))
                             {
                                 Tenant t = new Tenant
                                 {

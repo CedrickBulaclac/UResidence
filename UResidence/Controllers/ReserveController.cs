@@ -489,11 +489,6 @@ namespace UResidence.Controllers
                     ViewBag.EveRate = Convert.ToDecimal(Session["EVERATE"]);
                     return View();
                 }
-
-
-
-
-
             }
         }
         public ActionResult Choose_Equipment()
@@ -1399,22 +1394,29 @@ namespace UResidence.Controllers
 
         public JsonResult GetNotificationContacts()
         {
-
-            int ctr = Convert.ToInt32(Session["oldcontactList"]);
-            Session["oldcontactList"] = ctr;
-            int level = Convert.ToInt32(Session["Level"]);
-            int uid = Convert.ToInt32(Session["UID"]);
-            List<Notification> notiList = default(List<Notification>);
-            if (level == 8)
+            try
             {
-                notiList = NotificationController.GetAllO(uid);
+                int ctr = Convert.ToInt32(Session["oldcontactList"]);
+                Session["oldcontactList"] = ctr;
+                int level = Convert.ToInt32(Session["Level"]);
+                int uid = Convert.ToInt32(Session["UID"]);
+                List<Notification> notiList = default(List<Notification>);
+                if (level == 8)
+                {
+                    notiList = NotificationController.GetAllO(uid);
+                }
+                else if (level == 9)
+                {
+                    notiList = NotificationController.GetAllT(uid);
+                }
+                var list = notiList.ToList();
+                return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            else if (level == 9)
+            catch(Exception)
             {
-                notiList = NotificationController.GetAllT(uid);
+                var list ="false";
+                return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            var list = notiList.ToList();
-            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         public JsonResult UpdateNotif()

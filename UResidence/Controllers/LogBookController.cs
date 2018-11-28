@@ -204,7 +204,10 @@ namespace UResidence.Controllers
 
         public ActionResult LogBookViewing()
         {
-            
+            if (Session["Level"] == null)
+            {
+                return Redirect("~/Login");
+            }
             int level = Convert.ToInt32(Session["Level"]);
             if (level <= 7)
             {

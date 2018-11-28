@@ -66,6 +66,7 @@
                             <input type="hidden" name="rfid" id="rfid" />
                             <input type="hidden" name="oid" id="oid">
                             <input type="hidden" name="typeid" id="typeid">
+                            <input type="hidden" name="txtamt" id="txtamt" />
                             <p id="pDetails"></p>
                             <p id="pSwimming"></p>
                             <p id="pAmount"></p>
@@ -217,14 +218,11 @@
                             <div class="form-inline">
                                 <div class="col-sm-3">
                                     <b>Status: </b>
+                                        
                                 </div>
 
                                 <div class="col-sm-9">
-                                    <select id="mySelect" name="mySelect" class="form-control">
-                                        <option value="Pending">Pending</option>
-                                        <option value="Reserved">Reserved</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                    </select>
+                                    <label id="mySelect" name="mySelect"></label>                                 
                                 </div>
 
                                 <br /> <br />
@@ -335,7 +333,7 @@
                             </div>
 
                             <div class="form-inline">
-
+                              
                                 <div class="col-sm-3">
                                     <b>Total Reversal :</b>
                                 </div>
@@ -434,9 +432,9 @@
                     <div class="pull-right">
                         <div class="btn-group">
 
-                            <button type="button" class="btn btn-success btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
-                            <button type="button" class="btn btn-warning btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
-                            <button type="button" class="btn btn-danger btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
+                            <button type="button" class="btn btn-default btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
+                            <button type="button" class="btn btn-default btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
+                            <button type="button" class="btn btn-default btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
                             @*<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>*@
 
                         </div>
@@ -485,64 +483,126 @@
 		var an;
         var status11;
         var ereserve = [];
+        var tootalcost = 0;
+        var alll = 0;
 		function AddPayment() {
                 var refno = document.getElementById('rfid').value;
-                var payment = document.getElementById('dp').value;
+            var payment = document.getElementById('dp').value;
+          
                 var q = new Date();
                 var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
                 var description = document.getElementById('pdescription').value;
-			var name = "@Session["Fullname"]";
-                var data1 = {
-                    RefNo: refno,
-                    Totalpayment: payment,
-                    Date: MyDateString,
-                    Description: description,
-					CreatedBy: name,
-					st: startT,
-					et: endT,
-					amen: an,
-					status: status11
-                };
+            var too = alll;
+            var too1 = dp * .5;
+            alert(tprrr);
+            if (tprrr == 0) {
+                if (too >= too1) {
+                    var name = "@Session["Fullname"]";
+                    var data1 = {
+                        RefNo: refno,
+                        Totalpayment: payment,
+                        Date: MyDateString,
+                        Description: description,
+                        CreatedBy: name,
+                        st: startT,
+                        et: endT,
+                        amen: an,
+                        status: status11
+                    };
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "/calendar/InsertPayment",
-                    data: data1,
-                    success: function (data) {
-						if (data == true) {
-							$('#paymentModal').modal('hide');
-							RefreshCalendar();
-							alert('Success');
-							window.location.reload();
-							//window.location.href = window.location.href + "?rnd=" + Math.random();
-							$('#myModal').modal();
-						}
-						else if (data == "failed")
-						{
+                    $.ajax({
+                        type: "POST",
+                        url: "/calendar/InsertPayment",
+                        data: data1,
+                        success: function (data) {
+                            if (data == true) {
+                                $('#paymentModal').modal('hide');
+                                RefreshCalendar();
+                                alert('Success');
+                                window.location.reload();
+                                //window.location.href = window.location.href + "?rnd=" + Math.random();
+                                $('#myModal').modal();
+                            }
+                            else if (data == "failed") {
 
-							alert("The chosen date and time is unavailable");
-							RefreshCalendar();
-							window.location.reload();
-						}
-						else if (data == "a")
-						{
-							alert("Insufficient equipment stock");
-							RefreshCalendar();
-							window.location.reload();
-						}
-						else
-						{
-							alert("Description is blank");
-						}
+                                alert("The chosen date and time is unavailable");
+                                RefreshCalendar();
+                                window.location.reload();
+                            }
+                            else if (data == "a") {
+                                alert("Insufficient equipment stock");
+                                RefreshCalendar();
+                                window.location.reload();
+                            }
+                            else {
+                                alert("Description is blank");
+                            }
 
 
-                    },
-                    error: function (error) {
-                        alert('failed');
-                    }
-                });
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    });
+                }
+                else {
+                    alert("The payment should be 50% or more of the Total Cost");
+                    document.getElementById('dp').value = 0;
+                    document.getElementById('pdescription').value = "";
+                }
             }
+            else {
+                   var name = "@Session["Fullname"]";
+                    var data1 = {
+                        RefNo: refno,
+                        Totalpayment: payment,
+                        Date: MyDateString,
+                        Description: description,
+                        CreatedBy: name,
+                        st: startT,
+                        et: endT,
+                        amen: an,
+                        status: status11
+                    };
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/calendar/InsertPayment",
+                        data: data1,
+                        success: function (data) {
+                            if (data == true) {
+                                $('#paymentModal').modal('hide');
+                                RefreshCalendar();
+                                alert('Success');
+                                window.location.reload();
+                                //window.location.href = window.location.href + "?rnd=" + Math.random();
+                                $('#myModal').modal();
+                            }
+                            else if (data == "failed") {
+
+                                alert("The chosen date and time is unavailable");
+                                RefreshCalendar();
+                                window.location.reload();
+                            }
+                            else if (data == "a") {
+                                alert("Insufficient equipment stock");
+                                RefreshCalendar();
+                                window.location.reload();
+                            }
+                            else {
+                                alert("Description is blank");
+                            }
+
+
+                        },
+                        error: function (error) {
+                            alert('failed');
+                        }
+                    });
+            }
+        }
 
             function ChargeHistory() {
                 var refno = document.getElementById('rfid').value;
@@ -631,7 +691,6 @@
 
             function ReversalHistory() {
                 var refno = document.getElementById('rfid').value;
-
                 $.ajax({
                     type:'POST',
                     url: "/calendar/ReversalHistory",
@@ -652,7 +711,8 @@
                             totalp += v.Amount;
                         });
                         $('#tbRevHistory').append(trHTML);
-                        document.getElementById('txtTotalReversal').innerHTML = "₱"+totalp.toFixed(2);
+                        
+                        document.getElementById('txtTotalReversal').innerHTML = "₱" + (totalp).toFixed(2);
                         trHTML = '';
                     },
                     error: function (error) {
@@ -673,15 +733,12 @@
         }
 
             function UpdateStatus() {
-                var refno = document.getElementById('rfid').value;
-                var rstatus = document.getElementById('mySelect').value;
+                var refno = document.getElementById('rfid').value;           
                 var charge1 = document.getElementById('cg').innerHTML;
                 var charge2 = document.getElementById('cg1').value;
                 var id = document.getElementById('oid').value;
                 var typeid = document.getElementById('typeid').value;
 				var charge = charge1 + charge2;
-				alert(charge1);
-				alert(charge2);
                 var cdescription = document.getElementById('cdescription').value;
 
                 var data = {
@@ -796,7 +853,7 @@
                         startTime = startTime.split(' ').slice(1, 5).join(' ');
                         var endTime = (convertUTCDateToLocalDate(moment(data[0].EndTime).format("DD/MMM/YYYY hh:mm a"))).toString();
                         endTime = endTime.split(' ').slice(1, 5).join(' ');
-
+                        document.getElementById('txtamt').value = data[0].Amount;
                         document.getElementById('searchId').value = '';
                         $('#myModal #eventTitle').html('<b>Reference Number: </b>' + data[0].RFId);
                         var $description = $('<div/>');
@@ -808,7 +865,7 @@
                         $description.append($('<p/>').html('<b>EndTime: </b>' + endTime));
                         Swimming(data[0].RFId);
                         getEquipReversation(data[0].RFId, data[0].Charge, data[0].Rate, data[0].Total, data[0].Amount, data[0].Status);
-                        document.getElementById('mySelect').value = data[0].Status;
+                        document.getElementById('mySelect').innerHTML = data[0].Status;
                         document.getElementById('rid').value = data[0].RId;
                         document.getElementById('rfid').value = data[0].RFId;
                         document.getElementById('cg').innerHTML = data[0].Charge.toFixed(2);
@@ -827,7 +884,7 @@
                         }
                         document.getElementById('typeid').value = data[0].typeResident;
                         totalpay = data[0].Total;
-                        document.getElementById('tpr').innerHTML = data[0].Total;
+                        document.getElementById('tpr').innerHTML = data[0].Total - data[0].Amount;
                         $('#myModal #pDetails').empty().html($description);
 
                         $('#myModal').modal();
@@ -888,6 +945,7 @@
                     if (data.length > 0) {
                         $description.append($('<p/>').html('<b>Equipment Cost: </b> ₱'+ tccc.toFixed(2)));
                     }
+                    tootalcost = (rate + tccc + cg).toFixed(2);
                     $description.append($('<p/>').html('<b>Charge: </b> ₱'+ cg.toFixed(2)));
                     $description.append($('<p/>').html('<b>Total Cost: </b> ₱'+ ((rate + tccc + cg).toFixed(2))));
                     $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱'+ (amt).toFixed(2)));
@@ -895,7 +953,8 @@
                     outstanding1 = ((rate + tccc + cg) - (dp - amt));
                         if (outstanding1 < 0) {
                             outstanding1 *= -1;
-                         }
+                    }
+                    alll = (rate + tccc + cg) - (dp - amt);
                     downp = outstanding1;
                     tprrr = (dp - amt);
                     $description.append($('<p/>').html('<b>Outstanding Total: </b> ₱'+ outstanding1.toFixed(2)));
@@ -978,6 +1037,7 @@
 						eventClick: function (calEvent, jsEvent, view) {
 
                             selectedEvent = calEvent;
+                            document.getElementById('txtamt').value = calEvent.amt;
                             $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf);
                             var $description = $('<div/>');
                             $description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
@@ -988,7 +1048,7 @@
                             $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
                             Swimming(calEvent.rf);
                             getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
-                            document.getElementById('mySelect').value = calEvent.status;
+                            document.getElementById('mySelect').innerHTML = calEvent.status;
                             document.getElementById('rid').value = calEvent.r;
                             document.getElementById('rfid').value = calEvent.rf;
                             document.getElementById('cg').innerHTML = calEvent.cg.toFixed(2);
@@ -1006,8 +1066,13 @@
                                 document.getElementById('oid').value = calEvent.tid;
 
                             }
+                            if (status11=="Cancelled") {
+                                document.getElementById('btnAddPayment').style.visibility = 'hidden';
+                            } else {
+                                document.getElementById('btnAddPayment').style.visibility = 'visible';
+                            }
                             document.getElementById('typeid').value = calEvent.typeR;
-                            document.getElementById('tpr').innerHTML = calEvent.dp.toFixed(2);
+                            document.getElementById('tpr').innerHTML = (calEvent.dp - calEvent.amt).toFixed(2);
                             $('#myModal #pDetails').empty().html($description);
 
                             $('#myModal').modal();
@@ -1016,11 +1081,12 @@
                 }
             function AddReversal() {
                 var refno = document.getElementById('rfid').value;
-				var ar = document.getElementById('atr').value;
-                var tp = document.getElementById('tpr').value;
+                var ar = document.getElementById('atr').value;
+                var tp =document.getElementById('tpr').innerHTML;
                 var desc = document.getElementById('rdescription').value;
-				var select = 'Pending';
-					if (ar == totalpay) {
+                var select = 'Pending';
+                var tool = ar - tp;
+                if (tool==0) {
 						var data = {
 							RefNo: refno,
 							Description: desc,

@@ -37,8 +37,6 @@ namespace UResidence
         public static List<SchedReservation> GetAllChoose(string sd, string ed, int aid)
         {
             const string GET_ALL = @"SELECT sr.Id,AmenityId,StartTime,EndTIme,Rate,Deleted FROM [tbSchedReservation] sr inner join tbReservationForm rf on rf.SchedId=sr.Id  where Status='Reserved' and EndTime between @sd and @ed and AmenityId=@id and Deleted=0";
-
-
             List<SchedReservation> ret = default(List<SchedReservation>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@sd", sd));

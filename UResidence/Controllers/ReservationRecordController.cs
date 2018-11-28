@@ -72,6 +72,52 @@ namespace UResidence.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public JsonResult InsertNotifAll()
+        {
+            var status = false;
+            List<ReservationList> reservationList = ReservationListController.GetAllO();
+            if(reservationList.Count>0)
+            {
+                for(int i=0;i<=reservationList.Count-1;i++)
+                {
+                    if(reservationList[i].Outstanding>0)
+                    {
+                        if (reservationList[i].TypeResident == "Owner")
+                        {
+                            Notification notilist = new Notification
+                            {
+                                Rate = reservationList[i].Outstanding,
+                                refno = reservationList[i].Refno,
+                                Visit = 0,
+                                Date = DateTime.Now,
+                                OwnerId = reservationList[i].OwnerId,
+                                Type = "Outstanding"
+                            };
+                            status = NotificationController.InsertO(notilist);
+                        }
+                        else
+                        {
+                            Notification notilist = new Notification
+                            {
+                                Rate = reservationList[i].Outstanding,
+                                refno = reservationList[i].Refno,
+                                Visit = 0,
+                                Date = DateTime.Now,
+                                TenantId = reservationList[i].TenantId,
+                                Type = "Outstanding"
+                            };
+                            status = NotificationController.InsertT(notilist);
+                        }
+                    }
+                }
+               
+            }
+            return new JsonResult
+            {
+                Data = status,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         public JsonResult GetModal(int refno)
         {
             List<ReservationProcess> reservationList = ReservationProcessController.GET_ALL(refno);

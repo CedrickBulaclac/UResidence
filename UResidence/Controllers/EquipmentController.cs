@@ -190,8 +190,8 @@ namespace UResidence.Controllers
         }
 
 
-
-        public ActionResult EquipmentView()
+        [HttpGet]
+        public ActionResult EquipmentView(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -220,8 +220,17 @@ namespace UResidence.Controllers
                 ViewBag.DeleteStatus = Session["DeleteStatus"];
                 Session["DeleteStatus"] = null;
             }
-
-            return View();
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                Equipment equipmentList = default(Equipment);
+                equipmentList = UResidence.EquipmentController.GetbyId((int)id);
+                ViewBag.ModalView = 1;
+                return View(equipmentList);
+            }           
         }
 
 
@@ -249,31 +258,9 @@ namespace UResidence.Controllers
             }
             return View();
         }
-        [HttpGet]
-        public ActionResult EquipmentEdit(int id)
-        {
-            if (Session["Level"] == null)
-            {
-                return Redirect("~/Login");
-            }
-            int level = Convert.ToInt32(Session["Level"]);
-
-            if (level <= 7)
-            {
-                Admin a = new Admin();
-                a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
-                Session["URLL"] = a.URL;
-            }
-            //if (ModelState.IsValid)
-            //{
-            Equipment equipmentList = default(Equipment);
-                equipmentList = UResidence.EquipmentController.GetbyId(id);
-                return View(equipmentList);
-            //}
-            //return View("EquipmentView");
-        }
+ 
         [HttpPost]
-        public ActionResult EquipmentEdit(Equipment eqp)
+        public ActionResult EquipmentView(Equipment eqp)
         {
             if (Session["Level"] == null)
             {
@@ -304,7 +291,7 @@ namespace UResidence.Controllers
                 {
                     ViewBag.UpdateMessage = status;
                     Session["UpdateMess"] = status;
-                    return RedirectToAction("EquipmentView", "Equipment");
+                    return RedirectToAction("EquipmentView", "Equipment",new { id=""});
                 }
                 else
                 {
@@ -330,7 +317,7 @@ namespace UResidence.Controllers
                     {
                         ViewBag.UpdateMessage = status;
                         Session["UpdateMess"] = status;
-                        return RedirectToAction("EquipmentView", "Equipment");
+                        return RedirectToAction("EquipmentView", "Equipment", new { id = "" });
                     }
                     else
                     {

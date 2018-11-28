@@ -18,7 +18,7 @@ namespace UResidence
         }
         public static List<Reversal> GET_ALL(int refno)
         {
-            const string GET_ALL = @"select Id,RefNo,Description,Status,CreatedBy,ApprovedBy,Amount from tbReversal where RefNo=@RefNo";
+            const string GET_ALL = @"select Id,RefNo,Description,Status,CreatedBy,ApprovedBy,Amount from tbReversal where RefNo=@RefNo and Status!='Completed'";
             List<Reversal> ret = default(List<Reversal>);
             SqlCommand com = new SqlCommand(GET_ALL);
             com.Parameters.Add(new SqlParameter("@RefNo", refno));

@@ -243,7 +243,7 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already used');</script>";
                     Response.Write(script);
                     status = false;
                     ViewBag.Alert = true;
@@ -252,7 +252,7 @@ namespace UResidence.Controllers
             }
             else
             {
-                string script = "<script type = 'text/javascript'>alert('The Building No and Unit No you have entered is already in use');</script>";
+                string script = "<script type = 'text/javascript'>alert('The Building No. and Unit No. you have entered is already used');</script>";
                 Response.Write(script);
                 status = false;
                 ViewBag.Alert = true;
@@ -360,7 +360,7 @@ namespace UResidence.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult OwnerEdit(int id)
+        public ActionResult OwnerView(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -374,16 +374,20 @@ namespace UResidence.Controllers
                 a = UResidence.AdminController.GetIdAdmin(Session["UID"].ToString());
                 Session["URLL"] = a.URL;
             }
-            string i = id.ToString();
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                Owner ownerList = UResidence.OwnerController.GetIdOwner(i);
-                return View(ownerList);
+                return View();
             }
-            return View("OwnerEdit");
+            else
+            {
+                string i = id.ToString();
+                Owner ownerList = UResidence.OwnerController.GetIdOwner(i);
+                ViewBag.ModalView = 1;
+                return View(ownerList);
+            }           
         }
         [HttpPost]
-        public ActionResult OwnerEdit(Owner owe)
+        public ActionResult OwnerView(Owner owe)
         {
             if (Session["Level"] == null)
             {
@@ -396,21 +400,69 @@ namespace UResidence.Controllers
                
                 List<Owner> o1 = new List<Owner>();
                 o1 = UResidence.OwnerController.GetOwnerReserve(owe.BldgNo, owe.UnitNo);
-                if (o1.Count == 0)
+                Owner o22 = new Owner();
+                o22 = UResidence.OwnerController.GetIdOwner(owe.Id);
+             
+                if (owe.BldgNo != o22.BldgNo || owe.UnitNo !=o22.UnitNo)
                 {
-                    Owner owe1 = new Owner();
-                    owe1 = UResidence.OwnerController.GetIdOwner(owe.Id);
-                    if (owe.Email != owe1.Email)
+                    if (o1.Count == 0)
                     {
-                        List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
-                        if (listUser.Count == 0)
+                        Owner owe1 = new Owner();
+                        owe1 = UResidence.OwnerController.GetIdOwner(owe.Id);
+                        if (owe.Email != owe1.Email)
+                        {
+                            List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+                            if (listUser.Count == 0)
+                            {
+                                status = UResidence.OwnerController.Update(owe);
+                                if (status == true)
+                                {
+                                    Session["UpdateMess"] = status;
+                                    status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
+                                    if (status == true)
+                                    {
+                                        List<Tenant> o2 = new List<Tenant>();
+                                        o2 = UResidence.TenantController.GetTList(owe.Id);
+                                        if (o2.Count > 0)
+                                        {
+                                            for (int i = 0; i <= o2.Count - 1; i++)
+                                            {
+                                                Tenant tenn = new Tenant
+                                                {
+                                                    BldgNo = owe.BldgNo,
+                                                    UnitNo = owe.UnitNo,
+                                                    Id = o2[i].Id
+                                                };
+                                                status = UResidence.TenantController.UpdateBU(tenn);
+                                            }
+                                        }
+                                    }
+
+                                    return RedirectToAction("OwnerView", "Owner",new { id=""});
+                                }
+                                else
+                                {
+                                    ViewBag.UpdateMessage = status;
+                                    return View(owe);
+                                }
+                            }
+                            else
+                            {
+                                string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
+                                ViewBag.UpdateMessage = status;
+                                Response.Write(script);
+                                return View(owe);
+                            }
+                        }
+                        else
                         {
                             status = UResidence.OwnerController.Update(owe);
                             if (status == true)
                             {
                                 Session["UpdateMess"] = status;
                                 status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
-                                if(status==true)
+
+                                if (status == true)
                                 {
                                     List<Tenant> o2 = new List<Tenant>();
                                     o2 = UResidence.TenantController.GetTList(owe.Id);
@@ -428,8 +480,8 @@ namespace UResidence.Controllers
                                         }
                                     }
                                 }
-                              
-                                return RedirectToAction("OwnerView", "Owner");
+
+                                return RedirectToAction("OwnerView", "Owner", new { id = "" });
                             }
                             else
                             {
@@ -437,58 +489,103 @@ namespace UResidence.Controllers
                                 return View(owe);
                             }
                         }
-                        else
-                        {
-                            string script = "<script type = 'text/javascript'>alert('The email address you have entered is already in used');</script>";
-                            ViewBag.UpdateMessage = status;
-                            Response.Write(script);
-                            return View(owe);
-                        }
                     }
                     else
                     {
-                        status = UResidence.OwnerController.Update(owe);
-                        if (status == true)
-                        {
-                            Session["UpdateMess"] = status;
-                            status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
-
-                            if (status == true)
-                            {
-                                List<Tenant> o2 = new List<Tenant>();
-                                o2 = UResidence.TenantController.GetTList(owe.Id);
-                                if (o2.Count > 0)
-                                {
-                                    for (int i = 0; i <= o2.Count - 1; i++)
-                                    {
-                                        Tenant tenn = new Tenant
-                                        {
-                                            BldgNo = owe.BldgNo,
-                                            UnitNo = owe.UnitNo,
-                                            Id = o2[i].Id
-                                        };
-                                        status = UResidence.TenantController.UpdateBU(tenn);
-                                    }
-                                }
-                            }
-
-                            return RedirectToAction("OwnerView", "Owner");
-                        }
-                        else
-                        {
-                            ViewBag.UpdateMessage = status;
-                            return View(owe);
-                        }
+                        string script = "<script type = 'text/javascript'>alert('The Building No. and Unit No. you have entered is already used');</script>";
+                        Response.Write(script);
+                        ViewBag.UpdateMessage = status;
+                        return View(owe);
                     }
                 }
                 else
-                {
-                    string script = "<script type = 'text/javascript'>alert('The Building No and Unit No you have entered is already in use');</script>";
-                    Response.Write(script);
-                    status = false;
-                    ViewBag.Alert = true;
-                    return View("OwnerView");
+                {                   
+                        Owner owe1 = new Owner();
+                        owe1 = UResidence.OwnerController.GetIdOwner(owe.Id);
+                        if (owe.Email != owe1.Email)
+                        {
+                            List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+                            if (listUser.Count == 0)
+                            {
+                                status = UResidence.OwnerController.Update(owe);
+                                if (status == true)
+                                {
+                                    Session["UpdateMess"] = status;
+                                    status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
+                                    if (status == true)
+                                    {
+                                        List<Tenant> o2 = new List<Tenant>();
+                                        o2 = UResidence.TenantController.GetTList(owe.Id);
+                                        if (o2.Count > 0)
+                                        {
+                                            for (int i = 0; i <= o2.Count - 1; i++)
+                                            {
+                                                Tenant tenn = new Tenant
+                                                {
+                                                    BldgNo = owe.BldgNo,
+                                                    UnitNo = owe.UnitNo,
+                                                    Id = o2[i].Id
+                                                };
+                                                status = UResidence.TenantController.UpdateBU(tenn);
+                                            }
+                                        }
+                                    }
+
+                                return RedirectToAction("OwnerView", "Owner", new { id = "" });
+                            }
+                                else
+                                {
+                                    ViewBag.UpdateMessage = status;
+                                    return View(owe);
+                                }
+                            }
+                            else
+                            {
+                                string script = "<script type = 'text/javascript'>alert('The email address you have entered is already used');</script>";
+                                ViewBag.UpdateMessage = status;
+                                Response.Write(script);
+                                return View(owe);
+                            }
+                        }
+                        else
+                        {
+                            status = UResidence.OwnerController.Update(owe);
+                            if (status == true)
+                            {
+                                Session["UpdateMess"] = status;
+                                status = UResidence.UserController.UpdateEmail(owe.Email, owe.LoginId);
+
+                                if (status == true)
+                                {
+                                    List<Tenant> o2 = new List<Tenant>();
+                                    o2 = UResidence.TenantController.GetTList(owe.Id);
+                                    if (o2.Count > 0)
+                                    {
+                                        for (int i = 0; i <= o2.Count - 1; i++)
+                                        {
+                                            Tenant tenn = new Tenant
+                                            {
+                                                BldgNo = owe.BldgNo,
+                                                UnitNo = owe.UnitNo,
+                                                Id = o2[i].Id
+                                            };
+                                            status = UResidence.TenantController.UpdateBU(tenn);
+                                        }
+                                    }
+                                }
+
+                            return RedirectToAction("OwnerView", "Owner", new { id = "" });
+                        }
+                            else
+                            {
+                                ViewBag.UpdateMessage = status;
+                                return View(owe);
+                            }
+                        }
+                    
+
                 }
+               
             }
             else
             {

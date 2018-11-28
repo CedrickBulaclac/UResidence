@@ -299,7 +299,8 @@ namespace UResidence.Controllers
             Session["AddMessage"] = status;
             return RedirectToAction("AdminView", "Admin");
         }
-        public ActionResult AdminView()
+        [HttpGet]
+        public ActionResult AdminView(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -341,7 +342,16 @@ namespace UResidence.Controllers
                 ViewBag.Alert=Session["alert"];
                 Session["alert"] = null;
             }
-                return View();       
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                Admin adm = UResidence.AdminController.GetbyIDEdit(id.ToString());
+                ViewBag.ModalView = 1;
+                return View(adm);
+            }
         }
         public ActionResult Delete(int id)
         {
@@ -400,7 +410,7 @@ namespace UResidence.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdminEdit(Admin adm)
+        public ActionResult AdminView(Admin adm)
         {
             if (Session["Level"] == null)
             {
@@ -423,14 +433,14 @@ namespace UResidence.Controllers
                         }
                         else
                         {
-                            status = UResidence.AdminController.Update(adm);
+                            status = UResidence.AdminController.UpdateBoss(adm);
                             status = UResidence.UserController.UpdateEmail(adm.Email,adm.LoginId);
                         }
                         if (status == true)
                         {
                             ViewBag.UpdateMessage = status;
                             Session["UpdateMess"] = status;
-                            return RedirectToAction("AdminView", "Admin");
+                            return RedirectToAction("AdminView", "Admin",new { id=""});
                         }
                         else
                         {
@@ -459,7 +469,7 @@ namespace UResidence.Controllers
                     {
                         ViewBag.UpdateMessage = status;
                         Session["UpdateMess"] = status;
-                        return RedirectToAction("AdminView", "Admin");
+                        return RedirectToAction("AdminView", "Admin", new { id = "" });
                     }
                     else
                     {

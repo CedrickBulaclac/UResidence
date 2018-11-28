@@ -388,8 +388,7 @@ namespace UResidence.Controllers
                                 string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
                                 Response.Write(script);
                                 ViewBag.Alert = true;
-                                TenantView();
-                                return View("TenantView");
+                                return RedirectToAction("TenantView", "Tenant", new { id = "" });
                             }
                                                        
                              }
@@ -398,8 +397,7 @@ namespace UResidence.Controllers
                                             ViewBag.ErrorMessage = FixMessages(err);
                                             status = false;
                             ViewBag.Alert = true;
-                            TenantView();
-                            return View("TenantView");
+                            return RedirectToAction("TenantView", "Tenant", new { id = "" });
                         }
                           }
                          else
@@ -408,9 +406,8 @@ namespace UResidence.Controllers
                           Response.Write(script);
                           status = false;
                           ViewBag.Alert = true;
-                        TenantView();
-                        return View("TenantView");
-                         }
+                        return RedirectToAction("TenantView", "Tenant", new { id = "" });
+                    }
                  }
                  else
                  {
@@ -418,8 +415,7 @@ namespace UResidence.Controllers
                  Response.Write(script);
                  status = false;
                  ViewBag.Alert = true;
-                 TenantView();
-                 return View("TenantView");
+                    return RedirectToAction("TenantView", "Tenant", new { id = "" });
                 }
             }
             else
@@ -428,14 +424,13 @@ namespace UResidence.Controllers
             Response.Write(script);
             status = false;
                 ViewBag.Alert = true;
-                TenantView();
-                return View("TenantView");
+                return RedirectToAction("TenantView", "Tenant", new { id = "" });
             }
             Session["AddMessage"] = status;
             return RedirectToAction("TenantView", "Tenant");
         }
-    
-        public ActionResult TenantView()
+        [HttpGet]
+        public ActionResult TenantView(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -464,52 +459,94 @@ namespace UResidence.Controllers
                 ViewBag.DeleteMessage = Session["DeleteStatus"];
                 Session["DeleteStatus"] = null;
             }
-            List<Tenant> ten = new List<Tenant>();
-            List<object> building = new List<object>();
-            List<object> unit = new List<object>();
-            ten = UResidence.TenantController.GetAll();          
-            if(ten.Count>0)
+            if (id == null)
             {
-                for(int i=0; i <= ten.Count - 1; i++)
+                List<Tenant> ten = new List<Tenant>();
+                List<object> building = new List<object>();
+                List<object> unit = new List<object>();
+                ten = UResidence.TenantController.GetAll();
+                if (ten.Count > 0)
                 {
-                    if(ten[i].LeaseEnd <= DateTime.Now)
+                    for (int i = 0; i <= ten.Count - 1; i++)
                     {
-                        Tenant tenmodel = new Tenant
+                        if (ten[i].LeaseEnd <= DateTime.Now)
                         {
-                            Deleted = "1",
-                            Id=ten[i].Id
-                        };
-                        UResidence.TenantController.UpdateDelete(tenmodel);
+                            Tenant tenmodel = new Tenant
+                            {
+                                Deleted = "1",
+                                Id = ten[i].Id
+                            };
+                            UResidence.TenantController.UpdateDelete(tenmodel);
+                        }
                     }
                 }
-            }
-            var ownerr = UResidence.OwnerController.GetAll();
-            if(ownerr.Count>0)
-            {
-                for(int i=0;i<=ownerr.Count-1;i++)
+                var ownerr = UResidence.OwnerController.GetAll();
+                if (ownerr.Count > 0)
                 {
-                    if (building.Contains(ownerr[i].BldgNo))
+                    for (int i = 0; i <= ownerr.Count - 1; i++)
                     {
+                        if (building.Contains(ownerr[i].BldgNo))
+                        {
 
-                    }
-                    else
-                    {
-                        building.Add(ownerr[i].BldgNo);
-                    }
-                    if (unit.Contains(ownerr[i].UnitNo))
-                    {
+                        }
+                        else
+                        {
+                            building.Add(ownerr[i].BldgNo);
+                        }
+                        if (unit.Contains(ownerr[i].UnitNo))
+                        {
 
-                    }
-                    else
-                    {
-                        unit.Add(ownerr[i].UnitNo);
+                        }
+                        else
+                        {
+                            unit.Add(ownerr[i].UnitNo);
+                        }
                     }
                 }
+                var to = new TenantOwner();
+                to.UnitNoList = unit;
+                to.BuildingList = building;
+                to.tenant = new Tenant();
+                return View(to);
             }
-            var to = new TenantOwner();          
-            to.UnitNoList = unit;
-            to.BuildingList = building;
-            return View(to);      
+            else
+            {
+                string i = id.ToString();
+                int ii = 0;
+                Tenant tenantList = UResidence.TenantController.GetId(i);
+                var ownerr = UResidence.OwnerController.GetAll();
+                var to = new TenantOwner();
+                List<object> building = new List<object>();
+                List<object> unit = new List<object>();
+                ownerr = UResidence.OwnerController.GetAll();
+                if (ownerr.Count > 0)
+                {
+                    for (ii = 0; ii <= ownerr.Count - 1; ii++)
+                    {
+                        if (building.Contains(ownerr[ii].BldgNo))
+                        {
+
+                        }
+                        else
+                        {
+                            building.Add(ownerr[ii].BldgNo);
+                        }
+                        if (unit.Contains(ownerr[ii].UnitNo))
+                        {
+
+                        }
+                        else
+                        {
+                            unit.Add(ownerr[ii].UnitNo);
+                        }
+                    }
+                }
+                to.UnitNoList = unit;
+                to.BuildingList = building;
+                to.tenant = tenantList;
+                ViewBag.ModalView = 1;
+                return View(to);
+            }
         }
         [HttpGet]
         public ActionResult Delete(int id)
@@ -591,7 +628,7 @@ namespace UResidence.Controllers
             return View(to);
         }
         [HttpGet]
-        public ActionResult TenantEdit(int id)
+        public ActionResult TenantEdit(int? id)
         {
             if (Session["Level"] == null)
             {
@@ -647,7 +684,7 @@ namespace UResidence.Controllers
             return View("TenantEdit");
         }
         [HttpPost]
-        public ActionResult TenantEdit(TenantOwner ten1)
+        public ActionResult TenantView(TenantOwner ten1)
         {
             Tenant ten = ten1.tenant;
             List<Owner> ownerr = new List<Owner>();
@@ -677,7 +714,7 @@ namespace UResidence.Controllers
                             {
                                 status = UResidence.UserController.UpdateEmail(ten.Email, ten.LoginId);
                                 Session["UpdateMess"] = status;
-                                return RedirectToAction("TenantView", "Tenant");
+                                return RedirectToAction("TenantView", "Tenant", new { id=""});
                             }
                             else
                             {
@@ -735,7 +772,7 @@ namespace UResidence.Controllers
                         {
                             status = UResidence.UserController.UpdateEmail(ten.Email, ten.LoginId);
                             Session["UpdateMess"] = status;
-                            return RedirectToAction("TenantView", "Tenant");
+                            return RedirectToAction("TenantView", "Tenant", new { id = "" });
                         }
                         else
                         {

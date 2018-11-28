@@ -24,7 +24,7 @@ namespace UResidence
         public int MorningHour { get; set; }
         public int MorningToWOEvening { get; set; }
         public int EveningHour { get; set; }
-        public int woMorningToEvening { get; set; }
+        public int WOMorningToEvening { get; set; }
         public decimal TotalAmenityRate { get; set; }
         public int RefNo { get; set; }
         public string EquipmentName { get; set; }
@@ -39,7 +39,7 @@ namespace UResidence
         public DateTime DateP { get; set; }
         public decimal AdultRate { get; set; }
         public decimal ChildRate { get; set; }
-        public DateTime Starttime{get;set;}
+        public DateTime Starttime { get; set; }
         public DateTime EndTime { get; set; }
         public decimal TotalEquipmentRate { get; set; }
         public ReportReservation CreateObject(SqlDataReader reader)
@@ -47,21 +47,21 @@ namespace UResidence
             ReportReservation ret = new ReportReservation();
             ret.BldgNo = reader.GetString(0);
             ret.UnitNo = reader.GetString(1);
-            ret.OwnerName = reader.GetString(2);           
+            ret.OwnerName = reader.GetString(2);
             ret.RefNo = reader.GetInt32(3);
             ret.Starttime = reader.GetDateTime(4);
             ret.EndTime = reader.GetDateTime(5);
-            ret.DateofReservation = reader.GetString(6);   
+            ret.DateofReservation = reader.GetString(6);
             ret.AmenityName = reader.GetString(7);
             ret.Rate = reader.GetDecimal(8);
             ret.EveningRate = reader.GetDecimal(9);
             ret.MorningHour = reader.GetInt32(10);
-            ret.MorningToWOEvening = reader.GetInt32(11);
-            ret.EveningHour = reader.GetInt32(12);
-            ret.woMorningToEvening = reader.GetInt32(13);
+            ret.EveningHour = reader.GetInt32(11);
+            ret.MorningToWOEvening = reader.GetInt32(12);
+            ret.WOMorningToEvening = reader.GetInt32(13);
             ret.TotalAmenityRate = reader.GetDecimal(14);
-            ret.Date = reader.GetDateTime(15);           
-            ret.TypeResident = reader.GetString(16);        
+            ret.Date = reader.GetDateTime(15);
+            ret.TypeResident = reader.GetString(16);
             ret.Charge = reader.GetDecimal(17);
             ret.Totalpayment = reader.GetDecimal(18);
             ret.Description = reader.GetString(19);
@@ -72,7 +72,7 @@ namespace UResidence
 
         public void Reset()
         {
-          
+
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@model UResidence.Equipment
 
 @{
+    /**/
+
     ViewBag.Title = "AdminView";
     if (Convert.ToInt32(Session["Level"]) == 1)
     {
@@ -151,17 +153,142 @@
 
                     <br />
                     <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                    <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 }
-<br />
-<br />
+@if (Model != null)
+{
+    using (Html.BeginForm("EquipmentView", "Equipment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="modal fade" id="UpdateModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#43a047">
 
+                            <font color="white">
+                                <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+                                <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE EQUIPMENT INFORMATION </div>
+                            </font>
+
+                        </div>
+
+                        <div class="modal-body form-horizontal">
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Name">Name :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Stocks">Stocks :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Rate">Rate :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Image">Image :</label>
+
+                                    <div class="col-sm-6">
+
+                                        <button type="button" class="btn btn-info" id="btnUpdateImage" name="btnUpdateImage" data-dismiss="modal">Update Image</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+
+                                    <label class="col-sm-4" for="Description">Description :</label>
+
+                                    <div class="col-sm-6">
+
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*---Modal for Update Equipment Image---*@
+        <div class="container">
+            <div class="modal fade" id="updateImageModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" id="imageequip" name="imageequip" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal" style="float:right;">Close</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage(@Model.Id)" style="float:right;">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+<br />
+<br />
+<br />
 
 <div class="container">
     <br />
@@ -357,7 +484,21 @@
         </script>
     }
 }
-
+@if (ViewBag.ModalView != null)
+{
+    if (ViewBag.ModalView == 1)
+    {
+        <script>
+            $('#UpdateModal').modal();
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#UpdateModal').modal("hide");
+        </script>
+    }
+}
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
@@ -376,7 +517,7 @@
                 { "data": "Description", "autowidth": true },
                 { "data": "Stocks", "autowidth": true },
                 { "data": "Rate", 'render': function (data, type, full, meta) { return '₱' + Number(data).toFixed(2) }, "autowidth": true },
-                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Equipment/EquipmentEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Equipment/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Equipment/EquipmentView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Equipment/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
             ]
         });
     });
@@ -393,6 +534,43 @@
     $('#addbtn').click(function () {
 
         $('#AddModal').modal();
+    }
+    );
+    function UpdateImage(id) {
+
+        var Id = id;
+
+        var file = $("#imageequip").get(0).files;
+        var data = new FormData();
+        data.append("Image", file[0]);
+        data.append("Id", Id);
+
+        $.ajax({
+            type: "POST",
+            url: "/Equipment/UpdateImage/",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == true) {
+                    alert('Success');
+                    location.reload();
+
+                }
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
+    }
+
+    $('#btnCloseImage').click(function () {
+        $('#updateImageModal').modal('hide');
+    }
+    );
+
+    $('#btnUpdateImage').click(function () {
+        $('#updateImageModal').modal();
     }
     );
 </script>

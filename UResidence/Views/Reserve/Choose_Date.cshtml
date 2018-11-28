@@ -239,7 +239,7 @@
                                         <span class="fa fa-3x fa fa-info"></span>
                                     </div>
                                     <div class="info">
-                                        <h4 class="text-center">Reminders: </h4>
+                                        <h4 class="text-center">Terms and Conditions: </h4>
 
                                         <p><b> Reservation of Clubhouse </b>  - Weekdays, Saturdays & Sundays (After the Mass).</p>
                                         <p> <b> Reservation of Basketball Court</b> - Weekdays Only; NO RESERVATION during weekends (Saturdays,Sundays & Holidays).</p>
@@ -399,21 +399,38 @@
 
 
 
-	$("form").submit(function (e) {
-		if (chk.checked != true) {
-			alert("Please read and check our terms and agreements");
-			e.preventDefault();
-		}
-		else {
-			var q = new Date();
-			var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
+    $("form").submit(function (e) {
 
-			if (startDate < MyDateString) {
-				alert("Your chosen date is earlier than today");
-				document.getElementById('sd').value = null;
-				e.preventDefault();
-			}
-		}
+        
+        var i = $('#st').val();
+        var ii = $('#et').val();    
+        var iii = $('#sd').val();
+        var datee = new Date();
+        var timeT = datee.getHours() + ":" + datee.getMinutes();
+        var dateY = datee.getFullYear() + "-" + (datee.getMonth()+1) + "-" + datee.getDate();
+        var i1 = new Date(i);
+        var i2 = new Date(ii);      
+       
+            if (chk.checked != true) {
+                alert("Please read and check our terms and conditions");
+                e.preventDefault();
+            }
+            else {
+                if (iii != dateY) {
+
+                }
+                else {
+                    if ((i > timeT && ii > timeT)) {
+
+                    }
+                    else {
+                        alert("Time is earlier than today");
+                        e.preventDefault();
+                    }
+                }
+            }
+     
+	
 	});
 
 
@@ -455,7 +472,14 @@
 		}
 	}
 	$(document).ready(
-		function () {
+        function () {
+        
+
+
+            $('[type="date"]').prop('min', function () {
+                return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+            });
+
 			document.getElementById('sd').value = "";
 			document.getElementById('st').value = "";
 			document.getElementById('et').value = "";
@@ -525,13 +549,7 @@
             var eh = parseInt(endHours.split(':')[0], 10);
             var diff = eh - sh;
             if (eh >= 9 && eh <= 21) {
-                //if (sh == 17 && eh == 18) {
-                //    alert('Unavailable Time');
-                //    document.getElementById('st').value = '';
-                //    document.getElementById('et').value = '';
-                //    document.getElementById('rate').value = 0;
-                //}
-				/*else*/ if (eh >= 9 && eh <= 18) {
+                if (eh >= 9 && eh <= 18) {
                     rateA = rate1 * diff;
                     document.getElementById('rate').value = "₱" +rateA.toFixed(2);
                 }
@@ -547,8 +565,6 @@
 
 					}
 					else {
-
-						//100  *  2 = 200 * 6 = 1200
 						rateA = (rate2 * diff);
                         document.getElementById('rate').value = "₱" + rateA.toFixed(2);
 					}

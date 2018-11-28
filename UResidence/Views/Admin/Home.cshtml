@@ -216,7 +216,7 @@
                 <br />
 
 
-
+            <center>
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading" style="background-color:  #1C2331">
@@ -316,6 +316,7 @@
 
                     </div>
                 </div>
+                </center>
 
 
                 @*</div>*@
@@ -349,7 +350,7 @@
 
                             <div class="col-lg-4">
                                 <center>
-                                    <b>Year :</b>
+                                    <b>Yearly :</b>
                                     <select class="form-control" id="textyear" style="text-align:center;" name="textyear" onchange="Change()">
                                         <option value="2018">2018</option>
                                     </select>
@@ -366,7 +367,7 @@
                             <div class="col-lg-4">
 
                                 <center>
-                                    <b>Month :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
+                                    <b>Monthly :</b> <select class="form-control" style="text-align:center;" id="month" name="month" onchange="ValueChange()">
                                         <option value="1">January</option>
                                         <option value="2">February</option>
                                         <option value="3">March</option>
@@ -401,9 +402,11 @@
 
                             <div class="col-lg-4">
                                 <center>
-                                    <b>Quarter :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
-                                        <option value="1">January - June</option>
-                                        <option value="2">July - December</option>
+                                    <b>Quarterly :</b> <select class="form-control" style="text-align:center;" id="quarter" name="quarter" onchange="ValueQuarterYearChange()">
+                                        <option value="1">January - March</option>
+                                        <option value="2">April - June</option>
+                                        <option value="3">July - September</option>
+                                        <option value="4">October - December</option>
                                     </select>
                                 </center>
                            
@@ -512,11 +515,17 @@
             });
             ValueYearChange();
             var quarter = 0;
-            if (month >= 1 && month <= 6) {
+            if (month >= 1 && month <= 3) {
                 quarter = 1;
             }
-            else {
+            else if (month >= 4 && month <= 6) {
                 quarter = 2;
+            }
+            else if (month >= 7 && month <= 9) {
+                quarter = 3;
+            }
+            else if (month >= 10 && month <= 12) {
+                quarter = 4;
             }
             var s = 0;
             var e = 0;
@@ -524,15 +533,27 @@
             switch (quarter) {
                 case 1:
                     s = 1;
-                    e = 6;
-                    period = "January - June";
+                    e = 3;
+                    period = "January - March";
                     document.getElementById('quarter').value = 1;
                     break;
                 case 2:
-                    s = 7;
-                    e = 12;
-                    period = "July - December"
+                    s = 4;
+                    e = 6;
+                    period = "April - June"
                     document.getElementById('quarter').value = 2;
+                    break;
+                case 3:
+                    s = 7;
+                    e = 9;
+                    period = "July - September";
+                    document.getElementById('quarter').value = 3;
+                    break;
+                case 4:
+                    s = 10;
+                    e = 12;
+                    period = "October - December"
+                    document.getElementById('quarter').value = 4;
                     break;
             }
             var datapoints1 = [];
@@ -758,17 +779,32 @@
             var quarter = document.getElementById('quarter').value;
             var s = 0;
             var e = 0;
+            alert(quarter);
             var period = "";
             switch (quarter) {
                 case "1":
                     s = 1;
-                    e = 6;
-                    period = "January - June";
+                    e = 3;
+                    period = "January - March";
+                    document.getElementById('quarter').value = 1;
                     break;
                 case "2":
+                    s = 4;
+                    e = 6;
+                    period = "April - June"
+                    document.getElementById('quarter').value = 2;
+                    break;
+                case "3":
                     s = 7;
+                    e = 9;
+                    period = "July - September";
+                    document.getElementById('quarter').value = 3;
+                    break;
+                case "4":
+                    s = 10;
                     e = 12;
-                    period = "July - December"
+                    period = "October - December"
+                    document.getElementById('quarter').value = 4;
                     break;
             }
             var datapoints = [];
