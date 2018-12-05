@@ -67,142 +67,147 @@
                         </font>
                     </div>
 
-                    <div class="modal-body form-horizontal">
+                    <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-                        <div class="form-group">
+                        <div class="col-sm-12">
 
-                            <div class="col-sm-12">
-                                <labell for="First Name"> <b>First Name : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Middle Name"><b>Middle Name : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Last Name"><b>Last Name : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Bdate"><b>Birthdate : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
 
 
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Cel"><b>Cellphone No. : </b> </labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Email"><b>Email Address : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <label for="Bldg no">Building no. :</label>
-
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                                            {
-                                                                                new SelectListItem() {Text = "1A", Value="1A"},
-                                                                                new SelectListItem() {Text = "1B", Value="1B"},
-                                                                                new SelectListItem() {Text = "1C", Value="1C"},
-                                                                                new SelectListItem() {Text = "2A", Value="2A"},
-                                                                                new SelectListItem() {Text = "2B", Value="2B"},
-                                                                                new SelectListItem() {Text = "2C", Value="2C"},
-                                                                             }, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <label for="Unit no">Unit no. :</label>
-
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-
-                                    <label class="col-sm-4">Registration Form :</label>
-
-                                    <div class="col-sm-6">
-                                        <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Insert Image</button>
-
-                                    </div>
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
                         </div>
-                        <br />
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label for="Bldg no" class="col-sm-4">Building no. :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                            {
+                                                new SelectListItem() {Text = "1A", Value="1A"},
+                                                new SelectListItem() {Text = "1B", Value="1B"},
+                                                new SelectListItem() {Text = "1C", Value="1C"},
+                                                new SelectListItem() {Text = "2A", Value="2A"},
+                                                new SelectListItem() {Text = "2B", Value="2B"},
+                                                new SelectListItem() {Text = "2C", Value="2C"},
+                                             }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label for="Unit no" class="col-sm-4">Unit no. :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">*@
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4">Registration Form :</label>
+
+                                <div class="col-sm-7">
+                                    <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Insert Image</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        @*</div>*@
+
+                     
+
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
                             <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
@@ -250,143 +255,149 @@
                         </font>
                     </div>
 
-                    <div class="modal-body form-horizontal">
+                    <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-                        <div class="form-group">
+                        <div class="col-sm-12">
 
-                            <div class="col-sm-12">
-                                <labell for="First Name"> <b>First Name : </b></labell>
-                            </div>
+                            <div class="form-group">
+                                <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
 
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Middle Name"><b>Middle Name : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="col-sm-12">
 
-                            <div class="col-sm-12">
-                                <labell for="Last Name"><b>Last Name : </b></labell>
+                            <div class="form-group">
+                                <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+                                    @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label for="Bldg no" class="col-sm-4">Building no. :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
+                                                        {
+                                                                            new SelectListItem() {Text = "1A", Value="1A"},
+                                                                            new SelectListItem() {Text = "1B", Value="1B"},
+                                                                            new SelectListItem() {Text = "1C", Value="1C"},
+                                                                            new SelectListItem() {Text = "2A", Value="2A"},
+                                                                            new SelectListItem() {Text = "2B", Value="2B"},
+                                                                            new SelectListItem() {Text = "2C", Value="2C"},
+                                                                         }, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label for="Unit no" class="col-sm-4">Unit no. :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
+                                </div>
 
                             </div>
                         </div>
 
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Bdate"><b>Birthdate : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
 
-                            </div>
-                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
 
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Cel"><b>Cellphone No. : </b> </labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
+                                <label class="col-sm-4">Registration Form :</label>
 
 
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-
-                            <div class="col-sm-12">
-                                <labell for="Email"><b>Email Address : </b></labell>
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <label for="Bldg no">Building no. :</label>
-
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                                            {
-                                                                                new SelectListItem() {Text = "1A", Value="1A"},
-                                                                                new SelectListItem() {Text = "1B", Value="1B"},
-                                                                                new SelectListItem() {Text = "1C", Value="1C"},
-                                                                                new SelectListItem() {Text = "2A", Value="2A"},
-                                                                                new SelectListItem() {Text = "2B", Value="2B"},
-                                                                                new SelectListItem() {Text = "2C", Value="2C"},
-                                                                             }, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <label for="Unit no">Unit no. :</label>
-
-                            </div>
-
-                            <div class="col-sm-12">
-                                @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-
-                                <label>Registration Form :</label>
-
-                            </div>
-
-                            <div class="col-sm-12">
-                                <input type="file" id="Image1" name="Image1" />
+                                <div class="col-sm-7">
+                                    <input type="file" id="Image1" name="Image1" />
+                                </div>
                             </div>
                         </div>
 
                     </div>
-                    <br />
+                    
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Add</button>
                         <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
                     </div>
                 </div>

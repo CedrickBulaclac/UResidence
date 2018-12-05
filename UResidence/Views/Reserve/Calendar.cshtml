@@ -204,13 +204,16 @@
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog" style="position:initial;">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header" style="background-color:#43a047">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                                    <font color="white">
+                                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                                    </font>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" style="height:calc(100vh-212px); overflow-y:auto;">
                                     <p id="pDetails"></p>
                                 </div>
+                             
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
@@ -310,11 +313,11 @@
                                     events: events,
 
                                     eventClick: function (calEvent, jsEvent, view) {
-                                        $('#myModal #eventTitle').html('<b>Amenity Name: </b>' + calEvent.title);
+                                        $('#myModal #eventTitle').html('<div class= "col-sm-4"><b>Amenity Name: </b></div>' + '<div class="col-sm-7">' + calEvent.title + '</div>');
                                         var $description = $('<div/>');
-                                        $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
+                                        $description.append($('<p/>').html('<div class= "col-sm-4"><b>StartTime: </b> </div>' + '<div class="col-sm-7">' + calEvent.start.format("DD/MMM/YYYY hh:mm a") + '</div>'));
                                         if (calEvent.end != null) {
-                                            $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                                            $description.append($('<p/>').html('<div class= "col-sm-4"> <b>EndTime: </b> </div>' + '<div class="col-sm-7">'+ calEvent.end.format("DD/MMM/YYYY hh:mm a") + '</div>'));
                                         }
                                       
                                         $('#myModal #pDetails').empty().html($description);

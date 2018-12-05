@@ -67,22 +67,41 @@
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog" style="position:initial;">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header" style="background-color:#43a047">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                            <font color="white">
+                                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                            </font>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="height:calc(100vh-212px); overflow-y:auto;">
                             <input type="hidden" name="rid" id="rid" />
                             <input type="hidden" name="rfid" id="rfid" />
+                            @*<b>Amenity Name</b>*@
+
+
+
+
                             <p id="pDetails">
+
+                                @*<div class="col-sm-7">
+                    <label id="amenityname1" name="amenityname1"></label>
+                </div>*@
+
                             </p>
+
+
+
+
+
+
+
                             <p id="pSwimming">
                             </p>
                             <p id="pAmount">
                             </p>
                             <br /><br />
                         </div>
-
+                        
                         <div class="modal-footer" id="footer">
 
 
@@ -176,10 +195,10 @@
                     if (data.length > 0) {
                         var $description = $('<div/>');
                         stots = (data[0].Adult * data[0].AdultRate) + (data[0].Child * data[0].ChildRate);
-                        $description.append($('<p/>').html('<b>No. of Adult: </b>' + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/> ₱'+ data[0].AdultRate.toFixed(2)));
-                        $description.append($('<p/>').html('<b>Adult Cost: </b>  ₱' + (data[0].Adult * data[0].AdultRate).toFixed(2)));
-                        $description.append($('<p/>').html('<b>No. of Children: </b>' + data[0].Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/> ₱'+ data[0].ChildRate.toFixed(2)));
-                        $description.append($('<p/>').html('<b> Child Cost: </b>  ₱' + (data[0].Child * data[0].ChildRate).toFixed(2)));
+                        $description.append($('<p/>').html('<div class="col-sm-4"> <b>No. of Adult: </b> </div>' + '<div class="col-sm-7">' + data[0].Adult + '</div>' + ' <div class= "col-sm-4"> <b>Adult Rate: </b> ' + '<div class="col-sm-7"> ₱' + data[0].AdultRate.toFixed(2) +'</div>'));
+                        $description.append($('<p/>').html('<div class="col-sm-4"> <b>Adult Cost: </b> </div>  ' + '<div class="col-sm-7">  ₱'+ (data[0].Adult * data[0].AdultRate).toFixed(2) + '</div>'));
+                        $description.append($('<p/>').html('<div class="col-sm-4"> <b>No. of Children: </b> </div>' + '<div class="col-sm-7">' + data[0].Child + '</div>' +'<div class= "col-sm-4"> <b>Child Rate: </b> ' + '<div class="col-sm-7"> ₱' + data[0].ChildRate.toFixed(2) + '</div>'));
+                        $description.append($('<p/>').html('<div class="col-sm-4"> <b> Child Cost: </b> </div> ' + '<div class="col-sm-7">  ₱' + (data[0].Child * data[0].ChildRate).toFixed(2) +'</div>'));
 
                         if (stots != 0) {
                             $('#myModal #pSwimming').empty().html($description);
@@ -199,27 +218,36 @@
                 data: { "refno": refno11 },
                 success: function (data) {
                     var $description = $('<div/>');
-                    $description.append($('<p/>').html('<b>Amenity Cost: </b> ₱'+ rate.toFixed(2)));
+                    $description.append($('<p/>').html('<div class="col-sm-4"> <b>Amenity Cost: </b>  </div>' + '<div class="col-sm-7"> ₱'+ rate.toFixed(2) + '</div>'));
+                    $description.append($('<p/>').html('<br/>'));
                     if (data.length > 0) {
                         for (var ctr = 0; ctr <= data.length - 1; ctr++) {
-                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Quantity: </b> ' + data[ctr].Quantity + '&nbsp;&nbsp;&nbsp;<b>' + data[ctr].EquipmentName + ' Rate: <b/> ₱' + data[ctr].Rate.toFixed(2)));
-                            $description.append($('<p/>').html('<b>' + data[ctr].EquipmentName + ' Cost: </b> ₱' +(data[ctr].Quantity * data[ctr].Rate).toFixed(2)));
+                         
+                            $description.append($('<p/>').html('<div class= "col-sm-4"><b>' + data[ctr].EquipmentName + ' Quantity: </b></div> ' + '<div class="col-sm-5">' + data[ctr].Quantity + '</div>' + '<div class= "col-sm-4"> <b>' + data[ctr].EquipmentName + ' Rate per pc: </b> ' + '<div class="col-sm-7" > ₱'+ data[ctr].Rate.toFixed(2) + '</div>'));
+                            $description.append($('<p/>').html(' <div class="col-sm-4"> <b>' + data[ctr].EquipmentName + ' Cost: </b> </div>' + '<div class="col-sm-7">  ₱'+ (data[ctr].Quantity * data[ctr].Rate).toFixed(2) +'</div>'));
+
                             tccc += (data[ctr].Quantity * data[ctr].Rate);
+                 
                         }
                     }
                     if (data.length > 0) {
-                        $description.append($('<p/>').html('<b>Equipment Cost: </b> ₱'+ tccc.toFixed(2)));
+                        $description.append($('<p/>').html('<div class= "col-sm-4"><b>Equipment Cost: </b></div> ' + '<div class= "col-sm-7"> ₱' + tccc.toFixed(2) + '</div>'));
+
                     }
-                    $description.append($('<p/>').html('<b>Charge: </b> ₱' + cg.toFixed(2)));
-                    $description.append($('<p/>').html('<b>Total Cost: </b> ₱' +((rate + tccc + cg).toFixed(2))));
-                    $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱' +(amt).toFixed(2)));
-                    $description.append($('<p/>').html('<b>Total Payment: </b> ₱' + (dp - amt).toFixed(2)));
+                    $description.append($('<p/>').html('<div class= "col-sm-4"> <b>Charge: </b> </div> ' + '<div class= "col-sm-7"> ₱' + cg.toFixed(2) + '</div>'));
+            
+                    $description.append($('<p/>').html('<div class= "col-sm-4"><b>Total Cost: </b> </div> ' + '<div class= "col-sm-7"> ₱' + ((rate + tccc + cg).toFixed(2)) + '</div>'));
+               
+                    $description.append($('<p/>').html('<div class= "col-sm-4"><b>Reversal Amount: </b> </div> ' + '<div class= "col-sm-7"> ₱' + (amt).toFixed(2) + '</div>'));
+           
+                    $description.append($('<p/>').html('<div class= "col-sm-4"><b>Total Payment: </b></div> ' + '<div class= "col-sm-7"> ₱' + (dp - amt).toFixed(2) + '</div>'));
+             
                     outstanding1 = ((rate + tccc + cg) - (dp - amt));
                     if (outstanding1 < 0) {
                         outstanding1 *= -1;
                     }
-                    $description.append($('<p/>').html('<b>Outstanding Total: </b> ₱'+ outstanding1.toFixed(2)));
-                    $description.append($('<p/>').html('<b>Status: </b>' + status));
+                    $description.append($('<p/>').html('<div class= "col-sm-4"> <b>Outstanding Total: </b> </div> ' + '<div class= "col-sm-7"> ₱'+ outstanding1.toFixed(2) + '</div>'));
+                    $description.append($('<p/>').html('<div class= "col-sm-4"> <b>Status: </b> </div>' + '<div class= "col-sm-7">' + status + '</div>'));
                     $('#myModal #pAmount').empty().html($description);
 
                 },
@@ -245,20 +273,25 @@
 
 				eventClick: function (calEvent, jsEvent, view) {
 					selectedEvent = calEvent;
-                    $('#myModal #eventTitle').html('<b>Reference Number: </b>' + calEvent.rf)
-					var $description = $('<div/>');
-                    $description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
-                    $description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-                    $description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-                    $description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-                    $description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-                    $description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                    $('#myModal #eventTitle').html('<b>Reference Number: </b>' + '00' + calEvent.rf)
+                    var $description = $('<div/>');
+
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>Amenity Name: </b></div>' +'<div class="col-sm-7">'+calEvent.title +'</div>'));
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>Reserved By: </b></div>' + '<div class="col-sm-7">' + calEvent.reserved + '</div>'));
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>Building No: </b></div>' + '<div class="col-sm-7">' + calEvent.bn + '</div>'));
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>Unit No: </b></div>' + '<div class="col-sm-7">' + calEvent.un + '</div>'));
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>StartTime: </b></div>' + '<div class="col-sm-7">' + calEvent.start.format("DD/MMM/YYYY hh:mm a") + '</div>'));
+                    $description.append($('<p/>').html('<div class="col-sm-4"><b>EndTime: </b></div>' + '<div class="col-sm-7">' + calEvent.end.format("DD/MMM/YYYY hh:mm a") + '</div>'));
                     Swimming(calEvent.rf);
                     getEquipReversation(calEvent.rf, calEvent.cg, calEvent.rate, calEvent.dp, calEvent.amt, calEvent.status);
                     document.getElementById('rid').value = calEvent.r;
                     document.getElementById('rfid').value = calEvent.rf;
                     $('#myModal #pDetails').empty().html($description);
+                   
                     $('#footer').empty();
+
+                  
+                    
 
                     if (calEvent.status == "Reserved") {
 
