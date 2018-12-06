@@ -41,6 +41,14 @@ namespace UResidence.Controllers
             ret = UResidence.OwnerController.GetAll();
             return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetOwnerS(Owner data)
+        {
+            Owner ret = new Owner();
+            ret = UResidence.OwnerController.GETID(data.Id);
+            return new JsonResult { Data = ret ,JsonRequestBehavior=JsonRequestBehavior.AllowGet};
+        }
+
         private bool SendEmail(string email1, string pass)
         {
             try
@@ -164,7 +172,10 @@ namespace UResidence.Controllers
                                     Email = owe.Email,
                                     Deleted = "0",
                                     URL = "~/Content/OwnerImages/user.png",
-                                    Form = finalpath
+                                    Form = finalpath,
+                                    ENo = owe.ENo,
+                                    EName = owe.EName,
+                                    EAddress = owe.EAddress
                                 };
                                 status = UResidence.OwnerController.Insert(ow);
                             }
@@ -183,7 +194,11 @@ namespace UResidence.Controllers
                                     Email = owe.Email,
                                     Deleted = "0",
                                     URL = "~/Content/OwnerImages/user.png",
-                                    Form = "~/Content/OwnerImages/noimage.jpeg"
+                                    Form = "~/Content/OwnerImages/noimage.jpeg",
+                                    ENo = owe.ENo,
+                                    EName = owe.EName,
+                                    EAddress = owe.EAddress
+
 
                                 };
 

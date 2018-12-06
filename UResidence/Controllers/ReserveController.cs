@@ -617,6 +617,7 @@ namespace UResidence.Controllers
             }
             eqpid = qid.ToArray();
             Session["eqpid"] = eqpid;
+            ViewBag.name = Session["NAME"].ToString();
             return View(model);                     
         }
 
@@ -1160,7 +1161,7 @@ namespace UResidence.Controllers
                 }
                 Session["URLL"] = t.URL;
             }
-
+            ViewBag.name = Session["NAME"].ToString();
             return View();
         }
 

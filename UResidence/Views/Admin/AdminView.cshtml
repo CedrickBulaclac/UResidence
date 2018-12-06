@@ -1,90 +1,197 @@
 ﻿@model UResidence.Admin
 
 @{
-    ViewBag.Title = "AdminView";
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        Layout = "/Views/Layout/BossManagerLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 0)
-    {
-        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "/Views/Layout/AdminLayout.cshtml";
-    }
-    List<SelectListItem> listItemsRole = new List<SelectListItem>();
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "---Select Role---",
-        Value = "0"
-    });
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "Cashier",
-        Value = "Cashier"
-    });
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "Finance",
-        Value = "Finance"
-    });
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "Registration",
-        Value = "Registration"
-    });
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "Security Guard",
-        Value = "Security Guard"
-    });
-    listItemsRole.Add(new SelectListItem
-    {
-        Text = "Reservation Admin",
-        Value = "Reservation Admin"
-    });
-    if (Convert.ToInt32(Session["Level"]) == 0)
-    {
-        listItemsRole.Add(new SelectListItem
-        {
-            Text = "Manager",
-            Value = "Manager"
-        });
-    }
+	ViewBag.Title = "AdminView";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
+	List<SelectListItem> listItemsRole = new List<SelectListItem>();
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "---Select Role---",
+		Value = "0"
+	});
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "Cashier",
+		Value = "Cashier"
+	});
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "Finance",
+		Value = "Finance"
+	});
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "Registration",
+		Value = "Registration"
+	});
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "Security Guard",
+		Value = "Security Guard"
+	});
+	listItemsRole.Add(new SelectListItem
+	{
+		Text = "Reservation Admin",
+		Value = "Reservation Admin"
+	});
+	if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		listItemsRole.Add(new SelectListItem
+		{
+			Text = "Manager",
+			Value = "Manager"
+		});
+	}
 }
 
 
 
 <head>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+	<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
 
 
 </head>
+<div class="container">
+	<div class="modal fade" id="seemoreModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label>Complete Information</label>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="max-height:calc(100v-212px); overflow-y:auto;">
 
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4"> Name:  </label>
+                            <label class="col-sm-7" id="Name"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Birthdate:
+                            </label>
+                            <label class="col-sm-7" id="Birthdate"></label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Cellphone No:
+                            </label>
+                            <label class="col-sm-7" id="CellphoneNo"></label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Email Address:
+                            </label>
+                            <label class="col-sm-7" id="EmailAddress"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Position:
+                            </label>
+                            <label class="col-sm-7" id="Level"></label>
+                        </div>
+                    </div>
+
+                    <br />   <br />   <br />
+                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-6"><b>Emergency Contact Information</b></div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Number:
+                            </label>
+                            <label class="col-sm-7" id="eno"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Name:
+                            </label>
+                            <label class="col-sm-7" id="ename"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+
+                            <label class="col-sm-4">
+                                Address:
+
+                            </label>
+                            <label class="col-sm-7" id="eaddress"></label>
+                        </div>
+                    </div>
+
+
+                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+	</div>
+</div>
 
 @using (Html.BeginForm("Registration", "Admin", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-    <div class="container">
+	@Html.AntiForgeryToken()
+	<div class="container">
+		<div class="modal fade" id="AddModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
 
-        <div class="modal fade " id="AddModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#43a047">
-
-                        <font color="white">
-                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW EMPLOYEE </div>
-                        </font>
-                    </div>
-                    <div class="modal-body form-horizontal"style="height:calc(100vh-212px); overflow-y:auto;">
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW EMPLOYEE </div>
+						</font>
+					</div>
+                    <div class="modal-body form-horizontal" style="max-height:calc(100v-212px); overflow-y:auto;">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @if ((Convert.ToInt32(Session["Level"]) == 1) || (Convert.ToInt32(Session["Level"]) == 0))
                         {
@@ -93,26 +200,21 @@
 
 
                             <div class="col-sm-12">
-
                                 <div class="form-group">
-                                    <label for="First Name" class="col-sm-4"> <b>First Name : </b></label>
-                                </div>
+                                    <label class="col-sm-4" for="First Name"> <b>First Name : </b></label>
 
-                                <div class="col-sm-7">
-                                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
-
-
-
-
-
 
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Middle Name" class="col-sm-4"><b>Middle Name : </b></label>
+                                    <label class="col-sm-4" for="Middle Name"><b>Middle Name : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -122,12 +224,10 @@
                                 </div>
                             </div>
 
-
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Last Name" class="col-sm-4"><b>Last Name : </b></label>
+                                    <label class="col-sm-4" for="Last Name"><b>Last Name : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -137,11 +237,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Bdate" class="col-sm-4"><b>Birthdate : </b></label>
+                                    <label class="col-sm-4" for="Bdate"><b>Birthdate : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -152,11 +251,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </label>
+                                    <label class="col-sm-4" for="Cel"><b>Cellphone No. : </b> </label>
 
 
                                     <div class="col-sm-7">
@@ -167,11 +265,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Email" class="col-sm-4"><b>Email Address : </b></label>
+                                    <label class="col-sm-4" for="Email"><b>Email Address : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -182,11 +279,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
                                 <div class="form-group">
 
-                                    <label for="typeofadmin" class="col-sm-4"> <b>Type of Employee: </b></label>
+                                    <label class="col-sm-4" for="typeofadmin"> <b>Type of Employee: </b></label>
 
 
 
@@ -207,6 +303,51 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="ENo"><b>Emergency Number : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="E Name"><b>Emergency Name : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="Last Name"><b> Address: </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -235,11 +376,9 @@
                         }
                         else
                         {
-
                             <div class="col-sm-12">
-
                                 <div class="form-group">
-                                    <label for="First Name" class="col-sm-4"> <b>First Name : </b></label>
+                                    <label class="col-sm-4" for="First Name"> <b>First Name : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -249,11 +388,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Middle Name" class="col-sm-4"><b>Middle Name : </b></label>
+                                    <label class="col-sm-4" for="Middle Name"><b>Middle Name : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -263,11 +401,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Last Name" class="col-sm-4"><b>Last Name : </b></label>
+                                    <label class="col-sm-4" for="Last Name"><b>Last Name : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -277,26 +414,24 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Bdate" class="col-sm-4"><b>Birthdate : </b></label>
+                                    <label class="col-sm-4" for="Bdate"><b>Birthdate : </b></label>
 
 
                                     <div class="col-sm-7">
                                         @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                         @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-
 
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </label>
+                                    <label class="col-sm-4" for="Cel"><b>Cellphone No. : </b> </label>
 
 
                                     <div class="col-sm-7">
@@ -306,12 +441,22 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-sm-12">
 
                                 <div class="form-group">
-                                    <label for="Email" class="col-sm-4"><b>Email Address : </b></label>
+                                    <label class="col-sm-4" for="Last Name"><b>Home Address: </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="Email"><b>Email Address : </b></label>
 
 
                                     <div class="col-sm-7">
@@ -322,11 +467,10 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-12">
                                 <div class="form-group">
 
-                                    <label for="typeofadmin" class="col-sm-4">Type of Employee:</label>
+                                    <label class="col-sm-4" for="typeofadmin">Type of Employee:</label>
 
 
 
@@ -343,6 +487,57 @@
                                 </div>
                             </div>
 
+
+
+                            <b><p>In case of Emergency Notify: </p></b>
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="E Name"><b> Name : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="Last Name"><b> Address: </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="ENo"><b>Contact Number : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
                             @Html.CheckBoxFor(model => model.ReservationModule, new { @id = "reservation", @name = "reservation", @hidden = true, htmlAttributes = new { @required = "required" } })
 
                             @Html.CheckBoxFor(model => model.ReversalModule, new { @id = "reversal", @name = "reversal", @hidden = true, htmlAttributes = new { @required = "required" } })
@@ -355,34 +550,30 @@
 
                         }
                     </div>
-
-                  
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Add</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+						<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 @if (Model != null)
 {
-    using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
-    {
-        <div class="modal fade" id="UpdateModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#43a047">
+	using (Html.BeginForm("AdminView", "Admin", FormMethod.Post))
+	{
+		<div class="modal fade" id="UpdateModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
 
-                        <font color="white">
-                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE EMPLOYEE INFORMATION </div>
-                        </font>
-                    </div>
-                    <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE EMPLOYEE INFORMATION </div>
+						</font>
+					</div>
+                    <div class="modal-body form-horizontal" style="max-height:calc(100v-212px); overflow-y:auto;">
                         @Html.HiddenFor(model => model.LoginId)
                         @if (Convert.ToInt32(Session["Level"]) == 1)
                         {
@@ -391,7 +582,7 @@
 
                                     <label class="col-sm-4" for="First Name">First Name :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
 
@@ -405,7 +596,7 @@
 
                                     <label class="col-sm-4" for="Middle Name">Middle Name :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
@@ -419,7 +610,7 @@
                                     <label class="col-sm-4" for="Last Name">Last Name :</label>
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
 
@@ -434,7 +625,7 @@
                                     <label class="col-sm-4" for="Bdate">Birthdate :</label>
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
                                         @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
@@ -449,7 +640,7 @@
 
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
 
@@ -464,7 +655,7 @@
 
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
@@ -475,7 +666,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
 
-                                    <label for="typeofadmin" class="col-sm-4"> <b>Type of Employee: </b></label>
+                                    <label class="col-sm-4" for="typeofadmin"> <b>Type of Employee: </b></label>
 
 
 
@@ -486,12 +677,57 @@
                             </div>
 
 
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="ENo"><b>Emergency Number : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="E Name"><b>Emergency Name : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="Last Name"><b>Emergency Address: </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <h2>  <label class="col-sm-4" for="Amenity Name">Module/s Included :</label> </h2>
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-8">
                                         @Html.EditorFor(model => model.ReservationModule)
                                         @Html.ValidationMessageFor(model => model.ReservationModule, "", new { @id = "reservation", @name = "reservation", @class = "text-danger" }) <b>Reservation Module</b>
                                         <br />
@@ -516,13 +752,12 @@
                         }
                         else
                         {
-                            ////////////////////////////////////////////////////
                             <div class="col-sm-12">
                                 <div class="form-group">
 
                                     <label class="col-sm-4" for="First Name">First Name :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
 
@@ -536,7 +771,7 @@
 
                                     <label class="col-sm-4" for="Middle Name">Middle Name :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Mname, "", new { @class = "text-danger" })
 
@@ -550,7 +785,7 @@
                                     <label class="col-sm-4" for="Last Name">Last Name :</label>
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
 
@@ -565,7 +800,7 @@
                                     <label class="col-sm-4" for="Bdate">Birthdate :</label>
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Bdate, "", new { @class = "text-danger" })
 
@@ -580,7 +815,7 @@
 
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.CelNo, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.CelNo, "", new { @class = "text-danger" })
 
@@ -595,7 +830,7 @@
 
 
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
@@ -605,11 +840,55 @@
 
 
                             <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="ENo"><b>Emergency Number : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="E Name"><b>Emergency Name : </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label class="col-sm-4" for="Last Name"><b>Emergency Address: </b></label>
+
+
+                                    <div class="col-sm-7">
+                                        @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                        @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-12">
                                 <div class="form-group">
 
-                                    <label for="typeofadmin" class="col-sm-4"> <b>Type of Employee: </b></label>
+                                    <label class="col-sm-4" for="typeofadmin"> <b>Type of Employee: </b></label>
 
-
+                                
 
                                     <div class="col-sm-7">
                                         @Html.DropDownListFor(model => model.Role, listItemsRole, new { @class = "form-control", @name = "typeadmin", @id = "typeadmin", @onchange = "updateCheckBox(this)" })
@@ -643,293 +922,289 @@
                             </div>
                         }
                     </div>
-                 
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+						<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 }
 @if (Convert.ToInt32(Session["Level"]) == 1 || Convert.ToInt32(Session["Level"]) == 0)
 {
 
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        <br /> <br /> <br />
-    }
-    <div id="content1">
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		<br /> <br /> <br />
+	}
+	<div id="content1">
 
-        @*eto dapat sa cm3*@
-        <br />  <br /> <br />
-
-
-        <div class="container">
-            <div class="col-md-12">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color:  #1C2331">
-                        <font color="white"> <h3 class="panel-title"> List of Employees </h3></font>
-                    </div>
-
-                    <div class=" panel-body">
-                        <div class="table-responsive">
-
-                            <table class=" table table-bordered table-striped" id="sample">
-
-                                <thead>
-                                    <tr>
-                                        <th>Full Name</th>
-                                        <th>Birthdate</th>
-                                        <th>Cellphone No</th>
-                                        <th>Email Address</th>
-                                        <th>Position</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
+		@*eto dapat sa cm3*@
+		<br />  <br /> <br />
 
 
-                <div class="container">
+		<div class="container">
+			<div class="col-md-12">
 
-                    <button type="button" id="addbtn" class="btn btn-success">
-                        ADD NEW EMPLOYEE
-                    </button>
-                    <a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Admin</a>
-                </div>
+				<div class="panel panel-default">
+					<div class="panel-heading" style="background-color:  #1C2331">
+						<font color="white"> <h3 class="panel-title"> List of Employees </h3></font>
+					</div>
+
+					<div class=" panel-body">
+						<div class="table-responsive">
+
+							<table class=" table table-bordered table-striped" id="sample">
+
+								<thead>
+									<tr>
+										<th>Employee ID</th>
+										<th>Full Name</th>
+										<th>Birthdate</th>
+										<th>Cellphone No</th>
+										<th>Email Address</th>
+										<th>Position</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+
+							</table>
+						</div>
+					</div>
+				</div>
 
 
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
+				<div class="container">
+
+					<button type="button" id="addbtn" class="btn btn-success">
+						ADD NEW EMPLOYEE
+					</button>
+					<a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Admin</a>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
 }
 else
 {
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="container">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<div class="container">
 
 
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:  #1C2331">
-                <font color="white"> <h3 class="panel-title"> List of Employees </h3></font>
-            </div>
+		<div class="panel panel-default">
+			<div class="panel-heading" style="background-color:  #1C2331">
+				<font color="white"> <h3 class="panel-title"> List of Employees </h3></font>
+			</div>
 
 
-            <div class=" panel-body">
-                <div class="table-responsive">
-                    <table class=" table table-bordered table-striped" id="adminData">
+			<div class=" panel-body">
+				<div class="table-responsive">
+					<table class=" table table-bordered table-striped" id="adminData">
 
-                        <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>Birthdate</th>
-                                <th>Cellphone No</th>
-                                <th>Email Address</th>
-                                <th>Position</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-        </div>
+						<thead>
+							<tr>
+								<th>Employee ID</th>
+								<th>Full Name</th>
+								<th>Birthdate</th>
+								<th>Cellphone No</th>
+								<th>Email Address</th>
+								<th>Position</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
 
-        <div class="container">
-            <button type="button" id="addbtn" class="btn btn-success">
-                ADD NEW EMPLOYEE
-            </button>
-            <a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Users</a>
-        </div>
+		<div class="container">
+			<button type="button" id="addbtn" class="btn btn-success">
+				ADD NEW EMPLOYEE
+			</button>
+			<a class="btn btn-default" href="@Url.Action("Download", "Admin")">Download List of Users</a>
+		</div>
 
 
-    </div>
-    <br />
-    <br />
+	</div>
+	<br />
+	<br />
 }
 
 
 
 
 <div id="auerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem updating the Admin
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem updating the Admin
 </div>
 <div id="ausuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully updated the Admin
+	<strong>Success!</strong> You have successfully updated the Admin
 </div>
 
 
 <div id="aerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem deleting the Admin
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem deleting the Admin
 </div>
 <div id="asuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully deleted the Admin
+	<strong>Success!</strong> You have successfully deleted the Admin
 </div>
 
 
 <div id="aaerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem submitting your form
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem submitting your form
 </div>
 <div id="aasuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully added a Admin
+	<strong>Success!</strong> You have successfully added a Admin
 </div>
-
-
 
 
 @if (ViewBag.DeleteStatus != null)
 {
-    if (ViewBag.DeleteStatus == true)
-    {
+	if (ViewBag.DeleteStatus == true)
+	{
 
-        <script type="text/javascript">
-            $(document).ready(function () {
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-                $('#asuccess').show('fade');
+				$('#asuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#asuccess').hide('fade');
-                }, 2000);
-            });
-        </script>
-    }
+				setTimeout(function () {
+					$('#asuccess').hide('fade');
+				}, 2000);
+			});
+		</script>
+	}
 
-    else
-    {
+	else
+	{
 
-        <script type="text/javascript">
-            $(document).ready(function () {
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-                $('#aerror').show('fade');
+				$('#aerror').show('fade');
 
-                setTimeout(function () {
-                    $('#aerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#aerror').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
 }
 
 @if (ViewBag.UpdateMessage != null)
 {
-    if (ViewBag.UpdateMessage == true)
-    {
+	if (ViewBag.UpdateMessage == true)
+	{
 
-        <script type="text/javascript">
-            $(document).ready(function () {
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-                $('#ausuccess').show('fade');
+				$('#ausuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#ausuccess').hide('fade');
-                }, 2000);
-
-
-            });
-        </script>
-    }
-
-    else
-    {
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $('#auerror').show('fade');
-
-                setTimeout(function () {
-                    $('#auerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#ausuccess').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
+
+	else
+	{
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+
+				$('#auerror').show('fade');
+
+				setTimeout(function () {
+					$('#auerror').hide('fade');
+				}, 2000);
+
+
+			});
+		</script>
+	}
 }
 
 @if (ViewBag.AddMessage != null)
 {
-    if (ViewBag.AddMessage == true)
-    {
-        <script type="text/javascript">
+	if (ViewBag.AddMessage == true)
+	{
+		<script type="text/javascript">
 
-            $(document).ready(function () {
+			$(document).ready(function () {
 
-                document.forms[0].reset();
-                $('#aasuccess').show('fade');
+				document.forms[0].reset();
+				$('#aasuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#aasuccess').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#aasuccess').hide('fade');
+				}, 2000);
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
 
-    else
-    {
-        <script type="text/javascript">
+	else
+	{
+		<script type="text/javascript">
 
-            $(document).ready(function () {
+			$(document).ready(function () {
 
-                $('#aaerror').show('fade');
+				$('#aaerror').show('fade');
 
-                setTimeout(function () {
-                    $('#aaerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#aaerror').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
+			});
+		</script>
 
-    }
+	}
 
 }
-
 @if (ViewBag.Alert != null)
 {
-    if (ViewBag.Alert == true)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#AddModal').modal('show');
-                //$('.modal-backdrop').appendTo('.blue');
-            });
-        </script>
-    }
+	if (ViewBag.Alert == true)
+	{
+		<script>
+			$(document).ready(function () {
+				$('#AddModal').modal('show');
+			});
+		</script>
+	}
 }
-
 @if (ViewBag.ModalView != null)
 {
-    if (ViewBag.ModalView == 1)
-    {
-        <script>
-            $('#UpdateModal').modal();
-        </script>
-    }
-    else
-    {
-        <script>
-            $('#UpdateModal').modal("hide");
-        </script>
-    }
+	if (ViewBag.ModalView == 1)
+	{
+		<script>
+			$('#UpdateModal').modal();
+		</script>
+	}
+	else
+	{
+		<script>
+			$('#UpdateModal').modal("hide");
+		</script>
+	}
 }
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -943,13 +1218,14 @@ else
                     "type": "GET",
                     "datatype": "json",
                 },
-                "columns": [
+				"columns": [
+					{ "data": "Id", "autowidth": true },
                     { "data": "Fullname", "autowidth": true },
                     { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
                     { "data": "CelNo", "autowidth": true },
                     { "data": "Email", "autowidth": true },
                     { "data": "Role", "autowidth": true },
-                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+					{ "data": "Id", "autowidth": true, render: function (data) { return '<button class="btn btn-default" id="seemore" onclick="ViewOther(' + data + ')"><i class="glyphicon glyphicon-eye-open"></i></button><a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
                 ]
             });
         }
@@ -960,13 +1236,14 @@ else
                     "type": "GET",
                     "datatype": "json",
                 },
-                "columns": [
+				"columns": [
+					{ "data": "Id", "autowidth": true },
                     { "data": "Fullname", "autowidth": true },
                     { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
                     { "data": "CelNo", "autowidth": true },
                     { "data": "Email", "autowidth": true },
                     { "data": "Role", "autowidth": true },
-                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+					{ "data": "Id", "autowidth": true, render: function (data) { return '<button class="btn btn-default" id="seemore" onclick="ViewOther(' + data + ')"><i class="glyphicon glyphicon-eye-open"></i></button><a id="btnUpdate" class="btn btn-primary" href="/Admin/AdminEdit/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Admin/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
                 ]
             });
         }
@@ -979,17 +1256,53 @@ else
         });
     });
 
+
+	function ViewOther(id) {
+		$('#seemoreModal').modal();
+		var data = {
+			Id: id
+		}
+		$.ajax({
+			"url": "/Admin/GetAdminS", //link sa controller na kinukuha yung owner na may Id ex Id=64
+			"type": "GET",
+			"data": data,
+			"success": function (data) {
+
+				document.getElementById('Level').innerHTML = data.Role;
+				document.getElementById('Name').innerHTML = data.Fullname;
+				document.getElementById('Birthdate').innerHTML = moment(data.Bdate).format("MMMM DD YYYY");
+				document.getElementById('CellphoneNo').innerHTML = data.CelNo;
+				document.getElementById('EmailAddress').innerHTML = data.Email;
+				document.getElementById('eno').innerHTML = data.ENo;
+				document.getElementById('ename').innerHTML = data.EName;
+				document.getElementById('eaddress').innerHTML = data.EAddress;
+			}
+		});
+	}
+
+	function Set(form) {
+		fr = form;
+		var fullpath = (fr).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		var path = "../Content/OwnerImages/" + filename;
+
+		document.getElementById('oform').setAttribute('src', path)
+
+		$('#formModal').modal();
+	}
+
+
     $("form").submit(function () {
-        //var reservation = document.getElementById("reservation");
-        //var reversal = document.getElementById("reversal");
-        //var payment = document.getElementById("payment");
-        //var logbook = document.getElementById("logbook");
-        //var registration = document.getElementById("registration");
-        //reservation.disabled = false;
-        //reversal.disabled = false;
-        //payment.disabled = false;
-        //logbook.disabled = false;
-        //registration.disabled = false;
+        var reservation = document.getElementById("ReservationModule");
+        var reversal = document.getElementById("ReversalModule");
+        var payment = document.getElementById("PaymentModule");
+        var logbook = document.getElementById("LogBookModule");
+        var registration = document.getElementById("RegistrationModule");
+        reservation.disabled = false;
+        reversal.disabled = false;
+        payment.disabled = false;
+        logbook.disabled = false;
+        registration.disabled = false;
     });
 
     function checkanddisable() {

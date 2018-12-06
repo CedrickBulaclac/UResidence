@@ -213,123 +213,123 @@
         <div class="container">
 
             <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
-                <div class="panel-body" style="margin-left: 10px;margin-right: 10px;">
+				<div class="panel-body" style="margin-left: 10px;margin-right: 10px;">
 
+					<label>@ViewBag.name</label>
 
+					<div class="pricing-table pricing-three-column row">
 
-                    <div class="pricing-table pricing-three-column row">
+						@{int ctr3 = 0;
+							if (equip1.Count != 0)
+							{
+								if (equip.Count > 0)
+								{
+									//Equipment
+									foreach (var eqp in equip)
+									{
+										totaleq = eqp.Stocks;
+										for (int i = 0; i <= equip1.Count - 1; i++)
+										{
 
-                        @{int ctr3 = 0;
-                            if (equip1.Count != 0)
-                            {
-                                if (equip.Count > 0)
-                                {
-                                    //Equipment
-                                    foreach (var eqp in equip)
-                                    {
-                                        totaleq = eqp.Stocks;
-                                        for (int i = 0; i <= equip1.Count - 1; i++)
-                                        {
-
-                                            if (eqp.Id == Convert.ToInt32(equip1[i]))
-                                            {
-                                                i++;
-                                                totaleq -= Convert.ToInt32(equip1[i]);
-                                                i--;
-                                            }
-                                        }
-                                        if (totaleq < 0)
-                                        {
-                                            totaleq = 0;
-                                        }
-                                        <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                                        <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-
-
-
-
-
-                                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                            <div class="db-wrapper">
-                                                <div class="db-pricing-seven">
-                                                    <ul>
-                                                        <li class="price">
-                                                            <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-
-                                                        </li>
-                                                        <li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
-                                                        <li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
-                                                        <li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
-                                                        <li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
-
-
-                                                        <li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
-                                                        <br />
-                                                    </ul>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        ctr3++;
-                                        totaleq = 0;
-                                    }
-
-                                }
-                            }
-                            else if (equip.Count > 0)
-                            {
-                                foreach (var eqp in equip)
-                                {
-
-                                    totaleq = eqp.Stocks;
-
-
-                                    <input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
-                                    <input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
-                                    @Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-control", @Value = eqp.Rate, @id = "txtRate1" + ctr3.ToString(), name = "txtRate1" + ctr3.ToString(), @style = "display: none" } })
-
-
-
-
-                                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                        <div class="db-wrapper">
-                                            <div class="db-pricing-seven">
-                                                <ul>
-                                                    <li class="price">
-                                                        <img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
-
-                                                    </li>
-                                                    <li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
-                                                    <li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
-                                                    <li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
-                                                    <li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
-
-
-                                                    <li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
-                                                    <br />
-                                                </ul>
-
-                                            </div>
-                                        </div>
-                                    </div>
+											if (eqp.Id == Convert.ToInt32(equip1[i]))
+											{
+												i++;
+												totaleq -= Convert.ToInt32(equip1[i]);
+												i--;
+											}
+										}
+										if (totaleq < 0)
+										{
+											totaleq = 0;
+										}
+										<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+										<input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
 
 
 
 
 
+										<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+											<div class="db-wrapper">
+												<div class="db-pricing-seven">
+													<ul>
+														<li class="price">
+															<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
 
-                                    ctr3++;
-                                    //stocks[ctr3] = totaleq;
-                                    totaleq = 0;
-                                }
-                            }
+														</li>
+														<li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
+														<li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
+														<li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
+														<li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
 
 
-                            <input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
-                            <a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
-                        }
-                    </div>
-                </div>
+														<li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+														<br />
+													</ul>
+
+												</div>
+											</div>
+										</div>
+										ctr3++;
+										totaleq = 0;
+									}
+
+								}
+							}
+							else if (equip.Count > 0)
+							{
+								foreach (var eqp in equip)
+								{
+
+									totaleq = eqp.Stocks;
+
+
+									<input type="hidden" id="eid" + @ctr3.ToString() name="eid" +@ctr3.ToString() value="@eqp.Id" />
+									<input type="hidden" id="svalue @ctr3.ToString()" name="svalue @ctr3.ToString()" value="@totaleq" />
+									@Html.EditorFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-control", @Value = eqp.Rate, @id = "txtRate1" + ctr3.ToString(), name = "txtRate1" + ctr3.ToString(), @style = "display: none" } })
+
+
+
+
+									<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+										<div class="db-wrapper">
+											<div class="db-pricing-seven">
+												<ul>
+													<li class="price">
+														<img src="@Url.Content(eqp.Url)" height="25%" width="50%" />
+
+													</li>
+													<li>  <h3> @Html.DisplayFor(model => eqp.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "Name" } }) </h3> </li>
+													<li> @Html.DisplayFor(model => eqp.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) </li>
+													<li> <label for="Quantity">Quantity :</label> <font color="black"> @Html.EditorFor(model => eqp.Stocks, new { htmlAttributes = new { @class = "form-group", @min = "0", @id = "txtQuantity" + ctr3.ToString(), @required = "required", name = "txtQuantity" + ctr3.ToString(), Value = 0, @max = totaleq } }) </font></li>
+													<li>  <label for="Stocks">Stocks :</label> <font color="black"> <label id="stocks1" name="stocks1">@totaleq</label> </font></li>
+
+
+													<li><label for="Rate">Rate :</label> <font color="black">  @Html.DisplayFor(model => eqp.Rate, new { htmlAttributes = new { @class = "form-group", @disabled = "true", @value = eqp.Rate, @id = "txtRate" + ctr3.ToString(), name = "txtRate" + ctr3.ToString() } })</font>  </li>
+													<br />
+												</ul>
+
+											</div>
+										</div>
+									</div>
+
+
+
+
+
+
+									ctr3++;
+									//stocks[ctr3] = totaleq;
+									totaleq = 0;
+								}
+							}
+
+
+							<input type="hidden" value=@ctr3.ToString() id="txtctr" name="txtctr" />
+							<a href="#"><button id="btnNext" class="button" onclick="SET()">NEXT</button> </a>
+						}
+					</div>
+				</div>
             </div>
         </div>
     </div>

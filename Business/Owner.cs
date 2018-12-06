@@ -56,6 +56,12 @@ namespace UResidence
         public string Fullname { get; set; }
         public string Birthday { get; set; }
         public int LoginId { get; set; }
+
+        public string ENo { get; set; }
+        public string EName { get; set; }
+        public string EAddress { get; set; }
+
+
         public class MinimumAgeAttribute : ValidationAttribute
         {
             int _minimumAge;
@@ -96,6 +102,9 @@ namespace UResidence
             ret.Birthday = reader.GetString(12);
             ret.Form = reader.GetString(13);
             ret.LoginId = reader.GetInt32(14);
+            ret.ENo = reader.GetString(15);
+            ret.EName = reader.GetString(16);
+            ret.EAddress = reader.GetString(17);
             return ret;
         }
         public string RemoveWhitespace(string str)

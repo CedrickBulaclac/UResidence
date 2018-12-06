@@ -24,6 +24,13 @@ namespace UResidence.Controllers
             ret = UResidence.TenantController.GetAll();
             return Json(new { data = ret }, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetTenantS(Tenant data)
+        {
+            Tenant ret = new Tenant();
+            ret = UResidence.TenantController.GETID(data.Id);
+            return new JsonResult { Data = ret, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         public ActionResult TenantAdd()
         {
             if (Session["Level"] == null)
@@ -291,7 +298,10 @@ namespace UResidence.Controllers
                             Deleted = "0",
                             URL = "~/Content/TenantImages/user.png",
                             MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
-                            MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                            MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
+                            ENo = ten.tenant.ENo,
+                            EName = ten.tenant.EName,
+                            EAddress = ten.tenant.EAddress
                         };
                         List<Tenant> listTen = default(List<Tenant>);
                         listTen = UResidence.TenantController.Check(tenn);
@@ -321,7 +331,10 @@ namespace UResidence.Controllers
                                         Deleted = "0",
                                         URL = "~/Content/TenantImages/user.png",
                                         MovingIn = finalpath,
-                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
+                                        ENo = ten.tenant.ENo,
+                                        EName = ten.tenant.EName,
+                                        EAddress = ten.tenant.EAddress
                                     };
                                     status = UResidence.TenantController.Insert(tennn);
                                 }
@@ -343,7 +356,10 @@ namespace UResidence.Controllers
                                         Deleted = "0",
                                         URL = "~/Content/TenantImages/user.png",
                                         MovingIn = "~/Content/TenantImages/Noimageavailable.jpeg",
-                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg"
+                                        MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
+                                        ENo = ten.tenant.ENo,
+                                        EName = ten.tenant.EName,
+                                        EAddress = ten.tenant.EAddress
                                     };
                                     status = UResidence.TenantController.Insert(tennn);
                                 }

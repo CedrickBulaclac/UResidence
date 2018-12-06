@@ -1,82 +1,194 @@
 ﻿@model UResidence.Owner
 
 @{
-    ViewBag.Title = "AdminView";
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        Layout = "/Views/Layout/BossManagerLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 0)
-    {
-        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "/Views/Layout/AdminLayout.cshtml";
-    }
+	ViewBag.Title = "AdminView";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 }
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+	<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 </head>
 
+<div class="container">
+	<div class="modal fade" id="seemoreModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Complete Information</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+                <div class="modal-body" style="max-height:calc(100v-212px); overflow-y:auto;">
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Building No:
+                            </label>
+                            <label class="col-sm-7" id="BuildingNo"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Unit No:
+                            </label>
+                            <label class="col-sm-7" id="UnitNo"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Name:
+                            </label>
+                            <label class="col-sm-7" id="Name"></label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Birthdate:
+                            </label>
+                            <label class="col-sm-7" id="Birthdate"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Cellphone No:
+                            </label>
+                            <label class="col-sm-7" id="CellphoneNo"></label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Email Address:
+                            </label>
+                            <label class="col-sm-7" id="EmailAddress"></label>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <b>Emergency Contact Information</b>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Number:
+                            </label>
+                            <label class="col-sm-7" id="eno"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Name:
+                            </label>
+                            <label class="col-sm-7" id="ename"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="col-sm-4">
+                                Address:
+                            </label>
+                                <label  class="col-sm-7" id="eaddress"></label>
+                        </div>
+                    </div>
+
+                </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+	</div>
+</div>
 
 <div class="container">
-    <div class="modal fade" id="formModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label>Owner Registration Form</label>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <img height="250px" src="" width="250px" id="oform">
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="formModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Owner Registration Form</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<center>
+						<img height="250px" src="" width="250px" id="oform">
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
 @if (Model != null)
 {
-    using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.LoginId)
+	using (Html.BeginForm("OwnerView", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.LoginId)
 
-        <div class="modal fade" id="UpdateModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#43a047">
+		<div class="modal fade" id="UpdateModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
 
 
-                        <font color="white">
-                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE OWNER INFORMATION </div>
-                        </font>
-                    </div>
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> UPDATE OWNER INFORMATION </div>
+						</font>
+					</div>
 
-                    <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
+                    <div class="modal-body form-horizontal" style="max-height:calc(100v-212px); overflow-y:auto;">
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
                         <div class="col-sm-12">
-
                             <div class="form-group">
-                                <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
+                                <label class="col-sm-4" for="First Name"> <b>First Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -89,7 +201,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
+                                <label class="col-sm-4" for="Middle Name"><b>Middle Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -102,7 +214,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
+                                <label class="col-sm-4" for="Last Name"><b>Last Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -115,7 +227,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
+                                <label class="col-sm-4" for="Bdate"><b>Birthdate : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -129,7 +241,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
+                                <label class="col-sm-4" for="Cel"><b>Cellphone No. : </b> </label>
 
 
                                 <div class="col-sm-7">
@@ -143,7 +255,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+                                <label class="col-sm-4" for="Email"><b>Email Address : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -157,20 +269,20 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <label for="Bldg no" class="col-sm-4">Building no. :</label>
+                                <label class="col-sm-4" for="Bldg no">Building no. :</label>
 
 
 
                                 <div class="col-sm-7">
                                     @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                            {
-                                                new SelectListItem() {Text = "1A", Value="1A"},
-                                                new SelectListItem() {Text = "1B", Value="1B"},
-                                                new SelectListItem() {Text = "1C", Value="1C"},
-                                                new SelectListItem() {Text = "2A", Value="2A"},
-                                                new SelectListItem() {Text = "2B", Value="2B"},
-                                                new SelectListItem() {Text = "2C", Value="2C"},
-                                             }, new { @class = "form-control" })
+                                                                {
+                                                                                    new SelectListItem() {Text = "1A", Value="1A"},
+                                                                                    new SelectListItem() {Text = "1B", Value="1B"},
+                                                                                    new SelectListItem() {Text = "1C", Value="1C"},
+                                                                                    new SelectListItem() {Text = "2A", Value="2A"},
+                                                                                    new SelectListItem() {Text = "2B", Value="2B"},
+                                                                                    new SelectListItem() {Text = "2C", Value="2C"},
+                                                                                 }, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -179,92 +291,134 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <label for="Unit no" class="col-sm-4">Unit no. :</label>
+                                <label class="col-sm-4" for="Unit no">Unit no. :</label>
 
 
 
                                 <div class="col-sm-7">
                                     @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-                                </div>
 
+                                </div>
                             </div>
                         </div>
 
-                        @*<div class="form-group">*@
+
                         <div class="col-sm-12">
                             <div class="form-group">
 
                                 <label class="col-sm-4">Registration Form :</label>
 
                                 <div class="col-sm-7">
+                                    @*ETO PO ----------------------------------------*@
+                                    <img src="@Url.Content(Model.Form)" height="50" width="50" id="oformm">
                                     <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Insert Image</button>
 
                                 </div>
                             </div>
                         </div>
 
-                        @*</div>*@
 
-                     
 
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <label class="col-sm-4" for="ENo"><b>Emergency Number : </b></label>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
-        <div class="container">
-            <div class="modal fade" id="updateImageModal1" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="col-sm-12">
+
+                            <div class="form-group">
+                                <label class="col-sm-4" for="E Name"><b>Emergency Name : </b></label>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <label>Registration Form: </label><input type="file" id="image1" name="image1" />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
-                            <button type="button" class="btn btn-danger" id="btnCloseImage1" name="btnCloseImage1" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-}
-@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <div class="container">
-
-        <div class="modal fade" id="AddModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color:#43a047">
-
-
-                        <font color="white">
-                            <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                            <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW OWNER </div>
-                        </font>
-                    </div>
-
-                    <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
+                                <label class="col-sm-4" for="Last Name"><b>Emergency Address: </b></label>
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br />
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="modal fade" id="updateImageModal1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<label>Registration Form: </label><input type="file" id="image1" name="image1" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.Id)">Update</button>
+							<button type="button" class="btn btn-danger" id="btnCloseImage1" name="btnCloseImage1" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}
+@using (Html.BeginForm("OwnerAdd", "Owner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+	<div class="container">
+
+		<div class="modal fade" id="AddModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
+
+
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD NEW OWNER </div>
+						</font>
+					</div>
+
+                    <div class="modal-body form-horizontal" style="max-height:calc(100v-212px); overflow-y:auto;">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-sm-4" for="First Name"> <b>First Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -277,7 +431,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
+                                <label class="col-sm-4" for="Middle Name"><b>Middle Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -290,7 +444,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
+                                <label class="col-sm-4" for="Last Name"><b>Last Name : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -303,7 +457,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
+                                <label class="col-sm-4" for="Bdate"><b>Birthdate : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -317,7 +471,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
+                                <label class="col-sm-4" for="Cel"><b>Cellphone No. : </b> </label>
 
 
                                 <div class="col-sm-7">
@@ -331,7 +485,7 @@
                         <div class="col-sm-12">
 
                             <div class="form-group">
-                                <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+                                <label class="col-sm-4" for="Email"><b>Email Address : </b></label>
 
 
                                 <div class="col-sm-7">
@@ -345,20 +499,20 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <label for="Bldg no" class="col-sm-4">Building no. :</label>
+                                <label class="col-sm-4" for="Bldg no">Building no. :</label>
 
 
 
                                 <div class="col-sm-7">
                                     @Html.DropDownListFor(model => model.BldgNo, new List<SelectListItem>
-                                                        {
-                                                                            new SelectListItem() {Text = "1A", Value="1A"},
-                                                                            new SelectListItem() {Text = "1B", Value="1B"},
-                                                                            new SelectListItem() {Text = "1C", Value="1C"},
-                                                                            new SelectListItem() {Text = "2A", Value="2A"},
-                                                                            new SelectListItem() {Text = "2B", Value="2B"},
-                                                                            new SelectListItem() {Text = "2C", Value="2C"},
-                                                                         }, new { @class = "form-control" })
+                                                                {
+                                                                                    new SelectListItem() {Text = "1A", Value="1A"},
+                                                                                    new SelectListItem() {Text = "1B", Value="1B"},
+                                                                                    new SelectListItem() {Text = "1C", Value="1C"},
+                                                                                    new SelectListItem() {Text = "2A", Value="2A"},
+                                                                                    new SelectListItem() {Text = "2B", Value="2B"},
+                                                                                    new SelectListItem() {Text = "2C", Value="2C"},
+                                                                                 }, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.BldgNo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -367,18 +521,17 @@
                         <div class="col-sm-12">
                             <div class="form-group">
 
-                                <label for="Unit no" class="col-sm-4">Unit no. :</label>
+                                <label class="col-sm-4" for="Unit no">Unit no. :</label>
 
 
 
                                 <div class="col-sm-7">
                                     @Html.EditorFor(model => model.UnitNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.UnitNo, "", new { @class = "text-danger" })
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-
 
 
                         <div class="col-sm-12">
@@ -394,16 +547,68 @@
                             </div>
                         </div>
 
+
+                        <b><p>In case of Emergency Notify: </p></b>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="EmergencyName">Name :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.EName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.EName, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="EmergencyAddress"> Address :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.EAddress, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.EAddress, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label class="col-sm-4" for="EmergencyNo">Contact Number :</label>
+
+
+
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.ENo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.ENo, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
                     </div>
-                    
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Add</button>
-                        <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					<br />
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+						<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 }
 
 
@@ -413,221 +618,221 @@
 
 <div class="container">
 
-    <br />
-    <br />
-    <br />
-    <br />
+	<br />
+	<br />
+	<br />
+	<br />
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading" style="background-color:  #1C2331">
-            <font color="white"> <h3 class="panel-title"> List of Owners </h3></font>
-        </div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color:  #1C2331">
+			<font color="white"> <h3 class="panel-title"> List of Owners </h3></font>
+		</div>
 
-        <div class=" panel-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="OwnerTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                Building No
-                            </th>
-                            <th scope="col">
-                                Unit No
-                            </th>
-                            <th scope="col">
-                                Full Name
-                            </th>
-                            <th scope="col">
-                                Birthdate
-                            </th>
-                            <th scope="col">
-                                Cellphone No
-                            </th>
-                            <th scope="col">
-                                Email Address
-                            </th>
-                            <th scope="col">
-                                Registration Form
-                            </th>
+		<div class=" panel-body">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped" id="OwnerTable">
+					<thead>
+						<tr>
+							<th scope="col">
+								Building No
+							</th>
+							<th scope="col">
+								Unit No
+							</th>
+							<th scope="col">
+								Full Name
+							</th>
+							<th scope="col">
+								Birthdate
+							</th>
+							<th scope="col">
+								Cellphone No
+							</th>
+							<th scope="col">
+								Email Address
+							</th>
+							<th scope="col">
+								Registration Form
+							</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+				</table>
 
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
+			</div>
+		</div>
+	</div>
 
-            </div>
-        </div>
-    </div>
+	<div class="form-inline">
 
-    <div class="form-inline">
+		<button type="button" id="addbtn" class="btn btn-success">
+			ADD NEW OWNER
+		</button>
+		<a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owners</a>
 
-        <button type="button" id="addbtn" class="btn btn-success">
-            ADD NEW OWNER
-        </button>
-        <a class="btn btn-default" href="@Url.Action("Download","Owner")">Download List of Owners</a>
-
-    </div>
+	</div>
 </div>
 
 <br /> <br />
 
 
+
 <div id="auerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem updating the Owner
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem updating the Owner
 </div>
 <div id="ausuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully updated the Owner
+	<strong>Success!</strong> You have successfully updated the Owner
 </div>
 
 <div id="aerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem deleting the Owner
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem deleting the Owner
 </div>
 <div id="asuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully deleted the Owner
+	<strong>Success!</strong> You have successfully deleted the Owner
 </div>
 <div id="aaerror" class="alert alert-danger collapse">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Error!</strong> There is a problem submitting your form
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem submitting your form
 </div>
 <div id="aasuccess" class="alert alert-success collapse">
-    <strong>Success!</strong> You have successfully added a Owner
+	<strong>Success!</strong> You have successfully added a Owner
 </div>
 @if (ViewBag.DeleteStatus != null)
 {
-    if (ViewBag.DeleteStatus == true)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
+	if (ViewBag.DeleteStatus == true)
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-                $('#asuccess').show('fade');
+				$('#asuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#asuccess').hide('fade');
-                }, 2000);
-
-
-            });
-        </script>
-    }
-
-    else
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $('#aerror').show('fade');
-
-                setTimeout(function () {
-                    $('#aerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#asuccess').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
+
+	else
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
+
+				$('#aerror').show('fade');
+
+				setTimeout(function () {
+					$('#aerror').hide('fade');
+				}, 2000);
+
+
+			});
+		</script>
+	}
 }
 @if (ViewBag.UpdateMessage != null)
 {
-    if (ViewBag.UpdateMessage == true)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                document.forms[0].reset();
-                $('#ausuccess').show('fade');
+	if (ViewBag.UpdateMessage == true)
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
+				document.forms[0].reset();
+				$('#ausuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#ausuccess').hide('fade');
-                }, 2000);
-
-
-            });
-        </script>
-    }
-
-    else
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $('#auerror').show('fade');
-
-                setTimeout(function () {
-                    $('#auerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#ausuccess').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
+
+	else
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
+
+				$('#auerror').show('fade');
+
+				setTimeout(function () {
+					$('#auerror').hide('fade');
+				}, 2000);
+
+
+			});
+		</script>
+	}
 }
 
 @if (ViewBag.AddMessage != null)
 {
-    if (ViewBag.AddMessage == true)
-    {
+	if (ViewBag.AddMessage == true)
+	{
 
-        <script type="text/javascript">
+		<script type="text/javascript">
 
-            $(document).ready(function () {
-                document.forms[0].reset();
-                $('#aasuccess').show('fade');
+			$(document).ready(function () {
+				document.forms[0].reset();
+				$('#aasuccess').show('fade');
 
-                setTimeout(function () {
-                    $('#aasuccess').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#aasuccess').hide('fade');
+				}, 2000);
 
-            });
-        </script>
-    }
+			});
+		</script>
+	}
 
-    else
-    {
-        <script type="text/javascript">
+	else
+	{
+		<script type="text/javascript">
 
-            $(document).ready(function () {
+			$(document).ready(function () {
 
-                $('#aaerror').show('fade');
+				$('#aaerror').show('fade');
 
-                setTimeout(function () {
-                    $('#aaerror').hide('fade');
-                }, 2000);
+				setTimeout(function () {
+					$('#aaerror').hide('fade');
+				}, 2000);
 
 
-            });
-        </script>
+			});
+		</script>
 
-    }
+	}
 
 }
 @if (ViewBag.Alert != null)
 {
-    if (ViewBag.Alert == true)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#AddModal').modal('show');
-            });
-        </script>
-    }
+	if (ViewBag.Alert == true)
+	{
+		<script>
+			$(document).ready(function () {
+				$('#AddModal').modal('show');
+			});
+		</script>
+	}
 }
 
 @if (ViewBag.ModalView != null)
 {
-    if (ViewBag.ModalView == 1)
-    {
-        <script>
-            $('#UpdateModal').modal();
-        </script>
-    }
-    else
-    {
-        <script>
-            $('#UpdateModal').modal("hide");
-        </script>
-    }
+	if (ViewBag.ModalView == 1)
+	{
+		<script>
+			$('#UpdateModal').modal();
+		</script>
+	}
+	else
+	{
+		<script>
+			$('#UpdateModal').modal("hide");
+		</script>
+	}
 }
 
 
@@ -635,111 +840,144 @@
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script>
-    $(document).ready(function () {
-        var table = $('#OwnerTable').DataTable({
-            "ajax": {
-                "url": '/Owner/GetOwner',
-                "type": "GET",
-                "datatype": "json",
-            },
-            "columns": [
-                { "data": "BldgNo", "autowidth": true },
-                { "data": "UnitNo", "autowidth": true },
-                { "data": "Fullname", "autowidth": true },
-                { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
-                { "data": "CelNo", "autowidth": true },
-                { "data": "Email", "autowidth": true },
-                { "data": "Form", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
-                { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Owner/OwnerView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
-            ]
-        });
-    });
-    var fr;
-    function Download() {
-        $.post("/Owner/Download");
-    }
-
-    function Set(form) {
-        fr = form;
-        var fullpath = (fr).toString();
-        var filename = fullpath.replace(/^.*[\\\/]/, '');
-        var path = "../Content/OwnerImages/" + filename;
-
-        document.getElementById('oform').setAttribute('src', path)
-
-        $('#formModal').modal();
-    }
-
-    //$("form").submit(function (e) {
-    //    var today = new Date();
-    //    var bdate = document.getElementById('Bdate').value
-    //    var date1 = new Date(bdate);
-    //    var age = today.getFullYear() - date1.getFullYear();
-    //    var m = today.getMonth() + 1 - date1.getMonth() + 1;
-    //    var d = today.getDate() - date1.getDate();
-
-    //    if (age < 18 || m < 0) {
-    //        alert("18 Years and above only");
-    //        e.preventDefault();
-    //    }
-    //});
-    function UpdateImage1(id) {
-        var tid = id;
-
-        var file1 = $("#image1").get(0).files;
-        var data = new FormData();
-        data.append("Image1", file1[0]);
-        data.append("Id", tid);
-
-        $.ajax({
-            type: "POST",
-            url: "/Owner/UpdateImageForm/",
-            data: data,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data == true) {
-                    alert('Success');
-                    window.location.href = window.location.href + "?rnd=" + Math.random()
-
-                }
-            },
-            error: function (error) {
-                alert(error);
-            }
-        });
-    }
-    $(document).ready(function () {
-        $('[type="date"]').prop('max', function () {
-            return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-        });
-    });
+	$(document).ready(function () {
+		var table = $('#OwnerTable').DataTable({
+			"ajax": {
+				"url": '/Owner/GetOwner',
+				"type": "GET",
+				"datatype": "json",
+			},
+			"columns": [
+				{ "data": "BldgNo", "autowidth": true },
+				{ "data": "UnitNo", "autowidth": true },
+				{ "data": "Fullname", "autowidth": true },
+				{ "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+				{ "data": "CelNo", "autowidth": true },
+				{ "data": "Email", "autowidth": true },
+				{ "data": "Form", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="setBtn" onclick="Set(\'' + data + '\')">View</button>' } },
+				{ "data": "Id", "autowidth": true, render: function (data) { return '<button class="btn btn-default" id="seemore" onclick="ViewOther(' + data + ')"><i class="glyphicon glyphicon-eye-open"></i></button><a id="btnUpdate" class="btn btn-default" href="/Owner/OwnerView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-default" href="/Owner/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+			]
+		});
+	});
+	var fr;
+	function Download() {
+		$.post("/Owner/Download");
+	}
 
 
-    $('#btnCloseImage').click(function () {
 
-        $('#AddModal').modal();
-    }
-    );
-    $('#btnCloseImage1').click(function () {
 
-        $('#UpdateModal').modal();
-    }
-    );
-    $('#addbtn').click(function () {
+	function ViewOther(id) {
+		$('#seemoreModal').modal();
+		var data = {
+			Id: id
+		}
+		$.ajax({
+			"url": "/Owner/GetOwnerS", //link sa controller na kinukuha yung owner na may Id ex Id=64
+			"type": "GET",
+			"data": data,
+			"success": function (data) {
 
-        $('#AddModal').modal();
-    }
-    );
-    $('#btnUpdate').click(function () {
+				document.getElementById('BuildingNo').innerHTML = data.BldgNo;
+				document.getElementById('UnitNo').innerHTML = data.UnitNo;
+				document.getElementById('Name').innerHTML = data.Fullname;
+				document.getElementById('Birthdate').innerHTML = moment(data.Bdate).format("MMMM DD YYYY") ;
+				document.getElementById('CellphoneNo').innerHTML = data.CelNo;
+				document.getElementById('EmailAddress').innerHTML = data.Email;
+				document.getElementById('eno').innerHTML = data.ENo;
+				document.getElementById('ename').innerHTML = data.EName;
+				document.getElementById('eaddress').innerHTML = data.EAddress;
+			}
+		});
+	}
 
-        $('#UpdateModal').modal();
-    }
-    );
-    $('#btnUpdateImage1').click(function () {
+	function Set(form) {
+		fr = form;
+		var fullpath = (fr).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		var path = "../Content/OwnerImages/" + filename;
 
-        $('#updateImageModal1').modal();
-    }
-    );
+		document.getElementById('oform').setAttribute('src', path)
+
+		$('#formModal').modal();
+	}
+
+	//$("form").submit(function (e) {
+	//    var today = new Date();
+	//    var bdate = document.getElementById('Bdate').value
+	//    var date1 = new Date(bdate);
+	//    var age = today.getFullYear() - date1.getFullYear();
+	//    var m = today.getMonth() + 1 - date1.getMonth() + 1;
+	//    var d = today.getDate() - date1.getDate();
+
+	//    if (age < 18 || m < 0) {
+	//        alert("18 Years and above only");
+	//        e.preventDefault();
+	//    }
+	//});
+	function UpdateImage1(id) {
+		var tid = id;
+
+		var file1 = $("#image1").get(0).files;
+		var data = new FormData();
+		data.append("Image1", file1[0]);
+		data.append("Id", tid);
+
+		$.ajax({
+			type: "POST",
+			url: "/Owner/UpdateImageForm/",
+			data: data,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				if (data == true) {
+					alert('Success');
+					window.location.href();
+
+				}
+			},
+			error: function (error) {
+				alert(error);
+			}
+		});
+	}
+	$(document).ready(function () {
+		$('[type="date"]').prop('max', function () {
+			return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+		});
+	});
+
+	//$('#seemore').click(function () {
+
+	//	$('#seemoreModal').modal();
+	//}
+	//);
+
+	$('#btnCloseImage').click(function () {
+
+		$('#AddModal').modal();
+	}
+	);
+	$('#btnCloseImage1').click(function () {
+
+		$('#UpdateModal').modal();
+	}
+	);
+	$('#addbtn').click(function () {
+
+		$('#AddModal').modal();
+	}
+	);
+	$('#btnUpdate').click(function () {
+
+		$('#UpdateModal').modal();
+	}
+	);
+	$('#btnUpdateImage1').click(function () {
+
+		$('#updateImageModal1').modal();
+	}
+	);
 </script>

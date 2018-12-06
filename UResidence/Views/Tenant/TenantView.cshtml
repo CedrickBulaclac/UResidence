@@ -1,989 +1,1182 @@
 ﻿@model UResidence.TenantOwner
 @{
-    ViewBag.Title = "AdminView";
-    if (Convert.ToInt32(Session["Level"]) == 1)
-    {
-        Layout = "/Views/Layout/BossManagerLayout.cshtml";
-    }
-    else if (Convert.ToInt32(Session["Level"]) == 0)
-    {
-        Layout = "/Views/Layout/SuperAdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "/Views/Layout/AdminLayout.cshtml";
-    }
+	ViewBag.Title = "AdminView";
+	if (Convert.ToInt32(Session["Level"]) == 1)
+	{
+		Layout = "/Views/Layout/BossManagerLayout.cshtml";
+	}
+	else if (Convert.ToInt32(Session["Level"]) == 0)
+	{
+		Layout = "/Views/Layout/SuperAdminLayout.cshtml";
+	}
+	else
+	{
+		Layout = "/Views/Layout/AdminLayout.cshtml";
+	}
 
-    List<SelectListItem> listItemsUnit = new List<SelectListItem>();
-    try
-    {
-        foreach (var i in Model.UnitNoList)
-        {
+	List<SelectListItem> listItemsUnit = new List<SelectListItem>();
+	try
+	{
+		foreach (var i in Model.UnitNoList)
+		{
 
-            listItemsUnit.Add(new SelectListItem
-            {
-                Text = i.ToString(),
-                Value = i.ToString()
-            });
-        }
-    }
-    catch (Exception) { }
+			listItemsUnit.Add(new SelectListItem
+			{
+				Text = i.ToString(),
+				Value = i.ToString()
+			});
+		}
+	}
+	catch (Exception) { }
 
 
-    List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
-    try
-    {
-        foreach (var i in Model.BuildingList)
-        {
+	List<SelectListItem> listItemsBuilding = new List<SelectListItem>();
+	try
+	{
+		foreach (var i in Model.BuildingList)
+		{
 
-            listItemsBuilding.Add(new SelectListItem
-            {
-                Text = i.ToString(),
-                Value = i.ToString()
-            });
-        }
-    }
-    catch (Exception) { }
+			listItemsBuilding.Add(new SelectListItem
+			{
+				Text = i.ToString(),
+				Value = i.ToString()
+			});
+		}
+	}
+	catch (Exception) { }
 
 }
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+	<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 </head>
 
 
+
+<div class="container">
+	<div class="modal fade" id="seemoreModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Complete Information</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<center>
+						Building No: <label id="BuildingNo"></label>
+					</center>
+					<center>
+						Unit No: <label id="UnitNo"></label>
+					</center>
+					<center>
+						Name: <label id="Name"></label>
+					</center>
+					<center>
+						Birthdate: <label id="Birthdate"></label>
+					</center>
+					<center>
+						Cellphone No: <label id="CellphoneNo"></label>
+					</center>
+					<center>
+						Email Address: <label id="EmailAddress"></label>
+					</center>
+					<center>
+						Lease Start: <label id="LeaseStart"></label>
+					</center>
+					<center>
+						Lease End: <label id="LeaseEnd"></label>
+					</center>
+					<br />
+					<center><b>Emergency Contact Information</b></center>
+					<center>
+						Number: <label id="eno"></label>
+					</center>
+					<center>
+						Name: <label id="ename"></label>
+					</center>
+					<center>
+						Address: <label id="eaddress"></label>
+					</center>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 @*Modal for Viewing MovingIn*@
 <div class="container">
-    <div class="modal fade" id="movingInModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label>Moving In Form</label>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <img height="250px" src="" width="250px" id="movin">
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="movingInModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Moving In Form</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<center>
+						<img height="250px" src="" width="250px" id="movin">
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnCloseImage" name="btnCloseImage" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @*Modal for Viewing MovingOut*@
 <div class="container">
-    <div class="modal fade" id="movingOutModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label>Moving Out Form</label>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <center>
-                        <img height="250px" src="" width="250px" id="movout">
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnCloseImagee" name="btnCloseImagee" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="movingOutModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<label>Moving Out Form</label>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<center>
+						<img height="250px" src="" width="250px" id="movout">
+					</center>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btnCloseImagee" name="btnCloseImagee" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
+@if (Model != null)
+{
+	using (Html.BeginForm("TenantView", "Tenant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+	{
+		<div class="modal fade" id="UpdateModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
 
-    @using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div class="container">
-            <div class="modal fade" id="AddModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:#43a047">
 
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif  ; font-size:33px"> UPDATE TENANT INFORMATION</div>
+						</font>
+					</div>
+					<div class="modal-body form-horizontal">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                            <font color="white">
-                                <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                                <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif  ; font-size:33px"> ADD NEW TENANT </div>
-                            </font>
-                        </div>
-                        <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+						@Html.HiddenFor(model => model.tenant.Id)
+						@Html.HiddenFor(model => model.tenant.LoginId)
+						<div class="form-group">
 
-                            @Html.HiddenFor(model => model.tenant.LoginId, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+							<div class="col-sm-12">
+								<labell for="First Name"> <b>First Name : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Fname, "", new { @class = "text-danger" })
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Fname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
 
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Middle Name"><b>Middle Name : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Mname, "", new { @class = "text-danger" })
+							</div>
+						</div>
 
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Mname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Last Name"><b>Last Name : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Lname, "", new { @class = "text-danger" })
 
+							</div>
+						</div>
 
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Lname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Bdate"><b>Birthdate : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.Bdate, "", new { @class = "text-danger" })
 
 
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Bdate, "", new { @class = "text-danger" })
+						<div class="form-group">
 
-                                    </div>
-                                </div>
-                            </div>
+							<div class="col-sm-12">
+								<labell for="Cel"><b>Cellphone No. : </b> </labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
 
 
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Email"><b>Email Address : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Email, "", new { @class = "text-danger" })
 
 
+							</div>
+						</div>
 
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                            <div class="col-sm-12">
+								<label for="Bldg no">Building no. :</label>
 
-                                <div class="form-group">
-                                    <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
+								@Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Email, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                                    <label for="Bldg no" class="col-sm-4">Building no. :</label>
+								<label for="Unit no">Unit no. :</label>
 
+							</div>
 
+							<div class="col-sm-12">
 
-                                    <div class="col-sm-7">
-                                        @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
+								@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
+								@Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                                    <label for="Unit no" class="col-sm-4">Unit no. :</label>
+								<label for="Lease Start">Lease Start :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.LeaseStart, "", new { @class = "text-danger" })
 
-                                    <div class="col-sm-7">
 
-                                        @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                                    <label for="Lease Start" class="col-sm-4">Lease Start :</label>
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.LeaseEnd, "", new { @class = "text-danger" })
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.LeaseStart, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+						</div>
 
+						<div class="col-sm-12">
+							<div class="form-group">
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+								<label class="col-sm-4">Update Moving In :</label>
 
-                                    <label for="Bldg no" class="col-sm-4">Lease End :</label>
+								<div class="col-sm-6">
+									@*ETO PO ----------------------------------------*@
+									@*<img src="@Url.Content(Model.tenant.MovingIn)" height="50" width="50" id="movinnn1">*@
+									<button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
 
+								</div>
+							</div>
+						</div>
 
+						<div class="col-sm-12">
+							<div class="form-group">
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.LeaseEnd, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+								<label class="col-sm-4">Update Moving Out :</label>
 
+								<div class="col-sm-6">
+									@*ETO PO ----------------------------------------*@
+									@*<img src="@Url.Content(Model.tenant.MovingOut)" height="50" width="50" id="movinnn2">*@
+									<button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+								</div>
+							</div>
+						</div>
 
-                                    <label class="col-sm-4">Moving In Form :</label>
 
 
 
-                                    <div class="col-sm-7">
-                                        <input type="file" id="Image1" name="Image1" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Add</button>
-                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-    @if (Model != null)
-    {
-        using (Html.BeginForm("TenantView", "Tenant", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="modal fade" id="UpdateModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color:#43a047">
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
-                            <font color="white">
-                                <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
-                                <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif  ; font-size:33px"> ADD NEW TENANT </div>
-                            </font>
-                        </div>
-                        <div class="modal-body form-horizontal"style="height:calc(100vh-212px); overflow-y:auto;">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
 
-                            @Html.HiddenFor(model => model.tenant.Id)
-                            @Html.HiddenFor(model => model.tenant.LoginId)
 
+							</div>
+						</div>
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="First Name" class="col-sm-4"> <b>First Name : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Fname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+						<div class="form-group">
+							<div class="col-sm-12">
 
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.EName, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.EName, "", new { @class = "text-danger" })
 
 
+							</div>
+						</div>
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Middle Name" class="col-sm-4"><b>Middle Name : </b></labell>
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Mname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
 
+						<div class="form-group">
+							<div class="col-sm-12">
 
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.EAddress, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.EAddress, "", new { @class = "text-danger" })
 
 
-                            <div class="col-sm-12">
+							</div>
+						</div>
 
-                                <div class="form-group">
-                                    <labell for="Last Name" class="col-sm-4"><b>Last Name : </b></labell>
+					</div>
+					<br />
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+						<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<div class="container">
+			<div class="modal fade" id="updateImageModal1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<label>Moving In: </label><input type="file" id="image1" name="image1" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.tenant.Id)">Update</button>
+							<button type="button" class="btn btn-danger" id="btnCloseImage3" name="btnCloseImage3" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Lname, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
 
+		<div class="container">
+			<div class="modal fade" id="updateImageModal2" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<label>Moving Out: </label><input type="file" id="image2" name="image2" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.tenant.Id)">Update</button>
+							<button type="button" class="btn btn-danger" id="btnCloseImage4" name="btnCloseImage4" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
+	}
+}
 
+@using (Html.BeginForm("TenantAdd", "Tenant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	<div class="container">
+		<div class="modal fade" id="AddModal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color:#43a047">
 
 
-                            <div class="col-sm-12">
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
+							<div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif  ; font-size:33px"> ADD NEW TENANT </div>
+						</font>
+					</div>
+					<div class="modal-body form-horizontal">
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                                <div class="form-group">
-                                    <labell for="Bdate" class="col-sm-4"><b>Birthdate : </b></labell>
+						@Html.HiddenFor(model => model.tenant.LoginId, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
 
+						<div class="form-group">
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Bdate, "", new { @class = "text-danger" })
+							<div class="col-sm-12">
+								<labell for="First Name"> <b>First Name : </b></labell>
+							</div>
 
-                                    </div>
-                                </div>
-                            </div>
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Fname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Fname, "", new { @class = "text-danger" })
+							</div>
+						</div>
 
 
 
 
 
-                            <div class="col-sm-12">
 
-                                <div class="form-group">
-                                    <labell for="Cel" class="col-sm-4"><b>Cellphone No. : </b> </labell>
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Middle Name"><b>Middle Name : </b></labell>
+							</div>
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Mname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Mname, "", new { @class = "text-danger" })
+							</div>
+						</div>
 
-                                    </div>
-                                </div>
-                            </div>
 
 
 
 
 
+						<div class="form-group">
 
-                            <div class="col-sm-12">
+							<div class="col-sm-12">
+								<labell for="Last Name"><b>Last Name : </b></labell>
+							</div>
 
-                                <div class="form-group">
-                                    <labell for="Email" class="col-sm-4"><b>Email Address : </b></labell>
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Lname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Lname, "", new { @class = "text-danger" })
 
+							</div>
+						</div>
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.Email, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
 
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
 
-                                    <label for="Bldg no" class="col-sm-4">Building no. :</label>
 
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Bdate"><b>Birthdate : </b></labell>
+							</div>
 
-                                    <div class="col-sm-7">
-                                        @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Bdate, new { htmlAttributes = new { @class = "form-control", @required = "required", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.Bdate, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
 
+							</div>
+						</div>
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
 
-                                    <label for="Unit no" class="col-sm-4">Unit no. :</label>
 
 
 
-                                    <div class="col-sm-7">
+						<div class="form-group">
 
-                                        @Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+							<div class="col-sm-12">
+								<labell for="Cel"><b>Cellphone No. : </b> </labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.CelNo, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.CelNo, "", new { @class = "text-danger" })
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
 
-                                    <label for="Lease Start" class="col-sm-4">Lease Start :</label>
+							</div>
+						</div>
 
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.LeaseStart, "", new { @class = "text-danger" })
 
-                                    </div>
-                                </div>
-                            </div>
 
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+						<div class="form-group">
 
-                                    <label for="Bldg no" class="col-sm-4">Lease End :</label>
+							<div class="col-sm-12">
+								<labell for="Email"><b>Email Address : </b></labell>
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Email, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Email, "", new { @class = "text-danger" })
 
 
-                                    <div class="col-sm-7">
-                                        @Html.EditorFor(model => model.tenant.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-                                        @Html.ValidationMessageFor(model => model.tenant.LeaseEnd, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                            </div>
+							</div>
+						</div>
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                                    <label class="col-sm-4">Update Moving In :</label>
+								<label for="Bldg no">Building no. :</label>
 
-                                    <div class="col-sm-7">
-                                        <button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
+							</div>
 
-                                    </div>
-                                </div>
-                            </div>
+							<div class="col-sm-12">
+								@Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.tenant.BldgNo, "", new { @class = "text-danger" })
 
-                            <div class="col-sm-12">
-                                <div class="form-group">
 
-                                    <label class="col-sm-4">Update Moving Out :</label>
+							</div>
+						</div>
 
-                                    <div class="col-sm-7">
-                                        <button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
 
-                                    </div>
-                                </div>
-                            </div>
+						<div class="form-group">
+							<div class="col-sm-12">
 
+								<label for="Unit no">Unit no. :</label>
 
-                        </div>
+							</div>
 
-                        
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
-                            <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+							<div class="col-sm-12">
 
-            <div class="container">
-                <div class="modal fade" id="updateImageModal1" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <label>Moving In: </label><input type="file" id="image1" name="image1" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage1(@Model.tenant.Id)">Update</button>
-                                <button type="button" class="btn btn-danger" id="btnCloseImage3" name="btnCloseImage3" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+								@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })
+								@Html.ValidationMessageFor(model => model.tenant.UnitNo, "", new { @class = "text-danger" })
 
+							</div>
+						</div>
 
-            <div class="container">
-                <div class="modal fade" id="updateImageModal2" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <label>Moving Out: </label><input type="file" id="image2" name="image2" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success" id="btnUpdate" name="btnUpdate" onclick="UpdateImage2(@Model.tenant.Id)">Update</button>
-                                <button type="button" class="btn btn-danger" id="btnCloseImage4" name="btnCloseImage4" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+						<div class="form-group">
+							<div class="col-sm-12">
 
-        }
-    }
+								<label for="Lease Start">Lease Start :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.LeaseStart, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.LeaseStart, "", new { @class = "text-danger" })
 
 
+							</div>
+						</div>
 
-    <br />
-    <br />
 
-    <div class="container">
-        <br /> <br /> <br /> <br />
+						<div class="form-group">
+							<div class="col-sm-12">
 
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:  #1C2331">
-                <font color="white"> <h3 class="panel-title"> List of Tenants </h3></font>
-            </div>
+								<label for="Bldg no">Lease End :</label>
 
-            <div class=" panel-body">
-                <div class="table-responsive">
+							</div>
 
-                    <table class="table table-bordered table-striped" id="TenantData">
-                        <thead>
-                            <tr>
-                                <th scope="row">Building No</th>
-                                <th scope="col">Unit No</th>
-                                <th scope="row">Full Name </th>
-                                <th scope="row">Birthdate</th>
-                                <th scope="row">Cellphone No.</th>
-                                <th scope="row">Email Address</th>
-                                <th scope="row">Lease Period</th>
-                                <th scope="row">Moving In Form</th>
-                                <th scope="row">Moving Out Form</th>
-                                <th scope="row">Actions</th>
-                            </tr>
-                        </thead>
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.LeaseEnd, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.LeaseEnd, "", new { @class = "text-danger" })
+							</div>
+						</div>
 
 
-                    </table>
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                </div>
-            </div>
-        </div>
+								<label>Moving In Form :</label>
 
-        <div class="form-inline">
+							</div>
 
-            <button type="button" id="addbtn" class="btn btn-success">
-                ADD NEW TENANT
-            </button>
-            <a class="btn btn-default" href="@Url.Action("Download","Tenant")">Download List of Tenants</a>
-        </div>
-    </div>
+							<div class="col-sm-12">
+								<input type="file" id="Image1" name="Image1" />
+							</div>
+						</div>
 
-    <div id="auerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem updating a Tenant
-    </div>
-    <div id="ausuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully updated a Tenant
-    </div>
-    <div id="aerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem deleting your form
-    </div>
-    <div id="asuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully deleted a Tenant
-    </div>
-    <div id="aaerror" class="alert alert-danger collapse">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>Error!</strong> There is a problem submitting your form
-    </div>
-    <div id="aasuccess" class="alert alert-success collapse">
-        <strong>Success!</strong> You have successfully added a Tenant
-    </div>
 
-    @if (ViewBag.DeleteMessage != null)
-    {
-        if (ViewBag.DeleteMessage == true)
-        {
-            <script type="text/javascript">
-                $(document).ready(function () {
 
-                    $('#asuccess').show('fade');
+						<div class="form-group">
+							<div class="col-sm-12">
 
-                    setTimeout(function () {
-                        $('#asuccess').hide('fade');
-                    }, 2000);
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
-                });
-            </script>
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
 
-        }
 
-        else
-        {
-            <script type="text/javascript">
-                $(document).ready(function () {
+							</div>
+						</div>
 
-                    $('#aerror').show('fade');
 
-                    setTimeout(function () {
-                        $('#aerror').hide('fade');
-                    }, 2000);
 
 
-                });
 
-            </script>
-        }
-    }
+						<div class="form-group">
+							<div class="col-sm-12">
 
-    @if (ViewBag.UpdateMessage != null)
-    {
-        if (ViewBag.UpdateMessage == true)
-        {
-            <script type="text/javascript">
-                $(document).ready(function () {
+								<label for="Bldg no">Lease End :</label>
 
-                    $('#ausuccess').show('fade');
+							</div>
 
-                    setTimeout(function () {
-                        $('#ausuccess').hide('fade');
-                    }, 2000);
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.EName, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.EName, "", new { @class = "text-danger" })
 
 
-                });
-            </script>
-        }
+							</div>
+						</div>
 
-        else
-        {
-            <script type="text/javascript">
-                $(document).ready(function () {
 
-                    $('#auerror').show('fade');
 
-                    setTimeout(function () {
-                        $('#auerror').hide('fade');
-                    }, 2000);
 
 
-                });
-            </script>
-        }
+						<div class="form-group">
+							<div class="col-sm-12">
 
-    }
+								<label for="Bldg no">Lease End :</label>
 
+							</div>
 
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.EAddress, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.EAddress, "", new { @class = "text-danger" })
 
-    @if (ViewBag.AddMessage != null)
-    {
-        if (ViewBag.AddMessage == true)
-        {
-            <script type="text/javascript">
 
-                $(document).ready(function () {
+							</div>
+						</div>
 
-                    document.forms[0].reset();
-                    $('#aasuccess').show('fade');
+					</div>
+					<br />
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
+						<button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
 
-                    setTimeout(function () {
-                        $('#aasuccess').hide('fade');
-                    }, 2000);
 
-                });
-            </script>
-        }
 
-        else
-        {
-            <script type="text/javascript">
 
-                $(document).ready(function () {
 
-                    $('#aaerror').show('fade');
 
-                    setTimeout(function () {
-                        $('#aaerror').hide('fade');
-                    }, 2000);
+<br />
+<br />
 
+<div class="container">
+	<br /> <br /> <br /> <br />
 
-                });
-            </script>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color:  #1C2331">
+			<font color="white"> <h3 class="panel-title"> List of Tenants </h3></font>
+		</div>
 
-        }
+		<div class=" panel-body">
+			<div class="table-responsive">
 
-    }
-    @if (ViewBag.Alert != null)
-    {
-        if (ViewBag.Alert == true)
-        {
-            <script>
-                $(document).ready(function () {
-                    $('#AddModal').modal('show');
-                });
-            </script>
-        }
-    }
-    @if (ViewBag.ModalView != null)
-    {
-        if (ViewBag.ModalView == 1)
-        {
-            <script>
-                $('#UpdateModal').modal();
-            </script>
-        }
-        else
-        {
-            <script>
-                $('#UpdateModal').modal("hide");
-            </script>
-        }
-    }
+				<table class="table table-bordered table-striped" id="TenantData">
+					<thead>
+						<tr>
+							<th scope="row">Building No</th>
+							<th scope="col">Unit No</th>
+							<th scope="row">Full Name </th>
+							<th scope="row">Birthdate</th>
+							<th scope="row">Cellphone No.</th>
+							<th scope="row">Email Address</th>
+							<th scope="row">Lease Period</th>
+							<th scope="row">Moving In Form</th>
+							<th scope="row">Moving Out Form</th>
+							@*<th scope="row">Emergency Number</th>
+							<th scope="row">Emergency Name</th>
+							<th scope="row">Emergency Address</th>*@
+							<th scope="row">Actions</th>
+						</tr>
+					</thead>
 
 
+				</table>
 
+			</div>
+		</div>
+	</div>
 
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var table = $('#TenantData').DataTable({
-                "ajax": {
-                    "url": '/Tenant/GetTenant',
-                    "type": "GET",
-                    "datatype": "json",
-                },
-                "columns": [
-                    { "data": "BldgNo", "autowidth": true },
-                    { "data": "UnitNo", "autowidth": true },
-                    { "data": "Fullname", "autowidth": true },
-                    { "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
-                    { "data": "CelNo", "autowidth": true },
-                    { "data": "Email", "autowidth": true },
-                    { "data": "Lease", "autowidth": true },
-                    { "data": "MovingIn", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingIn" onclick="Set1(\'' + data + '\')">View</button>' } },
-                    { "data": "MovingOut", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingOut" onclick="Set2(\'' + data + '\')">View</button>' } },
-                    { "data": "Id", "autowidth": true, render: function (data) { return '<a id="btnUpdate" class="btn btn-primary" href="/Tenant/TenantView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Tenant/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
-                ]
-            });
-        });
-        var mi;
-        function Download() {
-            $.post("/Tenant/Download");
-        }
+	<div class="form-inline">
 
-        function Set1(movingIn) {
-            mi = movingIn;
-            var fullpath = (mi).toString();
-            var filename = fullpath.replace(/^.*[\\\/]/, '');
-            var path = "../Content/TenantImages/" + filename;
+		<button type="button" id="addbtn" class="btn btn-success">
+			ADD NEW TENANT
+		</button>
+		<a class="btn btn-default" href="@Url.Action("Download","Tenant")">Download List of Tenants</a>
+	</div>
+</div>
 
-            document.getElementById('movin').setAttribute('src', path)
+<div id="auerror" class="alert alert-danger collapse">
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem updating a Tenant
+</div>
+<div id="ausuccess" class="alert alert-success collapse">
+	<strong>Success!</strong> You have successfully updated a Tenant
+</div>
+<div id="aerror" class="alert alert-danger collapse">
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem deleting your form
+</div>
+<div id="asuccess" class="alert alert-success collapse">
+	<strong>Success!</strong> You have successfully deleted a Tenant
+</div>
+<div id="aaerror" class="alert alert-danger collapse">
+	<a href="#" class="close" data-dismiss="alert">&times;</a>
+	<strong>Error!</strong> There is a problem submitting your form
+</div>
+<div id="aasuccess" class="alert alert-success collapse">
+	<strong>Success!</strong> You have successfully added a Tenant
+</div>
 
-            $('#movingInModal').modal();
-        }
+@if (ViewBag.DeleteMessage != null)
+{
+	if (ViewBag.DeleteMessage == true)
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-        function Set2(movingout) {
-            mi = movingout;
-            var fullpath = (mi).toString();
-            var filename = fullpath.replace(/^.*[\\\/]/, '');
-            var path = "../Content/TenantImages/" + filename;
+				$('#asuccess').show('fade');
 
-            document.getElementById('movout').setAttribute('src', path)
+				setTimeout(function () {
+					$('#asuccess').hide('fade');
+				}, 2000);
 
-            $('#movingOutModal').modal();
-        }
 
+			});
+		</script>
 
-        $("form").submit(function (e) {
-            var leasestart = document.getElementById('tenant_LeaseStart').value
-            var leaseend = document.getElementById('tenant_LeaseEnd').value
+	}
 
+	else
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-            var date1 = new Date(leasestart);
-            var date2 = new Date(leaseend);
+				$('#aerror').show('fade');
 
-            if (date1 > date2) {
-                alert("Invalid Lease Start OR Lease End");
-                e.preventDefault();
-            }
+				setTimeout(function () {
+					$('#aerror').hide('fade');
+				}, 2000);
 
-        });
 
-        $(document).ready(function () {
-            $('[name="tenant.Bdate"]').prop('max', function () {
-                return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-            });
-        });
+			});
 
-        function UpdateImage1(id) {
-            var tid = id;
+		</script>
+	}
+}
 
-            var file1 = $("#image1").get(0).files;
-            var data = new FormData();
-            data.append("Image1", file1[0]);
-            data.append("Id", tid);
+@if (ViewBag.UpdateMessage != null)
+{
+	if (ViewBag.UpdateMessage == true)
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-            $.ajax({
-                type: "POST",
-                url: "/Tenant/InsertMoving1/",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    if (data == true) {
-                        alert('Success');
-                        window.location.href = window.location.href + "?rnd=" + Math.random()
+				$('#ausuccess').show('fade');
 
-                    }
-                },
-                error: function (error) {
-                    alert(error);
-                }
-            });
-        }
+				setTimeout(function () {
+					$('#ausuccess').hide('fade');
+				}, 2000);
 
-        function UpdateImage2(id) {
-            var tid = id;
 
-            var file2 = $("#image2").get(0).files;
-            var data = new FormData();
-            data.append("Image2", file2[0]);
-            data.append("Id", tid);
+			});
+		</script>
+	}
 
-            $.ajax({
-                type: "POST",
-                url: "/Tenant/InsertMoving2/",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    if (data == true) {
-                        alert('Success');
-                        window.location.href = window.location.href + "?rnd=" + Math.random()
+	else
+	{
+		<script type="text/javascript">
+			$(document).ready(function () {
 
-                    }
-                },
-                error: function (error) {
-                    alert(error);
-                }
-            });
-        }
+				$('#auerror').show('fade');
 
-        $('#addbtn').click(function () {
+				setTimeout(function () {
+					$('#auerror').hide('fade');
+				}, 2000);
 
-            $('#AddModal').modal();
-        }
-        );
 
+			});
+		</script>
+	}
 
-        $('#btnCloseImage').click(function () {
+}
 
-            $('#movingInModal').hide();
-        }
-        );
 
-        $('#btnMovingIn').click(function () {
 
-            $('#movingInModal').modal();
-        }
-        );
+@if (ViewBag.AddMessage != null)
+{
+	if (ViewBag.AddMessage == true)
+	{
+		<script type="text/javascript">
 
-        $('#btnMovingOut').click(function () {
+			$(document).ready(function () {
 
-            $('#movingOutModal').modal();
-        }
-        );
+				document.forms[0].reset();
+				$('#aasuccess').show('fade');
 
-        $('#btnCloseImagee').click(function () {
+				setTimeout(function () {
+					$('#aasuccess').hide('fade');
+				}, 2000);
 
-            $('#movingOutModal').hide();
-        }
-        );
+			});
+		</script>
+	}
 
+	else
+	{
+		<script type="text/javascript">
 
+			$(document).ready(function () {
 
-        $('#btnCloseImage4').click(function () {
+				$('#aaerror').show('fade');
 
-            $('#UpdateModal').modal();
-        }
-        );
+				setTimeout(function () {
+					$('#aaerror').hide('fade');
+				}, 2000);
 
-        $('#btnUpdateImage1').click(function () {
 
-            $('#updateImageModal1').modal();
-        }
-        );
+			});
+		</script>
 
+	}
 
-        $('#btnCloseImage3').click(function () {
+}
+@if (ViewBag.Alert != null)
+{
+	if (ViewBag.Alert == true)
+	{
+		<script>
+			$(document).ready(function () {
+				$('#AddModal').modal('show');
+			});
+		</script>
+	}
+}
+@if (ViewBag.ModalView != null)
+{
+	if (ViewBag.ModalView == 1)
+	{
+		<script>
+			$('#UpdateModal').modal();
+		</script>
+	}
+	else
+	{
+		<script>
+			$('#UpdateModal').modal("hide");
+		</script>
+	}
+}
 
-            $('#UpdateModal').modal();
-        }
-        );
 
-        $('#btnUpdateImage2').click(function () {
 
-            $('#updateImageModal2').modal();
-        }
-        );
-    </script>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script>
+	$(document).ready(function () {
+		var table = $('#TenantData').DataTable({
+			"ajax": {
+				"url": '/Tenant/GetTenant',
+				"type": "GET",
+				"datatype": "json",
+			},
+			"columns": [
+				{ "data": "BldgNo", "autowidth": true },
+				{ "data": "UnitNo", "autowidth": true },
+				{ "data": "Fullname", "autowidth": true },
+				{ "data": "Bdate", render: function (data, type, announcement) { return announcement.FormattedDate }, "autowidth": true },
+				{ "data": "CelNo", "autowidth": true },
+				{ "data": "Email", "autowidth": true },
+				{ "data": "Lease", "autowidth": true },
+				{ "data": "MovingIn", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingIn" onclick="Set1(\'' + data + '\')">View</button>' } },
+				{ "data": "MovingOut", "autowidth": true, render: function (data) { return '<button class="btn btn-info" id="btnMovingOut" onclick="Set2(\'' + data + '\')">View</button>' } },
+				{ "data": "Id", "autowidth": true, render: function (data) { return '<button class="btn btn-default" id="seemore" onclick="ViewOther(' + data + ')"><i class="glyphicon glyphicon-eye-open"></i></button><a id="btnUpdate" class="btn btn-primary" href="/Tenant/TenantView/' + data + '"><i class="glyphicon glyphicon-edit"></i></a> <a class="btn btn-danger" href="/Tenant/Delete/' + data + '"><i class="glyphicon glyphicon-trash"></i> </a>' } }
+			]
+		});
+	});
+
+	function ViewOther(id) {
+		$('#seemoreModal').modal();
+		var data = {
+			Id: id
+		}
+		$.ajax({
+			"url": "/Tenant/GetTenantS", //link sa controller na kinukuha yung owner na may Id ex Id=64
+			"type": "GET",
+			"data": data,
+			"success": function (data) {
+
+				document.getElementById('BuildingNo').innerHTML = data.BldgNo;
+				document.getElementById('UnitNo').innerHTML = data.UnitNo;
+				document.getElementById('Name').innerHTML = data.Fullname;
+				document.getElementById('Birthdate').innerHTML = moment(data.Bdate).format("MMMM DD YYYY");
+				document.getElementById('CellphoneNo').innerHTML = data.CelNo;
+				document.getElementById('LeaseStart').innerHTML = moment(data.LeaseStart).format("MMMM DD YYYY");
+				document.getElementById('LeaseEnd').innerHTML = moment(data.LeaseEnd).format("MMMM DD YYYY");
+				document.getElementById('EmailAddress').innerHTML = data.Email;
+				document.getElementById('eno').innerHTML = data.ENo;
+				document.getElementById('ename').innerHTML = data.EName;
+				document.getElementById('eaddress').innerHTML = data.EAddress;
+			}
+		});
+	}
+
+
+
+	var mi;
+	function Download() {
+		$.post("/Tenant/Download");
+	}
+
+	function Set1(movingIn) {
+		mi = movingIn;
+		var fullpath = (mi).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		var path = "../Content/TenantImages/" + filename;
+
+		document.getElementById('movin').setAttribute('src', path)
+
+		$('#movingInModal').modal();
+	}
+
+	function Set2(movingout) {
+		mi = movingout;
+		var fullpath = (mi).toString();
+		var filename = fullpath.replace(/^.*[\\\/]/, '');
+		var path = "../Content/TenantImages/" + filename;
+
+		document.getElementById('movout').setAttribute('src', path)
+
+		$('#movingOutModal').modal();
+	}
+
+
+	$("form").submit(function (e) {
+		var leasestart = document.getElementById('tenant_LeaseStart').value
+		var leaseend = document.getElementById('tenant_LeaseEnd').value
+
+
+		var date1 = new Date(leasestart);
+		var date2 = new Date(leaseend);
+
+		if (date1 > date2) {
+			alert("Invalid Lease Start OR Lease End");
+			e.preventDefault();
+		}
+
+	});
+
+	$(document).ready(function () {
+		$('[name="tenant.Bdate"]').prop('max', function () {
+			return new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+		});
+	});
+
+	function UpdateImage1(id) {
+		var tid = id;
+
+		var file1 = $("#image1").get(0).files;
+		var data = new FormData();
+		data.append("Image1", file1[0]);
+		data.append("Id", tid);
+
+		$.ajax({
+			type: "POST",
+			url: "/Tenant/InsertMoving1/",
+			data: data,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				if (data == true) {
+					alert('Success');
+					window.location.href = window.location.href + "?rnd=" + Math.random()
+
+				}
+			},
+			error: function (error) {
+				alert(error);
+			}
+		});
+	}
+
+	function UpdateImage2(id) {
+		var tid = id;
+
+		var file2 = $("#image2").get(0).files;
+		var data = new FormData();
+		data.append("Image2", file2[0]);
+		data.append("Id", tid);
+
+		$.ajax({
+			type: "POST",
+			url: "/Tenant/InsertMoving2/",
+			data: data,
+			contentType: false,
+			processData: false,
+			success: function (data) {
+				if (data == true) {
+					alert('Success');
+					window.location.href = window.location.href + "?rnd=" + Math.random()
+
+				}
+			},
+			error: function (error) {
+				alert(error);
+			}
+		});
+	}
+
+	$('#addbtn').click(function () {
+
+		$('#AddModal').modal();
+	}
+	);
+
+
+	$('#btnCloseImage').click(function () {
+
+		$('#movingInModal').hide();
+	}
+	);
+
+	$('#btnMovingIn').click(function () {
+
+		$('#movingInModal').modal();
+	}
+	);
+
+	$('#btnMovingOut').click(function () {
+
+		$('#movingOutModal').modal();
+	}
+	);
+
+	$('#btnCloseImagee').click(function () {
+
+		$('#movingOutModal').hide();
+	}
+	);
+
+
+
+	$('#btnCloseImage4').click(function () {
+
+		$('#UpdateModal').modal();
+	}
+	);
+
+	$('#btnUpdateImage1').click(function () {
+
+		$('#updateImageModal1').modal();
+	}
+	);
+
+
+	$('#btnCloseImage3').click(function () {
+
+		$('#UpdateModal').modal();
+	}
+	);
+
+	$('#btnUpdateImage2').click(function () {
+
+		$('#updateImageModal2').modal();
+	}
+	);
+</script>

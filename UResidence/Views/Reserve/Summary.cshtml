@@ -345,7 +345,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success btn-lg btn-block">
+                        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-success btn-lg btn-block" data-confirm="Are you sure?">
                             Reserve Now   <span class="glyphicon glyphicon-chevron-right"></span>
                         </button>
 
@@ -358,5 +358,13 @@
 
 
             }
-
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('[data-confirm]').click(function (e) {
+                if (!confirm(jQuery(this).attr("data-confirm"))) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
            

@@ -11,7 +11,7 @@ namespace UResidence
     {
         public static List<Tenant> GetAll()
         {
-            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId FROM [tbTenant] where Deleted=0  order by Id";
+            const string GET_ALL = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress FROM [tbTenant] where Deleted=0  order by Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -21,7 +21,7 @@ namespace UResidence
 
         public static List<Tenant> GetTList(int Id)
         {
-            const string GET_ALL = @"select t.Id,t.UnitNo,t.BldgNo,t.Fname,t.Mname,t.Lname,t.Bdate,t.CelNo,t.Email,t.LeaseStart,t.LeaseEnd,t.Deleted,t.URL,t.MovingIn,t.MovingOut,t.Fname+' '+t.Mname+' '+t.Lname as Fullname,FORMAT(t.Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),t.LeaseStart,100)+' - '+Convert(varchar(25),t.LeaseEnd,100) as Lease,t.LoginId from tbOwner o inner join tbResidence r on o.Id=r.OwnerNo inner join tbTenant t on t.Id=r.TenantNo where t.Deleted=0 and o.Id=@Id";
+            const string GET_ALL = @"select t.Id,t.UnitNo,t.BldgNo,t.Fname,t.Mname,t.Lname,t.Bdate,t.CelNo,t.Email,t.LeaseStart,t.LeaseEnd,t.Deleted,t.URL,t.MovingIn,t.MovingOut,t.Fname+' '+t.Mname+' '+t.Lname as Fullname,FORMAT(t.Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),t.LeaseStart,100)+' - '+Convert(varchar(25),t.LeaseEnd,100) as Lease,t.LoginId,t.ENo,t.EName,t.EAddress from tbOwner o inner join tbResidence r on o.Id=r.OwnerNo inner join tbTenant t on t.Id=r.TenantNo where t.Deleted=0 and o.Id=@Id";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_ALL);
@@ -32,7 +32,7 @@ namespace UResidence
 
         public static Tenant GetIdTenant(string idTenant)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -41,9 +41,22 @@ namespace UResidence
 
             return ret;
         }
+
+        public static Tenant GETID(int idTenant)
+        {
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
+
+            Tenant ret = default(Tenant);
+            SqlCommand com = new SqlCommand(GET_RECORD);
+            com.Parameters.Add(new SqlParameter("@Id", idTenant));
+            ret = SqlManager.Select<Tenant>(com).First();
+
+            return ret;
+        }
+
         public static Tenant GetEmailTenant(string Email)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] WHERE Email = @Email and Deleted=0 ";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] WHERE Email = @Email and Deleted=0 ";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -56,7 +69,7 @@ namespace UResidence
 
         public static Tenant GetTenantReserve(string bldgno, string unitno)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] where BldgNo=@BldgNo and UnitNo=@UnitNo and Deleted=0";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -90,7 +103,7 @@ namespace UResidence
 
         public static Tenant GetId(string id)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
 
             Tenant ret = default(Tenant);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -101,7 +114,7 @@ namespace UResidence
         }
         public static List<Tenant> Check(Tenant ten)
         {
-            const string GET_RECORD = @" SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId FROM [tbTenant] where Deleted=0 and LeaseEnd Between @start and @end ";
+            const string GET_RECORD = @" SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress FROM [tbTenant] where Deleted=0 and LeaseEnd Between @start and @end ";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -114,7 +127,7 @@ namespace UResidence
 
         public static List<Tenant> GetId(int id)
         {
-            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
+            const string GET_RECORD = @"SELECT Id,UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,Fname+' '+Mname+' '+Lname as Fullname,FORMAT(Bdate,'MMM dd yyyy') as Birthday,Convert(varchar(25),LeaseStart,100)+' - '+Convert(varchar(25),LeaseEnd,100) as Lease,LoginId,ENo,EName,EAddress  FROM [tbTenant] WHERE Id = @Id and Deleted=0";
 
             List<Tenant> ret = default(List<Tenant>);
             SqlCommand com = new SqlCommand(GET_RECORD);
@@ -127,7 +140,7 @@ namespace UResidence
 
         public static bool Update(Tenant usr)
         {
-            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo WHERE Id = @Id";
+            const string GET_UPDATE = @"update [tbTenant] set Fname = @Fname, Mname = @Mname, Lname = @Lname, Bdate = @Bdate, CelNo = @CelNo, Email = @Email,BldgNo=@BldgNo,UnitNo=@UnitNo,ENo=@ENo,EName=@EName,EAddress=@EAddress WHERE Id = @Id";
 
             SqlCommand com = new SqlCommand(GET_UPDATE);
             com.Parameters.Add(new SqlParameter("@UnitNo", usr.UnitNo));
@@ -139,6 +152,9 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@CelNo", usr.CelNo));
             com.Parameters.Add(new SqlParameter("@Email", usr.Email));
             com.Parameters.Add(new SqlParameter("@Id", usr.Id));
+            com.Parameters.Add(new SqlParameter("@ENo", usr.ENo));
+            com.Parameters.Add(new SqlParameter("@EName", usr.EName));
+            com.Parameters.Add(new SqlParameter("@EAddress", usr.EAddress));
 
             return SqlManager.ExecuteNonQuery(com);
         }
@@ -227,7 +243,7 @@ namespace UResidence
         public static bool Insert(Tenant usr)
         {
 
-            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,LoginId) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted,@URL,@MovingIn,@MovingOut,0)";
+            const string GET_INSERT = @"insert [tbTenant] (UnitNo,BldgNo,Fname,Mname,Lname,Bdate,CelNo,Email,LeaseStart,LeaseEnd,Deleted,URL,MovingIn,MovingOut,LoginId,ENo,EName,EAddress) values (@UnitNo,@BldgNo,@Fname,@Mname,@Lname,@Bdate,@CelNo,@Email, @LeaseStart, @LeaseEnd,@Deleted,@URL,@MovingIn,@MovingOut,0,@ENo,@EName,@EAddress)";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@BldgNo", usr.BldgNo));
@@ -244,6 +260,9 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@URL", usr.URL));
             com.Parameters.Add(new SqlParameter("@MovingIn", usr.MovingIn));
             com.Parameters.Add(new SqlParameter("@MovingOut", usr.MovingOut));
+            com.Parameters.Add(new SqlParameter("@ENo", usr.ENo));
+            com.Parameters.Add(new SqlParameter("@EName", usr.EName));
+            com.Parameters.Add(new SqlParameter("@EAddress", usr.EAddress));
             return SqlManager.ExecuteNonQuery(com);
         }
     }

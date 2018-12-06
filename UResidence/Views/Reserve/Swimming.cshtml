@@ -246,83 +246,84 @@
                                 <div class="box-icon">
                                     <span class="fa fa-3x fa fa-calendar"></span>
                                 </div>
-                                <div class="info">
-                                    <h4 class="text-center">Choose your Time and Specify the No. of Guest</h4>
+								<div class="info">
+									<label>@ViewBag.name</label>
+									<h4 class="text-center">Choose your Time and Specify the No. of Guest</h4>
 
 
 
 
-                                    <p class="form-inline">
+									<p class="form-inline">
 
 
-                                        <label for="start time">Date:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" required style="width:270px" max="9999-12-31" />
-
-
-
-                                    </p>
+										<label for="start time">Date:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="date" onselect="Set()" class="form-control" id="sd" name="sd" required style="width:270px" max="9999-12-31" />
 
 
 
-                                    <p class="form-inline">
-                                        <label for="adult">Adult:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <input type="number" onselect="myFunction()" class="form-control" name="adult" id="adult" min="0"  value="0" style="width:270px;">
-
-                                    </p>
+									</p>
 
 
 
-                                    <p class="form-inline">
-                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult1" id="rateadult1" readonly style="width:270px;">
+									<p class="form-inline">
+										<label for="adult">Adult:</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <input type="number" onselect="myFunction()" class="form-control" name="adult" id="adult" min="0" value="0" style="width:270px;">
 
-                                    </p>
-
-
-
-                                    <p class="form-inline">
-                                        <br />
-                                        <label for="Kids">Kids:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="number" onselect="myFunction()" class="form-control" name="child" id="child" min="0"  value="0" style="width:270px;">
-
-
-                                    </p>
-
-
-                                    <p class="form-inline">
-                                        <label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild1" id="ratechild1" readonly style="width:270px;">
-
-
-                                    </p>
-
-
-                                    <p class="form-inline">
-                                        <label for="trate">Total Rate:    </label> &nbsp; &nbsp;
+									</p>
 
 
 
-                                        <input type="text" id="rate" name="rate" class="form-control" readonly style="width:270px;" />
+									<p class="form-inline">
+										<label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;   <input type="text" class="form-control" name="rateadult1" id="rateadult1" readonly style="width:270px;">
 
-                                        <input type="hidden" id="tratee" name="tratee" />
-
-
-                                        <input type="time" id="startT" name="startT" value="08:00" hidden />
-                                        <input type="time" id="endT" name="endT" value="21:00" hidden />
-                                        <input type="datetime" id="stime" name="stime" hidden />
-                                        <input type="datetime" id="etime" name="etime" hidden />
-                                        <input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="display:none;">
-                                        <input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="display:none;">
-                                        <br />
-                                        <br />
-                                        <input type="checkbox" name="chk" id="chk"> <b>I have read and agreed to the Terms and Conditions</b>
-
-                                    </p>
-
-
-                                    <p class="form-inline">
-                                        <button name="submit" id="submit" type="submit" button class="button col-sm-12" onclick="Check()"> Next</button>
-                                    </p>
+									</p>
 
 
 
+									<p class="form-inline">
+										<br />
+										<label for="Kids">Kids:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="number" onselect="myFunction()" class="form-control" name="child" id="child" min="0" value="0" style="width:270px;">
 
-                                </div>
+
+									</p>
+
+
+									<p class="form-inline">
+										<label for="rate">Rate:</label> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  <input type="text" class="form-control" name="ratechild1" id="ratechild1" readonly style="width:270px;">
+
+
+									</p>
+
+
+									<p class="form-inline">
+										<label for="trate">Total Rate:    </label> &nbsp; &nbsp;
+
+
+
+										<input type="text" id="rate" name="rate" class="form-control" readonly style="width:270px;" />
+
+										<input type="hidden" id="tratee" name="tratee" />
+
+
+										<input type="time" id="startT" name="startT" value="08:00" hidden />
+										<input type="time" id="endT" name="endT" value="21:00" hidden />
+										<input type="datetime" id="stime" name="stime" hidden />
+										<input type="datetime" id="etime" name="etime" hidden />
+										<input type="text" class="form-control" name="ratechild" id="ratechild" readonly style="display:none;">
+										<input type="text" class="form-control" name="rateadult" id="rateadult" readonly style="display:none;">
+										<br />
+										<br />
+										<input type="checkbox" name="chk" id="chk"> <b>I have read and agreed to the Terms and Conditions</b>
+
+									</p>
+
+
+									<p class="form-inline">
+										<button name="submit" id="submit" type="submit" button class="button col-sm-12" onclick="Check()"> Next</button>
+									</p>
+
+
+
+
+								</div>
                             </div>
                         </div>
                     </div>

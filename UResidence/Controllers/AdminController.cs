@@ -64,6 +64,12 @@ namespace UResidence.Controllers
             }
 
         }
+        public JsonResult GetAdminS(Admin data)
+        {
+            Admin ret = new Admin();
+            ret = UResidence.AdminController.GETID(data.Id);
+            return new JsonResult { Data = ret, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         public ActionResult Registration()
         {
             if (Session["Level"] == null)
@@ -463,7 +469,7 @@ namespace UResidence.Controllers
                     }
                     else
                     {
-                        status = UResidence.AdminController.Update(adm);
+                        status = UResidence.AdminController.UpdateBoss(adm);
                     }
                     if (status == true)
                     {

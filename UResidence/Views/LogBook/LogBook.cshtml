@@ -69,7 +69,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="snap">Take Photo</button>
-                        <button type="button" class="btn btn-danger" id="btnClosePic" name="btnClosePic" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="btnClosePic" name="btnClosePic" data-dismiss="modal">Done</button>
                     </div>
                 </div>
             </div>
@@ -186,7 +186,7 @@
 
 
                     <tr>
-                        <td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required /></td>
+                        <td><input class="form-control" type="date" id="date" name="date" value="@DateTime.Now" required  disabled /></td>
                         <td>  @Html.DropDownListFor(model => model.tenant.BldgNo, listItemsBuilding, new { @class = "form-control" })</td>
                         <td>@Html.DropDownListFor(model => model.tenant.UnitNo, listItemsUnit, new { @class = "form-control" })</td>
                         <td><input class="form-control" type="text" id="visitorname" name="visitorname" required /></td>
@@ -202,6 +202,14 @@
     </div>
 }
     <script>
+
+
+		$("form").submit(function () {
+			var date = document.getElementById("date");	
+			date.disabled = false;
+		});
+
+
         var filei;
         $(document).ready(function () {
             var now = new Date();
@@ -301,8 +309,8 @@
             canvas.toBlob(function (blob) {
                 var url = canvas.toDataURL();
                 document.getElementById('logbookpictext').value = url;
-                alert("Captured Image");
-                $('#takepic').hide();
+                alert("Image Captured");
+                //$('#takepic').hide();
             });
 
         });

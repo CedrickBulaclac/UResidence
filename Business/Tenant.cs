@@ -67,6 +67,10 @@ namespace UResidence
         public string Fullname { get; set; }
         public string Birthday { get; set; }
         public int LoginId { get; set; }
+        public string ENo { get; set; }
+        public string EName { get; set; }
+        public string EAddress { get; set; }
+
         public bool Validate(out string[] errors)
         {
             bool ret = true;
@@ -147,6 +151,9 @@ namespace UResidence
             ret.Birthday = reader.GetString(16);
             ret.Lease = reader.GetString(17);
             ret.LoginId = reader.GetInt32(18);
+            ret.ENo = reader.GetString(19);
+            ret.EName = reader.GetString(20);
+            ret.EAddress = reader.GetString(21);
             return ret;
         }
     }

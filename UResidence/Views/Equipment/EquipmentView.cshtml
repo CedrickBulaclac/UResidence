@@ -68,20 +68,19 @@
 
                     </div>
 
-                    <div class="modal-body form-horizontal"style="height:calc(100vh-212px); overflow-y:auto;">
+                    <div class="modal-body form-horizontal">
 
 
-                        <div class="col-sm-12">
+                        <div class="form-group">
 
-                            <div class="form-group">
-                                <labell for="Name" class="col-sm-4"> <b>Name : </b></labell>
+                            <div class="col-sm-12">
+                                <labell for="Name"> <b>Name : </b></labell>
+                            </div>
 
+                            <div class="col-sm-12">
 
-                                <div class="col-sm-7">
-
-                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                </div>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -89,17 +88,16 @@
 
 
 
-                        <div class="col-sm-12">
+                        <div class="form-group">
 
-                            <div class="form-group">
-                                <labell for="Stocks" class="col-sm-4"> <b>Stocks : </b></labell>
+                            <div class="col-sm-12">
+                                <labell for="Stocks"> <b>Stocks : </b></labell>
+                            </div>
 
+                            <div class="col-sm-12">
 
-                                <div class="col-sm-7">
-
-                                    @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
-                                </div>
+                                @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -108,56 +106,54 @@
 
 
 
-                        <div class="col-sm-12">
+                        <div class="form-group">
 
-                            <div class="form-group">
-                                <labell for="Rate" class="col-sm-4"> <b>Rate : </b></labell>
+                            <div class="col-sm-12">
+                                <labell for="Rate"> <b>Rate : </b></labell>
+                            </div>
 
-
-                                <div class="col-sm-7">
-                                    @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
-                                </div>
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
 
 
 
-                        <div class="col-sm-12">
+                        <div class="form-group">
 
-                            <div class="form-group">
-                                <labell for="Description" class="col-sm-4"> <b>Description : </b></labell>
+                            <div class="col-sm-12">
+                                <labell for="Description"> <b>Description : </b></labell>
+                            </div>
 
-
-                                <div class="col-sm-7">
-                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                                </div>
+                            <div class="col-sm-12">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
 
 
-                        <div class="col-sm-12">
+                        <div class="form-group">
 
-                            <div class="form-group">
-
-                                <label class="col-sm-4">Equipment Image :</label>
-
-
-
-                                <div class="col-sm-7">
-                                    <input type="file" id="Image" name="Image" />
-                                </div>
+                            <div class="col-sm-12">
+                                <p>
+                                    <label>Equipment Image :</label>
+                                </p>
                             </div>
+
+                            <div class="col-sm-12">
+                                <input type="file" id="Image" name="Image" />
+                            </div>
+
                         </div>
 
                     </div>
 
-                 
+                    <br />
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Add</button>
+                        <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
                         <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -182,15 +178,14 @@
 
                         </div>
 
-                        <div class="modal-body form-horizontal"style="height:calc(100vh-212px); overflow-y:auto;">
+                        <div class="modal-body form-horizontal">
                             @Html.HiddenFor(model => model.Id)
-
                             <div class="col-sm-12">
                                 <div class="form-group">
 
                                     <label class="col-sm-4" for="Name">Name :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
 
                                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -205,7 +200,7 @@
 
                                     <label class="col-sm-4" for="Stocks">Stocks :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
 
                                         @Html.EditorFor(model => model.Stocks, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Stocks, "", new { @class = "text-danger" })
@@ -220,7 +215,7 @@
 
                                     <label class="col-sm-4" for="Rate">Rate :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
 
                                         @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
@@ -235,11 +230,12 @@
 
                                     <label class="col-sm-4" for="Image">Image :</label>
 
-                                    <div class="col-sm-7">
+									<div class="col-sm-6">
+										@*ETO PO ----------------------------------------*@
+										<img src="@Url.Content(Model.Url)" height="50" width="50" id="equip111">
+										<button type="button" class="btn btn-info" id="btnUpdateImage" name="btnUpdateImage" data-dismiss="modal">Update Image</button>
 
-                                        <button type="button" class="btn btn-info" id="btnUpdateImage" name="btnUpdateImage" data-dismiss="modal">Update Image</button>
-
-                                    </div>
+									</div>
                                 </div>
                             </div>
 
@@ -248,7 +244,7 @@
 
                                     <label class="col-sm-4" for="Description">Description :</label>
 
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
 
                                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -260,8 +256,6 @@
 
 
                         </div>
-                      
-
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success" id="btnAdd" name="btnAdd" onclick="Add()">Save</button>
                             <button type="button" class="btn btn-danger" id="btnClose" name="btnClose" data-dismiss="modal">Close</button>
@@ -301,7 +295,7 @@
     <br />
     <br />
     <br />
-    
+    <br />
 
     <div class="panel panel-default">
         <div class="panel-heading" style="background-color:  #1C2331">
