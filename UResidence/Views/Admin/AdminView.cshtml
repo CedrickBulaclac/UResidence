@@ -958,21 +958,21 @@
 								<div class="form-group">
 
 
-
+					
 									<div class="col-sm-8">
-										@Html.HiddenFor(model => model.ReservationModule , new { @id = "reservation" })
+										@Html.CheckBoxFor(model => model.ReservationModule , new { @hidden = true, @id = "reservation" })
 										@Html.ValidationMessageFor(model => model.ReservationModule, "", new { @class = "text-danger" })
 										<br />
-										@Html.HiddenFor(model => model.ReversalModule, new { @id = "reversal" })
+										@Html.CheckBoxFor(model => model.ReversalModule, new { @hidden = true, @id = "reversal" })
 										@Html.ValidationMessageFor(model => model.ReversalModule, "", new { @class = "text-danger" })
 										<br />
-										@Html.HiddenFor(model => model.PaymentModule , new { @id = "payment" })
+										@Html.CheckBoxFor(model => model.PaymentModule , new { @hidden = true, @id = "payment" })
 										@Html.ValidationMessageFor(model => model.PaymentModule, "", new { @class = "text-danger" })
 										<br />
-										@Html.HiddenFor(model => model.LogBookModule , new { @id = "logbook" })
+										@Html.CheckBoxFor(model => model.LogBookModule , new { @hidden = true, @id = "logbook" })
 										@Html.ValidationMessageFor(model => model.LogBookModule, "", new { @class = "text-danger" })
 										<br />
-										@Html.HiddenFor(model => model.RegistrationModule , new { @id = "registration" })
+										@Html.CheckBoxFor(model => model.RegistrationModule , new { @hidden = true, @id = "registration" })
 										@Html.ValidationMessageFor(model => model.RegistrationModule, "", new { @class = "text-danger" })
 
 									</div>
