@@ -20,13 +20,15 @@
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" style="background-color:#43a047">
+					<div class="modal-header" style="background-color:#43a047">
 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
+						<font color="white">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><span id="eventTitle"></span></h4>
+						</font>
 
-                    </div>
-                    <div class="modal-body">
+					</div>
+                    <div class="modal-body" style="max-height:calc(100vh-212px); overflow-y:auto;" >
                         <input type="hidden" name="rid" id="rid" />
                         <input type="hidden" name="rfid" id="rfid" />
                         <p id="pDetails"></p>
@@ -41,7 +43,7 @@
     </div>
     <br /><br />
 
-    <br /> <br /> <br />
+    <br /> <br /> <br /> <br /><br />
 
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -268,7 +270,8 @@
 
                 });
             }
-        }
+		}
+
         function ViewModal(refno) {
             $('#myModal').modal();
             $.ajax({
@@ -289,18 +292,18 @@
                         var et = e.format("DD/MMM/YYYY hh:mm a");
                         $('#myModal #eventTitle').html('<b>Reference Number: </b>' + refno);
                         var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Amenity Name: </b>' + v.AName));
-                        $description.append($('<p/>').html('<b>Reserved By: </b>' + v.ReservedBy));
-                        $description.append($('<p/>').html('<b>Building No: </b>' + v.BldgNo));
-                        $description.append($('<p/>').html('<b>Unit No: </b>' + v.UnitNo));
-                        $description.append($('<p/>').html('<b>StartTime: </b>' + st));
-                        $description.append($('<p/>').html('<b>EndTime: </b>' + et));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>Amenity Name: </b> </div>' + '<div class="col-sm-7">' + v.AName + '</div>'));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>Reserved By: </b> </div>' + '<div class="col-sm-7">' + v.ReservedBy + '</div>'));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>Building No: </b> </div>' + '<div class="col-sm-7">' + v.BldgNo + '</div>'));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>Unit No: </b> </div>' + '<div class="col-sm-7">' + v.UnitNo + '</div>'));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>StartTime: </b> </div>' + '<div class="col-sm-7">' + st + '</div>'));
+						$description.append($('<p/>').html('<div class="col-sm-4"> <b>EndTime: </b> </div>' + '<div class="col-sm-7">' + et + '</div>'));
                         $.each(data3, function (i, s) {
                             stots = (s.Adult * s.AdultRate) + (s.Child * s.ChildRate);
-                            $description.append($('<p/>').html('<b>No. of Adult: </b>' + s.Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/> ₱' + s.AdultRate.toFixed(2)));
-                            $description.append($('<p/>').html('<b>Adult Cost: </b> ₱' + (s.Adult * s.AdultRate).toFixed(2)));
-                            $description.append($('<p/>').html('<b>No. of Children: </b>' + s.Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/> ₱' + s.ChildRate.toFixed(2)));
-                            $description.append($('<p/>').html('<b> Child Cost: </b> ₱' + (s.Child * s.ChildRate).toFixed(2)));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b>No. of Adult: </b> </div>' + '<div class="col-sm-7">' + s.Adult + '</div>' + ' <div class= "col-sm-4"> <b>Adult Rate: </b> ' + '<div class="col-sm-7"> ₱' + s.AdultRate.toFixed(2) + '</div>'));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b>Adult Cost: </b> </div> ' + '<div class="col-sm-7">  ₱' + (s.Adult * s.AdultRate).toFixed(2) + '</div>'));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b>No. of Children: </b> </div> ' + '<div class="col-sm-7">' + s.Child + '</div>' + '<div class= "col-sm-4"> <b>Child Rate: </b> ' + '<div class="col-sm-7"> ₱' + s.ChildRate.toFixed(2) + '</div>'));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b> Child Cost: </b> </div> ' + '<div class="col-sm-7">  ₱' + (s.Child * s.ChildRate).toFixed(2) + '</div>'));
                         })
 
                         if (stots > 0) {
@@ -309,18 +312,18 @@
                         else {
                             ftotal = v.Rate;
                         }
-                        $description.append($('<p/>').html('<b>Amenity Cost: </b> ₱' + ftotal.toFixed(2)));
+						$description.append($('<p/>').html('<div class="col-sm-4"><b>Amenity Cost: </b> </div>' + '<div class="col-sm-7"> ₱' + ftotal.toFixed(2)));
                         $.each(data2, function (i, c) {
                             mule = c.Quantity * c.Rate;
-                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Quantity: </b>' + c.Quantity + '&nbsp;&nbsp;&nbsp; <b>' + c.EquipmentName + ' Rate: <b/> ₱' + c.Rate.toFixed(2)));
-                            $description.append($('<p/>').html('<b>' + c.EquipmentName + ' Cost: </b> ₱' + mule.toFixed(2)));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b>' + c.EquipmentName + ' Quantity: </b> </div>' + '<div class="col-sm-5">' + c.Quantity + '</div>' + '<div class= "col-sm-4"> ' + c.EquipmentName + ' Rate: <b/> ' + '<div class="col-sm-7" > ₱' + c.Rate.toFixed(2) + '</div>'));
+							$description.append($('<p/>').html('<div class="col-sm-4"><b>' + c.EquipmentName + ' Cost: </b> ₱ </div>' + '<div class="col-sm-5">' + mule.toFixed(2) + '</div>'));
                             tots += mule;
                         });
-                        $description.append($('<p/>').html('<b>Charge: </b> ₱' + v.Charge.toFixed(2)));
-                        $description.append($('<p/>').html('<b>Total Cost: </b> ₱' + ((ftotal + tots + v.Charge).toFixed(2))));
-                        $description.append($('<p/>').html('<b>Total Payment: </b> ₱' + (v.Total - v.Amount).toFixed(2)));
-                        $description.append($('<p/>').html('<b>Reversal Amount: </b> ₱' + (v.Amount).toFixed(2)));
-                        $description.append($('<p/>').html('<b>Status: </b>' + v.Status));
+						$description.append($('<p/>').html('<div class= "col-sm-4"><b>Charge: </b> </div> ' + '<div class= "col-sm-7"> ₱' + v.Charge.toFixed(2) + '</div>'));
+						$description.append($('<p/>').html('<div class= "col-sm-4"><b>Total Cost: </b> </div> ' + '<div class= "col-sm-7"> ₱' + ((ftotal + tots + v.Charge).toFixed(2)) + '</div>'));
+						$description.append($('<p/>').html('<div class= "col-sm-4"><b>Total Payment: </b> </div> ' + '<div class= "col-sm-7"> ₱' + (v.Total - v.Amount).toFixed(2) + '</div>'));
+						$description.append($('<p/>').html('<div class= "col-sm-4"><b>Reversal Amount: </b> </div> ' + '<div class= "col-sm-7"> ₱' + (v.Amount).toFixed(2) + '</div>'));
+						$description.append($('<p/>').html('<div class= "col-sm-4"><b>Status: </b> </div>' + '<div class= "col-sm-7"> ' + v.Status + '</div>'));
                         document.getElementById('rid').value = v.SRId;
                         document.getElementById('rfid').value = v.RFId;
                         $('#myModal #pDetails').empty().html($description);

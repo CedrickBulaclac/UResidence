@@ -190,152 +190,154 @@
 <div id="main">
     <div class="container">
         <div class="panel panel-default pcolor" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);">
-            <div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
+			<div class="panel-body" style="margin-left: 10px;margin-right: 50px;">
 
 
-                <br />
-
-                <div id="calendar" class="panel-default"></div>
-
-
-                <div class="container">
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog" style="position:initial;">
-                            <div class="modal-content">
-                                <div class="modal-header" style="background-color:#43a047">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <font color="white">
-                                        <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                                    </font>
-                                </div>
-                                <div class="modal-body" style="height:calc(100vh-212px); overflow-y:auto;">
-                                    <p id="pDetails"></p>
-                                </div>
-                             
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-
-                <div id="next" class="panel-default">
-                    @if (Convert.ToInt32(Session["RATE"]) == 0)
-                    {
-                        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
-                    }
-                    else
-                    {
-                        <font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
-                    }
-
-                    <div class="panel-default">
-
-                        <p><b> NOTE:</b> The following dates with schedules are already occupied. Please proceed to the next page to indicate your chosen date. </p>
-                    </div>
-
-                    <label><b>Legends</b></label>
-                    @foreach (Amenity amn in Model)
-                    {
-                        <div class='my-legend'>
-                            <div class='legend-scale'>
-                                <ul class='legend-labels'>
-                                    <li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
-                                </ul>
-                            </div>
+				<br />
+				<h3><center><label>@ViewBag.Amenity</label></center></h3>
+				<div id="calendar" class="panel-default"></div>
 
 
-                        </div>
+				<div class="container">
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog" style="position:initial;">
+							<div class="modal-content">
+								<div class="modal-header" style="background-color:#43a047">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<font color="white">
+										<h4 class="modal-title"><span id="eventTitle"></span></h4>
+									</font>
+								</div>
+								<div class="modal-body" style="height:calc(100vh-212px); overflow-y:auto;">
+									<p id="pDetails"></p>
+								</div>
 
-                    }
-                </div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br />
 
-                <div id="calendar" class="panel-default">
-
-
-
-                </div>
-
-
-
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-
-                @section scripts{
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-
-                    <script>
-
-
-                        function convertUTCDateToLocalDate(date) {
-                            var date1 = new Date(date);
-                            return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
-                        }
-                        $(document).ready(function () {
-                            var events = [];
-                            $.ajax({
-                                type: "GET",
-                                url: "/Reserve/GetEvents",
-                                success: function (data) {
-                                    $.each(data, function (i, v) {
-                                        var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
-                                        startTime = startTime.split(' ').slice(1, 5).join(' ');
-                                        var endTime = (convertUTCDateToLocalDate(moment(v.EndTIme).format("DD/MMM/YYYY hh:mm a"))).toString();
-                                        endTime = endTime.split(' ').slice(1, 5).join(' ');
-                                        events.push({
-                                            title: v.AmenityName,
-                                            start: startTime,
-                                            end: endTime != null ? endTime : null,
-                                            rate: v.Rate,
-                                            color: v.Theme
-                                        });
-                                    })
-                                    GenerateCalendar(events);
-                                },
-                                error: function (error) {
-                                    alert('failed');
-                                }
-                            })
-
-                            function GenerateCalendar(events) {
-                                $('#calendar').fullCalendar('destroy');
-                                $('#calendar').fullCalendar({
-                                    contentHeight: 400,
-                                    defaultDate: new Date(),
-                                    timeFormat: 'h(:mm):a',
-                                    eventLimit: true,
-                                    eventColor: '#378006',
-                                    events: events,
-
-                                    eventClick: function (calEvent, jsEvent, view) {
-                                        $('#myModal #eventTitle').html('<div class= "col-sm-4"><b>Amenity Name: </b></div>' + '<div class="col-sm-7">' + calEvent.title + '</div>');
-                                        var $description = $('<div/>');
-                                        $description.append($('<p/>').html('<div class= "col-sm-4"><b>StartTime: </b> </div>' + '<div class="col-sm-7">' + calEvent.start.format("DD/MMM/YYYY hh:mm a") + '</div>'));
-                                        if (calEvent.end != null) {
-                                            $description.append($('<p/>').html('<div class= "col-sm-4"> <b>EndTime: </b> </div>' + '<div class="col-sm-7">'+ calEvent.end.format("DD/MMM/YYYY hh:mm a") + '</div>'));
-                                        }
-                                      
-                                        $('#myModal #pDetails').empty().html($description);
-                                        $('#myModal').modal();
+				<div id="next" class="panel-default">
 
 
-                                    },
+					@if (Convert.ToInt32(Session["RATE"]) == 0)
+					{
+						<font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Swimming", "Reserve")">NEXT</a></font>
+					}
+					else
+					{
+						<font color="white"><a class="button" style="text-decoration-color:none; text-decoration:none;" href="@Url.Action("Choose_Date", "Reserve")">NEXT</a></font>
+					}
 
-                                })
-                            }
-                        })
+					<div class="panel-default">
+
+						<p><b> NOTE:</b> The following dates with schedules are already occupied. Please proceed to the next page to indicate your chosen date. </p>
+					</div>
+
+					<label><b>Legends</b></label>
+					@foreach (Amenity amn in Model)
+					{
+						<div class='my-legend'>
+							<div class='legend-scale'>
+								<ul class='legend-labels'>
+									<li><span style='background:@amn.Color;'></span>@amn.AmenityName</li>
+								</ul>
+							</div>
+
+
+						</div>
+
+					}
+				</div>
+
+				<div id="calendar" class="panel-default">
 
 
 
-                    </script>
+				</div>
 
 
-                }
 
-            </div>
+				<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+				<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+				@section scripts{
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+					<script>
+
+
+						function convertUTCDateToLocalDate(date) {
+							var date1 = new Date(date);
+							return new Date(Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate() - 1, date1.getHours(), date1.getMinutes(), date1.getSeconds()));
+						}
+						$(document).ready(function () {
+							var events = [];
+							$.ajax({
+								type: "GET",
+								url: "/Reserve/GetEvents",
+								success: function (data) {
+									$.each(data, function (i, v) {
+										var startTime = (convertUTCDateToLocalDate(moment(v.StartTime).format("DD/MMM/YYYY hh:mm a"))).toString();
+										startTime = startTime.split(' ').slice(1, 5).join(' ');
+										var endTime = (convertUTCDateToLocalDate(moment(v.EndTIme).format("DD/MMM/YYYY hh:mm a"))).toString();
+										endTime = endTime.split(' ').slice(1, 5).join(' ');
+										events.push({
+											title: v.AmenityName,
+											start: startTime,
+											end: endTime != null ? endTime : null,
+											rate: v.Rate,
+											color: v.Theme
+										});
+									})
+									GenerateCalendar(events);
+								},
+								error: function (error) {
+									alert('failed');
+								}
+							})
+
+							function GenerateCalendar(events) {
+								$('#calendar').fullCalendar('destroy');
+								$('#calendar').fullCalendar({
+									contentHeight: 400,
+									defaultDate: new Date(),
+									timeFormat: 'h(:mm):a',
+									eventLimit: true,
+									eventColor: '#378006',
+									events: events,
+
+									eventClick: function (calEvent, jsEvent, view) {
+										$('#myModal #eventTitle').html('<div class= "col-sm-4"><b>Amenity Name: </b></div>' + '<div class="col-sm-7">' + calEvent.title + '</div>');
+										var $description = $('<div/>');
+										$description.append($('<p/>').html('<div class= "col-sm-4"><b>StartTime: </b> </div>' + '<div class="col-sm-7">' + calEvent.start.format("DD/MMM/YYYY hh:mm a") + '</div>'));
+										if (calEvent.end != null) {
+											$description.append($('<p/>').html('<div class= "col-sm-4"> <b>EndTime: </b> </div>' + '<div class="col-sm-7">' + calEvent.end.format("DD/MMM/YYYY hh:mm a") + '</div>'));
+										}
+
+										$('#myModal #pDetails').empty().html($description);
+										$('#myModal').modal();
+
+
+									},
+
+								})
+							}
+						})
+
+
+
+					</script>
+
+
+				}
+
+			</div>
         </div>
     </div>
 </div>
