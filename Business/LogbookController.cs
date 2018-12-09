@@ -60,11 +60,12 @@ namespace UResidence
         }
         public static bool UpdateName(Logbook log)
         {
-            const string GET_INSERT = @"update [tbLogbook] set VisitorName=@VisitorName where Id=@Id  ";
+            const string GET_INSERT = @"update [tbLogbook] set VisitorName=@VisitorName,Purpose=@Purpose where Id=@Id  ";
 
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@Id", log.Id));
             com.Parameters.Add(new SqlParameter("@VisitorName", log.VisitorName));
+            com.Parameters.Add(new SqlParameter("@Purpose", log.Purpose));
             return SqlManager.ExecuteNonQuery(com);
         }
 

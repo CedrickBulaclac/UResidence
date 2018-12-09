@@ -76,9 +76,7 @@
                                 <b>  Date of Visitation:</b>&nbsp;  <input class="form-control" type="date" value="@ViewBag.date" name="gdate" id="gdate" onchange="GenerateTable()" required/>
                             </div>
 
-                            <div class="col-lg-6 form-inline">
-                                <b>Purpose of Visit:</b> &nbsp; <input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" required/>
-                            </div>
+                       
 
                             <br />
                             <br />
@@ -92,35 +90,40 @@
                                         <th style="width:20px;">Building No</th>
                                         <th style="width:20px;">Unit No</th>
                                         <th style="width:50px;">Guest FullName</th>
+										<th style="width:50px;">Purpose of Visit</th>
                                         <th style="width:50px;">Image</th>
                                         <th style="width:50px;">Actions</th>
                                     </tr>
                                     @{int ctr = 0;
-                                        foreach (var data in Model)
-                                        {
+										int ctr1 = 0;
+										foreach (var data in Model)
+										{
 
                                             <tr>
                                                 <td>@data.BuildingNo</td>
                                                 <td>@data.UnitNo</td>
                                                 <td><input type="text" class="form-control" value="@data.VisitorName" id=@ctr.ToString() name=@ctr.ToString() required/></td>
-                                                <td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
+                                                <td><input type="text" class="form-control" value="@data.Purpose" name="p+@ctr1.ToString()" id="p+@ctr1.ToString()" required /></td>
+												<td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@data.URL')">View</a></td>
                                                 <td>
                                                     @if (data.sTimein == "12:00AM")
                                                     {
-                                                        <input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr)" value="Update" /> <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" />
+                                                        <input class="btn btn-primary" type="button" onclick="Update(@data.Id,@ctr,@ctr1)" value="Update" /> <input class="btn btn-danger" type="button" onclick="Delete(@data.Id)" value="Delete" />
                                                     }
                                                 </td>
                                             </tr>
                                             ctr++;
+											ctr1++;
                                         }
                                     }
-                                    <tr>
-                                        <td>@ViewBag.Bldg</td>
-                                        <td>@ViewBag.UnitNo</td>
-                                        <td><input type="text" name="vname" id="vname" class="form-control" required /></td>
-                                        <td style="width:50px;"><input type="file" name="logbookpic" id="logbookpic" /></td>
-                                        <td><button class="btn btn-success" type="submit">Add Guest</button></td>
-                                    </tr>
+											<tr>
+												<td>@ViewBag.Bldg</td>
+												<td>@ViewBag.UnitNo</td>
+												<td><input type="text" name="vname" id="vname" class="form-control" required /></td>
+												<td><input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" required /></td>
+												<td style="width:50px;"><input type="file" name="logbookpic" id="logbookpic" /></td>
+												<td><button class="btn btn-success" type="submit">Add Guest</button></td>
+											</tr>
                                 </table>
 
                             </div>
@@ -165,12 +168,16 @@
         });
 
         }
-		function Update(id, i) {
+	function Update(id, i,ii) {
+		var ppp = "p+" + ii;
+		
 			var visitorname = document.getElementById(i).value;
+			var purpose = document.getElementById(ppp).value;
 
 			data = {
 				VisitorName: visitorname,
-                Id:id
+				Id: id,
+				Purpose:purpose
             };
                 $.ajax({
                     type: 'POST',

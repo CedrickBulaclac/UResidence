@@ -1509,7 +1509,8 @@ namespace UResidence.Controllers
             {
                
                 VisitorName = data.VisitorName,
-                Id=data.Id
+                Id=data.Id,
+                Purpose=data.Purpose
             };
             var data1 = LogbookController.UpdateName(log);
             return new JsonResult { Data = data1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
