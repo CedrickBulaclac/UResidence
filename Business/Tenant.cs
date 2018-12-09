@@ -67,9 +67,21 @@ namespace UResidence
         public string Fullname { get; set; }
         public string Birthday { get; set; }
         public int LoginId { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Invalid Mobile Number")]
         public string ENo { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string EName { get; set; }
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
         public string EAddress { get; set; }
+
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
+        public string Address { get; set; }
 
         public bool Validate(out string[] errors)
         {
@@ -154,6 +166,7 @@ namespace UResidence
             ret.ENo = reader.GetString(19);
             ret.EName = reader.GetString(20);
             ret.EAddress = reader.GetString(21);
+            ret.Address = reader.GetString(22);
             return ret;
         }
     }

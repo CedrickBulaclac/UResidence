@@ -61,7 +61,7 @@
              <div class="container">
                  <br /><br /> <br />
 
-                 @*<center><h2>Reversal Module</h2></center>*@
+               
                  <div class="panel panel-default">
                      <div class="panel-heading" style="background-color:  #1C2331">
                          <font color="white"> <h3 class="panel-title"> Reversal Module  </h3></font>
@@ -119,7 +119,7 @@
 
                          <br/> <br/>
                          <div class="pull-left">
-                             @*<div class=" form-inline">*@
+                             
 
                                  <label id="caption" name="caption"></label>
 
@@ -127,7 +127,7 @@
                                  
                                      <div id="btndownload" name="btndownload">
                                      
-                                 @*</div>*@
+                                
                              </div>
                          </div>
 
@@ -293,19 +293,7 @@
 			}
 		});
 	}
-	//function Set(select) {
-	//    //var select = document.getElementById('select').value;
-	//    if (select == 'Pending') {
-	//        SetP();
-	//    }
-	//    else if (select == 'Approved') {
-	//        SetA();
-	//    }
-	//    else if (select == 'Denied') {
 
-	//        SetD();
-	//    }
-	//}
 	function SetModal(Id, Amount, Description) {
 		$('#updateModal').modal();
 		document.getElementById('amount').value = Amount;
@@ -366,7 +354,7 @@
 		}
 	}
 	function Set(s) {
-		//var s = document.getElementById('select').value;
+	
         document.getElementById('caption').innerHTML = 'List of ' + s + ' Amenity';
 		if (s == 'Pending') {
 			SetP();

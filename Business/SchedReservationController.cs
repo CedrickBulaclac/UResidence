@@ -114,29 +114,7 @@ namespace UResidence
             return ret;
         }
 
-        //public static SchedReservation GetMaxId()
-        //{
-        //    const string GET_RECORD = @"SELECT TOP 1 a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id ORDER BY Id DESC";
-
-        //    SchedReservation ret = default(SchedReservation);
-        //    SqlCommand com = new SqlCommand(GET_RECORD);
-        //    ret = SqlManager.Select<SchedReservation>(com).First();
-
-        //    return ret;
-        //}
-
-
-        //public static SchedReservation GetSpecificId(int id)
-        //{
-        //    const string GET_RECORD = @"SELECT a.Id,AmenityId,b.AmenityName,a.Rate,StartTime,EndTIme,b.Color,a.Deleted from [tbSchedReservation] a inner join [tbAmenity] b on a.AmenityId=b.Id where a.Id=@Id and Status='Pending'";
-
-        //    SchedReservation ret = default(SchedReservation);
-        //    SqlCommand com = new SqlCommand(GET_RECORD);
-        //    com.Parameters.Add(new SqlParameter("@Id", id));
-        //    ret = SqlManager.Select<SchedReservation>(com).First();
-
-        //    return ret;
-        //}
+      
 
         public static List<SchedReservation> GetAmenityNo(string ano)
         {
@@ -202,13 +180,7 @@ namespace UResidence
             return SqlManager.ExecuteNonQuery(com);
         }
 
-        //public static bool Modify(SchedReservation usr)
-        //{
-        //    if (usr.Id == 0)
-        //        return Insert(usr);
-        //    else
-        //        return Update(usr);
-        //}
+    
 
         public static bool Insert(SchedReservation usr)
         {

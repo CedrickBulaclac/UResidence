@@ -57,6 +57,13 @@
 
 
 
+
+
+
+
+
+
+
 <div class="container">
 	<div class="modal fade" id="seemoreModal" role="dialog">
 		<div class="modal-dialog">
@@ -65,42 +72,131 @@
 					<label>Complete Information</label>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<div class="modal-body">
-					<center>
-						Building No: <label id="BuildingNo"></label>
-					</center>
-					<center>
-						Unit No: <label id="UnitNo"></label>
-					</center>
-					<center>
-						Name: <label id="Name"></label>
-					</center>
-					<center>
-						Birthdate: <label id="Birthdate"></label>
-					</center>
-					<center>
-						Cellphone No: <label id="CellphoneNo"></label>
-					</center>
-					<center>
-						Email Address: <label id="EmailAddress"></label>
-					</center>
-					<center>
-						Lease Start: <label id="LeaseStart"></label>
-					</center>
-					<center>
-						Lease End: <label id="LeaseEnd"></label>
-					</center>
+				<div class="modal-body" style="max-height:calc(100v-212px); overflow-y:auto;">
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Building No:
+							</label>
+							<label class="col-sm-7" id="BuildingNo"></label>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Unit No:
+							</label>
+							<label class="col-sm-7" id="UnitNo"></label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Name:
+							</label>
+							<label class="col-sm-7" id="Name"></label>
+						</div>
+					</div>
+
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Birthdate:
+							</label>
+							<label class="col-sm-7" id="Birthdate"></label>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Address:
+							</label>
+							<label class="col-sm-7" id="Address"></label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Cellphone No:
+							</label>
+							<label class="col-sm-7" id="CellphoneNo"></label>
+						</div>
+					</div>
+
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Email Address:
+							</label>
+							<label class="col-sm-7" id="EmailAddress"></label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Lease Start:
+							</label>
+							<label class="col-sm-7" id="LeaseStart"></label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Lease End:
+							</label>
+							<label class="col-sm-7" id="LeaseEnd"></label>
+						</div>
+					</div>
+
 					<br />
-					<center><b>Emergency Contact Information</b></center>
-					<center>
-						Number: <label id="eno"></label>
-					</center>
-					<center>
-						Name: <label id="ename"></label>
-					</center>
-					<center>
-						Address: <label id="eaddress"></label>
-					</center>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<b>Emergency Contact Information</b>
+						</div>
+					</div>
+
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Number:
+							</label>
+							<label class="col-sm-7" id="eno"></label>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Name:
+							</label>
+							<label class="col-sm-7" id="ename"></label>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-4">
+								Address:
+							</label>
+							<label class="col-sm-7" id="eaddress"></label>
+						</div>
+					</div>
 
 				</div>
 				<div class="modal-footer">
@@ -243,6 +339,18 @@
 						</div>
 
 
+						<div class="form-group">
+
+							<div class="col-sm-12">
+								<labell for="Last Name"><b>Address : </b></labell>
+							</div>
+
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Address, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Address, "", new { @class = "text-danger" })
+
+							</div>
+						</div>
 
 
 
@@ -350,8 +458,15 @@
 								<label class="col-sm-4">Update Moving In :</label>
 
 								<div class="col-sm-6">
-									@*ETO PO ----------------------------------------*@
-									@*<img src="@Url.Content(Model.tenant.MovingIn)" height="50" width="50" id="movinnn1">*@
+									
+									@if (String.IsNullOrEmpty(Model.tenant.MovingIn))
+									{
+
+									}
+									else
+									{
+										<img src="@Url.Content(Model.tenant.MovingIn)" height="50" width="50" id="movinnn1">
+									}
 									<button type="button" class="btn btn-info" id="btnUpdateImage1" name="btnUpdateImage1" data-dismiss="modal">Update Image</button>
 
 								</div>
@@ -364,8 +479,16 @@
 								<label class="col-sm-4">Update Moving Out :</label>
 
 								<div class="col-sm-6">
-									@*ETO PO ----------------------------------------*@
-									@*<img src="@Url.Content(Model.tenant.MovingOut)" height="50" width="50" id="movinnn2">*@
+								
+									@if (String.IsNullOrEmpty(Model.tenant.MovingIn))
+									{
+
+									}
+									else
+									{
+										<img src="@Url.Content(Model.tenant.MovingOut)" height="50" width="50" id="movinnn2">
+									}
+
 									<button type="button" class="btn btn-info" id="btnUpdateImage2" name="btnUpdateImage2" data-dismiss="modal">Update Image</button>
 
 								</div>
@@ -375,29 +498,16 @@
 
 
 
-						<div class="form-group">
-							<div class="col-sm-12">
-
-								<label for="Bldg no">Lease End :</label>
-
-							</div>
-
-							<div class="col-sm-12">
-								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
-
-
-							</div>
-						</div>
 
 
 
 
+						<b><p>In case of Emergency Notify: </p></b>
 
 						<div class="form-group">
 							<div class="col-sm-12">
 
-								<label for="Bldg no">Lease End :</label>
+								<label for="Bldg no">Name :</label>
 
 							</div>
 
@@ -416,7 +526,7 @@
 						<div class="form-group">
 							<div class="col-sm-12">
 
-								<label for="Bldg no">Lease End :</label>
+								<label for="Bldg no">Address :</label>
 
 							</div>
 
@@ -427,6 +537,22 @@
 
 							</div>
 						</div>
+
+						<div class="form-group">
+							<div class="col-sm-12">
+
+								<label for="Bldg no">Number :</label>
+
+							</div>
+
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
+
+
+							</div>
+						</div>
+
 
 					</div>
 					<br />
@@ -567,7 +693,18 @@
 						</div>
 
 
+						<div class="form-group">
 
+							<div class="col-sm-12">
+								<labell for="Last Name"><b>Address : </b></labell>
+							</div>
+
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.Address, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+								@Html.ValidationMessageFor(model => model.tenant.Address, "", new { @class = "text-danger" })
+
+							</div>
+						</div>
 
 
 						<div class="form-group">
@@ -677,23 +814,7 @@
 							</div>
 						</div>
 
-
-
-						<div class="form-group">
-							<div class="col-sm-12">
-
-								<label for="Bldg no">Lease End :</label>
-
-							</div>
-
-							<div class="col-sm-12">
-								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
-								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
-
-
-							</div>
-						</div>
-
+						<b><p>In case of Emergency Notify: </p></b>
 
 
 
@@ -701,7 +822,7 @@
 						<div class="form-group">
 							<div class="col-sm-12">
 
-								<label for="Bldg no">Lease End :</label>
+								<label for="Bldg no">Name :</label>
 
 							</div>
 
@@ -720,13 +841,29 @@
 						<div class="form-group">
 							<div class="col-sm-12">
 
-								<label for="Bldg no">Lease End :</label>
+								<label for="Bldg no">Address :</label>
 
 							</div>
 
 							<div class="col-sm-12">
 								@Html.EditorFor(model => model.tenant.EAddress, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
 								@Html.ValidationMessageFor(model => model.tenant.EAddress, "", new { @class = "text-danger" })
+
+
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<div class="col-sm-12">
+
+								<label for="Bldg no">Number :</label>
+
+							</div>
+
+							<div class="col-sm-12">
+								@Html.EditorFor(model => model.tenant.ENo, new { htmlAttributes = new { @class = "form-control", @max = "9999-12-31" } })
+								@Html.ValidationMessageFor(model => model.tenant.ENo, "", new { @class = "text-danger" })
 
 
 							</div>
@@ -774,10 +911,7 @@
 							<th scope="row">Email Address</th>
 							<th scope="row">Lease Period</th>
 							<th scope="row">Moving In Form</th>
-							<th scope="row">Moving Out Form</th>
-							@*<th scope="row">Emergency Number</th>
-							<th scope="row">Emergency Name</th>
-							<th scope="row">Emergency Address</th>*@
+							<th scope="row">Moving Out Form</th>						
 							<th scope="row">Actions</th>
 						</tr>
 					</thead>
@@ -997,7 +1131,7 @@
 			Id: id
 		}
 		$.ajax({
-			"url": "/Tenant/GetTenantS", //link sa controller na kinukuha yung owner na may Id ex Id=64
+			"url": "/Tenant/GetTenantS", 
 			"type": "GET",
 			"data": data,
 			"success": function (data) {
@@ -1013,6 +1147,7 @@
 				document.getElementById('eno').innerHTML = data.ENo;
 				document.getElementById('ename').innerHTML = data.EName;
 				document.getElementById('eaddress').innerHTML = data.EAddress;
+				document.getElementById('Address').innerHTML = data.Address;
 			}
 		});
 	}

@@ -80,13 +80,7 @@ namespace UResidence
             return SqlManager.ExecuteNonQuery(com);
         }
 
-        //public static bool Modify(UserLogin usr)
-        //{
-        //    if (usr.Id == 0)
-        //        return Insert(usr);
-        //    else
-        //        return Update(usr);
-        //}
+      
 
         public static bool Insert(Receipt usr)
         {
@@ -96,7 +90,7 @@ namespace UResidence
             SqlCommand com = new SqlCommand(GET_INSERT);
             com.Parameters.Add(new SqlParameter("@RefNo", usr.RefNo));
             com.Parameters.Add(new SqlParameter("@Totalpayment", usr.Totalpayment));
-            com.Parameters.Add(new SqlParameter("@Date", DateTime.Now));
+            com.Parameters.Add(new SqlParameter("@Date", DateTime.Now.ToUniversalTime().AddHours(8)));
             com.Parameters.Add(new SqlParameter("@Description", usr.Description));
             com.Parameters.Add(new SqlParameter("@CreatedBy", usr.CreatedBy));
             return SqlManager.ExecuteNonQuery(com);

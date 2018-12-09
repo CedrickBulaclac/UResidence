@@ -4,7 +4,7 @@
 
 
 }
-@*---Modal for Update Profile Picture---*@
+
 
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <title>Palmdale Heights</title>
     <link rel="icon" href="~/Content/Logo/palmdale.png" type="image/x-icon" />
 
-    @*Scripts for dropdown*@
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -46,17 +46,6 @@
             z-index: 5;
         }
 
-
-       
-
-
-
-        /*.modal-backdrop {
-            display: none;
-        }*/
-
-
-   
     </style>
 </head>
 
@@ -132,7 +121,7 @@
     </nav>
 
     @RenderBody()
-    @*@Scripts.Render("~/bundles/jquery")*@
+   
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
@@ -191,6 +180,6 @@
 
 </body>
 </html>
-@*SCRIPT FOR VALIDATIONS*@
+
 @Scripts.Render("~/bundles/jqueryval")
 

@@ -87,11 +87,6 @@ namespace UResidence.Controllers
                 rd.Value = data.ToList();
             }
             
-           
-          
-       
-
-
             localreport.DataSources.Add(rd);
             string reportType = "PDF";
             string mimetype;

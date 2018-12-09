@@ -108,7 +108,7 @@
                 <font color="white"> <h3 class="panel-title"> Logbook for Walk-in Vistors </h3></font>
             </div>
 
-            @*<center> <h2> Logbook </h2></center>*@
+        
 
             <div class="table-responsive">
                 <img name="hide" id="hide" hidden />
@@ -144,7 +144,6 @@
                                             <td><a href="#" button class="btn btn-default" id="btnViewPic" onclick="ViewPIC('@a.URL')">View</a></td>
                                             <td> @Convert.ToDateTime(a.sTimein).ToShortTimeString() </td>
                                             <td><button onclick="Update(@a.Id)" class="btn btn-default" id="btnTimeout" name="btnTimeout">Time Out</button></td>
-                                            @*<td><button class="btn btn-default" id="btnTimeout" value="btnTimeout" onclick="Updatee(@a.Id)">Time Out</button></td>*@
                                         </tr>
 
                                     }
@@ -269,7 +268,6 @@
                 h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
                 m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
             s = (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
-            //var timenow = h + ':' + m + ':' + s;
             var timenow=d.setUTCHours(15);
             var data = {
                 Id: id,
@@ -310,7 +308,6 @@
                 var url = canvas.toDataURL();
                 document.getElementById('logbookpictext').value = url;
                 alert("Image Captured");
-                //$('#takepic').hide();
             });
 
         });

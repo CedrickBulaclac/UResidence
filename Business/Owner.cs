@@ -57,9 +57,19 @@ namespace UResidence
         public string Birthday { get; set; }
         public int LoginId { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Invalid Mobile Number")]
         public string ENo { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string EName { get; set; }
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
         public string EAddress { get; set; }
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
+        public string Address { get; set; }
 
 
         public class MinimumAgeAttribute : ValidationAttribute
@@ -105,6 +115,7 @@ namespace UResidence
             ret.ENo = reader.GetString(15);
             ret.EName = reader.GetString(16);
             ret.EAddress = reader.GetString(17);
+            ret.Address = reader.GetString(18);
             return ret;
         }
         public string RemoveWhitespace(string str)

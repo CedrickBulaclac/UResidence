@@ -33,7 +33,6 @@ namespace UResidence
 
         public static List<EquipReservation> Getr(int refno)
         {
-            //const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,Rate FROM [tbEquipReservation] WHERE RefNo = @refno  order by EquipmentId";
             const string GET_RECORD = @"SELECT EquipmentId,Quantity,RefNo,e.Rate,e.Name FROM [tbEquipReservation] er inner join tbEquipment e on er.EquipmentId=e.Id  WHERE RefNo = @refno order by er.RefNo";
 
             List<EquipReservation> ret = default(List<EquipReservation>);

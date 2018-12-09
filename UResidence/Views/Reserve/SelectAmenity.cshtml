@@ -152,18 +152,7 @@
 	</center>
 
 
-	@*
-
-		<h3 class="text-center">Choose Amenity</h3>
-
-		 <fieldset>
-
-			 <div class=="display-field">
-			 </div>
-
-		 </fieldset>
-
-	*@
+	
 
 	<div class="row setup-content" id="step-1">
 
@@ -509,29 +498,29 @@
 				themev = theme;
 			}
 			function toStandardTime(value) {
-				if (value !== null && value !== undefined) { //If value is passed in
-					if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { //If time is already in standard time then don't format.
+				if (value !== null && value !== undefined) {
+					if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) {
 						return value;
 					}
 					else {
-						if (value.length == 8) { //If value is the expected length for military time then process to standard time.
-							var hour = value.substring(0, 2); //Extract hour
-							var minutes = value.substring(3, 5); //Extract minutes
-							var identifier = 'AM'; //Initialize AM PM identifier
+						if (value.length == 8) { 
+							var hour = value.substring(0, 2); 
+							var minutes = value.substring(3, 5);
+							var identifier = 'AM'; 
 
-							if (hour == 12) { //If hour is 12 then should set AM PM identifier to PM
+							if (hour == 12) {
 								identifier = 'PM';
 							}
-							if (hour == 0) { //If hour is 0 then set to 12 for standard time 12 AM
+							if (hour == 0) { 
 								hour = 12;
 							}
-							if (hour > 12) { //If hour is greater than 12 then convert to standard 12 hour format and set the AM PM identifier to PM
+							if (hour > 12) { 
 								hour = hour - 12;
 								identifier = 'PM';
 							}
-							return hour + ':' + minutes + ' '; //Return the constructed standard time
+							return hour + ':' + minutes + ' ';
 						}
-						else { //If value is not the expected length than just return the value as is
+						else { 
 							return value;
 						}
 					}
@@ -678,7 +667,7 @@
 	}
 
 <br />
-<!-- Footer -->
+
 <footer class="w3-center  w3-dark-gray w3-padding-16 w3-text-white " style="position: absolute; left: 0; bottom: 0; width:100%; text-align:center; overflow:hidden;">
 	<p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
 </footer>

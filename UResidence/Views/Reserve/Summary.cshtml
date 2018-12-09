@@ -24,9 +24,7 @@
 
     if (Convert.ToInt32(Session["Level"]) <= 7)
     {
-        @*Scripts for dropdown*@
-        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+     
 
         <br/> <br/>
     }
@@ -39,7 +37,6 @@
             <style>
 
                 body {
-                    /*background-color: #f1f8e9;*/
                     background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
                     -webkit-background-size: cover;
                     -moz-background-size: cover;
@@ -47,40 +44,6 @@
                     background-size: cover;
                 }
 
-
-                /*.input {
-                    padding: 12px 20px;
-                    margin: 8px 0;
-                    display: inline-block;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    box-sizing: border-box;
-                    width: 10%;
-                }*/
-
-
-                /*.col-25 {
-                    float: left;
-                    width: 25%;
-                    margin-top: 6px;
-                }
-
-
-                .col-75 {
-                    float: left;
-                    margin-top: 6px;
-                }*/
-
-                /*label {
-                    padding: 12px 12px 12px 0;
-                    display: inline-block;
-                }*/
-
-                /*.row:after {
-                    content: "";
-                    display: table;
-                    clear: both;
-                }*/
 
                 .button {
                     padding: 15px 25px;
@@ -241,7 +204,7 @@
                                    
                                     <td></td>
 
-                                    @*<td class="col-md-1"><h4><em>Schedule: </em></h4></td>*@
+                                 
                                 </tr>
                                 @if (Convert.ToInt32(Session["RATE"]) == 0)
                         {
@@ -303,24 +266,7 @@
                                         </tr>
 
 
-                                        @*<tr>
-                                        <td class="col-md-9"><h4><em>@eqp.Name</em></h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-9"><em>Quantity: </em></td>
-
-                                        <td class="col-md-1" style="text-align: center"><label id="quantity @ctr4.ToString()" name="quantity @ctr4.ToString()">@ViewBag.quan[ctr4]</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-9"><em>Rate: </em></td>
-
-                                        <td class="col-md-1" style="text-align: center"><label id="rate @ctr4.ToString()" name="rate @ctr4.ToString()">₱@ViewBag.rat[ctr4]</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-9"><em>Sub Total: </em></td>
-
-                                        <td class="col-md-1" style="text-align: center"><label id="stotal" + @ctr4.ToString() name="stotal" +@ctr4.ToString()>₱@(ViewBag.quan[ctr4] * ViewBag.rat[ctr4])</label></td>
-                                    </tr>*@
+                                      
                             }
                             else if (ViewBag.quan[ctr4] is null)
                             {

@@ -210,7 +210,7 @@ namespace UResidence.Controllers
                                 {
                                     return RedirectToAction("Home", "Admin");
                                 }
-                                //return RedirectToAction("Home", "Admin");
+                               
                             }
 
                         }
@@ -294,7 +294,7 @@ namespace UResidence.Controllers
                             {
                                 return RedirectToAction("Home", "Admin");
                             }
-                            //return RedirectToAction("Home", "Admin");
+                           
                         }
 
                     }
@@ -372,10 +372,10 @@ namespace UResidence.Controllers
                 return Redirect("~/Login");
             }
             Session["aa"] = 1;
-            //tbLogin
+          
             int lid = (int)Session["LID"];
             bool status = false;
-            //tbOwner
+            
             int Aid = (int)Session["UID"];
             string pass = (string)Session["pass"];
             string cp = fc["cp"];

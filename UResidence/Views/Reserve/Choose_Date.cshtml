@@ -23,9 +23,7 @@
 
     if (Convert.ToInt32(Session["Level"]) <= 7)
     {
-        @*Scripts for dropdown*@
-        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+     
 
         <br /> <br />
     }
@@ -42,7 +40,7 @@
 
 
             body {
-                /*background-color: #f1f8e9;*/
+              
                 background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
@@ -61,10 +59,10 @@
                 background-color: #43a047;
                 border: none;
                 border-radius: 5px;
-                /*float: right;*/
+              
                 text-decoration: none;
                 text-decoration-color: none;
-                /*width: 500px;*/
+          
             }
 
             .submit {
@@ -106,7 +104,7 @@
 
             .box {
                 border-radius: 3px;
-                /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);*/
+              
                 padding: 10px 25px;
                 text-align: right;
                 display: block;
@@ -161,7 +159,7 @@
         <br />
         <br />
         <center>
-            <!--Progress bar start-->
+         
 
 
             <div class="container">
@@ -216,13 +214,13 @@
                 </div>
             </div>
 
-            <!--Progress bar end-->
+           
 
 
         </center>
 
 
-        <!-- Header -->
+      
 
         <div id="main">
 
@@ -317,10 +315,7 @@
 
 										</p>
 
-										@*<p class="form-inline">
-
-
-		</p>*@
+									
 
 
 									</div>
@@ -363,15 +358,7 @@
 
 
 
-        <!-- Footer -->
-        @*<footer  style=" background-color:#282828; padding: 10px; text-align: center;color: white;">
-                <p> <center><img src="~/Content/logo.png" width="180" height="80" /> </center></p>
-                <p><i class="fa fa-map-marker w3-text-green w3-xlarge"></i>  8505 Hon. A Sandoval Ave., Brgy. Pinagbuhatan Pasig City</p>
-                <p><i class="fa fa-phone w3-text-green w3-xlarge"></i>  (632) 571-2347, (632) 571-0966</p>
-                <p><i class="fa fa-envelope-o w3-text-green w3-xlarge"></i>  palmdalecondominium@yahoo.com</p>
-                <p>&copy; @DateTime.Now.Year -Palmdale Heights Condominium</p>
-
-            </footer>*@
+    
 
     </body>
 
@@ -443,29 +430,29 @@
 		}
 	}
 	function toStandardTime(value) {
-		if (value !== null && value !== undefined) { //If value is passed in
-			if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { //If time is already in standard time then don't format.
+		if (value !== null && value !== undefined) { 
+			if (value.indexOf('AM') > -1 || value.indexOf('PM') > -1) { 
 				return value;
 			}
 			else {
-				if (value.length == 8) { //If value is the expected length for military time then process to standard time.
-					var hour = value.substring(0, 2); //Extract hour
-					var minutes = value.substring(3, 5); //Extract minutes
-					var identifier = 'AM'; //Initialize AM PM identifier
+				if (value.length == 8) { 
+					var hour = value.substring(0, 2); 
+					var minutes = value.substring(3, 5); 
+					var identifier = 'AM'; 
 
-					if (hour == 12) { //If hour is 12 then should set AM PM identifier to PM
+					if (hour == 12) { 
 						identifier = 'PM';
 					}
-					if (hour == 0) { //If hour is 0 then set to 12 for standard time 12 AM
+					if (hour == 0) { 
 						hour = 12;
 					}
-					if (hour > 12) { //If hour is greater than 12 then convert to standard 12 hour format and set the AM PM identifier to PM
+					if (hour > 12) { 
 						hour = hour - 12;
 						identifier = 'PM';
 					}
-					return hour + ':' + minutes + ' '; //Return the constructed standard time
+					return hour + ':' + minutes + ' ';
 				}
-				else { //If value is not the expected length than just return the value as is
+				else { 
 					return value;
 				}
 			}
@@ -520,12 +507,12 @@
 
             var startHours = parseInt(selectedValue.split(':')[0], 10);
             if (startHours >= 8 && startHours <= 20) {
-                if (startHours >= 8 && startHours <= 17) { //8am to 5pm
+                if (startHours >= 8 && startHours <= 17) { 
                     var hourDiff = fhours - startHours;
                     rateA = rate1 * hourDiff;
                     document.getElementById('rate').value = "₱" + rateA.toFixed(2);
                 }
-                else if (startHours >= 18 && startHours <= 20) {    // 6pm to 8pm
+                else if (startHours >= 18 && startHours <= 20) {    
 					var hourDiff = fhours - startHours;
                     rateA = rate2 * hourDiff;
                     document.getElementById('rate').value = "₱" +rateA.toFixed(2);
@@ -594,12 +581,12 @@
 			alert('Incorrect set of time');
 			document.getElementById('result').value = '1';
 		}
-		else if (startTime < 8 && startTime > 20)  //8am to 8pm
+		else if (startTime < 8 && startTime > 20) 
 		{
 			alert('Start of reserveration period is from 8am to 8pm only');
 			document.getElementById('result').value = '1';
 		}
-		else if (endTime < 9 && endTime > 21)  //9am to 9pm
+		else if (endTime < 9 && endTime > 21)  
 		{
 			alert('End of reserveration period is from 9am to 9pm only');
 			document.getElementById('result').value = '1';

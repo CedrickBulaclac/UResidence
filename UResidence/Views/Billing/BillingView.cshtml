@@ -16,11 +16,7 @@
     <style>
 
         body {
-            /*background-color: #f1f8e9;*/
             background: url(../../Content/WebImages/swimmingbg.jpg) no-repeat center center fixed;
-            /*-webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;*/
             background-size: cover;
         }
 
@@ -222,45 +218,6 @@
             });
         }
 
-        //var events = [];
-        //$(document).ready(function () {
-        //    events = [];
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "/Billing/GetEvents",
-        //        success: function (data) {
-        //            $.each(data, function (i, v) {
-        //                events.push({
-        //                    title: v.AName,
-        //                    reserved: v.ReservedBy,
-        //                    start: moment(v.StartTime),
-        //                    end: v.EndTime != null ? moment(v.EndTime) : null,
-        //                    rate: v.Rate,
-        //                    status: v.Status,
-        //                    color: v.Color,
-        //                    dp: v.Total,
-        //                    cg: v.Charge,
-        //                    bn: v.BldgNo,
-        //                    un: v.UnitNo,
-        //                    r: v.RId,
-        //                    rf: v.RFId,
-        //                    tc: v.TableCost,
-        //                    cc: v.ChairCost,
-        //                    amt: v.Amount,
-        //                    cq: v.ChairQuantity,
-        //                    tq: v.TableQuantity
-        //                });
-        //            })
-        //            GenerateCalendar(events);
-        //        },
-        //        error: function (error) {
-        //            alert('failed');
-        //        }
-        //    });
-
-
-
-        //});
 
         function ReceiptHistory() {
             var refno = document.getElementById('rfid').value;

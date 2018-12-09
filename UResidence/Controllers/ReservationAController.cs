@@ -187,7 +187,6 @@ namespace UResidence.Controllers
                         if (balance > 0)
                     {
                         Session["status"] = true;
-                        //return Content("<script language='javascript' type='text/javascript'>alert('There is still remaining balance of: " + balance + "');</script>");
                         decimal data;
                         return Json(data = balance);
                     }
@@ -224,7 +223,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                       
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/ReservationAImages"), fileName + "_" + i.ToString() + extension);

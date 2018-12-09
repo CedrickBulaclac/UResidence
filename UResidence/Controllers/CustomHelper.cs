@@ -15,7 +15,7 @@ namespace CustomHelper
             tb.Attributes.Add("height", "250px");
             tb.Attributes.Add("width", "250px");
             return new MvcHtmlString(tb.ToString(TagRenderMode.SelfClosing));
-            //sddwdwededed
+            
         }
     }
 }

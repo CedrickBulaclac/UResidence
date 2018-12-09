@@ -147,7 +147,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                        
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/BossManagerImages"), fileName + "_" + i.ToString() + extension);

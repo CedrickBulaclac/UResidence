@@ -348,7 +348,7 @@ namespace UResidence.Controllers
                    
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                        
                         image1.SaveAs(folderPath);
                     }
                     else
@@ -390,7 +390,7 @@ namespace UResidence.Controllers
                     if (System.IO.File.Exists(folderPath))
                     {
                       
-                        //System.IO.File.Delete(folderPath);
+                        
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);
@@ -419,20 +419,12 @@ namespace UResidence.Controllers
                     };
                     status = LogbookController.Insert(log);
                 }
-            }
-
-        
+            }     
             return new JsonResult
             {
                 Data = status,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
-
-
-
-
-            //        string folderpath1 = "~/Content/LogBookImages/" + data.URL;
-            //string folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), data.URL);
         }
         public JsonResult UpdateTimein(Logbook data)
         {

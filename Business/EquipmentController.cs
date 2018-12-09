@@ -102,15 +102,7 @@ namespace UResidence
 
             return SqlManager.ExecuteNonQuery(com);
         }
-        /*
-        public static bool Modify(Equipment eqp)
-        {
-            if (eqp.EquipmentNo == 0)
-                return Insert(eqp);
-            else
-                return Update(eqp);
-        }
-        */
+       
         public static bool Insert(Equipment eqp)
         {
             const string GET_INSERT = @"insert [tbEquipment] (Name,Stocks,Rate,URL,Description,Deleted) values (@Name, @Stocks, @Rate,@URL,@Description,@Deleted)";

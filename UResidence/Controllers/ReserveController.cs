@@ -75,7 +75,7 @@ namespace UResidence.Controllers
                 Session["URLL"] = t.URL;
                 revlist = UResidence.ReservationListController.GetAllT(t.Id);
             }
-            //bool successModal = false;
+           
             try
             {
                 bool m = (bool)Session["sessmodal"];
@@ -421,7 +421,7 @@ namespace UResidence.Controllers
             }
             int choose_date = 1;
             Session["choose_date"] = choose_date;
-            //string nameamenity = (Session["NAME"]).ToString();
+            
             if (Session["IsEquipment"].ToString() == "False")
             {
                 string result = Convert.ToString(fc["result"]);
@@ -998,7 +998,7 @@ namespace UResidence.Controllers
                     if (System.IO.File.Exists(folderPath))
                     {
 
-                        //System.IO.File.Delete(folderPath);
+                        
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/LogBookImages"), fileName + "_" + i.ToString() + extension);

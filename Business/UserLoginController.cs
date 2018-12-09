@@ -140,6 +140,16 @@ namespace UResidence
             com.Parameters.Add(new SqlParameter("@Id", id));
             return SqlManager.ExecuteNonQuery(com);
         }
+
+        public static bool UpdateLevel(int id, int level)
+        {
+            const string GET_UPDATE = @"update [tbLogin] set Level=@level where Id=@Id";
+            SqlCommand com = new SqlCommand(GET_UPDATE);
+            com.Parameters.Add(new SqlParameter("@level", level));
+            com.Parameters.Add(new SqlParameter("@Id", id));
+            return SqlManager.ExecuteNonQuery(com);
+        }
+
         public static bool Delete(UserLogin usr)
         {
             const string GET_DELETE = @"delete [tbLogin] WHERE Id = @Id";

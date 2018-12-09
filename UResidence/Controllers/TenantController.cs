@@ -137,7 +137,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                       
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);
@@ -186,7 +186,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                      
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);
@@ -301,7 +301,8 @@ namespace UResidence.Controllers
                             MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
                             ENo = ten.tenant.ENo,
                             EName = ten.tenant.EName,
-                            EAddress = ten.tenant.EAddress
+                            EAddress = ten.tenant.EAddress,
+                            Address = ten.tenant.Address
                         };
                         List<Tenant> listTen = default(List<Tenant>);
                         listTen = UResidence.TenantController.Check(tenn);
@@ -334,7 +335,8 @@ namespace UResidence.Controllers
                                         MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
                                         ENo = ten.tenant.ENo,
                                         EName = ten.tenant.EName,
-                                        EAddress = ten.tenant.EAddress
+                                        EAddress = ten.tenant.EAddress,
+                                        Address = ten.tenant.Address
                                     };
                                     status = UResidence.TenantController.Insert(tennn);
                                 }
@@ -359,7 +361,8 @@ namespace UResidence.Controllers
                                         MovingOut = "~/Content/TenantImages/Noimageavailable.jpeg",
                                         ENo = ten.tenant.ENo,
                                         EName = ten.tenant.EName,
-                                        EAddress = ten.tenant.EAddress
+                                        EAddress = ten.tenant.EAddress,
+                                        Address = ten.tenant.Address
                                     };
                                     status = UResidence.TenantController.Insert(tennn);
                                 }
@@ -878,7 +881,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                       
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/TenantImages"), fileName + "_" + i.ToString() + extension);

@@ -49,9 +49,20 @@ namespace UResidence
         public bool LogBookModule { get; set; }
         public string FormattedDate => Bdate.ToShortDateString();
         public int LoginId { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^([0-9]{11})$", ErrorMessage = "Invalid Mobile Number.")] 
         public string ENo { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Letters only")]
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string EName { get; set; }
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
         public string EAddress { get; set; }
+
+        [StringLength(100, ErrorMessage = "Address cannot be longer than 100 characters.")]
+        public string Address { get; set; }
         public Admin CreateObject(SqlDataReader reader)
         {
             Admin ret = new Admin();
@@ -76,6 +87,7 @@ namespace UResidence
             ret.ENo = reader.GetString(18);
             ret.EName = reader.GetString(19);
             ret.EAddress = reader.GetString(20);
+            ret.Address = reader.GetString(21);
             return ret;
         }
         public string RemoveWhitespace(string str)

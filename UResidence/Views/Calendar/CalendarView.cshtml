@@ -1,6 +1,6 @@
 ﻿@model List<UResidence.Amenity>
 @{
-                /**/
+               
 
                 string pending = "Pending";
                 string reserved = "Reserved";
@@ -45,10 +45,7 @@
 
 
     <body>
-        <br /> <br/> <br/> <br/> @*<br/>*@
-
-
-        @*<center><h2>Payment Module </h2></center>*@
+        <br /> <br/> <br/> <br/> 
 
         <div class="container">
             <div class="modal fade" id="myModal" role="dialog">
@@ -89,7 +86,7 @@
             </div>
         </div>
 
-        @*Payment*@
+       
         <div class="container">
             <div class="modal fade" id="paymentModal" role="dialog">
                 <div class="modal-dialog">
@@ -101,8 +98,7 @@
                                 <button type="button" class="close" data-dismiss="modal"> <font color="white">  &times; </font></button>
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:33px"> ADD PAYMENT </div>
                             </font>
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><span>Payment</span></h4>*@
+                        
 
                         </div>
                         <div class="modal-body form-horizontal" style="height:calc(100vh-212px); overflow-y:auto;">
@@ -140,7 +136,7 @@
             </div>
         </div>
 
-        @*Reversal*@
+
         <div class="container">
             <div class="modal fade" id="reversalModal" role="dialog">
                 <div class="modal-dialog">
@@ -152,8 +148,7 @@
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:28px"> Add Reversal </div>
                             </font>
 
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><span>Reversal</span></h4>*@
+                          
                         </div>
                         <div class="modal-body form-horizontal">
 
@@ -198,7 +193,7 @@
         </div>
 
 
-        @*Update Status*@
+       
         <div class="container">
             <div class="modal fade" id="UpdateModal" role="dialog">
                 <div class="modal-dialog">
@@ -210,7 +205,7 @@
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:28px"> Update Status </div>
                             </font>
 
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                          
                         </div>
 
                         <div class="modal-body form-horizontal">
@@ -267,7 +262,7 @@
         </div>
 
 
-        @*Payment History*@
+       
         <div class="container">
             <div class="modal fade" id="PaymentHistory" role="dialog">
                 <div class="modal-dialog">
@@ -279,8 +274,6 @@
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:28px"> HISTORY OF PAYMENTS </div>
                             </font>
 
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><span>Payment History</span></h4>*@
                         </div>
                         <div class="modal-body form-horizontal">
 
@@ -311,7 +304,7 @@
 
 
 
-        @*Reversal History*@
+      
         <div class="container">
             <div class="modal fade" id="ReversalHistory" role="dialog">
                 <div class="modal-dialog">
@@ -323,8 +316,7 @@
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:28px"> HISTORY OF REVERSALS </div>
                             </font>
 
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Reversal History</span></h4>*@
+                         
                         </div>
                         <div class="modal-body form-horizontal">
 
@@ -353,7 +345,7 @@
         </div>
 
 
-        @*Charge History*@
+       
         <div class="container">
             <div class="modal fade" id="ChargeHistory" role="dialog">
                 <div class="modal-dialog">
@@ -365,9 +357,7 @@
                                 <div class="text-center" style="font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ; font-size:28px"> HSITORY OF CHARGES </div>
                             </font>
                             
-                            
-                            @*<button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span>Charge History</span></h4>*@
+                         
                         </div>
                         <div class="modal-body form-horizontal">
 
@@ -422,7 +412,7 @@
 
                     </center>
                     <br />
-                    @*<br />*@
+                  
 
                     <div class="pull-left">
                         <label id="caption" name="caption"></label>
@@ -435,8 +425,7 @@
                             <button type="button" class="btn btn-default btn-filter " value="Reserved" onclick="RefreshCalendar('@reserved')">Reserved</button>
                             <button type="button" class="btn btn-default btn-filter " value="Pending" onclick="RefreshCalendar('@pending')">Pending</button>
                             <button type="button" class="btn btn-default btn-filter" value="Cancelled" onclick="RefreshCalendar('@cancelled')">Cancelled</button>
-                            @*<button type="button" class="btn btn-default btn-filter" data-target="all">Todos</button>*@
-
+                         
                         </div>
                     </div>
                     <br />
@@ -492,11 +481,13 @@
                 var q = new Date();
                 var MyDateString = q.getFullYear() + '-' + ('0' + (q.getMonth() + 1)).slice(-2) + '-' + ('0' + q.getDate()).slice(-2);
                 var description = document.getElementById('pdescription').value;
-            var too = alll;
+			var too = alll;
+			var toodivided = too / 2;
             var too1 = dp * .5;
-            alert(tprrr);
-            if (tprrr == 0) {
-                if (too >= too1) {
+           
+			if (tprrr == 0) {
+				
+				if (dp.value >= toodivided) {
                     var name = "@Session["Fullname"]";
                     var data1 = {
                         RefNo: refno,
@@ -521,7 +512,7 @@
                                 RefreshCalendar();
                                 alert('Success');
                                 window.location.reload();
-                                //window.location.href = window.location.href + "?rnd=" + Math.random();
+                                
                                 $('#myModal').modal();
                             }
                             else if (data == "failed") {
@@ -577,7 +568,7 @@
                                 RefreshCalendar();
                                 alert('Success');
                                 window.location.reload();
-                                //window.location.href = window.location.href + "?rnd=" + Math.random();
+                               
                                 $('#myModal').modal();
                             }
                             else if (data == "failed") {
@@ -767,7 +758,7 @@
 
                             RefreshCalendar();
                             window.location.reload();
-                            //window.location.href = window.location.href + "?rnd=" + Math.random();
+                         
                             $('#myModal').modal();
                         }
                     },
@@ -910,10 +901,7 @@
 
                         var $description = $('<div/>');
                         stots = (data[0].Adult * data[0].AdultRate).toFixed(2) + (data[0].Child * data[0].ChildRate).toFixed(2);
-                        //$description.append($('<p/>').html('<div class="col-sm-4"><b>No. of Adult: </b></div>'  + data[0].Adult + '&nbsp;&nbsp;&nbsp; <b>Adult Rate: <b/> ₱'+ data[0].AdultRate.toFixed(2)));
-                        //$description.append($('<p/>').html('<div class="col-sm-4"><b>Adult Cost: </b> ₱' + (data[0].Adult * data[0].AdultRate).toFixed(2)));
-                        //$description.append($('<p/>').html('<div class="col-sm-4"><b>No. of Children: </b>' + data[0].Child + '&nbsp;&nbsp;&nbsp; <b>Child Rate: <b/> ₱'+ data[0].ChildRate.toFixed(2)));
-                        //$description.append($('<p/>').html('<div class="col-sm-4"><b> Child Cost: </b> ₱' + (data[0].Child * data[0].ChildRate).toFixed(2)));'
+                
                         $description.append($('<p/>').html('<div class="col-sm-4"> <b>No. of Adult: </b> </div>' + '<div class="col-sm-7">' + data[0].Adult + '</div>' + ' <div class= "col-sm-4"> <b>Adult Rate: </b> ' + '<div class="col-sm-7"> ₱' + data[0].AdultRate.toFixed(2) + '</div>'));
                         $description.append($('<p/>').html('<div class="col-sm-4"> <b>Adult Cost: </b> </div>  ' + '<div class="col-sm-7">  ₱' + (data[0].Adult * data[0].AdultRate).toFixed(2) + '</div>'));
                         $description.append($('<p/>').html('<div class="col-sm-4"> <b>No. of Children: </b> </div>' + '<div class="col-sm-7">' + data[0].Child + '</div>' + '<div class= "col-sm-4"> <b>Child Rate: </b> ' + '<div class="col-sm-7"> ₱' + data[0].ChildRate.toFixed(2) + '</div>'));
@@ -1044,12 +1032,7 @@
                             document.getElementById('txtamt').value = calEvent.amt;
                             $('#myModal #eventTitle').html('<b>Reference Number: </b>' +'00' + calEvent.rf);
                             var $description = $('<div/>');
-                            //$description.append($('<p/>').html('<b>Amenity Name: </b>' + calEvent.title));
-                            //$description.append($('<p/>').html('<b>Reserved By: </b>' + calEvent.reserved));
-                            //$description.append($('<p/>').html('<b>Building No: </b>' + calEvent.bn));
-                            //$description.append($('<p/>').html('<b>Unit No: </b>' + calEvent.un));
-                            //$description.append($('<p/>').html('<b>StartTime: </b>' + calEvent.start.format("DD/MMM/YYYY hh:mm a")));
-                            //$description.append($('<p/>').html('<b>EndTime: </b>' + calEvent.end.format("DD/MMM/YYYY hh:mm a")));
+                      
 
 
                             $description.append($('<p/>').html('<div class="col-sm-4"><b>Amenity Name: </b></div>' + '<div class="col-sm-7">' + calEvent.title + '</div>'));
@@ -1212,7 +1195,7 @@
 
 
 		$('.dp').on('keyup keydown', function (e) {
-            console.log($(this).val() > downp);
+           
 			if ($(this).val() > downp
 				&& e.keyCode != 46
 				&& e.keyCode != 8
@@ -1225,8 +1208,7 @@
         });
 
         $('.atr').on('keyup keydown', function (e) {
-            console.log($(this).val() > tprrr);
-            console.log(tprrr);
+            
             if ($(this).val() > tprrr
                 && e.keyCode != 46
                 && e.keyCode != 8

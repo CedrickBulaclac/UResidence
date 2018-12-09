@@ -95,162 +95,175 @@ namespace UResidence.Controllers
             {
                 return Redirect("~/Login");
             }
-            string finalpath = "";
-            var image = Image1;
-            bool status = false;        
-            if (image != null)
+            try
             {
-                if (image.ContentLength > 0)
+                string finalpath = "";
+                var image = Image1;
+                bool status = false;
+                if (image != null)
                 {
-                    var fileName = Path.GetFileNameWithoutExtension(image.FileName);
-                    var extension = Path.GetExtension(image.FileName);
-                    string imagefileName = Path.GetFileName(image.FileName);
-                    string folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), imagefileName);
-                  
-                    if (System.IO.File.Exists(folderPath))
+                    if (image.ContentLength > 0)
                     {
-                        //System.IO.File.Delete(folderPath);
-                        for (int i = 1; System.IO.File.Exists(folderPath); i++)
-                        {
-                            folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
-                            string folderpath1 = "~/Content/OwnerImages/" + fileName + "_" + i.ToString() + extension;
-                            finalpath = folderpath1;
-                        }
-                        image.SaveAs(folderPath);
-                    }
-                    else
-                    {
-                        string folderpath1 = "~/Content/OwnerImages/" + fileName + extension;
-                        finalpath = folderpath1;
-                        image.SaveAs(folderPath);
-                       
+                        var fileName = Path.GetFileNameWithoutExtension(image.FileName);
+                        var extension = Path.GetExtension(image.FileName);
+                        string imagefileName = Path.GetFileName(image.FileName);
+                        string folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), imagefileName);
 
+                        if (System.IO.File.Exists(folderPath))
+                        {
+                            
+                            for (int i = 1; System.IO.File.Exists(folderPath); i++)
+                            {
+                                folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
+                                string folderpath1 = "~/Content/OwnerImages/" + fileName + "_" + i.ToString() + extension;
+                                finalpath = folderpath1;
+                            }
+                            image.SaveAs(folderPath);
+                        }
+                        else
+                        {
+                            string folderpath1 = "~/Content/OwnerImages/" + fileName + extension;
+                            finalpath = folderpath1;
+                            image.SaveAs(folderPath);
+
+
+                        }
                     }
                 }
-            }
-            
-                    string hash;
-            string pass = owe.Bdate.ToShortDateString();
-            hash = Hash(pass);
 
-            List<Owner> o1 = new List<Owner>();
-            o1 = UResidence.OwnerController.GetOwnerReserve(owe.BldgNo, owe.UnitNo);
-            if (o1.Count == 0)
-            {
-                List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
-                UserLogin ul = new UserLogin
+                string hash;
+                string pass = owe.Bdate.ToShortDateString();
+                hash = Hash(pass);
+
+                List<Owner> o1 = new List<Owner>();
+                o1 = UResidence.OwnerController.GetOwnerReserve(owe.BldgNo, owe.UnitNo);
+                if (o1.Count == 0)
                 {
-                    Username = owe.Email,
-                    Hash = hash,
-                    CreatedBy = "",
-                    ModifyBy = "",
-                    DateCreated = DateTime.Now,
-                    Level = 1,
-                    Locked = 1,
-                    LastLogin = DateTime.Now
-                };
-                if (listUser.Count == 0)
-                {
-                    string[] err = new string[] { };
-                    if (owe.Validate(out err))
+                    List<UserLogin> listUser = UResidence.UserController.GetAll(owe.Email);
+                    UserLogin ul = new UserLogin
                     {
-                        status = SendEmail(owe.Email, pass);
-                        if (status == true)
+                        Username = owe.Email,
+                        Hash = hash,
+                        CreatedBy = "",
+                        ModifyBy = "",
+                        DateCreated = DateTime.Now,
+                        Level = 1,
+                        Locked = 1,
+                        LastLogin = DateTime.Now
+                    };
+                    if (listUser.Count == 0)
+                    {
+                        string[] err = new string[] { };
+                        if (owe.Validate(out err))
                         {
-                            if (image != null)
+                            status = SendEmail(owe.Email, pass);
+                            if (status == true)
                             {
-                                Owner ow = new Owner()
+                                if (image != null)
                                 {
+                                    Owner ow = new Owner()
+                                    {
 
-                                    BldgNo = owe.BldgNo,
-                                    UnitNo = owe.UnitNo,
-                                    Fname = owe.Fname,
-                                    Mname = owe.Mname,
-                                    Lname = owe.Lname,
-                                    Bdate = owe.Bdate,
-                                    CelNo = owe.CelNo,
-                                    Email = owe.Email,
-                                    Deleted = "0",
-                                    URL = "~/Content/OwnerImages/user.png",
-                                    Form = finalpath,
-                                    ENo = owe.ENo,
-                                    EName = owe.EName,
-                                    EAddress = owe.EAddress
+                                        BldgNo = owe.BldgNo,
+                                        UnitNo = owe.UnitNo,
+                                        Fname = owe.Fname,
+                                        Mname = owe.Mname,
+                                        Lname = owe.Lname,
+                                        Bdate = owe.Bdate,
+                                        CelNo = owe.CelNo,
+                                        Email = owe.Email,
+                                        Deleted = "0",
+                                        URL = "~/Content/OwnerImages/user.png",
+                                        Form = finalpath,
+                                        ENo = owe.ENo,
+                                        EName = owe.EName,
+                                        EAddress = owe.EAddress,
+                                        Address = owe.Address
+                                    };
+                                    status = UResidence.OwnerController.Insert(ow);
+                                }
+                                else
+                                {
+                                    Owner ow = new Owner()
+                                    {
+
+                                        BldgNo = owe.BldgNo,
+                                        UnitNo = owe.UnitNo,
+                                        Fname = owe.Fname,
+                                        Mname = owe.Mname,
+                                        Lname = owe.Lname,
+                                        Bdate = owe.Bdate,
+                                        CelNo = owe.CelNo,
+                                        Email = owe.Email,
+                                        Deleted = "0",
+                                        URL = "~/Content/OwnerImages/user.png",
+                                        Form = "~/Content/OwnerImages/noimage.jpeg",
+                                        ENo = owe.ENo,
+                                        EName = owe.EName,
+                                        EAddress = owe.EAddress,
+                                        Address = owe.Address
+
+
+                                    };
+
+                                    status = UResidence.OwnerController.Insert(ow);
+                                }
+
+
+                                string email = owe.Email;
+                                Owner owee = UResidence.OwnerController.GetEmailOwner(email);
+                                Residence r = new Residence()
+                                {
+                                    OwnerNo = owee.Id,
+                                    TenantNo = 0
                                 };
-                                status = UResidence.OwnerController.Insert(ow);
+                                status = UResidence.ResidenceController.Insert(r);
+
+                                int ownerid = owee.Id;
+
+                                UserLogin ull = new UserLogin
+                                {
+                                    Username = owe.Email,
+                                    Hash = hash,
+                                    CreatedBy = "",
+                                    ModifyBy = "",
+                                    DateCreated = DateTime.Now,
+                                    Level = 8,
+                                    Locked = 0,
+                                    LastLogin = DateTime.Now
+                                };
+
+                                status = UResidence.UserController.Insert(ull);
+                                if (status == true)
+                                {
+                                    List<UserLogin> ul2 = new List<UserLogin>();
+                                    ul2 = UserController.GetAll(owe.Email);
+                                    if (ul2.Count > 0)
+                                    {
+                                        status = UResidence.OwnerController.Update(ul2[0].Id, owe.Email);
+                                    }
+                                }
                             }
                             else
                             {
-                                Owner ow = new Owner()
-                                {
-
-                                    BldgNo = owe.BldgNo,
-                                    UnitNo = owe.UnitNo,
-                                    Fname = owe.Fname,
-                                    Mname = owe.Mname,
-                                    Lname = owe.Lname,
-                                    Bdate = owe.Bdate,
-                                    CelNo = owe.CelNo,
-                                    Email = owe.Email,
-                                    Deleted = "0",
-                                    URL = "~/Content/OwnerImages/user.png",
-                                    Form = "~/Content/OwnerImages/noimage.jpeg",
-                                    ENo = owe.ENo,
-                                    EName = owe.EName,
-                                    EAddress = owe.EAddress
-
-
-                                };
-
-                                status = UResidence.OwnerController.Insert(ow);
-                            }
-
-
-                            string email = owe.Email;
-                            Owner owee = UResidence.OwnerController.GetEmailOwner(email);
-                            Residence r = new Residence()
-                            {
-                                OwnerNo = owee.Id,
-                                TenantNo = 0
-                            };
-                            status = UResidence.ResidenceController.Insert(r);
-
-                            int ownerid = owee.Id;
-
-                            UserLogin ull = new UserLogin
-                            {
-                                Username = owe.Email,
-                                Hash = hash,
-                                CreatedBy = "",
-                                ModifyBy = "",
-                                DateCreated = DateTime.Now,
-                                Level = 8,
-                                Locked = 0,
-                                LastLogin = DateTime.Now
-                            };
-
-                            status = UResidence.UserController.Insert(ull);
-                            if (status == true)
-                            {
-                                List<UserLogin> ul2 = new List<UserLogin>();
-                                ul2 = UserController.GetAll(owe.Email);
-                                if (ul2.Count > 0)
-                                {
-                                    status = UResidence.OwnerController.Update(ul2[0].Id, owe.Email);
-                                }
+                                string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
+                                Response.Write(script);
+                                ViewBag.Alert = true;
+                                return View("OwnerView");
                             }
                         }
                         else
                         {
-                            string script = "<script type = 'text/javascript'>alert('The email account that you tried to reach does not exist');</script>";
-                            Response.Write(script);
+                            ViewBag.ErrorMessage = FixMessages(err);
+                            status = false;
                             ViewBag.Alert = true;
                             return View("OwnerView");
                         }
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = FixMessages(err);
+                        string script = "<script type = 'text/javascript'>alert('The email address you have entered is already used');</script>";
+                        Response.Write(script);
                         status = false;
                         ViewBag.Alert = true;
                         return View("OwnerView");
@@ -258,23 +271,22 @@ namespace UResidence.Controllers
                 }
                 else
                 {
-                    string script = "<script type = 'text/javascript'>alert('The email address you have entered is already used');</script>";
+                    string script = "<script type = 'text/javascript'>alert('The Building No. and Unit No. you have entered is already used');</script>";
                     Response.Write(script);
                     status = false;
                     ViewBag.Alert = true;
                     return View("OwnerView");
                 }
+                Session["AddMessage"] = status;
+                return RedirectToAction("OwnerView", "Owner");
             }
-            else
+            catch(Exception)
             {
-                string script = "<script type = 'text/javascript'>alert('The Building No. and Unit No. you have entered is already used');</script>";
+                string script = "<script type = 'text/javascript'>alert('Information Incomplete');</script>";
                 Response.Write(script);
-                status = false;
                 ViewBag.Alert = true;
                 return View("OwnerView");
             }
-                Session["AddMessage"] = status;
-            return RedirectToAction("OwnerView", "Owner");
         }
 
         public static string Hash(string p)
@@ -627,7 +639,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                       
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
@@ -678,7 +690,7 @@ namespace UResidence.Controllers
                     string finalpath = "";
                     if (System.IO.File.Exists(folderPath))
                     {
-                        //System.IO.File.Delete(folderPath);
+                       
                         for (int i = 1; System.IO.File.Exists(folderPath); i++)
                         {
                             folderPath = Path.Combine(Server.MapPath("~/Content/OwnerImages"), fileName + "_" + i.ToString() + extension);
