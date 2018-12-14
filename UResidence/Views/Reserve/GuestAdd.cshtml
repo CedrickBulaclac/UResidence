@@ -156,10 +156,10 @@
             success: function (Data) {
                 $.each(Data, function (i, v) {
                     i++;
-					trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="' + i + '" name="' + i + '" /></td><td><button class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</button></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i +')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id +')" value="Delete"/>  </td></tr>';
+                    trhtml += '<tr><td>' + v.BuildingNo + '</td><td>' + v.UnitNo + '</td><td><input type="text" value="' + v.VisitorName + '" id="' + i + '" name="' + i + '" /></td><td><input type="text" class="form-control" value="' + v.Purpose + '" name="p+' + i + '" id="p+' + i +'" required /></td><td><a href="#" class="btn btn-default" id="btnViewPic" onclick="ViewPIC()">View</a></td><td><input class="btn btn-primary" type="button" onclick="Update(' + v.Id + ',' + i + ')" value="Update"/>&nbsp;&nbsp; <input class="btn btn-danger" type="button" onclick="Delete(' + v.Id + ')" value="Delete"/>  </td></tr>';
 				});
 
-				trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td><td><input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" required /></td> <td><input type="file" class="form-control" id="logbookpic" name="logbookpic"/></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
+				trhtml += '<tr><td>@ViewBag.Bldg</td><td>@ViewBag.UnitNo</td><td><input type="text" name="vname" id="vname" /></td><td><input class="form-control" type="text" value="@ViewBag.purp" name="purpose" id="purpose" /></td> <td><input type="file" class="form-control" id="logbookpic" name="logbookpic"/></td><td><button class="btn btn-success" type="submit">Add Guest</button></td></tr>';
                  $('#tableguest').append(trhtml);
             },
             error: function (data) {
